@@ -119,54 +119,55 @@ public class MapEditingController {
     // move object and find the matching one. This way you can just look for the matching index and
     // replace the proper move object at that index)
 
-        ColumnTwo.setOnEditCommit(
-            event -> {
-              TableRow rowData = event.getRowValue();
-              rowData.setXCoord(event.getNewValue());
-//              String updatedNode = rowData.getNodeID();
-//              String updatedLongName = rowData.getLongName();
-//              System.out.print(updatedNode + " " + updatedLongName);
-              int index = rowData.getIndex();
-//              System.out.println("/n this is the index: " + index);
-            });
-        ColumnThree.setOnEditCommit(
-            event -> {
-              TableRow rowData = event.getRowValue();
-              rowData.setYCoord(event.getNewValue());
-//              String updatedNode = rowData.getNodeID();
-//              String updatedDate = rowData.getDate();
-//              System.out.print(updatedNode + " " + updatedDate);
-              System.out.print(rowData);
-              int index = rowData.getIndex();
-            });
-        ColumnFour.setOnEditCommit(
-            event -> {
-              TableRow rowData = event.getRowValue();
-              rowData.setFloorNum(event.getNewValue());
-//              String updatedNode = rowData.getNodeID();
-//              String updatedLongName = rowData.getLongName();
-//              System.out.print(updatedNode + " " + updatedLongName);
-              int index = rowData.getIndex();
-//              System.out.println("/n this is the index: " + index);
-            });
-        ColumnFive.setOnEditCommit(
-            event -> {
-              TableRow rowData = event.getRowValue();
-              rowData.setBuilding(event.getNewValue());
-              int index = rowData.getIndex();
-            });
-        ColumnSix.setOnEditCommit(
-            event -> {
-              TableRow rowData = event.getRowValue();
-              rowData.setLongName(event.getNewValue());
-              int index = rowData.getIndex();
-            });
-        ColumnSeven.setOnEditCommit(
-            event -> {
-              TableRow rowData = event.getRowValue();
-              rowData.setNodeType(event.getNewValue());
-              int index = rowData.getIndex();
-            });
+    ColumnTwo.setOnEditCommit(
+        event -> {
+          TableRow rowData = event.getRowValue();
+          rowData.setXCoord(event.getNewValue());
+          //              String updatedNode = rowData.getNodeID();
+          //              String updatedLongName = rowData.getLongName();
+          //              System.out.print(updatedNode + " " + updatedLongName);
+          int index = rowData.getIndex();
+          //              System.out.println("/n this is the index: " + index);
+        });
+    ColumnThree.setOnEditCommit(
+        event -> {
+          TableRow rowData = event.getRowValue();
+          rowData.setYCoord(event.getNewValue());
+          //              String updatedNode = rowData.getNodeID();
+          //              String updatedDate = rowData.getDate();
+          //              System.out.print(updatedNode + " " + updatedDate);
+          System.out.print(
+              rowData.getNodeID() + " " + rowData.getIndex() + " " + rowData.getYCoord());
+          int index = rowData.getIndex();
+        });
+    ColumnFour.setOnEditCommit(
+        event -> {
+          TableRow rowData = event.getRowValue();
+          rowData.setFloorNum(event.getNewValue());
+          //              String updatedNode = rowData.getNodeID();
+          //              String updatedLongName = rowData.getLongName();
+          //              System.out.print(updatedNode + " " + updatedLongName);
+          int index = rowData.getIndex();
+          //              System.out.println("/n this is the index: " + index);
+        });
+    ColumnFive.setOnEditCommit(
+        event -> {
+          TableRow rowData = event.getRowValue();
+          rowData.setBuilding(event.getNewValue());
+          int index = rowData.getIndex();
+        });
+    ColumnSix.setOnEditCommit(
+        event -> {
+          TableRow rowData = event.getRowValue();
+          rowData.setLongName(event.getNewValue());
+          int index = rowData.getIndex();
+        });
+    ColumnSeven.setOnEditCommit(
+        event -> {
+          TableRow rowData = event.getRowValue();
+          rowData.setNodeType(event.getNewValue());
+          int index = rowData.getIndex();
+        });
 
     //    ObservableList<TableColumn<TableRow, ?>> nodeIDList = ColumnOne.getColumns();
     //    TableColumn newColumn = nodeIDList.get(1);
@@ -204,8 +205,8 @@ public class MapEditingController {
     LocationName currLocNameList;
     Edge currEdgeList;
     Node currNodeList;
-//    String startNode;
-//    String endNode;
+    //    String startNode;
+    //    String endNode;
     String nodeType;
     String xCoord;
     String yCoord;
@@ -220,8 +221,8 @@ public class MapEditingController {
       //      nodeID = currLocNameList.get;
       longName = currLocNameList.getLongName();
       nodeType = currLocNameList.getNodeType();
-//      startNode = currEdgeList.getStartNode().getNodeID();
-//      endNode = currEdgeList.getEndNode().getNodeID();
+      //      startNode = currEdgeList.getStartNode().getNodeID();
+      //      endNode = currEdgeList.getEndNode().getNodeID();
       nodeID = currNodeList.getNodeID();
       xCoord = String.valueOf(currNodeList.getXCoord());
       yCoord = String.valueOf(currNodeList.getYCoord());
@@ -229,10 +230,7 @@ public class MapEditingController {
       building = currNodeList.getBuilding();
 
       index++;
-      rows.add(
-          new TableRow(
-              nodeID, xCoord, yCoord, floorNum, building, longName, nodeType,
-              index));
+      rows.add(new TableRow(nodeID, xCoord, yCoord, floorNum, building, longName, nodeType, index));
     }
     return rows;
   }

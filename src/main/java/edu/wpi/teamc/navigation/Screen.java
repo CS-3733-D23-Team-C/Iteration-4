@@ -12,7 +12,10 @@ public enum Screen {
   LOGIN("views/LoginPage.fxml"),
   GUEST_HOME("views/GuestHome.fxml"),
   MEAL("views/Meal.fxml"),
+  MEAL_HISTORY("views/MealHistory.fxml"),
   CONFERENCE("views/Conference.fxml"),
+  CONFERENCE_HISTORY("views/ConferenceHistory.fxml"),
+
   FLOWER("views/Flower.fxml"),
   FURNITURE("views/Furniture.fxml"),
   OFFICE_SUPPLY("views/OfficeSupply.fxml"),

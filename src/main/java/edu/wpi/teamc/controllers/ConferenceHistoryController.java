@@ -1,9 +1,9 @@
 package edu.wpi.teamc.controllers;
 
 import edu.wpi.teamc.Cdb;
-import edu.wpi.teamc.map.Move;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
+import edu.wpi.teamc.serviceRequest.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -14,7 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
-public class MapChangeHistoryController {
+public class ConferenceHistoryController {
 
   /** */
   @FXML MFXButton backButton;
@@ -30,22 +30,41 @@ public class MapChangeHistoryController {
   @FXML private FilteredTableView<TableRow> historyTable;
   @FXML TableView<TableRow> otherTable;
   @FXML TableColumn<TableRow, String> ColumnOne;
+  @FXML TableColumn<TableRow, String> NameColumn;
   @FXML TableColumn<TableRow, String> ColumnTwo;
   @FXML TableColumn<TableRow, String> ColumnThree;
+  @FXML TableColumn<TableRow, String> ColumnFour;
+  @FXML TableColumn<TableRow, String> ColumnFive;
+  @FXML TableColumn<TableRow, String> ColumnSix;
+
   ObservableList<TableRow> rows = FXCollections.observableArrayList();
 
   @FXML private Button goHome;
 
   /** Method run when controller is initialized */
   public void initialize() {
-    ColumnOne.setCellValueFactory(new PropertyValueFactory<TableRow, String>("nodeID"));
-    ColumnTwo.setCellValueFactory(new PropertyValueFactory<TableRow, String>("longName"));
-    ColumnThree.setCellValueFactory(new PropertyValueFactory<TableRow, String>("date"));
+    ColumnOne.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s1"));
+    NameColumn.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s2"));
+    ColumnTwo.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s3"));
+    ColumnThree.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s4"));
+    ColumnFour.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s5"));
+    ColumnFive.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s6"));
+    ColumnSix.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s7"));
+    //    ColumnOne.setText("ID");
+    //    ColumnTwo.setText("Status");
+    //    ColumnThree.setText("Start");
+    //    ColumnFour.setText("End");
+    //   ColumnFive.setText("Info");
+    //    ColumnSix.setText("Room");
     //    ColumnOne.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     //    ColumnTwo.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     //    ColumnThree.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
 
-    historyTable.getItems().setAll(gettableRows(Cdb.databaseMoveList));
+    // get conference room table
+
+    historyTable
+        .getItems()
+        .setAll(convertToObservableList(Cdb.getTable("ServiceRequests", "conferenceRoom")));
 
     System.out.println("did it");
   }
@@ -67,15 +86,28 @@ public class MapChangeHistoryController {
   //    System.out.println("did it");
   //  }
 
-  public ObservableList<TableRow> gettableRows(List<Move> moveList) {
-    String nodeID;
-    String longName;
-    String date;
-    for (Move currMove : moveList) {
-      nodeID = currMove.getNodeID();
-      longName = currMove.getLongName();
-      date = currMove.getDate().toString();
-      rows.add(new TableRow(nodeID, longName, date));
+  public ObservableList<TableRow> convertToObservableList(List<List<String>> rowList) {
+    String requestID;
+    String reqname;
+    String status;
+    String startTime;
+    String endTime;
+    String additionalInfo;
+    String roomName;
+    for (List<String> rl : rowList) {
+      for (String s : rl) {
+        System.out.println(s);
+      }
+
+      requestID = rl.get(0);
+      reqname = rl.get(1);
+      status = rl.get(2);
+      startTime = rl.get(3);
+      endTime = rl.get(4);
+      additionalInfo = rl.get(5);
+      roomName = rl.get(6);
+      rows.add(
+          new TableRow(requestID, reqname, status, startTime, endTime, additionalInfo, roomName));
     }
     return rows;
   }

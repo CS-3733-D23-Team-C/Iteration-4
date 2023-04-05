@@ -60,7 +60,7 @@ public class MapEditingController {
     ColumnThree.setCellValueFactory(new PropertyValueFactory<TableRow, String>("date"));
 
     // Allows cells to be editable
-    ColumnOne.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    //    ColumnOne.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     ColumnTwo.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     ColumnThree.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
 

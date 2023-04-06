@@ -38,9 +38,9 @@ public class MapChangeHistoryController {
 
   /** Method run when controller is initialized */
   public void initialize() {
-    ColumnOne.setCellValueFactory(new PropertyValueFactory<TableRow, String>("nodeID"));
-    ColumnTwo.setCellValueFactory(new PropertyValueFactory<TableRow, String>("longName"));
-    ColumnThree.setCellValueFactory(new PropertyValueFactory<TableRow, String>("date"));
+    ColumnOne.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s1"));
+    ColumnTwo.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s2"));
+    ColumnThree.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s3"));
     //    ColumnOne.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     //    ColumnTwo.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     //    ColumnThree.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());

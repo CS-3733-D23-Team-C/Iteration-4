@@ -66,15 +66,16 @@ public class MapEditingController {
   /** Method run when controller is initialized */
   public void initialize() {
     // Allows cells to be identifiable
-    ColumnOne.setCellValueFactory(new PropertyValueFactory<TableRow, String>("nodeID"));
-    ColumnTwo.setCellValueFactory(new PropertyValueFactory<TableRow, String>("xCoord"));
-    ColumnThree.setCellValueFactory(new PropertyValueFactory<TableRow, String>("yCoord"));
-    ColumnFour.setCellValueFactory(new PropertyValueFactory<TableRow, String>("floorNum"));
-    ColumnFive.setCellValueFactory(new PropertyValueFactory<TableRow, String>("building"));
-    ColumnSix.setCellValueFactory(new PropertyValueFactory<TableRow, String>("longName"));
-    ColumnSeven.setCellValueFactory(new PropertyValueFactory<TableRow, String>("nodeType"));
-    ColumnEight.setCellValueFactory(new PropertyValueFactory<>("startNode"));
-    ColumnNine.setCellValueFactory(new PropertyValueFactory<>("endNode"));
+    ColumnOne.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s1"));
+    ColumnTwo.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s2"));
+    ColumnThree.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s3"));
+    ColumnFour.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s4"));
+    ColumnFive.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s5"));
+    ColumnSix.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s6"));
+    ColumnSeven.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s7"));
+
+    ColumnEight.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s1"));
+    ColumnNine.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s2"));
 
     // Allows cells to be editable
     //    ColumnOne.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
@@ -98,6 +99,11 @@ public class MapEditingController {
     //    ColumnThree.setEditable(true);
 
     //    testTable.getItems().setAll(gettableRows(Cdb.databaseMoveList));
+    Cdb.loadDatabaseTables(
+        Cdb.databaseNodeList,
+        Cdb.databaseEdgeList,
+        Cdb.databaseLocationNameList,
+        Cdb.databaseMoveList);
     historyTable
         .getItems()
         .setAll(
@@ -130,51 +136,117 @@ public class MapEditingController {
     ColumnTwo.setOnEditCommit(
         event -> {
           TableRow rowData = event.getRowValue();
-          rowData.setXCoord(event.getNewValue());
+          rowData.setS2(event.getNewValue());
+          Cdb.syncNodeDB(
+              new Node(
+                  rowData.getS1(),
+                  Integer.valueOf(rowData.getS2()),
+                  Integer.valueOf(rowData.getS3()),
+                  rowData.getS4(),
+                  rowData.getS5()),
+              "update");
           //              String updatedNode = rowData.getNodeID();
           //              String updatedLongName = rowData.getLongName();
           //              System.out.print(updatedNode + " " + updatedLongName);
-          int index = rowData.getIndex();
+
+          int index = rowData.getI();
           //              System.out.println("/n this is the index: " + index);
         });
     ColumnThree.setOnEditCommit(
         event -> {
           TableRow rowData = event.getRowValue();
-          rowData.setYCoord(event.getNewValue());
+          rowData.setS3(event.getNewValue());
+          Cdb.syncNodeDB(
+              new Node(
+                  rowData.getS1(),
+                  Integer.valueOf(rowData.getS2()),
+                  Integer.valueOf(rowData.getS3()),
+                  rowData.getS4(),
+                  rowData.getS5()),
+              "update");
           //              String updatedNode = rowData.getNodeID();
           //              String updatedDate = rowData.getDate();
           //              System.out.print(updatedNode + " " + updatedDate);
-          System.out.print(
-              rowData.getNodeID() + " " + rowData.getIndex() + " " + rowData.getYCoord());
-          int index = rowData.getIndex();
+          //          System.out.print(
+          //              rowData.getNodeID() + " " + rowData.getIndex() + " " +
+          // rowData.getYCoord());
+
+          int index = rowData.getI();
         });
     ColumnFour.setOnEditCommit(
         event -> {
           TableRow rowData = event.getRowValue();
-          rowData.setFloorNum(event.getNewValue());
+          rowData.setS4(event.getNewValue());
+          Cdb.syncNodeDB(
+              new Node(
+                  rowData.getS1(),
+                  Integer.valueOf(rowData.getS2()),
+                  Integer.valueOf(rowData.getS3()),
+                  rowData.getS4(),
+                  rowData.getS5()),
+              "update");
           //              String updatedNode = rowData.getNodeID();
           //              String updatedLongName = rowData.getLongName();
           //              System.out.print(updatedNode + " " + updatedLongName);
-          int index = rowData.getIndex();
+
+          int index = rowData.getI();
           //              System.out.println("/n this is the index: " + index);
         });
     ColumnFive.setOnEditCommit(
         event -> {
           TableRow rowData = event.getRowValue();
-          rowData.setBuilding(event.getNewValue());
-          int index = rowData.getIndex();
+          rowData.setS5(event.getNewValue());
+          Cdb.syncNodeDB(
+              new Node(
+                  rowData.getS1(),
+                  Integer.valueOf(rowData.getS2()),
+                  Integer.valueOf(rowData.getS3()),
+                  rowData.getS4(),
+                  rowData.getS5()),
+              "update");
+
+          int index = rowData.getI();
         });
     ColumnSix.setOnEditCommit(
         event -> {
           TableRow rowData = event.getRowValue();
-          rowData.setLongName(event.getNewValue());
-          int index = rowData.getIndex();
+          rowData.setS6(event.getNewValue());
+
+          int index = rowData.getI();
         });
     ColumnSeven.setOnEditCommit(
         event -> {
           TableRow rowData = event.getRowValue();
-          rowData.setNodeType(event.getNewValue());
-          int index = rowData.getIndex();
+          rowData.setS7(event.getNewValue());
+
+          int index = rowData.getI();
+        });
+
+    ColumnEight.setOnEditCommit(
+        event -> {
+          TableRow rowData = event.getRowValue();
+          Cdb.syncEdgeDBUpdate(
+              new Edge(
+                  new Node(rowData.getS1(), 0, 0, "", ""), new Node(rowData.getS2(), 0, 0, "", "")),
+              new Edge(
+                  new Node(event.getNewValue(), 0, 0, "", ""),
+                  new Node(rowData.getS2(), 0, 0, "", "")));
+          rowData.setS1(event.getNewValue());
+          int index = rowData.getI();
+        });
+
+    ColumnNine.setOnEditCommit(
+        event -> {
+          TableRow rowData = event.getRowValue();
+
+          Cdb.syncEdgeDBUpdate(
+              new Edge(
+                  new Node(rowData.getS1(), 0, 0, "", ""), new Node(rowData.getS2(), 0, 0, "", "")),
+              new Edge(
+                  new Node(rowData.getS1(), 0, 0, "", ""),
+                  new Node(event.getNewValue(), 0, 0, "", "")));
+          rowData.setS2(event.getNewValue());
+          int index = rowData.getI();
         });
 
     //    ObservableList<TableColumn<TableRow, ?>> nodeIDList = ColumnOne.getColumns();
@@ -182,10 +254,10 @@ public class MapEditingController {
     //    TableRow newTableRow = newColumn.getTableView();
     // use "indexOf()" to get index of nodeID in list from database and compare to saved nodeID from
     // edited cell above?
-    System.out.println("before");
+    // System.out.println("before");
     //    historyTable.getItems()
-    System.out.println(historyTable.getItems());
-    System.out.println("did it");
+    // System.out.println(historyTable.getItems());
+    // System.out.println("did it");
   }
 
   public void getGoHome(ActionEvent event) {
@@ -220,6 +292,7 @@ public class MapEditingController {
     String yCoord;
     String floorNum;
     String building;
+    String shortName;
     int index = -1;
     for (int i = 0; i < locationNameList.size(); i++) {
       currLocNameList = locationNameList.get(i);
@@ -228,6 +301,7 @@ public class MapEditingController {
 
       //      nodeID = currLocNameList.get;
       longName = currLocNameList.getLongName();
+      shortName = currLocNameList.getShortName();
       nodeType = currLocNameList.getNodeType();
       //      startNode = currEdgeList.getStartNode().getNodeID();
       //      endNode = currEdgeList.getEndNode().getNodeID();
@@ -236,7 +310,6 @@ public class MapEditingController {
       yCoord = String.valueOf(currNodeList.getYCoord());
       floorNum = currNodeList.getFloor();
       building = currNodeList.getBuilding();
-
       index++;
       rows.add(new TableRow(nodeID, xCoord, yCoord, floorNum, building, longName, nodeType, index));
     }
@@ -251,7 +324,6 @@ public class MapEditingController {
     for (int i = 0; i < edgeList.size(); i++) {
       startNode = edgeList.get(i).getStartNode().getNodeID();
       endNode = edgeList.get(i).getEndNode().getNodeID();
-
       index++;
       rowsEdge.add(new TableRow(startNode, endNode, index));
     }

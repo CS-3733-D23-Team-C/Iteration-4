@@ -29,15 +29,10 @@ public class Cdb implements IServiceRequest {
   ObservableList<TableRow> rows = FXCollections.observableArrayList();
 
   public static void main(String[] args) {
+    DBConnection db = new DBConnection();
     try {
-      // Load the PostgreSQL JDBC driver
-      Class.forName("org.postgresql.Driver");
 
-      // Establish the connection
-      String url = "jdbc:postgresql://database.cs.wpi.edu/teamcdb";
-      String user = "teamc";
-      String password = "teamc30";
-      Connection connection = DBConnection.getConnection();
+      Connection connection = db.getConnection();
 
       /*Meal meal = new Meal("A", "None");
       MealRequest mr = new MealRequest(meal, "1", "none", PENDING);
@@ -160,24 +155,18 @@ public class Cdb implements IServiceRequest {
       e.printStackTrace();
     } finally {
       // Close the connection
-      if (DBConnection.getConnection() != null) {
-        try {
-          DBConnection.getConnection().close();
-        } catch (SQLException e) {
-          e.printStackTrace();
-        }
-      }
+      db.closeConnection();
     }
   }
 
   // meal request adding + updating
   public static void addMeal(MealRequest mealReq) {
+    DBConnection db = new DBConnection();
     try {
       String MEALREQUEST = "\"ServiceRequests\".\"mealRequest\"";
       // query
       String queryInsertMealReq = "INSERT INTO " + MEALREQUEST + " VALUES (?,?,?,?,?,?);";
-      PreparedStatement preparedStatement =
-          DBConnection.getConnection().prepareStatement(queryInsertMealReq);
+      PreparedStatement preparedStatement = db.getConnection().prepareStatement(queryInsertMealReq);
       {
         preparedStatement.setInt(1, mealReq.getRequester().getRequesterID());
         preparedStatement.setString(2, mealReq.getRequester().getRequesterName());
@@ -193,13 +182,15 @@ public class Cdb implements IServiceRequest {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    db.closeConnection();
   }
 
   public static int latestRequestID(String type) {
     int latestID = 0;
+    DBConnection db = new DBConnection();
     try {
       String query = "SELECT MAX(\"requestID\") FROM \"ServiceRequests\".\"" + type + "\";";
-      PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query);
+      PreparedStatement preparedStatement = db.getConnection().prepareStatement(query);
       ResultSet resultSet = preparedStatement.executeQuery();
       while (resultSet.next()) {
         latestID = resultSet.getInt(1);
@@ -211,12 +202,12 @@ public class Cdb implements IServiceRequest {
   }
 
   public static void addConferenceRoomRequest(ConferenceRoomRequest confReq) {
+    DBConnection db = new DBConnection();
     try {
       String CONFREQUEST = "\"ServiceRequests\".\"conferenceRoom\"";
       // query
       String queryInsertMealReq = "INSERT INTO " + CONFREQUEST + " VALUES (?,?,?,?,?,?,?);";
-      PreparedStatement preparedStatement =
-          DBConnection.getConnection().prepareStatement(queryInsertMealReq);
+      PreparedStatement preparedStatement = db.getConnection().prepareStatement(queryInsertMealReq);
       {
         preparedStatement.setInt(1, confReq.getRequester().getRequesterID());
         preparedStatement.setString(2, confReq.getRequester().getRequesterName());
@@ -230,9 +221,11 @@ public class Cdb implements IServiceRequest {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    db.closeConnection();
   }
 
   static void updateConferenceRoomRequest(ConferenceRoomRequest confReq) {
+    DBConnection db = new DBConnection();
     try {
       String CONFREQUEST = "\"ServiceRequests\".\"conferenceRoomRequest\"";
       // query
@@ -247,8 +240,7 @@ public class Cdb implements IServiceRequest {
               + "AND \"startTime\"=?;"
               + "AND \"endTime\"=?;";
 
-      PreparedStatement preparedStatement =
-          DBConnection.getConnection().prepareStatement(updateConfQuery);
+      PreparedStatement preparedStatement = db.getConnection().prepareStatement(updateConfQuery);
       {
         preparedStatement.setString(
             3,
@@ -263,9 +255,11 @@ public class Cdb implements IServiceRequest {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    db.closeConnection();
   }
 
   static void updateMealRequest(MealRequest mealReq) {
+    DBConnection db = new DBConnection();
     try {
       String MEAL = "\"ServiceRequests\".\"mealRequest\"";
       // query
@@ -280,8 +274,7 @@ public class Cdb implements IServiceRequest {
               + "AND \"status\"=?;"
               + "AND \"room\"=?;";
 
-      PreparedStatement preparedStatement =
-          DBConnection.getConnection().prepareStatement(updateMealQuery);
+      PreparedStatement preparedStatement = db.getConnection().prepareStatement(updateMealQuery);
       {
         preparedStatement.setString(
             3,
@@ -296,13 +289,15 @@ public class Cdb implements IServiceRequest {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    db.closeConnection();
   }
 
   public static List<List<String>> getTable(String schema, String table) {
     List<List<String>> tableRows = new LinkedList<>();
+    DBConnection db = new DBConnection();
     try {
       String query = "SELECT * FROM " + "\"" + schema + "\"" + ".\"" + table + "\";";
-      PreparedStatement preparedStatement = DBConnection.getConnection().prepareStatement(query);
+      PreparedStatement preparedStatement = db.getConnection().prepareStatement(query);
       ResultSet resultSet = preparedStatement.executeQuery();
       while (resultSet.next()) {
         List<String> row = new LinkedList<>();
@@ -314,6 +309,7 @@ public class Cdb implements IServiceRequest {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    db.closeConnection();
     return tableRows;
   }
 
@@ -322,21 +318,12 @@ public class Cdb implements IServiceRequest {
       List<Edge> databaseEdgeList,
       List<LocationName> databaseLocationNameList,
       List<Move> databaseMoveList) {
-
+    DBConnection db = new DBConnection();
     try {
-      // Load the PostgreSQL JDBC driver
-      Class.forName("org.postgresql.Driver");
-
-      // Establish the connection
-      String url = "jdbc:postgresql://database.cs.wpi.edu/teamcdb";
-      String user = "teamc";
-      String password = "teamc30";
-      // connection = DriverManager.getConnection(url, user, password);
-
-      Statement stmtNode = DBConnection.getConnection().createStatement();
-      Statement stmtEdge = DBConnection.getConnection().createStatement();
-      Statement stmtLocationName = DBConnection.getConnection().createStatement();
-      Statement stmtMove = DBConnection.getConnection().createStatement();
+      Statement stmtNode = db.getConnection().createStatement();
+      Statement stmtEdge = db.getConnection().createStatement();
+      Statement stmtLocationName = db.getConnection().createStatement();
+      Statement stmtMove = db.getConnection().createStatement();
       // table names
       String node = "\"hospitalNode\".node";
       String edge = "\"hospitalNode\".edge";
@@ -393,9 +380,12 @@ public class Cdb implements IServiceRequest {
     } catch (Exception e) {
       e.printStackTrace();
     }
+
+    db.closeConnection();
   }
 
   static void syncNodeDB(Node node, String operation) {
+    DBConnection dbConnection = new DBConnection();
     try {
       // table names
       String NODE = "\"hospitalNode\".node";
@@ -409,11 +399,11 @@ public class Cdb implements IServiceRequest {
 
       PreparedStatement ps;
       if (operation.equals("insert")) {
-        ps = DBConnection.getConnection().prepareStatement(queryInsertNodesDB);
+        ps = dbConnection.getConnection().prepareStatement(queryInsertNodesDB);
       } else if (operation.equals("update")) {
-        ps = DBConnection.getConnection().prepareStatement(queryUpdateNodesDB);
+        ps = dbConnection.getConnection().prepareStatement(queryUpdateNodesDB);
       } else if (operation.equals("delete")) {
-        ps = DBConnection.getConnection().prepareStatement(queryDeleteNodesDB);
+        ps = dbConnection.getConnection().prepareStatement(queryDeleteNodesDB);
       } else {
         throw new Exception("Invalid operation");
       }
@@ -429,9 +419,11 @@ public class Cdb implements IServiceRequest {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    dbConnection.closeConnection();
   }
 
   static void syncEdgeDB(Edge edge, String operation) {
+    DBConnection db = new DBConnection();
     try {
       // table names
       String EDGE = "\"hospitalNode\".edge";
@@ -447,11 +439,11 @@ public class Cdb implements IServiceRequest {
 
       PreparedStatement ps;
       if (operation.equals("insert")) {
-        ps = DBConnection.getConnection().prepareStatement(queryInsertEdgesDB);
+        ps = db.getConnection().prepareStatement(queryInsertEdgesDB);
       } else if (operation.equals("update")) {
-        ps = DBConnection.getConnection().prepareStatement(queryUpdateEdgesDB);
+        ps = db.getConnection().prepareStatement(queryUpdateEdgesDB);
       } else if (operation.equals("delete")) {
-        ps = DBConnection.getConnection().prepareStatement(queryDeleteEdgesDB);
+        ps = db.getConnection().prepareStatement(queryDeleteEdgesDB);
       } else {
         throw new Exception("Invalid operation");
       }
@@ -466,9 +458,11 @@ public class Cdb implements IServiceRequest {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    db.closeConnection();
   }
 
   static void syncLocationNameDB(LocationName locationName, String operation) {
+    DBConnection db = new DBConnection();
     try {
       // table names
       String LOCATIONNAME = "\"hospitalNode\".\"locationName\"";
@@ -482,11 +476,11 @@ public class Cdb implements IServiceRequest {
 
       PreparedStatement ps;
       if (operation.equals("insert")) {
-        ps = DBConnection.getConnection().prepareStatement(queryInsertLocationNamesDB);
+        ps = db.getConnection().prepareStatement(queryInsertLocationNamesDB);
       } else if (operation.equals("update")) {
-        ps = DBConnection.getConnection().prepareStatement(queryUpdateLocationNamesDB);
+        ps = db.getConnection().prepareStatement(queryUpdateLocationNamesDB);
       } else if (operation.equals("delete")) {
-        ps = DBConnection.getConnection().prepareStatement(queryDeleteLocationNamesDB);
+        ps = db.getConnection().prepareStatement(queryDeleteLocationNamesDB);
       } else {
         throw new Exception("Invalid operation");
       }
@@ -501,9 +495,11 @@ public class Cdb implements IServiceRequest {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    db.closeConnection();
   }
 
   static void syncMoveDB(Move move, String operation) {
+    DBConnection db = new DBConnection();
     try {
       // table names
       String MOVE = "\"hospitalNode\".move";
@@ -517,11 +513,11 @@ public class Cdb implements IServiceRequest {
 
       PreparedStatement ps;
       if (operation.equals("insert")) {
-        ps = DBConnection.getConnection().prepareStatement(queryInsertMovesDB);
+        ps = db.getConnection().prepareStatement(queryInsertMovesDB);
       } else if (operation.equals("update")) {
-        ps = DBConnection.getConnection().prepareStatement(queryUpdateMovesDB);
+        ps = db.getConnection().prepareStatement(queryUpdateMovesDB);
       } else if (operation.equals("delete")) {
-        ps = DBConnection.getConnection().prepareStatement(queryDeleteMovesDB);
+        ps = db.getConnection().prepareStatement(queryDeleteMovesDB);
       } else {
         throw new Exception("Invalid operation");
       }
@@ -536,6 +532,7 @@ public class Cdb implements IServiceRequest {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    db.closeConnection();
   }
 
   static void displayInstructions() {

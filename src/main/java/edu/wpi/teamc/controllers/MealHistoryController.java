@@ -49,12 +49,12 @@ public class MealHistoryController {
     ColumnFour.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s4"));
     ColumnFive.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s5"));
     ColumnSix.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s6"));
-    //    ColumnOne.setText("ID");
-    //    ColumnTwo.setText("Status");
-    //    ColumnThree.setText("Start");
-    //    ColumnFour.setText("End");
-    //   ColumnFive.setText("Info");
-    //    ColumnSix.setText("Room");
+    ColumnOne.setText("ID");
+    ColumnTwo.setText("Name");
+    ColumnThree.setText("Meal");
+    ColumnFour.setText("Status");
+    ColumnFive.setText("Room");
+    ColumnSix.setText("Notes");
     ColumnOne.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     ColumnTwo.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     ColumnThree.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());

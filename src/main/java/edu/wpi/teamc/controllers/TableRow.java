@@ -83,6 +83,12 @@ public class TableRow {
     this.index = index;
   }
 
+  public TableRow(String startNode, String endNode, int index) {
+    this.startNode = startNode;
+    this.endNode = endNode;
+    this.index = index;
+  }
+
   public String getNodeID() {
     return NodeID;
   }

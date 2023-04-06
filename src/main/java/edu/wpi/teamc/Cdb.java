@@ -313,12 +313,16 @@ public class Cdb implements IServiceRequest {
     return tableRows;
   }
 
-  static void loadDatabaseTables(
+  public static void loadDatabaseTables(
       List<Node> databaseNodeList,
       List<Edge> databaseEdgeList,
       List<LocationName> databaseLocationNameList,
       List<Move> databaseMoveList) {
     DBConnection db = new DBConnection();
+    ArrayList<Node> nodeList = new ArrayList<>();
+    ArrayList<Edge> edgeList = new ArrayList<>();
+    ArrayList<LocationName> locationNameList = new ArrayList<>();
+    ArrayList<Move> moveList = new ArrayList<>();
     try {
       Statement stmtNode = db.getConnection().createStatement();
       Statement stmtEdge = db.getConnection().createStatement();
@@ -384,7 +388,7 @@ public class Cdb implements IServiceRequest {
     db.closeConnection();
   }
 
-  static void syncNodeDB(Node node, String operation) {
+  public static void syncNodeDB(Node node, String operation) {
     DBConnection dbConnection = new DBConnection();
     try {
       // table names
@@ -422,7 +426,37 @@ public class Cdb implements IServiceRequest {
     dbConnection.closeConnection();
   }
 
-  static void syncEdgeDB(Edge edge, String operation) {
+  public static void syncEdgeDB(Edge edge, String operation) {
+    DBConnection db = new DBConnection();
+    try {
+      // table names
+      String EDGE = "\"hospitalNode\".edge";
+      // queries
+
+      String queryInsertEdgesDB = "INSERT INTO " + EDGE + " VALUES (?,?); ";
+      String queryDeleteEdgesDB =
+          "DELETE FROM " + EDGE + " WHERE \"startNode\"=? AND \"endNode\"=?; ";
+
+      PreparedStatement ps;
+      if (operation.equals("insert")) {
+        ps = db.getConnection().prepareStatement(queryInsertEdgesDB);
+      } else if (operation.equals("delete")) {
+        ps = db.getConnection().prepareStatement(queryDeleteEdgesDB);
+      } else {
+        throw new Exception("Invalid operation");
+      }
+
+      ps.setString(1, edge.getStartNode().getNodeID());
+      ps.setString(2, edge.getEndNode().getNodeID());
+
+      ps.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    db.closeConnection();
+  }
+
+  public static void syncEdgeDBUpdate(Edge oldedge, Edge edge) {
     DBConnection db = new DBConnection();
     try {
       // table names
@@ -437,23 +471,13 @@ public class Cdb implements IServiceRequest {
       String queryDeleteEdgesDB =
           "DELETE FROM " + EDGE + " WHERE \"startNode\"=? AND \"endNode\"=?; ";
 
-      PreparedStatement ps;
-      if (operation.equals("insert")) {
-        ps = db.getConnection().prepareStatement(queryInsertEdgesDB);
-      } else if (operation.equals("update")) {
-        ps = db.getConnection().prepareStatement(queryUpdateEdgesDB);
-      } else if (operation.equals("delete")) {
-        ps = db.getConnection().prepareStatement(queryDeleteEdgesDB);
-      } else {
-        throw new Exception("Invalid operation");
-      }
+      PreparedStatement ps = db.getConnection().prepareStatement(queryUpdateEdgesDB);
 
       ps.setString(1, edge.getStartNode().getNodeID());
       ps.setString(2, edge.getEndNode().getNodeID());
-      if (operation.equals("update")) {
-        ps.setString(3, edge.getStartNode().getNodeID());
-        ps.setString(4, edge.getEndNode().getNodeID());
-      }
+      ps.setString(3, oldedge.getStartNode().getNodeID());
+      ps.setString(4, oldedge.getEndNode().getNodeID());
+
       ps.executeUpdate();
     } catch (Exception e) {
       e.printStackTrace();

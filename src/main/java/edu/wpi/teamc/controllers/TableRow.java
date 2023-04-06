@@ -6,30 +6,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TableRow {
-  private String NodeID;
-  private String LongName;
-  private String Date;
-  private int index;
-  private String xCoord;
-  private String yCoord;
-  private String floorNum;
-  private String building;
-  private String longName;
-  private String nodeType;
-  private String startNode;
-  private String endNode;
-  private String s1, s2, s3, s4, s5, s6, s7;
+  private String s1, s2, s3, s4, s5, s6, s7, s8, s9;
+  int i;
 
-  public TableRow() {
-    this.NodeID = "";
-    this.LongName = "";
-    this.Date = "";
-  }
-
-  public TableRow(String nodeID, String longName, String date) {
-    this.NodeID = nodeID;
-    this.LongName = longName;
-    this.Date = date;
+  public TableRow(String s1, String s2, String s3) {
+    this.s1 = s1;
+    this.s2 = s2;
+    this.s3 = s3;
   }
 
   //  public TableRow(String nodeID, String longName, String date, int index) {
@@ -65,55 +48,53 @@ public class TableRow {
   }
 
   public TableRow(
-      String nodeID,
-      String xCoord,
-      String yCoord,
-      String floorNum,
-      String building,
-      String longName,
-      String nodeType,
-      int index) {
-    this.NodeID = nodeID;
-    this.xCoord = xCoord;
-    this.yCoord = yCoord;
-    this.floorNum = floorNum;
-    this.building = building;
-    this.longName = longName;
-    this.nodeType = nodeType;
-    this.index = index;
+      String s1, String s2, String s3, String s4, String s5, String s6, String s7, String s8) {
+    this.s1 = s1;
+    this.s2 = s2;
+    this.s3 = s3;
+    this.s4 = s4;
+    this.s5 = s5;
+    this.s6 = s6;
+    this.s7 = s7;
+    this.s8 = s8;
   }
 
-  public TableRow(String startNode, String endNode, int index) {
-    this.startNode = startNode;
-    this.endNode = endNode;
-    this.index = index;
+  public TableRow(
+      String s1, String s2, String s3, String s4, String s5, String s6, String s7, int i) {
+    this.s1 = s1;
+    this.s2 = s2;
+    this.s3 = s3;
+    this.s4 = s4;
+    this.s5 = s5;
+    this.s6 = s6;
+    this.s7 = s7;
+    this.i = i;
   }
 
-  public String getNodeID() {
-    return NodeID;
+  public TableRow(
+      String s1,
+      String s2,
+      String s3,
+      String s4,
+      String s5,
+      String s6,
+      String s7,
+      String s8,
+      String s9) {
+    this.s1 = s1;
+    this.s2 = s2;
+    this.s3 = s3;
+    this.s4 = s4;
+    this.s5 = s5;
+    this.s6 = s6;
+    this.s7 = s7;
+    this.s8 = s8;
+    this.s9 = s9;
   }
 
-  public void setNodeID(String nodeID) {
-    this.NodeID = nodeID;
-  }
-
-  public String getLongName() {
-    return LongName;
-  }
-
-  public void setLongName(String longName) {
-    this.LongName = longName;
-  }
-
-  public String getDate() {
-    return Date;
-  }
-
-  public void setDate(String date) {
-    this.Date = date;
-  }
-
-  public int getIndex() {
-    return index;
+  public TableRow(String s1, String s2, int i) {
+    this.s1 = s1;
+    this.s2 = s2;
+    this.i = i;
   }
 }

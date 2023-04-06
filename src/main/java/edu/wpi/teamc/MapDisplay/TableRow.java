@@ -1,9 +1,17 @@
 package edu.wpi.teamc.MapDisplay;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class TableRow {
   private String NodeID;
   private String LongName;
   private String Date;
+  private String startNode;
+  private String endNode;
+  private int index;
 
   public TableRow() {
     this.NodeID = "";

@@ -37,11 +37,11 @@
       <AnchorPane layoutX="39.0" layoutY="59.0" prefHeight="280.0" prefWidth="521.0">
          <children>
             <FilteredTableView fx:id="historyTable" editable="true" layoutY="10.0" prefHeight="280.0" prefWidth="521.0">
-               <columns>
-                  <TableColumn fx:id="ColumnOne" prefWidth="180.0" text="Node ID" />
-                  <TableColumn fx:id="ColumnTwo" prefWidth="180.0" text="Long Name" />
-                  <TableColumn fx:id="ColumnThree" prefWidth="161.0" text="Date" />
-               </columns>
+                <columns>
+                    <TableColumn fx:id="ColumnOne" prefWidth="180.0" text="Node ID" />
+                    <TableColumn fx:id="ColumnTwo" prefWidth="180.0" text="Long Name" />
+                    <TableColumn fx:id="ColumnThree" prefWidth="161.0" text="Date" />
+                </columns>
             </FilteredTableView>
          </children>
       </AnchorPane>
@@ -68,7 +68,7 @@
                 <items>
                     <MenuItem mnemonicParsing="false" onAction="#getHelpPage" text="Help Page" />
                     <MenuItem mnemonicParsing="false" onAction="#getLogOut" text="Log Out" />
-                    <MenuItem mnemonicParsing="false" text="Exit App" />
+                    <MenuItem mnemonicParsing="false" onAction="#getExit" text="Exit App" />
                 </items>
             </Menu>
         </menus>

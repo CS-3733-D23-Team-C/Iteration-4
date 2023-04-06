@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class ConferenceHistoryController {
@@ -56,9 +57,13 @@ public class ConferenceHistoryController {
     //    ColumnFour.setText("End");
     //   ColumnFive.setText("Info");
     //    ColumnSix.setText("Room");
-    //    ColumnOne.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    //    ColumnTwo.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    //    ColumnThree.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    ColumnOne.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    ColumnTwo.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    ColumnThree.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    ColumnFour.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    ColumnFive.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    ColumnSix.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    NameColumn.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
 
     // get conference room table
 

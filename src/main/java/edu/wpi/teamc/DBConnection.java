@@ -3,9 +3,9 @@ package edu.wpi.teamc;
 import java.sql.*;
 
 public class DBConnection {
-  private static Connection connection;
+  private Connection connection;
 
-  static {
+  public DBConnection() {
     try {
       // Load the PostgreSQL JDBC driver
       Class.forName("org.postgresql.Driver");
@@ -19,7 +19,15 @@ public class DBConnection {
     }
   }
 
-  public static Connection getConnection() {
+  public void closeConnection() {
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public Connection getConnection() {
     return connection;
   }
 }

@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class MealHistoryController {
@@ -48,16 +49,18 @@ public class MealHistoryController {
     ColumnFour.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s4"));
     ColumnFive.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s5"));
     ColumnSix.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s6"));
-    //    ColumnOne.setText("ID");
-    //    ColumnTwo.setText("Status");
-    //    ColumnThree.setText("Start");
-    //    ColumnFour.setText("End");
-    //   ColumnFive.setText("Info");
-    //    ColumnSix.setText("Room");
-    //    ColumnOne.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    //    ColumnTwo.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    //    ColumnThree.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-
+    ColumnOne.setText("ID");
+    ColumnTwo.setText("Name");
+    ColumnThree.setText("Meal");
+    ColumnFour.setText("Status");
+    ColumnFive.setText("Room");
+    ColumnSix.setText("Notes");
+    ColumnOne.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    ColumnTwo.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    ColumnThree.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    ColumnFour.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    ColumnFive.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    ColumnSix.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     // get conference room table
 
     historyTable

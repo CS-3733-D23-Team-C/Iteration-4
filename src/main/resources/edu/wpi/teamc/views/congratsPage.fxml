@@ -17,12 +17,12 @@
             <Font name="Verdana Bold" size="30.0" />
          </font>
       </Text>
-      <Text fill="TEAL" layoutX="123.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Order Has Been Successfully Placed" textAlignment="CENTER" wrappingWidth="353.6806640625">
+      <Text fill="TEAL" layoutX="123.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Request has Sucessfully Been Entered." textAlignment="CENTER" wrappingWidth="353.6806640625">
          <font>
             <Font name="Verdana Bold" size="15.0" />
          </font>
       </Text>
-      <Text fill="TEAL" layoutX="123.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estimated Delivery Time: " textAlignment="CENTER" wrappingWidth="353.6806640625">
+      <Text fill="TEAL" layoutX="123.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " textAlignment="CENTER" wrappingWidth="353.6806640625">
          <font>
             <Font name="Verdana Bold" size="15.0" />
          </font>

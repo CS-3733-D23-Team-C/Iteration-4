@@ -38,6 +38,7 @@ public class MapEditingController {
   @FXML private Button testButton;
   @FXML private TextField inputBox;
   @FXML private FilteredTableView<TableRow> historyTable;
+  @FXML private FilteredTableView<TableRow> edgeTable;
   @FXML TableView<TableRow> otherTable;
   @FXML TableColumn<TableRow, String> ColumnOne;
   @FXML TableColumn<TableRow, String> ColumnTwo;
@@ -54,6 +55,7 @@ public class MapEditingController {
   //  @FXML TableColumn<TableRow, String> ColumnThree1;
   //  @FXML TableView<TableRow> testTable;
   ObservableList<TableRow> rows = FXCollections.observableArrayList();
+  ObservableList<TableRow> rowsEdge = FXCollections.observableArrayList();
 
   @FXML private Button goHome;
   //  List<Node> databaseNodeList = new ArrayList<Node>();
@@ -71,6 +73,8 @@ public class MapEditingController {
     ColumnFive.setCellValueFactory(new PropertyValueFactory<TableRow, String>("building"));
     ColumnSix.setCellValueFactory(new PropertyValueFactory<TableRow, String>("longName"));
     ColumnSeven.setCellValueFactory(new PropertyValueFactory<TableRow, String>("nodeType"));
+    ColumnEight.setCellValueFactory(new PropertyValueFactory<>("startNode"));
+    ColumnNine.setCellValueFactory(new PropertyValueFactory<>("endNode"));
 
     // Allows cells to be editable
     //    ColumnOne.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
@@ -80,8 +84,12 @@ public class MapEditingController {
     ColumnFive.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     ColumnSix.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     ColumnSeven.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    ColumnEight.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    ColumnNine.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
 
     historyTable.setEditable(true);
+    edgeTable.setEditable(true);
+    edgeTable.getItems().setAll(gettableRowsEdge(Cdb.databaseEdgeList));
     //    historyTable.getOnMouseClicked();
     //    historyTable.getEditingCell();
     //    testTable.setEditable(true);
@@ -233,6 +241,21 @@ public class MapEditingController {
       rows.add(new TableRow(nodeID, xCoord, yCoord, floorNum, building, longName, nodeType, index));
     }
     return rows;
+  }
+
+  public ObservableList<TableRow> gettableRowsEdge(List<Edge> edgeList) {
+    Edge currEdgeList;
+    String startNode;
+    String endNode;
+    int index = -1;
+    for (int i = 0; i < edgeList.size(); i++) {
+      startNode = edgeList.get(i).getStartNode().getNodeID();
+      endNode = edgeList.get(i).getEndNode().getNodeID();
+
+      index++;
+      rowsEdge.add(new TableRow(startNode, endNode, index));
+    }
+    return rowsEdge;
   }
 
   public String getText(javafx.event.ActionEvent actionEvent) {

@@ -3,7 +3,7 @@ package edu.wpi.teamc.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface DAO<T> {
+public interface IDao<T> {
   List<T> getAll() throws SQLException;
 
   int insert(T type) throws SQLException;

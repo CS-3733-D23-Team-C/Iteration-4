@@ -28,4 +28,11 @@ public class Node {
     this.floor = floor;
     this.building = building;
   }
+
+  public Node(int xCoord, int yCoord, String floor, String building) {
+    this.xCoord = xCoord;
+    this.yCoord = yCoord;
+    this.floor = floor;
+    this.building = building;
+  }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 public interface IDao<T> {
   List<T> fetchAllObjects() throws SQLException;
 
-  int updateDBrow(T type) throws SQLException;
+  int updateRow(T type, T type2) throws SQLException;
 
   int addRow(T type);
 

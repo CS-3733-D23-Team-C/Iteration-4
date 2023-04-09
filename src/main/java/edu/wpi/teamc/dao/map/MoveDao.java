@@ -1,8 +1,6 @@
 package edu.wpi.teamc.dao.map;
 
-import edu.wpi.teamname.dao.IDao;
-import edu.wpi.teamname.orm.Move;
-
+import edu.wpi.teamc.dao.IDao;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,15 +9,15 @@ public class MoveDao implements IDao<Move> {
         return new ArrayList<>();
     }
 
-    public void updateDBrow(Move orm) {
-
+    public int updateDBrow(Move orm) {
+        return 0;
     }
 
-    public void addRow(Move orm) {
-
+    public int addRow(Move orm) {
+        return 0;
     }
 
-    public void deleteRow(Move orm) {
-
+    public int deleteRow(Move orm) {
+        return 0;
     }
 }

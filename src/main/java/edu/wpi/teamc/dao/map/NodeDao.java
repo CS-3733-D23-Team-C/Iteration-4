@@ -1,8 +1,6 @@
 package edu.wpi.teamc.dao.map;
 
-import edu.wpi.teamname.dao.IDao;
-import edu.wpi.teamname.orm.Node;
-
+import edu.wpi.teamc.dao.IDao;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,15 +9,15 @@ public class NodeDao implements IDao<Node> {
         return new ArrayList<>();
     }
 
-    public void updateDBrow(Node orm) {
-
+    public int updateDBrow(Node orm) {
+        return 0;
     }
 
-    public void addRow(Node orm) {
-
+    public int addRow(Node orm) {
+        return 0;
     }
 
-    public void deleteRow(Node orm) {
-
+    public int deleteRow(Node orm) {
+        return 0;
     }
 }

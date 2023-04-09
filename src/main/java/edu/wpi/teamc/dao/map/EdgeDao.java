@@ -1,8 +1,6 @@
 package edu.wpi.teamc.dao.map;
 
-import edu.wpi.teamname.dao.IDao;
-import edu.wpi.teamname.orm.Edge;
-
+import edu.wpi.teamc.dao.IDao;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,15 +9,15 @@ public class EdgeDao implements IDao<Edge> {
         return new ArrayList<>();
     }
 
-    public void updateDBrow(Edge orm) {
-
+    public int updateDBrow(Edge orm) {
+        return 0;
     }
 
-    public void addRow(Edge orm) {
-
+    public int addRow(Edge orm) {
+        return 0;
     }
 
-    public void deleteRow(Edge orm) {
-
+    public int deleteRow(Edge orm) {
+        return 0;
     }
 }

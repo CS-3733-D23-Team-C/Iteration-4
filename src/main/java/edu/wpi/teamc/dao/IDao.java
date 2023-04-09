@@ -4,11 +4,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IDao<T> {
-  List<T> getAll() throws SQLException;
+  List<T> fetchAllObjects() throws SQLException;
 
-  int insert(T type) throws SQLException;
+  int updateDBrow(T type) throws SQLException;
 
-  int delete(T type);
+  int addRow(T type);
 
-  int update(T type) throws SQLException;
+  int deleteRow(T type) throws SQLException;
 }

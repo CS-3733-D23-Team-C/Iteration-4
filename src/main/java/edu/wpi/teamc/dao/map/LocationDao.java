@@ -1,8 +1,6 @@
 package edu.wpi.teamc.dao.map;
 
-import edu.wpi.teamname.dao.IDao;
-import edu.wpi.teamname.orm.LocationName;
-
+import edu.wpi.teamc.dao.IDao;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,15 +9,15 @@ public class LocationDao implements IDao<LocationName> {
         return new ArrayList<>();
     }
 
-    public void updateDBrow(LocationName orm) {
-
+    public int updateDBrow(LocationName orm) {
+        return 0;
     }
 
-    public void addRow(LocationName orm) {
-
+    public int addRow(LocationName orm) {
+        return 0;
     }
 
-    public void deleteRow(LocationName orm) {
-
+    public int deleteRow(LocationName orm) {
+        return 0;
     }
 }

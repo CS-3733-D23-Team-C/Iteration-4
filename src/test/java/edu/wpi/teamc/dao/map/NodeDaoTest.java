@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.map;
 
+import java.io.IOException;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,5 +34,23 @@ public class NodeDaoTest {
     Node testNode = new Node(100, 1234, 1234, "L1", "1234");
     NodeDao nodeDao = new NodeDao();
     Assertions.assertEquals(1, nodeDao.deleteRow(testNode));
+  }
+
+  @Test
+  public void importCSV() {
+    NodeDao nodeDao = new NodeDao();
+    Assertions.assertEquals(
+        true,
+        nodeDao.importCSV(
+            "C:\\Users\\nicky\\Documents\\Iteration-1\\src\\main\\resources\\edu\\wpi\\teamc\\Node.csv"));
+  }
+
+  @Test
+  public void exportCSV() throws IOException {
+    NodeDao nodeDao = new NodeDao();
+    Assertions.assertEquals(
+        true,
+        nodeDao.exportCSV(
+            "C:\\Users\\nicky\\Documents\\Iteration-1\\src\\main\\resources\\edu\\wpi\\teamc\\NodeExport.csv"));
   }
 }

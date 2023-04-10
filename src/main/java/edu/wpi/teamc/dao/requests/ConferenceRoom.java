@@ -3,8 +3,10 @@ package edu.wpi.teamc.dao.requests;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
+@Setter
 public class ConferenceRoom {
-  @Getter @Setter private String longName;
+  private String longName;
   private String shortName;
   private Boolean availability;
 

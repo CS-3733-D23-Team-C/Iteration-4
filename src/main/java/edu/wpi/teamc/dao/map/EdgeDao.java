@@ -2,11 +2,14 @@ package edu.wpi.teamc.dao.map;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EdgeDao implements IDao<Edge> {
   public List<Edge> fetchAllObjects() {
@@ -33,7 +36,7 @@ public class EdgeDao implements IDao<Edge> {
     return databaseEdgeList;
   }
 
-  public int updateRow(Edge orm, Edge repl) {
+  public Edge updateRow(Edge orm, Edge repl) {
     DBConnection db = new DBConnection();
     try {
       String EDGE = "\"hospitalNode\".edge";
@@ -54,10 +57,10 @@ public class EdgeDao implements IDao<Edge> {
       e.printStackTrace();
     }
     db.closeConnection();
-    return 1;
+    return null;
   }
 
-  public int addRow(Edge orm) {
+  public Edge addRow(Edge orm) {
     DBConnection db = new DBConnection();
     try {
       String EDGE = "\"hospitalNode\".edge";
@@ -74,10 +77,10 @@ public class EdgeDao implements IDao<Edge> {
       e.printStackTrace();
     }
     db.closeConnection();
-    return 1;
+    return null;
   }
 
-  public int deleteRow(Edge orm) {
+  public Edge deleteRow(Edge orm) {
     DBConnection db = new DBConnection();
     try {
       // table names
@@ -98,6 +101,53 @@ public class EdgeDao implements IDao<Edge> {
       e.printStackTrace();
     }
     db.closeConnection();
-    return 1;
+    return null;
+  }
+
+  public boolean importCSV(String CSVfilepath) {
+    // Regular expression to match each row
+    String regex = "(.*),(.*)";
+    // Compile regular expression pattern
+    Pattern pattern = Pattern.compile(regex);
+    try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
+      String line;
+      br.readLine();
+      while ((line = br.readLine()) != null) {
+        // Match the regular expression to the current line
+        Matcher matcher = pattern.matcher(line);
+        if (matcher.matches()) {
+          int startNodeID = Integer.valueOf(matcher.group(1));
+          int endNodeID = Integer.valueOf(matcher.group(2));
+
+          Edge edge = new Edge(startNodeID, endNodeID);
+
+          addRow(edge);
+        }
+      }
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return true;
+  }
+
+  public boolean exportCSV(String CSVfilepath) throws IOException {
+    createFile(CSVfilepath);
+    BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
+    // Write the header row to the CSV file
+    writer.write("startNodeID,endNodeID\n");
+    for (Edge edge : fetchAllObjects()) {
+      writer.write(edge.getStartNode() + "," + edge.getEndNode() + "\n");
+    }
+    writer.close();
+    return true;
+  }
+
+  static void createFile(String fileName) throws IOException {
+    File file = new File(fileName);
+    if (file.createNewFile()) {
+      System.out.println("File created: " + file.getName());
+    } else {
+      System.out.println("File already exists.");
+    }
   }
 }

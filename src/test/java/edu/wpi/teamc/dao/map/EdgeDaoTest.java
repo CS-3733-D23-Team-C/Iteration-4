@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.map;
 
+import java.io.IOException;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -34,5 +35,23 @@ public class EdgeDaoTest {
     EdgeDao edgeDao = new EdgeDao();
     Edge edge = new Edge(105, 190);
     Assertions.assertEquals(1, edgeDao.deleteRow(edge));
+  }
+
+  @Test
+  public void importCSV() {
+    EdgeDao edgeDao = new EdgeDao();
+    Assertions.assertEquals(
+        true,
+        edgeDao.importCSV(
+            "C:\\Users\\nicky\\Documents\\Iteration-1\\src\\main\\resources\\edu\\wpi\\teamc\\Edge.csv"));
+  }
+
+  @Test
+  public void exportCSV() throws IOException {
+    EdgeDao edgeDao = new EdgeDao();
+    Assertions.assertEquals(
+        true,
+        edgeDao.exportCSV(
+            "C:\\Users\\nicky\\Documents\\Iteration-1\\src\\main\\resources\\edu\\wpi\\teamc\\EdgeExport.csv"));
   }
 }

@@ -100,4 +100,12 @@ public class EdgeDao implements IDao<Edge> {
     db.closeConnection();
     return 1;
   }
+
+  public boolean importCSV(String CSVfilepath) {
+    return false;
+  }
+
+  public boolean exportCSV(String CSVfilepath) {
+    return false;
+  }
 }

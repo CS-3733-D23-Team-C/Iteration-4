@@ -112,4 +112,12 @@ public class NodeDao implements IDao<Node> {
 
     return 1;
   }
+
+  public boolean importCSV(String CSVfilepath) {
+    return false;
+  }
+
+  public boolean exportCSV(String CSVfilepath) {
+    return false;
+  }
 }

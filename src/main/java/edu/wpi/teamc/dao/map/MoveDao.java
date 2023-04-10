@@ -127,4 +127,12 @@ public class MoveDao implements IDao<Move> {
     }
     return null;
   }
+
+  public boolean importCSV(String CSVfilepath) {
+    return false;
+  }
+
+  public boolean exportCSV(String CSVfilepath) {
+    return false;
+  }
 }

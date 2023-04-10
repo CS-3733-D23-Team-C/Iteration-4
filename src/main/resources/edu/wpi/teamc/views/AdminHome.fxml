@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.SVGPath?>
+
+<AnchorPane prefHeight="1024.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.AdminHomeController">
+   <children>
+      <AnchorPane prefHeight="1024.0" prefWidth="392.0" style="-fx-background-color: #E3DFDF;">
+         <children>
+            <SVGPath content="M40,60 C42,48 44,30 25,32" layoutX="46.0" layoutY="24.0" />
+            <MenuButton alignment="CENTER" layoutX="46.0" layoutY="214.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="300.0" style="-fx-background-radius: 53; -fx-background-color: #978787; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Service Request" textFill="WHITE">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+            </MenuButton>
+            <MenuButton alignment="CENTER" layoutX="46.0" layoutY="613.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="300.0" style="-fx-background-radius: 53; -fx-background-color: #978787; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Service Request" textFill="WHITE">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+            <MenuButton alignment="CENTER" layoutX="46.0" layoutY="347.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="300.0" style="-fx-background-radius: 53; -fx-background-color: #978787; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Service Request" textFill="WHITE">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+            <MenuButton alignment="CENTER" layoutX="46.0" layoutY="480.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="300.0" style="-fx-background-radius: 53; -fx-background-color: #978787; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Service Request" textFill="WHITE">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+            </MenuButton>
+         </children></AnchorPane>
+      <Line endX="398.0" endY="778.0" layoutX="-6.0" startX="6.0" startY="778.0" />
+   </children>
+</AnchorPane>

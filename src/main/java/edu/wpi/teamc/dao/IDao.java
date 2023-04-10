@@ -10,7 +10,7 @@ public interface IDao<T> {
 
   int updateRow(T type, T type2) throws SQLException;
 
-  int updateDBRow(ConferenceRoomRequest type) throws SQLException;
+  int updateDBRow(T type) throws SQLException;
 
   int addRow(T type);
 

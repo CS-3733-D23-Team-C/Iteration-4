@@ -7,14 +7,14 @@ import javafx.fxml.FXML;
 
 /** */
 public class SignageController {
-    @FXML MFXButton backButton;
+  @FXML MFXButton backButton;
 
-    /** Method run when controller is initialized */
-    @FXML
-    public void goHome() {
-        backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    }
+  /** Method run when controller is initialized */
+  @FXML
+  public void goHome() {
+    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+  }
 
-    //  public void backAction(ActionEvent actionEvent) {}
-    //  // to use this way, have "backAction" under onAction in .fxml file
+  //  public void backAction(ActionEvent actionEvent) {}
+  //  // to use this way, have "backAction" under onAction in .fxml file
 }

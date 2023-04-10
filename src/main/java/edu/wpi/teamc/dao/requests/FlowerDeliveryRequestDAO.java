@@ -2,8 +2,6 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
-import edu.wpi.teamc.dao.map.Node;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,12 +26,13 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
       while (rs.next()) {
         int requestID = rs.getInt("requestID");
         Requester req = new Requester(0, rs.getString("Requester"));
-        String  roomName = rs.getString("roomName");
-        String  flower = rs.getString("flower");
-        STATUS status  = STATUS.valueOf(rs.getString("status"));
+        String roomName = rs.getString("roomName");
+        String flower = rs.getString("flower");
+        STATUS status = STATUS.valueOf(rs.getString("status"));
         String additionalNotes = rs.getString("additionalNotes");
         String eta = rs.getString("ETA");
-        FlowerDeliveryRequest fdr = new FlowerDeliveryRequest(requestID, req, roomName, flower, additionalNotes);
+        FlowerDeliveryRequest fdr =
+            new FlowerDeliveryRequest(requestID, req, roomName, flower, additionalNotes);
         fdr.setStatus(status);
         fdr.setEta(eta);
         returnList.add(fdr);
@@ -46,7 +45,8 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
     return returnList;
   }
 
-  public FlowerDeliveryRequest updateRow(FlowerDeliveryRequest orm, FlowerDeliveryRequest repl) throws SQLException {
+  public FlowerDeliveryRequest updateRow(FlowerDeliveryRequest orm, FlowerDeliveryRequest repl)
+      throws SQLException {
     DBConnection db = new DBConnection();
     FlowerDeliveryRequest fdr = null;
     try {
@@ -54,7 +54,10 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
       // table names
       String table = "\"ServiceRequests\".\"flowerRequest\"";
       // queries
-      String query = "UPDATE " + table + " SET req=?, roomName=?, \"flower\"=?, additionalNotes=?, status =?, eta=? WHERE requestID=?"  ;
+      String query =
+          "UPDATE "
+              + table
+              + " SET req=?, roomName=?, \"flower\"=?, additionalNotes=?, status =?, eta=? WHERE requestID=?";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
 
@@ -69,8 +72,13 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
 
       ps.execute();
 
-
-      fdr = new FlowerDeliveryRequest(orm.getRequestID(), repl.getRequester(), repl.getRoomName(), repl.getFlower(), repl.getAdditionalNotes());
+      fdr =
+          new FlowerDeliveryRequest(
+              orm.getRequestID(),
+              repl.getRequester(),
+              repl.getRoomName(),
+              repl.getFlower(),
+              repl.getAdditionalNotes());
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -86,7 +94,10 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
       // table names
       String table = "\"ServiceRequests\".\"flowerRequest\"";
       // queries
-      String query = "INSERT INTO " + table + " (req, roomName, \"flower\", additionalNotes, status, ETA) VALUES (?,?,?,?,?,?) RETURNING requestID;"  ;
+      String query =
+          "INSERT INTO "
+              + table
+              + " (req, roomName, \"flower\", additionalNotes, status, ETA) VALUES (?,?,?,?,?,?) RETURNING requestID;";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
 
@@ -99,12 +110,18 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
 
       ps.execute();
 
-    ResultSet rs = ps.getResultSet();
-    rs.next();
+      ResultSet rs = ps.getResultSet();
+      rs.next();
       int requestID = rs.getInt("requestID");
-      request = new FlowerDeliveryRequest(requestID, orm.getRequester(), orm.getRoomName(), orm.getFlower(), orm.getAdditionalNotes());
-   request.setStatus(orm.getStatus());
-    request.setEta(orm.getEta());
+      request =
+          new FlowerDeliveryRequest(
+              requestID,
+              orm.getRequester(),
+              orm.getRoomName(),
+              orm.getFlower(),
+              orm.getAdditionalNotes());
+      request.setStatus(orm.getStatus());
+      request.setEta(orm.getEta());
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -134,6 +151,5 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
 
     db.closeConnection();
     return orm;
-
   }
 }

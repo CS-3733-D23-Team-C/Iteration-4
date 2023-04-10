@@ -8,67 +8,67 @@ import javafx.scene.control.Button;
 
 public class HelpController {
 
-    @FXML private Button goHome;
+  @FXML private Button goHome;
 
-    public void getGoHome() {
-        goHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    }
+  public void getGoHome() {
+    goHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+  }
 
-    @FXML
-    void getFlowerDeliveryPage(ActionEvent event) {
-        Navigation.navigate(Screen.FLOWER);
-    }
+  @FXML
+  void getFlowerDeliveryPage(ActionEvent event) {
+    Navigation.navigate(Screen.FLOWER);
+  }
 
-    @FXML
-    void getFurnitureDeliveryPage(ActionEvent event) {
-        Navigation.navigate(Screen.FURNITURE);
-    }
+  @FXML
+  void getFurnitureDeliveryPage(ActionEvent event) {
+    Navigation.navigate(Screen.FURNITURE);
+  }
 
-    @FXML
-    void getHelpPage(ActionEvent event) {
-        Navigation.navigate(Screen.HELP);
-    }
+  @FXML
+  void getHelpPage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 
-    @FXML
-    void getMealDeliveryPage(ActionEvent event) {
-        Navigation.navigate(Screen.MEAL);
-    }
+  @FXML
+  void getMealDeliveryPage(ActionEvent event) {
+    Navigation.navigate(Screen.MEAL);
+  }
 
-    @FXML
-    void getOfficeSuppliesPage(ActionEvent event) {
-        Navigation.navigate(Screen.OFFICE_SUPPLY);
-    }
+  @FXML
+  void getOfficeSuppliesPage(ActionEvent event) {
+    Navigation.navigate(Screen.OFFICE_SUPPLY);
+  }
 
-    @FXML
-    void getRoomReservationPage(ActionEvent event) {
-        Navigation.navigate(Screen.CONFERENCE);
-    }
+  @FXML
+  void getRoomReservationPage(ActionEvent event) {
+    Navigation.navigate(Screen.CONFERENCE);
+  }
 
-    @FXML
-    void getSignagePage(ActionEvent event) {
-        Navigation.navigate(Screen.SIGNAGE);
-    }
+  @FXML
+  void getSignagePage(ActionEvent event) {
+    Navigation.navigate(Screen.SIGNAGE);
+  }
 
-    /** Method run when controller is initialized */
-    @FXML
-    public void initialize() {}
+  /** Method run when controller is initialized */
+  @FXML
+  public void initialize() {}
 
-    @FXML
-    void getEditMap(ActionEvent event) {}
+  @FXML
+  void getEditMap(ActionEvent event) {}
 
-    @FXML
-    void getLogOut(ActionEvent event) {
-        Navigation.navigate(Screen.LOGIN);
-    }
+  @FXML
+  void getLogOut(ActionEvent event) {
+    Navigation.navigate(Screen.LOGIN);
+  }
 
-    @FXML
-    void getExit(ActionEvent event) {
-        System.exit(0);
-    }
+  @FXML
+  void getExit(ActionEvent event) {
+    System.exit(0);
+  }
 
-    @FXML
-    void getMapHistory(ActionEvent event) {}
+  @FXML
+  void getMapHistory(ActionEvent event) {}
 
-    @FXML
-    void getMapPage(ActionEvent event) {}
+  @FXML
+  void getMapPage(ActionEvent event) {}
 }

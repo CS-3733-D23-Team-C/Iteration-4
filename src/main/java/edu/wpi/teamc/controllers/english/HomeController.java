@@ -120,7 +120,7 @@ public class HomeController {
   void getImportNodes(ActionEvent event) {
     FileChooser fileChooser = new FileChooser();
     FileChooser.ExtensionFilter extFilter =
-            new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+        new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
     fileChooser.getExtensionFilters().add(extFilter);
     File file = fileChooser.showOpenDialog(new Stage());
     if (file != null) {
@@ -138,7 +138,7 @@ public class HomeController {
   void getImportEdges(ActionEvent event) {
     FileChooser fileChooser = new FileChooser();
     FileChooser.ExtensionFilter extFilter =
-            new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+        new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
     fileChooser.getExtensionFilters().add(extFilter);
     File file = fileChooser.showOpenDialog(new Stage());
     if (file != null) {
@@ -156,7 +156,7 @@ public class HomeController {
   void getImportLocationNames(ActionEvent event) {
     FileChooser fileChooser = new FileChooser();
     FileChooser.ExtensionFilter extFilter =
-            new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+        new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
     fileChooser.getExtensionFilters().add(extFilter);
     File file = fileChooser.showOpenDialog(new Stage());
     if (file != null) {
@@ -174,7 +174,7 @@ public class HomeController {
   void getImportMove(ActionEvent event) {
     FileChooser fileChooser = new FileChooser();
     FileChooser.ExtensionFilter extFilter =
-            new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+        new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
     fileChooser.getExtensionFilters().add(extFilter);
     File file = fileChooser.showOpenDialog(new Stage());
     if (file != null) {

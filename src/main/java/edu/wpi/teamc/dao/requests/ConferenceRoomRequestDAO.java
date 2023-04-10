@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
+
   DBConnection db = new DBConnection();
 
-  public int addRow(ConferenceRoomRequest orm) {
+  public ConferenceRoomRequest addRow(ConferenceRoomRequest orm) {
     String CONFREQ = "INSERT INTO ConferenceRoomRequest VALUES (?,?,?,?,?,?,?)";
     try {
       PreparedStatement ps = db.getConnection().prepareStatement(CONFREQ);
@@ -23,26 +24,26 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
 
       ps.executeUpdate();
       db.closeConnection();
-      return 1;
+      return null;
     } catch (SQLException e) {
       e.printStackTrace();
       db.closeConnection();
-      return 0;
+      return null;
     }
   }
 
-  public int deleteRow(ConferenceRoomRequest orm) {
+  public ConferenceRoomRequest deleteRow(ConferenceRoomRequest orm) {
     String CONFREQ = "DELETE FROM ConferenceRoomRequest WHERE requestID = ?";
     try {
       PreparedStatement ps = db.getConnection().prepareStatement(CONFREQ);
       ps.setInt(1, orm.getRequestID());
       ps.executeUpdate();
       db.closeConnection();
-      return 1;
+      return null;
     } catch (SQLException e) {
       e.printStackTrace();
       db.closeConnection();
-      return 0;
+      return null;
     }
   }
 
@@ -52,7 +53,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
   }
 
   @Override
-  public int updateRow(ConferenceRoomRequest orm, ConferenceRoomRequest repl) throws SQLException {
-    return 0;
+  public ConferenceRoomRequest updateRow(ConferenceRoomRequest orm, ConferenceRoomRequest repl) throws SQLException {
+    return null;
   }
 }

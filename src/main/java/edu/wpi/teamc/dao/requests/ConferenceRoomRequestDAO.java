@@ -2,99 +2,57 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
-import javafx.scene.chart.ScatterChart;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
 public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
-    DBConnection db = new DBConnection();
-    public int addRow(String requestID, String roomID, String date, String time, String duration, String description, String status) {
-        String CONFREQ = "INSERT INTO ConferenceRoomRequest VALUES (?,?,?,?,?,?,?)";
-        try {
-            PreparedStatement ps = db.getConnection().prepareStatement(CONFREQ);
-            ps.setString(1, requestID);
-            ps.setString(2, roomID);
-            ps.setString(3, date);
-            ps.setString(4, time);
-            ps.setString(5, duration);
-            ps.setString(6, description);
-            ps.setString(7, status);
-            ps.executeUpdate();
-            db.closeConnection();
-            return 1;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            db.closeConnection();
-            return 0;
-        }
-    }
+  DBConnection db = new DBConnection();
 
-    public int removeRow(String requestID, String roomID, String date, String time, String duration, String description, String status) {
-        String CONFREQ = "DELETE FROM ConferenceRoomRequest WHERE requestID = ? AND roomID = ? AND date = ? AND time = ? AND duration = ? AND description = ? AND status = ?";
-        try {
-            PreparedStatement ps = db.getConnection().prepareStatement(CONFREQ);
-            ps.setString(1, requestID);
-            ps.setString(2, roomID);
-            ps.setString(3, date);
-            ps.setString(4, time);
-            ps.setString(5, duration);
-            ps.setString(6, description);
-            ps.setString(7, status);
-            ps.executeUpdate();
-            db.closeConnection();
-            return 1;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            db.closeConnection();
-            return 0;
-        }
-    }
+  public int addRow(ConferenceRoomRequest orm) {
+    String CONFREQ = "INSERT INTO ConferenceRoomRequest VALUES (?,?,?,?,?,?,?)";
+    try {
+      PreparedStatement ps = db.getConnection().prepareStatement(CONFREQ);
+      ps.setInt(1, orm.getRequestID());
+      ps.setString(2, orm.getRequester().toString());
+      ps.setString(3, orm.getRoomName());
+      ps.setString(4, orm.getStartTime());
+      ps.setString(5, orm.getEndTime());
+      ps.setString(6, orm.getStatus().toString());
+      ps.setString(7, orm.getAdditionalNotes());
 
-    public int deleteRow(String requestID, String roomID, String date, String time, String duration, String description, String status) {
-        String CONFREQ = "DELETE FROM ConferenceRoomRequest WHERE requestID = ? AND roomID = ? AND date = ? AND time = ? AND duration = ? AND description = ? AND status = ?";
-        try {
-            PreparedStatement ps = db.getConnection().prepareStatement(CONFREQ);
-            ps.setString(1, requestID);
-            ps.setString(2, roomID);
-            ps.setString(3, date);
-            ps.setString(4, time);
-            ps.setString(5, duration);
-            ps.setString(6, description);
-            ps.setString(7, status);
-            ps.executeUpdate();
-            db.closeConnection();
-            return 1;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            db.closeConnection();
-            return 0;
-        }
+      ps.executeUpdate();
+      db.closeConnection();
+      return 1;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      db.closeConnection();
+      return 0;
     }
+  }
 
-    @Override
-    public List<ConferenceRoomRequest> fetchAllObjects() throws SQLException {
-        return null;
+  public int deleteRow(ConferenceRoomRequest orm) {
+    String CONFREQ = "DELETE FROM ConferenceRoomRequest WHERE requestID = ?";
+    try {
+      PreparedStatement ps = db.getConnection().prepareStatement(CONFREQ);
+      ps.setInt(1, orm.getRequestID());
+      ps.executeUpdate();
+      db.closeConnection();
+      return 1;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      db.closeConnection();
+      return 0;
     }
+  }
 
-    @Override
-    public int updateDBrow(ConferenceRoomRequest type) throws SQLException {
-        return 0;
-    }
+  @Override
+  public List<ConferenceRoomRequest> fetchAllObjects() throws SQLException {
+    return null;
+  }
 
-    @Override
-    public int updateDBRow(ConferenceRoomRequest type) throws SQLException {
-        return 0;
-    }
-
-    @Override
-    public int addRow(ConferenceRoomRequest type) {
-        return 0;
-    }
-
-    @Override
-    public int deleteRow(ConferenceRoomRequest type) throws SQLException {
-        return 0;
-    }
+  @Override
+  public int updateRow(ConferenceRoomRequest orm, ConferenceRoomRequest repl) throws SQLException {
+    return 0;
+  }
 }

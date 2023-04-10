@@ -1,19 +1,27 @@
 package edu.wpi.teamc.dao.requests;
-import edu.wpi.teamc.dao.IDao;
 
+import edu.wpi.teamc.dao.IDao;
 import java.sql.SQLException;
 import java.util.List;
 
 public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
+  @Override
+  public List<FlowerDeliveryRequest> fetchAllObjects() throws SQLException {
+    return null;
+  }
 
-    List<FlowerDeliveryRequest> fetchAllObjects() throws SQLException;
+  @Override
+  public int updateRow(FlowerDeliveryRequest orm, FlowerDeliveryRequest repl) throws SQLException {
+    return 0;
+  }
 
-    int updateRow(FlowerDeliveryRequest type, FlowerDeliveryRequest type2) throws SQLException;
+  @Override
+  public int addRow(FlowerDeliveryRequest orm) {
+    return 0;
+  }
 
-     int updateDBRow(FlowerDeliveryRequest type) throws SQLException;
-
-    int addRow(FlowerDeliveryRequest type);
-
-    int deleteRow(FlowerDeliveryRequest type) throws SQLException;
-
+  @Override
+  public int deleteRow(FlowerDeliveryRequest orm) throws SQLException {
+    return 0;
+  }
 }

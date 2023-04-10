@@ -13,7 +13,6 @@ public class OfficeSuppliesRequest extends AbsServiceRequest {
     super(requestID, requester, roomName, additionalNotes);
     this.supplies = supplies;
   }
-
   @Override
   void executeRequest() {}
 }

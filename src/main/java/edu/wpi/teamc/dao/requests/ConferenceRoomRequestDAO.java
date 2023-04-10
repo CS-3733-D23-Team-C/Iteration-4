@@ -53,7 +53,8 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
   }
 
   @Override
-  public ConferenceRoomRequest updateRow(ConferenceRoomRequest orm, ConferenceRoomRequest repl) throws SQLException {
+  public ConferenceRoomRequest updateRow(ConferenceRoomRequest orm, ConferenceRoomRequest repl)
+      throws SQLException {
     return null;
   }
 }

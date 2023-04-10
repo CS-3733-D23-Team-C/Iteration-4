@@ -10,7 +10,7 @@ public class ConferenceRoomDAO implements IDao<ConferenceRoom> {
 
   DBConnection db = new DBConnection();
 
-  public int addRow(ConferenceRoom orm) {
+  public ConferenceRoom addRow(ConferenceRoom orm) {
     try {
       String CONFREQ =
           "INSERT INTO ConferenceRoomRequest (longName, shortName, availability) VALUES (?,?,?)";
@@ -21,17 +21,17 @@ public class ConferenceRoomDAO implements IDao<ConferenceRoom> {
         ps.setBoolean(3, orm.getAvailability());
         ps.executeUpdate();
         db.closeConnection();
-        return 1;
+        return null;
       }
 
     } catch (SQLException e) {
       e.printStackTrace();
       db.closeConnection();
-      return 0;
+      return null;
     }
   }
 
-  public int deleteRow(ConferenceRoom orm) {
+  public ConferenceRoom deleteRow(ConferenceRoom orm) {
     String CONFREQ =
         "DELETE FROM ConferenceRoomRequest WHERE longName = ? AND shortName = ? AND availability = ?";
     try {
@@ -41,16 +41,16 @@ public class ConferenceRoomDAO implements IDao<ConferenceRoom> {
       ps.setBoolean(3, orm.getAvailability());
       ps.executeUpdate();
       db.closeConnection();
-      return 1;
+      return null;
     } catch (SQLException e) {
       e.printStackTrace();
       db.closeConnection();
-      return 0;
+      return null;
     }
   }
 
   @Override
-  public int updateRow(ConferenceRoom orm, ConferenceRoom repl) {
+  public ConferenceRoom updateRow(ConferenceRoom orm, ConferenceRoom repl) {
     String CONFREQ =
         "UPDATE ConferenceRoomRequest SET longName = ?, shortName = ?, availability = ? WHERE longName = ? AND shortName = ? AND availability = ?";
     try {
@@ -63,11 +63,11 @@ public class ConferenceRoomDAO implements IDao<ConferenceRoom> {
       ps.setBoolean(6, orm.getAvailability());
       ps.executeUpdate();
       db.closeConnection();
-      return 1;
+      return null;
     } catch (SQLException e) {
       e.printStackTrace();
       db.closeConnection();
-      return 0;
+      return null;
     }
   }
 

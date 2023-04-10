@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Node {
-  private String nodeID;
+  private int nodeID;
   private int xCoord;
   private int yCoord;
   private String floor;
@@ -21,7 +21,7 @@ public class Node {
    * @param floor - floor of the node ex: L1
    * @param building - building of the node ex: CCONF
    */
-  public Node(String nodeID, int xCoord, int yCoord, String floor, String building) {
+  public Node(int nodeID, int xCoord, int yCoord, String floor, String building) {
     this.nodeID = nodeID;
     this.xCoord = xCoord;
     this.yCoord = yCoord;

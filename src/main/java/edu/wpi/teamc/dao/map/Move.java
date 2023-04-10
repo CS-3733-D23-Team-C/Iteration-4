@@ -7,11 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Move {
-  private String nodeID;
+  private int nodeID;
   private String longName;
   private Date date;
 
-  public Move(String nodeID, String longName, Date date) {
+  public Move(int nodeID, String longName, Date date) {
     this.nodeID = nodeID;
     this.longName = longName;
     this.date = date;

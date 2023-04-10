@@ -37,7 +37,7 @@ public class CApp extends Application {
     primaryStage.setScene(scene);
     primaryStage.show();
 
-    Navigation.navigate(Screen.ADMIN_HOME);
+    Navigation.navigate(Screen.HOME);
   }
 
   @Override

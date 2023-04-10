@@ -2,6 +2,10 @@ package edu.wpi.teamc.dao.map;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -132,7 +136,24 @@ public class MoveDao implements IDao<Move> {
     return false;
   }
 
-  public boolean exportCSV(String CSVfilepath) {
-    return false;
+  public boolean exportCSV(String CSVfilepath) throws IOException {
+    createFile(CSVfilepath);
+    BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
+    // Write the header row to the CSV file
+    writer.write("nodeID,longName,moveDate\n");
+    for (Move move : fetchAllObjects()) {
+      writer.write(move.getNodeID() + "," + move.getLongName() + "," + move.getDate() + "\n");
+    }
+    writer.close();
+    return true;
+  }
+
+  static void createFile(String fileName) throws IOException {
+    File file = new File(fileName);
+    if (file.createNewFile()) {
+      System.out.println("File created: " + file.getName());
+    } else {
+      System.out.println("File already exists.");
+    }
   }
 }

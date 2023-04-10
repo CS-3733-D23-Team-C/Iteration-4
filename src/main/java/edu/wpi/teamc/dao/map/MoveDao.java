@@ -42,9 +42,9 @@ public class MoveDao implements IDao<Move> {
       String MOVE = "\"hospitalNode\".move";
       // queries
       String queryUpdateMovesDB =
-              "UPDATE  "
-                      + MOVE
-                      + " SET \"nodeID\"=?, \"longName\"=?, \"moveDate\"=? WHERE \"nodeID\"=?; ";
+          "UPDATE  "
+              + MOVE
+              + " SET \"nodeID\"=?, \"longName\"=?, \"moveDate\"=? WHERE \"nodeID\"=?; ";
 
       PreparedStatement ps = db.getConnection().prepareStatement(queryUpdateMovesDB);
 

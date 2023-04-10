@@ -20,9 +20,9 @@ public class EdgeDao implements IDao<Edge> {
 
       ResultSet rsEdges = stmtEdge.executeQuery(queryDisplayEdges);
       while (rsEdges.next()) {
-        String startNodeString = rsEdges.getString("startNode");
-        String endNodeString = rsEdges.getString("endNode");
-        Edge edge = new Edge(startNodeString, endNodeString);
+        int startNode = rsEdges.getInt("startNode");
+        int endNode = rsEdges.getInt("endNode");
+        Edge edge = new Edge(startNode, endNode);
         databaseEdgeList.add(edge);
       }
     } catch (Exception e) {

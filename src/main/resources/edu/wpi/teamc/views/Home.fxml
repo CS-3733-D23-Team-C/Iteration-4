@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.HomeController">
+<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.HomeController">
    <children>
-      <MFXButton fx:id="navigateButton" text="Navigate">
-         <font>
-            <Font name="Nunito Sans Regular" size="16.0" />
-         </font>
-      </MFXButton>
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: E3DFDF;">
+         <children>
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="600.0" style="-fx-background-color: ffffff;" AnchorPane.bottomAnchor="323.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Text layoutX="75.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: 'Nunito Sans'; -fx-font-style: normal; -fx-font-weight: 700; -fx-font-size: 20;" text="Brigham and Women's Hospital" wrappingWidth="158.58984375" AnchorPane.leftAnchor="74.58984375" />
+            <SVGPath content="M40,60 C42,48 44,30 25,32" layoutX="10.0" layoutY="-9.0" />
+         </children>
+      </AnchorPane>
    </children>
 </StackPane>

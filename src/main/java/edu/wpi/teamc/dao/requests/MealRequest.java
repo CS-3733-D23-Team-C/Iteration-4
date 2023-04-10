@@ -3,7 +3,7 @@ package edu.wpi.teamc.dao.requests;
 import lombok.Getter;
 import lombok.Setter;
 
-public class MealRequest extends ServiceRequest {
+public class MealRequest extends AbsServiceRequest {
 
   @Getter @Setter private Meal meal;
 

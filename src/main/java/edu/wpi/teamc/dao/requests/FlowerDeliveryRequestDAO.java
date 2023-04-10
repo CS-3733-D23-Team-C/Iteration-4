@@ -11,17 +11,18 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
   }
 
   @Override
-  public int updateRow(FlowerDeliveryRequest orm, FlowerDeliveryRequest repl) throws SQLException {
-    return 0;
+  public FlowerDeliveryRequest updateRow(FlowerDeliveryRequest orm, FlowerDeliveryRequest repl)
+      throws SQLException {
+    return null;
   }
 
   @Override
-  public int addRow(FlowerDeliveryRequest orm) {
-    return 0;
+  public FlowerDeliveryRequest addRow(FlowerDeliveryRequest orm) {
+    return null;
   }
 
   @Override
-  public int deleteRow(FlowerDeliveryRequest orm) throws SQLException {
-    return 0;
+  public FlowerDeliveryRequest deleteRow(FlowerDeliveryRequest orm) throws SQLException {
+    return null;
   }
 }

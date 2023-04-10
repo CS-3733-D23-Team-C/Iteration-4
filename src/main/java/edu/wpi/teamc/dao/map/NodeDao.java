@@ -44,7 +44,7 @@ public class NodeDao implements IDao<Node> {
     return databaseNodeList;
   }
 
-  public int updateRow(Node orm, Node repl) {
+  public Node updateRow(Node orm, Node repl) {
     DBConnection dbConnection = new DBConnection();
     try {
       // table names
@@ -70,10 +70,10 @@ public class NodeDao implements IDao<Node> {
     }
     dbConnection.closeConnection();
 
-    return 1;
+    return null;
   }
 
-  public int addRow(Node orm) {
+  public Node addRow(Node orm) {
     DBConnection dbConnection = new DBConnection();
     try {
       // table names
@@ -95,10 +95,10 @@ public class NodeDao implements IDao<Node> {
     }
     dbConnection.closeConnection();
 
-    return 1;
+    return null;
   }
 
-  public int deleteRow(Node orm) {
+  public Node deleteRow(Node orm) {
     DBConnection dbConnection = new DBConnection();
     try {
       // table names
@@ -115,7 +115,7 @@ public class NodeDao implements IDao<Node> {
     }
     dbConnection.closeConnection();
 
-    return 1;
+    return null;
   }
 
   public void importRow(Node orm) {

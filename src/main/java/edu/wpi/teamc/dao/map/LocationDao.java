@@ -38,7 +38,7 @@ public class LocationDao implements IDao<LocationName> {
     return databaseLocationNameList;
   }
 
-  public int updateRow(LocationName orm, LocationName repl) {
+  public LocationName updateRow(LocationName orm, LocationName repl) {
     DBConnection db = new DBConnection();
     try {
       // table names
@@ -62,10 +62,10 @@ public class LocationDao implements IDao<LocationName> {
     }
     db.closeConnection();
 
-    return 1;
+    return null;
   }
 
-  public int addRow(LocationName orm) {
+  public LocationName addRow(LocationName orm) {
     DBConnection db = new DBConnection();
     try {
       // table names
@@ -85,10 +85,10 @@ public class LocationDao implements IDao<LocationName> {
     }
     db.closeConnection();
 
-    return 1;
+    return null;
   }
 
-  public int deleteRow(LocationName orm) {
+  public LocationName deleteRow(LocationName orm) {
     DBConnection db = new DBConnection();
     try {
       // table names
@@ -106,7 +106,7 @@ public class LocationDao implements IDao<LocationName> {
     }
     db.closeConnection();
 
-    return 1;
+    return null;
   }
 
   public boolean importCSV(String CSVfilepath) {

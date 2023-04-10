@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public class Edge {
-  private String startNode;
-  private String endNode;
+  private int startNode;
+  private int endNode;
 
-  public Edge(String startNode, String endNode) {
+  public Edge(int startNode, int endNode) {
     this.startNode = startNode;
     this.endNode = endNode;
   }

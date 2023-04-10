@@ -29,4 +29,7 @@ public class MealRequestDAO {
     }
 
 
+  public int updateRow(String longName, String shortName, Boolean availability) {
+    return 0;
+  }
 }

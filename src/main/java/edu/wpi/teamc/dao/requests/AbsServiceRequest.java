@@ -10,17 +10,14 @@ abstract class AbsServiceRequest {
   @Getter @Setter STATUS status;
   @Getter String additionalNotes;
 
-    public AbsServiceRequest(int requestID, Requester requester, String roomName, String additionalNotes) {
-        this.requestID = requestID;
-        this.requester = requester;
-        this.roomName = roomName;
-        this.additionalNotes = additionalNotes;
-        this.status = STATUS.PENDING;
-    }
-
-
-
-
+  public AbsServiceRequest(
+      int requestID, Requester requester, String roomName, String additionalNotes) {
+    this.requestID = requestID;
+    this.requester = requester;
+    this.roomName = roomName;
+    this.additionalNotes = additionalNotes;
+    this.status = STATUS.PENDING;
+  }
 
   abstract void executeRequest();
 }

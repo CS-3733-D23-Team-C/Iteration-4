@@ -2,13 +2,15 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import java.sql.SQLException;
+import java.util.List;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
 public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryRequest> {
-    DBConnection db = new DBConnection();
+  DBConnection db = new DBConnection();
 
     public FurnitureDeliveryRequest addRow(Requester requester, String roomName, String additionalNotes, String furnitureType, String furnitureName, String eta) {
         String FURNDELREQ = "INSERT INTO FurnitureDeliveryRequest (requester, roomName, additionalNotes, furnitureType, furnitureName, eta) VALUES (?,?,?,?,?,?)";
@@ -71,11 +73,6 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
 
     @Override
     public FurnitureDeliveryRequest updateRow(FurnitureDeliveryRequest type, FurnitureDeliveryRequest type2) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public FurnitureDeliveryRequest updateDBRow(FurnitureDeliveryRequest type) throws SQLException {
         return null;
     }
 

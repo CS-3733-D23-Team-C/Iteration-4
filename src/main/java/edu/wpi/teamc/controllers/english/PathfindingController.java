@@ -1,4 +1,4 @@
-package edu.wpi.teamc.controllers;
+package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.map.Graph;
 import edu.wpi.teamc.navigation.Navigation;

@@ -1,15 +1,15 @@
-package edu.wpi.teamc.controllers;
+package edu.wpi.teamc.controllers.english;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class TableRow {
+public class TableRowController {
     private String s1, s2, s3, s4, s5, s6, s7, s8, s9;
     int i;
 
-    public TableRow(String s1, String s2, String s3) {
+    public TableRowController(String s1, String s2, String s3) {
         this.s1 = s1;
         this.s2 = s2;
         this.s3 = s3;
@@ -22,7 +22,7 @@ public class TableRow {
     //    this.index = index;
     //  }
 
-    public TableRow(String s1, String s2, String s3, String s4, String s5, String s6) {
+    public TableRowController(String s1, String s2, String s3, String s4, String s5, String s6) {
         this.s1 = s1;
         this.s2 = s2;
         this.s3 = s3;
@@ -37,7 +37,7 @@ public class TableRow {
     //    this.index = index;
     //  }
 
-    public TableRow(String s1, String s2, String s3, String s4, String s5, String s6, String s7) {
+    public TableRowController(String s1, String s2, String s3, String s4, String s5, String s6, String s7) {
         this.s1 = s1;
         this.s2 = s2;
         this.s3 = s3;
@@ -47,7 +47,7 @@ public class TableRow {
         this.s7 = s7;
     }
 
-    public TableRow(
+    public TableRowController(
             String s1, String s2, String s3, String s4, String s5, String s6, String s7, String s8) {
         this.s1 = s1;
         this.s2 = s2;
@@ -59,7 +59,7 @@ public class TableRow {
         this.s8 = s8;
     }
 
-    public TableRow(
+    public TableRowController(
             String s1, String s2, String s3, String s4, String s5, String s6, String s7, int i) {
         this.s1 = s1;
         this.s2 = s2;
@@ -71,7 +71,7 @@ public class TableRow {
         this.i = i;
     }
 
-    public TableRow(
+    public TableRowController(
             String s1,
             String s2,
             String s3,
@@ -92,7 +92,7 @@ public class TableRow {
         this.s9 = s9;
     }
 
-    public TableRow(String s1, String s2, int i) {
+    public TableRowController(String s1, String s2, int i) {
         this.s1 = s1;
         this.s2 = s2;
         this.i = i;

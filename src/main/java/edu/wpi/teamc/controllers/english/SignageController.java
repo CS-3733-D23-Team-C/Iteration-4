@@ -1,4 +1,4 @@
-package edu.wpi.teamc.controllers;
+package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
@@ -6,7 +6,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
 
 /** */
-public class SignagePageController {
+public class SignageController {
     @FXML MFXButton backButton;
 
     /** Method run when controller is initialized */

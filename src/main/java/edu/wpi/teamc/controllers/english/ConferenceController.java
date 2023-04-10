@@ -1,12 +1,9 @@
 package edu.wpi.teamc.controllers.english;
 
-import edu.wpi.teamc.Cdb;
+import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
-import edu.wpi.teamc.serviceRequest.ConferenceRoom;
-import edu.wpi.teamc.serviceRequest.ConferenceRoomRequest;
-import edu.wpi.teamc.serviceRequest.IServiceRequest;
-import edu.wpi.teamc.serviceRequest.Requester;
+import edu.wpi.teamc.dao.IDao;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.time.LocalDate;
@@ -77,7 +74,7 @@ public class ConferenceController {
         String room = menuButton.getText();
         String notes = specialRequest.getText();
         String roomName = menuButton.getText();
-        IServiceRequest.STATUS status = IServiceRequest.STATUS.COMPLETE;
+        STATUS status = STATUS.COMPLETE;
         ConferenceRoomRequest req =
                 new ConferenceRoomRequest(
                         new Requester(Cdb.latestRequestID("conferenceRoom") + 1, name),
@@ -87,7 +84,7 @@ public class ConferenceController {
                         notes,
                         status);
 
-        Cdb.addConferenceRoomRequest(req);
+        ConferenceRoomRequestDAO.addRow(req);
 
         Navigation.navigate(Screen.CONGRATS_PAGE);
     }

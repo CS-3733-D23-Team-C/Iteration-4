@@ -35,8 +35,7 @@ public class LocationDaoTest {
   @Test
   public void deleteRow() {
     LocationDao locDao = new LocationDao();
-    LocationName locName =
-        new LocationName("15 Francis Security Desk Floor 2", "Information Desk", "INFO");
+    LocationName locName = new LocationName("15 Francis Desk", "Information Desk", "INFO");
 
     Assertions.assertEquals(1, locDao.deleteRow(locName));
   }

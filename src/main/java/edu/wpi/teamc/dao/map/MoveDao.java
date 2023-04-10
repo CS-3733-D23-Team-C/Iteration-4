@@ -5,6 +5,8 @@ import edu.wpi.teamc.dao.IDao;
 import java.sql.*;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,6 +96,7 @@ public class MoveDao implements IDao<Move> {
       String queryDeleteMovesDB = "DELETE FROM " + MOVE + " WHERE \"nodeID\"=?; ";
 
       PreparedStatement ps = db.getConnection().prepareStatement(queryDeleteMovesDB);
+      ps.setInt(1, orm.getNodeID());
 
       ps.executeUpdate();
     } catch (Exception e) {
@@ -102,5 +105,26 @@ public class MoveDao implements IDao<Move> {
     db.closeConnection();
 
     return 1;
+  }
+
+  public Date returnDate(String dateString) {
+    // function to convert to yyyy-mm-dd
+    SimpleDateFormat[] formats =
+        new SimpleDateFormat[] {
+          new SimpleDateFormat("d/M/yyyy"),
+          new SimpleDateFormat("dd/M/yyyy"),
+          new SimpleDateFormat("dd/MM/yyyy"),
+          new SimpleDateFormat("d/MM/yyyy")
+        };
+    for (SimpleDateFormat format : formats) {
+      try {
+        java.util.Date utilDate = format.parse(dateString);
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        return sqlDate;
+      } catch (ParseException e) {
+        // ignore and try next format
+      }
+    }
+    return null;
   }
 }

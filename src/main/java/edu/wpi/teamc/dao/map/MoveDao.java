@@ -2,10 +2,7 @@ package edu.wpi.teamc.dao.map;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -13,6 +10,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MoveDao implements IDao<Move> {
   public List<Move> fetchAllObjects() {
@@ -133,7 +132,29 @@ public class MoveDao implements IDao<Move> {
   }
 
   public boolean importCSV(String CSVfilepath) {
-    return false;
+    // Regular expression to match each row
+    String regex = "(.*),(.*),(.*)";
+    // Compile regular expression pattern
+    Pattern pattern = Pattern.compile(regex);
+    try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
+      String line;
+      br.readLine();
+      while ((line = br.readLine()) != null) {
+        // Match the regular expression to the current line
+        Matcher matcher = pattern.matcher(line);
+        if (matcher.matches()) {
+          int nodeID = Integer.valueOf(matcher.group(1));
+          String longName = matcher.group(2);
+          String dateString = matcher.group(3);
+          Date moveDate = returnDate(dateString);
+          Move move = new Move(nodeID, longName, moveDate);
+          addRow(move);
+        }
+      }
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return true;
   }
 
   public boolean exportCSV(String CSVfilepath) throws IOException {

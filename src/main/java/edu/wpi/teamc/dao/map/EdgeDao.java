@@ -2,15 +2,14 @@ package edu.wpi.teamc.dao.map;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EdgeDao implements IDao<Edge> {
   public List<Edge> fetchAllObjects() {
@@ -106,7 +105,29 @@ public class EdgeDao implements IDao<Edge> {
   }
 
   public boolean importCSV(String CSVfilepath) {
-    return false;
+    // Regular expression to match each row
+    String regex = "(.*),(.*)";
+    // Compile regular expression pattern
+    Pattern pattern = Pattern.compile(regex);
+    try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
+      String line;
+      br.readLine();
+      while ((line = br.readLine()) != null) {
+        // Match the regular expression to the current line
+        Matcher matcher = pattern.matcher(line);
+        if (matcher.matches()) {
+          int startNodeID = Integer.valueOf(matcher.group(1));
+          int endNodeID = Integer.valueOf(matcher.group(2));
+
+          Edge edge = new Edge(startNodeID, endNodeID);
+
+          addRow(edge);
+        }
+      }
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return true;
   }
 
   public boolean exportCSV(String CSVfilepath) throws IOException {

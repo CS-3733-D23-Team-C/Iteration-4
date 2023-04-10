@@ -1,19 +1,10 @@
 package edu.wpi.teamc.dao.requests;
 
-public class FurnitureDeliveryRequestDAO {
-    public int fetchAllObject() {
-        return 0;
-    }
+import edu.wpi.teamc.dao.DBConnection;
 
-    public int addRow(String longName, String shortName, Boolean availability) {
-        return 0;
-    }
+public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryRequest>{
+    DBConnection db = new DBConnection();
 
-    public int removeRow(String longName, String shortName, Boolean availability) {
-        return 0;
-    }
+    public int addRow()
 
-    public int updateRow(String longName, String shortName, Boolean availability) {
-        return 0;
-    }
 }

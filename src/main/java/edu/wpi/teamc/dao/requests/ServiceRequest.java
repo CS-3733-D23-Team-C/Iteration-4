@@ -8,5 +8,9 @@ abstract class ServiceRequest {
   @Getter @Setter STATUS status;
   String additionalNotes;
 
+
+
+
+
   abstract void executeRequest();
 }

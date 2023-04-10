@@ -8,7 +8,6 @@ public class ConferenceRoomRequest extends ServiceRequest {
   @Getter private ConferenceRoom conferenceRoom;
   private String startTime;
   private String endTime;
-  @Getter @Setter private STATUS status;
 
   @Override
   void executeRequest() {}

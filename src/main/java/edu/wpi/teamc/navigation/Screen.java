@@ -21,10 +21,8 @@ public enum Screen {
   FURNITURE("views/Furniture.fxml"),
   OFFICE_SUPPLY("views/OfficeSupply.fxml"),
   CONGRATS_PAGE("views/congratsPage.fxml"),
-  MAP_HISTORY_PAGE("views/MapChangeHistory.fxml"),
   PATHFINDING_PAGE("views/Pathfinding.fxml"),
-  HELP("views/Help.fxml"),
-  EDIT_MAP("views/MapEditing.fxml");
+  HELP("views/Help.fxml");
 
   private final String filename;
 

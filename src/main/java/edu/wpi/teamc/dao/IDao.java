@@ -8,7 +8,7 @@ public interface IDao<T> {
 
   T updateRow(T type, T type2) throws SQLException;
 
-  static T addRow(T type);
+  T addRow(T type);
 
   T deleteRow(T type) throws SQLException;
 }

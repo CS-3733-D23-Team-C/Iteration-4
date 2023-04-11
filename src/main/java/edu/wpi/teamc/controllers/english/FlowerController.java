@@ -63,7 +63,6 @@ public class FlowerController {
 
     @FXML
     void getSubmit() {
-
         submit.setOnMouseClicked(event -> Navigation.navigate(Screen.CONGRATS_PAGE));
     }
 

@@ -99,8 +99,8 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
               + table
               + " (req, roomName, \"flower\", additionalNotes, status, ETA) VALUES (?,?,?,?,?,?);";
 
-      PreparedStatement ps = db.getConnection()
-              .prepareStatement(query,  Statement.RETURN_GENERATED_KEYS);
+      PreparedStatement ps =
+          db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
       ps.setString(1, orm.getRequester().toString());
       ps.setString(2, orm.getRoomName());

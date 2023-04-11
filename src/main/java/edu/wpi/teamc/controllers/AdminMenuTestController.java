@@ -9,24 +9,24 @@ import javafx.scene.layout.AnchorPane;
 
 public class AdminMenuTestController extends AbsAdminMenuController {
 
-    @FXML private MFXButton serviceRequest;
-    @FXML private AnchorPane navList;
+  @FXML private MFXButton serviceRequest;
+  @FXML private AnchorPane navList;
 
-    @FXML
-    public void getService(ActionEvent event) {}
+  @FXML
+  public void getService(ActionEvent event) {}
 
-    @FXML
-    public void getLogout(ActionEvent actionEvent) {
-        Navigation.navigate(Screen.HOME);
-    }
+  @FXML
+  public void getLogout(ActionEvent actionEvent) {
+    Navigation.navigate(Screen.HOME);
+  }
 
-    @FXML
-    public void getExit(ActionEvent actionEvent) {
-        System.exit(0);
-    }
+  @FXML
+  public void getExit(ActionEvent actionEvent) {
+    System.exit(0);
+  }
 
-    @FXML
-    public void initialize() {}
+  @FXML
+  public void initialize() {}
 
   /*private void prepareSlideMenuAnimation() {
     TranslateTransition openNav = new TranslateTransition(new Duration(350), navList);

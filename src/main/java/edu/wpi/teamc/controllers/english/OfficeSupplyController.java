@@ -1,16 +1,27 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.dao.requests.OfficeSuppliesRequest;
+import edu.wpi.teamc.dao.requests.OfficeSuppliesRequestDAO;
+import edu.wpi.teamc.dao.requests.Requester;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 
 public class OfficeSupplyController {
   @FXML private MFXButton goHome;
   @FXML private MFXButton submit;
+
+  @FXML private MenuButton officeSupply;
+
+  @FXML private MFXTextField roomID;
+  @FXML private MFXTextField name;
+  @FXML private TextArea additionalInfo;
 
   @FXML private MFXButton clear;
 
@@ -57,6 +68,13 @@ public class OfficeSupplyController {
 
   @FXML
   void getSubmit() {
+    String roomID = this.roomID.getText();
+    String name = this.name.getText();
+    String additionalInfo = this.additionalInfo.getText();
+    String officeSupply = this.officeSupply.getText();
+    OfficeSuppliesRequest request = new OfficeSuppliesRequest(-1, new Requester(-1, name), roomID, officeSupply, additionalInfo);
+    OfficeSuppliesRequestDAO dao = new OfficeSuppliesRequestDAO();
+    request = dao.addRow(request);
     submit.setOnMouseClicked(event -> Navigation.navigate(Screen.CONGRATS_PAGE));
   }
 

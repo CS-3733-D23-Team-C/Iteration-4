@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MealRequestDAO implements IDao<MealRequest> {
-  public List<MealRequest> fetchAllObjects() throws SQLException {
+  public List<MealRequest> fetchAllObjects() {
     List<MealRequest> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
     try {

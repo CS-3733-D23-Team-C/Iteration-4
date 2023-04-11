@@ -61,16 +61,6 @@ public class MealHistoryController {
     ColumnSix.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     // get conference room table
 
-<<<<<<< HEAD
-    //    historyTable
-    //        .getItems()
-    //        .setAll(convertToObservableList(Cdb.getTable("ServiceRequests", "mealRequest")));
-=======
-    /*historyTable
-    .getItems()
-    .setAll(convertToObservableList(Cdb.getTable("ServiceRequests", "mealRequest")));*/
->>>>>>> UI-ServiceReq
-
     System.out.println("did it");
   }
 

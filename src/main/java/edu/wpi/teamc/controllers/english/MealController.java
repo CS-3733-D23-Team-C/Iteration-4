@@ -82,7 +82,6 @@ public class MealController {
     Navigation.navigate(Screen.CONGRATS_PAGE);
   }*/
 
-
   @FXML
   void getClear(ActionEvent event) {
     Navigation.navigate(Screen.MEAL);

@@ -16,7 +16,6 @@ public class ConferenceRoomRequest extends AbsServiceRequest {
       ConferenceRoom conferenceRoom,
       String note,
       String startTime,
-
       String endTime) {
     super(requestID, requester, conferenceRoom.toString(), note);
     this.startTime = startTime;

@@ -6,13 +6,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class OfficeSupplyRequestController {
-    @FXML
-    public void getLogout(ActionEvent actionEvent) {
-        Navigation.navigate(Screen.HOME);
-    }
+  @FXML
+  public void getLogout(ActionEvent actionEvent) {
+    Navigation.navigate(Screen.HOME);
+  }
 
-    @FXML
-    public void getExit(ActionEvent actionEvent) {
-        System.exit(0);
-    }
+  @FXML
+  public void getExit(ActionEvent actionEvent) {
+    System.exit(0);
+  }
 }

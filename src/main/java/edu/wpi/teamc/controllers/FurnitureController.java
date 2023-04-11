@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 
-public class FlowerController {
+public class FurnitureController {
   @FXML private MFXButton goHome;
   @FXML private MFXButton submit;
 
@@ -27,38 +27,33 @@ public class FlowerController {
   @FXML private MenuButton menuButton;
 
   @FXML
-  void getChoice0() {
-    menuButton.setText("--Please Select Bouquet Option--");
-  }
-
-  @FXML
-  void getChoice1() {
-    menuButton.setText("Roses");
-  }
-
-  @FXML
-  void getChoice2() {
-    menuButton.setText("White Roses");
-  }
-
-  @FXML
-  void getChoice3() {
-    menuButton.setText("Random Bouquet");
-  }
-
-  @FXML
-  void getChoice4() {
-    menuButton.setText("Ian's Holiday Special");
-  }
-
-  @FXML
   public void getGoHome() {
     Navigation.navigate(Screen.ADMIN_HOME);
   }
 
   @FXML
-  void getClear() {
-    clear.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER));
+  void getChoice0() {
+    menuButton.setText("--Please Select Furniture Option--");
+  }
+
+  @FXML
+  void getChoice1() {
+    menuButton.setText("Large Table");
+  }
+
+  @FXML
+  void getChoice2() {
+    menuButton.setText("Desk");
+  }
+
+  @FXML
+  void getChoice3() {
+    menuButton.setText("Chair");
+  }
+
+  @FXML
+  void getChoice4() {
+    menuButton.setText("Ian's Desk");
   }
 
   @FXML
@@ -67,37 +62,40 @@ public class FlowerController {
   }
 
   @FXML
-  void getFlowerDeliveryPage(ActionEvent event) {
+  void getClear() {}
+
+  @FXML
+  void getFlowerDeliveryPage(javafx.event.ActionEvent event) {
     Navigation.navigate(Screen.FLOWER);
   }
 
   @FXML
-  void getFurnitureDeliveryPage(ActionEvent event) {
+  void getFurnitureDeliveryPage(javafx.event.ActionEvent event) {
     Navigation.navigate(Screen.FURNITURE);
   }
 
   @FXML
-  void getHelpPage(ActionEvent event) {
+  void getHelpPage(javafx.event.ActionEvent event) {
     Navigation.navigate(Screen.HELP);
   }
 
   @FXML
-  void getMealDeliveryPage(ActionEvent event) {
+  void getMealDeliveryPage(javafx.event.ActionEvent event) {
     Navigation.navigate(Screen.MEAL);
   }
 
   @FXML
-  void getOfficeSuppliesPage(ActionEvent event) {
+  void getOfficeSuppliesPage(javafx.event.ActionEvent event) {
     Navigation.navigate(Screen.OFFICE_SUPPLY);
   }
 
   @FXML
-  void getRoomReservationPage(ActionEvent event) {
+  void getRoomReservationPage(javafx.event.ActionEvent event) {
     Navigation.navigate(Screen.CONFERENCE);
   }
 
   @FXML
-  void getSignagePage(ActionEvent event) {
+  void getSignagePage(javafx.event.ActionEvent event) {
     Navigation.navigate(Screen.SIGNAGE);
   }
 
@@ -106,7 +104,7 @@ public class FlowerController {
   public void initialize() {}
 
   @FXML
-  void getEditMap(ActionEvent event) {}
+  void getEditMap(javafx.event.ActionEvent event) {}
 
   @FXML
   void getLogOut(ActionEvent event) {
@@ -119,7 +117,7 @@ public class FlowerController {
   }
 
   @FXML
-  void getMapHistory(ActionEvent event) {}
+  void getMapHistory(javafx.event.ActionEvent event) {}
 
   @FXML
   void getMapPage(ActionEvent event) {}

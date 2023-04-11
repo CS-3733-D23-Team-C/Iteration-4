@@ -42,9 +42,13 @@ public class MapEditingController {
   /*
   Notes:
   * implement import and export buttons and get rid of navigation actions
-  * implement a submit button that submits all edits at once
+  * implement a submit button that submits all edits at once ****** DONE (just need database functions for finding node based on ID)
       * maybe store edits and their indices in an array and iterate over that array after the submit
       * button is pressed to update the move list from the database
+  * draw edges over map page for pathfinding (currently PathfindingIt1)
+      * implement A* on this map
+      * have list of nodes you can pick from?
+      * be able to select nodes using listeners?
    */
 
   /** */

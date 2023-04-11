@@ -3,6 +3,7 @@ package edu.wpi.teamc.dao.requests;
 import edu.wpi.teamc.dao.DBConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,10 +46,12 @@ public class OfficeSuppliesRequestDAO {
     String query =
         "INSERT INTO "
             + table
-            + " (requester, roomName, supplies, additionalNotes, status, eta) VALUES (?,?,?,?,?,?) RETURNING requestID;";
+            + " (requester, roomName, supplies, additionalNotes, status, eta) VALUES (?,?,?,?,?,?);";
     try {
-      ResultSet rs = db.getConnection().prepareStatement(query).executeQuery();
-      while (rs.next()) {
+      PreparedStatement ps = db.getConnection().prepareStatement(query,  Statement.RETURN_GENERATED_KEYS);
+      ps.executeUpdate();
+      ResultSet rs = ps.getGeneratedKeys();
+      rs.next();
         int requestID = rs.getInt("requestID");
         request =
             new OfficeSuppliesRequest(
@@ -59,7 +62,7 @@ public class OfficeSuppliesRequestDAO {
                 orm.getAdditionalNotes());
         request.setStatus(orm.getStatus());
         request.setEta(orm.getEta());
-      }
+
     } catch (Exception e) {
       e.printStackTrace();
     }

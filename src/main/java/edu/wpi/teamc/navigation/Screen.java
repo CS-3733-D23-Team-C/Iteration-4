@@ -6,6 +6,7 @@ public enum Screen {
   SIGNAGE("views/SignagePage.fxml"),
   ELEVATOR_SIGNAGE("views/ElevatorSignage.fxml"),
   HOME("views/Home.fxml"),
+  ADMIN_HOME("views/AdminHome.fxml"),
 
   FLOOR_PLAN("views/FloorPlan.fxml"),
 

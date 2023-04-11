@@ -23,7 +23,8 @@ public enum Screen {
   MAP_HISTORY_PAGE("views/MapChangeHistory.fxml"),
   PATHFINDING_PAGE("views/Pathfinding.fxml"),
   HELP("views/Help.fxml"),
-  EDIT_MAP("views/MapEditing.fxml");
+  EDIT_MAP("views/MapEditing.fxml"),
+  PATHFINDING("views/PathfindingIt1.fxml");
 
   private final String filename;
 

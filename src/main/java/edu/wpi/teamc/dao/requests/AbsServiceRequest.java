@@ -19,14 +19,14 @@ abstract class AbsServiceRequest {
     this.status = STATUS.PENDING;
   }
 
-    public AbsServiceRequest(
-        int requestID, Requester requester, String roomName, String additionalNotes, STATUS status) {
-        this.requestID = requestID;
-        this.requester = requester;
-        this.roomName = roomName;
-        this.additionalNotes = additionalNotes;
-        this.status = status;
-    }
+  public AbsServiceRequest(
+      int requestID, Requester requester, String roomName, String additionalNotes, STATUS status) {
+    this.requestID = requestID;
+    this.requester = requester;
+    this.roomName = roomName;
+    this.additionalNotes = additionalNotes;
+    this.status = status;
+  }
 
   abstract void executeRequest();
 }

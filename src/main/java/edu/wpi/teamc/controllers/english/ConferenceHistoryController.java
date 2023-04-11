@@ -65,9 +65,9 @@ public class ConferenceHistoryController {
 
     // get conference room table
 
-    historyTable
-        .getItems()
-        .setAll(convertToObservableList(Cdb.getTable("ServiceRequests", "conferenceRoom")));
+    /*historyTable
+    .getItems()
+    .setAll(convertToObservableList(Cdb.getTable("ServiceRequests", "conferenceRoom")));*/
 
     System.out.println("did it");
   }
@@ -110,7 +110,8 @@ public class ConferenceHistoryController {
       additionalInfo = rl.get(5);
       roomName = rl.get(6);
       rows.add(
-          new TableRow(requestID, reqname, status, startTime, endTime, additionalInfo, roomName));
+          new TableRowController(
+              requestID, reqname, status, startTime, endTime, additionalInfo, roomName));
     }
     return rows;
   }

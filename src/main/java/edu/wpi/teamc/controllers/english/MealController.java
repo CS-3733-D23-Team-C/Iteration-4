@@ -3,7 +3,6 @@ package edu.wpi.teamc.controllers.english;
 import edu.wpi.teamc.Cdb;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
-import edu.wpi.teamc.serviceRequest.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
@@ -80,7 +79,7 @@ public class MealController {
             status);
     Cdb.addMeal(req);
     Navigation.navigate(Screen.CONGRATS_PAGE);
-  }
+  }*/
 
   @FXML
   void getClear(ActionEvent event) {
@@ -154,4 +153,9 @@ public class MealController {
 
   @FXML
   void getMapPage(ActionEvent event) {}
+
+  @FXML
+  void getSubmit() {
+    menuButton.setText("Halal Shack Bowl with Zucchini Noodles and Chicken Breast");
+  }
 }

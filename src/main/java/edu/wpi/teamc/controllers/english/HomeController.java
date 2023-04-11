@@ -4,16 +4,11 @@ import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Stage;
 
 public class HomeController {
 
@@ -98,6 +93,46 @@ public class HomeController {
 
   @FXML
   void getEditMap(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
+
+  @FXML
+  void getImportNodes(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
+
+  @FXML
+  void getImportEdges(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
+
+  @FXML
+  void getImportLocationNames(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
+
+  @FXML
+  void getImportMove(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
+
+  @FXML
+  void getExportNodes(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
+
+  @FXML
+  void getExportEdges(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
+
+  @FXML
+  void getExportLocationNames(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
+
+  @FXML
+  void getExportMove(ActionEvent event) {
     Navigation.navigate(Screen.EDIT_MAP);
   }
 

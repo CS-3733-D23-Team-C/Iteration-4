@@ -75,16 +75,19 @@ public class ConferenceController {
     String roomName = menuButton.getText();
     STATUS status = STATUS.COMPLETE;
     ConferenceRoomRequest req =
-            /////////////////////////////////temporary place holder for the IDs to make the thing run somehow bc i need to test connectivity
+        ///////////////////////////////// temporary place holder for the IDs to make the thing run
+        // somehow bc i need to test connectivity
         new ConferenceRoomRequest(
-                1,
+            1,
             new Requester(1, name),
             new ConferenceRoom(room, room, false),
-                notes,
+            notes,
             start.toString(),
-            end.toString(), status);
+            end.toString(),
+            status);
 
-    ConferenceRoomRequestDAO.addRow(req);
+    IDao dao = new ConferenceRoomRequestDAO();
+    dao.addRow(req);
     Navigation.navigate(Screen.CONGRATS_PAGE);
   }
 

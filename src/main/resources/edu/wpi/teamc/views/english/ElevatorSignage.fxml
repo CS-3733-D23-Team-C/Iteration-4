@@ -23,11 +23,6 @@
         <Text layoutX="626.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" />
         <Text layoutX="626.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" />
         <Button layoutX="13.0" layoutY="10.0" mnemonicParsing="false" onAction="#initialize" style="-fx-background-color: #A9F6ED; -fx-text-fill: #008080;" text="Back" />
-        <ImageView fitHeight="37.0" fitWidth="51.0" layoutX="649.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../../../../../../../icone-de-cloche-grise(1).png" />
-            </image>
-        </ImageView>
         <Line endX="13.399948120117188" endY="-28.749237060546875" layoutX="108.0" layoutY="362.0" startX="13.399978637695312" startY="1.1444091796875E-5" stroke="#3ee2cd" strokeLineCap="ROUND" strokeWidth="6.0" />
         <Line endX="64.39994812011719" endY="50.000030517578125" layoutX="57.0" layoutY="315.0" startX="50.19999694824219" startY="33.800018310546875" stroke="#3ee2cd" strokeLineCap="ROUND" strokeWidth="6.0" />
         <Line endX="3.1999969482421875" endY="34.450775146484375" layoutX="132.0" layoutY="314.0" startX="-10.600051879882812" startY="51.000030517578125" stroke="#3ee2cd" strokeLineCap="ROUND" strokeWidth="6.0" />

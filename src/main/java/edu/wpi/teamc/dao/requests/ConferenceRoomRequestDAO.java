@@ -10,7 +10,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
 
   static DBConnection db = new DBConnection();
 
-  public static ConferenceRoomRequest addRow(ConferenceRoomRequest orm) {
+  public ConferenceRoomRequest addRow(ConferenceRoomRequest orm) {
     String CONFREQ = "INSERT INTO ConferenceRoomRequest VALUES (?,?,?,?,?,?,?)";
     try {
       PreparedStatement ps = db.getConnection().prepareStatement(CONFREQ);

@@ -1,6 +1,5 @@
 package edu.wpi.teamc.controllers.english;
 
-import edu.wpi.teamc.Cdb;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -63,8 +62,7 @@ public class MealController {
     menuButton.setText("Ian's Ham Sandwich");
   }
 
-  @FXML
-  void getSubmit(ActionEvent event) {
+  /*void getSubmit(ActionEvent event) {
     String notes = textArea.getText();
     IServiceRequest.STATUS status = IServiceRequest.STATUS.PENDING;
     String name = nameBox.getText();

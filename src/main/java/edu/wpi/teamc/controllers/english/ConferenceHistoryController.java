@@ -36,7 +36,7 @@ public class ConferenceHistoryController {
   @FXML TableColumn<TableRow, String> ColumnFive;
   @FXML TableColumn<TableRow, String> ColumnSix;
 
-  ObservableList<TableRow> rows = FXCollections.observableArrayList();
+  ObservableList<TableRowController> rows = FXCollections.observableArrayList();
 
   @FXML private Button goHome;
 
@@ -89,7 +89,7 @@ public class ConferenceHistoryController {
   //    System.out.println("did it");
   //  }
 
-  public ObservableList<TableRow> convertToObservableList(List<List<String>> rowList) {
+  public ObservableList<TableRowController> convertToObservableList(List<List<String>> rowList) {
     String requestID;
     String reqname;
     String status;

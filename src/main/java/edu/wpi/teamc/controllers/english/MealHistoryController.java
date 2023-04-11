@@ -2,7 +2,6 @@ package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
-import edu.wpi.teamc.serviceRequest.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -36,7 +35,7 @@ public class MealHistoryController {
   @FXML TableColumn<TableRow, String> ColumnFive;
   @FXML TableColumn<TableRow, String> ColumnSix;
 
-  ObservableList<TableRow> rows = FXCollections.observableArrayList();
+  ObservableList<TableRowController> rows = FXCollections.observableArrayList();
 
   @FXML private Button goHome;
 
@@ -62,9 +61,9 @@ public class MealHistoryController {
     ColumnSix.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     // get conference room table
 
-    historyTable
-        .getItems()
-        .setAll(convertToObservableList(Cdb.getTable("ServiceRequests", "mealRequest")));
+    /*historyTable
+    .getItems()
+    .setAll(convertToObservableList(Cdb.getTable("ServiceRequests", "mealRequest")));*/
 
     System.out.println("did it");
   }
@@ -86,7 +85,7 @@ public class MealHistoryController {
   //    System.out.println("did it");
   //  }
 
-  public ObservableList<TableRow> convertToObservableList(List<List<String>> rowList) {
+  public ObservableList<TableRowController> convertToObservableList(List<List<String>> rowList) {
     String requestID;
     String reqname;
     String meal;
@@ -105,7 +104,7 @@ public class MealHistoryController {
       status = rl.get(3);
       room = rl.get(4);
       notes = rl.get(5);
-      rows.add(new TableRow(requestID, reqname, meal, status, room, notes));
+      rows.add(new TableRowController(requestID, reqname, meal, status, room, notes));
     }
     return rows;
   }

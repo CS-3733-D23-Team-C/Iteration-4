@@ -104,12 +104,12 @@
                   <Font name="Arial" size="35.0" />
                </font>
             </Text>
-            <TextField fx:id="nameBox" layoutX="302.0" layoutY="51.0" prefHeight="54.0" prefWidth="690.0" AnchorPane.leftAnchor="314.0" AnchorPane.topAnchor="56.0">
+            <TextField fx:id="nameBox" layoutX="314.0" layoutY="52.0" prefHeight="54.0" prefWidth="690.0" AnchorPane.leftAnchor="314.0" AnchorPane.topAnchor="52.0">
                <font>
                   <Font size="35.0" />
                </font>
             </TextField>
-            <Text fill="#574c4c" layoutX="-7.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: Bold;" text="Select Room:" x="60.0" y="60.0" AnchorPane.leftAnchor="53.0" AnchorPane.topAnchor="162.0">
+            <Text fill="#574c4c" layoutX="-7.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: Bold;" text="Select Room:" x="60.0" y="60.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="162.0">
                <font>
                   <Font name="Arial" size="35.0" />
                </font>

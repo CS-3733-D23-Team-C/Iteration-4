@@ -9,7 +9,7 @@ public enum Screen {
 
   FLOOR_PLAN("views/english/FloorPlan.fxml"),
 
-  LOGIN("views/english/LoginPage.fxml"),
+  LOGIN("views/english/Home.fxml"),
   ADMIN_HOME("views/english/AdminHome.fxml"),
   GUEST_HOME("views/english/GuestHome.fxml"),
   MEAL("views/english/MealRequest.fxml"),
@@ -21,10 +21,13 @@ public enum Screen {
   FURNITURE("views/english/FurnitureRequest.fxml"),
   OFFICE_SUPPLY("views/english/OfficeSupplyRequest.fxml"),
   CONGRATS_PAGE("views/english/Congrats.fxml"),
-  MAP_HISTORY_PAGE("views/english/MapChangeHistory.fxml"),
-  PATHFINDING_PAGE("views/english/Pathfinding.fxml"),
+  MAP_HISTORY_PAGE("views/english/MapHistory.fxml"),
+  PATHFINDING_PAGE("views/english/PathFinding.fxml"),
   HELP("views/english/Help.fxml"),
-  EDIT_MAP("views/english/MapEditing.fxml");
+  EDIT_MAP("views/english/MapEditing.fxml"),
+
+
+  ;
 
   private final String filename;
 

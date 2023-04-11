@@ -11,7 +11,7 @@ public class CongratsController {
 
   @FXML
   public void getMainMenu() {
-    mainMenuButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    mainMenuButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ADMIN_HOME));
   }
 
   @FXML

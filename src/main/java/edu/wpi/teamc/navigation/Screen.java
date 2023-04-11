@@ -24,9 +24,7 @@ public enum Screen {
   MAP_HISTORY_PAGE("views/english/MapHistory.fxml"),
   PATHFINDING_PAGE("views/english/PathFinding.fxml"),
   HELP("views/english/Help.fxml"),
-  EDIT_MAP("views/english/MapEditing.fxml"),
-
-
+  EDIT_MAP("views/english/EditMap.fxml"),
   ;
 
   private final String filename;

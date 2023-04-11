@@ -1,4 +1,4 @@
-package edu.wpi.teamc.controllers;
+package edu.wpi.teamc.controllers.english;
 
 import javafx.fxml.FXML;
 

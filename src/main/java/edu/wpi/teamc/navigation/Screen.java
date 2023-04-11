@@ -6,7 +6,6 @@ public enum Screen {
   SIGNAGE("views/SignagePage.fxml"),
   ELEVATOR_SIGNAGE("views/ElevatorSignage.fxml"),
   HOME("views/Home.fxml"),
-  ADMIN_HOME("views/AdminHome.fxml"),
 
   FLOOR_PLAN("views/FloorPlan.fxml"),
 
@@ -21,8 +20,10 @@ public enum Screen {
   FURNITURE("views/Furniture.fxml"),
   OFFICE_SUPPLY("views/OfficeSupply.fxml"),
   CONGRATS_PAGE("views/congratsPage.fxml"),
+  MAP_HISTORY_PAGE("views/MapChangeHistory.fxml"),
   PATHFINDING_PAGE("views/Pathfinding.fxml"),
-  HELP("views/Help.fxml");
+  HELP("views/Help.fxml"),
+  EDIT_MAP("views/MapEditing.fxml");
 
   private final String filename;
 

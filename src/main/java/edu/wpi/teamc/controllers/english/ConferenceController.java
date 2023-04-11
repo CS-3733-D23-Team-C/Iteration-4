@@ -73,9 +73,9 @@ public class ConferenceController {
             0,
             new Requester(0, name),
             new ConferenceRoom(room, room, false),
+            notes,
             start.toString(),
             end.toString(),
-            notes,
             status);
 
     IDao<ConferenceRoomRequest> dao = new ConferenceRoomRequestDAO();

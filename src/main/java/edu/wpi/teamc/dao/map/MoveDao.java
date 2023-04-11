@@ -64,7 +64,7 @@ public class MoveDao implements IDao<Move> {
     }
     db.closeConnection();
 
-    return null;
+    return repl;
   }
 
   public Move addRow(Move orm) {
@@ -87,7 +87,7 @@ public class MoveDao implements IDao<Move> {
     }
     db.closeConnection();
 
-    return null;
+    return orm;
   }
 
   public Move deleteRow(Move orm) {
@@ -107,7 +107,7 @@ public class MoveDao implements IDao<Move> {
     }
     db.closeConnection();
 
-    return null;
+    return orm;
   }
 
   public Date returnDate(String dateString) {

@@ -70,7 +70,7 @@ public class NodeDao implements IDao<Node> {
     }
     dbConnection.closeConnection();
 
-    return null;
+    return repl;
   }
 
   public Node addRow(Node orm) {
@@ -82,7 +82,10 @@ public class NodeDao implements IDao<Node> {
       String queryInsertNodesDB =
           "INSERT INTO " + NODE + " (xcoord, ycoord, \"floorNum\", building) VALUES (?,?,?,?);";
 
-      PreparedStatement ps = dbConnection.getConnection().prepareStatement(queryInsertNodesDB);
+      PreparedStatement ps =
+          dbConnection
+              .getConnection()
+              .prepareStatement(queryInsertNodesDB, Statement.RETURN_GENERATED_KEYS);
 
       ps.setInt(1, orm.getXCoord());
       ps.setInt(2, orm.getYCoord());
@@ -90,12 +93,15 @@ public class NodeDao implements IDao<Node> {
       ps.setString(4, orm.getBuilding());
 
       ps.executeUpdate();
+      ResultSet rs = ps.getGeneratedKeys();
+      rs.next();
+      orm.setNodeID(rs.getInt(1));
     } catch (Exception e) {
       e.printStackTrace();
     }
     dbConnection.closeConnection();
 
-    return null;
+    return orm;
   }
 
   public Node deleteRow(Node orm) {
@@ -115,7 +121,7 @@ public class NodeDao implements IDao<Node> {
     }
     dbConnection.closeConnection();
 
-    return null;
+    return orm;
   }
 
   public void importRow(Node orm) {

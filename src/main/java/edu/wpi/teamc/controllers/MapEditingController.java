@@ -49,6 +49,8 @@ public class MapEditingController {
       * implement A* on this map
       * have list of nodes you can pick from?
       * be able to select nodes using listeners?
+      node id and longname to modify and shortname
+      longname, shortname, nodeid, nodetype, xcoord, ycoord, floor, building
    */
 
   /** */
@@ -105,6 +107,16 @@ public class MapEditingController {
   List<Node> n_toModify_newNode = new ArrayList<Node>();
   List<String> n_toModify_oldID = new ArrayList<String>();
   List<String> n_toRemove = new ArrayList<String>();
+  List<Node> oldNameToAdd = new ArrayList<Node>();
+  List<String> newNameToAdd = new ArrayList<String>();
+
+  List<Node> oldNameToModify = new ArrayList<Node>();
+  List<String> newNameToModify = new ArrayList<String>();
+  List<Node> oldNameToRemove = new ArrayList<Node>();
+  List<String> newNameToRemove = new ArrayList<String>();
+
+  String sNameInput_temp;
+  String lNameInput_temp;
 
   //  List<Node> databaseNodeList = new ArrayList<Node>();
   //  List<Edge> databaseEdgeList = new ArrayList<Edge>();
@@ -406,157 +418,157 @@ public class MapEditingController {
         });
   }
 
-  //  public void showNameMenu(ActionEvent event) {
-  //    BorderPane borderPane = new BorderPane();
-  //    HBox hBox = new HBox();
-  //
-  //    // modify
-  //    VBox modifyBox = new VBox(); // modify
-  //    Text nodeID_M = new Text("Input ID of Node to Be Modified");
-  //    Text xCoord_t = new Text("Input new Xcoord");
-  //    Text yCoord_t = new Text("Input new YCoord");
-  //    MFXTextField nodeIDText = new MFXTextField();
-  //    MFXTextField xCoord_text = new MFXTextField();
-  //    MFXTextField yCoord_text = new MFXTextField();
-  //    MFXButton submitModify = new MFXButton("Modify");
-  //    submitModify.setPrefSize(100, 35);
-  //    submitModify.setMinSize(100, 35);
-  //    modifyBox
-  //            .getChildren()
-  //            .addAll(
-  //                    nodeID_M, nodeIDText, xCoord_t, xCoord_text, yCoord_t, yCoord_text,
-  // submitModify);
-  //    modifyBox.setSpacing(20);
-  //
-  //    // remove
-  //    VBox removeBox = new VBox();
-  //    Text nodeID_R = new Text("Input ID of Node to be Removed");
-  //    MFXTextField nodeID_RText = new MFXTextField();
-  //    MFXButton submitRemove = new MFXButton("Remove");
-  //    submitRemove.setPrefSize(100, 35);
-  //    submitRemove.setMinSize(100, 35);
-  //    removeBox.getChildren().addAll(nodeID_R, nodeID_RText, submitRemove);
-  //    removeBox.setSpacing(20);
-  //
-  //    // add
-  //    VBox addBox = new VBox();
-  //    Text XCoordText = new Text("Input X Coordinate");
-  //    Text YCoordText = new Text("Input Y Coordinate");
-  //    Text BuildingText = new Text("Input Building Name");
-  //    MFXTextField inputXCoord = new MFXTextField();
-  //    MFXTextField inputYCoord = new MFXTextField();
-  //    MFXTextField inputBuilding = new MFXTextField(); // need floor as well
-  //    MFXButton submitNode = new MFXButton("Add");
-  //    submitNode.setId("submitNode");
-  //    //    submitNode.setText("Submit Node");
-  //    submitNode.setPrefSize(100, 35);
-  //    submitNode.setMinSize(100, 35);
-  //    //    inputXCoord.setPrefSize(30, 30);
-  //    //    inputXCoord.setBorderGap(20);
-  //    addBox
-  //            .getChildren()
-  //            .addAll(
-  //                    XCoordText,
-  //                    inputXCoord,
-  //                    YCoordText,
-  //                    inputYCoord,
-  //                    BuildingText,
-  //                    inputBuilding,
-  //                    submitNode);
-  //    addBox.setSpacing(20);
-  //    //    textBoxes.setSpacing(5);
-  //    //    textBoxes.setAlignment(Pos.CENTER);
-  //    //    textBoxes.relocate(0,0);
-  //    hBox.getChildren().addAll(addBox, modifyBox, removeBox);
-  //    hBox.setSpacing(20);
-  //    MFXButton submitNodeEdits = new MFXButton();
-  //    VBox masterBox = new VBox();
-  //    masterBox.getChildren().addAll(hBox,submitNodeEdits);
-  //    borderPane.getChildren().add(masterBox);
-  //    addBox.relocate(0, 0);
-  //    Scene scene = new Scene(borderPane, 600, 400);
-  //    borderPane.relocate(0, 0);
-  //    Stage stage = new Stage();
-  //    stage.setScene(scene);
-  //    stage.setTitle("Add Node Window");
-  //
-  //    stage.show();
-  //
-  //    submitNode.setOnMouseClicked(
-  //            buttonEvent -> {
-  //              xCoord_temp = inputXCoord.getText();
-  //              yCoord_temp = inputYCoord.getText();
-  //              //          iD = inputID.getText();
-  //              building = inputBuilding.getText(); // maybe set automatically later
-  //              Node newNode =
-  //                      new Node(Integer.valueOf(xCoord_temp), Integer.valueOf(yCoord_temp),
-  // floor, building);
-  ////          NodeDao nodeDao = new NodeDao();
-  //              n_toAdd.add(newNode);
-  ////          nodeDao.addRow(newNode); to iterate over in submit method
-  ////          placeNodes(
-  ////              floor); // later implement an update map button that updates all changes made at
-  // once
-  //              // so user can submit multiple at a time
-  //              System.out.println("printed the new node");
-  //            });
-  //    submitModify.setOnMouseClicked(
-  //            buttonEvent -> {
-  //              nodeID_temp = nodeID_M.getText();
-  //              xCoord_temp = xCoord_text.getText();
-  //              yCoord_temp = yCoord_text.getText();
-  //              //          iD = inputID.getText();
-  ////              building = inputBuilding.getText(); // maybe set automatically later
-  //              Node newNode =
-  //                      new Node(Integer.valueOf(xCoord_temp), Integer.valueOf(yCoord_temp),
-  // floor, building);
-  //              NodeDao oldDao = new NodeDao();
-  ////              Node oldNode = oldDao.getNode(nodeID_temp); ////*******Need to add this getter
-  // method
-  //              NodeDao nodeDao = new NodeDao();
-  //              n_toModify_newNode.add(newNode);
-  //              n_toModify_oldID.add(nodeID_temp);
-  ////              nodeDao.updateRow(newNode, oldNode); //////////********
-  ////              placeNodes(
-  ////                      floor); // later implement an update map button that updates all changes
-  // made at once
-  //              // so
-  //              // user can submit multiple at a time
-  //              System.out.println("modified the node");
-  //            });
-  //    submitRemove.setOnMouseClicked(
-  //            buttonEvent -> {
-  //              iD = nodeID_RText.getText();
-  //              n_toRemove.add(iD);
-  ////              placeNodes(
-  ////                      floor); // later implement an update map button that updates all changes
-  // made at once
-  //              // so
-  //              // user can submit multiple at a time
-  //              System.out.println("removed the node");
-  //            });
-  //    submitNodeEdits.setOnMouseClicked(
-  //            buttonEvent -> {
-  //              NodeDao nodeDao = new NodeDao();
-  //
-  //              //Add
-  //              for(Node currNode : n_toAdd) {
-  //                nodeDao.addRow(currNode);
-  //              }
-  //              //Modify
-  //              for(int i = 0; i < n_toModify_oldID.size(); i++) {
-  //                Node currNode = n_toModify_newNode.get(i);
-  //                String oldID = n_toModify_oldID.get(i);
-  ////                nodeDao.getNodeFromID() ////////NEED TO CREATE THIS METHOD
-  //                /////REPLACE NODE METHOD
-  //              }
-  //              for(String currID : n_toRemove) {
-  ////                nodeDao.deleteRow(currID); ////NEED TO MAKE WORK WITH NODE ID ONLY AS SUPPLIED
-  //              }
-  //              placeNodes(floor);
-  //            }
-  //    );
-  //  }
+  public void showNameMenu(ActionEvent event) {
+    BorderPane borderPane = new BorderPane();
+    HBox hBox = new HBox();
+
+    // modify
+    VBox modifyBox = new VBox(); // modify
+    Text nodeID_M = new Text("Input NodeID of Name to Be Modified");
+    Text longName = new Text("Input new Longname");
+    Text shortName = new Text("Input new Shortname");
+    MFXTextField nodeIDText = new MFXTextField();
+    MFXTextField shortName_t = new MFXTextField();
+    MFXTextField longName_t = new MFXTextField();
+
+    MFXButton submitModify = new MFXButton("Modify");
+    submitModify.setPrefSize(100, 35);
+    submitModify.setMinSize(100, 35);
+    modifyBox
+        .getChildren()
+        .addAll(nodeID_M, nodeIDText, shortName, shortName_t, longName, longName_t, submitModify);
+    modifyBox.setSpacing(20);
+
+    // remove
+    VBox removeBox = new VBox();
+    Text nodeID_R = new Text("Input ID of Node to be Removed");
+    MFXTextField nodeID_RText = new MFXTextField();
+    MFXButton submitRemove = new MFXButton("Remove");
+    submitRemove.setPrefSize(100, 35);
+    submitRemove.setMinSize(100, 35);
+    removeBox.getChildren().addAll(nodeID_R, nodeID_RText, submitRemove);
+    removeBox.setSpacing(20);
+
+    // add
+    VBox addBox = new VBox();
+    //      Text XCoordText = new Text("Input X Coordinate");
+    //      Text YCoordText = new Text("Input Y Coordinate");
+    Text nodeID = new Text("Input NodeID");
+    Text SName = new Text("Input New Shortname");
+    Text LName = new Text("Input New Longname");
+
+    //      Text BuildingText = new Text("Input Building Name");
+    MFXTextField nodeIDinput = new MFXTextField();
+    MFXTextField sNameInput = new MFXTextField();
+    MFXTextField lNameInput = new MFXTextField();
+    MFXButton submitNode = new MFXButton("Add");
+    submitNode.setId("submitNode");
+    //    submitNode.setText("Submit Node");
+    submitNode.setPrefSize(100, 35);
+    submitNode.setMinSize(100, 35);
+    //    inputXCoord.setPrefSize(30, 30);
+    //    inputXCoord.setBorderGap(20);
+    addBox
+        .getChildren()
+        .addAll(nodeID, nodeIDinput, SName, sNameInput, LName, lNameInput, submitNode);
+    addBox.setSpacing(20);
+    //    textBoxes.setSpacing(5);
+    //    textBoxes.setAlignment(Pos.CENTER);
+    //    textBoxes.relocate(0,0);
+    hBox.getChildren().addAll(addBox, modifyBox, removeBox);
+    hBox.setSpacing(20);
+    MFXButton submitNodeEdits = new MFXButton();
+    VBox masterBox = new VBox();
+    masterBox.getChildren().addAll(hBox, submitNodeEdits);
+    borderPane.getChildren().add(masterBox);
+    addBox.relocate(0, 0);
+    Scene scene = new Scene(borderPane, 600, 400);
+    borderPane.relocate(0, 0);
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.setTitle("Add Node Window");
+
+    stage.show();
+
+    // Add
+    submitNode.setOnMouseClicked(
+        buttonEvent -> {
+          nodeID_temp = nodeIDinput.getText();
+          sNameInput_temp = sNameInput.getText();
+          lNameInput_temp = lNameInput.getText();
+//          *********FIND NODE USING NODE ID
+          Node newNode = /////////////get rid of this when find old node or make node using old x, y, and building found
+              new Node(Integer.valueOf(xCoord_temp), Integer.valueOf(yCoord_temp), floor, building);
+          //          NodeDao nodeDao = new NodeDao();
+          oldNameToAdd.add(newNode); /////////////INSTEAD HAVE THIS BE THE OLD NODE FOUND USING ID
+          newNameToAdd.add(nodeID_temp);
+          //          nodeDao.addRow(newNode); to iterate over in submit method
+          //          placeNodes(
+          //              floor); // later implement an update map button that updates all changes
+          // made at
+          //   once
+          // so user can submit multiple at a time
+          System.out.println("printed the new node");
+        });
+    //Modify
+    submitModify.setOnMouseClicked(
+        buttonEvent -> {
+          nodeID_temp = nodeID_M.getText();
+          sNameInput_temp = shortName_t.getText();
+          lNameInput_temp = longName_t.getText();
+          //          iD = inputID.getText();
+          //              building = inputBuilding.getText(); // maybe set automatically later
+          Node newNode =
+              new Node(Integer.valueOf(xCoord_temp), Integer.valueOf(yCoord_temp), floor, building);
+          NodeDao oldDao = new NodeDao();
+          //              Node oldNode = oldDao.getNode(nodeID_temp); ////*******Need to add this
+          // getter
+          //   method
+          oldNameToModify.add(newNode);
+          newNameToModify.add(nodeID_temp);
+          //              nodeDao.updateRow(newNode, oldNode); //////////********
+          //              placeNodes(
+          //                      floor); // later implement an update map button that updates all
+          // changes
+          //   made at once
+          // so
+          // user can submit multiple at a time
+          System.out.println("modified the node");
+        });
+    submitRemove.setOnMouseClicked(
+        buttonEvent -> {
+          iD = nodeID_RText.getText();
+          n_toRemove.add(iD);
+          //              placeNodes(
+          //                      floor); // later implement an update map button that updates all
+          // changes
+          //   made at once
+          // so
+          // user can submit multiple at a time
+          System.out.println("removed the node");
+        });
+    submitNodeEdits.setOnMouseClicked(
+        buttonEvent -> {
+          NodeDao nodeDao = new NodeDao();
+
+          // Add
+          for (Node currNode : n_toAdd) {
+            nodeDao.addRow(currNode);
+          }
+          // Modify
+          for (int i = 0; i < n_toModify_oldID.size(); i++) {
+            Node currNode = n_toModify_newNode.get(i);
+            String oldID = n_toModify_oldID.get(i);
+            //                nodeDao.getNodeFromID() ////////NEED TO CREATE THIS METHOD
+            ///// REPLACE NODE METHOD
+          }
+          for (String currID : n_toRemove) {
+            //                nodeDao.deleteRow(currID); ////NEED TO MAKE WORK WITH NODE ID ONLY AS
+            // SUPPLIED
+          }
+          placeNodes(floor);
+        });
+  }
 
   public void getGoHome(ActionEvent event) {
     Navigation.navigate(Screen.HOME);

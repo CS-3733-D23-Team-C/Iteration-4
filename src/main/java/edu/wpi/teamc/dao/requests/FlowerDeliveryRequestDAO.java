@@ -4,13 +4,12 @@ import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
-  public  List<FlowerDeliveryRequest> fetchAllObjects() {
+  public List<FlowerDeliveryRequest> fetchAllObjects() {
     List<FlowerDeliveryRequest> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
 
@@ -45,7 +44,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
     return returnList;
   }
 
-  public  FlowerDeliveryRequest updateRow(FlowerDeliveryRequest orm, FlowerDeliveryRequest repl) {
+  public FlowerDeliveryRequest updateRow(FlowerDeliveryRequest orm, FlowerDeliveryRequest repl) {
     DBConnection db = new DBConnection();
     FlowerDeliveryRequest fdr = null;
     try {
@@ -84,7 +83,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
     return fdr;
   }
 
-  public  FlowerDeliveryRequest addRow(FlowerDeliveryRequest orm) {
+  public FlowerDeliveryRequest addRow(FlowerDeliveryRequest orm) {
     DBConnection db = new DBConnection();
     FlowerDeliveryRequest request = null;
     try {

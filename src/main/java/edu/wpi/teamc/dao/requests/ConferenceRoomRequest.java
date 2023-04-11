@@ -16,7 +16,8 @@ public class ConferenceRoomRequest extends AbsServiceRequest {
       ConferenceRoom conferenceRoom,
       String note,
       String startTime,
-      String endTime, STATUS status) {
+      String endTime,
+      STATUS status) {
     super(requestID, requester, conferenceRoom.toString(), note);
     this.startTime = startTime;
     this.endTime = endTime;

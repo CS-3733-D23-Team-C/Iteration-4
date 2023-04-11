@@ -72,7 +72,9 @@ public class OfficeSupplyController {
     String name = this.name.getText();
     String additionalInfo = this.additionalInfo.getText();
     String officeSupply = this.officeSupply.getText();
-    OfficeSuppliesRequest request = new OfficeSuppliesRequest(-1, new Requester(-1, name), roomID, officeSupply, additionalInfo);
+    OfficeSuppliesRequest request =
+        new OfficeSuppliesRequest(
+            -1, new Requester(-1, name), roomID, officeSupply, additionalInfo);
     OfficeSuppliesRequestDAO dao = new OfficeSuppliesRequestDAO();
     request = dao.addRow(request);
     submit.setOnMouseClicked(event -> Navigation.navigate(Screen.CONGRATS_PAGE));

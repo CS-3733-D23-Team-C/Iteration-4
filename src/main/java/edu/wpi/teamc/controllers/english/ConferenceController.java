@@ -85,8 +85,8 @@ public class ConferenceController {
   }
 
   @FXML
-  void getClear() {
-    clear.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE));
+  void getClear(ActionEvent event) {
+    Navigation.navigate(Screen.CONFERENCE);
   }
 
   @FXML

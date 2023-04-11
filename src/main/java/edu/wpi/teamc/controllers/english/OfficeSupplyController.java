@@ -57,7 +57,9 @@ public class OfficeSupplyController {
   }
 
   @FXML
-  void getClear() {}
+  void getClear(ActionEvent event) {
+    Navigation.navigate(Screen.OFFICE_SUPPLY);
+  }
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {

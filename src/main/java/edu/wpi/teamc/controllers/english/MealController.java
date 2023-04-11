@@ -24,7 +24,7 @@ public class MealController {
   @FXML private MenuItem choice3;
 
   @FXML private MenuItem choice4;
-  @FXML private TextField roomID;
+  @FXML private MenuButton roomID;
   @FXML private TextField nameBox;
 
   @FXML private MenuButton menuButton;
@@ -58,6 +58,16 @@ public class MealController {
   @FXML
   void getChoice4() {
     menuButton.setText("Reverse Osmosis Water");
+  }
+
+  @FXML
+  void getRoom1() {
+    roomID.setText("Room1");
+  }
+
+  @FXML
+  void getRoom2() {
+    roomID.setText("Room2");
   }
 
   @FXML

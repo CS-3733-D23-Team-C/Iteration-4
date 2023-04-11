@@ -113,7 +113,7 @@
                         <Font size="35.0" />
                      </font>
                   </TextField>
-                  <Text fill="#574c4c" layoutX="-7.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: Bold;" text="Room ID:" x="60.0" y="60.0" AnchorPane.leftAnchor="53.0" AnchorPane.topAnchor="162.0">
+                  <Text fill="#574c4c" layoutX="1.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: Bold;" text="Room ID:" x="60.0" y="60.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="168.0">
                      <font>
                         <Font name="Arial" size="35.0" />
                      </font>
@@ -143,12 +143,19 @@
                         <Font size="35.0" />
                      </font>
                   </MFXButton>
-                  <TextField fx:id="roomID" layoutX="315.0" layoutY="146.0" prefHeight="54.0" prefWidth="690.0" AnchorPane.leftAnchor="315.0" AnchorPane.topAnchor="151.0">
-                     <font>
-                        <Font size="35.0" />
-                     </font>
-                  </TextField>
-                  <Text fill="#574c4c" layoutX="3.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: Bold;" text="Select Meal:" x="60.0" y="60.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="270.0">
+                  <MenuButton fx:id="roomID" layoutX="320.0" layoutY="157.0" prefHeight="54.0" prefWidth="690.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Select Room" textFill="#574c4c" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="157.0">
+                     <items>
+                        <MenuItem fx:id="room1" mnemonicParsing="false" onAction="#getRoom1" text="Room1" />
+                        <MenuItem fx:id="room2" mnemonicParsing="false" onAction="#getRoom2" text="Room2" />
+                     </items>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </MenuButton>
+                  <Text fill="#574c4c" layoutX="1.0" layoutY="247.6845703125" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: Bold;" text="Select Meal:" x="60.0" y="60.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="276.0">
                      <font>
                         <Font name="Arial" size="35.0" />
                      </font>

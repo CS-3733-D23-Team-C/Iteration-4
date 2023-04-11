@@ -35,7 +35,7 @@
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor></MFXButton>
-                <MFXButton fx:id="exitButton" layoutX="74.0" layoutY="801.0" onAction="#getExit" prefHeight="42.0" prefWidth="98.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Exit" textFill="#978787" AnchorPane.leftAnchor="147.0" AnchorPane.topAnchor="819.0">
+                <MFXButton fx:id="exitButton" layoutX="74.0" layoutY="801.0" onAction="#getExit" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Exit" textFill="#978787" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="805.0">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor></MFXButton>

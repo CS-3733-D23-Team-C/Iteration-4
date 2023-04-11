@@ -21,11 +21,11 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest> {
       while (rs.next()) {
         int requestID = rs.getInt("requestID");
         Requester req = new Requester(0, rs.getString("Requester"));
-        String roomName = rs.getString("roomName");
-        String supplies = rs.getString("supplies");
+        String roomName = rs.getString("roomname");
+        String supplies = rs.getString("officesupplytype");
         STATUS status = STATUS.valueOf(rs.getString("status"));
-        String additionalNotes = rs.getString("additionalNotes");
-        String eta = rs.getString("ETA");
+        String additionalNotes = rs.getString("additionalnotes");
+        String eta = rs.getString("eta");
         OfficeSuppliesRequest request =
             new OfficeSuppliesRequest(requestID, req, roomName, supplies, additionalNotes);
         request.setStatus(status);

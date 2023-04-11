@@ -85,7 +85,6 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
 
   public FlowerDeliveryRequest addRow(FlowerDeliveryRequest orm) {
     DBConnection db = new DBConnection();
-    FlowerDeliveryRequest request = null;
     try {
       Statement stmtNode = db.getConnection().createStatement();
       // table names
@@ -110,20 +109,12 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
       int requestID = rs.getInt("requestID");
-      request =
-          new FlowerDeliveryRequest(
-              requestID,
-              orm.getRequester(),
-              orm.getRoomName(),
-              orm.getFlower(),
-              orm.getAdditionalNotes());
-      request.setStatus(orm.getStatus());
-      request.setEta(orm.getEta());
+      orm.setRequestID(requestID);
     } catch (Exception e) {
       e.printStackTrace();
     }
     db.closeConnection();
-    return request;
+    return orm;
   }
 
   public FlowerDeliveryRequest deleteRow(FlowerDeliveryRequest orm) {

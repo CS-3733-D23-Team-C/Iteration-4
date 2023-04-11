@@ -1,23 +1,20 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.time.LocalDate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 
 public class ConferenceController {
   @FXML private MFXButton goHome;
   @FXML private MFXButton submit;
 
   @FXML private MFXButton clear;
-
-  @FXML private MenuItem choice0;
 
   @FXML private MenuItem choice1;
 
@@ -28,11 +25,10 @@ public class ConferenceController {
   @FXML private MenuItem choice4;
 
   @FXML private MenuButton menuButton;
-  @FXML private MFXTextField nameBox;
-  @FXML private TextArea specialRequest;
+  @FXML private TextField nameBox;
+  @FXML private TextField specialRequest;
   @FXML private DatePicker startTime;
   @FXML private DatePicker endTime;
-  private int currentReqID = 0;
 
   @FXML
   void getGoHome(ActionEvent event) {
@@ -51,41 +47,42 @@ public class ConferenceController {
 
   @FXML
   void getChoice2() {
-    menuButton.setText("Conference B2");
+    menuButton.setText("Conference A2");
   }
 
   @FXML
   void getChoice3() {
-    menuButton.setText("Conference C3");
+    menuButton.setText("Conference A3");
   }
 
   @FXML
   void getChoice4() {
-    menuButton.setText("Ian's Conference Room");
+    menuButton.setText("Conference A4");
   }
 
-  //  @FXML
-  //  void getSubmit(ActionEvent event) {
-  //    LocalDate start = startTime.getValue();
-  //    LocalDate end = endTime.getValue();
-  //    String name = nameBox.getText();
-  //    String room = menuButton.getText();
-  //    String notes = specialRequest.getText();
-  //    String roomName = menuButton.getText();
-  //    IServiceRequest.STATUS status = IServiceRequest.STATUS.COMPLETE;
-  //    ConferenceRoomRequest req =
-  //            new ConferenceRoomRequest(
-  //                    new Requester(Cdb.latestRequestID("conferenceRoom") + 1, name),
-  //                    new ConferenceRoom(room, room, false),
-  //                    start.toString(),
-  //                    end.toString(),
-  //                    notes,
-  //                    status);
-  //
-  //    Cdb.addConferenceRoomRequest(req);
-  //
-  //    Navigation.navigate(Screen.CONGRATS_PAGE);
-  //  }
+  @FXML
+  void getSubmit(ActionEvent event) {
+    LocalDate start = startTime.getValue();
+    LocalDate end = endTime.getValue();
+    String name = nameBox.getText();
+    String room = menuButton.getText();
+    String notes = specialRequest.getText();
+    STATUS status = STATUS.COMPLETE;
+    ConferenceRoomRequest req =
+        new ConferenceRoomRequest(
+            0,
+            new Requester(0, name),
+            new ConferenceRoom(room, room, false),
+            start.toString(),
+            end.toString(),
+            notes,
+            status);
+
+    IDao dao = new ConferenceRoomRequestDAO();
+    dao.addRow(req);
+
+    Navigation.navigate(Screen.CONGRATS_PAGE);
+  }
 
   @FXML
   void getClear() {

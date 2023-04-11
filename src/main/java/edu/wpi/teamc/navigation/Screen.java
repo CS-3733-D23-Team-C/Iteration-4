@@ -20,7 +20,7 @@ public enum Screen {
   FLOWER("views/english/FlowerRequest.fxml"),
   FURNITURE("views/english/FurnitureRequest.fxml"),
   OFFICE_SUPPLY("views/english/OfficeSupplyRequest.fxml"),
-  CONGRATS_PAGE("views/english/congratsPage.fxml"),
+  CONGRATS_PAGE("views/english/Congrats.fxml"),
   MAP_HISTORY_PAGE("views/english/MapChangeHistory.fxml"),
   PATHFINDING_PAGE("views/english/Pathfinding.fxml"),
   HELP("views/english/Help.fxml"),

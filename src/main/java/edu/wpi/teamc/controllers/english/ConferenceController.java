@@ -75,13 +75,14 @@ public class ConferenceController {
     String roomName = menuButton.getText();
     STATUS status = STATUS.COMPLETE;
     ConferenceRoomRequest req =
+            /////////////////////////////////temporary place holder for the IDs to make the thing run somehow bc i need to test connectivity
         new ConferenceRoomRequest(
-            new Requester(Cdb.latestRequestID("conferenceRoom") + 1, name),
+                1,
+            new Requester(1, name),
             new ConferenceRoom(room, room, false),
+                notes,
             start.toString(),
-            end.toString(),
-            notes,
-            status);
+            end.toString(), status);
 
     ConferenceRoomRequestDAO.addRow(req);
     Navigation.navigate(Screen.CONGRATS_PAGE);

@@ -13,7 +13,7 @@
 <?import javafx.scene.control.MenuItem?>
 
 <?import javafx.scene.Cursor?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #008080;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.ElevatorSignageController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #008080;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.ElevatorSignageController">
     <children>
         <Text layoutX="172.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #FFFFFF; -fx-font-family: Inter; -fx-font-size: 28; -fx-font-weight: bold;" text="Watkins Clinics A &amp; B (this floor)" />
         <Text layoutX="172.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #FFFFFF; -fx-font-family: Inter; -fx-font-size: 28; -fx-font-weight: bold;" text="Watkins Clinics C (EP &amp; Echo) (up to 3rd fl)" wrappingWidth="405.94451904296875" />

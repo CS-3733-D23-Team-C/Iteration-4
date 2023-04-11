@@ -19,21 +19,21 @@ public class NodeDaoTest {
     Node testNode = new Node(100, 1234, 1234, "L1", "1234");
     Node node = new Node(100, 444, 100, "L1", "1234");
     NodeDao nodeDao = new NodeDao();
-    Assertions.assertEquals(1, nodeDao.updateRow(testNode, node));
+    Assertions.assertEquals(node, nodeDao.updateRow(testNode, node));
   }
 
   @Test
   public void addRow() {
     Node testNode = new Node(1234, 1234, "L1", "1234");
     NodeDao nodeDao = new NodeDao();
-    Assertions.assertEquals(1, nodeDao.addRow(testNode));
+    Assertions.assertEquals(testNode, nodeDao.addRow(testNode));
   }
 
   @Test
   public void deleteRow() {
     Node testNode = new Node(100, 1234, 1234, "L1", "1234");
     NodeDao nodeDao = new NodeDao();
-    Assertions.assertEquals(1, nodeDao.deleteRow(testNode));
+    Assertions.assertEquals(testNode, nodeDao.deleteRow(testNode));
   }
 
   @Test

@@ -1,18 +1,20 @@
-package edu.wpi.teamc.controllers;
+package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
 
-public class ServiceRequestController {
-
+/** */
+public class SignageController {
   @FXML MFXButton backButton;
-  @FXML MFXButton mealRequestbutton;
 
+  /** Method run when controller is initialized */
   @FXML
-  public void initialize() {
+  public void goHome() {
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    mealRequestbutton.setOnMouseClicked(event -> Navigation.navigate(Screen.MEAL));
   }
+
+  //  public void backAction(ActionEvent actionEvent) {}
+  //  // to use this way, have "backAction" under onAction in .fxml file
 }

@@ -4,13 +4,12 @@ import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
-  public List<FlowerDeliveryRequest> fetchAllObjects() throws SQLException {
+  public List<FlowerDeliveryRequest> fetchAllObjects() {
     List<FlowerDeliveryRequest> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
 
@@ -45,8 +44,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
     return returnList;
   }
 
-  public FlowerDeliveryRequest updateRow(FlowerDeliveryRequest orm, FlowerDeliveryRequest repl)
-      throws SQLException {
+  public FlowerDeliveryRequest updateRow(FlowerDeliveryRequest orm, FlowerDeliveryRequest repl) {
     DBConnection db = new DBConnection();
     FlowerDeliveryRequest fdr = null;
     try {
@@ -57,7 +55,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
       String query =
           "UPDATE "
               + table
-              + " SET req=?, roomName=?, \"flower\"=?, additionalNotes=?, status =?, eta=? WHERE requestID=?";
+              + " SET req=?, roomName=?, \"flower\"=?, additionalNotes=?, status =?, eta=? WHERE requestID=?;";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
 
@@ -71,7 +69,6 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
       ps.setInt(7, orm.getRequestID());
 
       ps.execute();
-
       fdr =
           new FlowerDeliveryRequest(
               orm.getRequestID(),
@@ -88,7 +85,6 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
 
   public FlowerDeliveryRequest addRow(FlowerDeliveryRequest orm) {
     DBConnection db = new DBConnection();
-    FlowerDeliveryRequest request = null;
     try {
       Statement stmtNode = db.getConnection().createStatement();
       // table names
@@ -97,47 +93,37 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
       String query =
           "INSERT INTO "
               + table
-              + " (req, roomName, \"flower\", additionalNotes, status, ETA) VALUES (?,?,?,?,?,?) RETURNING requestID;";
+              + " (requester, roomName, flower, additionalNotes, status) VALUES (?,?,?,?,?);";
 
-      PreparedStatement ps = db.getConnection().prepareStatement(query);
+      PreparedStatement ps =
+          db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
       ps.setString(1, orm.getRequester().toString());
       ps.setString(2, orm.getRoomName());
       ps.setString(3, orm.getFlower());
       ps.setString(4, orm.getAdditionalNotes());
       ps.setString(5, orm.getStatus().toString());
-      ps.setString(6, orm.getEta());
 
-      ps.execute();
-
-      ResultSet rs = ps.getResultSet();
+      ps.executeUpdate();
+      ResultSet rs = ps.getGeneratedKeys();
       rs.next();
       int requestID = rs.getInt("requestID");
-      request =
-          new FlowerDeliveryRequest(
-              requestID,
-              orm.getRequester(),
-              orm.getRoomName(),
-              orm.getFlower(),
-              orm.getAdditionalNotes());
-      request.setStatus(orm.getStatus());
-      request.setEta(orm.getEta());
+      orm.setRequestID(requestID);
     } catch (Exception e) {
       e.printStackTrace();
     }
-
     db.closeConnection();
-    return request;
+    return orm;
   }
 
-  public FlowerDeliveryRequest deleteRow(FlowerDeliveryRequest orm) throws SQLException {
+  public FlowerDeliveryRequest deleteRow(FlowerDeliveryRequest orm) {
     DBConnection db = new DBConnection();
     try {
       Statement stmtNode = db.getConnection().createStatement();
       // table names
       String table = "\"ServiceRequests\".\"flowerRequest\"";
       // queries
-      String query = "DELETE FROM " + table + " WHERE requestID = ?";
+      String query = "DELETE FROM " + table + " WHERE requestID=?; ";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
 
@@ -148,7 +134,6 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
     } catch (Exception e) {
       e.printStackTrace();
     }
-
     db.closeConnection();
     return orm;
   }

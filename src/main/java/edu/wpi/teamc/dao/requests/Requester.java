@@ -14,6 +14,6 @@ public class Requester {
 
   @Override
   public String toString() {
-    return Integer.toString(this.requesterID);
+    return requesterName;
   }
 }

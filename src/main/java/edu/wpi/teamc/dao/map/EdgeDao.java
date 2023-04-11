@@ -57,7 +57,7 @@ public class EdgeDao implements IDao<Edge> {
       e.printStackTrace();
     }
     db.closeConnection();
-    return null;
+    return repl;
   }
 
   public Edge addRow(Edge orm) {
@@ -77,7 +77,7 @@ public class EdgeDao implements IDao<Edge> {
       e.printStackTrace();
     }
     db.closeConnection();
-    return null;
+    return orm;
   }
 
   public Edge deleteRow(Edge orm) {
@@ -101,7 +101,7 @@ public class EdgeDao implements IDao<Edge> {
       e.printStackTrace();
     }
     db.closeConnection();
-    return null;
+    return orm;
   }
 
   public boolean importCSV(String CSVfilepath) {

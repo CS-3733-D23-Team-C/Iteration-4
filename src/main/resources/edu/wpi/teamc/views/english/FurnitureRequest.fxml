@@ -108,7 +108,7 @@
                         <Font name="Arial" size="35.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="302.0" layoutY="51.0" prefHeight="54.0" prefWidth="690.0" AnchorPane.leftAnchor="315.0" AnchorPane.topAnchor="56.0">
+                  <TextField fx:id="nameBox" layoutX="302.0" layoutY="51.0" prefHeight="54.0" prefWidth="690.0" AnchorPane.leftAnchor="315.0" AnchorPane.topAnchor="56.0">
                      <font>
                         <Font size="35.0" />
                      </font>
@@ -123,7 +123,7 @@
                         <Font name="Arial" size="35.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="425.0" layoutY="436.0" prefHeight="110.0" prefWidth="557.0" AnchorPane.leftAnchor="447.0" AnchorPane.topAnchor="376.0">
+                  <TextField fx:id="specialNotes" layoutX="425.0" layoutY="436.0" prefHeight="110.0" prefWidth="557.0" AnchorPane.leftAnchor="447.0" AnchorPane.topAnchor="376.0">
                      <font>
                         <Font size="35.0" />
                      </font>
@@ -133,7 +133,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </MFXButton>
-                  <MFXButton layoutX="463.0" layoutY="555.0" prefHeight="58.0" prefWidth="300.0" rippleColor="#978787" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Submit" textFill="WHITE" AnchorPane.leftAnchor="704.0" AnchorPane.topAnchor="557.0">
+                  <MFXButton fx:id="submit" layoutX="463.0" layoutY="555.0" onAction="#getSubmit" prefHeight="58.0" prefWidth="300.0" rippleColor="#978787" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Submit" textFill="WHITE" AnchorPane.leftAnchor="704.0" AnchorPane.topAnchor="557.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -143,7 +143,7 @@
                         <Font size="35.0" />
                      </font>
                   </MFXButton>
-                  <TextField layoutX="315.0" layoutY="146.0" prefHeight="54.0" prefWidth="690.0" AnchorPane.leftAnchor="315.0" AnchorPane.topAnchor="151.0">
+                  <TextField fx:id="roomID" layoutX="315.0" layoutY="146.0" prefHeight="54.0" prefWidth="690.0" AnchorPane.leftAnchor="315.0" AnchorPane.topAnchor="151.0">
                      <font>
                         <Font size="35.0" />
                      </font>
@@ -153,10 +153,10 @@
                         <Font name="Arial" size="35.0" />
                      </font>
                   </Text>
-                  <MenuButton layoutX="320.0" layoutY="266.0" prefHeight="54.0" prefWidth="690.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="--Select Furniture--" textFill="#574c4c" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="266.0">
+                  <MenuButton fx:id="menuButton" layoutX="320.0" layoutY="266.0" prefHeight="54.0" prefWidth="690.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="--Select Furniture--" textFill="#574c4c" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="266.0">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                        <MenuItem fx:id="choice1" mnemonicParsing="false" onAction="#getChoice1" text="Chair" />
+                        <MenuItem fx:id="choice2" mnemonicParsing="false" onAction="#getChoice2" text="Couch" />
                      </items>
                      <padding>
                         <Insets left="30.0" />

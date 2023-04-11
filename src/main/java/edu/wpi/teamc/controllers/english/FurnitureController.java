@@ -1,5 +1,7 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -7,24 +9,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 
 public class FurnitureController {
   @FXML private MFXButton goHome;
   @FXML private MFXButton submit;
 
   @FXML private MFXButton clear;
-
-  @FXML private MenuItem chocie0;
-
-  @FXML private MenuItem chocie1;
-
-  @FXML private MenuItem chocie2;
-
-  @FXML private MenuItem chocie3;
-
-  @FXML private MenuItem choice4;
-
+  @FXML private MenuItem choice1;
+  @FXML private MenuItem choice2;
   @FXML private MenuButton menuButton;
+  @FXML private TextField nameBox;
+  @FXML private TextField roomID;
+  @FXML private TextField specialNotes;
 
   @FXML
   public void getGoHome() {
@@ -38,27 +35,26 @@ public class FurnitureController {
 
   @FXML
   void getChoice1() {
-    menuButton.setText("Large Table");
-  }
-
-  @FXML
-  void getChoice2() {
-    menuButton.setText("Desk");
-  }
-
-  @FXML
-  void getChoice3() {
     menuButton.setText("Chair");
   }
 
   @FXML
-  void getChoice4() {
-    menuButton.setText("Ian's Desk");
+  void getChoice2() {
+    menuButton.setText("Couch");
   }
 
   @FXML
   void getSubmit() {
-    submit.setOnMouseClicked(event -> Navigation.navigate(Screen.CONGRATS_PAGE));
+    String notes = specialNotes.getText();
+    String name = nameBox.getText();
+    String room = roomID.getText();
+    String menuSelection = menuButton.getText();
+    FurnitureDeliveryRequest req =
+        new FurnitureDeliveryRequest(0, new Requester(0, name), room, notes, menuSelection);
+
+    IDao<FurnitureDeliveryRequest> dao = new FurnitureDeliveryRequestDAO();
+    dao.addRow(req);
+    Navigation.navigate(Screen.CONGRATS_PAGE);
   }
 
   @FXML

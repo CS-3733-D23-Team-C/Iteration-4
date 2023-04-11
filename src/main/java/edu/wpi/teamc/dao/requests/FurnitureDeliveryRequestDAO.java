@@ -15,7 +15,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
     try {
       Statement stmt = db.getConnection().createStatement();
       // Table Name
-      String table = "\"ServiceRequest\".\"furnitureDeliveryRequest\"";
+      String table = "\"ServiceRequests\".\"furnitureDeliveryRequest\"";
       // Query
       String query = "SELECT * FROM " + table;
 
@@ -48,20 +48,20 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
 
   public FurnitureDeliveryRequest addRow(FurnitureDeliveryRequest orm) {
     DBConnection db = new DBConnection();
-    FurnitureDeliveryRequest request = null;
     try {
       String query =
-          "INSERT INTO \"ServiceRequest\".\"furnitureDeliveryRequest\" (requestID, Requester, furnitureType, additionalNotes, ETA, roomName) VALUES (?,?,?,?,?,?)";
-      PreparedStatement ps = db.getConnection().prepareStatement(query);
+          "INSERT INTO \"ServiceRequests\".\"furnitureDeliveryRequest\" (Requester, furnitureType, additionalNotes, roomName, status) VALUES (?,?,?,?,?)";
+      PreparedStatement ps =
+          db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
       ps.setString(1, orm.getRequester().toString());
       ps.setString(2, orm.getFurniture());
       ps.setString(3, orm.getAdditionalNotes());
-      ps.setString(4, orm.getEta());
-      ps.setString(5, orm.getRoomName());
+      ps.setString(4, orm.getRoomName());
+      ps.setString(5, orm.getStatus().toString());
       ps.executeUpdate();
 
-      ResultSet rs = ps.getResultSet();
+      ResultSet rs = ps.getGeneratedKeys();
       rs.next();
       int requestID = rs.getInt("requestID");
       orm.setRequestID(requestID);
@@ -76,7 +76,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
     DBConnection db = new DBConnection();
     try {
       String query =
-          "UPDATE \"ServiceRequest\".\"furnitureDeliveryRequest\" SET Requester = ?, furnitureType = ?, additionalNotes = ?, ETA = ?, roomName = ? WHERE requestID = ?";
+          "UPDATE \"ServiceRequests\".\"furnitureDeliveryRequest\" SET Requester = ?, furnitureType = ?, additionalNotes = ?, ETA = ?, roomName = ? WHERE requestID = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
 
       ps.setString(1, orm2.getRequester().toString());
@@ -101,7 +101,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
     DBConnection db = new DBConnection();
     try {
       String query =
-          "DELETE FROM \"ServiceRequest\".\"furnitureDeliveryRequest\" WHERE requestID = ?";
+          "DELETE FROM \"ServiceRequests\".\"furnitureDeliveryRequest\" WHERE requestID = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
 
       ps.setInt(1, orm.getRequestID());

@@ -16,7 +16,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
     try {
       Statement stmt = db.getConnection().createStatement();
       // Table Name
-      String table = "\"ServiceRequest\".\"conferenceRoomRequest\"";
+      String table = "\"ServiceRequests\".\"conferenceRoomRequest\"";
       // Query
       String query = "SELECT * FROM " + table;
 
@@ -47,7 +47,6 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
 
   public ConferenceRoomRequest addRow(ConferenceRoomRequest orm) {
     DBConnection db = new DBConnection();
-    ConferenceRoomRequest request = null;
     try {
       String query =
           "INSERT INTO \"ServiceRequests\".\"conferenceRoomRequest\" (Requester, roomName, status, additionalNotes, startTime, endTime) VALUES (?,?,?,?,?,?)";
@@ -75,7 +74,6 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
   public ConferenceRoomRequest updateRow(ConferenceRoomRequest orm, ConferenceRoomRequest repl)
       throws SQLException {
     DBConnection db = new DBConnection();
-    ConferenceRoomRequest crr = null;
     try {
       Statement stmtNode = db.getConnection().createStatement();
       // table names
@@ -110,7 +108,6 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
 
   public ConferenceRoomRequest deleteRow(ConferenceRoomRequest orm) throws SQLException {
     DBConnection db = new DBConnection();
-    ConferenceRoomRequest crr = null;
     try {
       Statement stmtNode = db.getConnection().createStatement();
       // table names

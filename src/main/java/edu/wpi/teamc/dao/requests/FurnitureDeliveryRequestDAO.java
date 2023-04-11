@@ -24,20 +24,20 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
       while (rs.next()) {
         // Get all the data from the table
         int requestID = rs.getInt("requestID");
-        String requester = rs.getString("Requester");
-        String furnitureType = rs.getString("furnitureType");
+        String requester = rs.getString("requester");
+        String furnitureType = rs.getString("furnituretype");
         String additionalNotes = rs.getString("additionalNotes");
-        String deliveryTime = rs.getString("deliveryTime");
-        String deliveryLocation = rs.getString("deliveryLocation");
+        String deliveryTime = rs.getString("eta");
+        String deliveryLocation = rs.getString("roomname");
 
         FurnitureDeliveryRequest request =
             new FurnitureDeliveryRequest(
                 requestID,
                 new Requester(requestID, requester),
-                furnitureType,
+                deliveryLocation,
                 additionalNotes,
-                deliveryTime,
-                deliveryLocation);
+                furnitureType,
+                deliveryTime);
         returnList.add(request);
       }
     } catch (SQLException e) {

@@ -1,9 +1,7 @@
 package edu.wpi.teamc.controllers.english;
 
-import edu.wpi.teamc.Cdb;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
-import edu.wpi.teamc.serviceRequest.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
@@ -65,22 +63,7 @@ public class MealController {
   }
 
   @FXML
-  void getSubmit(ActionEvent event) {
-    String notes = textArea.getText();
-    IServiceRequest.STATUS status = IServiceRequest.STATUS.PENDING;
-    String name = nameBox.getText();
-    String room = roomID.getText();
-    String text = textArea.getText();
-    MealRequest req =
-        new MealRequest(
-            new Requester(Cdb.latestRequestID("mealRequest") + 1, name),
-            new Meal(menuButton.getText(), ""),
-            room,
-            text,
-            status);
-    Cdb.addMeal(req);
-    Navigation.navigate(Screen.CONGRATS_PAGE);
-  }
+  void getSubmit(ActionEvent event) {}
 
   @FXML
   void getClear(ActionEvent event) {

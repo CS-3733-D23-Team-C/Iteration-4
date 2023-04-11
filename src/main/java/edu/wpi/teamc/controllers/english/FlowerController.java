@@ -12,6 +12,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 
 public class FlowerController {
+
   @FXML private MFXButton goHome;
   @FXML private MFXButton submit;
 
@@ -23,7 +24,7 @@ public class FlowerController {
 
   @FXML private MenuButton menuButton;
   @FXML private TextField nameBox;
-  @FXML private TextField roomID;
+  @FXML private MenuButton roomID;
   @FXML private TextField specialNotes;
 
   @FXML
@@ -39,6 +40,16 @@ public class FlowerController {
   @FXML
   void getChoice2() {
     menuButton.setText("Dandelion");
+  }
+
+  @FXML
+  void getRoom1() {
+    roomID.setText("Room1");
+  }
+
+  @FXML
+  void getRoom2() {
+    roomID.setText("Room2");
   }
 
   @FXML

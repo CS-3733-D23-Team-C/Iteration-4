@@ -20,7 +20,7 @@ public class FurnitureController {
   @FXML private MenuItem choice2;
   @FXML private MenuButton menuButton;
   @FXML private TextField nameBox;
-  @FXML private TextField roomID;
+  @FXML private MenuButton roomID;
   @FXML private TextField specialNotes;
 
   @FXML
@@ -41,6 +41,16 @@ public class FurnitureController {
   @FXML
   void getChoice2() {
     menuButton.setText("Couch");
+  }
+
+  @FXML
+  void getRoom1() {
+    roomID.setText("Room1");
+  }
+
+  @FXML
+  void getRoom2() {
+    roomID.setText("Room2");
   }
 
   @FXML

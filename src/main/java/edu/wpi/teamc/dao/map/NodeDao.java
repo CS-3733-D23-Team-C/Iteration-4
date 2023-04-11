@@ -206,4 +206,37 @@ public class NodeDao implements IDao<Node> {
       System.out.println("File already exists.");
     }
   }
+    public static String getShortName(int nodeID) {
+    Node node = null;
+    List<Node> nodeList = new NodeDao().fetchAllObjects();
+    List<LocationName> nameList = new LocationDao().fetchAllObjects();
+    List<Move> moveList = new MoveDao().fetchAllObjects();
+    // get the node
+    for (Node NODE : nodeList) {
+      if (NODE.getNodeID() == nodeID) {
+        node = NODE;
+        break;
+      }
+    }
+    // find the newest date associated with node
+    Move newestMove = moveList.get(0);
+    for (Move move : moveList) {
+      if (move.getNodeID() == node.getNodeID()) {
+        if (move.getDate().compareTo(newestMove.getDate()) >= 0) {
+          newestMove = move;
+          break;
+        }
+      }
+    }
+    // find the name associated with the newest date
+    String shortName = "";
+    for (LocationName name : nameList) {
+      if (name.getNodeType().equals("HALL")) {
+      } else if (name.getLongName().equals(newestMove.getLongName())) {
+        shortName = name.getShortName();
+        break;
+      }
+    }
+    return shortName;
+  }
 }

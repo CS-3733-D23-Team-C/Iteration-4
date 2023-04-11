@@ -41,35 +41,33 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest> {
 
   public OfficeSuppliesRequest addRow(OfficeSuppliesRequest orm) {
     DBConnection db = new DBConnection();
-    OfficeSuppliesRequest request = null;
     String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
     // queries
     String query =
         "INSERT INTO "
             + table
-            + " (requester, roomName, supplies, additionalNotes, status, eta) VALUES (?,?,?,?,?,?);";
+            + " (requester, roomName, officesupplytype, additionalNotes, status) VALUES (?,?,?,?,?);";
     try {
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+      ps.setString(1, orm.getRequester().toString());
+      ps.setString(2, orm.getRoomName());
+      ps.setString(3, orm.getSupplies());
+      ps.setString(4, orm.getAdditionalNotes());
+      ps.setString(5, orm.getStatus().toString());
       ps.executeUpdate();
+
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
       int requestID = rs.getInt("requestID");
-      request =
-          new OfficeSuppliesRequest(
-              requestID,
-              orm.getRequester(),
-              orm.getRoomName(),
-              orm.getSupplies(),
-              orm.getAdditionalNotes());
-      request.setStatus(orm.getStatus());
-      request.setEta(orm.getEta());
+      orm.setRequestID(requestID);
 
     } catch (Exception e) {
       e.printStackTrace();
     }
     db.closeConnection();
-    return request;
+    return orm;
   }
 
   public OfficeSuppliesRequest deleteRow(OfficeSuppliesRequest orm) {

@@ -2,44 +2,18 @@ package edu.wpi.teamc.controllers;
 
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 
-public class FloorPlanController {
-  @FXML private MenuItem choice1;
+public class ElevatorSignageController {
+  @FXML MFXButton backHome;
 
-  @FXML private MenuItem choice2;
-
-  @FXML private MenuItem choice3;
-
-  @FXML private MenuItem choice4;
-
-  @FXML private MenuButton menuButton;
-
+  /** Method run when controller is initialized */
   @FXML
-  void getChoice1(ActionEvent event) {
-    menuButton.setText("Floor 1");
+  public void initialize() {
+    backHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }
-
-  @FXML
-  void getChoice2(ActionEvent event) {
-    menuButton.setText("Floor 2");
-  }
-
-  @FXML
-  void getChoice3(ActionEvent event) {
-    menuButton.setText("Floor 3");
-  }
-
-  @FXML
-  void getChoice4(ActionEvent event) {
-    menuButton.setText("Floor 4");
-  }
-
-  @FXML
-  void getMenuButton(ActionEvent event) {}
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {
@@ -75,10 +49,6 @@ public class FloorPlanController {
   void getSignagePage(ActionEvent event) {
     Navigation.navigate(Screen.SIGNAGE);
   }
-
-  /** Method run when controller is initialized */
-  @FXML
-  public void initialize() {}
 
   @FXML
   void getEditMap(ActionEvent event) {}

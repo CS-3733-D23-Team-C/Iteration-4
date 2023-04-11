@@ -1,126 +1,143 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.dao.requests.FlowerDeliveryRequest;
+import edu.wpi.teamc.dao.requests.FlowerDeliveryRequestDAO;
+import edu.wpi.teamc.dao.requests.Requester;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 
 public class FlowerController {
-    @FXML private MFXButton goHome;
-    @FXML private MFXButton submit;
+  @FXML private MFXButton goHome;
+  @FXML private MFXButton submit;
 
-    @FXML private MFXButton clear;
+  @FXML private MFXButton clear;
 
-    @FXML private MenuItem chocie0;
+  @FXML private MFXTextField name;
 
-    @FXML private MenuItem chocie1;
+  @FXML private MFXTextField roomID;
+  @FXML private TextField additionalNotes;
+  @FXML private MenuItem chocie0;
 
-    @FXML private MenuItem chocie2;
+  @FXML private MenuItem chocie1;
 
-    @FXML private MenuItem chocie3;
+  @FXML private MenuItem chocie2;
 
-    @FXML private MenuItem choice4;
+  @FXML private MenuItem chocie3;
 
-    @FXML private MenuButton menuButton;
+  @FXML private MenuItem choice4;
 
-    @FXML
-    void getChoice0() {
-        menuButton.setText("--Please Select Bouquet Option--");
-    }
+  @FXML private MenuButton menuButton;
 
-    @FXML
-    void getChoice1() {
-        menuButton.setText("Roses");
-    }
+  @FXML
+  void getChoice0() {
+    menuButton.setText("--Please Select Bouquet Option--");
+  }
 
-    @FXML
-    void getChoice2() {
-        menuButton.setText("White Roses");
-    }
+  @FXML
+  void getChoice1() {
+    menuButton.setText("Roses");
+  }
 
-    @FXML
-    void getChoice3() {
-        menuButton.setText("Random Bouquet");
-    }
+  @FXML
+  void getChoice2() {
+    menuButton.setText("White Roses");
+  }
 
-    @FXML
-    void getChoice4() {
-        menuButton.setText("Ian's Holiday Special");
-    }
+  @FXML
+  void getChoice3() {
+    menuButton.setText("Random Bouquet");
+  }
 
-    @FXML
-    public void getGoHome() {
-        goHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-    }
+  @FXML
+  void getChoice4() {
+    menuButton.setText("Ian's Holiday Special");
+  }
 
-    @FXML
-    void getClear() {
-        clear.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER));
-    }
+  @FXML
+  public void getGoHome() {
+    goHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+  }
 
-    @FXML
-    void getSubmit() {
-        submit.setOnMouseClicked(event -> Navigation.navigate(Screen.CONGRATS_PAGE));
-    }
+  @FXML
+  void getClear() {
+    clear.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER));
+  }
 
-    @FXML
-    void getFlowerDeliveryPage(ActionEvent event) {
-        Navigation.navigate(Screen.FLOWER);
-    }
+  @FXML
+  void getSubmit() {
+    String name = this.name.getText();
+    String roomID = this.roomID.getText();
+    String flower = menuButton.getText();
+    String additionalNotes = this.additionalNotes.getText();
 
-    @FXML
-    void getFurnitureDeliveryPage(ActionEvent event) {
-        Navigation.navigate(Screen.FURNITURE);
-    }
+    FlowerDeliveryRequest request = new FlowerDeliveryRequest(-1, new Requester(0, name), roomID, flower,additionalNotes);
+    FlowerDeliveryRequestDAO dao = new FlowerDeliveryRequestDAO();
+    request = dao.addRow(request);
+    submit.setOnMouseClicked(event -> Navigation.navigate(Screen.CONGRATS_PAGE));
+  }
 
-    @FXML
-    void getHelpPage(ActionEvent event) {
-        Navigation.navigate(Screen.HELP);
-    }
+  @FXML
+  void getFlowerDeliveryPage(ActionEvent event) {
+    Navigation.navigate(Screen.FLOWER);
+  }
 
-    @FXML
-    void getMealDeliveryPage(ActionEvent event) {
-        Navigation.navigate(Screen.MEAL);
-    }
+  @FXML
+  void getFurnitureDeliveryPage(ActionEvent event) {
+    Navigation.navigate(Screen.FURNITURE);
+  }
 
-    @FXML
-    void getOfficeSuppliesPage(ActionEvent event) {
-        Navigation.navigate(Screen.OFFICE_SUPPLY);
-    }
+  @FXML
+  void getHelpPage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 
-    @FXML
-    void getRoomReservationPage(ActionEvent event) {
-        Navigation.navigate(Screen.CONFERENCE);
-    }
+  @FXML
+  void getMealDeliveryPage(ActionEvent event) {
+    Navigation.navigate(Screen.MEAL);
+  }
 
-    @FXML
-    void getSignagePage(ActionEvent event) {
-        Navigation.navigate(Screen.SIGNAGE);
-    }
+  @FXML
+  void getOfficeSuppliesPage(ActionEvent event) {
+    Navigation.navigate(Screen.OFFICE_SUPPLY);
+  }
 
-    /** Method run when controller is initialized */
-    @FXML
-    public void initialize() {}
+  @FXML
+  void getRoomReservationPage(ActionEvent event) {
+    Navigation.navigate(Screen.CONFERENCE);
+  }
 
-    @FXML
-    void getEditMap(ActionEvent event) {}
+  @FXML
+  void getSignagePage(ActionEvent event) {
+    Navigation.navigate(Screen.SIGNAGE);
+  }
 
-    @FXML
-    void getLogOut(ActionEvent event) {
-        Navigation.navigate(Screen.LOGIN);
-    }
+  /** Method run when controller is initialized */
+  @FXML
+  public void initialize() {}
 
-    @FXML
-    void getExit(ActionEvent event) {
-        System.exit(0);
-    }
+  @FXML
+  void getEditMap(ActionEvent event) {}
 
-    @FXML
-    void getMapHistory(ActionEvent event) {}
+  @FXML
+  void getLogOut(ActionEvent event) {
+    Navigation.navigate(Screen.LOGIN);
+  }
 
-    @FXML
-    void getMapPage(ActionEvent event) {}
+  @FXML
+  void getExit(ActionEvent event) {
+    System.exit(0);
+  }
+
+  @FXML
+  void getMapHistory(ActionEvent event) {}
+
+  @FXML
+  void getMapPage(ActionEvent event) {}
 }

@@ -51,7 +51,7 @@
         </MFXButton>
         <Group layoutX="74.0" layoutY="93.0">
             <children>
-                <MFXTextField floatMode="DISABLED" layoutX="71.0" layoutY="-14.0" prefHeight="30.0" prefWidth="425.0" promptText="Enter Name" textLimit="1000000">
+                <MFXTextField fx:id="name" floatMode="DISABLED" layoutX="71.0" layoutY="-14.0" prefHeight="30.0" prefWidth="425.0" promptText="Enter Name" textLimit="1000000">
                     <textFill>
                         <Color green="0.501960813999176" blue="0.501960813999176" opacity="0.8700000047683716" />
                     </textFill>
@@ -73,7 +73,7 @@
                         <Font name="Verdana Bold" size="16.0" />
                     </font>
                 </Label>
-                <MFXTextField floatMode="DISABLED" layoutX="71.0" layoutY="-13.0" prefHeight="30.0" prefWidth="425.0" promptText="Enter Room ID" textLimit="1000000">
+                <MFXTextField fx:id="roomID" floatMode="DISABLED" layoutX="71.0" layoutY="-13.0" prefHeight="30.0" prefWidth="425.0" promptText="Enter Room ID" textLimit="1000000">
                     <font>
                         <Font name="Arial Bold" size="12.0" />
                     </font>
@@ -85,7 +85,7 @@
         </Group>
         <Group layoutX="74.0" layoutY="231.0">
             <children>
-                <TextArea fx:id="textArea" cache="true" layoutX="70.0" layoutY="-13.0" prefHeight="66.0" prefWidth="421.0" style="-fx-wrap-text: true; -fx-border-radius: 5; -fx-text-fill: teal;" wrapText="true">
+                <TextArea fx:id="additionalNotes" cache="true" layoutX="70.0" layoutY="-13.0" prefHeight="66.0" prefWidth="421.0" style="-fx-wrap-text: true; -fx-border-radius: 5; -fx-text-fill: teal;" wrapText="true">
                     <font>
                         <Font name="Arial Bold" size="12.0" />
                     </font>

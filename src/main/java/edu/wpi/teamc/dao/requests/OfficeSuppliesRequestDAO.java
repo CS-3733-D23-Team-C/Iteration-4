@@ -48,20 +48,21 @@ public class OfficeSuppliesRequestDAO {
             + table
             + " (requester, roomName, supplies, additionalNotes, status, eta) VALUES (?,?,?,?,?,?);";
     try {
-      PreparedStatement ps = db.getConnection().prepareStatement(query,  Statement.RETURN_GENERATED_KEYS);
+      PreparedStatement ps =
+          db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
-        int requestID = rs.getInt("requestID");
-        request =
-            new OfficeSuppliesRequest(
-                requestID,
-                orm.getRequester(),
-                orm.getRoomName(),
-                orm.getSupplies(),
-                orm.getAdditionalNotes());
-        request.setStatus(orm.getStatus());
-        request.setEta(orm.getEta());
+      int requestID = rs.getInt("requestID");
+      request =
+          new OfficeSuppliesRequest(
+              requestID,
+              orm.getRequester(),
+              orm.getRoomName(),
+              orm.getSupplies(),
+              orm.getAdditionalNotes());
+      request.setStatus(orm.getStatus());
+      request.setEta(orm.getEta());
 
     } catch (Exception e) {
       e.printStackTrace();

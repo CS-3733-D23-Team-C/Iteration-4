@@ -8,29 +8,29 @@ import javafx.scene.control.Button;
 
 public class LoginController {
 
-    @FXML private Button GuestPage;
+  @FXML private Button GuestPage;
 
-    @FXML private Button AdminPage;
+  @FXML private Button AdminPage;
 
-    @FXML private Button clear;
+  @FXML private Button clear;
 
-    @FXML
-    void getAdminPage(ActionEvent event) {
-        Navigation.navigate(Screen.HOME);
-    }
+  @FXML
+  void getAdminPage(ActionEvent event) {
+    Navigation.navigate(Screen.HOME);
+  }
 
-    @FXML
-    void getGuestPage(ActionEvent event) {
-        Navigation.navigate(Screen.GUEST_HOME);
-    }
+  @FXML
+  void getGuestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GUEST_HOME);
+  }
 
-    @FXML
-    void getClear(ActionEvent event) {
-        Navigation.navigate(Screen.LOGIN);
-    }
+  @FXML
+  void getClear(ActionEvent event) {
+    Navigation.navigate(Screen.LOGIN);
+  }
 
-    @FXML
-    public void getExit(ActionEvent actionEvent) {
-        System.exit(0);
-    }
+  @FXML
+  public void getExit(ActionEvent actionEvent) {
+    System.exit(0);
+  }
 }

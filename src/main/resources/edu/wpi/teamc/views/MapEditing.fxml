@@ -86,7 +86,7 @@
             <VBox layoutX="408.0" layoutY="238.0" prefHeight="50.0" prefWidth="56.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="238.0">
                <children>
                   <MFXButton fx:id="showNodeMenu" onAction="#showNodeMenu" prefHeight="25.0" prefWidth="56.0" text="Node" />
-                  <MFXButton prefHeight="25.0" prefWidth="56.0" text="Name" />
+                  <MFXButton onAction="#showNameMenu" prefHeight="25.0" prefWidth="56.0" text="Name" />
                </children>
             </VBox>
          </children>

@@ -2,7 +2,10 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import java.sql.PreparedStatement;
@@ -10,79 +13,102 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryRequest> {
-  DBConnection db = new DBConnection();
+    public List<FurnitureDeliveryRequest> fetchAllObjects(){
+        List<FurnitureDeliveryRequest> returnList = new ArrayList<>();
+        DBConnection db = new DBConnection();
 
-    public FurnitureDeliveryRequest addRow(Requester requester, String roomName, String additionalNotes, String furnitureType, String furnitureName, String eta) {
-        String FURNDELREQ = "INSERT INTO FurnitureDeliveryRequest (requester, roomName, additionalNotes, furnitureType, furnitureName, eta) VALUES (?,?,?,?,?,?)";
         try{
-            PreparedStatement ps = db.getConnection().prepareStatement(FURNDELREQ);
-            ps.setString(1, requester.toString());
-            ps.setString(2, roomName);
-            ps.setString(3, additionalNotes);
-            ps.setString(4, furnitureType);
-            ps.setString(5, furnitureName);
-            ps.setString(6, eta);
-            ps.executeUpdate();
-            String getLastInsertID = "SELECT SCOPE_IDENTITY()";
-            PreparedStatement ps2 = db.getConnection().prepareStatement(getLastInsertID);
-            return new FurnitureDeliveryRequest(ps2.executeUpdate(), requester, roomName, additionalNotes, furnitureType, eta);
-        } catch (Exception e) {
+            Statement stmt = db.getConnection().createStatement();
+            //Table Name
+            String table = "\"ServiceRequest\".\"furnitureDeliveryRequest\"";
+            //Query
+            String query = "SELECT * FROM " + table;
+
+            ResultSet rs = stmt.executeQuery(query);
+
+            while(rs.next()){
+                //Get all the data from the table
+                String requestID = rs.getString("requestID");
+                String requester = rs.getString("Requester");
+                String furnitureType = rs.getString("furnitureType");
+                String additionalNotes = rs.getString("additionalNotes");
+                String deliveryTime = rs.getString("deliveryTime");
+                String deliveryLocation = rs.getString("deliveryLocation");
+
+                FurnitureDeliveryRequest request = new FurnitureDeliveryRequest(requestID, requester, furnitureType, additionalNotes, deliveryTime, deliveryLocation);
+                returnList.add(request);
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
-            return null;
         }
     }
 
-    public FurnitureDeliveryRequest updateRow(Requester requester, String roomName, String additionalNotes, String furnitureType, String furnitureName, String eta, Requester requester2, String roomName2, String additionalNotes2, String furnitureType2, String furnitureName2, String eta2) {
-        String FURNDELREQ = "UPDATE FurnitureDeliveryRequest SET requester = ?, roomName = ?, additionalNotes = ?, furnitureType = ?, eta = ? WHERE requester = ? AND roomName = ? AND additionalNotes = ? AND furnitureType = ? AND eta = ?";
+    public FurnitureDeliveryRequest addRow(FurnitureDeliveryRequest orm){
+        DBConnection db = new DBConnection();
+        FurnitureDeliveryRequest request = null;
         try{
-            PreparedStatement ps = db.getConnection().prepareStatement(FURNDELREQ);
-            ps.setString(1, requester.toString());
-            ps.setString(2, roomName);
-            ps.setString(3, additionalNotes);
-            ps.setString(4, furnitureType);
-            ps.setString(6, eta);
+            String query = "INSERT INTO \"ServiceRequest\".\"furnitureDeliveryRequest\" (requestID, Requester, furnitureType, additionalNotes, deliveryTime, deliveryLocation) VALUES (?,?,?,?,?,?)";
+            PreparedStatement ps = db.getConnection().prepareStatement(query);
+
+            ps.setString(1, orm.getRequester().toString());
+            ps.setString(2, orm.getFurnitureType());
+            ps.setString(3, orm.getAdditionalNotes());
+            ps.setString(4, orm.getDeliveryTime());
+            ps.setString(5, orm.getDeliveryLocation());
             ps.executeUpdate();
-            return new FurnitureDeliveryRequest(0, requester, roomName, additionalNotes, furnitureType, eta);
-        } catch (Exception e) {
+
+            ResultSet rs = ps.getResultSet();
+            rs.next();
+            int requestID = rs.getInt("requestID");
+            request = new FurnitureDeliveryRequest(requestID, orm.getRequester(), orm.getFurnitureType(), orm.getAdditionalNotes(), orm.getDeliveryTime(), orm.getDeliveryLocation());
+        } catch (SQLException e) {
             e.printStackTrace();
-            return null;
         }
+        return request;
     }
 
-    public FurnitureDeliveryRequest deleteRow(Requester requester, String roomName, String additionalNotes, String furnitureType, String eta) {
-        String FURNDELREQ = "DELETE FROM FurnitureDeliveryRequest WHERE requester = ? AND roomName = ? AND additionalNotes = ? AND furnitureType = ? AND eta = ?";
+    public FurnitureDeliveryRequest updateRow(FurnitureDeliveryRequest orm, FurnitureDeliveryRequest orm2){
+        DBConnection db = new DBConnection();
+        FurnitureDeliveryRequest request = null;
         try{
-            PreparedStatement ps = db.getConnection().prepareStatement(FURNDELREQ);
-            ps.setString(1, requester.toString());
-            ps.setString(2, roomName);
-            ps.setString(3, additionalNotes);
-            ps.setString(4, furnitureType);
-            ps.setString(5, eta);
+            String query = "UPDATE \"ServiceRequest\".\"furnitureDeliveryRequest\" SET requestID = ?, Requester = ?, furnitureType = ?, additionalNotes = ?, deliveryTime = ?, deliveryLocation = ? WHERE requestID = ?";
+            PreparedStatement ps = db.getConnection().prepareStatement(query);
+
+            ps.setString(1, orm2.getRequester().toString());
+            ps.setString(2, orm2.getFurnitureType());
+            ps.setString(3, orm2.getAdditionalNotes());
+            ps.setString(4, orm2.getDeliveryTime());
+            ps.setString(5, orm2.getDeliveryLocation());
+            ps.setString(6, orm.getRequestID());
             ps.executeUpdate();
-            return new FurnitureDeliveryRequest(0, requester, roomName, additionalNotes, furnitureType, eta);
-        } catch (Exception e) {
+
+            ResultSet rs = ps.getResultSet();
+            rs.next();
+            int requestID = rs.getInt("requestID");
+            request = new FurnitureDeliveryRequest(requestID, orm2.getRequester(), orm2.getFurnitureType(), orm2.getAdditionalNotes(), orm2.getDeliveryTime(), orm2.getDeliveryLocation());
+        } catch (SQLException e) {
             e.printStackTrace();
-            return null;
         }
+        return request;
     }
 
-    @Override
-    public List<FurnitureDeliveryRequest> fetchAllObjects() throws SQLException {
-        return null;
-    }
+    public FurnitureDeliveryRequest deleteRow(FurnitureDeliveryRequest orm){
+        DBConnection db = new DBConnection();
+        FurnitureDeliveryRequest request = null;
+        try{
+            String query = "DELETE FROM \"ServiceRequest\".\"furnitureDeliveryRequest\" WHERE requestID = ?";
+            PreparedStatement ps = db.getConnection().prepareStatement(query);
 
-    @Override
-    public FurnitureDeliveryRequest updateRow(FurnitureDeliveryRequest type, FurnitureDeliveryRequest type2) throws SQLException {
-        return null;
-    }
+            ps.setString(1, orm.getRequestID());
+            ps.executeUpdate();
 
-    @Override
-    public FurnitureDeliveryRequest addRow(FurnitureDeliveryRequest type) {
-        return null;
-    }
-
-    @Override
-    public FurnitureDeliveryRequest deleteRow(FurnitureDeliveryRequest type) throws SQLException {
-        return null;
+            ResultSet rs = ps.getResultSet();
+            rs.next();
+            int requestID = rs.getInt("requestID");
+            request = new FurnitureDeliveryRequest(requestID, orm.getRequester(), orm.getFurnitureType(), orm.getAdditionalNotes(), orm.getDeliveryTime(), orm.getDeliveryLocation());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return request;
     }
 }

@@ -1,6 +1,7 @@
 package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
+import edu.wpi.teamc.dao.IDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,14 +9,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MealRequestDAO {
+public class MealRequestDAO implements IDao<MealRequest> {
   public List<MealRequest> fetchAllObjects() throws SQLException {
     List<MealRequest> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
     try {
       Statement stmt = db.getConnection().createStatement();
       // Table Name
-      String table = "\"ServiceRequest\".\"mealRequest\"";
+      String table = "\"ServiceRequests\".\"mealRequest\"";
       // Query
       String query = "SELECT * FROM " + table;
       ResultSet rs = stmt.executeQuery(query);
@@ -33,8 +34,7 @@ public class MealRequestDAO {
                 new Requester(requestID, requester),
                 roomName,
                 additionalNotes,
-                new Meal(mealType, ""),
-                deliveryTime);
+                new Meal(mealType, ""));
         returnList.add(request);
       }
     } catch (SQLException e) {
@@ -48,15 +48,18 @@ public class MealRequestDAO {
     try {
       Statement stmtNode = db.getConnection().createStatement();
       String query =
-          "INSERT INTO \"ServiceRequest\".\"mealRequest\" (Requester, meal, additionalNotes, ETA, roomName) VALUES (?,?,?,?,?)";
-      PreparedStatement ps = db.getConnection().prepareStatement(query);
+          "INSERT INTO \"ServiceRequests\".\"mealRequest\" (Requester, meal, additionalNotes, ETA, roomName, status) VALUES (?,?,?,?,?, ?)";
+      PreparedStatement ps =
+          db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
       ps.setString(1, orm.getRequester().toString());
       ps.setString(2, orm.getMeal().toString());
       ps.setString(3, orm.getAdditionalNotes());
       ps.setString(4, orm.getEta());
       ps.setString(5, orm.getRoomName());
+      ps.setString(6, orm.getStatus().toString());
       ps.executeUpdate();
-      ResultSet rs = ps.getResultSet();
+
+      ResultSet rs = ps.getGeneratedKeys();
       rs.next();
       int requestID = rs.getInt("requestID");
       orm.setRequestID(requestID);
@@ -73,7 +76,7 @@ public class MealRequestDAO {
     try {
       Statement stmtNode = db.getConnection().createStatement();
       String query =
-          "UPDATE \"ServiceRequest\".\"mealRequest\" SET Requester = ?, meal = ?, additionalNotes = ?, ETA = ?, roomName = ? WHERE requestID = ?";
+          "UPDATE \"ServiceRequests\".\"mealRequest\" SET Requester = ?, meal = ?, additionalNotes = ?, ETA = ?, roomName = ? WHERE requestID = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, orm2.getRequester().toString());
       ps.setString(2, orm2.getMeal().getMealName());
@@ -95,7 +98,7 @@ public class MealRequestDAO {
     MealRequest request = null;
     try {
       Statement stmtNode = db.getConnection().createStatement();
-      String query = "DELETE FROM \"ServiceRequest\".\"mealRequest\" WHERE requestID = ?";
+      String query = "DELETE FROM \"ServiceRequests\".\"mealRequest\" WHERE requestID = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setInt(1, orm.getRequestID());
       ps.executeUpdate();

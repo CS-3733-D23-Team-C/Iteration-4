@@ -1,14 +1,15 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class MealController {
   @FXML private MFXButton goHome;
@@ -16,22 +17,19 @@ public class MealController {
 
   @FXML private MFXButton clear;
 
-  @FXML private MenuItem chocie0;
+  @FXML private MenuItem choice1;
 
-  @FXML private MenuItem chocie1;
+  @FXML private MenuItem choice2;
 
-  @FXML private MenuItem chocie2;
-
-  @FXML private MenuItem chocie3;
+  @FXML private MenuItem choice3;
 
   @FXML private MenuItem choice4;
-  @FXML private MFXTextField roomID;
-
-  @FXML private MFXTextField nameBox;
+  @FXML private TextField roomID;
+  @FXML private TextField nameBox;
 
   @FXML private MenuButton menuButton;
 
-  @FXML private TextArea textArea;
+  @FXML private TextField specialNotes;
 
   public void getGoHome() {
     Navigation.navigate(Screen.ADMIN_HOME);
@@ -54,31 +52,27 @@ public class MealController {
 
   @FXML
   void getChoice3() {
-    menuButton.setText("Pizza");
+    menuButton.setText("Grease Bowl");
   }
 
   @FXML
   void getChoice4() {
-    menuButton.setText("Ian's Ham Sandwich");
+    menuButton.setText("Reverse Osmosis Water");
   }
 
-  //  @FXML
-  //  void getSubmit(ActionEvent event) {
-  //    String notes = textArea.getText();
-  //    IServiceRequest.STATUS status = IServiceRequest.STATUS.PENDING;
-  //    String name = nameBox.getText();
-  //    String room = roomID.getText();
-  //    String text = textArea.getText();
-  //    MealRequest req =
-  //            new MealRequest(
-  //                    new Requester(Cdb.latestRequestID("mealRequest") + 1, name),
-  //                    new Meal(menuButton.getText(), ""),
-  //                    room,
-  //                    text,
-  //                    status);
-  //    Cdb.addMeal(req);
-  //    Navigation.navigate(Screen.CONGRATS_PAGE);
-  //  }
+  @FXML
+  void getSubmit(ActionEvent event) {
+    String notes = specialNotes.getText();
+    String name = nameBox.getText();
+    String room = roomID.getText();
+    String menuSelection = menuButton.getText();
+    MealRequest req =
+        new MealRequest(0, new Requester(0, name), room, notes, new Meal(menuSelection, ""));
+
+    IDao<MealRequest> dao = new MealRequestDAO();
+    dao.addRow(req);
+    Navigation.navigate(Screen.CONGRATS_PAGE);
+  }
 
   @FXML
   void getClear(ActionEvent event) {

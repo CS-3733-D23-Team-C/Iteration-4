@@ -148,10 +148,10 @@
             </MFXButton>
             <MenuButton fx:id="menuButton" layoutX="310.0" layoutY="203.0" prefHeight="54.0" prefWidth="690.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="--Select Conference Room--" textFill="#574c4c" AnchorPane.leftAnchor="314.0" AnchorPane.topAnchor="152.0">
                <items>
-                  <MenuItem fx:id="choice1" onAction="#getChoice1" mnemonicParsing="false" text="Conference A1" />
-                  <MenuItem fx:id="choice2" onAction="#getChoice2" mnemonicParsing="false" text="Conference A2" />
-                  <MenuItem fx:id="choice3" onAction="#getChoice3" mnemonicParsing="false" text="Conference A3" />
-                  <MenuItem fx:id="choice4" onAction="#getChoice4" mnemonicParsing="false" text="Conference A4" />
+                  <MenuItem fx:id="choice1" mnemonicParsing="false" onAction="#getChoice1" text="Conference A1" />
+                  <MenuItem fx:id="choice2" mnemonicParsing="false" onAction="#getChoice2" text="Conference A2" />
+                  <MenuItem fx:id="choice3" mnemonicParsing="false" onAction="#getChoice3" text="Conference A3" />
+                  <MenuItem fx:id="choice4" mnemonicParsing="false" onAction="#getChoice4" text="Conference A4" />
                </items>
                <padding>
                   <Insets left="30.0" />

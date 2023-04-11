@@ -16,20 +16,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.transform.Affine;
-import javafx.scene.transform.NonInvertibleTransformException;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.swing.*;
@@ -93,6 +91,11 @@ public class MapEditingController {
   @FXML private Button goHome;
   int XCoord = 0;
   int YCoord = 0;
+  String xCoord;
+  String yCoord;
+  String iD;
+  String building;
+  String floor = "G";
   //  List<Node> databaseNodeList = new ArrayList<Node>();
   //  List<Edge> databaseEdgeList = new ArrayList<Edge>();
   //  List<LocationName> databaseLocationNameList = new ArrayList<LocationName>();
@@ -127,24 +130,23 @@ public class MapEditingController {
     //        });
   }
 
-  public void setMouseCoordinates(MouseEvent e) {
-    Affine invMatrix = null;
-    try {
-      invMatrix = mapGPane.getAffine().createInverse();
-    } catch (NonInvertibleTransformException nonInvertibleTransformException) {
-      //      nonInvertibleTransformException.printStackTrace();
-    }
-    Point2D realPoint = invMatrix.transform(e.getX(), e.getY());
-
-    double x = (realPoint.getX()) + mapGPane.getLayoutX();
-    double y = (realPoint.getY()) + mapGPane.getLayoutY();
-    cordPasser.setXcoord(x);
-    cordPasser.setYCoord(y);
-  }
+  //  public void setMouseCoordinates(MouseEvent e) {
+  //    Affine invMatrix = null;
+  //    try {
+  //      invMatrix = mapGPane.getAffine().createInverse();
+  //    } catch (NonInvertibleTransformException nonInvertibleTransformException) {
+  //      //      nonInvertibleTransformException.printStackTrace();
+  //    }
+  //    Point2D realPoint = invMatrix.transform(e.getX(), e.getY());
+  //
+  //    double x = (realPoint.getX()) + mapGPane.getLayoutX();
+  //    double y = (realPoint.getY()) + mapGPane.getLayoutY();
+  //    cordPasser.setXcoord(x);
+  //    cordPasser.setYCoord(y);
+  //  }
 
   public void changeFloor(ActionEvent event) {
     floorButton = (MFXButton) event.getTarget();
-    String floor = "";
 
     if (Objects.equals(floorButton.getId(), "FL1")) {
       image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
@@ -194,6 +196,9 @@ public class MapEditingController {
             });
     mapNodes.toFront();
   }
+  //  public void placeNodes(String floor, Node node) {
+  //
+  //  }
 
   public void createMapNodes(Node node) {
     String shortname = new NodeDao().getShortName(node.getNodeID());
@@ -213,28 +218,56 @@ public class MapEditingController {
     newCircle.setVisible(true);
     mapNodes.getChildren().add(newCircle);
   }
-  //  public void submitNewNode(){
+  //    public EventHandler<javafx.event.ActionEvent> submitNewNode(){
+  //
+  //    }
+  //  public void submitNewNode() {
+  //    submitNode.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+  //
   //
   //  }
-  public void openAddMenu(ActionEvent event) {
+  public void showNodeMenu(ActionEvent event) {
     BorderPane borderPane = new BorderPane();
+    HBox hBox = new HBox();
+
+    VBox middleBox = new VBox(); // modify
+    Text nodeID_M = new Text();
+    Text xCoord = new Text();
+    xCoord.setText("Input new Xcoord");
+    Text yCoord = new Text();
+    yCoord.setText("Input new YCoord");
+    MFXTextField nodeIDText = new MFXTextField();
+    MFXTextField xCoord_text = new MFXTextField();
+    MFXTextField yCoord_text = new MFXTextField();
+    MFXButton submitModification = new MFXButton();
+
+    VBox rightBox = new VBox();
+    Text nodeID_R = new Text();
+    MFXButton submitRemove = new MFXButton();
+
     VBox textBoxes = new VBox();
-    TextArea XCoordText = new TextArea();
-    TextArea YCoordText = new TextArea();
-    TextArea IDText = new TextArea();
-    TextArea BuildingText = new TextArea();
+    Text XCoordText = new Text();
+    Text YCoordText = new Text();
+    //    Text IDText = new Text();
+    Text BuildingText = new Text();
     //    TextArea SubmitText = new TextArea();
     XCoordText.setText("Input X Coordinate");
     YCoordText.setText("Input Y Coordinate");
-    IDText.setText("Input Node ID");
+    //    IDText.setText("Input Node ID");
     BuildingText.setText("Input Building Name");
 
     MFXTextField inputXCoord = new MFXTextField();
     MFXTextField inputYCoord = new MFXTextField();
-    MFXTextField inputID = new MFXTextField();
+    //    MFXTextField inputID = new MFXTextField();
     MFXTextField inputBuilding = new MFXTextField(); // need floor as well
     MFXButton submitNode = new MFXButton();
+    submitNode.setId("submitNode");
+    //    submitNode.setOnAction(submitNewNode(submitNode.onActionProperty()));
+
     submitNode.setText("Submit Node");
+    submitNode.setPrefSize(100, 35);
+    submitNode.setMinSize(100, 35);
+    //    inputXCoord.setPrefSize(30, 30);
     //    inputXCoord.setBorderGap(20);
     textBoxes
         .getChildren()
@@ -243,8 +276,6 @@ public class MapEditingController {
             inputXCoord,
             YCoordText,
             inputYCoord,
-            IDText,
-            inputID,
             BuildingText,
             inputBuilding,
             submitNode);
@@ -253,30 +284,30 @@ public class MapEditingController {
     //    textBoxes.relocate(0,0);
     borderPane.getChildren().add(textBoxes);
     textBoxes.relocate(0, 0);
-    Scene scene = new Scene(borderPane, 600, 300);
+    Scene scene = new Scene(borderPane, 600, 400);
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.setTitle("Add Node Window");
 
     stage.show();
-    //    Pane pane = new Pane();
-    //    pane.setMaxHeight(image.getHeight() / 10);
-    //    pane.setMaxWidth(image.getWidth() / 10);
-    //    pane.setMinWidth(image.getWidth() / 10);
-    //    pane.setMinHeight(image.getHeight() / 10);
-    //    pane.relocate(0, 0);
-    //    pane.isVisible();
-    //    MFXTextField inputXCoord = new MFXTextField();
-    //    MFXTextField inputYCoord = new MFXTextField();
-    //    MFXTextField inputID = new MFXTextField();
-    //    MFXTextField inputBuilding = new MFXTextField(); // need floor as well
-    //    inputXCoord.relocate(0, 0);
-    //    inputXCoord.setScaleOnAbove(true);
-    //
-    //    pane.getChildren().add(inputXCoord);
-    //    pane.toFront();
-    //    Popup newPopUp = new Popup();
+
+    submitNode.setOnMouseClicked(
+        buttonEvent -> {
+          xCoord = inputXCoord.getText();
+          yCoord = inputYCoord.getText();
+          //          iD = inputID.getText();
+          building = inputBuilding.getText(); // maybe set automatically later
+          Node newNode =
+              new Node(Integer.valueOf(xCoord), Integer.valueOf(yCoord), floor, building);
+          NodeDao nodeDao = new NodeDao();
+          nodeDao.addRow(newNode);
+          placeNodes(
+              floor); // later implement an update map button that updates all changes made at once
+          // so
+          // user can submit multiple at a time
+          System.out.println("printed the new node");
+        });
   }
 
   public void getGoHome(ActionEvent event) {

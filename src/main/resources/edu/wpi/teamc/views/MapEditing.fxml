@@ -83,9 +83,10 @@
                       <Cursor fx:constant="HAND" />
                   </cursor>
               </MenuBar>
-            <VBox prefHeight="30.0" prefWidth="44.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="250.0">
+            <VBox layoutX="408.0" layoutY="238.0" prefHeight="50.0" prefWidth="56.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="238.0">
                <children>
-                  <MFXButton fx:id="addNewNode" onAction="#openAddMenu" prefHeight="28.0" prefWidth="44.0" text="Add" />
+                  <MFXButton fx:id="showNodeMenu" onAction="#showNodeMenu" prefHeight="25.0" prefWidth="56.0" text="Node" />
+                  <MFXButton prefHeight="25.0" prefWidth="56.0" text="Name" />
                </children>
             </VBox>
          </children>

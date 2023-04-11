@@ -3,6 +3,7 @@ package edu.wpi.teamc.dao.requests;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
     List<ConferenceRoomRequest> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
     try {
-      Statment stmt = db.getConnection().createStatement();
+      Statement stmt = db.getConnection().createStatement();
       //Table Name
       String table = "\"ServiceRequest\".\"conferenceRoomRequest\"";
       //Query
@@ -23,42 +24,43 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
 
       while (rs.next()) {
         //Get all the data from the table
-        String requestID = rs.getString("requestID");
+        int requestID = rs.getInt("requestID");
         String requester = rs.getString("Requester");
         String conferenceRoom = rs.getString("roomName");
         String additionalNotes = rs.getString("additionalNotes");
         String startTime = rs.getString("startTime");
         String endTime = rs.getString("endTime");
-
+        returnList.add(new ConferenceRoomRequest(requestID, new Requester(requestID, requester), new ConferenceRoom(conferenceRoom, "", null), additionalNotes, startTime, endTime));
       }
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return null;
-
+    return returnList;
   }
 
   public ConferenceRoomRequest addRow(ConferenceRoomRequest orm){
     DBConnection db = new DBConnection();
     ConferenceRoomRequest request = null;
     try{
-      String query = "INSERT INTO \"ServiceRequest\".\"conferenceRoomRequest\" (requestID, Requester, roomName, additionalNotes, startTime, endTime) VALUES (?,?,?,?,?,?)";
+      String query = "INSERT INTO \"ServiceRequest\".\"conferenceRoomRequest\" (Requester, roomName, status, additionalNotes, startTime, endTime) VALUES (?,?,?,?,?,?)";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
 
       ps.setString(1, orm.getRequester().toString());
       ps.setString(2, orm.getRoomName());
-      ps.setString(3, orm.getAdditionalNotes());
-      ps.setString(4, orm.getStartTime());
-      ps.setString(5, orm.getEndTime());
+      ps.setString(3, orm.getStatus().toString());
+      ps.setString(4, orm.getAdditionalNotes());
+      ps.setString(5, orm.getStartTime());
+      ps.setString(6, orm.getEndTime());
       ps.executeUpdate();
 
       ResultSet rs = ps.getResultSet();
       rs.next();
       int requestID = rs.getInt("requestID");
-      request = new ConferenceRoomRequest(requestID, orm.getRequester(), orm.getRoomName(), orm.getAdditionalNotes(), orm.getStartTime(), orm.getEndTime());
+      orm.setRequestID(requestID);
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    return orm;
   }
 
   public ConferenceRoomRequest updateRow(ConferenceRoomRequest orm, ConferenceRoomRequest repl) throws SQLException {
@@ -69,7 +71,14 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
       // table names
       String table = "\"ServiceRequests\".\"conferenceRoomRequest\"";
       // queries
-      String query = ""  ;
+      String query =
+          "UPDATE " + table + " SET " +
+          "Requester = ?, " +
+          "roomName = ?, " +
+          "additionalNotes = ?, " +
+          "startTime = ?, " +
+          "endTime = ? " +
+          "WHERE requestID = ?";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
         ps.setString(1, orm.getRequester().toString());
@@ -77,19 +86,15 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
         ps.setString(3, orm.getAdditionalNotes());
         ps.setString(4, orm.getStartTime());
         ps.setString(5, orm.getEndTime());
-
-        ps.setString(6, orm.getRequestID());
+        ps.setInt(6, repl.getRequestID());
 
       ps.execute();
-
-
-      crr = new ConferenceRoomRequest(orm.getRequestID(), orm.getRequester(), orm.getRoomName(), orm.getAdditionalNotes(), orm.getStartTime(), orm.getEndTime());
     } catch (Exception e) {
       e.printStackTrace();
     }
     db.closeConnection();
-    return crr;
-  }
+    return repl;
+    }
 
     public ConferenceRoomRequest deleteRow(ConferenceRoomRequest orm) throws SQLException {
         DBConnection db = new DBConnection();
@@ -103,12 +108,11 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
 
         stmtNode.executeUpdate(query);
 
-        crr = new ConferenceRoomRequest(orm.getRequestID(), orm.getRequester(), orm.getRoomName(), orm.getAdditionalNotes(), orm.getStartTime(), orm.getEndTime());
         } catch (Exception e) {
         e.printStackTrace();
         }
         db.closeConnection();
-        return crr;
+        return orm;
     }
 
 }

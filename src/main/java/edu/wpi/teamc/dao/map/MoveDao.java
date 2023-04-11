@@ -40,7 +40,7 @@ public class MoveDao implements IDao<Move> {
     return databaseMoveList;
   }
 
-  public int updateRow(Move orm, Move repl) {
+  public Move updateRow(Move orm, Move repl) {
     DBConnection db = new DBConnection();
     try {
       // table names
@@ -64,10 +64,10 @@ public class MoveDao implements IDao<Move> {
     }
     db.closeConnection();
 
-    return 1;
+    return null;
   }
 
-  public int addRow(Move orm) {
+  public Move addRow(Move orm) {
     DBConnection db = new DBConnection();
     try {
       // table names
@@ -87,10 +87,10 @@ public class MoveDao implements IDao<Move> {
     }
     db.closeConnection();
 
-    return 1;
+    return null;
   }
 
-  public int deleteRow(Move orm) {
+  public Move deleteRow(Move orm) {
     DBConnection db = new DBConnection();
     try {
       // table names
@@ -107,7 +107,7 @@ public class MoveDao implements IDao<Move> {
     }
     db.closeConnection();
 
-    return 1;
+    return null;
   }
 
   public Date returnDate(String dateString) {

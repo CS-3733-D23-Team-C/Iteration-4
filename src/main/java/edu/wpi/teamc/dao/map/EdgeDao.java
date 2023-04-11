@@ -36,7 +36,7 @@ public class EdgeDao implements IDao<Edge> {
     return databaseEdgeList;
   }
 
-  public int updateRow(Edge orm, Edge repl) {
+  public Edge updateRow(Edge orm, Edge repl) {
     DBConnection db = new DBConnection();
     try {
       String EDGE = "\"hospitalNode\".edge";
@@ -57,10 +57,10 @@ public class EdgeDao implements IDao<Edge> {
       e.printStackTrace();
     }
     db.closeConnection();
-    return 1;
+    return null;
   }
 
-  public int addRow(Edge orm) {
+  public Edge addRow(Edge orm) {
     DBConnection db = new DBConnection();
     try {
       String EDGE = "\"hospitalNode\".edge";
@@ -77,10 +77,10 @@ public class EdgeDao implements IDao<Edge> {
       e.printStackTrace();
     }
     db.closeConnection();
-    return 1;
+    return null;
   }
 
-  public int deleteRow(Edge orm) {
+  public Edge deleteRow(Edge orm) {
     DBConnection db = new DBConnection();
     try {
       // table names
@@ -101,7 +101,7 @@ public class EdgeDao implements IDao<Edge> {
       e.printStackTrace();
     }
     db.closeConnection();
-    return 1;
+    return null;
   }
 
   public boolean importCSV(String CSVfilepath) {

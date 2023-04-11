@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 abstract class AbsServiceRequest {
-  @Getter private int requestID;
+  @Getter @Setter private int requestID;
   @Getter Requester requester;
   @Getter @Setter private String roomName;
   @Getter @Setter STATUS status;

@@ -3,9 +3,12 @@ package edu.wpi.teamc.dao.requests;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
+@Setter
 public class FurnitureDeliveryRequest extends AbsServiceRequest {
-  @Getter private String furniture;
-  @Getter @Setter private String eta;
+
+  private String furniture;
+  private String eta;
 
   public FurnitureDeliveryRequest(
       int requestID,

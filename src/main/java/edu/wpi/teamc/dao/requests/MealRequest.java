@@ -3,17 +3,16 @@ package edu.wpi.teamc.dao.requests;
 import lombok.Getter;
 import lombok.Setter;
 
-public class MealRequest extends ServiceRequest {
+public class MealRequest extends AbsServiceRequest {
 
   @Getter @Setter private Meal meal;
-  private String room;
+  @Getter @Setter private String eta;
 
-  public MealRequest(Requester requester, Meal meal, String room, String note, STATUS stat) {
-    this.requester = requester;
-    this.status = stat;
-    this.additionalNotes = note;
+  public MealRequest(
+      int requestID, Requester requester, String roomName, String note, Meal meal, String eta) {
+    super(requestID, requester, roomName, note);
     this.meal = meal;
-    this.room = room;
+    this.eta = eta;
   }
 
   @Override

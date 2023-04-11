@@ -28,7 +28,7 @@ public class CApp extends Application {
     /* primaryStage is generally only used if one of your components require the stage to display */
     CApp.primaryStage = primaryStage;
 
-    final FXMLLoader loader = new FXMLLoader(CApp.class.getResource("views/Root.fxml"));
+    final FXMLLoader loader = new FXMLLoader(CApp.class.getResource("views/english/Root.fxml"));
     final BorderPane root = loader.load();
 
     CApp.rootPane = root;

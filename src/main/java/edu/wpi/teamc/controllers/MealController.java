@@ -34,7 +34,7 @@ public class MealController {
   @FXML private TextArea textArea;
 
   public void getGoHome() {
-    goHome.setOnMouseClicked(event -> Navigation.navigate(Screen.ADMIN_HOME));
+    Navigation.navigate(Screen.ADMIN_HOME);
   }
 
   @FXML
@@ -62,23 +62,23 @@ public class MealController {
     menuButton.setText("Ian's Ham Sandwich");
   }
 
-  //    @FXML
-  //    void getSubmit(ActionEvent event) {
-  //        String notes = textArea.getText();
-  //        IServiceRequest.STATUS status = IServiceRequest.STATUS.PENDING;
-  //        String name = nameBox.getText();
-  //        String room = roomID.getText();
-  //        String text = textArea.getText();
-  //        MealRequest req =
-  //                new MealRequest(
-  //                        new Requester(Cdb.latestRequestID("mealRequest") + 1, name),
-  //                        new Meal(menuButton.getText(), ""),
-  //                        room,
-  //                        text,
-  //                        status);
-  //        Cdb.addMeal(req);
-  //        Navigation.navigate(Screen.CONGRATS_PAGE);
-  //    }
+  //  @FXML
+  //  void getSubmit(ActionEvent event) {
+  //    String notes = textArea.getText();
+  //    IServiceRequest.STATUS status = IServiceRequest.STATUS.PENDING;
+  //    String name = nameBox.getText();
+  //    String room = roomID.getText();
+  //    String text = textArea.getText();
+  //    MealRequest req =
+  //            new MealRequest(
+  //                    new Requester(Cdb.latestRequestID("mealRequest") + 1, name),
+  //                    new Meal(menuButton.getText(), ""),
+  //                    room,
+  //                    text,
+  //                    status);
+  //    Cdb.addMeal(req);
+  //    Navigation.navigate(Screen.CONGRATS_PAGE);
+  //  }
 
   @FXML
   void getClear(ActionEvent event) {
@@ -89,49 +89,48 @@ public class MealController {
   @FXML
   public void initialize() {}
 
-  //    @FXML
-  //    public void getHelpPage(ActionEvent actionEvent) {
-  //        Navigation.navigate(Screen.HELP);
-  //    }
+  public void getHelpPage(ActionEvent actionEvent) {
+    Navigation.navigate(Screen.HELP);
+  }
 
   public void getLogOut(ActionEvent actionEvent) {
     Navigation.navigate(Screen.HOME);
   }
 
-  //    @FXML
-  //    void getFlowerDeliveryPage(ActionEvent event) {
-  //        Navigation.navigate(Screen.FLOWER);
-  //    }
+  @FXML
+  void getFlowerDeliveryPage(ActionEvent event) {
+    Navigation.navigate(Screen.FLOWER);
+  }
 
-  //    @FXML
-  //    void getFurnitureDeliveryPage(ActionEvent event) {
-  //        Navigation.navigate(Screen.FURNITURE);
-  //    }
+  @FXML
+  void getFurnitureDeliveryPage(ActionEvent event) {
+    Navigation.navigate(Screen.FURNITURE);
+  }
 
   @FXML
   void getMealDeliveryPage(ActionEvent event) {
     Navigation.navigate(Screen.MEAL);
   }
 
-  //    @FXML
-  //    void getOfficeSuppliesPage(ActionEvent event) {
-  //        Navigation.navigate(Screen.OFFICE_SUPPLY);
-  //    }
+  @FXML
+  void getOfficeSuppliesPage(ActionEvent event) {
+    Navigation.navigate(Screen.OFFICE_SUPPLY);
+  }
 
   @FXML
   void getRoomReservationPage(ActionEvent event) {
     Navigation.navigate(Screen.CONFERENCE);
   }
 
-  //    @FXML
-  //    void getSignagePage(ActionEvent event) {
-  //        Navigation.navigate(Screen.SIGNAGE);
-  //    }
+  @FXML
+  void getSignagePage(ActionEvent event) {
+    Navigation.navigate(Screen.SIGNAGE);
+  }
 
-  //    @FXML
-  //    void getPathfindingPage(ActionEvent event) {
-  //        Navigation.navigate(Screen.PATHFINDING_PAGE);
-  //    }
+  @FXML
+  void getPathfindingPage(ActionEvent event) {
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
 
   @FXML
   void getExit(ActionEvent event) {
@@ -141,15 +140,15 @@ public class MealController {
   @FXML
   void getEditMap(ActionEvent event) {}
 
-  //    @FXML
-  //    void getMapHistory(ActionEvent event) {
-  //        Navigation.navigate(Screen.MAP_HISTORY_PAGE);
-  //    }
+  @FXML
+  void getMapHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
+  }
 
-  //    @FXML
-  //    void getMealHistory(ActionEvent event) {
-  //        Navigation.navigate(Screen.MEAL_HISTORY);
-  //    }
+  @FXML
+  void getMealHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MEAL_HISTORY);
+  }
 
   @FXML
   void getMapPage(ActionEvent event) {}

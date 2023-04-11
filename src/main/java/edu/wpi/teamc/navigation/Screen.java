@@ -11,14 +11,14 @@ public enum Screen {
 
   HOME("views/Home.fxml"),
   GUEST_HOME("views/GuestHome.fxml"),
-  MEAL("views/Meal.fxml"),
+  MEAL("views/MealRequest.fxml"),
   MEAL_HISTORY("views/MealHistory.fxml"),
   CONFERENCE("views/Conference.fxml"),
   CONFERENCE_HISTORY("views/ConferenceHistory.fxml"),
 
   FLOWER("views/FlowerRequest.fxml"),
   FURNITURE("views/FurnitureRequest.fxml"),
-  OFFICE_SUPPLY("views/OfficeSupply.fxml"),
+  OFFICE_SUPPLY("views/OfficeSupplyRequest.fxml"),
   CONGRATS_PAGE("views/congratsPage.fxml"),
   MAP_HISTORY_PAGE("views/MapChangeHistory.fxml"),
   PATHFINDING_PAGE("views/Pathfinding.fxml"),

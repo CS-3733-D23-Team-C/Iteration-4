@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.MealRequestController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.MealController">
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="900.0" prefWidth="1600.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -29,8 +29,11 @@
                   <Text fill="#003da6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 25; -fx-font-weight: bold;" text="Brigham and Women's Hospital" wrappingWidth="222.21630859375" AnchorPane.leftAnchor="137.0" AnchorPane.topAnchor="33.0" />
                   <MenuButton alignment="CENTER" layoutX="74.0" layoutY="96.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Service Request" textFill="WHITE" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="205.0">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                        <MenuItem mnemonicParsing="false" onAction="#getRoomReservationPage" text="Room Reservation" />
+                        <MenuItem mnemonicParsing="false" onAction="#getMealDeliveryPage" text="Meal Request" />
+                        <MenuItem mnemonicParsing="false" onAction="#getFlowerDeliveryPage" text="Flower Delivery" />
+                        <MenuItem mnemonicParsing="false" onAction="#getFurnitureDeliveryPage" text="Furniture Delivery" />
+                        <MenuItem mnemonicParsing="false" onAction="#getOfficeSuppliesPage" text="Supply Delivery" />
                      </items>
                      <padding>
                         <Insets left="30.0" />
@@ -41,8 +44,11 @@
                   </MenuButton>
                   <MenuButton alignment="CENTER" layoutX="84.0" layoutY="106.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Navigation" textFill="WHITE" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="309.0">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                        <MenuItem mnemonicParsing="false" onAction="#getSignagePage" text="Signage" />
+                        <MenuItem mnemonicParsing="false" onAction="#getMapPage" text="Map" />
+                        <MenuItem mnemonicParsing="false" onAction="#getEditMap" text="Edit Map" />
+                        <MenuItem mnemonicParsing="false" onAction="#getMapHistory" text="Map History" />
+                        <MenuItem mnemonicParsing="false" onAction="#getPathfindingPage" text="Pathfinding" />
                      </items>
                      <padding>
                         <Insets left="30.0" />
@@ -65,8 +71,8 @@
                   </MenuButton>
                   <MenuButton alignment="CENTER" layoutX="104.0" layoutY="126.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Help" textFill="WHITE" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="517.0">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                        <MenuItem mnemonicParsing="false" text="Help Page 1" />
+                        <MenuItem mnemonicParsing="false" text="Help Page 2" />
                      </items>
                      <padding>
                         <Insets left="30.0" />
@@ -76,7 +82,7 @@
                      </cursor>
                   </MenuButton>
                   <Line endX="398.0" endY="778.0" startX="-1.0" startY="778.0" stroke="#837272" strokeWidth="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="665.0" />
-                  <MFXButton fx:id="logoutButton" layoutX="54.0" layoutY="704.0" onAction="#getLogout" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Log Out" textFill="#978787" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="723.0">
+                  <MFXButton fx:id="logoutButton" layoutX="54.0" layoutY="704.0" onAction="#getLogOut" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Log Out" textFill="#978787" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="723.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -123,7 +129,7 @@
                         <Font size="35.0" />
                      </font>
                   </TextField>
-                  <MFXButton layoutX="188.0" layoutY="577.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Cancel" textFill="#978787" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="557.0">
+                  <MFXButton layoutX="188.0" layoutY="577.0" onAction="#getGoHome" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Cancel" textFill="#978787" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="557.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

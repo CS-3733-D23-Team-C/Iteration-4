@@ -101,7 +101,7 @@ public class MapEditingController {
   String yCoord_temp = "";
   String nodeID_temp = "";
   String iD;
-  String building;
+  String building = "";
   String floor = "G";
   List<Node> n_toAdd = new ArrayList<Node>();
   List<Node> n_toModify_newNode = new ArrayList<Node>();
@@ -332,7 +332,7 @@ public class MapEditingController {
     stage.setTitle("Add Node Window");
 
     stage.show();
-
+    // Add
     submitNode.setOnMouseClicked(
         buttonEvent -> {
           xCoord_temp = inputXCoord.getText();
@@ -353,6 +353,7 @@ public class MapEditingController {
           // so user can submit multiple at a time
           System.out.println("printed the new node");
         });
+    // Modify
     submitModify.setOnMouseClicked(
         buttonEvent -> {
           nodeID_temp = nodeIDText.getText();
@@ -364,11 +365,16 @@ public class MapEditingController {
           //          iD = inputID.getText();
           //              building = inputBuilding.getText(); // maybe set automatically later
           Node newNode =
-              new Node(Integer.valueOf(xCoord_temp), Integer.valueOf(yCoord_temp), floor, building);
-          NodeDao oldDao = new NodeDao();
+              new Node(
+                  Integer.valueOf(nodeID_temp),
+                  Integer.valueOf(xCoord_temp),
+                  Integer.valueOf(yCoord_temp),
+                  floor,
+                  building);
+          //          NodeDao oldDao = new NodeDao();
           //              Node oldNode = oldDao.getNode(nodeID_temp); ////*******Need to add this
           // getter method
-          NodeDao nodeDao = new NodeDao();
+          //          NodeDao nodeDao = new NodeDao();
           n_toModify_newNode.add(newNode);
           n_toModify_oldID.add(nodeID_temp);
           //              nodeDao.updateRow(newNode, oldNode); //////////********
@@ -379,6 +385,7 @@ public class MapEditingController {
           // user can submit multiple at a time
           System.out.println("modified the node");
         });
+    // Remove
     submitRemove.setOnMouseClicked(
         buttonEvent -> {
           iD = nodeID_RText.getText();
@@ -391,29 +398,40 @@ public class MapEditingController {
           // user can submit multiple at a time
           System.out.println("removed the node");
         });
+    // Submit
     submitNodeEdits.setOnMouseClicked(
         buttonEvent -> {
           NodeDao nodeDao = new NodeDao();
 
-          // Add
+          // Add loop
           for (Node currNode : n_toAdd) {
             nodeDao.addRow(currNode);
           }
-          // Modify
+          // Modify loop
           for (int i = 0; i < n_toModify_oldID.size(); i++) {
+            //            NodeDao nodeDao = new NodeDao();
             Node currNode = n_toModify_newNode.get(i);
             String oldID = n_toModify_oldID.get(i);
+            int oldId_int = Integer.valueOf(oldID);
+            nodeDao.updateRow(Integer.valueOf(oldID), currNode);
             //                nodeDao.getNodeFromID() ////////NEED TO CREATE THIS METHOD
             ///// REPLACE NODE METHOD
           }
+          // Remove loop
           for (String currID : n_toRemove) {
+
             //                nodeDao.deleteRow(currID); ////NEED TO MAKE WORK WITH NODE ID ONLY AS
             // SUPPLIED
           }
           stage
               .close(); // no need to close when switching floors bc any new one submitted with have
           // a new floor assignment relating to the currently viewed floor
+          group.getChildren().remove(mapNodes);
+          mapNodes.getChildren().clear();
+          group.getChildren().add(mapNodes);
           placeNodes(floor);
+          // Delete node
+
         });
   }
 
@@ -495,11 +513,12 @@ public class MapEditingController {
           nodeID_temp = nodeIDinput.getText();
           sNameInput_temp = sNameInput.getText();
           lNameInput_temp = lNameInput.getText();
-//          *********FIND NODE USING NODE ID
-          Node newNode = /////////////get rid of this when find old node or make node using old x, y, and building found
+          //          *********FIND NODE USING NODE ID
+          Node newNode = // /////////// get rid of this when find old node or make node using old x,
+              // y, and building found
               new Node(Integer.valueOf(xCoord_temp), Integer.valueOf(yCoord_temp), floor, building);
           //          NodeDao nodeDao = new NodeDao();
-          oldNameToAdd.add(newNode); /////////////INSTEAD HAVE THIS BE THE OLD NODE FOUND USING ID
+          oldNameToAdd.add(newNode); // ///////////INSTEAD HAVE THIS BE THE OLD NODE FOUND USING ID
           newNameToAdd.add(nodeID_temp);
           //          nodeDao.addRow(newNode); to iterate over in submit method
           //          placeNodes(
@@ -509,7 +528,7 @@ public class MapEditingController {
           // so user can submit multiple at a time
           System.out.println("printed the new node");
         });
-    //Modify
+    // Modify
     submitModify.setOnMouseClicked(
         buttonEvent -> {
           nodeID_temp = nodeID_M.getText();
@@ -534,7 +553,7 @@ public class MapEditingController {
           // user can submit multiple at a time
           System.out.println("modified the node");
         });
-    //remove
+    // remove
     submitRemove.setOnMouseClicked(
         buttonEvent -> {
           iD = nodeID_RText.getText();
@@ -555,7 +574,7 @@ public class MapEditingController {
           for (int i = 0; i < newNameToAdd.size(); i++) {
             Node currNode = oldNameToAdd.get(i);
             String currId = newNameToAdd.get(i);
-//            nodeDao.addRow(currNode); ///USE ADD NAME FUNCTION
+            //            nodeDao.addRow(currNode); ///USE ADD NAME FUNCTION
           }
           // Modify
           for (int i = 0; i < newNameToModify.size(); i++) {
@@ -564,7 +583,7 @@ public class MapEditingController {
             ///// METHOD TO REPLACE NAME OF NODE AND INPUT TO TABLE
           }
           for (String currID : nameToRemove) {
-            ////METHOD TO FIND NODE IN DAO AND REMOVE IT BASED ON ID
+            //// METHOD TO FIND NODE IN DAO AND REMOVE IT BASED ON ID
             //                nodeDao.deleteRow(currID); ////NEED TO MAKE WORK WITH NODE ID ONLY AS
             // SUPPLIED
           }

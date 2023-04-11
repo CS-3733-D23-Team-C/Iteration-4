@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
-  public List<FlowerDeliveryRequest> fetchAllObjects() throws SQLException {
+  public  List<FlowerDeliveryRequest> fetchAllObjects() {
     List<FlowerDeliveryRequest> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
 
@@ -45,8 +45,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
     return returnList;
   }
 
-  public FlowerDeliveryRequest updateRow(FlowerDeliveryRequest orm, FlowerDeliveryRequest repl)
-      throws SQLException {
+  public  FlowerDeliveryRequest updateRow(FlowerDeliveryRequest orm, FlowerDeliveryRequest repl) {
     DBConnection db = new DBConnection();
     FlowerDeliveryRequest fdr = null;
     try {
@@ -86,7 +85,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
     return fdr;
   }
 
-  public FlowerDeliveryRequest addRow(FlowerDeliveryRequest orm) {
+  public  FlowerDeliveryRequest addRow(FlowerDeliveryRequest orm) {
     DBConnection db = new DBConnection();
     FlowerDeliveryRequest request = null;
     try {
@@ -131,7 +130,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
     return request;
   }
 
-  public FlowerDeliveryRequest deleteRow(FlowerDeliveryRequest orm) throws SQLException {
+  public FlowerDeliveryRequest deleteRow(FlowerDeliveryRequest orm) {
     DBConnection db = new DBConnection();
     try {
       Statement stmtNode = db.getConnection().createStatement();

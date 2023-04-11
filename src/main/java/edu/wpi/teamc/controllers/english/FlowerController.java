@@ -1,12 +1,17 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.dao.requests.FlowerDeliveryRequest;
+import edu.wpi.teamc.dao.requests.FlowerDeliveryRequestDAO;
+import edu.wpi.teamc.dao.requests.Requester;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 
 public class FlowerController {
     @FXML private MFXButton goHome;
@@ -14,6 +19,10 @@ public class FlowerController {
 
     @FXML private MFXButton clear;
 
+    @FXML private MFXTextField name;
+
+    @FXML private MFXTextField roomID;
+    @FXML private TextField additionalNotes;
     @FXML private MenuItem chocie0;
 
     @FXML private MenuItem chocie1;
@@ -63,6 +72,15 @@ public class FlowerController {
 
     @FXML
     void getSubmit() {
+        String name = this.name.getText();
+        String roomID = this.roomID.getText();
+        String flower = menuButton.getText();
+        String additionalNotes = this.additionalNotes.getText();
+
+        FlowerDeliveryRequest request = new FlowerDeliveryRequest(-1, new Requester(0, name), roomID, flower,additionalNotes);
+        FlowerDeliveryRequestDAO dao = new FlowerDeliveryRequestDAO();
+        request = dao.addRow(request);
+        submit.setOnMouseClicked(event -> Navigation.navigate(Screen.CONGRATS_PAGE));
         submit.setOnMouseClicked(event -> Navigation.navigate(Screen.CONGRATS_PAGE));
     }
 

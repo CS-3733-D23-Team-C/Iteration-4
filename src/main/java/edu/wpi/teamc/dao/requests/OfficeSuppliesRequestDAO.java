@@ -1,15 +1,17 @@
 package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
+import edu.wpi.teamc.dao.IDao;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OfficeSuppliesRequestDAO {
+public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest> {
 
-  public List<OfficeSuppliesRequest> fetchAllObjects() {
+  public  List<OfficeSuppliesRequest> fetchAllObjects() {
     DBConnection db = new DBConnection();
     List<OfficeSuppliesRequest> returnList = new ArrayList<>();
     String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
@@ -38,7 +40,7 @@ public class OfficeSuppliesRequestDAO {
     return returnList;
   }
 
-  public OfficeSuppliesRequest addRow(OfficeSuppliesRequest orm) {
+  public  OfficeSuppliesRequest addRow(OfficeSuppliesRequest orm) {
     DBConnection db = new DBConnection();
     OfficeSuppliesRequest request = null;
     String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
@@ -71,7 +73,7 @@ public class OfficeSuppliesRequestDAO {
     return request;
   }
 
-  public OfficeSuppliesRequest deleteRow(OfficeSuppliesRequest orm) {
+  public  OfficeSuppliesRequest deleteRow(OfficeSuppliesRequest orm) {
     DBConnection db = new DBConnection();
     OfficeSuppliesRequest request = orm;
     String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
@@ -87,7 +89,7 @@ public class OfficeSuppliesRequestDAO {
     return request;
   }
 
-  public OfficeSuppliesRequest updateRow(OfficeSuppliesRequest orm, OfficeSuppliesRequest repl) {
+  public  OfficeSuppliesRequest updateRow(OfficeSuppliesRequest orm, OfficeSuppliesRequest repl) {
     DBConnection db = new DBConnection();
     OfficeSuppliesRequest request = null;
     String table = "\"ServiceRequests\".\"officeSupplyRequest\"";

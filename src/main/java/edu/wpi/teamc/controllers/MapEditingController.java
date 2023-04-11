@@ -395,6 +395,7 @@ public class MapEditingController {
             //                nodeDao.deleteRow(currID); ////NEED TO MAKE WORK WITH NODE ID ONLY AS
             // SUPPLIED
           }
+          stage.close(); //no need to close when switching floors bc any new one submitted with have a new floor assignment relating to the currently viewed floor
           placeNodes(floor);
         });
   }

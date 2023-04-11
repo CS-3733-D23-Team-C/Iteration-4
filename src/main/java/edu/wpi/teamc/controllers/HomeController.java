@@ -16,7 +16,7 @@ public class HomeController {
 
   @FXML
   void getAdmin(ActionEvent event) {
-    Navigation.navigate(Screen.ADMIN_HOME);
+     Navigation.navigate(Screen.ADMIN_HOME);
   }
 
   @FXML

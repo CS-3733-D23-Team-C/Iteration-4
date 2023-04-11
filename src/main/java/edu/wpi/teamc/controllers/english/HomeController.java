@@ -127,7 +127,7 @@ public class HomeController {
       try {
         desktop.open(file);
         filePath = file.getAbsolutePath();
-        Cdb.importCSVNode(filePath);
+        // Cdb.importCSVNode(filePath);
       } catch (Exception ex) {
         ex.printStackTrace();
       }
@@ -145,7 +145,7 @@ public class HomeController {
       try {
         desktop.open(file);
         filePath = file.getAbsolutePath();
-        Cdb.importCSVEdge(filePath);
+        // Cdb.importCSVEdge(filePath);
       } catch (Exception ex) {
         ex.printStackTrace();
       }
@@ -163,7 +163,7 @@ public class HomeController {
       try {
         desktop.open(file);
         filePath = file.getAbsolutePath();
-        Cdb.importCSVLocationName(filePath);
+        // Cdb.importCSVLocationName(filePath);
       } catch (Exception ex) {
         ex.printStackTrace();
       }
@@ -181,7 +181,7 @@ public class HomeController {
       try {
         desktop.open(file);
         filePath = file.getAbsolutePath();
-        Cdb.importCSVMove(filePath);
+        // Cdb.importCSVMove(filePath);
       } catch (Exception ex) {
         ex.printStackTrace();
       }
@@ -199,7 +199,7 @@ public class HomeController {
       if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
         filePath += ".csv"; // append ".csv" to the file path
       }
-      Cdb.exportNodesToCSV(filePath);
+      // Cdb.exportNodesToCSV(filePath);
       testText.setText(filePath);
     }
   }
@@ -215,7 +215,7 @@ public class HomeController {
       if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
         filePath += ".csv"; // append ".csv" to the file path
       }
-      Cdb.exportEdgesToCSV(filePath);
+      // Cdb.exportEdgesToCSV(filePath);
       testText.setText(filePath);
     }
   }
@@ -231,7 +231,7 @@ public class HomeController {
       if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
         filePath += ".csv"; // append ".csv" to the file path
       }
-      Cdb.exportLocationNamesToCSV(filePath);
+      // Cdb.exportLocationNamesToCSV(filePath);
       testText.setText(filePath);
     }
   }
@@ -247,7 +247,7 @@ public class HomeController {
       if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
         filePath += ".csv"; // append ".csv" to the file path
       }
-      Cdb.exportMovesToCSV(filePath);
+      // Cdb.exportMovesToCSV(filePath);
       testText.setText(filePath);
     }
   }

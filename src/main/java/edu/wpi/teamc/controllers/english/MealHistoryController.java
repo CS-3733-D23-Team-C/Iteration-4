@@ -61,9 +61,9 @@ public class MealHistoryController {
     ColumnSix.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     // get conference room table
 
-    historyTable
-        .getItems()
-        .setAll(convertToObservableList(Cdb.getTable("ServiceRequests", "mealRequest")));
+    //    historyTable
+    //        .getItems()
+    //        .setAll(convertToObservableList(Cdb.getTable("ServiceRequests", "mealRequest")));
 
     System.out.println("did it");
   }
@@ -104,7 +104,7 @@ public class MealHistoryController {
       status = rl.get(3);
       room = rl.get(4);
       notes = rl.get(5);
-      rows.add(new TableRow(requestID, reqname, meal, status, room, notes));
+      // rows.add(new TableRow(requestID, reqname, meal, status, room, notes));
     }
     return rows;
   }

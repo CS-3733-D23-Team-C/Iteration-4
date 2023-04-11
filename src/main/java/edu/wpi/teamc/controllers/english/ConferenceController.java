@@ -86,7 +86,7 @@ public class ConferenceController {
             end.toString(),
             status);
 
-    ConferenceRoomRequestDAO.addRow(req);
+    // ConferenceRoomRequestDAO.addRow(req);
     Navigation.navigate(Screen.CONGRATS_PAGE);
   }
 

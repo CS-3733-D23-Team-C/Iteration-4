@@ -112,8 +112,7 @@ public class MapEditingController {
 
   List<Node> oldNameToModify = new ArrayList<Node>();
   List<String> newNameToModify = new ArrayList<String>();
-  List<Node> oldNameToRemove = new ArrayList<Node>();
-  List<String> newNameToRemove = new ArrayList<String>();
+  List<String> nameToRemove = new ArrayList<String>();
 
   String sNameInput_temp;
   String lNameInput_temp;
@@ -535,10 +534,11 @@ public class MapEditingController {
           // user can submit multiple at a time
           System.out.println("modified the node");
         });
+    //remove
     submitRemove.setOnMouseClicked(
         buttonEvent -> {
           iD = nodeID_RText.getText();
-          n_toRemove.add(iD);
+          nameToRemove.add(iD);
           //              placeNodes(
           //                      floor); // later implement an update map button that updates all
           // changes
@@ -552,17 +552,19 @@ public class MapEditingController {
           NodeDao nodeDao = new NodeDao();
 
           // Add
-          for (Node currNode : n_toAdd) {
-            nodeDao.addRow(currNode);
+          for (int i = 0; i < newNameToAdd.size(); i++) {
+            Node currNode = oldNameToAdd.get(i);
+            String currId = newNameToAdd.get(i);
+//            nodeDao.addRow(currNode); ///USE ADD NAME FUNCTION
           }
           // Modify
-          for (int i = 0; i < n_toModify_oldID.size(); i++) {
-            Node currNode = n_toModify_newNode.get(i);
-            String oldID = n_toModify_oldID.get(i);
-            //                nodeDao.getNodeFromID() ////////NEED TO CREATE THIS METHOD
-            ///// REPLACE NODE METHOD
+          for (int i = 0; i < newNameToModify.size(); i++) {
+            Node currNode = oldNameToModify.get(i);
+            String newName = newNameToModify.get(i);
+            ///// METHOD TO REPLACE NAME OF NODE AND INPUT TO TABLE
           }
-          for (String currID : n_toRemove) {
+          for (String currID : nameToRemove) {
+            ////METHOD TO FIND NODE IN DAO AND REMOVE IT BASED ON ID
             //                nodeDao.deleteRow(currID); ////NEED TO MAKE WORK WITH NODE ID ONLY AS
             // SUPPLIED
           }

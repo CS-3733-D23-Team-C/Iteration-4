@@ -93,7 +93,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
       String query =
           "INSERT INTO "
               + table
-              + " (req, roomName, \"flower\", additionalNotes, status, ETA) VALUES (?,?,?,?,?,?);";
+              + " (requester, roomName, flower, additionalNotes, status) VALUES (?,?,?,?,?);";
 
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -103,7 +103,6 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
       ps.setString(3, orm.getFlower());
       ps.setString(4, orm.getAdditionalNotes());
       ps.setString(5, orm.getStatus().toString());
-      ps.setString(6, orm.getEta());
 
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();

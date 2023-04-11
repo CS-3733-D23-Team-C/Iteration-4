@@ -235,7 +235,8 @@ public class NodeDao implements IDao<Node> {
       System.out.println("File already exists.");
     }
   }
-    public static String getShortName(int nodeID) {
+
+  public static String getShortName(int nodeID) {
     Node node = null;
     List<Node> nodeList = new NodeDao().fetchAllObjects();
     List<LocationName> nameList = new LocationDao().fetchAllObjects();

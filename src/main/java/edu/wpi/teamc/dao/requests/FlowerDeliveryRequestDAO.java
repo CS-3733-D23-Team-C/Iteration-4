@@ -70,7 +70,6 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
       ps.setInt(7, orm.getRequestID());
 
       ps.execute();
-
       fdr =
           new FlowerDeliveryRequest(
               orm.getRequestID(),
@@ -109,7 +108,6 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
       ps.setString(6, orm.getEta());
 
       ps.executeUpdate();
-
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
       int requestID = rs.getInt("requestID");
@@ -125,7 +123,6 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
     } catch (Exception e) {
       e.printStackTrace();
     }
-
     db.closeConnection();
     return request;
   }
@@ -148,7 +145,6 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
     } catch (Exception e) {
       e.printStackTrace();
     }
-
     db.closeConnection();
     return orm;
   }

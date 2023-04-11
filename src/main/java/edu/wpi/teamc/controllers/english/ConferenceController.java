@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
@@ -86,7 +87,8 @@ public class ConferenceController {
             end.toString(),
             status);
 
-    // ConferenceRoomRequestDAO.addRow(req);
+    IDao dao = new ConferenceRoomRequestDAO();
+    dao.addRow(req);
     Navigation.navigate(Screen.CONGRATS_PAGE);
   }
 

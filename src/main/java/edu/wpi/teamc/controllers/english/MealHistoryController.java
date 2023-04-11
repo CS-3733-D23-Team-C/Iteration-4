@@ -35,7 +35,7 @@ public class MealHistoryController {
   @FXML TableColumn<TableRow, String> ColumnFive;
   @FXML TableColumn<TableRow, String> ColumnSix;
 
-  ObservableList<TableRow> rows = FXCollections.observableArrayList();
+  ObservableList<TableRowController> rows = FXCollections.observableArrayList();
 
   @FXML private Button goHome;
 
@@ -61,9 +61,15 @@ public class MealHistoryController {
     ColumnSix.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     // get conference room table
 
+<<<<<<< HEAD
     //    historyTable
     //        .getItems()
     //        .setAll(convertToObservableList(Cdb.getTable("ServiceRequests", "mealRequest")));
+=======
+    /*historyTable
+    .getItems()
+    .setAll(convertToObservableList(Cdb.getTable("ServiceRequests", "mealRequest")));*/
+>>>>>>> UI-ServiceReq
 
     System.out.println("did it");
   }
@@ -85,7 +91,7 @@ public class MealHistoryController {
   //    System.out.println("did it");
   //  }
 
-  public ObservableList<TableRow> convertToObservableList(List<List<String>> rowList) {
+  public ObservableList<TableRowController> convertToObservableList(List<List<String>> rowList) {
     String requestID;
     String reqname;
     String meal;
@@ -105,6 +111,7 @@ public class MealHistoryController {
       room = rl.get(4);
       notes = rl.get(5);
       // rows.add(new TableRow(requestID, reqname, meal, status, room, notes));
+      rows.add(new TableRowController(requestID, reqname, meal, status, room, notes));
     }
     return rows;
   }

@@ -4,16 +4,11 @@ import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Stage;
 
 public class HomeController {
 
@@ -102,6 +97,46 @@ public class HomeController {
   }
 
   @FXML
+  void getImportNodes(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
+
+  @FXML
+  void getImportEdges(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
+
+  @FXML
+  void getImportLocationNames(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
+
+  @FXML
+  void getImportMove(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
+
+  @FXML
+  void getExportNodes(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
+
+  @FXML
+  void getExportEdges(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
+
+  @FXML
+  void getExportLocationNames(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
+
+  @FXML
+  void getExportMove(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
+
+  @FXML
   void getLogOut(ActionEvent event) {
     Navigation.navigate(Screen.LOGIN);
   }
@@ -114,142 +149,6 @@ public class HomeController {
   @FXML
   void getMapPage(ActionEvent event) {
     Navigation.navigate(Screen.FLOOR_PLAN);
-  }
-
-  @FXML
-  void getImportNodes(ActionEvent event) {
-    FileChooser fileChooser = new FileChooser();
-    FileChooser.ExtensionFilter extFilter =
-        new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
-    fileChooser.getExtensionFilters().add(extFilter);
-    File file = fileChooser.showOpenDialog(new Stage());
-    if (file != null) {
-      try {
-        desktop.open(file);
-        filePath = file.getAbsolutePath();
-        // Cdb.importCSVNode(filePath);
-      } catch (Exception ex) {
-        ex.printStackTrace();
-      }
-    }
-  }
-
-  @FXML
-  void getImportEdges(ActionEvent event) {
-    FileChooser fileChooser = new FileChooser();
-    FileChooser.ExtensionFilter extFilter =
-        new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
-    fileChooser.getExtensionFilters().add(extFilter);
-    File file = fileChooser.showOpenDialog(new Stage());
-    if (file != null) {
-      try {
-        desktop.open(file);
-        filePath = file.getAbsolutePath();
-        // Cdb.importCSVEdge(filePath);
-      } catch (Exception ex) {
-        ex.printStackTrace();
-      }
-    }
-  }
-
-  @FXML
-  void getImportLocationNames(ActionEvent event) {
-    FileChooser fileChooser = new FileChooser();
-    FileChooser.ExtensionFilter extFilter =
-        new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
-    fileChooser.getExtensionFilters().add(extFilter);
-    File file = fileChooser.showOpenDialog(new Stage());
-    if (file != null) {
-      try {
-        desktop.open(file);
-        filePath = file.getAbsolutePath();
-        // Cdb.importCSVLocationName(filePath);
-      } catch (Exception ex) {
-        ex.printStackTrace();
-      }
-    }
-  }
-
-  @FXML
-  void getImportMove(ActionEvent event) {
-    FileChooser fileChooser = new FileChooser();
-    FileChooser.ExtensionFilter extFilter =
-        new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
-    fileChooser.getExtensionFilters().add(extFilter);
-    File file = fileChooser.showOpenDialog(new Stage());
-    if (file != null) {
-      try {
-        desktop.open(file);
-        filePath = file.getAbsolutePath();
-        // Cdb.importCSVMove(filePath);
-      } catch (Exception ex) {
-        ex.printStackTrace();
-      }
-    }
-  }
-
-  @FXML
-  void getExportNodes(ActionEvent event) throws IOException {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Save");
-    fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
-    File file = fileChooser.showSaveDialog(new Stage());
-    if (file != null) {
-      String filePath = file.getAbsolutePath();
-      if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
-        filePath += ".csv"; // append ".csv" to the file path
-      }
-      // Cdb.exportNodesToCSV(filePath);
-      testText.setText(filePath);
-    }
-  }
-
-  @FXML
-  void getExportEdges(ActionEvent event) throws IOException {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Save");
-    fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
-    File file = fileChooser.showSaveDialog(new Stage());
-    if (file != null) {
-      String filePath = file.getAbsolutePath();
-      if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
-        filePath += ".csv"; // append ".csv" to the file path
-      }
-      // Cdb.exportEdgesToCSV(filePath);
-      testText.setText(filePath);
-    }
-  }
-
-  @FXML
-  void getExportLocationNames(ActionEvent event) throws IOException {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Save");
-    fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
-    File file = fileChooser.showSaveDialog(new Stage());
-    if (file != null) {
-      String filePath = file.getAbsolutePath();
-      if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
-        filePath += ".csv"; // append ".csv" to the file path
-      }
-      // Cdb.exportLocationNamesToCSV(filePath);
-      testText.setText(filePath);
-    }
-  }
-
-  @FXML
-  void getExportMove(ActionEvent event) throws IOException {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Save");
-    fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
-    File file = fileChooser.showSaveDialog(new Stage());
-    if (file != null) {
-      String filePath = file.getAbsolutePath();
-      if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
-        filePath += ".csv"; // append ".csv" to the file path
-      }
-      // Cdb.exportMovesToCSV(filePath);
-      testText.setText(filePath);
-    }
   }
 
   @FXML

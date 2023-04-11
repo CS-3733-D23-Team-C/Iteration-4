@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.AdminHomeController">
+<AnchorPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.AdminHomeController">
    <children>
       <AnchorPane layoutX="402.0" prefHeight="153.0" prefWidth="1208.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.5),5,0.75,0,0);" AnchorPane.leftAnchor="392.0" AnchorPane.topAnchor="0.0">
          <children>

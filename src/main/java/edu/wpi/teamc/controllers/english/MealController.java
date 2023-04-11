@@ -65,6 +65,24 @@ public class MealController {
   @FXML
   void getSubmit(ActionEvent event) {}
 
+  /*void getSubmit(ActionEvent event) {
+    String notes = textArea.getText();
+    IServiceRequest.STATUS status = IServiceRequest.STATUS.PENDING;
+    String name = nameBox.getText();
+    String room = roomID.getText();
+    String text = textArea.getText();
+    MealRequest req =
+        new MealRequest(
+            new Requester(Cdb.latestRequestID("mealRequest") + 1, name),
+            new Meal(menuButton.getText(), ""),
+            room,
+            text,
+            status);
+    Cdb.addMeal(req);
+    Navigation.navigate(Screen.CONGRATS_PAGE);
+  }*/
+
+
   @FXML
   void getClear(ActionEvent event) {
     Navigation.navigate(Screen.MEAL);
@@ -137,4 +155,9 @@ public class MealController {
 
   @FXML
   void getMapPage(ActionEvent event) {}
+
+  @FXML
+  void getSubmit() {
+    menuButton.setText("Halal Shack Bowl with Zucchini Noodles and Chicken Breast");
+  }
 }

@@ -5,6 +5,7 @@ import edu.wpi.teamc.dao.map.Edge;
 import edu.wpi.teamc.dao.map.LocationName;
 import edu.wpi.teamc.dao.map.Node;
 import edu.wpi.teamc.dao.map.NodeDao;
+import edu.wpi.teamc.mapHelpers.CoordinatePasser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -15,17 +16,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.transform.Affine;
+import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javax.swing.*;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.tableview2.FilteredTableView;
@@ -66,7 +72,7 @@ public class MapEditingController {
   @FXML TableColumn<TableRow, String> ColumnSeven;
   @FXML TableColumn<TableRow, String> ColumnEight;
   @FXML TableColumn<TableRow, String> ColumnNine;
-  @FXML GesturePane map;
+  @FXML GesturePane mapGPane;
   @FXML MFXButton FL1;
   @FXML MFXButton FL2;
   @FXML MFXButton FL3;
@@ -75,6 +81,7 @@ public class MapEditingController {
   @FXML MFXButton FLB2;
   @FXML MFXButton floorButton;
   Group mapNodes = new Group();
+  CoordinatePasser cordPasser = new CoordinatePasser();
 
   //  @FXML TableColumn<TableRow, String> ColumnOne1;
   //  @FXML TableColumn<TableRow, String> ColumnTwo1;
@@ -84,6 +91,8 @@ public class MapEditingController {
   ObservableList<TableRow> rowsEdge = FXCollections.observableArrayList();
 
   @FXML private Button goHome;
+  int XCoord = 0;
+  int YCoord = 0;
   //  List<Node> databaseNodeList = new ArrayList<Node>();
   //  List<Edge> databaseEdgeList = new ArrayList<Edge>();
   //  List<LocationName> databaseLocationNameList = new ArrayList<LocationName>();
@@ -107,6 +116,30 @@ public class MapEditingController {
     group.getChildren().add(pane);
 
     placeNodes("G");
+
+    //    mapGPane.setOnMouseDragged(
+    //        mouseEvent -> {
+    //          setMouseCoordinates(mouseEvent);
+    //        });
+    //    mapGPane.setOnMouseDragReleased(
+    //        mouseEvent -> {
+    //          setMouseCoordinates(mouseEvent);
+    //        });
+  }
+
+  public void setMouseCoordinates(MouseEvent e) {
+    Affine invMatrix = null;
+    try {
+      invMatrix = mapGPane.getAffine().createInverse();
+    } catch (NonInvertibleTransformException nonInvertibleTransformException) {
+      //      nonInvertibleTransformException.printStackTrace();
+    }
+    Point2D realPoint = invMatrix.transform(e.getX(), e.getY());
+
+    double x = (realPoint.getX()) + mapGPane.getLayoutX();
+    double y = (realPoint.getY()) + mapGPane.getLayoutY();
+    cordPasser.setXcoord(x);
+    cordPasser.setYCoord(y);
   }
 
   public void changeFloor(ActionEvent event) {
@@ -163,8 +196,14 @@ public class MapEditingController {
   }
 
   public void createMapNodes(Node node) {
-    Tooltip nodeName = new Tooltip();
+    String shortname = new NodeDao().getShortName(node.getNodeID());
     Circle newCircle = new Circle();
+    if (!shortname.equals("")) {
+      Tooltip nodeName = new Tooltip(shortname);
+      nodeName.setShowDelay(Duration.ZERO);
+      nodeName.setShowDuration(Duration.hours(2));
+      Tooltip.install(newCircle, nodeName);
+    }
     newCircle.setRadius(10);
     newCircle.setCenterX(node.getXCoord());
     newCircle.setCenterY(node.getYCoord());
@@ -180,14 +219,42 @@ public class MapEditingController {
   public void openAddMenu(ActionEvent event) {
     BorderPane borderPane = new BorderPane();
     VBox textBoxes = new VBox();
+    TextArea XCoordText = new TextArea();
+    TextArea YCoordText = new TextArea();
+    TextArea IDText = new TextArea();
+    TextArea BuildingText = new TextArea();
+    //    TextArea SubmitText = new TextArea();
+    XCoordText.setText("Input X Coordinate");
+    YCoordText.setText("Input Y Coordinate");
+    IDText.setText("Input Node ID");
+    BuildingText.setText("Input Building Name");
+
     MFXTextField inputXCoord = new MFXTextField();
     MFXTextField inputYCoord = new MFXTextField();
     MFXTextField inputID = new MFXTextField();
     MFXTextField inputBuilding = new MFXTextField(); // need floor as well
     MFXButton submitNode = new MFXButton();
-    textBoxes.getChildren().addAll(inputXCoord, inputYCoord, inputID, inputBuilding, submitNode);
+    submitNode.setText("Submit Node");
+    //    inputXCoord.setBorderGap(20);
+    textBoxes
+        .getChildren()
+        .addAll(
+            XCoordText,
+            inputXCoord,
+            YCoordText,
+            inputYCoord,
+            IDText,
+            inputID,
+            BuildingText,
+            inputBuilding,
+            submitNode);
+    //    textBoxes.setSpacing(5);
+    //    textBoxes.setAlignment(Pos.CENTER);
+    //    textBoxes.relocate(0,0);
     borderPane.getChildren().add(textBoxes);
-    Scene scene = new Scene(borderPane, 600, 600);
+    textBoxes.relocate(0, 0);
+    Scene scene = new Scene(borderPane, 600, 300);
+    borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.setTitle("Add Node Window");

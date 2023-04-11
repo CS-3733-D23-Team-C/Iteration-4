@@ -140,7 +140,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </MFXButton>
-            <MenuButton alignment="CENTER" layoutX="310.0" layoutY="203.0" prefHeight="54.0" prefWidth="690.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="--Select Conference Room--" textFill="#574c4c" AnchorPane.leftAnchor="314.0" AnchorPane.topAnchor="152.0">
+            <MenuButton layoutX="310.0" layoutY="203.0" prefHeight="54.0" prefWidth="690.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="--Select Conference Room--" textFill="#574c4c" AnchorPane.leftAnchor="314.0" AnchorPane.topAnchor="152.0">
                <items>
                   <MenuItem mnemonicParsing="false" text="Action 1" />
                   <MenuItem mnemonicParsing="false" text="Action 2" />

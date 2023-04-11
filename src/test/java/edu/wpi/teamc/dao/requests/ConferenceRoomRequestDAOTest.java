@@ -9,8 +9,8 @@ public class ConferenceRoomRequestDAOTest {
   @Test
   public void fetchAllObjects() {
     ConferenceRoomRequestDAO dao = new ConferenceRoomRequestDAO();
-    List<ConferenceRoomRequest> confs = dao.fetchAllObjects();
-    Assertions.assertNotNull(confs);
+    List<ConferenceRoomRequest> list = dao.fetchAllObjects();
+    Assertions.assertNotNull(list);
   }
 
   @Test

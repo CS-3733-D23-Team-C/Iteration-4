@@ -29,7 +29,8 @@ public enum Screen {
   FURNITURE_HISTORY("views/english/FurnitureHistory.fxml"),
 
   EXIT_PAGE("views/english/ExitPage.fxml"),
-  FLOWER_HISTORY("views/english/FlowerHistory.fxml");
+  FLOWER_HISTORY("views/english/FlowerHistory.fxml"),
+  GIFT_BASKET("views/english/GiftBasketRequest.fxml");
 
   private final String filename;
 

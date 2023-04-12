@@ -127,6 +127,11 @@ public class MealController {
   }
 
   @FXML
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
+  }
+
+  @FXML
   void getSignagePage(ActionEvent event) {
     Navigation.navigate(Screen.SIGNAGE);
   }
@@ -147,7 +152,9 @@ public class MealController {
   }
 
   @FXML
-  void getEditMap(ActionEvent event) {Navigation.navigate(Screen.EDIT_MAP);}
+  void getEditMap(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
 
   @FXML
   void getMapHistory(ActionEvent event) {
@@ -160,5 +167,7 @@ public class MealController {
   }
 
   @FXML
-  void getMapPage(ActionEvent event) {}
+  void getMapPage(ActionEvent event) {
+    Navigation.navigate(Screen.FLOOR_PLAN);
+  }
 }

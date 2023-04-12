@@ -5,6 +5,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
@@ -12,7 +13,6 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.tableview2.FilteredTableView?>
 
-<?import javafx.scene.control.TableColumn?>
 <AnchorPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.OfficeSupplyHistoryController">
     <children>
         <AnchorPane layoutX="402.0" prefHeight="153.0" prefWidth="1208.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.5),5,0.75,0,0);" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -28,6 +28,7 @@
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#getRoomReservationPage" text="Room Reservation" />
                         <MenuItem mnemonicParsing="false" onAction="#getMealDeliveryPage" text="Meal Request" />
+                  <MenuItem mnemonicParsing="false" onAction="#getGiftBasketRequestPage" text="Gift Basket Request" />
                         <MenuItem mnemonicParsing="false" onAction="#getFlowerDeliveryPage" text="Flower Delivery" />
                         <MenuItem mnemonicParsing="false" onAction="#getFurnitureDeliveryPage" text="Furniture Delivery" />
                         <MenuItem mnemonicParsing="false" onAction="#getOfficeSuppliesPage" text="Supply Delivery" />
@@ -90,7 +91,7 @@
             </children></AnchorPane>
         <VBox layoutX="402.0" layoutY="154.0" prefHeight="568.0" prefWidth="848.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="153.0">
             <children>
-                <FilteredTableView fx:id="historyTable" prefHeight="775.0" prefWidth="1200.0" >
+                <FilteredTableView fx:id="historyTable" prefHeight="775.0" prefWidth="1200.0">
                     <columns>
                         <TableColumn fx:id="ColumnOne" prefWidth="75.0" text="" />
                         <TableColumn fx:id="ColumnTwo" prefWidth="75.0" text="" />

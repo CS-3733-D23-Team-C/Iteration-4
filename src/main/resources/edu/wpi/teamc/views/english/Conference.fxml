@@ -29,6 +29,7 @@
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#getRoomReservationPage" text="Room Reservation" />
                         <MenuItem mnemonicParsing="false" onAction="#getMealDeliveryPage" text="Meal Request" />
+                  <MenuItem mnemonicParsing="false" onAction="#getGiftBasketRequestPage" text="Gift Basket Request" />
                         <MenuItem mnemonicParsing="false" onAction="#getFlowerDeliveryPage" text="Flower Delivery" />
                         <MenuItem mnemonicParsing="false" onAction="#getFurnitureDeliveryPage" text="Furniture Delivery" />
                         <MenuItem mnemonicParsing="false" onAction="#getOfficeSuppliesPage" text="Supply Delivery" />

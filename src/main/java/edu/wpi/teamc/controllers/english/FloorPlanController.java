@@ -72,6 +72,11 @@ public class FloorPlanController {
   }
 
   @FXML
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
+  }
+
+  @FXML
   void getSignagePage(ActionEvent event) {
     Navigation.navigate(Screen.SIGNAGE);
   }
@@ -81,7 +86,9 @@ public class FloorPlanController {
   public void initialize() {}
 
   @FXML
-  void getEditMap(ActionEvent event) {Navigation.navigate(Screen.EDIT_MAP);}
+  void getEditMap(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
 
   @FXML
   void getLogOut(ActionEvent event) {
@@ -94,11 +101,17 @@ public class FloorPlanController {
   }
 
   @FXML
-  void getMapHistory(ActionEvent event) {}
+  void getMapHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
+  }
 
   @FXML
-  void getMapPage(ActionEvent event) {}
+  void getMapPage(ActionEvent event) {
+    Navigation.navigate(Screen.FLOOR_PLAN);
+  }
 
   @FXML
-  void getPathfindingPage(ActionEvent event) {}
+  void getPathfindingPage(ActionEvent event) {
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
 }

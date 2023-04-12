@@ -137,12 +137,19 @@ public class ConferenceController {
     Navigation.navigate(Screen.CONFERENCE_HISTORY);
   }
 
+  @FXML
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
+  }
+
   /** Method run when controller is initialized */
   @FXML
   public void initialize() {}
 
   @FXML
-  void getEditMap(ActionEvent event) {Navigation.navigate(Screen.EDIT_MAP);}
+  void getEditMap(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
 
   @FXML
   void getLogOut(ActionEvent event) {
@@ -155,11 +162,17 @@ public class ConferenceController {
   }
 
   @FXML
-  void getMapHistory(ActionEvent event) {}
+  void getMapHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
+  }
 
   @FXML
-  void getMapPage(ActionEvent event) {}
+  void getMapPage(ActionEvent event) {
+    Navigation.navigate(Screen.FLOOR_PLAN);
+  }
 
   @FXML
-  void getPathfindingPage(ActionEvent event) {}
+  void getPathfindingPage(ActionEvent event) {
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
 }

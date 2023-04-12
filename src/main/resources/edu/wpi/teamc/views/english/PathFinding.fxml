@@ -10,7 +10,6 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.PathFindingController">
     <children>
         <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="900.0" prefWidth="1600.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -28,6 +27,7 @@
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#getRoomReservationPage" text="Room Reservation" />
                                 <MenuItem mnemonicParsing="false" onAction="#getMealDeliveryPage" text="Meal Request" />
+                        <MenuItem mnemonicParsing="false" onAction="#getGiftBasketRequestPage" text="Gift Basket Request" />
                                 <MenuItem mnemonicParsing="false" onAction="#getFlowerDeliveryPage" text="Flower Delivery" />
                                 <MenuItem mnemonicParsing="false" onAction="#getFurnitureDeliveryPage" text="Furniture Delivery" />
                                 <MenuItem mnemonicParsing="false" onAction="#getOfficeSuppliesPage" text="Supply Delivery" />

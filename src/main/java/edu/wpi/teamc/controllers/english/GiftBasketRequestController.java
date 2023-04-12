@@ -3,44 +3,63 @@ package edu.wpi.teamc.controllers.english;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.awt.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 
-public class AdminHomeController {
+public class GiftBasketRequestController {
+  @FXML private MFXButton goHome;
+  @FXML private MFXButton submit;
 
-  private String filePath;
-  private Desktop desktop = Desktop.getDesktop();
+  @FXML private MFXButton clear;
 
-  @FXML MFXButton signageButton2;
+  @FXML private MenuItem choice0;
 
-  @FXML private Button flowerDeliveryPage;
+  @FXML private MenuItem chocie1;
 
-  @FXML private Button furnitureDeliveryPage;
+  @FXML private MenuItem chocie2;
 
-  @FXML private Button helpPage;
+  @FXML private MenuItem chocie3;
 
-  @FXML private Button mealDeliveryPage;
+  @FXML private MenuItem choice4;
 
-  @FXML private Button officeSuppliesPage;
+  @FXML private MenuButton menuButton;
 
-  @FXML private Button roomReservationPage;
+  @FXML
+  void getChoice0() {
+    menuButton.setText("Small");
+  }
 
-  @FXML private Button signagePage;
+  @FXML
+  void getChoice1() {
+    menuButton.setText("Medium");
+  }
 
-  @FXML private Button logOut;
-  @FXML private Button editMap;
+  @FXML
+  void getChoice2() {
+    menuButton.setText("Large");
+  }
 
-  @FXML private Button mapHistory;
+  @FXML
+  void getChoice3() {
+    menuButton.setText("Extra-Large");
+  }
 
-  @FXML private Button mapPage;
+  @FXML
+  public void getGoHome() {
+    Navigation.navigate(Screen.ADMIN_HOME);
+  }
 
-  @FXML private MenuButton importMenu;
+  @FXML
+  void getClear() {
+    clear.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER));
+  }
 
-  @FXML private Label testText;
+  @FXML
+  void getSubmit() {
+    submit.setOnMouseClicked(event -> Navigation.navigate(Screen.CONGRATS_PAGE));
+  }
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {
@@ -73,34 +92,30 @@ public class AdminHomeController {
   }
 
   @FXML
-  void getSignagePage(ActionEvent event) {
-    Navigation.navigate(Screen.SIGNAGE);
-  }
-
-  @FXML
-  void getPathfindingPage(ActionEvent event) {
-    Navigation.navigate(Screen.PATHFINDING_PAGE);
-  }
-
-  @FXML
   void getGiftBasketRequestPage(ActionEvent event) {
     Navigation.navigate(Screen.GIFT_BASKET);
   }
 
   @FXML
-  void getExit(ActionEvent event) {
-    Navigation.navigate(Screen.EXIT_PAGE);
+  void getSignagePage(ActionEvent event) {
+    Navigation.navigate(Screen.SIGNAGE);
   }
 
   /** Method run when controller is initialized */
   @FXML
-  void getEditMap(ActionEvent event) {
-    Navigation.navigate(Screen.EDIT_MAP);
-  }
+  public void initialize() {}
+
+  @FXML
+  void getEditMap(ActionEvent event) {}
 
   @FXML
   void getLogOut(ActionEvent event) {
     Navigation.navigate(Screen.HOME);
+  }
+
+  @FXML
+  void getExit(ActionEvent event) {
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML
@@ -114,5 +129,7 @@ public class AdminHomeController {
   }
 
   @FXML
-  public void initialize() {}
+  void getPathfindingPage(ActionEvent event) {
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
 }

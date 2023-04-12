@@ -97,6 +97,11 @@ public class OfficeSupplyController {
   }
 
   @FXML
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
+  }
+
+  @FXML
   void getRoomReservationPage(ActionEvent event) {
     Navigation.navigate(Screen.CONFERENCE);
   }
@@ -111,7 +116,9 @@ public class OfficeSupplyController {
   public void initialize() {}
 
   @FXML
-  void getEditMap(ActionEvent event) {Navigation.navigate(Screen.EDIT_MAP);}
+  void getEditMap(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
 
   @FXML
   void getLogOut(ActionEvent event) {
@@ -124,13 +131,19 @@ public class OfficeSupplyController {
   }
 
   @FXML
-  void getMapHistory(ActionEvent event) {}
+  void getMapHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
+  }
 
   @FXML
-  void getMapPage(ActionEvent event) {}
+  void getMapPage(ActionEvent event) {
+    Navigation.navigate(Screen.FLOOR_PLAN);
+  }
 
   @FXML
-  void getPathfindingPage(ActionEvent event) {}
+  void getPathfindingPage(ActionEvent event) {
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
 
   public void getHistory(ActionEvent event) {
     Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);

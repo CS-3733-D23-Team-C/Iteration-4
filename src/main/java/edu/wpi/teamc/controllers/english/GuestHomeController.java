@@ -14,7 +14,12 @@ public class GuestHomeController {
 
   @FXML
   public void getExit(ActionEvent actionEvent) {
-    System.exit(0);
+    Navigation.navigate(Screen.EXIT_PAGE);
+  }
+
+  @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
   }
 
   @FXML

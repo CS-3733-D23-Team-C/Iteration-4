@@ -813,16 +813,23 @@ public class EditMapController {
   }
 
   @FXML
-  void getEditMap(ActionEvent event) {}
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
+  }
+
+  @FXML
+  void getEditMap(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
 
   @FXML
   void getLogOut(ActionEvent event) {
-    Navigation.navigate(Screen.LOGIN);
+    Navigation.navigate(Screen.HOME);
   }
 
   @FXML
   void getExit(ActionEvent event) {
-    System.exit(0);
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML
@@ -835,5 +842,18 @@ public class EditMapController {
   //    Navigation.navigate(Screen.);
   //  }
   /////////////////////////////////////////////
+//  @FXML
+//  void getMapPage(ActionEvent event) {
+//    Navigation.navigate(Screen.FLOOR_PLAN);
+//  }
+//
+//  @FXML
+//  void getPathfindingPage(ActionEvent event) {
+//    Navigation.navigate(Screen.PATHFINDING_PAGE);
+//  }
 
+  @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 }

@@ -55,7 +55,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
       ps.setString(1, orm.getRequester().toString());
-      ps.setString(2, orm.getFurniture());
+      ps.setString(2, orm.getFurnitureType());
       ps.setString(3, orm.getAdditionalNotes());
       ps.setString(4, orm.getRoomName());
       ps.setString(5, orm.getStatus().toString());
@@ -80,7 +80,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
       PreparedStatement ps = db.getConnection().prepareStatement(query);
 
       ps.setString(1, orm2.getRequester().toString());
-      ps.setString(2, orm2.getFurniture());
+      ps.setString(2, orm2.getFurnitureType());
       ps.setString(3, orm2.getAdditionalNotes());
       ps.setString(4, orm2.getEta());
       ps.setString(5, orm2.getEta());

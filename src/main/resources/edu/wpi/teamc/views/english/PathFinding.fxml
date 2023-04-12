@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
@@ -12,6 +13,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
+
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.PathFindingController">
     <children>
@@ -30,6 +32,7 @@
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#getRoomReservationPage" text="Room Reservation" />
                                 <MenuItem mnemonicParsing="false" onAction="#getMealDeliveryPage" text="Meal Request" />
+                                <MenuItem mnemonicParsing="false" onAction="#getGiftBasketRequestPage" text="Gift Basket Request" />
                                 <MenuItem mnemonicParsing="false" onAction="#getFlowerDeliveryPage" text="Flower Delivery" />
                                 <MenuItem mnemonicParsing="false" onAction="#getFurnitureDeliveryPage" text="Furniture Delivery" />
                                 <MenuItem mnemonicParsing="false" onAction="#getOfficeSuppliesPage" text="Supply Delivery" />
@@ -69,7 +72,7 @@
                         </MenuButton>
                         <MenuButton alignment="CENTER" layoutX="104.0" layoutY="126.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Help" textFill="WHITE" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="517.0">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Help Page 1" />
+                                <MenuItem mnemonicParsing="false" onAction="#getHelpage" text="Help Page 1" />
                                 <MenuItem mnemonicParsing="false" text="Help Page 2" />
                             </items>
                             <padding>
@@ -131,6 +134,9 @@
                                 </AnchorPane>
                             </children>
                         </VBox>
+                  <MFXTextField fx:id="startNodeId" layoutX="722.0" layoutY="636.0" prefHeight="50.0" prefWidth="127.0" promptText="Enter start node ID" />
+                  <MFXTextField fx:id="endNodeId" layoutX="861.0" layoutY="636.0" prefHeight="50.0" prefWidth="127.0" promptText="Enter end node ID" />
+                  <MFXButton fx:id="submit" layoutX="1002.0" layoutY="636.0" onAction="#getSubmit" prefHeight="50.0" prefWidth="127.0" text="Submit" />
                     </children>
                 </AnchorPane>
             </children>

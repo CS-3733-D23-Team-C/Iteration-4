@@ -5,16 +5,8 @@ import edu.wpi.teamc.navigation.Screen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 
 public class FloorPlanController {
-  @FXML private MenuItem choice1;
-
-  @FXML private MenuItem choice2;
-
-  @FXML private MenuItem choice3;
-
-  @FXML private MenuItem choice4;
 
   @FXML private MenuButton menuButton;
 
@@ -72,6 +64,11 @@ public class FloorPlanController {
   }
 
   @FXML
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
+  }
+
+  @FXML
   void getSignagePage(ActionEvent event) {
     Navigation.navigate(Screen.SIGNAGE);
   }
@@ -81,7 +78,9 @@ public class FloorPlanController {
   public void initialize() {}
 
   @FXML
-  void getEditMap(ActionEvent event) {}
+  void getEditMap(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
 
   @FXML
   void getLogOut(ActionEvent event) {
@@ -90,15 +89,26 @@ public class FloorPlanController {
 
   @FXML
   void getExit(ActionEvent event) {
-    // Navigation.navigate(Screen.EXIT_PAGE);
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML
-  void getMapHistory(ActionEvent event) {}
+  void getMapHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
+  }
 
   @FXML
-  void getMapPage(ActionEvent event) {}
+  void getMapPage(ActionEvent event) {
+    Navigation.navigate(Screen.FLOOR_PLAN);
+  }
 
   @FXML
-  void getPathfindingPage(ActionEvent event) {}
+  void getPathfindingPage(ActionEvent event) {
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
+
+  @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 }

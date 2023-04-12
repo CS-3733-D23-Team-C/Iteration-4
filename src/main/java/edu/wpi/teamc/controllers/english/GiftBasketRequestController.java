@@ -1,7 +1,5 @@
 package edu.wpi.teamc.controllers.english;
 
-import edu.wpi.teamc.dao.IDao;
-import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -9,38 +7,44 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
 
-public class OfficeSupplyController {
+public class GiftBasketRequestController {
   @FXML private MFXButton goHome;
   @FXML private MFXButton submit;
 
   @FXML private MFXButton clear;
-  @FXML private MenuItem choice1;
 
-  @FXML private MenuItem choice2;
+  @FXML private MenuItem choice0;
+
+  @FXML private MenuItem chocie1;
+
+  @FXML private MenuItem chocie2;
+
+  @FXML private MenuItem chocie3;
+
+  @FXML private MenuItem choice4;
+
   @FXML private MenuButton menuButton;
-  @FXML private TextField nameBox;
   @FXML private MenuButton roomID;
-  @FXML private TextField specialNotes;
-
-  public void getGoHome() {
-    Navigation.navigate(Screen.ADMIN_HOME);
-  }
 
   @FXML
   void getChoice0() {
-    menuButton.setText("--Please Select Furniture Supply Option--");
+    menuButton.setText("Small");
   }
 
   @FXML
   void getChoice1() {
-    menuButton.setText("Pencil");
+    menuButton.setText("Medium");
   }
 
   @FXML
   void getChoice2() {
-    menuButton.setText("Paper Shredder");
+    menuButton.setText("Large");
+  }
+
+  @FXML
+  void getChoice3() {
+    menuButton.setText("Extra-Large");
   }
 
   @FXML
@@ -54,21 +58,18 @@ public class OfficeSupplyController {
   }
 
   @FXML
-  void getSubmit() {
-    String notes = specialNotes.getText();
-    String name = nameBox.getText();
-    String room = roomID.getText();
-    String menuSelection = menuButton.getText();
-    OfficeSuppliesRequest req =
-        new OfficeSuppliesRequest(0, new Requester(0, name), room, menuSelection, notes);
-    IDao<OfficeSuppliesRequest> dao = new OfficeSuppliesRequestDAO();
-    dao.addRow(req);
-    Navigation.navigate(Screen.CONGRATS_PAGE);
+  public void getGoHome() {
+    Navigation.navigate(Screen.ADMIN_HOME);
   }
 
   @FXML
-  void getClear(ActionEvent event) {
-    Navigation.navigate(Screen.OFFICE_SUPPLY);
+  void getClear() {
+    clear.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER));
+  }
+
+  @FXML
+  void getSubmit() {
+    submit.setOnMouseClicked(event -> Navigation.navigate(Screen.CONGRATS_PAGE));
   }
 
   @FXML
@@ -97,13 +98,13 @@ public class OfficeSupplyController {
   }
 
   @FXML
-  void getGiftBasketRequestPage(ActionEvent event) {
-    Navigation.navigate(Screen.GIFT_BASKET);
+  void getRoomReservationPage(ActionEvent event) {
+    Navigation.navigate(Screen.CONFERENCE);
   }
 
   @FXML
-  void getRoomReservationPage(ActionEvent event) {
-    Navigation.navigate(Screen.CONFERENCE);
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
   }
 
   @FXML
@@ -116,9 +117,7 @@ public class OfficeSupplyController {
   public void initialize() {}
 
   @FXML
-  void getEditMap(ActionEvent event) {
-    Navigation.navigate(Screen.EDIT_MAP);
-  }
+  void getEditMap(ActionEvent event) {}
 
   @FXML
   void getLogOut(ActionEvent event) {
@@ -143,10 +142,6 @@ public class OfficeSupplyController {
   @FXML
   void getPathfindingPage(ActionEvent event) {
     Navigation.navigate(Screen.PATHFINDING_PAGE);
-  }
-
-  public void getHistory(ActionEvent event) {
-    Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
   }
 
   @FXML

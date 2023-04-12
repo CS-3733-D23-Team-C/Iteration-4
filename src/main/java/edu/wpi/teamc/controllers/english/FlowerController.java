@@ -58,8 +58,13 @@ public class FlowerController {
   }
 
   @FXML
-  void getClear() {
-    clear.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER));
+  void getClear(ActionEvent event) {
+    Navigation.navigate(Screen.FLOWER);
+  }
+
+  @FXML
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
   }
 
   @FXML
@@ -126,7 +131,7 @@ public class FlowerController {
 
   @FXML
   void getExit(ActionEvent event) {
-    System.exit(0);
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML
@@ -134,11 +139,23 @@ public class FlowerController {
     Navigation.navigate(Screen.MAP_HISTORY_PAGE);
   }
 
-  //  @FXML
-  //  void getMapPage(ActionEvent event) {}
+  @FXML
+  void getMapPage(ActionEvent event) {
+    Navigation.navigate(Screen.FLOOR_PLAN);
+  }
 
   @FXML
   void getPathfindingPage(ActionEvent event) {
     Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
+
+  @FXML
+  public void getHistory(ActionEvent event) {
+    Navigation.navigate(Screen.FLOWER_HISTORY);
+  }
+
+  @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
   }
 }

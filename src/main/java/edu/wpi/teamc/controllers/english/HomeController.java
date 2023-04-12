@@ -26,6 +26,6 @@ public class HomeController {
 
   @FXML
   public void getExit(ActionEvent actionEvent) {
-    System.exit(0);
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 }

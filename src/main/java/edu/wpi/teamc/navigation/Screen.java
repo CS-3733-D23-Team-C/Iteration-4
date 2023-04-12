@@ -27,6 +27,8 @@ public enum Screen {
   EDIT_MAP("views/english/EditMap.fxml"),
   OFFICE_SUPPLY_HISTORY("views/english/OfficeSupplyHistory.fxml"),
   FURNITURE_HISTORY("views/english/FurnitureHistory.fxml"),
+
+  EXIT_PAGE("views/english/ExitPage.fxml"),
   FLOWER_HISTORY("views/english/FlowerHistory.fxml");
 
   private final String filename;

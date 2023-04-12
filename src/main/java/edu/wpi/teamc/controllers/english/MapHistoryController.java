@@ -51,39 +51,6 @@ public class MapHistoryController {
     Navigation.navigate(Screen.HOME);
   }
 
-  //  public void dispTable(List<Move> moveList) {
-  //    ColumnOne.setCellValueFactory(new PropertyValueFactory<TableRow, String>("nodeID"));
-  //    ColumnTwo.setCellValueFactory(new PropertyValueFactory<TableRow, String>("longName"));
-  //    ColumnThree.setCellValueFactory(new PropertyValueFactory<TableRow, String>("date"));
-  //    //    testTable.getItems().setAll(gettableRows(moveList));
-  //    historyTable.getItems().setAll(gettableRows(moveList));
-  //    //    ColumnOne.setEditable(true);
-  //    //    ColumnTwo.setEditable(true);
-  //    //    ColumnThree.setEditable(true);
-  //
-  //    System.out.println("did it");
-  //  }
-
-  //  public ObservableList<TableRow> gettableRows(List<Move> moveList) {
-  //    String nodeID;
-  //    String longName;
-  //    String date;
-  //    for (Move currMove : moveList) {
-  //      nodeID = currMove.getNodeID();
-  //      longName = currMove.getLongName();
-  //      date = currMove.getDate().toString();
-  //      rows.add(new TableRow(nodeID, longName, date));
-  //    }
-  //    return rows;
-  //  }
-  //
-  //  public String getText(javafx.event.ActionEvent actionEvent) {
-  //    String inputtedText;
-  //    inputtedText = inputBox.getText();
-  //    inputBox.clear();
-  //    return inputtedText;
-  //  }
-
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {
     Navigation.navigate(Screen.FLOWER);

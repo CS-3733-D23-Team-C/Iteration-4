@@ -40,7 +40,6 @@
             <MenuButton alignment="CENTER" layoutX="84.0" layoutY="106.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Navigation" textFill="WHITE" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="309.0">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#getSignagePage" text="Signage" />
-                  <MenuItem mnemonicParsing="false" onAction="#getMapPage" text="Map" />
                   <MenuItem mnemonicParsing="false" onAction="#getEditMap" text="Edit Map" />
                   <MenuItem mnemonicParsing="false" onAction="#getMapHistory" text="Map History" />
                   <MenuItem mnemonicParsing="false" onAction="#getPathfindingPage" text="Pathfinding" />

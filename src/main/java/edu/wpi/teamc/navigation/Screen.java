@@ -25,6 +25,8 @@ public enum Screen {
   HELP("views/english/Help.fxml"),
   EDIT_MAP("views/english/EditMap.fxml"),
 
+  FLOOR_PLAN("views/english/FloorPlan.fxml"),
+
   OFFICE_SUPPLY_HISTORY("views/english/OfficeSupplyHistory.fxml"),
   FURNITURE_HISTORY("views/english/FurnitureHistory.fxml"),
 

@@ -576,8 +576,8 @@ public class EditMapController {
     stage.setTitle("Add Node Window");
 
     stage.show();
-//    MoveDao moveDao1 = new MoveDao(); //////////were replaced in remove below
-//    LocationDao locationDao1 = new LocationDao();
+    //    MoveDao moveDao1 = new MoveDao(); //////////were replaced in remove below
+    //    LocationDao locationDao1 = new LocationDao();
 
     // Add
     submitNode.setOnMouseClicked(

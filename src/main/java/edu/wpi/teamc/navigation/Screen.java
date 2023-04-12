@@ -3,7 +3,7 @@ package edu.wpi.teamc.navigation;
 public enum Screen {
   ROOT("views/english/Root.fxml"),
   SERVICE_REQUEST("views/english/ServiceRequest.fxml"),
-  SIGNAGE("views/english/SignagePage.fxml"),
+  SIGNAGE("views/english/ElevatorSignage.fxml"),
   ELEVATOR_SIGNAGE("views/english/ElevatorSignage.fxml"),
   HOME("views/english/Home.fxml"),
 

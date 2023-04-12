@@ -82,4 +82,9 @@ public class HelpController {
   void getMapPage(ActionEvent event) {
     Navigation.navigate(Screen.FLOOR_PLAN);
   }
+
+  @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 }

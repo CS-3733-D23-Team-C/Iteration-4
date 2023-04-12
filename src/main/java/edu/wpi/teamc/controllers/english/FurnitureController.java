@@ -149,4 +149,9 @@ public class FurnitureController {
   public void getHistory(ActionEvent event) {
     Navigation.navigate(Screen.FURNITURE_HISTORY);
   }
+
+  @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 }

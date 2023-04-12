@@ -114,5 +114,10 @@ public class AdminHomeController {
   }
 
   @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
+
+  @FXML
   public void initialize() {}
 }

@@ -25,6 +25,7 @@ public class GiftBasketRequestController {
   @FXML private MenuItem choice4;
 
   @FXML private MenuButton menuButton;
+  @FXML private MenuButton roomID;
 
   @FXML
   void getChoice0() {
@@ -44,6 +45,16 @@ public class GiftBasketRequestController {
   @FXML
   void getChoice3() {
     menuButton.setText("Extra-Large");
+  }
+
+  @FXML
+  void getRoom1() {
+    roomID.setText("Room1");
+  }
+
+  @FXML
+  void getRoom2() {
+    roomID.setText("Room2");
   }
 
   @FXML
@@ -131,5 +142,10 @@ public class GiftBasketRequestController {
   @FXML
   void getPathfindingPage(ActionEvent event) {
     Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
+
+  @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
   }
 }

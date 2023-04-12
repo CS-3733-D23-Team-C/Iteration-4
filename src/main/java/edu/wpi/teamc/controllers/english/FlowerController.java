@@ -153,4 +153,9 @@ public class FlowerController {
   public void getHistory(ActionEvent event) {
     Navigation.navigate(Screen.FLOWER_HISTORY);
   }
+
+  @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 }

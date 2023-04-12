@@ -123,4 +123,9 @@ public class PathFindingController {
   void getPathfindingPage(ActionEvent event) {
     Navigation.navigate(Screen.PATHFINDING_PAGE);
   }
+
+  @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 }

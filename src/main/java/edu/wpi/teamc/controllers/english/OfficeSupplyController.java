@@ -148,4 +148,9 @@ public class OfficeSupplyController {
   public void getHistory(ActionEvent event) {
     Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
   }
+
+  @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 }

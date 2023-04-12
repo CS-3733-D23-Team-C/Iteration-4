@@ -71,7 +71,7 @@
                   </MenuButton>
                   <MenuButton alignment="CENTER" layoutX="104.0" layoutY="126.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Help" textFill="WHITE" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="517.0">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Help Page 1" />
+                        <MenuItem mnemonicParsing="false" onAction="#getHelpage" text="Help Page 1" />
                         <MenuItem mnemonicParsing="false" text="Help Page 2" />
                      </items>
                      <padding>
@@ -114,11 +114,6 @@
                         <Font size="35.0" />
                      </font>
                   </TextField>
-                  <Text fill="#574c4c" layoutX="-7.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: Bold;" text="Room ID:" x="60.0" y="60.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="162.0">
-                     <font>
-                        <Font name="Arial" size="35.0" />
-                     </font>
-                  </Text>
                   <Text fill="#574c4c" layoutX="13.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: Bold;" text="Items to put in basket:" wrappingWidth="368.72418212890625" x="60.0" y="60.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="384.0">
                      <font>
                         <Font name="Arial" size="35.0" />
@@ -144,11 +139,6 @@
                         <Font size="35.0" />
                      </font>
                   </MFXButton>
-                  <TextField layoutX="315.0" layoutY="146.0" prefHeight="54.0" prefWidth="690.0" AnchorPane.leftAnchor="315.0" AnchorPane.topAnchor="151.0">
-                     <font>
-                        <Font size="35.0" />
-                     </font>
-                  </TextField>
                   <Text fill="#574c4c" layoutX="3.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: Bold;" text="Basket Size:" x="60.0" y="60.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="270.0">
                      <font>
                         <Font name="Arial" size="35.0" />
@@ -160,6 +150,23 @@
                         <MenuItem fx:id="choice1" mnemonicParsing="false" onAction="#getChoice1" text="Medium" />
                         <MenuItem fx:id="choice2" mnemonicParsing="false" onAction="#getChoice2" text="Large" />
                         <MenuItem fx:id="choice3" mnemonicParsing="false" onAction="#getChoice3" text="Extra-Large" />
+                     </items>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </MenuButton>
+                  <Text fill="#574c4c" layoutX="11.0" layoutY="146.6845703125" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: Bold;" text="Room ID:" x="60.0" y="60.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="168.0">
+                     <font>
+                        <Font name="Arial" size="35.0" />
+                     </font>
+                  </Text>
+                  <MenuButton fx:id="roomID" layoutX="330.0" layoutY="167.0" prefHeight="54.0" prefWidth="690.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Select Room" textFill="#574c4c" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="157.0">
+                     <items>
+                        <MenuItem fx:id="room1" mnemonicParsing="false" onAction="#getRoom1" text="Room1" />
+                        <MenuItem fx:id="room2" mnemonicParsing="false" onAction="#getRoom2" text="Room2" />
                      </items>
                      <padding>
                         <Insets left="30.0" />

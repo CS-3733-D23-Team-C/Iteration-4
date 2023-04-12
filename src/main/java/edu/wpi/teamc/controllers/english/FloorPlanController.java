@@ -5,16 +5,8 @@ import edu.wpi.teamc.navigation.Screen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 
 public class FloorPlanController {
-  @FXML private MenuItem choice1;
-
-  @FXML private MenuItem choice2;
-
-  @FXML private MenuItem choice3;
-
-  @FXML private MenuItem choice4;
 
   @FXML private MenuButton menuButton;
 
@@ -113,5 +105,10 @@ public class FloorPlanController {
   @FXML
   void getPathfindingPage(ActionEvent event) {
     Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
+
+  @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
   }
 }

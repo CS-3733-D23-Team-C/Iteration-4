@@ -18,5 +18,10 @@ public class GuestHomeController {
   }
 
   @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
+
+  @FXML
   public void initialize() {}
 }

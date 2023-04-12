@@ -1,9 +1,10 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.Main;
+import edu.wpi.teamc.dao.map.LocationDao;
+import edu.wpi.teamc.dao.map.LocationName;
 import edu.wpi.teamc.dao.map.Node;
 import edu.wpi.teamc.dao.map.NodeDao;
-import edu.wpi.teamc.mapHelpers.CoordinatePasser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -11,8 +12,6 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -83,14 +82,6 @@ public class EditMapController {
   @FXML MFXButton FLB2;
   @FXML MFXButton floorButton;
   Group mapNodes = new Group();
-  CoordinatePasser cordPasser = new CoordinatePasser();
-
-  //  @FXML TableColumn<TableRow, String> ColumnOne1;
-  //  @FXML TableColumn<TableRow, String> ColumnTwo1;
-  //  @FXML TableColumn<TableRow, String> ColumnThree1;
-  //  @FXML TableView<TableRow> testTable;
-  ObservableList<TableRow> rows = FXCollections.observableArrayList();
-  ObservableList<TableRow> rowsEdge = FXCollections.observableArrayList();
 
   @FXML private Button goHome;
   int XCoord = 0;
@@ -98,6 +89,7 @@ public class EditMapController {
   String xCoord_temp = "";
   String yCoord_temp = "";
   String nodeID_temp = "";
+  String nodeType_temp = "";
   String iD;
   String building = "";
   String floor = "G";
@@ -108,12 +100,13 @@ public class EditMapController {
   List<Node> oldNameToAdd = new ArrayList<Node>();
   List<String> newNameToAdd = new ArrayList<String>();
 
-  List<Node> oldNameToModify = new ArrayList<Node>();
-  List<String> newNameToModify = new ArrayList<String>();
+  List<String> oldNameToModify = new ArrayList<String>();
+  List<LocationName> newNameToModify = new ArrayList<LocationName>();
   List<String> nameToRemove = new ArrayList<String>();
 
   String sNameInput_temp;
   String lNameInput_temp;
+  String oldName_temp;
 
   //  List<Node> databaseNodeList = new ArrayList<Node>();
   //  List<Edge> databaseEdgeList = new ArrayList<Edge>();
@@ -138,31 +131,7 @@ public class EditMapController {
     group.getChildren().add(pane);
 
     placeNodes("G");
-
-    //    mapGPane.setOnMouseDragged(
-    //        mouseEvent -> {
-    //          setMouseCoordinates(mouseEvent);
-    //        });
-    //    mapGPane.setOnMouseDragReleased(
-    //        mouseEvent -> {
-    //          setMouseCoordinates(mouseEvent);
-    //        });
   }
-
-  //  public void setMouseCoordinates(MouseEvent e) {
-  //    Affine invMatrix = null;
-  //    try {
-  //      invMatrix = mapGPane.getAffine().createInverse();
-  //    } catch (NonInvertibleTransformException nonInvertibleTransformException) {
-  //      //      nonInvertibleTransformException.printStackTrace();
-  //    }
-  //    Point2D realPoint = invMatrix.transform(e.getX(), e.getY());
-  //
-  //    double x = (realPoint.getX()) + mapGPane.getLayoutX();
-  //    double y = (realPoint.getY()) + mapGPane.getLayoutY();
-  //    cordPasser.setXcoord(x);
-  //    cordPasser.setYCoord(y);
-  //  }
 
   public void changeFloor(ActionEvent event) {
     floorButton = (MFXButton) event.getTarget();
@@ -215,9 +184,6 @@ public class EditMapController {
             });
     mapNodes.toFront();
   }
-  //  public void placeNodes(String floor, Node node) {
-  //
-  //  }
 
   public void createMapNodes(Node node) {
     String shortname = new NodeDao().getShortName(node.getNodeID());
@@ -237,14 +203,7 @@ public class EditMapController {
     newCircle.setVisible(true);
     mapNodes.getChildren().add(newCircle);
   }
-  //    public EventHandler<javafx.event.ActionEvent> submitNewNode(){
-  //
-  //    }
-  //  public void submitNewNode() {
-  //    submitNode.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-  //
-  //
-  //  }
+
   public void showNodeMenu(ActionEvent event) {
     BorderPane borderPane = new BorderPane();
     HBox hBox = new HBox();
@@ -439,19 +398,30 @@ public class EditMapController {
 
     // modify
     VBox modifyBox = new VBox(); // modify
-    Text nodeID_M = new Text("Input NodeID of Name to Be Modified");
+    Text nodeType = new Text("Input new Node Type");
     Text longName = new Text("Input new Longname");
     Text shortName = new Text("Input new Shortname");
-    MFXTextField nodeIDText = new MFXTextField();
+    Text oldName = new Text("Input Longname of Name to be Modified");
+    MFXTextField nodeTypeText = new MFXTextField();
     MFXTextField shortName_t = new MFXTextField();
     MFXTextField longName_t = new MFXTextField();
+    MFXTextField oldName_t = new MFXTextField();
 
     MFXButton submitModify = new MFXButton("Modify");
     submitModify.setPrefSize(100, 35);
     submitModify.setMinSize(100, 35);
     modifyBox
         .getChildren()
-        .addAll(nodeID_M, nodeIDText, shortName, shortName_t, longName, longName_t, submitModify);
+        .addAll(
+            oldName,
+            oldName_t,
+            nodeType,
+            nodeTypeText,
+            shortName,
+            shortName_t,
+            longName,
+            longName_t,
+            submitModify);
     modifyBox.setSpacing(20);
 
     // remove
@@ -487,17 +457,27 @@ public class EditMapController {
         .getChildren()
         .addAll(nodeID, nodeIDinput, SName, sNameInput, LName, lNameInput, submitNode);
     addBox.setSpacing(20);
-    //    textBoxes.setSpacing(5);
-    //    textBoxes.setAlignment(Pos.CENTER);
-    //    textBoxes.relocate(0,0);
+
     hBox.getChildren().addAll(addBox, modifyBox, removeBox);
     hBox.setSpacing(20);
-    MFXButton submitNodeEdits = new MFXButton();
+
+    MFXButton submitNodeEdits = new MFXButton("Update Table");
+    submitNodeEdits.setPrefSize(150, 40);
+
     VBox masterBox = new VBox();
     masterBox.getChildren().addAll(hBox, submitNodeEdits);
-    borderPane.getChildren().add(masterBox);
+    masterBox.setSpacing(20);
+    masterBox.setAlignment(Pos.CENTER);
+
+    AnchorPane aPane = new AnchorPane();
+    aPane.getChildren().add(masterBox);
+    Insets insets = new Insets(0, 0, 0, 200);
+    aPane.setPadding(insets);
+    borderPane.getChildren().add(aPane);
+    //    borderPane.setAlignment(aPane, Pos.CENTER);
+
     addBox.relocate(0, 0);
-    Scene scene = new Scene(borderPane, 600, 400);
+    Scene scene = new Scene(borderPane, 600, 600);
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -526,30 +506,28 @@ public class EditMapController {
           // so user can submit multiple at a time
           System.out.println("printed the new node");
         });
+
     // Modify
     submitModify.setOnMouseClicked(
         buttonEvent -> {
-          nodeID_temp = nodeID_M.getText();
+          nodeType_temp = nodeTypeText.getText();
           sNameInput_temp = shortName_t.getText();
           lNameInput_temp = longName_t.getText();
-          //          iD = inputID.getText();
-          //              building = inputBuilding.getText(); // maybe set automatically later
-          Node newNode =
-              new Node(Integer.valueOf(xCoord_temp), Integer.valueOf(yCoord_temp), floor, building);
-          NodeDao oldDao = new NodeDao();
-          //              Node oldNode = oldDao.getNode(nodeID_temp); ////*******Need to add this
-          // getter
-          //   method
-          oldNameToModify.add(newNode);
-          newNameToModify.add(nodeID_temp);
-          //              nodeDao.updateRow(newNode, oldNode); //////////********
-          //              placeNodes(
-          //                      floor); // later implement an update map button that updates all
-          // changes
-          //   made at once
-          // so
-          // user can submit multiple at a time
-          System.out.println("modified the node");
+          oldName_temp = oldName_t.getText();
+          //          System.out.println(nodeType_temp + "   " + nodeType_temp.length());
+          if (!(nodeType_temp.length() == 4)) { // Fix later
+            nodeType_temp = "HALL";
+          }
+          LocationName locationName =
+              new LocationName(lNameInput_temp, sNameInput_temp, nodeType_temp);
+
+          newNameToModify.add(locationName);
+          oldNameToModify.add(oldName_temp);
+          nodeTypeText.clear();
+          shortName_t.clear();
+          longName_t.clear();
+          oldName_t.clear();
+          System.out.println("modified the name");
         });
     // remove
     submitRemove.setOnMouseClicked(
@@ -566,7 +544,7 @@ public class EditMapController {
         });
     submitNodeEdits.setOnMouseClicked(
         buttonEvent -> {
-          NodeDao nodeDao = new NodeDao();
+          LocationDao locationDao = new LocationDao();
 
           // Add
           for (int i = 0; i < newNameToAdd.size(); i++) {
@@ -575,9 +553,11 @@ public class EditMapController {
             //            nodeDao.addRow(currNode); ///USE ADD NAME FUNCTION
           }
           // Modify
-          for (int i = 0; i < newNameToModify.size(); i++) {
-            Node currNode = oldNameToModify.get(i);
-            String newName = newNameToModify.get(i);
+          for (int i = 0; i < oldNameToModify.size(); i++) {
+            String currOldName = oldNameToModify.get(i);
+            LocationName currNewName = newNameToModify.get(i);
+            locationDao.updateRow(currOldName, currNewName);
+
             ///// METHOD TO REPLACE NAME OF NODE AND INPUT TO TABLE
           }
           for (String currID : nameToRemove) {

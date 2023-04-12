@@ -93,6 +93,11 @@ public class ConferenceController {
   void getMenuButton() {}
 
   @FXML
+  void getHistory(ActionEvent event) {
+    Navigation.navigate(Screen.CONFERENCE_HISTORY);
+  }
+
+  @FXML
   void getFlowerDeliveryPage(ActionEvent event) {
     Navigation.navigate(Screen.FLOWER);
   }

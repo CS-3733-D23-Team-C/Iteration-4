@@ -78,7 +78,7 @@ public class MealController {
     String menuSelection = menuButton.getText();
     MealRequest req =
         new MealRequest(0, new Requester(0, name), room, notes, new Meal(menuSelection, ""));
-
+    req.setEta("Test o clock");
     IDao<MealRequest> dao = new MealRequestDAO();
     dao.addRow(req);
     Navigation.navigate(Screen.CONGRATS_PAGE);

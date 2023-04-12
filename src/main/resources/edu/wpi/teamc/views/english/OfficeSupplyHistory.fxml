@@ -98,6 +98,7 @@
                         <TableColumn fx:id="ColumnFour" prefWidth="75.0" text="" />
                         <TableColumn fx:id="ColumnFive" prefWidth="75.0" text="" />
                         <TableColumn fx:id="ColumnSix" prefWidth="75.0" text="" />
+                        <TableColumn fx:id="ColumnSeven" prefWidth="75.0" text="" />
                     </columns>
                 </FilteredTableView>
             </children>

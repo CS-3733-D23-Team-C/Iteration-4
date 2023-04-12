@@ -131,4 +131,8 @@ public class OfficeSupplyController {
 
   @FXML
   void getPathfindingPage(ActionEvent event) {}
+
+  public void getHistory(ActionEvent event) {
+    Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
+  }
 }

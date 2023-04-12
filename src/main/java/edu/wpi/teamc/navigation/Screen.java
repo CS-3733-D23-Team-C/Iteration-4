@@ -25,7 +25,9 @@ public enum Screen {
   PATHFINDING_PAGE("views/english/PathFinding.fxml"),
   HELP("views/english/Help.fxml"),
   EDIT_MAP("views/english/EditMap.fxml"),
-  ;
+  OFFICE_SUPPLY_HISTORY("views/english/OfficeSupplyHistory.fxml"),
+  FURNITURE_HISTORY("views/english/FurnitureHistory.fxml"),
+  FLOWER_HISTORY("views/english/FlowerHistory.fxml");
 
   private final String filename;
 

@@ -135,4 +135,9 @@ public class FlowerController {
 
   @FXML
   void getPathfindingPage(ActionEvent event) {}
+
+  @FXML
+  public void getHistory(ActionEvent event) {
+    Navigation.navigate(Screen.FLOWER_HISTORY);
+  }
 }

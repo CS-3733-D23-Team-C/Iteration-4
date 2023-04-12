@@ -5,6 +5,7 @@ import edu.wpi.teamc.dao.map.LocationDao;
 import edu.wpi.teamc.dao.map.LocationName;
 import edu.wpi.teamc.dao.map.Node;
 import edu.wpi.teamc.dao.map.NodeDao;
+import edu.wpi.teamc.mapHelpers.CoordinatePasser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -12,6 +13,9 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -104,6 +108,20 @@ public class EditMapController {
   List<LocationName> newNameToModify = new ArrayList<LocationName>();
   List<String> nameToRemove = new ArrayList<String>();
 
+  List<Node> Floor1 = new ArrayList<Node>();
+  List<Node> Floor2 = new ArrayList<Node>();
+  List<Node> Floor3 = new ArrayList<Node>();
+  List<Node> FloorG = new ArrayList<Node>();
+  List<Node> FloorL1 = new ArrayList<Node>();
+  List<Node> FloorL2 = new ArrayList<Node>();
+
+  List<String> Floor1Name = new ArrayList<String>();
+  List<String> Floor2Name = new ArrayList<String>();
+  List<String> Floor3Name = new ArrayList<String>();
+  List<String> FloorGName = new ArrayList<String>();
+  List<String> FloorL1Name = new ArrayList<String>();
+  List<String> FloorL2Name = new ArrayList<String>();
+
   String sNameInput_temp;
   String lNameInput_temp;
   String oldName_temp;
@@ -129,8 +147,8 @@ public class EditMapController {
     pane.setMaxHeight(image.getHeight());
     pane.relocate(0, 0);
     group.getChildren().add(pane);
-
     placeNodes("G");
+    sortNodes();
   }
 
   public void changeFloor(ActionEvent event) {
@@ -170,23 +188,72 @@ public class EditMapController {
     pane.relocate(0, 0);
     group.getChildren().add(pane);
     placeNodes(floor);
-  } // initialize end
+  }
 
-  public void placeNodes(String floor) {
+  public void sortNodes() {
     NodeDao nodeDao = new NodeDao();
     nodeDao
         .fetchAllObjects()
         .forEach(
             TBP_node -> {
-              if (Objects.equals(TBP_node.getFloor(), floor)) {
-                createMapNodes(TBP_node);
+              if (Objects.equals(TBP_node.getFloor(), "1")) {
+                Floor1.add(TBP_node);
+                Floor1Name.add(nodeDao.getShortName(TBP_node.getNodeID()));
+              } else if (Objects.equals(TBP_node.getFloor(), "2")) {
+                Floor2.add(TBP_node);
+                Floor2Name.add(nodeDao.getShortName(TBP_node.getNodeID()));
+              } else if (Objects.equals(TBP_node.getFloor(), "3")) {
+                Floor3.add(TBP_node);
+                Floor3Name.add(nodeDao.getShortName(TBP_node.getNodeID()));
+              } else if (Objects.equals(TBP_node.getFloor(), "G")) {
+                FloorG.add(TBP_node);
+                FloorGName.add(nodeDao.getShortName(TBP_node.getNodeID()));
+              } else if (Objects.equals(TBP_node.getFloor(), "L1")) {
+                FloorL1.add(TBP_node);
+                FloorL1Name.add(nodeDao.getShortName(TBP_node.getNodeID()));
+              } else if (Objects.equals(TBP_node.getFloor(), "L2")) {
+                FloorL2.add(TBP_node);
+                FloorL2Name.add(nodeDao.getShortName(TBP_node.getNodeID()));
               }
             });
+  }
+
+  public void placeNodes(String floor) {
+    switch (floor) {
+      case "1":
+        for (int i = 0; i < Floor1.size(); i++) {
+          createMapNodes(Floor1.get(i), Floor1Name.get(i));
+        }
+        break;
+      case "2":
+        for (int i = 0; i < Floor2.size(); i++) {
+          createMapNodes(Floor2.get(i), Floor2Name.get(i));
+        }
+        break;
+      case "3":
+        for (int i = 0; i < Floor3.size(); i++) {
+          createMapNodes(Floor3.get(i), Floor3Name.get(i));
+        }
+        break;
+      case "G":
+        for (int i = 0; i < FloorG.size(); i++) {
+          createMapNodes(FloorG.get(i), FloorGName.get(i));
+        }
+        break;
+      case "L1":
+        for (int i = 0; i < FloorL1.size(); i++) {
+          createMapNodes(FloorL1.get(i), FloorL1Name.get(i));
+        }
+        break;
+      case "L2":
+        for (int i = 0; i < FloorL2.size(); i++) {
+          createMapNodes(FloorL2.get(i), FloorL2Name.get(i));
+        }
+    }
     mapNodes.toFront();
   }
 
-  public void createMapNodes(Node node) {
-    String shortname = new NodeDao().getShortName(node.getNodeID());
+  public void createMapNodes(Node node, String shortname) {
     Circle newCircle = new Circle();
     if (!shortname.equals("")) {
       Tooltip nodeName = new Tooltip(shortname);

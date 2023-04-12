@@ -1,4 +1,4 @@
-package edu.wpi.teamc.controllers.english;
+package edu.wpi.teamc.controllers;
 
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
@@ -6,12 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class CongratsController {
-  @FXML private Button mainMenuButton;
+public class HelpController {
 
-  @FXML
-  public void getMainMenu() {
-    mainMenuButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ADMIN_HOME));
+  @FXML private Button goHome;
+
+  public void getGoHome() {
+    goHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }
 
   @FXML

@@ -1,4 +1,4 @@
-package edu.wpi.teamc.controllers.english;
+package edu.wpi.teamc.controllers;
 
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
@@ -11,7 +11,7 @@ public class CongratsController {
 
   @FXML
   public void getMainMenu() {
-    mainMenuButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ADMIN_HOME));
+    mainMenuButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }
 
   @FXML

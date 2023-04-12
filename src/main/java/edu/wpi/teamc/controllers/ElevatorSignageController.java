@@ -1,17 +1,18 @@
-package edu.wpi.teamc.controllers.english;
+package edu.wpi.teamc.controllers;
 
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 
-public class CongratsController {
-  @FXML private Button mainMenuButton;
+public class ElevatorSignageController {
+  @FXML MFXButton backHome;
 
+  /** Method run when controller is initialized */
   @FXML
-  public void getMainMenu() {
-    mainMenuButton.setOnMouseClicked(event -> Navigation.navigate(Screen.ADMIN_HOME));
+  public void initialize() {
+    backHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }
 
   @FXML
@@ -48,10 +49,6 @@ public class CongratsController {
   void getSignagePage(ActionEvent event) {
     Navigation.navigate(Screen.SIGNAGE);
   }
-
-  /** Method run when controller is initialized */
-  @FXML
-  public void initialize() {}
 
   @FXML
   void getEditMap(ActionEvent event) {}

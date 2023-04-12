@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import net.kurobako.gesturefx.GesturePane?>
+
+<AnchorPane prefHeight="340.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.PathFindingIt1Controller">
+    <children>
+        <AnchorPane prefHeight="340.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <GesturePane fx:id="mapGPane" fitHeight="false" fitMode="COVER" fitWidth="false" layoutX="16.0" layoutY="44.0" minScale="0.1" prefHeight="280.0" prefWidth="473.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="44.0">
+                    <Group fx:id="group" />
+
+                </GesturePane>
+                <VBox prefHeight="188.0" prefWidth="33.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="50.0">
+                    <children>
+                        <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                            <children>
+                                <MFXButton fx:id="FL3" layoutX="24.0" onAction="#changeFloor" text="3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                            <children>
+                                <MFXButton fx:id="FL2" onAction="#changeFloor" text="2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                            <children>
+                                <MFXButton fx:id="FL1" onAction="#changeFloor" text="1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                            <children>
+                                <MFXButton fx:id="FLG" onAction="#changeFloor" text="G" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                            <children>
+                                <MFXButton fx:id="FLB1" onAction="#changeFloor" text="B1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                            <children>
+                                <MFXButton fx:id="FLB2" onAction="#changeFloor" text="B2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </VBox>
+                <MenuBar prefHeight="25.0" prefWidth="500.0" style="-fx-background-radius: 2; -fx-background-color: white;">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="Service Requests">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#getRoomReservationPage" text="Room Reservation" />
+                                <MenuItem mnemonicParsing="false" onAction="#getMealDeliveryPage" text="Meal Delivery" />
+                                <MenuItem mnemonicParsing="false" onAction="#getFlowerDeliveryPage" text="Flower Delivery" />
+                                <MenuItem mnemonicParsing="false" onAction="#getFurnitureDeliveryPage" text="Furniture Delivery" />
+                                <MenuItem mnemonicParsing="false" onAction="#getOfficeSuppliesPage" text="Office Supplies" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Navigation">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#getSignagePage" text="Signage" />
+                                <MenuItem mnemonicParsing="false" onAction="#getMapPage" text="Map" />
+                                <MenuItem mnemonicParsing="false" onAction="#getEditMap" text="Edit Map" />
+                                <MenuItem mnemonicParsing="false" onAction="#getMapHistory" text="Map History" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Options">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#getHelpPage" text="Help Page" />
+                                <MenuItem mnemonicParsing="false" onAction="#getLogOut" text="Log Out" />
+                                <MenuItem mnemonicParsing="false" onAction="#getExit" text="Exit App" />
+                            </items>
+                        </Menu>
+                    </menus>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </MenuBar>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

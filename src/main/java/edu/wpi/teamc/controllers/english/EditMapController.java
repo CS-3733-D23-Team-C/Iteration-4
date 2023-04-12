@@ -120,7 +120,6 @@ public class EditMapController {
   //  List<LocationName> databaseLocationNameList = new ArrayList<LocationName>();
   //  List<Move> databaseMoveList = new ArrayList<Move>();
 
- 
   public void initialize() {
 
     //    File file = new File();
@@ -593,10 +592,6 @@ public class EditMapController {
     Navigation.navigate(Screen.HOME);
   }
 
-  public void getPathfindingPage(ActionEvent event) {
-    Navigation.navigate(Screen.PATHFINDING_PAGE);
-  }
-
   public String getText(ActionEvent actionEvent) {
     String inputtedText;
     inputtedText = inputBox.getText();
@@ -678,5 +673,4 @@ public class EditMapController {
   void getHelpage(ActionEvent event) {
     Navigation.navigate(Screen.HELP);
   }
-
 }

@@ -31,7 +31,7 @@ public enum Screen {
   EXIT_PAGE("views/english/ExitPage.fxml"),
   FLOWER_HISTORY("views/english/FlowerHistory.fxml"),
   GIFT_BASKET("views/english/GiftBasketRequest.fxml"),
-  
+
   //  PATHFINDING("views/english/PathfindingIt1.fxml"),
 
   ADMIN_HOME("views/english/AdminHome.fxml");

@@ -185,6 +185,23 @@ public class PathFindingController {
 
     GraphNode src = graph.getNode(Integer.valueOf(startNode));
     GraphNode dest = graph.getNode(Integer.valueOf(endNode));
+    Circle circ = new Circle();
+    circ.setCenterX(dest.getXCoord());
+    circ.setCenterY(dest.getYCoord());
+    circ.setRadius(20);
+    circ.setFill(Paint.valueOf("#32CD32"));
+    circ.setStroke(Paint.valueOf("#FF0000"));
+    circ.setVisible(true);
+    mapNodes.getChildren().add(circ);
+
+    Circle circ2 = new Circle();
+    circ2.setCenterX(src.getXCoord());
+    circ2.setCenterY(src.getYCoord());
+    circ2.setRadius(20);
+    circ2.setFill(Paint.valueOf("#FF0000"));
+    circ2.setStroke(Paint.valueOf("#32CD32"));
+    circ2.setVisible(true);
+    mapNodes.getChildren().add(circ2);
 
     List<GraphEdge> path = graph.getDirections_Astar(src, dest);
 
@@ -196,8 +213,9 @@ public class PathFindingController {
               edge.getSrc().getYCoord(),
               edge.getDest().getXCoord(),
               edge.getDest().getYCoord());
-      temp.setStrokeWidth(10);
+      temp.setStrokeWidth(12);
       temp.setVisible(true);
+      temp.setStroke(Paint.valueOf("FF0000"));
       edges.getChildren().add(temp);
     }
     edges.toFront();

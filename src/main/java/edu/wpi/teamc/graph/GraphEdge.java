@@ -1,5 +1,7 @@
 package edu.wpi.teamc.graph;
 
+import static java.lang.Math.abs;
+
 import edu.wpi.teamc.dao.map.Edge;
 import lombok.Getter;
 
@@ -31,6 +33,9 @@ public class GraphEdge extends Edge implements Comparable<GraphEdge> {
     this.heuristic =
         Math.hypot(
             dest.getXCoord() - targetNode.getXCoord(), dest.getYCoord() - targetNode.getYCoord());
+    this.heuristic =
+        abs(dest.getXCoord() - targetNode.getXCoord())
+            + abs(dest.getYCoord() - targetNode.getYCoord());
 
     /*
     add extra weight to edges who's ending floor does not match target floor

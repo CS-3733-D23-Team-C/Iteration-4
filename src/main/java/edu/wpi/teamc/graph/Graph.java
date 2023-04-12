@@ -72,7 +72,8 @@ public class Graph {
     // implement a* algorithm for pathfinding from start to end
     PriorityQueue<GraphEdge> open = new PriorityQueue<>();
     LinkedList<GraphEdge> closed = new LinkedList<>();
-    LinkedList<GraphEdge> removeList = new LinkedList<>();
+    // LinkedList<GraphEdge> removeList = new LinkedList<>();
+    boolean firstRun = true;
 
     // set heuristic vals for all immediate edges
     for (GraphEdge edge : start.getGraphEdges()) {
@@ -85,8 +86,14 @@ public class Graph {
     while (!open.isEmpty()) {
       // pick the best edge
       GraphEdge current = open.peek();
-      open.removeAll(removeList);
-      removeList.clear();
+
+      if (firstRun) {
+        // removeList.addAll(start.getGraphEdges());
+        firstRun = false;
+      }
+
+      // open.removeAll(removeList);
+      // removeList.clear();
 
       // check if the current edge would reach the dest
       if (end.equals(current.getDest())) {
@@ -97,18 +104,16 @@ public class Graph {
       // check edges of endNode of current edge
       for (GraphEdge neighbor : nodes.get(current.getEndNode()).getGraphEdges()) {
         // if they haven't been added yet
-        if (!closed.contains(neighbor)
-            && !open.contains(neighbor)
-            && neighbor.getDest().getFloor().equals(current.getDest().getFloor())) {
+        if (!closed.contains(neighbor) && !open.contains(neighbor)) {
           neighbor.setHeuristic(end);
           open.add(neighbor);
-          removeList.add(neighbor);
+          // removeList.add(neighbor);
         }
       }
       closed.add(current);
       open.remove(current);
     }
-    return null;
+    return closed;
   }
 
   /*  public List<String> stringDirectionsAStar(String start, String end) {

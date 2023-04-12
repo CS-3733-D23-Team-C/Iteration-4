@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -10,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class MealHistoryController {
@@ -26,84 +26,52 @@ public class MealHistoryController {
 
   @FXML private Button testButton;
   @FXML private TextField inputBox;
-  @FXML private FilteredTableView<TableRow> historyTable;
-  @FXML TableView<TableRow> otherTable;
-  @FXML TableColumn<TableRow, String> ColumnOne;
-  @FXML TableColumn<TableRow, String> ColumnTwo;
-  @FXML TableColumn<TableRow, String> ColumnThree;
-  @FXML TableColumn<TableRow, String> ColumnFour;
-  @FXML TableColumn<TableRow, String> ColumnFive;
-  @FXML TableColumn<TableRow, String> ColumnSix;
+  @FXML private FilteredTableView<MealRequest> historyTable;
+  @FXML TableColumn<MealRequest, Integer> ColumnOne;
+  @FXML TableColumn<MealRequest, Requester> ColumnTwo;
+  @FXML TableColumn<MealRequest, STATUS> ColumnThree;
+  @FXML TableColumn<MealRequest, String> ColumnFour;
+  @FXML TableColumn<MealRequest, Meal> ColumnFive;
+  @FXML TableColumn<MealRequest, String> ColumnSix;
 
-  ObservableList<TableRowController> rows = FXCollections.observableArrayList();
+  ObservableList<MealRequest> rows = FXCollections.observableArrayList();
 
   @FXML private Button goHome;
 
   /** Method run when controller is initialized */
   public void initialize() {
-    ColumnOne.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s1"));
-    ColumnTwo.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s2"));
-    ColumnThree.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s3"));
-    ColumnFour.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s4"));
-    ColumnFive.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s5"));
-    ColumnSix.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s6"));
-    ColumnOne.setText("ID");
-    ColumnTwo.setText("Name");
-    ColumnThree.setText("Meal");
-    ColumnFour.setText("Status");
-    ColumnFive.setText("Room");
-    ColumnSix.setText("Notes");
-    ColumnOne.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    ColumnTwo.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    ColumnThree.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    ColumnFour.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    ColumnFive.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    ColumnSix.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    ColumnOne.setCellValueFactory(new PropertyValueFactory<MealRequest, Integer>("requestID"));
+    ColumnTwo.setCellValueFactory(new PropertyValueFactory<MealRequest, Requester>("requester"));
+    ColumnThree.setCellValueFactory(new PropertyValueFactory<MealRequest, STATUS>("status"));
+    ColumnFour.setCellValueFactory(
+        new PropertyValueFactory<MealRequest, String>("additionalNotes"));
+    ColumnFive.setCellValueFactory(new PropertyValueFactory<MealRequest, Meal>("meal"));
+    ColumnSix.setCellValueFactory(new PropertyValueFactory<MealRequest, String>("eta"));
+    ColumnOne.setText("requestID");
+    ColumnTwo.setText("Requester");
+    ColumnThree.setText("Status");
+    ColumnFour.setText("Additional Notes");
+    ColumnFive.setText("Meal");
+    ColumnSix.setText("ETA");
+    //    ColumnOne.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
+    //    ColumnTwo.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
+    //    ColumnThree.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
+    //    ColumnFour.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
+    //    ColumnFive.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
+    //    ColumnSix.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     // get conference room table
 
+    MealRequestDAO dao = new MealRequestDAO();
+    List<MealRequest> mealRequests = dao.fetchAllObjects();
+    for (MealRequest mealRequest : mealRequests) {
+      rows.add(mealRequest);
+    }
+    historyTable.setItems(rows);
     System.out.println("did it");
   }
 
   public void getGoHome(ActionEvent event) {
     Navigation.navigate(Screen.HOME);
-  }
-
-  //  public void dispTable(List<Move> moveList) {
-  //    ColumnOne.setCellValueFactory(new PropertyValueFactory<TableRow, String>("nodeID"));
-  //    ColumnTwo.setCellValueFactory(new PropertyValueFactory<TableRow, String>("longName"));
-  //    ColumnThree.setCellValueFactory(new PropertyValueFactory<TableRow, String>("date"));
-  //    //    testTable.getItems().setAll(gettableRows(moveList));
-  //    historyTable.getItems().setAll(gettableRows(moveList));
-  //    //    ColumnOne.setEditable(true);
-  //    //    ColumnTwo.setEditable(true);
-  //    //    ColumnThree.setEditable(true);
-  //
-  //    System.out.println("did it");
-  //  }
-
-  public ObservableList<TableRowController> convertToObservableList(List<List<String>> rowList) {
-    String requestID;
-    String reqname;
-    String meal;
-    String status;
-    String room;
-    String notes;
-
-    for (List<String> rl : rowList) {
-      for (String s : rl) {
-        System.out.println(s);
-      }
-
-      requestID = rl.get(0);
-      reqname = rl.get(1);
-      meal = rl.get(2);
-      status = rl.get(3);
-      room = rl.get(4);
-      notes = rl.get(5);
-      // rows.add(new TableRow(requestID, reqname, meal, status, room, notes));
-      rows.add(new TableRowController(requestID, reqname, meal, status, room, notes));
-    }
-    return rows;
   }
 
   public String getText(javafx.event.ActionEvent actionEvent) {
@@ -166,4 +134,7 @@ public class MealHistoryController {
 
   @FXML
   void getMapPage(ActionEvent event) {}
+
+  @FXML
+  void getPathfindingPage(ActionEvent event) {}
 }

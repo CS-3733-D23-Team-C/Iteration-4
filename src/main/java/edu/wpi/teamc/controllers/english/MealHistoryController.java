@@ -126,7 +126,7 @@ public class MealHistoryController {
 
   @FXML
   void getExit(ActionEvent event) {
-    System.exit(0);
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML

@@ -84,7 +84,7 @@ public class AdminHomeController {
 
   @FXML
   void getExit(ActionEvent event) {
-    System.exit(0);
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   /** Method run when controller is initialized */

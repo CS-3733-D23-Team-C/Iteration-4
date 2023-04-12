@@ -129,7 +129,7 @@ public class MapHistoryController {
 
   @FXML
   void getExit(ActionEvent event) {
-    // Navigation.navigate(Screen.EXIT_PAGE);
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML

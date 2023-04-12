@@ -9,9 +9,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #e3dfdf;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.ExitPageController">
+<AnchorPane prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #ece9e9;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.ExitPageController">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e3dfdf" height="900.0" layoutX="274.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ece9e9" height="900.0" layoutX="274.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <VBox alignment="CENTER" prefHeight="738.0" prefWidth="1270.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <ImageView fitHeight="691.0" fitWidth="695.0" pickOnBounds="true" preserveRatio="true">
@@ -35,8 +35,8 @@
         </VBox>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Rectangle fx:id="upperhalf" arcHeight="5.0" arcWidth="5.0" fill="#e3dfdf" height="308.0" stroke="TRANSPARENT" strokeType="INSIDE" width="864.0" />
-                <Rectangle fx:id="lowerhalf" arcHeight="5.0" arcWidth="5.0" fill="#e3dfdf" height="308.0" stroke="TRANSPARENT" strokeType="INSIDE" width="864.0" />
+                <Rectangle fx:id="upperhalf" arcHeight="5.0" arcWidth="5.0" fill="#ece9e9" height="308.0" stroke="TRANSPARENT" strokeType="INSIDE" width="864.0" />
+                <Rectangle fx:id="lowerhalf" arcHeight="5.0" arcWidth="5.0" fill="#ece9e9" height="308.0" stroke="TRANSPARENT" strokeType="INSIDE" width="864.0" />
             </children>
         </VBox>
     </children>

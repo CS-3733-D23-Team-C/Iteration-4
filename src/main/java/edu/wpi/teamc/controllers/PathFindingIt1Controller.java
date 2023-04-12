@@ -4,14 +4,16 @@ import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.map.Edge;
 import edu.wpi.teamc.dao.map.Node;
 import edu.wpi.teamc.dao.map.NodeDao;
+import edu.wpi.teamc.graph.Graph;
+import edu.wpi.teamc.graph.GraphEdge;
+import edu.wpi.teamc.graph.GraphNode;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -193,6 +195,18 @@ public class PathFindingIt1Controller {
   void getSubmit(ActionEvent event) {
     String startNode = startNodeId.getText();
     String endNode = endNodeId.getText();
+
+    Graph graph = new Graph();
+    graph.syncWithDB();
+
+    GraphNode src = graph.getNode(Integer.valueOf(startNode));
+    GraphNode dest = graph.getNode(Integer.valueOf(endNode));
+
+    List<GraphEdge> path = graph.getDirections_Astar(src, dest);
+
+    for (GraphEdge edge : path) {
+      System.out.print("->" + edge.getStartNode());
+    }
   }
 
   @FXML

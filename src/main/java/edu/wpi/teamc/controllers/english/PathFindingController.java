@@ -3,15 +3,16 @@ package edu.wpi.teamc.controllers.english;
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.map.Node;
 import edu.wpi.teamc.dao.map.NodeDao;
-import edu.wpi.teamc.mapHelpers.CoordinatePasser;
+import edu.wpi.teamc.graph.Graph;
+import edu.wpi.teamc.graph.GraphEdge;
+import edu.wpi.teamc.graph.GraphNode;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -21,10 +22,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.util.Duration;
 import javax.swing.*;
 import net.kurobako.gesturefx.GesturePane;
-import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class PathFindingController {
   public Group group;
@@ -34,15 +35,9 @@ public class PathFindingController {
   /*
   Notes:
   * implement import and export buttons and get rid of navigation actions
-  * implement a submit button that submits all edits at once ****** DONE (just need database functions for finding node based on ID)
+  * implement a submit button that submits all edits at once
       * maybe store edits and their indices in an array and iterate over that array after the submit
       * button is pressed to update the move list from the database
-  * draw edges over map page for pathfinding (currently PathfindingIt1)
-      * implement A* on this map
-      * have list of nodes you can pick from?
-      * be able to select nodes using listeners?
-      node id and longname to modify and shortname
-      longname, shortname, nodeid, nodetype, xcoord, ycoord, floor, building
    */
 
   /** */
@@ -54,20 +49,6 @@ public class PathFindingController {
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }
 
-  @FXML private Button testButton;
-  @FXML private TextField inputBox;
-  @FXML private FilteredTableView<TableRow> historyTable;
-  @FXML private FilteredTableView<TableRow> edgeTable;
-  @FXML TableView<TableRow> otherTable;
-  @FXML TableColumn<TableRow, String> ColumnOne;
-  @FXML TableColumn<TableRow, String> ColumnTwo;
-  @FXML TableColumn<TableRow, String> ColumnThree;
-  @FXML TableColumn<TableRow, String> ColumnFour;
-  @FXML TableColumn<TableRow, String> ColumnFive;
-  @FXML TableColumn<TableRow, String> ColumnSix;
-  @FXML TableColumn<TableRow, String> ColumnSeven;
-  @FXML TableColumn<TableRow, String> ColumnEight;
-  @FXML TableColumn<TableRow, String> ColumnNine;
   @FXML GesturePane mapGPane;
   @FXML MFXButton FL1;
   @FXML MFXButton FL2;
@@ -77,42 +58,22 @@ public class PathFindingController {
   @FXML MFXButton FLB2;
   @FXML MFXButton floorButton;
   Group mapNodes = new Group();
-  CoordinatePasser cordPasser = new CoordinatePasser();
-
-  //  @FXML TableColumn<TableRow, String> ColumnOne1;
-  //  @FXML TableColumn<TableRow, String> ColumnTwo1;
-  //  @FXML TableColumn<TableRow, String> ColumnThree1;
-  //  @FXML TableView<TableRow> testTable;
-  ObservableList<TableRow> rows = FXCollections.observableArrayList();
-  ObservableList<TableRow> rowsEdge = FXCollections.observableArrayList();
+  Group edges = new Group();
+  @FXML MFXTextField startNodeId;
+  @FXML MFXTextField endNodeId;
+  @FXML MFXButton submit;
 
   @FXML private Button goHome;
-  int XCoord = 0;
-  int YCoord = 0;
   String xCoord_temp = "";
   String yCoord_temp = "";
   String nodeID_temp = "";
   String iD;
-  String building = "";
+  String building;
   String floor = "G";
   List<Node> n_toAdd = new ArrayList<Node>();
   List<Node> n_toModify_newNode = new ArrayList<Node>();
   List<String> n_toModify_oldID = new ArrayList<String>();
   List<String> n_toRemove = new ArrayList<String>();
-  List<Node> oldNameToAdd = new ArrayList<Node>();
-  List<String> newNameToAdd = new ArrayList<String>();
-
-  List<Node> oldNameToModify = new ArrayList<Node>();
-  List<String> newNameToModify = new ArrayList<String>();
-  List<String> nameToRemove = new ArrayList<String>();
-
-  String sNameInput_temp;
-  String lNameInput_temp;
-
-  //  List<Node> databaseNodeList = new ArrayList<Node>();
-  //  List<Edge> databaseEdgeList = new ArrayList<Edge>();
-  //  List<LocationName> databaseLocationNameList = new ArrayList<LocationName>();
-  //  List<Move> databaseMoveList = new ArrayList<Move>();
 
   /** Method run when controller is initialized */
   public void initialize() {
@@ -163,6 +124,7 @@ public class PathFindingController {
     mapNodes = new Group();
     group.getChildren().add(imageView);
     group.getChildren().add(mapNodes);
+    group.getChildren().add(edges);
     Pane pane = new Pane();
     pane.setMinWidth(image.getWidth());
     pane.setMaxWidth(image.getWidth());
@@ -185,9 +147,6 @@ public class PathFindingController {
             });
     mapNodes.toFront();
   }
-  //  public void placeNodes(String floor, Node node) {
-  //
-  //  }
 
   public void createMapNodes(Node node) {
     String shortname = new NodeDao().getShortName(node.getNodeID());
@@ -208,19 +167,40 @@ public class PathFindingController {
     mapNodes.getChildren().add(newCircle);
   }
 
-  public void getGoHome(ActionEvent event) {
-    Navigation.navigate(Screen.HOME);
-  }
+  //    public String getText(ActionEvent actionEvent) {
+  //        String inputtedText;
+  //        inputtedText = inputBox.getText();
+  //        inputBox.clear();
+  //        return inputtedText;
+  //    }
 
-  public void getPathfindingPage(ActionEvent event) {
-    Navigation.navigate(Screen.PATHFINDING_PAGE);
-  }
+  @FXML
+  void getSubmit(ActionEvent event) {
+    edges.getChildren().clear();
+    String startNode = startNodeId.getText();
+    String endNode = endNodeId.getText();
 
-  public String getText(ActionEvent actionEvent) {
-    String inputtedText;
-    inputtedText = inputBox.getText();
-    inputBox.clear();
-    return inputtedText;
+    Graph graph = new Graph();
+    graph.syncWithDB();
+
+    GraphNode src = graph.getNode(Integer.valueOf(startNode));
+    GraphNode dest = graph.getNode(Integer.valueOf(endNode));
+
+    List<GraphEdge> path = graph.getDirections_Astar(src, dest);
+
+    for (GraphEdge edge : path) {
+      System.out.println(edge.getStartNode() + " -> " + edge.getEndNode());
+      Line temp =
+          new Line(
+              edge.getSrc().getXCoord(),
+              edge.getSrc().getYCoord(),
+              edge.getDest().getXCoord(),
+              edge.getDest().getYCoord());
+      temp.setStrokeWidth(10);
+      temp.setVisible(true);
+      edges.getChildren().add(temp);
+    }
+    edges.toFront();
   }
 
   @FXML
@@ -276,6 +256,9 @@ public class PathFindingController {
 
   @FXML
   void getMapPage(ActionEvent event) {}
-  /////////////////////////////////////////////
 
+  @FXML
+  public void getPathfindingPage(ActionEvent actionEvent) {
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
 }

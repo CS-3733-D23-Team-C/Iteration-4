@@ -38,6 +38,33 @@ public class LocationDao implements IDao<LocationName> {
     return databaseLocationNameList;
   }
 
+  public LocationName updateRow(String oldLongName, LocationName repl) {
+    DBConnection db = new DBConnection();
+    try {
+      // table names
+      String LOCATIONNAME = "\"hospitalNode\".\"locationName\"";
+      // queries
+      String queryUpdateLocationNamesDB =
+          "UPDATE  "
+              + LOCATIONNAME
+              + " SET \"longName\"=?, \"shortName\"=?, \"nodeType\"=? WHERE \"longName\"=?; ";
+
+      PreparedStatement ps = db.getConnection().prepareStatement(queryUpdateLocationNamesDB);
+
+      ps.setString(1, repl.getLongName());
+      ps.setString(2, repl.getShortName());
+      ps.setString(3, repl.getNodeType());
+      ps.setString(4, oldLongName);
+
+      ps.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    db.closeConnection();
+
+    return repl;
+  }
+
   public LocationName updateRow(LocationName orm, LocationName repl) {
     DBConnection db = new DBConnection();
     try {
@@ -107,6 +134,27 @@ public class LocationDao implements IDao<LocationName> {
     db.closeConnection();
 
     return orm;
+  }
+
+  public String deleteRow(String longName) {
+    DBConnection db = new DBConnection();
+    try {
+      // table names
+      String LOCATIONNAME = "\"hospitalNode\".\"locationName\"";
+      // queries
+      String queryDeleteLocationNamesDB = "DELETE FROM " + LOCATIONNAME + " WHERE \"longName\"=?; ";
+
+      PreparedStatement ps = db.getConnection().prepareStatement(queryDeleteLocationNamesDB);
+
+      ps.setString(1, longName);
+
+      ps.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    db.closeConnection();
+
+    return longName;
   }
 
   public boolean importCSV(String CSVfilepath) {

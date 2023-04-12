@@ -166,10 +166,10 @@ public class MealController {
     Navigation.navigate(Screen.MEAL_HISTORY);
   }
 
-  @FXML
-  void getMapPage(ActionEvent event) {
-    Navigation.navigate(Screen.FLOOR_PLAN);
-  }
+  //  @FXML
+  //  void getMapPage(ActionEvent event) {
+  //    Navigation.navigate(Screen.FLOOR_PLAN);
+  //  }
 
   @FXML
   void getHelpage(ActionEvent event) {

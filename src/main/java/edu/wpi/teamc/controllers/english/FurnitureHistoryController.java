@@ -149,10 +149,10 @@ public class FurnitureHistoryController {
     Navigation.navigate(Screen.MAP_HISTORY_PAGE);
   }
 
-  @FXML
-  void getMapPage(ActionEvent event) {
-    Navigation.navigate(Screen.FLOOR_PLAN);
-  }
+  //  @FXML
+  //  void getMapPage(ActionEvent event) {
+  //    Navigation.navigate(Screen.FLOOR_PLAN);
+  //  }
 
   @FXML
   void getPathfindingPage(ActionEvent event) {

@@ -110,6 +110,26 @@ public class MoveDao implements IDao<Move> {
     return orm;
   }
 
+  public int deleteRow(int nodeID) {
+    DBConnection db = new DBConnection();
+    try {
+      // table names
+      String MOVE = "\"hospitalNode\".move";
+      // queries
+      String queryDeleteMovesDB = "DELETE FROM " + MOVE + " WHERE \"nodeID\"=?; ";
+
+      PreparedStatement ps = db.getConnection().prepareStatement(queryDeleteMovesDB);
+      ps.setInt(1, nodeID);
+
+      ps.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    db.closeConnection();
+
+    return nodeID;
+  }
+
   public Date returnDate(String dateString) {
     // function to convert to yyyy-mm-dd
     SimpleDateFormat[] formats =

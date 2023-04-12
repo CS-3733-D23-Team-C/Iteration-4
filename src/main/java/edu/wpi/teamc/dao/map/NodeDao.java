@@ -153,6 +153,26 @@ public class NodeDao implements IDao<Node> {
     return orm;
   }
 
+  public int deleteRow(int nodeID) {
+    DBConnection dbConnection = new DBConnection();
+    try {
+      // table names
+      String NODE = "\"hospitalNode\".node";
+      String queryDeleteNodesDB = "DELETE FROM " + NODE + " WHERE \"nodeID\"=?; ";
+
+      PreparedStatement ps = dbConnection.getConnection().prepareStatement(queryDeleteNodesDB);
+
+      ps.setInt(1, nodeID);
+
+      ps.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    dbConnection.closeConnection();
+
+    return nodeID;
+  }
+
   public void importRow(Node orm) {
     DBConnection dbConnection = new DBConnection();
     try {

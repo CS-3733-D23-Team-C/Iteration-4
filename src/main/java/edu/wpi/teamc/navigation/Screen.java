@@ -7,7 +7,7 @@ public enum Screen {
   ELEVATOR_SIGNAGE("views/english/ElevatorSignage.fxml"),
   HOME("views/english/Home.fxml"),
 
-  FLOOR_PLAN("views/english/FloorPlan.fxml"),
+  //  FLOOR_PLAN("views/english/FloorPlan.fxml"),
 
   LOGIN("views/english/LoginPage.fxml"),
   GUEST_HOME("views/english/GuestHome.fxml"),
@@ -24,6 +24,8 @@ public enum Screen {
   PATHFINDING_PAGE("views/english/PathFinding.fxml"),
   HELP("views/english/Help.fxml"),
   EDIT_MAP("views/english/EditMap.fxml"),
+
+  FLOOR_PLAN("views/english/FloorPlan.fxml"),
 
   OFFICE_SUPPLY_HISTORY("views/english/OfficeSupplyHistory.fxml"),
   FURNITURE_HISTORY("views/english/FurnitureHistory.fxml"),

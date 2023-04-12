@@ -68,10 +68,10 @@ public class Graph {
    * @param end - end node
    * @return list of directions
    */
-  public List<GraphEdge> getDirections_Astar(GraphNode start, GraphNode end) {
+  public List<GraphNode> getDirections_Astar(GraphNode start, GraphNode end) {
     // implement a* algorithm for pathfinding from start to end
     PriorityQueue<GraphEdge> open = new PriorityQueue<>();
-    LinkedList<GraphEdge> closed = new LinkedList<>();
+    LinkedList<GraphNode> closed = new LinkedList<>();
 
     // set heuristic vals for all immediate edges
     for (GraphEdge edge : start.getGraphEdges()) {
@@ -84,25 +84,22 @@ public class Graph {
     while (!open.isEmpty()) {
       // pick the best edge
       GraphEdge current = open.poll();
-      if (closed.contains(current)) {
-        current = open.poll();
-      }
 
       // check if the current edge would reach the dest
       if (end.equals(current.getDest())) {
-        closed.add(current);
+        closed.add(current.getDest());
         return closed;
       }
 
       // check edges of endNode of current edge
       for (GraphEdge neighbor : nodes.get(current.getEndNode()).getGraphEdges()) {
         // if they haven't been added yet
-        if (!closed.contains(neighbor) && !open.contains(neighbor)) {
+        if (!closed.contains(neighbor.getSrc()) && !open.contains(neighbor)) {
           neighbor.setHeuristic(end);
           open.add(neighbor);
         }
       }
-      closed.add(current);
+      closed.add(current.getDest());
     }
     return closed;
   }

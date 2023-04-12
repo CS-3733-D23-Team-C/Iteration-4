@@ -4,14 +4,12 @@ import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.map.Node;
 import edu.wpi.teamc.dao.map.NodeDao;
 import edu.wpi.teamc.graph.Graph;
-import edu.wpi.teamc.graph.GraphEdge;
 import edu.wpi.teamc.graph.GraphNode;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import javafx.event.ActionEvent;
@@ -205,8 +203,8 @@ public class PathFindingController {
     circ2.setVisible(true);
     mapNodes.getChildren().add(circ2);
 
-    List<GraphEdge> path = graph.getDirections_Astar(src, dest);
-    List<GraphEdge> comeAcross = new LinkedList<>();
+    List<GraphNode> path = graph.getDirections_Astar(src, dest);
+    /*    List<GraphEdge> comeAcross = new LinkedList<>();
     GraphEdge saveLast;
     int i = 0;
     int length = path.size();
@@ -220,16 +218,16 @@ public class PathFindingController {
       } else {
         i++;
       }
-    }
+    }*/
 
-    for (GraphEdge edge : path) {
-      System.out.println(edge.getStartNode() + " -> " + edge.getEndNode());
+    for (int i = 0; i < path.size() - 1; i++) {
+      System.out.println(path.get(i).getNodeID() + "->");
       Line temp =
           new Line(
-              edge.getSrc().getXCoord(),
-              edge.getSrc().getYCoord(),
-              edge.getDest().getXCoord(),
-              edge.getDest().getYCoord());
+              path.get(i).getXCoord(),
+              path.get(i).getYCoord(),
+              path.get(i + 1).getXCoord(),
+              path.get(i + 1).getYCoord());
       temp.setStrokeWidth(12);
       temp.setVisible(true);
       temp.setStroke(Paint.valueOf("FF0000"));

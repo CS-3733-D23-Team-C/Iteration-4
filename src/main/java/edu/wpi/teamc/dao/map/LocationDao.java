@@ -136,6 +136,27 @@ public class LocationDao implements IDao<LocationName> {
     return orm;
   }
 
+  public String deleteRow(String longName) {
+    DBConnection db = new DBConnection();
+    try {
+      // table names
+      String LOCATIONNAME = "\"hospitalNode\".\"locationName\"";
+      // queries
+      String queryDeleteLocationNamesDB = "DELETE FROM " + LOCATIONNAME + " WHERE \"longName\"=?; ";
+
+      PreparedStatement ps = db.getConnection().prepareStatement(queryDeleteLocationNamesDB);
+
+      ps.setString(1, longName);
+
+      ps.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    db.closeConnection();
+
+    return longName;
+  }
+
   public boolean importCSV(String CSVfilepath) {
     // Regular expression to match each row
     String regex = "(.*),(.*),(.*)";

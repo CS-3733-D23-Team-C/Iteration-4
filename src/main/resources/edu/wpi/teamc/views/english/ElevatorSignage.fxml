@@ -51,7 +51,6 @@
                 <Menu mnemonicParsing="false" text="Navigation">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#getSignagePage" text="Signage" />
-                        <MenuItem mnemonicParsing="false" onAction="#getMapPage" text="Map" />
                         <MenuItem mnemonicParsing="false" onAction="#getEditMap" text="Edit Map" />
                         <MenuItem mnemonicParsing="false" onAction="#getMapHistory" text="Map History" />
                     </items>

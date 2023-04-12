@@ -1,21 +1,16 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.Main;
-import edu.wpi.teamc.dao.map.LocationDao;
-import edu.wpi.teamc.dao.map.LocationName;
-import edu.wpi.teamc.dao.map.Node;
-import edu.wpi.teamc.dao.map.NodeDao;
-import edu.wpi.teamc.mapHelpers.CoordinatePasser;
+import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.sql.Date;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -102,11 +97,15 @@ public class EditMapController {
   List<String> n_toModify_oldID = new ArrayList<String>();
   List<String> n_toRemove = new ArrayList<String>();
   List<Node> oldNameToAdd = new ArrayList<Node>();
-  List<String> newNameToAdd = new ArrayList<String>();
+  List<LocationName> newNameToAdd = new ArrayList<LocationName>();
+  List<Move> moveNamesToAdd = new ArrayList<Move>();
 
   List<String> oldNameToModify = new ArrayList<String>();
   List<LocationName> newNameToModify = new ArrayList<LocationName>();
   List<String> nameToRemove = new ArrayList<String>();
+  String removeName = "";
+  List<Move> moveNamesToRemove = new ArrayList<Move>();
+  List<Node> listNodeToRemove = new ArrayList<Node>();
 
   List<Node> Floor1 = new ArrayList<Node>();
   List<Node> Floor2 = new ArrayList<Node>();
@@ -125,16 +124,11 @@ public class EditMapController {
   String sNameInput_temp;
   String lNameInput_temp;
   String oldName_temp;
-
-  //  List<Node> databaseNodeList = new ArrayList<Node>();
-  //  List<Edge> databaseEdgeList = new ArrayList<Edge>();
-  //  List<LocationName> databaseLocationNameList = new ArrayList<LocationName>();
-  //  List<Move> databaseMoveList = new ArrayList<Move>();
+  String nodeIDinput_temp;
 
   /** Method run when controller is initialized */
   public void initialize() {
 
-    //    File file = new File();
     Image image = new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
     ImageView imageView = new ImageView(image);
     imageView.relocate(0, 0);
@@ -189,6 +183,19 @@ public class EditMapController {
     group.getChildren().add(pane);
     placeNodes(floor);
   }
+
+  public int compare(Node a, Node b) {
+
+    if (Integer.valueOf(a.getFloor()) > Integer.valueOf(b.getFloor())) {
+      return 1;
+    } else if (Integer.valueOf(a.getFloor()) < Integer.valueOf(b.getFloor())) {
+      return -1;
+    } else {
+      return 0;
+    }
+  }
+
+  public void comparatorSortNode() {}
 
   public void sortNodes() {
     NodeDao nodeDao = new NodeDao();
@@ -311,11 +318,8 @@ public class EditMapController {
     MFXTextField inputBuilding = new MFXTextField(); // need floor as well
     MFXButton submitNode = new MFXButton("Add");
     submitNode.setId("submitNode");
-    //    submitNode.setText("Submit Node");
     submitNode.setPrefSize(100, 35);
     submitNode.setMinSize(100, 35);
-    //    inputXCoord.setPrefSize(30, 30);
-    //    inputXCoord.setBorderGap(20);
     addBox
         .getChildren()
         .addAll(
@@ -327,9 +331,6 @@ public class EditMapController {
             inputBuilding,
             submitNode);
     addBox.setSpacing(20);
-    //    textBoxes.setSpacing(5);
-    //    textBoxes.setAlignment(Pos.CENTER);
-    //    textBoxes.relocate(0,0);
     hBox.getChildren().addAll(addBox, modifyBox, removeBox);
     hBox.setSpacing(20);
 
@@ -447,12 +448,12 @@ public class EditMapController {
             //                nodeDao.deleteRow(currID); ////NEED TO MAKE WORK WITH NODE ID ONLY AS
             // SUPPLIED
           }
-          stage
-              .close(); // no need to close when switching floors bc any new one submitted with have
+          stage.close(); // no need to close when switching floors bc any new one submitted with have
           // a new floor assignment relating to the currently viewed floor
           group.getChildren().remove(mapNodes);
           mapNodes.getChildren().clear();
           group.getChildren().add(mapNodes);
+          sortNodes();
           placeNodes(floor);
           // Delete node
 
@@ -493,26 +494,28 @@ public class EditMapController {
 
     // remove
     VBox removeBox = new VBox();
-    Text nodeID_R = new Text("Input ID of Node to be Removed");
-    MFXTextField nodeID_RText = new MFXTextField();
+    Text nodeID_R = new Text("Input Longname of name to be Removed");
+    MFXTextField nameToBeRemoved = new MFXTextField();
     MFXButton submitRemove = new MFXButton("Remove");
     submitRemove.setPrefSize(100, 35);
     submitRemove.setMinSize(100, 35);
-    removeBox.getChildren().addAll(nodeID_R, nodeID_RText, submitRemove);
+    removeBox.getChildren().addAll(nodeID_R, nameToBeRemoved, submitRemove);
     removeBox.setSpacing(20);
 
     // add
     VBox addBox = new VBox();
     //      Text XCoordText = new Text("Input X Coordinate");
     //      Text YCoordText = new Text("Input Y Coordinate");
-    Text nodeID = new Text("Input NodeID");
+    Text nodeType_t = new Text("Input Node Type");
     Text SName = new Text("Input New Shortname");
     Text LName = new Text("Input New Longname");
+    Text nodeID = new Text("Input NodeID of node to add name to");
 
     //      Text BuildingText = new Text("Input Building Name");
-    MFXTextField nodeIDinput = new MFXTextField();
+    MFXTextField nodeTypeInput = new MFXTextField();
     MFXTextField sNameInput = new MFXTextField();
     MFXTextField lNameInput = new MFXTextField();
+    MFXTextField nodeIDinput = new MFXTextField();
     MFXButton submitNode = new MFXButton("Add");
     submitNode.setId("submitNode");
     //    submitNode.setText("Submit Node");
@@ -522,7 +525,16 @@ public class EditMapController {
     //    inputXCoord.setBorderGap(20);
     addBox
         .getChildren()
-        .addAll(nodeID, nodeIDinput, SName, sNameInput, LName, lNameInput, submitNode);
+        .addAll(
+            nodeID,
+            nodeIDinput,
+            nodeType_t,
+            nodeTypeInput,
+            SName,
+            sNameInput,
+            LName,
+            lNameInput,
+            submitNode);
     addBox.setSpacing(20);
 
     hBox.getChildren().addAll(addBox, modifyBox, removeBox);
@@ -555,22 +567,24 @@ public class EditMapController {
     // Add
     submitNode.setOnMouseClicked(
         buttonEvent -> {
-          nodeID_temp = nodeIDinput.getText();
+          nodeType_temp = nodeTypeInput.getText();
           sNameInput_temp = sNameInput.getText();
           lNameInput_temp = lNameInput.getText();
-          //          *********FIND NODE USING NODE ID
-          Node newNode = // /////////// get rid of this when find old node or make node using old x,
-              // y, and building found
-              new Node(Integer.valueOf(xCoord_temp), Integer.valueOf(yCoord_temp), floor, building);
-          //          NodeDao nodeDao = new NodeDao();
-          oldNameToAdd.add(newNode); // ///////////INSTEAD HAVE THIS BE THE OLD NODE FOUND USING ID
-          newNameToAdd.add(nodeID_temp);
-          //          nodeDao.addRow(newNode); to iterate over in submit method
-          //          placeNodes(
-          //              floor); // later implement an update map button that updates all changes
-          // made at
-          //   once
-          // so user can submit multiple at a time
+          nodeIDinput_temp = nodeIDinput.getText();
+
+          LocationName locationName =
+              new LocationName(lNameInput_temp, sNameInput_temp, nodeType_temp);
+
+          long currentTime = System.currentTimeMillis();
+          Date currentDate = new Date(currentTime);
+          Move move = new Move(Integer.valueOf(nodeIDinput_temp), lNameInput_temp, currentDate);
+
+          moveNamesToAdd.add(move);
+          newNameToAdd.add(locationName);
+          nodeTypeInput.clear();
+          sNameInput.clear();
+          lNameInput.clear();
+          nodeIDinput.clear();
           System.out.println("printed the new node");
         });
 
@@ -599,25 +613,127 @@ public class EditMapController {
     // remove
     submitRemove.setOnMouseClicked(
         buttonEvent -> {
-          iD = nodeID_RText.getText();
-          nameToRemove.add(iD);
-          //              placeNodes(
-          //                      floor); // later implement an update map button that updates all
-          // changes
-          //   made at once
-          // so
-          // user can submit multiple at a time
+          removeName = nameToBeRemoved.getText();
+          nameToRemove.add(removeName);
+
+          long currentTime = System.currentTimeMillis();
+          Date currentDate = new Date(currentTime);
+          Move move = new Move(Integer.valueOf(iD), removeName, currentDate);
+          LocationName nameToRemove = null;
+          moveNamesToRemove.add(move);
+          //find node to remove
+            switch (floor) {
+                case "1":
+                    for (LocationName name1 : Floor1Name) {
+                        if(name1.getLongName().equals(removeName)){
+                            nameToRemove = name1;
+                        }
+                    }
+                    //                    for (Node node : Floor1) {
+//                        if(node.getNodeID() == Integer.valueOf(iD)){
+//                            nodeToRemove = node;
+//                        }
+//                    }
+                    break;
+                case "2":
+                    for (Node node : Floor2) {
+                        if(node.getNodeID() == Integer.valueOf(iD)){
+                            nodeToRemove = node;
+                        }
+                    }
+                    break;
+                case "3":
+                    for (Node node : Floor3) {
+                        if(node.getNodeID() == Integer.valueOf(iD)){
+                            nodeToRemove = node;
+                        }
+                    }
+                    break;
+                case "G":
+                    for(Node node: FloorG){
+                        if(node.getNodeID() == Integer.valueOf(iD)){
+                            nodeToRemove = node;
+                        }
+                    }
+                    break;
+                    case "L1":
+                        for(Node node: FloorL1){
+                            if(node.getNodeID() == Integer.valueOf(iD)){
+                                nodeToRemove = node;
+                            }
+                        }
+                        break;
+                case "L2":
+                    for(Node node: FloorL2){
+                        if(node.getNodeID() == Integer.valueOf(iD)){
+                            nodeToRemove = node;
+                        }
+                    }
+                    break;
+
+                    //Find name to remove
+                //find node to remove
+                switch (floor) {
+                    case "1":
+                        for (LocationName name : Floor1Name) {
+                            if(name.getLongName().equals(nam)){
+                                nodeToRemove = node;
+                            }
+                        }
+                        break;
+                    case "2":
+                        for (Node node : Floor2Name) {
+                            if(node.getNodeID() == Integer.valueOf(iD)){
+                                nodeToRemove = node;
+                            }
+                        }
+                        break;
+                    case "3":
+                        for (Node node : Floor3Name) {
+                            if(node.getNodeID() == Integer.valueOf(iD)){
+                                nodeToRemove = node;
+                            }
+                        }
+                        break;
+                    case "G":
+                        for(Node node: FloorGName){
+                            if(node.getNodeID() == Integer.valueOf(iD)){
+                                nodeToRemove = node;
+                            }
+                        }
+                        break;
+                    case "L1":
+                        for(Node node: FloorL1Name){
+                            if(node.getNodeID() == Integer.valueOf(iD)){
+                                nodeToRemove = node;
+                            }
+                        }
+                        break;
+                    case "L2":
+                        for(Node node: FloorL2Name){
+                            if(node.getNodeID() == Integer.valueOf(iD)){
+                                nodeToRemove = node;
+                            }
+                        }
+                        break;
+            }
+            listNodeToRemove.add(nodeToRemove);
+
+          nameToBeRemoved.clear();
           System.out.println("removed the node");
         });
+        }
     submitNodeEdits.setOnMouseClicked(
         buttonEvent -> {
           LocationDao locationDao = new LocationDao();
+          MoveDao moveDao = new MoveDao();
 
           // Add
           for (int i = 0; i < newNameToAdd.size(); i++) {
-            Node currNode = oldNameToAdd.get(i);
-            String currId = newNameToAdd.get(i);
-            //            nodeDao.addRow(currNode); ///USE ADD NAME FUNCTION
+            LocationName currName = newNameToAdd.get(i);
+            Move currMove = moveNamesToAdd.get(i);
+            locationDao.addRow(currName);
+            moveDao.addRow(currMove);
           }
           // Modify
           for (int i = 0; i < oldNameToModify.size(); i++) {
@@ -627,12 +743,15 @@ public class EditMapController {
 
             ///// METHOD TO REPLACE NAME OF NODE AND INPUT TO TABLE
           }
-          for (String currID : nameToRemove) {
+          for (String currName : nameToRemove) {
+
             //// METHOD TO FIND NODE IN DAO AND REMOVE IT BASED ON ID
             //                nodeDao.deleteRow(currID); ////NEED TO MAKE WORK WITH NODE ID ONLY AS
             // SUPPLIED
           }
+          sortNodes();
           placeNodes(floor);
+          stage.close();
         });
   }
 
@@ -700,10 +819,14 @@ public class EditMapController {
   }
 
   @FXML
-  void getMapHistory(ActionEvent event) {}
+  void getMapHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
+  }
 
-  @FXML
-  void getMapPage(ActionEvent event) {}
+  //  @FXML
+  //  void getMapPage(ActionEvent event) {
+  //    Navigation.navigate(Screen.);
+  //  }
   /////////////////////////////////////////////
 
 }

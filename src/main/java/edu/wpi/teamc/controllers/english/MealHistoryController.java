@@ -166,4 +166,9 @@ public class MealHistoryController {
 
   @FXML
   void getMapPage(ActionEvent event) {}
+
+  @FXML
+  void getPathfindingPage(ActionEvent event) {
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
 }

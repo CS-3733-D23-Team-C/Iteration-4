@@ -85,7 +85,7 @@ public class HomeController {
 
   @FXML
   void getPathfindingPage(ActionEvent event) {
-    Navigation.navigate(Screen.PATHFINDING);
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
   }
 
   @FXML

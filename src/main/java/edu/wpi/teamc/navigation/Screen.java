@@ -11,20 +11,20 @@ public enum Screen {
 
   LOGIN("views/english/LoginPage.fxml"),
   GUEST_HOME("views/english/GuestHome.fxml"),
-  MEAL("views/english/Meal.fxml"),
+  MEAL("views/english/MealRequest.fxml"),
   MEAL_HISTORY("views/english/MealHistory.fxml"),
   CONFERENCE("views/english/Conference.fxml"),
   CONFERENCE_HISTORY("views/english/ConferenceHistory.fxml"),
 
-  FLOWER("views/english/Flower.fxml"),
-  FURNITURE("views/english/Furniture.fxml"),
-  OFFICE_SUPPLY("views/english/OfficeSupply.fxml"),
-  CONGRATS_PAGE("views/english/congratsPage.fxml"),
-  MAP_HISTORY_PAGE("views/english/MapChangeHistory.fxml"),
-  PATHFINDING_PAGE("views/english/Pathfinding.fxml"),
+  FLOWER("views/english/FlowerRequest.fxml"),
+  FURNITURE("views/english/FurnitureRequest.fxml"),
+  OFFICE_SUPPLY("views/english/OfficeSupplyRequest.fxml"),
+  CONGRATS_PAGE("views/english/Congrats.fxml"),
+  MAP_HISTORY_PAGE("views/english/MapHistory.fxml"),
+  PATHFINDING_PAGE("views/english/PathFinding.fxml"),
   HELP("views/english/Help.fxml"),
-  EDIT_MAP("views/english/MapEditing.fxml"),
-  PATHFINDING("views/english/PathfindingIt1.fxml"),
+  EDIT_MAP("views/english/EditMap.fxml"),
+  //  PATHFINDING("views/english/PathfindingIt1.fxml"),
 
   ADMIN_HOME("views/english/AdminHome.fxml");
 

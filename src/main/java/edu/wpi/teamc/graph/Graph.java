@@ -72,8 +72,6 @@ public class Graph {
     // implement a* algorithm for pathfinding from start to end
     PriorityQueue<GraphEdge> open = new PriorityQueue<>();
     LinkedList<GraphEdge> closed = new LinkedList<>();
-    // LinkedList<GraphEdge> removeList = new LinkedList<>();
-    boolean firstRun = true;
 
     // set heuristic vals for all immediate edges
     for (GraphEdge edge : start.getGraphEdges()) {
@@ -85,15 +83,7 @@ public class Graph {
 
     while (!open.isEmpty()) {
       // pick the best edge
-      GraphEdge current = open.peek();
-
-      if (firstRun) {
-        // removeList.addAll(start.getGraphEdges());
-        firstRun = false;
-      }
-
-      // open.removeAll(removeList);
-      // removeList.clear();
+      GraphEdge current = open.poll();
 
       // check if the current edge would reach the dest
       if (end.equals(current.getDest())) {
@@ -107,35 +97,12 @@ public class Graph {
         if (!closed.contains(neighbor) && !open.contains(neighbor)) {
           neighbor.setHeuristic(end);
           open.add(neighbor);
-          // removeList.add(neighbor);
         }
       }
       closed.add(current);
-      open.remove(current);
     }
     return closed;
   }
-
-  /*  public List<String> stringDirectionsAStar(String start, String end) {
-    GraphNode startNode = nodes.get(start);
-    GraphNode endNode = nodes.get(end);
-    LinkedList<String> returnList = new LinkedList<>();
-    List<GraphEdge> directions = getDirections_Astar(startNode, endNode);
-    double totalDist = 0;
-
-    if (directions == null) {
-      return null;
-    }
-
-    returnList.add(directions.get(0).getStartNode().getNodeID());
-    for (GraphEdge edge : directions) {
-      returnList.add(edge.getEndNode().getNodeID());
-      totalDist += edge.getWeight();
-    }
-
-    returnList.add(String.valueOf(totalDist));
-    return returnList;
-  }*/
 
   public GraphNode getNode(int nodeID) {
     return nodes.get(nodeID);

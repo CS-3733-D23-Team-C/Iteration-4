@@ -20,8 +20,8 @@ public class GraphEdge extends Edge implements Comparable<GraphEdge> {
     this.dest = endNode;
     this.weight =
         Math.hypot(
-            startNode.getXCoord() - endNode.getXCoord(),
-            startNode.getYCoord() - endNode.getYCoord());
+            abs(startNode.getXCoord() - endNode.getXCoord()),
+            abs(startNode.getYCoord() - endNode.getYCoord()));
   }
 
   /**
@@ -30,9 +30,6 @@ public class GraphEdge extends Edge implements Comparable<GraphEdge> {
    * @param targetNode Target destination
    */
   public void setHeuristic(GraphNode targetNode) {
-    this.heuristic =
-        Math.hypot(
-            dest.getXCoord() - targetNode.getXCoord(), dest.getYCoord() - targetNode.getYCoord());
     this.heuristic =
         abs(dest.getXCoord() - targetNode.getXCoord())
             + abs(dest.getYCoord() - targetNode.getYCoord());
@@ -54,7 +51,7 @@ public class GraphEdge extends Edge implements Comparable<GraphEdge> {
    */
   @Override
   public int compareTo(GraphEdge edge) {
-    return Double.compare(heuristic, edge.heuristic);
+    return Double.compare(weight + heuristic, edge.weight + edge.heuristic);
   }
 
   /**

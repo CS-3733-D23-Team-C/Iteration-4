@@ -11,6 +11,7 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import javafx.event.ActionEvent;
@@ -204,6 +205,7 @@ public class PathFindingController {
     mapNodes.getChildren().add(circ2);
 
     List<GraphEdge> path = graph.getDirections_Astar(src, dest);
+    List<GraphEdge> comeAcross = new LinkedList<>();
     GraphEdge saveLast;
     int i = 0;
     int length = path.size();

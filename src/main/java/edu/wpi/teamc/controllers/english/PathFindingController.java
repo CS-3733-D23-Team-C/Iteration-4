@@ -7,7 +7,6 @@ import edu.wpi.teamc.mapHelpers.CoordinatePasser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -15,18 +14,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.swing.*;
 import net.kurobako.gesturefx.GesturePane;
@@ -35,7 +29,7 @@ import org.controlsfx.control.tableview2.FilteredTableView;
 public class PathFindingController {
   public Group group;
   public Image image =
-          new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
+      new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
 
   /*
   Notes:
@@ -182,13 +176,13 @@ public class PathFindingController {
   public void placeNodes(String floor) {
     NodeDao nodeDao = new NodeDao();
     nodeDao
-            .fetchAllObjects()
-            .forEach(
-                    TBP_node -> {
-                      if (Objects.equals(TBP_node.getFloor(), floor)) {
-                        createMapNodes(TBP_node);
-                      }
-                    });
+        .fetchAllObjects()
+        .forEach(
+            TBP_node -> {
+              if (Objects.equals(TBP_node.getFloor(), floor)) {
+                createMapNodes(TBP_node);
+              }
+            });
     mapNodes.toFront();
   }
   //  public void placeNodes(String floor, Node node) {

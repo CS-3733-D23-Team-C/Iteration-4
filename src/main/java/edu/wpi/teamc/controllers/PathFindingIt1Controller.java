@@ -10,6 +10,8 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -58,6 +60,10 @@ public class PathFindingIt1Controller {
   Group mapNodes = new Group();
   ObservableList<TableRow> rows = FXCollections.observableArrayList();
   ObservableList<TableRow> rowsEdge = FXCollections.observableArrayList();
+
+  @FXML MFXTextField startNodeId;
+  @FXML MFXTextField endNodeId;
+  @FXML MFXButton submit;
 
   @FXML private Button goHome;
   String xCoord_temp = "";
@@ -182,6 +188,12 @@ public class PathFindingIt1Controller {
   //        inputBox.clear();
   //        return inputtedText;
   //    }
+
+  @FXML
+  void getSubmit(ActionEvent event) {
+    String startNode = startNodeId.getText();
+    String endNode = endNodeId.getText();
+  }
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {

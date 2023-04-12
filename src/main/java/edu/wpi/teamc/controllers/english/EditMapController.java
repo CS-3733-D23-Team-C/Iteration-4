@@ -633,9 +633,11 @@ public class EditMapController {
           iD_r = iDToBeRemoved.getText();
           idList_r.add(iD_r);
 
-          long currentTime = System.currentTimeMillis();
-          Date currentDate = new Date(currentTime);
-          Move move = new Move(Integer.valueOf(iD), removeName, currentDate);
+          //          long currentTime = System.currentTimeMillis();
+          //          Date currentDate = new Date(currentTime);
+          //          Move move = new Move(Integer.valueOf(iD), removeName, currentDate);
+          //          moveDao1.deleteRow(move);
+          //          locationDao1.deleteRow(removeName);
           //          LocationName nameToRemove = null;
           //          moveNamesToRemove.add(move);
           //          //find node to remove

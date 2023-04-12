@@ -178,6 +178,7 @@ public class PathFindingController {
   @FXML
   void getSubmit(ActionEvent event) {
     edges.getChildren().clear();
+    mapNodes.getChildren().clear();
     String startNode = startNodeId.getText();
     String endNode = endNodeId.getText();
 

@@ -68,7 +68,9 @@ public class FurnitureController {
   }
 
   @FXML
-  void getClear() {}
+  void getClear(ActionEvent event) {
+    Navigation.navigate(Screen.FURNITURE);
+  }
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {

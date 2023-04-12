@@ -58,8 +58,8 @@ public class FlowerController {
   }
 
   @FXML
-  void getClear() {
-    clear.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER));
+  void getClear(ActionEvent event) {
+    Navigation.navigate(Screen.FLOWER);
   }
 
   @FXML

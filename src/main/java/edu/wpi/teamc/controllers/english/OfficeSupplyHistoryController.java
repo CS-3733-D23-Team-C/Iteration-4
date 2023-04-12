@@ -124,7 +124,7 @@ public class OfficeSupplyHistoryController {
   }
 
   @FXML
-  void getEditMap(ActionEvent event) {}
+  void getEditMap(ActionEvent event) {Navigation.navigate(Screen.EDIT_MAP);}
 
   @FXML
   void getLogOut(ActionEvent event) {

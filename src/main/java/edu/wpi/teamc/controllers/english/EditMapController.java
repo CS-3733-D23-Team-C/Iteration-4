@@ -103,6 +103,8 @@ public class EditMapController {
   List<String> oldNameToModify = new ArrayList<String>();
   List<LocationName> newNameToModify = new ArrayList<LocationName>();
   List<String> nameToRemove = new ArrayList<String>();
+  List<String> idList_r = new ArrayList<String>();
+  String iD_r = "";
   String removeName = "";
   List<Move> moveNamesToRemove = new ArrayList<Move>();
   List<Node> listNodeToRemove = new ArrayList<Node>();
@@ -502,11 +504,15 @@ public class EditMapController {
     // remove
     VBox removeBox = new VBox();
     Text nodeID_R = new Text("Input Longname of name to be Removed");
+    Text nodeID_N = new Text("Input NodeID of node with longname to remove");
     MFXTextField nameToBeRemoved = new MFXTextField();
+    MFXTextField iDToBeRemoved = new MFXTextField();
     MFXButton submitRemove = new MFXButton("Remove");
     submitRemove.setPrefSize(100, 35);
     submitRemove.setMinSize(100, 35);
-    removeBox.getChildren().addAll(nodeID_R, nameToBeRemoved, submitRemove);
+    removeBox
+        .getChildren()
+        .addAll(nodeID_R, nameToBeRemoved, nodeID_N, iDToBeRemoved, submitRemove);
     removeBox.setSpacing(20);
 
     // add
@@ -570,6 +576,8 @@ public class EditMapController {
     stage.setTitle("Add Node Window");
 
     stage.show();
+//    MoveDao moveDao1 = new MoveDao(); //////////were replaced in remove below
+//    LocationDao locationDao1 = new LocationDao();
 
     // Add
     submitNode.setOnMouseClicked(
@@ -622,6 +630,8 @@ public class EditMapController {
         buttonEvent -> {
           removeName = nameToBeRemoved.getText();
           nameToRemove.add(removeName);
+          iD_r = iDToBeRemoved.getText();
+          idList_r.add(iD_r);
 
           long currentTime = System.currentTimeMillis();
           Date currentDate = new Date(currentTime);
@@ -750,12 +760,23 @@ public class EditMapController {
 
             ///// METHOD TO REPLACE NAME OF NODE AND INPUT TO TABLE
           }
-          for (String currName : nameToRemove) {
+          // Remove
+          for (int i = 0; i < nameToRemove.size(); i++) {
 
+            long currentTime = System.currentTimeMillis();
+            Date currentDate = new Date(currentTime);
+            String currName = nameToRemove.get(i);
+            String iD = idList_r.get(i);
+            Move move = new Move(Integer.valueOf(iD), currName, currentDate);
+            moveDao.deleteRow(move);
+            locationDao.deleteRow(currName);
             //// METHOD TO FIND NODE IN DAO AND REMOVE IT BASED ON ID
             //                nodeDao.deleteRow(currID); ////NEED TO MAKE WORK WITH NODE ID ONLY AS
             // SUPPLIED
           }
+          group.getChildren().remove(mapNodes);
+          mapNodes = new Group();
+          group.getChildren().add(mapNodes);
           sortNodes();
           placeNodes(floor);
           stage.close();

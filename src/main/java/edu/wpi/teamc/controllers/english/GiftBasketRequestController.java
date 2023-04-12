@@ -117,7 +117,9 @@ public class GiftBasketRequestController {
   public void initialize() {}
 
   @FXML
-  void getEditMap(ActionEvent event) {Navigation.navigate(Screen.EDIT_MAP);}
+  void getEditMap(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
 
   @FXML
   void getLogOut(ActionEvent event) {

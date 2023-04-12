@@ -132,7 +132,7 @@ public class PathFindingController {
     pane.setMaxHeight(image.getHeight());
     pane.relocate(0, 0);
     group.getChildren().add(pane);
-    placeNodes(floor);
+    // placeNodes(floor);
   } // initialize end
 
   public void placeNodes(String floor) {
@@ -204,6 +204,20 @@ public class PathFindingController {
     mapNodes.getChildren().add(circ2);
 
     List<GraphEdge> path = graph.getDirections_Astar(src, dest);
+    GraphEdge saveLast;
+    int i = 0;
+    int length = path.size();
+
+    while (i < length - 1) {
+      saveLast = path.get(i);
+
+      if (saveLast.getStartNode() == path.get(i + 1).getStartNode()) {
+        path.remove(i);
+        length--;
+      } else {
+        i++;
+      }
+    }
 
     for (GraphEdge edge : path) {
       System.out.println(edge.getStartNode() + " -> " + edge.getEndNode());

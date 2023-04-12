@@ -22,8 +22,8 @@ public class AdminMenuTestController extends AbsAdminMenuController {
   }
 
   @FXML
-  public void getExit(ActionEvent actionEvent) {
-    System.exit(0);
+  void getExit(ActionEvent event) {
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML

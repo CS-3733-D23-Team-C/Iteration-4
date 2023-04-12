@@ -13,11 +13,11 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.tableview2.FilteredTableView?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.ConferenceHistoryController">
+<AnchorPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.OfficeSupplyHistoryController">
     <children>
         <AnchorPane layoutX="402.0" prefHeight="153.0" prefWidth="1208.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.5),5,0.75,0,0);" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Text fill="#003da6" layoutY="-13.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 40; -fx-font-weight: bold;" text="Conference History" textAlignment="CENTER" wrappingWidth="371.51019287109375" AnchorPane.leftAnchor="420.0" AnchorPane.topAnchor="49.0" />
+                <Text fill="#003da6" layoutY="-13.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 40; -fx-font-weight: bold;" text="Office Supply History" textAlignment="CENTER" wrappingWidth="371.51019287109375" AnchorPane.leftAnchor="420.0" AnchorPane.topAnchor="49.0" />
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="900.0" prefWidth="392.0" style="-fx-background-color: #E3DFDF; -fx-border-width: 0; -fx-border-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -102,7 +102,6 @@
                         <TableColumn fx:id="ColumnSeven" prefWidth="75.0" text="" />
                     </columns>
                 </FilteredTableView>
-
             </children>
         </VBox>
     </children>

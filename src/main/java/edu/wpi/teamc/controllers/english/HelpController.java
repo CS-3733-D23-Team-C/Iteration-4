@@ -45,6 +45,11 @@ public class HelpController {
   }
 
   @FXML
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
+  }
+
+  @FXML
   void getSignagePage(ActionEvent event) {
     Navigation.navigate(Screen.SIGNAGE);
   }
@@ -54,7 +59,9 @@ public class HelpController {
   public void initialize() {}
 
   @FXML
-  void getEditMap(ActionEvent event) {}
+  void getEditMap(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
 
   @FXML
   void getLogOut(ActionEvent event) {
@@ -63,12 +70,21 @@ public class HelpController {
 
   @FXML
   void getExit(ActionEvent event) {
-    System.exit(0);
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML
-  void getMapHistory(ActionEvent event) {}
+  void getMapHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
+  }
 
   @FXML
-  void getMapPage(ActionEvent event) {}
+  void getMapPage(ActionEvent event) {
+    Navigation.navigate(Screen.FLOOR_PLAN);
+  }
+
+  @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 }

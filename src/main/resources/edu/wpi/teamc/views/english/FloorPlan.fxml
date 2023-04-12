@@ -27,6 +27,7 @@
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#getRoomReservationPage" text="Room Reservation" />
                                 <MenuItem mnemonicParsing="false" onAction="#getMealDeliveryPage" text="Meal Request" />
+                        <MenuItem mnemonicParsing="false" onAction="#getGiftBasketRequestPage" text="Gift Basket Request" />
                                 <MenuItem mnemonicParsing="false" onAction="#getFlowerDeliveryPage" text="Flower Delivery" />
                                 <MenuItem mnemonicParsing="false" onAction="#getFurnitureDeliveryPage" text="Furniture Delivery" />
                                 <MenuItem mnemonicParsing="false" onAction="#getOfficeSuppliesPage" text="Supply Delivery" />
@@ -67,7 +68,7 @@
                         </MenuButton>
                         <MenuButton alignment="CENTER" layoutX="104.0" layoutY="126.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Help" textFill="WHITE" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="517.0">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Help Page 1" />
+                                <MenuItem mnemonicParsing="false" onAction="#getHelpage" text="Help Page 1" />
                                 <MenuItem mnemonicParsing="false" text="Help Page 2" />
                             </items>
                             <padding>

@@ -120,7 +120,7 @@ public class EditMapController {
   //  List<LocationName> databaseLocationNameList = new ArrayList<LocationName>();
   //  List<Move> databaseMoveList = new ArrayList<Move>();
 
-  /** Method run when controller is initialized */
+ 
   public void initialize() {
 
     //    File file = new File();
@@ -640,23 +640,43 @@ public class EditMapController {
   }
 
   @FXML
-  void getEditMap(ActionEvent event) {}
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
+  }
+
+  @FXML
+  void getEditMap(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
 
   @FXML
   void getLogOut(ActionEvent event) {
-    Navigation.navigate(Screen.LOGIN);
+    Navigation.navigate(Screen.HOME);
   }
 
   @FXML
   void getExit(ActionEvent event) {
-    System.exit(0);
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML
-  void getMapHistory(ActionEvent event) {}
+  void getMapHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
+  }
 
   @FXML
-  void getMapPage(ActionEvent event) {}
-  /////////////////////////////////////////////
+  void getMapPage(ActionEvent event) {
+    Navigation.navigate(Screen.FLOOR_PLAN);
+  }
+
+  @FXML
+  void getPathfindingPage(ActionEvent event) {
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
+
+  @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 
 }

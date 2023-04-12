@@ -13,7 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
-public class ConferenceHistoryController {
+public class FurnitureHistoryController {
 
   /** */
   @FXML MFXButton backButton;
@@ -26,42 +26,42 @@ public class ConferenceHistoryController {
 
   @FXML private Button testButton;
   @FXML private TextField inputBox;
-  @FXML private FilteredTableView<ConferenceRoomRequest> historyTable;
-  @FXML TableColumn<ConferenceRoomRequest, Integer> ColumnOne;
-  @FXML TableColumn<ConferenceRoomRequest, Requester> ColumnTwo;
-  @FXML TableColumn<ConferenceRoomRequest, ConferenceRoom> ColumnThree;
-  @FXML TableColumn<ConferenceRoomRequest, STATUS> ColumnFour;
-  @FXML TableColumn<ConferenceRoomRequest, String> ColumnFive;
-  @FXML TableColumn<ConferenceRoomRequest, String> ColumnSix;
-  @FXML TableColumn<ConferenceRoomRequest, String> ColumnSeven;
+  @FXML private FilteredTableView<FurnitureDeliveryRequest> historyTable;
+  @FXML TableColumn<FurnitureDeliveryRequest, Integer> ColumnOne;
+  @FXML TableColumn<FurnitureDeliveryRequest, Requester> ColumnTwo;
+  @FXML TableColumn<FurnitureDeliveryRequest, String> ColumnThree;
+  @FXML TableColumn<FurnitureDeliveryRequest, String> ColumnFour;
+  @FXML TableColumn<FurnitureDeliveryRequest, String> ColumnFive;
+  @FXML TableColumn<FurnitureDeliveryRequest, STATUS> ColumnSix;
+  @FXML TableColumn<FurnitureDeliveryRequest, String> ColumnSeven;
 
-  ObservableList<ConferenceRoomRequest> rows = FXCollections.observableArrayList();
+  ObservableList<FurnitureDeliveryRequest> rows = FXCollections.observableArrayList();
 
   @FXML private Button goHome;
 
   /** Method run when controller is initialized */
   public void initialize() {
     ColumnOne.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, Integer>("requestID"));
+        new PropertyValueFactory<FurnitureDeliveryRequest, Integer>("requestID"));
     ColumnTwo.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, Requester>("requester"));
+        new PropertyValueFactory<FurnitureDeliveryRequest, Requester>("requester"));
     ColumnThree.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, ConferenceRoom>("conferenceRoom"));
+        new PropertyValueFactory<FurnitureDeliveryRequest, String>("roomName"));
     ColumnFour.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, STATUS>("status"));
+        new PropertyValueFactory<FurnitureDeliveryRequest, String>("furnitureType"));
     ColumnFive.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, String>("additionalNotes"));
+        new PropertyValueFactory<FurnitureDeliveryRequest, String>("additionalNotes"));
     ColumnSix.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, String>("startTime"));
+        new PropertyValueFactory<FurnitureDeliveryRequest, STATUS>("status"));
     ColumnSeven.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, String>("endTime"));
+        new PropertyValueFactory<FurnitureDeliveryRequest, String>("eta"));
     ColumnOne.setText("requestID");
     ColumnTwo.setText("Requester");
     ColumnThree.setText("Room Name");
-    ColumnFour.setText("Status");
+    ColumnFour.setText("Furniture");
     ColumnFive.setText("Additional Notes");
-    ColumnSix.setText("Start time");
-    ColumnSeven.setText("End time");
+    ColumnSix.setText("Status");
+    ColumnSeven.setText("ETA");
     //    ColumnOne.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     //    ColumnTwo.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     //    ColumnThree.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
@@ -69,10 +69,10 @@ public class ConferenceHistoryController {
     //    ColumnFive.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     //    ColumnSix.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     // get conference room table
-    ConferenceRoomRequestDAO dao = new ConferenceRoomRequestDAO();
-    List<ConferenceRoomRequest> list = dao.fetchAllObjects();
-    for (ConferenceRoomRequest ConferenceRoomRequest : list) {
-      rows.add(ConferenceRoomRequest);
+    FurnitureDeliveryRequestDAO dao = new FurnitureDeliveryRequestDAO();
+    List<FurnitureDeliveryRequest> list = dao.fetchAllObjects();
+    for (FurnitureDeliveryRequest r : list) {
+      rows.add(r);
     }
     historyTable.setItems(rows);
     System.out.println("did it");

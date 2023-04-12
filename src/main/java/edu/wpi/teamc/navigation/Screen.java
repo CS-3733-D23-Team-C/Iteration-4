@@ -3,7 +3,7 @@ package edu.wpi.teamc.navigation;
 public enum Screen {
   ROOT("views/english/Root.fxml"),
   SERVICE_REQUEST("views/english/ServiceRequest.fxml"),
-  SIGNAGE("views/english/SignagePage.fxml"),
+  SIGNAGE("views/english/ElevatorSignage.fxml"),
   ELEVATOR_SIGNAGE("views/english/ElevatorSignage.fxml"),
   HOME("views/english/Home.fxml"),
 
@@ -24,6 +24,14 @@ public enum Screen {
   PATHFINDING_PAGE("views/english/PathFinding.fxml"),
   HELP("views/english/Help.fxml"),
   EDIT_MAP("views/english/EditMap.fxml"),
+
+  OFFICE_SUPPLY_HISTORY("views/english/OfficeSupplyHistory.fxml"),
+  FURNITURE_HISTORY("views/english/FurnitureHistory.fxml"),
+
+  EXIT_PAGE("views/english/ExitPage.fxml"),
+  FLOWER_HISTORY("views/english/FlowerHistory.fxml"),
+  GIFT_BASKET("views/english/GiftBasketRequest.fxml"),
+  
   //  PATHFINDING("views/english/PathfindingIt1.fxml"),
 
   ADMIN_HOME("views/english/AdminHome.fxml");

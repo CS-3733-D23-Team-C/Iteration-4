@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
 
@@ -53,10 +54,11 @@
             <Text fill="#003da6" layoutX="84.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 40; -fx-font-weight: 700;" text="Brigham and Women's Hospital" wrappingWidth="377.58984375" AnchorPane.leftAnchor="147.0" AnchorPane.topAnchor="23.0" />
          </children>
       </AnchorPane>
-      <MFXButton fx:id="exitButton" onAction="#getExit" prefHeight="42.0" prefWidth="98.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 20;" text="Exit" textFill="#978787" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="75.0">
+      <MFXButton fx:id="exitButton" onAction="#fancy_exit" prefHeight="42.0" prefWidth="98.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 20;" text="Exit" textFill="#978787" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="75.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </MFXButton>
+      <Rectangle fx:id="HOME_sqr" arcHeight="5.0" arcWidth="5.0" fill="#ece9e9" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" visible="false" width="102.0" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="73.0" />
    </children>
 </AnchorPane>

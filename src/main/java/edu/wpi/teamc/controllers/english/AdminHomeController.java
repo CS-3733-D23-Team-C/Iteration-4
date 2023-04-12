@@ -83,8 +83,13 @@ public class AdminHomeController {
   }
 
   @FXML
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
+  }
+
+  @FXML
   void getExit(ActionEvent event) {
-    System.exit(0);
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   /** Method run when controller is initialized */
@@ -109,144 +114,10 @@ public class AdminHomeController {
   }
 
   @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
+
+  @FXML
   public void initialize() {}
-
-  //  @FXML
-  //  void getImportNodes(ActionEvent event) {
-  //    FileChooser fileChooser = new FileChooser();
-  //    FileChooser.ExtensionFilter extFilter =
-  //            new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
-  //    fileChooser.getExtensionFilters().add(extFilter);
-  //    File file = fileChooser.showOpenDialog(new Stage());
-  //    if (file != null) {
-  //      try {
-  //        desktop.open(file);
-  //        filePath = file.getAbsolutePath();
-  //        Cdb.importCSVNode(filePath);
-  //      } catch (Exception ex) {
-  //        ex.printStackTrace();
-  //      }
-  //    }
-  //  }
-  //
-  //  @FXML
-  //  void getImportEdges(ActionEvent event) {
-  //    FileChooser fileChooser = new FileChooser();
-  //    FileChooser.ExtensionFilter extFilter =
-  //            new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
-  //    fileChooser.getExtensionFilters().add(extFilter);
-  //    File file = fileChooser.showOpenDialog(new Stage());
-  //    if (file != null) {
-  //      try {
-  //        desktop.open(file);
-  //        filePath = file.getAbsolutePath();
-  //        Cdb.importCSVEdge(filePath);
-  //      } catch (Exception ex) {
-  //        ex.printStackTrace();
-  //      }
-  //    }
-  //  }
-  //
-  //  @FXML
-  //  void getImportLocationNames(ActionEvent event) {
-  //    FileChooser fileChooser = new FileChooser();
-  //    FileChooser.ExtensionFilter extFilter =
-  //            new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
-  //    fileChooser.getExtensionFilters().add(extFilter);
-  //    File file = fileChooser.showOpenDialog(new Stage());
-  //    if (file != null) {
-  //      try {
-  //        desktop.open(file);
-  //        filePath = file.getAbsolutePath();
-  //        Cdb.importCSVLocationName(filePath);
-  //      } catch (Exception ex) {
-  //        ex.printStackTrace();
-  //      }
-  //    }
-  //  }
-  //
-  //  @FXML
-  //  void getImportMove(ActionEvent event) {
-  //    FileChooser fileChooser = new FileChooser();
-  //    FileChooser.ExtensionFilter extFilter =
-  //            new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
-  //    fileChooser.getExtensionFilters().add(extFilter);
-  //    File file = fileChooser.showOpenDialog(new Stage());
-  //    if (file != null) {
-  //      try {
-  //        desktop.open(file);
-  //        filePath = file.getAbsolutePath();
-  //        Cdb.importCSVMove(filePath);
-  //      } catch (Exception ex) {
-  //        ex.printStackTrace();
-  //      }
-  //    }
-  //  }
-  //
-  //  @FXML
-  //  void getExportNodes(ActionEvent event) throws IOException {
-  //    FileChooser fileChooser = new FileChooser();
-  //    fileChooser.setTitle("Save");
-  //    fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
-  //    File file = fileChooser.showSaveDialog(new Stage());
-  //    if (file != null) {
-  //      String filePath = file.getAbsolutePath();
-  //      if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
-  //        filePath += ".csv"; // append ".csv" to the file path
-  //      }
-  //      Cdb.exportNodesToCSV(filePath);
-  //      testText.setText(filePath);
-  //    }
-  //  }
-  //
-  //  @FXML
-  //  void getExportEdges(ActionEvent event) throws IOException {
-  //    FileChooser fileChooser = new FileChooser();
-  //    fileChooser.setTitle("Save");
-  //    fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
-  //    File file = fileChooser.showSaveDialog(new Stage());
-  //    if (file != null) {
-  //      String filePath = file.getAbsolutePath();
-  //      if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
-  //        filePath += ".csv"; // append ".csv" to the file path
-  //      }
-  //      Cdb.exportEdgesToCSV(filePath);
-  //      testText.setText(filePath);
-  //    }
-  //  }
-  //
-  //  @FXML
-  //  void getExportLocationNames(ActionEvent event) throws IOException {
-  //    FileChooser fileChooser = new FileChooser();
-  //    fileChooser.setTitle("Save");
-  //    fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
-  //    File file = fileChooser.showSaveDialog(new Stage());
-  //    if (file != null) {
-  //      String filePath = file.getAbsolutePath();
-  //      if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
-  //        filePath += ".csv"; // append ".csv" to the file path
-  //      }
-  //      Cdb.exportLocationNamesToCSV(filePath);
-  //      testText.setText(filePath);
-  //    }
-  //  }
-  //
-  //  @FXML
-  //  void getExportMove(ActionEvent event) throws IOException {
-  //    FileChooser fileChooser = new FileChooser();
-  //    fileChooser.setTitle("Save");
-  //    fileChooser.getExtensionFilters().addAll(new ExtensionFilter("All Files", "*.*"));
-  //    File file = fileChooser.showSaveDialog(new Stage());
-  //    if (file != null) {
-  //      String filePath = file.getAbsolutePath();
-  //      if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
-  //        filePath += ".csv"; // append ".csv" to the file path
-  //      }
-  //      Cdb.exportMovesToCSV(filePath);
-  //      testText.setText(filePath);
-  //    }
-  //  }
-
-  //  @FXML
-  //  void getExportButton(ActionEvent event) {}
 }

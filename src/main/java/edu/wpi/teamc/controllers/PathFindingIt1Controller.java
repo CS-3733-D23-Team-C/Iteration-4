@@ -4,9 +4,13 @@ import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.map.Edge;
 import edu.wpi.teamc.dao.map.Node;
 import edu.wpi.teamc.dao.map.NodeDao;
+import edu.wpi.teamc.graph.Graph;
+import edu.wpi.teamc.graph.GraphEdge;
+import edu.wpi.teamc.graph.GraphNode;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -58,6 +62,10 @@ public class PathFindingIt1Controller {
   Group mapNodes = new Group();
   ObservableList<TableRow> rows = FXCollections.observableArrayList();
   ObservableList<TableRow> rowsEdge = FXCollections.observableArrayList();
+
+  @FXML MFXTextField startNodeId;
+  @FXML MFXTextField endNodeId;
+  @FXML MFXButton submit;
 
   @FXML private Button goHome;
   String xCoord_temp = "";
@@ -182,6 +190,24 @@ public class PathFindingIt1Controller {
   //        inputBox.clear();
   //        return inputtedText;
   //    }
+
+  @FXML
+  void getSubmit(ActionEvent event) {
+    String startNode = startNodeId.getText();
+    String endNode = endNodeId.getText();
+
+    Graph graph = new Graph();
+    graph.syncWithDB();
+
+    GraphNode src = graph.getNode(Integer.valueOf(startNode));
+    GraphNode dest = graph.getNode(Integer.valueOf(endNode));
+
+    List<GraphEdge> path = graph.getDirections_Astar(src, dest);
+
+    for (GraphEdge edge : path) {
+      System.out.print("->" + edge.getStartNode());
+    }
+  }
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {

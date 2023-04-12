@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
@@ -132,6 +133,9 @@
                                 </AnchorPane>
                             </children>
                         </VBox>
+                  <MFXTextField fx:id="startNodeId" layoutX="722.0" layoutY="636.0" prefHeight="50.0" prefWidth="127.0" promptText="Enter start node ID" />
+                  <MFXTextField fx:id="endNodeId" layoutX="861.0" layoutY="636.0" prefHeight="50.0" prefWidth="127.0" promptText="Enter end node ID" />
+                  <MFXButton fx:id="submit" layoutX="1002.0" layoutY="636.0" onAction="#getSubmit" prefHeight="50.0" prefWidth="127.0" text="Submit" />
                     </children>
                 </AnchorPane>
             </children>

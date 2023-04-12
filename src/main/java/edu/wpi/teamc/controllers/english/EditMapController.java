@@ -842,15 +842,15 @@ public class EditMapController {
   //    Navigation.navigate(Screen.);
   //  }
   /////////////////////////////////////////////
-//  @FXML
-//  void getMapPage(ActionEvent event) {
-//    Navigation.navigate(Screen.FLOOR_PLAN);
-//  }
-//
-//  @FXML
-//  void getPathfindingPage(ActionEvent event) {
-//    Navigation.navigate(Screen.PATHFINDING_PAGE);
-//  }
+  //  @FXML
+  //  void getMapPage(ActionEvent event) {
+  //    Navigation.navigate(Screen.FLOOR_PLAN);
+  //  }
+  //
+  //  @FXML
+  //  void getPathfindingPage(ActionEvent event) {
+  //    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  //  }
 
   @FXML
   void getHelpage(ActionEvent event) {

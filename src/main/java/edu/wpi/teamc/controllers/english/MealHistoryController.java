@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class MealHistoryController {
@@ -142,10 +141,10 @@ public class MealHistoryController {
     Navigation.navigate(Screen.MAP_HISTORY_PAGE);
   }
 
-//  @FXML
-//  void getMapPage(ActionEvent event) {
-//    Navigation.navigate(Screen.FLOOR_PLAN);
-//  }
+  //  @FXML
+  //  void getMapPage(ActionEvent event) {
+  //    Navigation.navigate(Screen.FLOOR_PLAN);
+  //  }
 
   @FXML
   void getPathfindingPage(ActionEvent event) {

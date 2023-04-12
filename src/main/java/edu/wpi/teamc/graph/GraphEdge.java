@@ -54,7 +54,7 @@ public class GraphEdge extends Edge implements Comparable<GraphEdge> {
    */
   @Override
   public int compareTo(GraphEdge edge) {
-    return Double.compare(weight + heuristic, edge.weight + edge.heuristic);
+    return Double.compare(heuristic, edge.heuristic);
   }
 
   /**

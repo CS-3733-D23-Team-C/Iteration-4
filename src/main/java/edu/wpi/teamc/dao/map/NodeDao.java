@@ -44,6 +44,35 @@ public class NodeDao implements IDao<Node> {
     return databaseNodeList;
   }
 
+  public Node updateRow(int oldNodeID, Node repl) {
+    DBConnection dbConnection = new DBConnection();
+    try {
+      // table names
+      String NODE = "\"hospitalNode\".node";
+
+      String queryUpdateNodesDB =
+          "UPDATE  "
+              + NODE
+              + " SET \"nodeID\"=?, xcoord=?, ycoord=?, \"floorNum\"=?, building=? WHERE \"nodeID\"=?; ";
+
+      PreparedStatement ps = dbConnection.getConnection().prepareStatement(queryUpdateNodesDB);
+
+      ps.setInt(1, repl.getNodeID());
+      ps.setInt(2, repl.getXCoord());
+      ps.setInt(3, repl.getYCoord());
+      ps.setString(4, repl.getFloor());
+      ps.setString(5, repl.getBuilding());
+      ps.setInt(6, oldNodeID);
+
+      ps.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    dbConnection.closeConnection();
+
+    return null;
+  }
+
   public Node updateRow(Node orm, Node repl) {
     DBConnection dbConnection = new DBConnection();
     try {

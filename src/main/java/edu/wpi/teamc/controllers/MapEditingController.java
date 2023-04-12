@@ -1,6 +1,8 @@
-package edu.wpi.teamc.controllers.english;
+package edu.wpi.teamc.controllers;
 
 import edu.wpi.teamc.Main;
+import edu.wpi.teamc.dao.map.Edge;
+import edu.wpi.teamc.dao.map.LocationName;
 import edu.wpi.teamc.dao.map.Node;
 import edu.wpi.teamc.dao.map.NodeDao;
 import edu.wpi.teamc.mapHelpers.CoordinatePasser;
@@ -32,7 +34,7 @@ import javax.swing.*;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
-public class EditMapController {
+public class MapEditingController {
   public Group group;
   public Image image =
       new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
@@ -120,7 +122,7 @@ public class EditMapController {
   //  List<LocationName> databaseLocationNameList = new ArrayList<LocationName>();
   //  List<Move> databaseMoveList = new ArrayList<Move>();
 
- 
+  /** Method run when controller is initialized */
   public void initialize() {
 
     //    File file = new File();
@@ -593,8 +595,57 @@ public class EditMapController {
     Navigation.navigate(Screen.HOME);
   }
 
-  public void getPathfindingPage(ActionEvent event) {
-    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  public ObservableList<TableRow> gettableRows(
+      List<LocationName> locationNameList, List<Edge> edgeList, List<Node> nodeList) {
+    String nodeID;
+    String longName;
+    String date;
+    LocationName currLocNameList;
+    Edge currEdgeList;
+    Node currNodeList;
+    //    String startNode;
+    //    String endNode;
+    String nodeType;
+    String xCoord;
+    String yCoord;
+    String floorNum;
+    String building;
+    String shortName;
+    int index = -1;
+    for (int i = 0; i < locationNameList.size(); i++) {
+      currLocNameList = locationNameList.get(i);
+      currEdgeList = edgeList.get(i);
+      currNodeList = nodeList.get(i);
+
+      //      nodeID = currLocNameList.get;
+      longName = currLocNameList.getLongName();
+      shortName = currLocNameList.getShortName();
+      nodeType = currLocNameList.getNodeType();
+      //      startNode = currEdgeList.getStartNode().getNodeID();
+      //      endNode = currEdgeList.getEndNode().getNodeID();
+      nodeID = String.valueOf(currNodeList.getNodeID());
+      xCoord = String.valueOf(currNodeList.getXCoord());
+      yCoord = String.valueOf(currNodeList.getYCoord());
+      floorNum = currNodeList.getFloor();
+      building = currNodeList.getBuilding();
+      index++;
+      rows.add(new TableRow(nodeID, xCoord, yCoord, floorNum, building, longName, nodeType, index));
+    }
+    return rows;
+  }
+
+  public ObservableList<TableRow> gettableRowsEdge(List<Edge> edgeList) {
+    Edge currEdgeList;
+    String startNode;
+    String endNode;
+    int index = -1;
+    for (int i = 0; i < edgeList.size(); i++) {
+      startNode = String.valueOf(edgeList.get(i).getStartNode());
+      endNode = String.valueOf(edgeList.get(i).getEndNode());
+      index++;
+      rowsEdge.add(new TableRow(startNode, endNode, index));
+    }
+    return rowsEdge;
   }
 
   public String getText(ActionEvent actionEvent) {
@@ -640,43 +691,21 @@ public class EditMapController {
   }
 
   @FXML
-  void getGiftBasketRequestPage(ActionEvent event) {
-    Navigation.navigate(Screen.GIFT_BASKET);
-  }
-
-  @FXML
-  void getEditMap(ActionEvent event) {
-    Navigation.navigate(Screen.EDIT_MAP);
-  }
+  void getEditMap(ActionEvent event) {}
 
   @FXML
   void getLogOut(ActionEvent event) {
-    Navigation.navigate(Screen.HOME);
+    Navigation.navigate(Screen.LOGIN);
   }
 
   @FXML
   void getExit(ActionEvent event) {
-    Navigation.navigate(Screen.EXIT_PAGE);
+    System.exit(0);
   }
 
   @FXML
-  void getMapHistory(ActionEvent event) {
-    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
-  }
+  void getMapHistory(ActionEvent event) {}
 
   @FXML
-  void getMapPage(ActionEvent event) {
-    Navigation.navigate(Screen.FLOOR_PLAN);
-  }
-
-  @FXML
-  void getPathfindingPage(ActionEvent event) {
-    Navigation.navigate(Screen.PATHFINDING_PAGE);
-  }
-
-  @FXML
-  void getHelpage(ActionEvent event) {
-    Navigation.navigate(Screen.HELP);
-  }
-
+  void getMapPage(ActionEvent event) {}
 }

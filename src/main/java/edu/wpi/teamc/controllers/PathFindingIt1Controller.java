@@ -1,6 +1,7 @@
-package edu.wpi.teamc.controllers.english;
+package edu.wpi.teamc.controllers;
 
 import edu.wpi.teamc.Main;
+import edu.wpi.teamc.dao.map.Edge;
 import edu.wpi.teamc.dao.map.Node;
 import edu.wpi.teamc.dao.map.NodeDao;
 import edu.wpi.teamc.graph.Graph;
@@ -13,6 +14,8 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -22,12 +25,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.util.Duration;
 import javax.swing.*;
 import net.kurobako.gesturefx.GesturePane;
 
-public class PathFindingController {
+public class PathFindingIt1Controller {
   public Group group;
   public Image image =
       new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
@@ -58,7 +60,9 @@ public class PathFindingController {
   @FXML MFXButton FLB2;
   @FXML MFXButton floorButton;
   Group mapNodes = new Group();
-  Group edges = new Group();
+  ObservableList<TableRow> rows = FXCollections.observableArrayList();
+  ObservableList<TableRow> rowsEdge = FXCollections.observableArrayList();
+
   @FXML MFXTextField startNodeId;
   @FXML MFXTextField endNodeId;
   @FXML MFXButton submit;
@@ -124,7 +128,6 @@ public class PathFindingController {
     mapNodes = new Group();
     group.getChildren().add(imageView);
     group.getChildren().add(mapNodes);
-    group.getChildren().add(edges);
     Pane pane = new Pane();
     pane.setMinWidth(image.getWidth());
     pane.setMaxWidth(image.getWidth());
@@ -167,6 +170,20 @@ public class PathFindingController {
     mapNodes.getChildren().add(newCircle);
   }
 
+  public ObservableList<TableRow> gettableRowsEdge(List<Edge> edgeList) {
+    Edge currEdgeList;
+    String startNode;
+    String endNode;
+    int index = -1;
+    for (int i = 0; i < edgeList.size(); i++) {
+      startNode = String.valueOf(edgeList.get(i).getStartNode());
+      endNode = String.valueOf(edgeList.get(i).getEndNode());
+      index++;
+      rowsEdge.add(new TableRow(startNode, endNode, index));
+    }
+    return rowsEdge;
+  }
+
   //    public String getText(ActionEvent actionEvent) {
   //        String inputtedText;
   //        inputtedText = inputBox.getText();
@@ -176,7 +193,6 @@ public class PathFindingController {
 
   @FXML
   void getSubmit(ActionEvent event) {
-    edges.getChildren().clear();
     String startNode = startNodeId.getText();
     String endNode = endNodeId.getText();
 
@@ -185,40 +201,12 @@ public class PathFindingController {
 
     GraphNode src = graph.getNode(Integer.valueOf(startNode));
     GraphNode dest = graph.getNode(Integer.valueOf(endNode));
-    Circle circ = new Circle();
-    circ.setCenterX(dest.getXCoord());
-    circ.setCenterY(dest.getYCoord());
-    circ.setRadius(20);
-    circ.setFill(Paint.valueOf("#32CD32"));
-    circ.setStroke(Paint.valueOf("#FF0000"));
-    circ.setVisible(true);
-    mapNodes.getChildren().add(circ);
-
-    Circle circ2 = new Circle();
-    circ2.setCenterX(src.getXCoord());
-    circ2.setCenterY(src.getYCoord());
-    circ2.setRadius(20);
-    circ2.setFill(Paint.valueOf("#FF0000"));
-    circ2.setStroke(Paint.valueOf("#32CD32"));
-    circ2.setVisible(true);
-    mapNodes.getChildren().add(circ2);
 
     List<GraphEdge> path = graph.getDirections_Astar(src, dest);
 
     for (GraphEdge edge : path) {
-      System.out.println(edge.getStartNode() + " -> " + edge.getEndNode());
-      Line temp =
-          new Line(
-              edge.getSrc().getXCoord(),
-              edge.getSrc().getYCoord(),
-              edge.getDest().getXCoord(),
-              edge.getDest().getYCoord());
-      temp.setStrokeWidth(12);
-      temp.setVisible(true);
-      temp.setStroke(Paint.valueOf("FF0000"));
-      edges.getChildren().add(temp);
+      System.out.print("->" + edge.getStartNode());
     }
-    edges.toFront();
   }
 
   @FXML
@@ -252,19 +240,12 @@ public class PathFindingController {
   }
 
   @FXML
-  void getGiftBasketRequestPage(ActionEvent event) {
-    Navigation.navigate(Screen.GIFT_BASKET);
-  }
-
-  @FXML
   void getSignagePage(ActionEvent event) {
     Navigation.navigate(Screen.SIGNAGE);
   }
 
   @FXML
-  void getEditMap(ActionEvent event) {
-    Navigation.navigate(Screen.EDIT_MAP);
-  }
+  void getEditMap(ActionEvent event) {}
 
   @FXML
   void getLogOut(ActionEvent event) {
@@ -273,26 +254,12 @@ public class PathFindingController {
 
   @FXML
   void getExit(ActionEvent event) {
-    Navigation.navigate(Screen.EXIT_PAGE);
+    System.exit(0);
   }
 
   @FXML
-  void getMapHistory(ActionEvent event) {
-    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
-  }
+  void getMapHistory(ActionEvent event) {}
 
   @FXML
-  void getMapPage(ActionEvent event) {
-    Navigation.navigate(Screen.FLOOR_PLAN);
-  }
-
-  @FXML
-  void getPathfindingPage(ActionEvent event) {
-    Navigation.navigate(Screen.PATHFINDING_PAGE);
-  }
-
-  @FXML
-  void getHelpage(ActionEvent event) {
-    Navigation.navigate(Screen.HELP);
-  }
+  void getMapPage(ActionEvent event) {}
 }

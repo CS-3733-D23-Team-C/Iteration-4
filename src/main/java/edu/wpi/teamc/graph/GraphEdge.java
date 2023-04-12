@@ -30,18 +30,14 @@ public class GraphEdge extends Edge implements Comparable<GraphEdge> {
    * @param targetNode Target destination
    */
   public void setHeuristic(GraphNode targetNode) {
-    this.heuristic =
-        abs(dest.getXCoord() - targetNode.getXCoord())
-            + abs(dest.getYCoord() - targetNode.getYCoord());
-    this.heuristic =
-        Math.hypot(
-            dest.getXCoord() - targetNode.getXCoord(), dest.getYCoord() - targetNode.getYCoord());
-
-    /*
-    add extra weight to edges who's ending floor does not match target floor
-    */
-    if (!dest.getFloor().equals(targetNode.getFloor())) {
-      this.heuristic += 200;
+    if (!targetNode.getBuilding().equals(dest.getFloor())) {
+      this.heuristic =
+          abs(dest.getXCoord() - targetNode.getXCoord())
+              + abs(dest.getYCoord() - targetNode.getYCoord());
+    } else {
+      this.heuristic =
+          Math.hypot(
+              dest.getXCoord() - targetNode.getXCoord(), dest.getYCoord() - targetNode.getYCoord());
     }
   }
 

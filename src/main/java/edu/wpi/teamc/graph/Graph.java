@@ -84,7 +84,9 @@ public class Graph {
     while (!open.isEmpty()) {
       // pick the best edge
       GraphEdge current = open.poll();
-      // open.clear();
+      if (closed.contains(current)) {
+        current = open.poll();
+      }
 
       // check if the current edge would reach the dest
       if (end.equals(current.getDest())) {

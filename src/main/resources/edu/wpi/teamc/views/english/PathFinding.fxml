@@ -3,21 +3,23 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
-
+<?import net.kurobako.gesturefx.GesturePane?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.PathFindingController">
     <children>
-        <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="900.0" prefWidth="1600.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="900.0" prefWidth="1600.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <AnchorPane layoutX="402.0" prefHeight="153.0" prefWidth="1208.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.5),5,0.75,0,0);" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Text fill="#003da6" layoutY="-13.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 40; -fx-font-weight: bold;" text="Path Finding Page" textAlignment="CENTER" wrappingWidth="371.51019287109375" AnchorPane.leftAnchor="420.0" AnchorPane.topAnchor="49.0" />
+                        <Text fill="#003da6" layoutY="-13.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 40; -fx-font-weight: bold;" text="Pathfinding Page" textAlignment="CENTER" wrappingWidth="371.51019287109375" AnchorPane.leftAnchor="420.0" AnchorPane.topAnchor="49.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane prefHeight="900.0" prefWidth="392.0" style="-fx-background-color: #E3DFDF; -fx-border-width: 0; -fx-border-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -89,6 +91,47 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </MFXButton>
+                    </children>
+                </AnchorPane>
+                <AnchorPane layoutX="410.0" layoutY="163.0" prefHeight="730.0" prefWidth="1182.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="410.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="163.0">
+                    <children>
+                        <GesturePane fx:id="mapGPane" fitHeight="false" fitMode="COVER" fitWidth="false" layoutX="16.0" layoutY="44.0" minScale="0.1" prefHeight="698.0" prefWidth="1155.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0">
+                            <Group fx:id="group" />
+                        </GesturePane>
+                        <VBox prefHeight="188.0" prefWidth="33.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="50.0">
+                            <children>
+                                <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                                    <children>
+                                        <MFXButton fx:id="FL3" layoutX="24.0" onAction="#changeFloor" text="3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                                    <children>
+                                        <MFXButton fx:id="FL2" onAction="#changeFloor" text="2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                                    <children>
+                                        <MFXButton fx:id="FL1" onAction="#changeFloor" text="1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                                    <children>
+                                        <MFXButton fx:id="FLG" onAction="#changeFloor" text="G" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                                    <children>
+                                        <MFXButton fx:id="FLB1" onAction="#changeFloor" text="B1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                                    <children>
+                                        <MFXButton fx:id="FLB2" onAction="#changeFloor" text="B2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </VBox>
                     </children>
                 </AnchorPane>
             </children>

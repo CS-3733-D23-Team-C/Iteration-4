@@ -163,4 +163,7 @@ public class FurnitureHistoryController {
   void getHelpage(ActionEvent event) {
     Navigation.navigate(Screen.HELP);
   }
+
+  public void getMapPage(ActionEvent event) {
+  }
 }

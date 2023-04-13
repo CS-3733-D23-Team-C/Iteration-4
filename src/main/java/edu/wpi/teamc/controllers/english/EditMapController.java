@@ -113,6 +113,9 @@ public class EditMapController {
   List<Node> nodeList = new ArrayList<Node>();
   List<Edge> edgeList = new ArrayList<Edge>();
   List<LocationName> locationNameList = new ArrayList<LocationName>();
+  HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
+  HashMap<String, LocationName> longNametoLocationName = new HashMap<String, LocationName>();
+
   List<Move> moveList = new ArrayList<Move>();
   List<Node> Floor1 = new ArrayList<Node>();
   List<Node> Floor2 = new ArrayList<Node>();
@@ -121,12 +124,12 @@ public class EditMapController {
   List<Node> FloorL1 = new ArrayList<Node>();
   List<Node> FloorL2 = new ArrayList<Node>();
 
-  List<String> Floor1Name = new ArrayList<String>();
-  List<String> Floor2Name = new ArrayList<String>();
-  List<String> Floor3Name = new ArrayList<String>();
-  List<String> FloorGName = new ArrayList<String>();
-  List<String> FloorL1Name = new ArrayList<String>();
-  List<String> FloorL2Name = new ArrayList<String>();
+  //  List<String> Floor1Name = new ArrayList<String>();
+  //  List<String> Floor2Name = new ArrayList<String>();
+  //  List<String> Floor3Name = new ArrayList<String>();
+  //  List<String> FloorGName = new ArrayList<String>();
+  //  List<String> FloorL1Name = new ArrayList<String>();
+  //  List<String> FloorL2Name = new ArrayList<String>();
 
   String sNameInput_temp;
   String lNameInput_temp;
@@ -186,6 +189,13 @@ public class EditMapController {
     edgeList = new EdgeDao().fetchAllObjects();
     locationNameList = new LocationDao().fetchAllObjects();
     moveList = new MoveDao().fetchAllObjects();
+
+    for (Move move : moveList) {
+      nodeIDtoMove.put(move.getNodeID(), move);
+    }
+    for (LocationName locationName : locationNameList) {
+      longNametoLocationName.put(locationName.getLongName(), locationName);
+    }
   }
   // comparators
   class NodeComparator implements Comparator<Node> {
@@ -288,40 +298,64 @@ public class EditMapController {
     switch (floor) {
       case "1":
         for (int i = 0; i < Floor1.size(); i++) {
-          createMapNodes(Floor1.get(i), Floor1Name.get(i));
+          int nodeID = Floor1.get(i).getNodeID();
+          String longName = nodeIDtoMove.get(nodeID).getLongName();
+          String shortName = longNametoLocationName.get(longName).getShortName();
+          String nodeType = longNametoLocationName.get(longName).getNodeType();
+          createMapNodes(Floor1.get(i), shortName, nodeType);
         }
         break;
       case "2":
         for (int i = 0; i < Floor2.size(); i++) {
-          createMapNodes(Floor2.get(i), Floor2Name.get(i));
+          int nodeID = Floor2.get(i).getNodeID();
+          String longName = nodeIDtoMove.get(nodeID).getLongName();
+          String shortName = longNametoLocationName.get(longName).getShortName();
+          String nodeType = longNametoLocationName.get(longName).getNodeType();
+          createMapNodes(Floor2.get(i), shortName, nodeType);
         }
         break;
       case "3":
         for (int i = 0; i < Floor3.size(); i++) {
-          createMapNodes(Floor3.get(i), Floor3Name.get(i));
+          int nodeID = Floor3.get(i).getNodeID();
+          String longName = nodeIDtoMove.get(nodeID).getLongName();
+          String shortName = longNametoLocationName.get(longName).getShortName();
+          String nodeType = longNametoLocationName.get(longName).getNodeType();
+          createMapNodes(Floor3.get(i), shortName, nodeType);
         }
         break;
       case "G":
         for (int i = 0; i < FloorG.size(); i++) {
-          createMapNodes(FloorG.get(i), FloorGName.get(i));
+          int nodeID = FloorG.get(i).getNodeID();
+          String longName = nodeIDtoMove.get(nodeID).getLongName();
+          String shortName = longNametoLocationName.get(longName).getShortName();
+          String nodeType = longNametoLocationName.get(longName).getNodeType();
+          createMapNodes(FloorG.get(i), shortName, nodeType);
         }
         break;
       case "L1":
         for (int i = 0; i < FloorL1.size(); i++) {
-          createMapNodes(FloorL1.get(i), FloorL1Name.get(i));
+          int nodeID = FloorL1.get(i).getNodeID();
+          String longName = nodeIDtoMove.get(nodeID).getLongName();
+          String shortName = longNametoLocationName.get(longName).getShortName();
+          String nodeType = longNametoLocationName.get(longName).getNodeType();
+          createMapNodes(FloorL1.get(i), shortName, nodeType);
         }
         break;
       case "L2":
         for (int i = 0; i < FloorL2.size(); i++) {
-          createMapNodes(FloorL2.get(i), FloorL2Name.get(i));
+          int nodeID = FloorL2.get(i).getNodeID();
+          String longName = nodeIDtoMove.get(nodeID).getLongName();
+          String shortName = longNametoLocationName.get(longName).getShortName();
+          String nodeType = longNametoLocationName.get(longName).getNodeType();
+          createMapNodes(FloorL2.get(i), shortName, nodeType);
         }
     }
     mapNodes.toFront();
   }
 
-  public void createMapNodes(Node node, String shortname) {
+  public void createMapNodes(Node node, String shortname, String nodeType) {
     Circle newCircle = new Circle();
-    if (!shortname.equals("")) {
+    if (!nodeType.equals("HALL")) {
       Tooltip nodeName = new Tooltip(shortname);
       nodeName.setShowDelay(Duration.ZERO);
       nodeName.setShowDuration(Duration.hours(2));

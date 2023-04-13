@@ -6,6 +6,8 @@ import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
@@ -21,6 +23,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -85,6 +90,10 @@ public class EditMapController {
   @FXML MFXButton FLB2;
   @FXML MFXButton floorButton;
   Group mapNodes = new Group();
+  private Desktop desktop = Desktop.getDesktop();
+  private String filePath;
+  @FXML private Label testText;
+
   NodeDao InodeDao = new NodeDao();
   EdgeDao IedgeDao = new EdgeDao();
   LocationDao IlocationDao = new LocationDao();

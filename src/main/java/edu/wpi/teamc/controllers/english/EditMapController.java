@@ -39,6 +39,8 @@ import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class EditMapController {
   public Group group;
+  double mouseX;
+  double mouseY;
   public Image image =
       new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
 
@@ -152,6 +154,7 @@ public class EditMapController {
   String oldName_temp;
   String nodeIDinput_temp;
   StackPane stackPane = new StackPane();
+  Boolean mouseClicked = false;
 
   /** Method run when controller is initialized */
   public void initialize() {
@@ -160,8 +163,7 @@ public class EditMapController {
     ImageView imageView = new ImageView(image);
     imageView.relocate(0, 0);
     group.getChildren().add(imageView);
-    //    stackPane.getChildren().add(mapNodes);
-    //    group.getChildren().add(stackPane);
+
     group.getChildren().add(mapNodes);
     group.getChildren().add(mapText);
     Pane pane = new Pane();
@@ -172,6 +174,14 @@ public class EditMapController {
     pane.relocate(0, 0);
     group.getChildren().add(pane);
     //    group.getChildren().add(stackPane);
+
+    group.setOnMouseClicked(
+        e -> {
+          mouseX = e.getX();
+          mouseY = e.getY();
+          System.out.println(mouseX + "  " + mouseY);
+        });
+
     loadDatabase();
     sortNodes();
 
@@ -455,17 +465,18 @@ public class EditMapController {
     newCircle.setFill(Paint.valueOf("#13DAF7"));
     newCircle.setVisible(true);
     text.setVisible(true);
+    newCircle.setOnMouseClicked(
+        e -> {
+          mouseClicked = true; // clicked on a node
+          System.out.println("circle clicked");
+        });
+    //    newCircle.setOnMouseDragEntered(
+    //        e -> {
+    //          mouseDragged = true;
+    //        });
 
     mapNodes.getChildren().add(newCircle);
     mapText.getChildren().add(text);
-    //    mapNodes.getChildren().add(text);
-    //    stackPane.getChildren().add(mapNodes);
-    //    text.setBounds(10,10,10,10);
-    //    stackPane.getChildren().add(text);
-    //    stackPane.getChildren().add(text);
-    //    group.getChildren().add(stackPane);
-    //    group.getChildren().add(mapNodes);
-    //    group.getChildren().add(text);
   }
 
   public void showNodeMenu(ActionEvent event) {

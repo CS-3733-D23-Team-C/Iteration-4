@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -10,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class ConferenceHistoryController {
@@ -26,92 +26,60 @@ public class ConferenceHistoryController {
 
   @FXML private Button testButton;
   @FXML private TextField inputBox;
-  @FXML private FilteredTableView<TableRow> historyTable;
-  @FXML TableView<TableRow> otherTable;
-  @FXML TableColumn<TableRow, String> ColumnOne;
-  @FXML TableColumn<TableRow, String> NameColumn;
-  @FXML TableColumn<TableRow, String> ColumnTwo;
-  @FXML TableColumn<TableRow, String> ColumnThree;
-  @FXML TableColumn<TableRow, String> ColumnFour;
-  @FXML TableColumn<TableRow, String> ColumnFive;
-  @FXML TableColumn<TableRow, String> ColumnSix;
+  @FXML private FilteredTableView<ConferenceRoomRequest> historyTable;
+  @FXML TableColumn<ConferenceRoomRequest, Integer> ColumnOne;
+  @FXML TableColumn<ConferenceRoomRequest, Requester> ColumnTwo;
+  @FXML TableColumn<ConferenceRoomRequest, ConferenceRoom> ColumnThree;
+  @FXML TableColumn<ConferenceRoomRequest, STATUS> ColumnFour;
+  @FXML TableColumn<ConferenceRoomRequest, String> ColumnFive;
+  @FXML TableColumn<ConferenceRoomRequest, String> ColumnSix;
+  @FXML TableColumn<ConferenceRoomRequest, String> ColumnSeven;
 
-  ObservableList<TableRowController> rows = FXCollections.observableArrayList();
+  ObservableList<ConferenceRoomRequest> rows = FXCollections.observableArrayList();
 
   @FXML private Button goHome;
 
   /** Method run when controller is initialized */
   public void initialize() {
-    ColumnOne.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s1"));
-    NameColumn.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s2"));
-    ColumnTwo.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s3"));
-    ColumnThree.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s4"));
-    ColumnFour.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s5"));
-    ColumnFive.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s6"));
-    ColumnSix.setCellValueFactory(new PropertyValueFactory<TableRow, String>("s7"));
-    //    ColumnOne.setText("ID");
-    //    ColumnTwo.setText("Status");
-    //    ColumnThree.setText("Start");
-    //    ColumnFour.setText("End");
-    //   ColumnFive.setText("Info");
-    //    ColumnSix.setText("Room");
-    ColumnOne.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    ColumnTwo.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    ColumnThree.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    ColumnFour.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    ColumnFive.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    ColumnSix.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    NameColumn.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-
+    ColumnOne.setCellValueFactory(
+        new PropertyValueFactory<ConferenceRoomRequest, Integer>("requestID"));
+    ColumnTwo.setCellValueFactory(
+        new PropertyValueFactory<ConferenceRoomRequest, Requester>("requester"));
+    ColumnThree.setCellValueFactory(
+        new PropertyValueFactory<ConferenceRoomRequest, ConferenceRoom>("conferenceRoom"));
+    ColumnFour.setCellValueFactory(
+        new PropertyValueFactory<ConferenceRoomRequest, STATUS>("status"));
+    ColumnFive.setCellValueFactory(
+        new PropertyValueFactory<ConferenceRoomRequest, String>("additionalNotes"));
+    ColumnSix.setCellValueFactory(
+        new PropertyValueFactory<ConferenceRoomRequest, String>("startTime"));
+    ColumnSeven.setCellValueFactory(
+        new PropertyValueFactory<ConferenceRoomRequest, String>("endTime"));
+    ColumnOne.setText("requestID");
+    ColumnTwo.setText("Requester");
+    ColumnThree.setText("Room Name");
+    ColumnFour.setText("Status");
+    ColumnFive.setText("Additional Notes");
+    ColumnSix.setText("Start time");
+    ColumnSeven.setText("End time");
+    //    ColumnOne.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
+    //    ColumnTwo.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
+    //    ColumnThree.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
+    //    ColumnFour.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
+    //    ColumnFive.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
+    //    ColumnSix.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     // get conference room table
-    /*historyTable
-    .getItems()
-    .setAll(convertToObservableList(Cdb.getTable("ServiceRequests", "conferenceRoom")));*/
+    ConferenceRoomRequestDAO dao = new ConferenceRoomRequestDAO();
+    List<ConferenceRoomRequest> list = dao.fetchAllObjects();
+    for (ConferenceRoomRequest ConferenceRoomRequest : list) {
+      rows.add(ConferenceRoomRequest);
+    }
+    historyTable.setItems(rows);
     System.out.println("did it");
   }
 
   public void getGoHome(ActionEvent event) {
     Navigation.navigate(Screen.HOME);
-  }
-
-  //  public void dispTable(List<Move> moveList) {
-  //    ColumnOne.setCellValueFactory(new PropertyValueFactory<TableRow, String>("nodeID"));
-  //    ColumnTwo.setCellValueFactory(new PropertyValueFactory<TableRow, String>("longName"));
-  //    ColumnThree.setCellValueFactory(new PropertyValueFactory<TableRow, String>("date"));
-  //    //    testTable.getItems().setAll(gettableRows(moveList));
-  //    historyTable.getItems().setAll(gettableRows(moveList));
-  //    //    ColumnOne.setEditable(true);
-  //    //    ColumnTwo.setEditable(true);
-  //    //    ColumnThree.setEditable(true);
-  //
-  //    System.out.println("did it");
-  //  }
-
-  public ObservableList<TableRowController> convertToObservableList(List<List<String>> rowList) {
-    String requestID;
-    String reqname;
-    String status;
-    String startTime;
-    String endTime;
-    String additionalInfo;
-    String roomName;
-    for (List<String> rl : rowList) {
-      for (String s : rl) {
-        System.out.println(s);
-      }
-
-      requestID = rl.get(0);
-      reqname = rl.get(1);
-      status = rl.get(2);
-      startTime = rl.get(3);
-      endTime = rl.get(4);
-      additionalInfo = rl.get(5);
-      roomName = rl.get(6);
-      rows.add(
-          new TableRowController(
-              requestID, reqname, status, startTime, endTime, additionalInfo, roomName));
-    }
-    return rows;
   }
 
   public String getText(javafx.event.ActionEvent actionEvent) {
@@ -152,12 +120,19 @@ public class ConferenceHistoryController {
   }
 
   @FXML
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
+  }
+
+  @FXML
   void getSignagePage(ActionEvent event) {
     Navigation.navigate(Screen.SIGNAGE);
   }
 
   @FXML
-  void getEditMap(ActionEvent event) {}
+  void getEditMap(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
 
   @FXML
   void getLogOut(ActionEvent event) {
@@ -166,12 +141,26 @@ public class ConferenceHistoryController {
 
   @FXML
   void getExit(ActionEvent event) {
-    System.exit(0);
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML
-  void getMapHistory(ActionEvent event) {}
+  void getMapHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
+  }
+
+  //  @FXML
+  //  void getMapPage(ActionEvent event) {
+  //    Navigation.navigate(Screen.FLOOR_PLAN);
+  //  }
 
   @FXML
-  void getMapPage(ActionEvent event) {}
+  void getPathfindingPage(ActionEvent event) {
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
+
+  @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 }

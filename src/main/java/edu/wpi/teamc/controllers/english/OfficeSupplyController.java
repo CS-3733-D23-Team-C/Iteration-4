@@ -1,44 +1,31 @@
 package edu.wpi.teamc.controllers.english;
 
-import edu.wpi.teamc.dao.requests.OfficeSuppliesRequest;
-import edu.wpi.teamc.dao.requests.OfficeSuppliesRequestDAO;
-import edu.wpi.teamc.dao.requests.Requester;
+import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class OfficeSupplyController {
   @FXML private MFXButton goHome;
   @FXML private MFXButton submit;
 
-  @FXML private MenuButton officeSupply;
-
-  @FXML private MFXTextField roomID;
-  @FXML private MFXTextField name;
-  @FXML private TextArea additionalInfo;
-
   @FXML private MFXButton clear;
+  @FXML private MenuItem choice1;
 
-  @FXML private MenuItem chocie0;
-
-  @FXML private MenuItem chocie1;
-
-  @FXML private MenuItem chocie2;
-
-  @FXML private MenuItem chocie3;
-
-  @FXML private MenuItem choice4;
-
+  @FXML private MenuItem choice2;
   @FXML private MenuButton menuButton;
+  @FXML private TextField nameBox;
+  @FXML private MenuButton roomID;
+  @FXML private TextField specialNotes;
 
   public void getGoHome() {
-    goHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    Navigation.navigate(Screen.ADMIN_HOME);
   }
 
   @FXML
@@ -48,40 +35,41 @@ public class OfficeSupplyController {
 
   @FXML
   void getChoice1() {
-    menuButton.setText("Pen");
+    menuButton.setText("Pencil");
   }
 
   @FXML
   void getChoice2() {
-    menuButton.setText("Paper");
+    menuButton.setText("Paper Shredder");
   }
 
   @FXML
-  void getChoice3() {
-    menuButton.setText("Scissor");
+  void getRoom1() {
+    roomID.setText("Room1");
   }
 
   @FXML
-  void getChoice4() {
-    menuButton.setText("Ian's M1 MacBook Pro 14\" Silver, 1TB");
+  void getRoom2() {
+    roomID.setText("Room2");
   }
 
   @FXML
   void getSubmit() {
-    String roomID = this.roomID.getText();
-    String name = this.name.getText();
-    String additionalInfo = this.additionalInfo.getText();
-    String officeSupply = this.officeSupply.getText();
-    OfficeSuppliesRequest request =
-        new OfficeSuppliesRequest(
-            -1, new Requester(-1, name), roomID, officeSupply, additionalInfo);
-    OfficeSuppliesRequestDAO dao = new OfficeSuppliesRequestDAO();
-    request = dao.addRow(request);
-    submit.setOnMouseClicked(event -> Navigation.navigate(Screen.CONGRATS_PAGE));
+    String notes = specialNotes.getText();
+    String name = nameBox.getText();
+    String room = roomID.getText();
+    String menuSelection = menuButton.getText();
+    OfficeSuppliesRequest req =
+        new OfficeSuppliesRequest(0, new Requester(0, name), room, menuSelection, notes);
+    IDao<OfficeSuppliesRequest> dao = new OfficeSuppliesRequestDAO();
+    dao.addRow(req);
+    Navigation.navigate(Screen.CONGRATS_PAGE);
   }
 
   @FXML
-  void getClear() {}
+  void getClear(ActionEvent event) {
+    Navigation.navigate(Screen.OFFICE_SUPPLY);
+  }
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {
@@ -109,6 +97,11 @@ public class OfficeSupplyController {
   }
 
   @FXML
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
+  }
+
+  @FXML
   void getRoomReservationPage(ActionEvent event) {
     Navigation.navigate(Screen.CONFERENCE);
   }
@@ -123,21 +116,41 @@ public class OfficeSupplyController {
   public void initialize() {}
 
   @FXML
-  void getEditMap(ActionEvent event) {}
+  void getEditMap(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
 
   @FXML
   void getLogOut(ActionEvent event) {
-    Navigation.navigate(Screen.LOGIN);
+    Navigation.navigate(Screen.HOME);
   }
 
   @FXML
   void getExit(ActionEvent event) {
-    System.exit(0);
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML
-  void getMapHistory(ActionEvent event) {}
+  void getMapHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
+  }
+
+  //  @FXML
+  //  void getMapPage(ActionEvent event) {
+  //    Navigation.navigate(Screen.FLOOR_PLAN);
+  //  }
 
   @FXML
-  void getMapPage(ActionEvent event) {}
+  void getPathfindingPage(ActionEvent event) {
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
+
+  public void getHistory(ActionEvent event) {
+    Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
+  }
+
+  @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 }

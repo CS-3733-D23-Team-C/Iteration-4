@@ -10,6 +10,8 @@ public class ConferenceRoomRequest extends AbsServiceRequest {
   private String endTime;
   private STATUS status;
 
+  private ConferenceRoom conferenceRoom;
+
   public ConferenceRoomRequest(
       int requestID,
       Requester requester,
@@ -19,6 +21,7 @@ public class ConferenceRoomRequest extends AbsServiceRequest {
       String endTime) {
     super(requestID, requester, conferenceRoom.toString(), note);
     this.startTime = startTime;
+    this.conferenceRoom = conferenceRoom;
     this.endTime = endTime;
   }
 
@@ -33,6 +36,7 @@ public class ConferenceRoomRequest extends AbsServiceRequest {
     super(requestID, requester, conferenceRoom.toString(), note);
     this.startTime = startTime;
     this.endTime = endTime;
+    this.conferenceRoom = conferenceRoom;
     this.status = status;
   }
 

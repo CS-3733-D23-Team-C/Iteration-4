@@ -21,11 +21,11 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest> {
       while (rs.next()) {
         int requestID = rs.getInt("requestID");
         Requester req = new Requester(0, rs.getString("Requester"));
-        String roomName = rs.getString("roomName");
-        String supplies = rs.getString("supplies");
+        String roomName = rs.getString("roomname");
+        String supplies = rs.getString("officesupplytype");
         STATUS status = STATUS.valueOf(rs.getString("status"));
-        String additionalNotes = rs.getString("additionalNotes");
-        String eta = rs.getString("ETA");
+        String additionalNotes = rs.getString("additionalnotes");
+        String eta = rs.getString("eta");
         OfficeSuppliesRequest request =
             new OfficeSuppliesRequest(requestID, req, roomName, supplies, additionalNotes);
         request.setStatus(status);
@@ -41,35 +41,33 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest> {
 
   public OfficeSuppliesRequest addRow(OfficeSuppliesRequest orm) {
     DBConnection db = new DBConnection();
-    OfficeSuppliesRequest request = null;
     String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
     // queries
     String query =
         "INSERT INTO "
             + table
-            + " (requester, roomName, supplies, additionalNotes, status, eta) VALUES (?,?,?,?,?,?);";
+            + " (requester, roomName, officesupplytype, additionalNotes, status) VALUES (?,?,?,?,?);";
     try {
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+      ps.setString(1, orm.getRequester().toString());
+      ps.setString(2, orm.getRoomName());
+      ps.setString(3, orm.getSupplies());
+      ps.setString(4, orm.getAdditionalNotes());
+      ps.setString(5, orm.getStatus().toString());
       ps.executeUpdate();
+
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
       int requestID = rs.getInt("requestID");
-      request =
-          new OfficeSuppliesRequest(
-              requestID,
-              orm.getRequester(),
-              orm.getRoomName(),
-              orm.getSupplies(),
-              orm.getAdditionalNotes());
-      request.setStatus(orm.getStatus());
-      request.setEta(orm.getEta());
+      orm.setRequestID(requestID);
 
     } catch (Exception e) {
       e.printStackTrace();
     }
     db.closeConnection();
-    return request;
+    return orm;
   }
 
   public OfficeSuppliesRequest deleteRow(OfficeSuppliesRequest orm) {

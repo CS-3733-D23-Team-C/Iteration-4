@@ -1,223 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.HomeController">
+<AnchorPane style="-fx-background-color: E3DFDF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.HomeController">
    <children>
-      <Rectangle fill="#bae3e0" height="407.0" stroke="#bae3e0" strokeType="INSIDE" width="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Rectangle fill="TEAL" height="380.0" layoutX="12.0" layoutY="13.0" stroke="TEAL" strokeType="INSIDE" width="575.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="13.0" />
-      <Text fill="WHITE" layoutX="191.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Home Menu" wrappingWidth="217.6328125" AnchorPane.bottomAnchor="318.80078125" AnchorPane.leftAnchor="191.0" AnchorPane.rightAnchor="191.3671875" AnchorPane.topAnchor="62.892578125">
-         <font>
-            <Font name="Verdana Bold" size="20.0" />
-         </font>
-      </Text>
-      <VBox layoutX="37.0" layoutY="151.0" prefHeight="225.0" prefWidth="154.0" spacing="20.0">
+      <VBox alignment="CENTER" fillWidth="false" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="250.0">
          <children>
-            <Button fx:id="roomReservationPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getRoomReservationPage" prefHeight="26.0" prefWidth="153.0" style="-fx-background-color: BAE3E0;" text="Room Reservation" textFill="#004646">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="Verdana Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="mealDeliveryPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getMealDeliveryPage" prefHeight="26.0" prefWidth="153.0" style="-fx-background-color: BAE3E0;" text="Meal Delivery" textFill="#004646">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="Verdana Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="flowerDeliveryPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getFlowerDeliveryPage" prefHeight="26.0" prefWidth="153.0" style="-fx-background-color: BAE3E0;" text="Flower Delivery" textFill="#004646">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="Verdana Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="furnitureDeliveryPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getFurnitureDeliveryPage" prefHeight="26.0" prefWidth="153.0" style="-fx-background-color: BAE3E0;" text="Furniture Delivery" textFill="#004646">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="Verdana Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="officeSuppliesPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getOfficeSuppliesPage" prefHeight="26.0" prefWidth="153.0" style="-fx-background-color: BAE3E0;" text="Office Supplies" textFill="#004646">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="Verdana Bold" size="12.0" />
-               </font>
-            </Button>
+            <AnchorPane prefHeight="618.0" prefWidth="583.0" style="-fx-background-color: #ECE9E9; -fx-background-radius: 26; -fx-border-color: #978787; -fx-border-width: 1; -fx-border-radius: 26; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 4, 0.25, 0, 2)">
+               <children>
+                  <Text fx:id="HOME_SignInText" fill="#0157ec" layoutX="113.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 48; -fx-font-weight: bold;" text="Sign In" textAlignment="CENTER" wrappingWidth="360.58984375" AnchorPane.leftAnchor="113.0" AnchorPane.topAnchor="46.546875" />
+                  <MFXTextField fx:id="HOME_password" floatMode="DISABLED" floatingTextGap="1.5" layoutX="124.0" layoutY="209.0" prefHeight="35.0" prefWidth="343.0" promptText="Password" style="-fx-font-family: Arial; -fx-font-size: 20; -fx-background-radius: 7; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: rgba(131, 114, 114, 0.5); -fx-border-radius: 7; -fx-text-box-border: transparent; -fx-focus-color: transparent;" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="210.0">
+                     <textFill>
+                        <Color red="0.529411792755127" green="0.545098066329956" blue="0.5607843399047852" opacity="0.8700000047683716" />
+                     </textFill>
+                  </MFXTextField>
+                  <MFXButton fx:id="HOME_login" layoutX="35.0" layoutY="122.0" onAction="#getAdmin" prefHeight="58.0" prefWidth="343.0" style="-fx-background-color: #0157ec; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Login" textFill="WHITE" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="280.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </MFXButton>
+                  <MFXTextField fx:id="HOME_username" floatMode="DISABLED" floatingTextGap="1.5" layoutX="217.0" layoutY="384.0" prefHeight="35.0" prefWidth="343.0" promptText="Username" style="-fx-font-family: Arial; -fx-font-size: 20; -fx-background-radius: 7; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: rgba(131, 114, 114, 0.5); -fx-border-radius: 7; -fx-text-box-border: transparent; -fx-focus-color: transparent;" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="151.0">
+                     <textFill>
+                        <Color red="0.529411792755127" green="0.545098066329956" blue="0.5607843399047852" opacity="0.8700000047683716" />
+                     </textFill>
+                  </MFXTextField>
+                  <MFXButton fx:id="HOME_guest" layoutX="35.0" layoutY="231.0" onAction="#getGuest" prefHeight="58.0" prefWidth="343.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Continue as Guest" textFill="WHITE" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="505.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </MFXButton>
+                  <Hyperlink fx:id="HOME_forgot" alignment="CENTER" layoutX="102.0" layoutY="370.0" prefHeight="28.0" prefWidth="378.0" style="-fx-font-family: Arial; -fx-underline: true; -fx-font-size: 16;" text="Forgot Username or Password?" textFill="#837272" AnchorPane.leftAnchor="102.0" AnchorPane.topAnchor="370.0" />
+                  <Hyperlink fx:id="HOME_create" alignment="CENTER" layoutX="35.0" layoutY="173.0" prefHeight="24.0" prefWidth="281.0" style="-fx-font-family: Arial; -fx-underline: true; -fx-font-size: 16;" text="Create an Account" textFill="#837272" AnchorPane.leftAnchor="152.0" AnchorPane.topAnchor="397.0" />
+                  <Line endX="18.0" startX="-100.0" stroke="#837272" strokeWidth="2.0" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="456.0" />
+                  <Text fx:id="HOME_or" fill="#837272" layoutX="147.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 24;" text="OR" textAlignment="CENTER" wrappingWidth="291.5" AnchorPane.leftAnchor="147.0" AnchorPane.topAnchor="442.2734375" />
+                  <Line endX="18.0" layoutX="440.0" layoutY="458.0" startX="-100.0" stroke="#837272" strokeWidth="2.0" AnchorPane.leftAnchor="346.0" AnchorPane.topAnchor="456.0" />
+               </children>
+            </AnchorPane>
          </children>
       </VBox>
-      <VBox layoutX="223.0" layoutY="151.0" prefHeight="241.0" prefWidth="154.0" spacing="20.0">
+      <AnchorPane prefHeight="175.0" prefWidth="1600.0" style="-fx-background-color: ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.5),5,0.75,0,0);" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="signagePage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getSignagePage" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: BAE3E0;" text="Signage" textFill="#004646">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="Verdana Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="mapPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getMapPage" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: BAE3E0;" text="Map" textFill="#004646">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="Verdana Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="editMap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getEditMap" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: BAE3E0;" text="Edit Map" textFill="#004646">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="Verdana Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="mapHistory" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getMapHistory" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: BAE3E0;" text="Map History" textFill="#004646">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="Verdana Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="editMap2" layoutX="10.0" layoutY="102.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getPathfindingPage" prefHeight="26.0" prefWidth="154.0" style="-fx-background-color: BAE3E0;" text="Pathfinding" textFill="#004646">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="Verdana Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="26.0" prefWidth="153.0" style="-fx-background-color: BAE3E0;" text="Place Holder" textFill="#004646" visible="false">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="Verdana Bold" size="12.0" />
-               </font>
-            </Button>
+            <SVGPath content="M40,60 C42,48 44,30 25,32" layoutX="10.0" layoutY="-13.0" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="33.0" />
+            <Text fill="#003da6" layoutX="84.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 40; -fx-font-weight: 700;" text="Brigham and Women's Hospital" wrappingWidth="377.58984375" AnchorPane.leftAnchor="147.0" AnchorPane.topAnchor="23.0" />
+            <Group layoutX="1382.0" layoutY="63.0" AnchorPane.rightAnchor="82.50975036621094" AnchorPane.topAnchor="63.0">
+               <children>
+                  <ImageView fx:id="Spanish_flag" fitHeight="37.0" fitWidth="70.0" layoutX="82.0" onMouseClicked="#spanish" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/spanish_flag.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="English_flag" fitHeight="37.0" fitWidth="70.0" onMouseClicked="#english" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/english_flag.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Group>
          </children>
-      </VBox>
-      <VBox layoutX="409.0" layoutY="151.0" prefHeight="231.0" prefWidth="154.0" spacing="20.0">
-         <children>
-            <MenuButton fx:id="importMenu" mnemonicParsing="false" prefHeight="30.0" prefWidth="154.0" style="-fx-background-color: BAE3E0;" text="Import" textAlignment="CENTER" textFill="#004646">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#getImportNodes" text="Import Nodes" />
-                  <MenuItem mnemonicParsing="false" onAction="#getImportEdges" text="Import Edges" />
-                  <MenuItem mnemonicParsing="false" onAction="#getImportLocationNames" text="Import Location Names" />
-                  <MenuItem mnemonicParsing="false" onAction="#getImportMove" text="Import Move" />
-               </items>
-               <font>
-                  <Font name="Verdana Bold" size="12.0" />
-               </font>
-               <padding>
-                  <Insets bottom="2.0" left="45.0" right="2.0" top="2.0" />
-               </padding>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </MenuButton>
-            <MenuButton fx:id="importMenu1" mnemonicParsing="false" prefHeight="30.0" prefWidth="154.0" style="-fx-background-color: BAE3E0;" text="Export" textAlignment="CENTER" textFill="#004646">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#getExportNodes" text="Export Nodes" />
-                  <MenuItem mnemonicParsing="false" onAction="#getExportEdges" text="Export Edges" />
-                  <MenuItem mnemonicParsing="false" onAction="#getExportLocationNames" text="Export Location Names" />
-                  <MenuItem mnemonicParsing="false" onAction="#getExportMove" text="Export Move" />
-               </items>
-               <font>
-                  <Font name="Verdana Bold" size="12.0" />
-               </font>
-               <padding>
-                  <Insets bottom="2.0" left="46.0" right="2.0" top="2.0" />
-               </padding>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </MenuButton>
-            <Button fx:id="helpPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getHelpPage" prefHeight="26.0" prefWidth="153.0" style="-fx-background-color: BAE3E0;" text="Help" textFill="#004646">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="Verdana Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button fx:id="logOut" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getLogOut" prefHeight="26.0" prefWidth="153.0" style="-fx-background-color: BAE3E0;" text="Log Out" textFill="#004646">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="Verdana Bold" size="12.0" />
-               </font>
-            </Button>
-         </children>
-      </VBox>
-      <Text fill="WHITE" layoutX="41.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests" textAlignment="CENTER" wrappingWidth="146.6328125">
-         <font>
-            <Font name="Verdana Bold" size="15.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" layoutX="223.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Navigation" textAlignment="CENTER" wrappingWidth="153.0">
-         <font>
-            <Font name="Verdana Bold" size="15.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" layoutX="410.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Options" textAlignment="CENTER" wrappingWidth="153.0">
-         <font>
-            <Font name="Verdana Bold" size="15.0" />
-         </font>
-      </Text>
-      <MenuBar layoutX="12.0" layoutY="13.0" prefHeight="3.0" prefWidth="575.0" style="-fx-background-color: white; -fx-background-radius: 2;">
-         <menus>
-            <Menu mnemonicParsing="false" text="Service Requests">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#getRoomReservationPage" text="Room Reservation" />
-                  <MenuItem mnemonicParsing="false" onAction="#getMealDeliveryPage" text="Meal Delivery" />
-                  <MenuItem mnemonicParsing="false" onAction="#getFlowerDeliveryPage" text="Flower Delivery" />
-                  <MenuItem mnemonicParsing="false" onAction="#getFurnitureDeliveryPage" text="Furniture Delivery" />
-                  <MenuItem mnemonicParsing="false" onAction="#getOfficeSuppliesPage" text="Office Supplies" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Navigation">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#getSignagePage" text="Signage" />
-                  <MenuItem mnemonicParsing="false" onAction="#getMapPage" text="Map" />
-                  <MenuItem mnemonicParsing="false" onAction="#getEditMap" text="Edit Map" />
-                  <MenuItem mnemonicParsing="false" onAction="#getMapHistory" text="Map History" />
-                  <MenuItem mnemonicParsing="false" onAction="#getPathfindingPage" text="Pathfinding" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Options">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#getHelpPage" text="Help" />
-                  <MenuItem mnemonicParsing="false" onAction="#getLogOut" text="Log Out" />
-                  <MenuItem mnemonicParsing="false" onAction="#getExit" text="Exit" />
-               </items>
-            </Menu>
-         </menus>
+      </AnchorPane>
+      <MFXButton fx:id="HOME_exit" onAction="#fancy_exit" prefHeight="42.0" prefWidth="98.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 20;" text="Exit" textFill="#978787" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="75.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
-      </MenuBar>
+      </MFXButton>
+      <Rectangle fx:id="HOME_sqr" arcHeight="5.0" arcWidth="5.0" fill="#ece9e9" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" visible="false" width="102.0" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="73.0" />
    </children>
 </AnchorPane>

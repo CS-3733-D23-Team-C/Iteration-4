@@ -5,22 +5,16 @@ import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.time.LocalDate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 
 public class ConferenceController {
   @FXML private MFXButton goHome;
   @FXML private MFXButton submit;
 
   @FXML private MFXButton clear;
-
-  @FXML private MenuItem choice0;
 
   @FXML private MenuItem choice1;
 
@@ -31,14 +25,14 @@ public class ConferenceController {
   @FXML private MenuItem choice4;
 
   @FXML private MenuButton menuButton;
-  @FXML private MFXTextField nameBox;
-  @FXML private TextArea specialRequest;
+  @FXML private TextField nameBox;
+  @FXML private TextField specialRequest;
   @FXML private DatePicker startTime;
   @FXML private DatePicker endTime;
-  private int currentReqID = 0;
 
-  public void getGoHome() {
-    goHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+  @FXML
+  void getGoHome(ActionEvent event) {
+    Navigation.navigate(Screen.ADMIN_HOME);
   }
 
   @FXML
@@ -53,17 +47,17 @@ public class ConferenceController {
 
   @FXML
   void getChoice2() {
-    menuButton.setText("Conference B2");
+    menuButton.setText("Conference A2");
   }
 
   @FXML
   void getChoice3() {
-    menuButton.setText("Conference C3");
+    menuButton.setText("Conference A3");
   }
 
   @FXML
   void getChoice4() {
-    menuButton.setText("Ian's Conference Room");
+    menuButton.setText("Conference A4");
   }
 
   @FXML
@@ -73,32 +67,35 @@ public class ConferenceController {
     String name = nameBox.getText();
     String room = menuButton.getText();
     String notes = specialRequest.getText();
-    String roomName = menuButton.getText();
     STATUS status = STATUS.COMPLETE;
     ConferenceRoomRequest req =
-        ///////////////////////////////// temporary place holder for the IDs to make the thing run
-        // somehow bc i need to test connectivity
         new ConferenceRoomRequest(
-            1,
-            new Requester(1, name),
+            0,
+            new Requester(0, name),
             new ConferenceRoom(room, room, false),
             notes,
             start.toString(),
             end.toString(),
             status);
 
-    IDao dao = new ConferenceRoomRequestDAO();
+    IDao<ConferenceRoomRequest> dao = new ConferenceRoomRequestDAO();
     dao.addRow(req);
+
     Navigation.navigate(Screen.CONGRATS_PAGE);
   }
 
   @FXML
-  void getClear() {
-    clear.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE));
+  void getClear(ActionEvent event) {
+    Navigation.navigate(Screen.CONFERENCE);
   }
 
   @FXML
   void getMenuButton() {}
+
+  @FXML
+  void getHistory(ActionEvent event) {
+    Navigation.navigate(Screen.CONFERENCE_HISTORY);
+  }
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {
@@ -140,26 +137,47 @@ public class ConferenceController {
     Navigation.navigate(Screen.CONFERENCE_HISTORY);
   }
 
+  @FXML
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
+  }
+
   /** Method run when controller is initialized */
   @FXML
   public void initialize() {}
 
   @FXML
-  void getEditMap(ActionEvent event) {}
+  void getEditMap(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
 
   @FXML
   void getLogOut(ActionEvent event) {
-    Navigation.navigate(Screen.LOGIN);
+    Navigation.navigate(Screen.HOME);
   }
 
   @FXML
   void getExit(ActionEvent event) {
-    System.exit(0);
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML
-  void getMapHistory(ActionEvent event) {}
+  void getMapHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
+  }
+
+  //  @FXML
+  //  void getMapPage(ActionEvent event) {
+  //    Navigation.navigate(Screen.FLOOR_PLAN);
+  //  }
 
   @FXML
-  void getMapPage(ActionEvent event) {}
+  void getPathfindingPage(ActionEvent event) {
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
+
+  @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 }

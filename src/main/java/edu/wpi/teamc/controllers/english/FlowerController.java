@@ -1,12 +1,10 @@
 package edu.wpi.teamc.controllers.english;
 
-import edu.wpi.teamc.dao.requests.FlowerDeliveryRequest;
-import edu.wpi.teamc.dao.requests.FlowerDeliveryRequestDAO;
-import edu.wpi.teamc.dao.requests.Requester;
+import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
@@ -14,26 +12,20 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 
 public class FlowerController {
+
   @FXML private MFXButton goHome;
   @FXML private MFXButton submit;
 
   @FXML private MFXButton clear;
 
-  @FXML private MFXTextField name;
+  @FXML private MenuItem choice1;
 
-  @FXML private MFXTextField roomID;
-  @FXML private TextField additionalNotes;
-  @FXML private MenuItem chocie0;
-
-  @FXML private MenuItem chocie1;
-
-  @FXML private MenuItem chocie2;
-
-  @FXML private MenuItem chocie3;
-
-  @FXML private MenuItem choice4;
+  @FXML private MenuItem choice2;
 
   @FXML private MenuButton menuButton;
+  @FXML private TextField nameBox;
+  @FXML private MenuButton roomID;
+  @FXML private TextField specialNotes;
 
   @FXML
   void getChoice0() {
@@ -47,42 +39,45 @@ public class FlowerController {
 
   @FXML
   void getChoice2() {
-    menuButton.setText("White Roses");
+    menuButton.setText("Dandelion");
   }
 
   @FXML
-  void getChoice3() {
-    menuButton.setText("Random Bouquet");
+  void getRoom1() {
+    roomID.setText("Room1");
   }
 
   @FXML
-  void getChoice4() {
-    menuButton.setText("Ian's Holiday Special");
+  void getRoom2() {
+    roomID.setText("Room2");
   }
 
   @FXML
   public void getGoHome() {
-    goHome.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
+    Navigation.navigate(Screen.ADMIN_HOME);
   }
 
   @FXML
-  void getClear() {
-    clear.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER));
+  void getClear(ActionEvent event) {
+    Navigation.navigate(Screen.FLOWER);
+  }
+
+  @FXML
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
   }
 
   @FXML
   void getSubmit() {
-    String name = this.name.getText();
-    String roomID = this.roomID.getText();
-    String flower = menuButton.getText();
-    String additionalNotes = this.additionalNotes.getText();
-
-    FlowerDeliveryRequest request =
-        new FlowerDeliveryRequest(-1, new Requester(0, name), roomID, flower, additionalNotes);
-    FlowerDeliveryRequestDAO dao = new FlowerDeliveryRequestDAO();
-    request = dao.addRow(request);
-    submit.setOnMouseClicked(event -> Navigation.navigate(Screen.CONGRATS_PAGE));
-    submit.setOnMouseClicked(event -> Navigation.navigate(Screen.CONGRATS_PAGE));
+    String notes = specialNotes.getText();
+    String name = nameBox.getText();
+    String room = roomID.getText();
+    String menuSelection = menuButton.getText();
+    FlowerDeliveryRequest req =
+        new FlowerDeliveryRequest(0, new Requester(0, name), room, menuSelection, notes);
+    IDao<FlowerDeliveryRequest> dao = new FlowerDeliveryRequestDAO();
+    dao.addRow(req);
+    Navigation.navigate(Screen.CONGRATS_PAGE);
   }
 
   @FXML
@@ -125,21 +120,42 @@ public class FlowerController {
   public void initialize() {}
 
   @FXML
-  void getEditMap(ActionEvent event) {}
+  void getEditMap(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
 
   @FXML
   void getLogOut(ActionEvent event) {
-    Navigation.navigate(Screen.LOGIN);
+    Navigation.navigate(Screen.HOME);
   }
 
   @FXML
   void getExit(ActionEvent event) {
-    System.exit(0);
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML
-  void getMapHistory(ActionEvent event) {}
+  void getMapHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
+  }
+
+  //  @FXML
+  //  void getMapPage(ActionEvent event) {
+  //    Navigation.navigate(Screen.FLOOR_PLAN);
+  //  }
 
   @FXML
-  void getMapPage(ActionEvent event) {}
+  void getPathfindingPage(ActionEvent event) {
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
+
+  @FXML
+  public void getHistory(ActionEvent event) {
+    Navigation.navigate(Screen.FLOWER_HISTORY);
+  }
+
+  @FXML
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 }

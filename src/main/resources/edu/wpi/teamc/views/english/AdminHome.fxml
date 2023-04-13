@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.SVGPath?>
@@ -9,36 +15,89 @@
 
 <AnchorPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.AdminHomeController">
    <children>
-      <AnchorPane layoutX="402.0" prefHeight="153.0" prefWidth="1208.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.5),5,0.75,0,0);" AnchorPane.leftAnchor="392.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="402.0" prefHeight="153.0" prefWidth="1208.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.5),5,0.75,0,0);" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Text fill="#003da6" layoutY="-13.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 40; -fx-font-weight: bold;" text="Admin Home Page" textAlignment="CENTER" wrappingWidth="371.51019287109375" AnchorPane.leftAnchor="420.0" AnchorPane.topAnchor="49.0" />
+            <Text fx:id="AdminHome_Title" fill="#003da6" layoutX="299.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 40; -fx-font-weight: bold;" text="Admin Home Page" textAlignment="CENTER" wrappingWidth="569.5101928710938" AnchorPane.leftAnchor="299.0" AnchorPane.topAnchor="48.7890625" />
+            <Group layoutX="1033.0" layoutY="53.0" AnchorPane.rightAnchor="39.50975036621094" AnchorPane.topAnchor="53.0">
+               <children>
+                  <ImageView fx:id="Spanish_flag" fitHeight="37.0" fitWidth="70.0" layoutX="82.0" onMouseClicked="#spanish" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/spanish_flag.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="English_flag" fitHeight="37.0" fitWidth="70.0" onMouseClicked="#english" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/english_flag.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Group>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="900.0" prefWidth="392.0" style="-fx-background-color: #E3DFDF; -fx-border-width: 0; -fx-border-color: transparent;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="900.0" prefWidth="392.0" style="-fx-background-color: #E3DFDF; -fx-border-width: 0; -fx-border-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <SVGPath content="M40,60 C42,48 44,30 25,32" layoutX="46.0" layoutY="24.0" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="24.0" />
-            <MFXButton fx:id="serviceRequest" layoutX="74.0" layoutY="96.0" onAction="#getService" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Service Request" textFill="WHITE" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="205.0">
+            <SVGPath content="M40,60 C42,48 44,30 25,32" layoutX="46.0" layoutY="24.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="23.0" />
+            <Text fill="#003da6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 25; -fx-font-weight: bold;" text="Brigham and Women's Hospital" wrappingWidth="222.21630859375" AnchorPane.leftAnchor="137.0" AnchorPane.topAnchor="33.0" />
+            <MenuButton fx:id="ServiceRequest" alignment="CENTER" layoutX="74.0" layoutY="96.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Service Request" textFill="WHITE" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="205.0">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#getRoomReservationPage" text="Room Reservation" />
+                  <MenuItem mnemonicParsing="false" onAction="#getMealDeliveryPage" text="Meal Request" />
+                  <MenuItem mnemonicParsing="false" onAction="#getGiftBasketRequestPage" text="Gift Basket Request" />
+                  <MenuItem mnemonicParsing="false" onAction="#getFlowerDeliveryPage" text="Flower Delivery" />
+                  <MenuItem mnemonicParsing="false" onAction="#getFurnitureDeliveryPage" text="Furniture Delivery" />
+                  <MenuItem mnemonicParsing="false" onAction="#getOfficeSuppliesPage" text="Supply Delivery" />
+               </items>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></MFXButton>
-            <MFXButton layoutX="67.0" layoutY="305.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Navigation" textFill="WHITE" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="309.0">
+               </cursor>
+            </MenuButton>
+            <MenuButton fx:id="NavigationButton" alignment="CENTER" layoutX="84.0" layoutY="106.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Navigation" textFill="WHITE" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="309.0">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#getSignagePage" text="Signage" />
+                  <MenuItem mnemonicParsing="false" onAction="#getEditMap" text="Edit Map" />
+                  <MenuItem mnemonicParsing="false" onAction="#getMapHistory" text="Map History" />
+                  <MenuItem mnemonicParsing="false" onAction="#getPathfindingPage" text="Pathfinding" />
+               </items>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></MFXButton>
-            <MFXButton layoutX="94.0" layoutY="116.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Settings" textFill="WHITE" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="413.0">
+               </cursor>
+            </MenuButton>
+            <MenuButton fx:id="Settings" alignment="CENTER" layoutX="94.0" layoutY="116.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Settings" textFill="WHITE" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="413.0">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="Action 2" />
+               </items>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></MFXButton>
-            <MFXButton layoutX="84.0" layoutY="106.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Help" textFill="WHITE" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="517.0">
+               </cursor>
+            </MenuButton>
+            <MenuButton fx:id="Help" alignment="CENTER" layoutX="104.0" layoutY="126.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Help" textFill="WHITE" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="517.0">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#getHelpage" text="Help Page 1" />
+                  <MenuItem mnemonicParsing="false" text="Help Page 2" />
+               </items>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
                <cursor>
                   <Cursor fx:constant="HAND" />
-               </cursor></MFXButton>
+               </cursor>
+            </MenuButton>
             <Line endX="398.0" endY="778.0" startX="-1.0" startY="778.0" stroke="#837272" strokeWidth="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="665.0" />
-            <MFXButton fx:id="logoutButton" layoutX="54.0" layoutY="704.0" onAction="#getLogout" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Log Out" textFill="#978787" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="723.0">
+            <MFXButton fx:id="logoutButton" layoutX="54.0" layoutY="704.0" onAction="#getLogOut" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Log Out" textFill="#978787" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="723.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></MFXButton>
-            <MFXButton fx:id="exitButton" layoutX="74.0" layoutY="801.0" onAction="#getExit" prefHeight="42.0" prefWidth="98.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Exit" textFill="#978787" AnchorPane.leftAnchor="147.0" AnchorPane.topAnchor="819.0">
+            <MFXButton fx:id="exitButton" layoutX="74.0" layoutY="801.0" onAction="#getExit" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Exit" textFill="#978787" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="805.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></MFXButton>

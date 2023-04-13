@@ -85,7 +85,6 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
 
   public FlowerDeliveryRequest addRow(FlowerDeliveryRequest orm) {
     DBConnection db = new DBConnection();
-    FlowerDeliveryRequest request = null;
     try {
       Statement stmtNode = db.getConnection().createStatement();
       // table names
@@ -94,7 +93,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
       String query =
           "INSERT INTO "
               + table
-              + " (req, roomName, \"flower\", additionalNotes, status, ETA) VALUES (?,?,?,?,?,?);";
+              + " (requester, roomName, flower, additionalNotes, status) VALUES (?,?,?,?,?);";
 
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -104,26 +103,17 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
       ps.setString(3, orm.getFlower());
       ps.setString(4, orm.getAdditionalNotes());
       ps.setString(5, orm.getStatus().toString());
-      ps.setString(6, orm.getEta());
 
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
       int requestID = rs.getInt("requestID");
-      request =
-          new FlowerDeliveryRequest(
-              requestID,
-              orm.getRequester(),
-              orm.getRoomName(),
-              orm.getFlower(),
-              orm.getAdditionalNotes());
-      request.setStatus(orm.getStatus());
-      request.setEta(orm.getEta());
+      orm.setRequestID(requestID);
     } catch (Exception e) {
       e.printStackTrace();
     }
     db.closeConnection();
-    return request;
+    return orm;
   }
 
   public FlowerDeliveryRequest deleteRow(FlowerDeliveryRequest orm) {

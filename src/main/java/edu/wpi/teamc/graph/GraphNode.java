@@ -1,5 +1,7 @@
 package edu.wpi.teamc.graph;
 
+import static java.lang.Math.abs;
+
 import edu.wpi.teamc.dao.map.Node;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,6 +10,7 @@ import lombok.Getter;
 @Getter
 public class GraphNode extends Node {
   private List<GraphEdge> graphEdges;
+  private double heuristic;
 
   /**
    * Constructor for Node
@@ -21,5 +24,10 @@ public class GraphNode extends Node {
   public GraphNode(int nodeID, int xCoord, int yCoord, String floor, String building) {
     super(nodeID, xCoord, yCoord, floor, building);
     this.graphEdges = new LinkedList<>();
+  }
+
+  public void setHeuristic(GraphNode targetNode) {
+    this.heuristic =
+        abs(getXCoord() - targetNode.getXCoord()) + abs(getYCoord() - targetNode.getYCoord());
   }
 }

@@ -10,6 +10,11 @@ import java.util.*;
 
 public class Graph {
   private Map<Integer, GraphNode> nodes = new HashMap<>();
+  private Set<GraphNode> settledNodes;
+  private Set<GraphNode> unSettledNodes;
+  private Map<GraphNode, GraphNode> predecessors;
+  private Map<GraphNode, Double> distance;
+  private PriorityQueue<GraphNode> priorityQueue;
 
   /** Empty Constructor for Graph */
   public Graph() {}
@@ -59,6 +64,93 @@ public class Graph {
     } else {
       nodes.put(node.getNodeID(), node);
     }
+  }
+
+  public void astar(GraphNode start, GraphNode end) {
+    settledNodes = new HashSet<>();
+    unSettledNodes = new HashSet<>();
+    distance = new HashMap<>();
+    predecessors = new HashMap<>();
+    priorityQueue =
+        new PriorityQueue<>(
+            Comparator.comparingDouble(
+                node ->
+                    distance.getOrDefault(node, Double.POSITIVE_INFINITY) + node.getHeuristic()));
+
+    for (GraphNode node : nodes.values()) {
+      if (!node.equals(end)) {
+        node.setHeuristic(end);
+      }
+    }
+    distance.put(start, 0.0);
+    unSettledNodes.add(start);
+    priorityQueue.add(start);
+
+    while (!priorityQueue.isEmpty()) {
+      GraphNode node = priorityQueue.poll();
+      unSettledNodes.remove(node);
+      settledNodes.add(node);
+      findMinimalDistances(node);
+    }
+  }
+
+  private void findMinimalDistances(GraphNode node) {
+    List<GraphNode> adjacentNodes = getNeighbors(node);
+
+    for (GraphNode target : adjacentNodes) {
+      double edgeDistance = getDistance(node, target);
+      double heuristicDistance = target.getHeuristic();
+      double totalDistance =
+          distance.getOrDefault(node, Double.POSITIVE_INFINITY) + edgeDistance + heuristicDistance;
+
+      if (totalDistance < distance.getOrDefault(target, Double.POSITIVE_INFINITY)) {
+        distance.put(target, totalDistance);
+        predecessors.put(target, node);
+
+        if (!unSettledNodes.contains(target)) {
+          unSettledNodes.add(target);
+          priorityQueue.add(target);
+        }
+      }
+    }
+  }
+
+  private List<GraphNode> getNeighbors(GraphNode node) {
+    List<GraphNode> neighbors = new ArrayList<>();
+
+    for (GraphEdge edge : node.getGraphEdges()) {
+      if (edge.getSrc().equals(node) && !isSettled(edge.getDest())) {
+        neighbors.add(edge.getDest());
+      }
+    }
+
+    return neighbors;
+  }
+
+  private double getDistance(GraphNode node, GraphNode target) {
+    for (GraphEdge edge : node.getGraphEdges()) {
+      if (edge.getSrc().equals(node) && edge.getDest().equals(target)) {
+        return edge.getWeight();
+      }
+    }
+
+    throw new RuntimeException("Error: Unable to find distance between nodes.");
+  }
+
+  private boolean isSettled(GraphNode node) {
+    return settledNodes.contains(node);
+  }
+
+  public List<GraphNode> getPath(GraphNode target) {
+    List<GraphNode> path = new ArrayList<>();
+
+    for (GraphNode node = target; node != null; node = predecessors.get(node)) {
+      path.add(node);
+    }
+
+    Collections.reverse(path);
+
+    return path;
   }
 
   /**

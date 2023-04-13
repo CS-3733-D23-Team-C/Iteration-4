@@ -203,26 +203,9 @@ public class PathFindingController {
     circ2.setVisible(true);
     mapNodes.getChildren().add(circ2);
 
-    graph.astar(src, dest);
-    List<GraphNode> path = graph.getPath(dest);
-    /*    List<GraphEdge> comeAcross = new LinkedList<>();
-    GraphEdge saveLast;
-    int i = 0;
-    int length = path.size();
-
-    while (i < length - 1) {
-      saveLast = path.get(i);
-
-      if (saveLast.getStartNode() == path.get(i + 1).getStartNode()) {
-        path.remove(i);
-        length--;
-      } else {
-        i++;
-      }
-    }*/
+    List<GraphNode> path = graph.getDirectionsAstar(src, dest);
 
     for (int i = 0; i < path.size() - 1; i++) {
-      System.out.println(path.get(i).getNodeID() + "->");
       Line temp =
           new Line(
               path.get(i).getXCoord(),

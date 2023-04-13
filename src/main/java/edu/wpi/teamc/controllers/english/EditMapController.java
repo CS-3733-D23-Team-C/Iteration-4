@@ -88,6 +88,7 @@ public class EditMapController {
   @FXML MFXButton FLB2;
   @FXML MFXButton floorButton;
   Group mapNodes = new Group();
+  Group mapText = new Group();
   private Desktop desktop = Desktop.getDesktop();
   private String filePath;
   @FXML private Label testText;
@@ -162,6 +163,7 @@ public class EditMapController {
     //    stackPane.getChildren().add(mapNodes);
     //    group.getChildren().add(stackPane);
     group.getChildren().add(mapNodes);
+    group.getChildren().add(mapText);
     Pane pane = new Pane();
     pane.setMinWidth(image.getWidth());
     pane.setMaxWidth(image.getWidth());
@@ -273,13 +275,16 @@ public class EditMapController {
     }
     group.getChildren().removeAll();
     group.getChildren().remove(mapNodes);
+    group.getChildren().remove(mapText);
     //    stackPane.getChildren().remove(mapNodes);
     ImageView imageView = new ImageView(image);
     imageView.relocate(0, 0);
     mapNodes = new Group();
+    mapText = new Group();
     group.getChildren().add(imageView);
     //    stackPane.getChildren().add(mapNodes);
     group.getChildren().add(mapNodes);
+    group.getChildren().add(mapText);
     Pane pane = new Pane();
     pane.setMinWidth(image.getWidth());
     pane.setMaxWidth(image.getWidth());
@@ -415,6 +420,7 @@ public class EditMapController {
     }
     //    stackPane.toFront();
     mapNodes.toFront();
+    mapText.toFront();
     //    mapNodes.getChildren().s
   }
 
@@ -431,15 +437,15 @@ public class EditMapController {
       //      nodeName.setShowDuration(Duration.hours(2));
       //      Tooltip.install(newCircle, nodeName);
     }
-    newCircle.setRadius(10);
+    newCircle.setRadius(6);
     newCircle.setCenterX(node.getXCoord());
     newCircle.setCenterY(node.getYCoord());
     //    text.setLocation(node.getXCoord() + 10, node.getYCoord() - 10);
 
     //    text.(node.getXCoord() + 10);
     //    text.snapPositionY(node.getYCoord() - 10);
-    text.setX(node.getXCoord() + 10);
-    text.setY(node.getYCoord() - 10);
+    text.setX(node.getXCoord() + 5);
+    text.setY(node.getYCoord() - 5);
     //    text.setStroke(Paint.valueOf("#FFFFFF"));
     //    text.setFill(Paint.valueOf("#CD8003"));
     //    text.setBackground(Color.getColor("#13DAF7"));
@@ -451,13 +457,14 @@ public class EditMapController {
     text.setVisible(true);
 
     mapNodes.getChildren().add(newCircle);
+    mapText.getChildren().add(text);
     //    mapNodes.getChildren().add(text);
     //    stackPane.getChildren().add(mapNodes);
     //    text.setBounds(10,10,10,10);
     //    stackPane.getChildren().add(text);
     //    stackPane.getChildren().add(text);
     //    group.getChildren().add(stackPane);
-    group.getChildren().add(mapNodes);
+    //    group.getChildren().add(mapNodes);
     //    group.getChildren().add(text);
   }
 

@@ -3,7 +3,6 @@ package edu.wpi.teamc.controllers.english;
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.graph.Graph;
-import edu.wpi.teamc.graph.GraphEdge;
 import edu.wpi.teamc.graph.GraphNode;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
@@ -345,6 +344,7 @@ public class PathFindingController {
   @FXML
   void getSubmit(ActionEvent event) {
     edges.getChildren().clear();
+    mapNodes.getChildren().clear();
     String startNode = startNodeId.getText();
     String endNode = endNodeId.getText();
 
@@ -371,16 +371,15 @@ public class PathFindingController {
     circ2.setVisible(true);
     mapNodes.getChildren().add(circ2);
 
-    List<GraphEdge> path = graph.getDirections_Astar(src, dest);
+    List<GraphNode> path = graph.getDirectionsAstar(src, dest);
 
-    for (GraphEdge edge : path) {
-      System.out.println(edge.getStartNode() + " -> " + edge.getEndNode());
+    for (int i = 0; i < path.size() - 1; i++) {
       Line temp =
           new Line(
-              edge.getSrc().getXCoord(),
-              edge.getSrc().getYCoord(),
-              edge.getDest().getXCoord(),
-              edge.getDest().getYCoord());
+              path.get(i).getXCoord(),
+              path.get(i).getYCoord(),
+              path.get(i + 1).getXCoord(),
+              path.get(i + 1).getYCoord());
       temp.setStrokeWidth(12);
       temp.setVisible(true);
       temp.setStroke(Paint.valueOf("FF0000"));

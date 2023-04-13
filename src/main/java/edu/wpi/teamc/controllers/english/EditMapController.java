@@ -34,7 +34,7 @@ import org.controlsfx.control.tableview2.FilteredTableView;
 public class EditMapController {
   public Group group;
   public Image image =
-      new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
+          new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
 
   /*
   Notes:
@@ -110,6 +110,14 @@ public class EditMapController {
   List<Move> moveNamesToRemove = new ArrayList<Move>();
   List<Node> listNodeToRemove = new ArrayList<Node>();
 
+  // ORM lists
+  List<Node> nodeList = new ArrayList<Node>();
+  List<Edge> edgeList = new ArrayList<Edge>();
+  List<LocationName> locationNameList = new ArrayList<LocationName>();
+  HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
+  HashMap<String, LocationName> longNametoLocationName = new HashMap<String, LocationName>();
+
+  List<Move> moveList = new ArrayList<Move>();
   List<Node> Floor1 = new ArrayList<Node>();
   List<Node> Floor2 = new ArrayList<Node>();
   List<Node> Floor3 = new ArrayList<Node>();
@@ -117,23 +125,17 @@ public class EditMapController {
   List<Node> FloorL1 = new ArrayList<Node>();
   List<Node> FloorL2 = new ArrayList<Node>();
 
-  List<String> Floor1Name = new ArrayList<String>();
-  List<String> Floor2Name = new ArrayList<String>();
-  List<String> Floor3Name = new ArrayList<String>();
-  List<String> FloorGName = new ArrayList<String>();
-  List<String> FloorL1Name = new ArrayList<String>();
-  List<String> FloorL2Name = new ArrayList<String>();
+  //  List<String> Floor1Name = new ArrayList<String>();
+  //  List<String> Floor2Name = new ArrayList<String>();
+  //  List<String> Floor3Name = new ArrayList<String>();
+  //  List<String> FloorGName = new ArrayList<String>();
+  //  List<String> FloorL1Name = new ArrayList<String>();
+  //  List<String> FloorL2Name = new ArrayList<String>();
 
   String sNameInput_temp;
   String lNameInput_temp;
   String oldName_temp;
   String nodeIDinput_temp;
-  List<Move> moveList = new ArrayList<Move>();
-  List<Node> nodeList = new ArrayList<Node>();
-  List<Edge> edgeList = new ArrayList<Edge>();
-  List<LocationName> locationNameList = new ArrayList<LocationName>();
-  HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
-  HashMap<String, LocationName> longNametoLocationName = new HashMap<String, LocationName>();
 
   /** Method run when controller is initialized */
   public void initialize() {
@@ -150,10 +152,38 @@ public class EditMapController {
     pane.setMaxHeight(image.getHeight());
     pane.relocate(0, 0);
     group.getChildren().add(pane);
+    loadDatabase();
     sortNodes();
+
+    //    Comparator<Node> comp = new NodeComparator();
+    //    Collections.sort(nodeList, comp);
+    // System.out.println(nodeList.size());
+    //    for (Node node : nodeList) {
+    //      System.out.println(node.getFloor());
+    //    }
+
+    //    for (Node node : nodeList) {
+    //      int groupNum = comp.compare(node, null);
+    //      switch (groupNum) {
+    //        case 1:
+    //          FloorL1.add(node);
+    //          break;
+    //        case 2:
+    //          FloorL2.add(node);
+    //          break;
+    //        case 3:
+    //          Floor1.add(node);
+    //          break;
+    //        case 4:
+    //          Floor2.add(node);
+    //          break;
+    //        case 5:
+    //          Floor3.add(node);
+    //          break;
+    //      }
+    //    }
     placeNodes("G");
   }
-
   // load database
   public void loadDatabase() {
     nodeList = new NodeDao().fetchAllObjects();
@@ -240,17 +270,6 @@ public class EditMapController {
     placeNodes(floor);
   }
 
-  public int compare(Node a, Node b) {
-
-    if (Integer.valueOf(a.getFloor()) > Integer.valueOf(b.getFloor())) {
-      return 1;
-    } else if (Integer.valueOf(a.getFloor()) < Integer.valueOf(b.getFloor())) {
-      return -1;
-    } else {
-      return 0;
-    }
-  }
-
   public void comparatorSortNode() {}
 
   public void sortNodes() {
@@ -260,31 +279,26 @@ public class EditMapController {
     FloorG.clear();
     FloorL1.clear();
     FloorL2.clear();
-    NodeDao nodeDao = new NodeDao();
-    nodeDao
-        .fetchAllObjects()
-        .forEach(
-            TBP_node -> {
-              if (Objects.equals(TBP_node.getFloor(), "1")) {
-                Floor1.add(TBP_node);
-                Floor1Name.add(nodeDao.getShortName(TBP_node.getNodeID()));
-              } else if (Objects.equals(TBP_node.getFloor(), "2")) {
-                Floor2.add(TBP_node);
-                Floor2Name.add(nodeDao.getShortName(TBP_node.getNodeID()));
-              } else if (Objects.equals(TBP_node.getFloor(), "3")) {
-                Floor3.add(TBP_node);
-                Floor3Name.add(nodeDao.getShortName(TBP_node.getNodeID()));
-              } else if (Objects.equals(TBP_node.getFloor(), "G")) {
-                FloorG.add(TBP_node);
-                FloorGName.add(nodeDao.getShortName(TBP_node.getNodeID()));
-              } else if (Objects.equals(TBP_node.getFloor(), "L1")) {
-                FloorL1.add(TBP_node);
-                FloorL1Name.add(nodeDao.getShortName(TBP_node.getNodeID()));
-              } else if (Objects.equals(TBP_node.getFloor(), "L2")) {
-                FloorL2.add(TBP_node);
-                FloorL2Name.add(nodeDao.getShortName(TBP_node.getNodeID()));
-              }
-            });
+    for (Node node : nodeList) {
+      if (node.getFloor().equals("1")) {
+        Floor1.add(node);
+      }
+      if (node.getFloor().equals("2")) {
+        Floor2.add(node);
+      }
+      if (node.getFloor().equals("3")) {
+        Floor3.add(node);
+      }
+      if (node.getFloor().equals("G")) {
+        FloorG.add(node);
+      }
+      if (node.getFloor().equals("L1")) {
+        FloorL1.add(node);
+      }
+      if (node.getFloor().equals("L2")) {
+        FloorL2.add(node);
+      }
+    }
   }
 
   public void placeNodes(String floor) {
@@ -416,8 +430,8 @@ public class EditMapController {
     submitModify.setPrefSize(100, 35);
     submitModify.setMinSize(100, 35);
     modifyBox
-        .getChildren()
-        .addAll(nodeID_M, nodeIDText, xCoord_t, xCoord_text, yCoord_t, yCoord_text, submitModify);
+            .getChildren()
+            .addAll(nodeID_M, nodeIDText, xCoord_t, xCoord_text, yCoord_t, yCoord_text, submitModify);
     modifyBox.setSpacing(20);
 
     // remove
@@ -443,15 +457,15 @@ public class EditMapController {
     submitNode.setPrefSize(100, 35);
     submitNode.setMinSize(100, 35);
     addBox
-        .getChildren()
-        .addAll(
-            XCoordText,
-            inputXCoord,
-            YCoordText,
-            inputYCoord,
-            BuildingText,
-            inputBuilding,
-            submitNode);
+            .getChildren()
+            .addAll(
+                    XCoordText,
+                    inputXCoord,
+                    YCoordText,
+                    inputYCoord,
+                    BuildingText,
+                    inputBuilding,
+                    submitNode);
     addBox.setSpacing(20);
     hBox.getChildren().addAll(addBox, modifyBox, removeBox);
     hBox.setSpacing(20);
@@ -481,120 +495,120 @@ public class EditMapController {
     stage.show();
     // Add
     submitNode.setOnMouseClicked(
-        buttonEvent -> {
-          xCoord_temp = inputXCoord.getText();
-          inputXCoord.clear();
-          yCoord_temp = inputYCoord.getText();
-          inputYCoord.clear();
-          //          iD = inputID.getText();
-          building = inputBuilding.getText(); // maybe set automatically later
-          inputBuilding.clear();
-          Node newNode =
-              new Node(Integer.valueOf(xCoord_temp), Integer.valueOf(yCoord_temp), floor, building);
-          //          NodeDao nodeDao = new NodeDao();
-          n_toAdd.add(newNode);
-          //          nodeDao.addRow(newNode); to iterate over in submit method
-          //          placeNodes(
-          //              floor); // later implement an update map button that updates all changes
-          // made at once
-          // so user can submit multiple at a time
-          System.out.println("printed the new node");
-        });
+            buttonEvent -> {
+              xCoord_temp = inputXCoord.getText();
+              inputXCoord.clear();
+              yCoord_temp = inputYCoord.getText();
+              inputYCoord.clear();
+              //          iD = inputID.getText();
+              building = inputBuilding.getText(); // maybe set automatically later
+              inputBuilding.clear();
+              Node newNode =
+                      new Node(Integer.valueOf(xCoord_temp), Integer.valueOf(yCoord_temp), floor, building);
+              //          NodeDao nodeDao = new NodeDao();
+              n_toAdd.add(newNode);
+              //          nodeDao.addRow(newNode); to iterate over in submit method
+              //          placeNodes(
+              //              floor); // later implement an update map button that updates all changes
+              // made at once
+              // so user can submit multiple at a time
+              System.out.println("printed the new node");
+            });
     // Modify
     submitModify.setOnMouseClicked(
-        buttonEvent -> {
-          nodeID_temp = nodeIDText.getText();
-          nodeIDText.clear();
-          xCoord_temp = xCoord_text.getText();
-          xCoord_text.clear();
-          yCoord_temp = yCoord_text.getText();
-          yCoord_text.clear();
-          //          iD = inputID.getText();
-          //              building = inputBuilding.getText(); // maybe set automatically later
-          Node newNode =
-              new Node(
-                  Integer.valueOf(nodeID_temp),
-                  Integer.valueOf(xCoord_temp),
-                  Integer.valueOf(yCoord_temp),
-                  floor,
-                  building);
-          //          NodeDao oldDao = new NodeDao();
-          //              Node oldNode = oldDao.getNode(nodeID_temp); ////*******Need to add this
-          // getter method
-          //          NodeDao nodeDao = new NodeDao();
-          n_toModify_newNode.add(newNode);
-          n_toModify_oldID.add(nodeID_temp);
-          //              nodeDao.updateRow(newNode, oldNode); //////////********
-          //              placeNodes(
-          //                      floor); // later implement an update map button that updates all
-          // changes made at once
-          // so
-          // user can submit multiple at a time
-          System.out.println("modified the node");
-        });
+            buttonEvent -> {
+              nodeID_temp = nodeIDText.getText();
+              nodeIDText.clear();
+              xCoord_temp = xCoord_text.getText();
+              xCoord_text.clear();
+              yCoord_temp = yCoord_text.getText();
+              yCoord_text.clear();
+              //          iD = inputID.getText();
+              //              building = inputBuilding.getText(); // maybe set automatically later
+              Node newNode =
+                      new Node(
+                              Integer.valueOf(nodeID_temp),
+                              Integer.valueOf(xCoord_temp),
+                              Integer.valueOf(yCoord_temp),
+                              floor,
+                              building);
+              //          NodeDao oldDao = new NodeDao();
+              //              Node oldNode = oldDao.getNode(nodeID_temp); ////*******Need to add this
+              // getter method
+              //          NodeDao nodeDao = new NodeDao();
+              n_toModify_newNode.add(newNode);
+              n_toModify_oldID.add(nodeID_temp);
+              //              nodeDao.updateRow(newNode, oldNode); //////////********
+              //              placeNodes(
+              //                      floor); // later implement an update map button that updates all
+              // changes made at once
+              // so
+              // user can submit multiple at a time
+              System.out.println("modified the node");
+            });
     // Remove
     submitRemove.setOnMouseClicked(
-        buttonEvent -> {
-          iD = nodeID_RText.getText();
-          nodeID_RText.clear();
-          n_toRemove.add(iD);
-          //              placeNodes(
-          //                      floor); // later implement an update map button that updates all
-          // changes made at once
-          // so
-          // user can submit multiple at a tim
+            buttonEvent -> {
+              iD = nodeID_RText.getText();
+              nodeID_RText.clear();
+              n_toRemove.add(iD);
+              //              placeNodes(
+              //                      floor); // later implement an update map button that updates all
+              // changes made at once
+              // so
+              // user can submit multiple at a tim
 
-          System.out.println("removed the node");
-        });
+              System.out.println("removed the node");
+            });
     // Submit
     submitNodeEdits.setOnMouseClicked(
-        buttonEvent -> {
-          NodeDao nodeDao = new NodeDao();
-          MoveDao moveDao = new MoveDao();
+            buttonEvent -> {
+              NodeDao nodeDao = new NodeDao();
+              MoveDao moveDao = new MoveDao();
 
-          MapHistoryDao mapHistory = new MapHistoryDao();
-          // Add loop
-          for (Node currNode : n_toAdd) {
-            nodeDao.addRow(currNode);
-            mapHistory.addRow(
-                new MapHistory(
-                    "ADD",
-                    String.valueOf(currNode.getNodeID()),
-                    "node",
-                    new Timestamp(System.currentTimeMillis())));
-          }
-          // Modify loop
-          for (int i = 0; i < n_toModify_oldID.size(); i++) {
-            //            NodeDao nodeDao = new NodeDao();
-            Node currNode = n_toModify_newNode.get(i);
-            String oldID = n_toModify_oldID.get(i);
-            int oldId_int = Integer.valueOf(oldID);
-            nodeDao.updateRow(Integer.valueOf(oldID), currNode);
-            mapHistory.addRow(
-                new MapHistory(
-                    "UPDATE",
-                    String.valueOf(currNode.getNodeID()),
-                    "node",
-                    new Timestamp(System.currentTimeMillis())));
-          }
-          // Remove loop
-          for (String currID : n_toRemove) {
-            moveDao.deleteRow(Integer.valueOf(currID));
-            nodeDao.deleteRow(Integer.valueOf(currID));
-            // mapHistory.addRow(new MapHistory("UPDATE", String.valueOf(currNode.getNodeID()),
-            // "node", new Timestamp(System.currentTimeMillis())));
-          }
-          // a new floor assignment relating to the currently viewed floor
-          group.getChildren().remove(mapNodes);
-          mapNodes = new Group();
-          group.getChildren().add(mapNodes);
-          loadDatabase();
-          sortNodes();
-          placeNodes(floor);
-          // Delete node
-          stage
-              .close(); // no need to close when switching floors bc any new one submitted with have
-        });
+              MapHistoryDao mapHistory = new MapHistoryDao();
+              // Add loop
+              for (Node currNode : n_toAdd) {
+                nodeDao.addRow(currNode);
+                mapHistory.addRow(
+                        new MapHistory(
+                                "ADD",
+                                String.valueOf(currNode.getNodeID()),
+                                "node",
+                                new Timestamp(System.currentTimeMillis())));
+              }
+              // Modify loop
+              for (int i = 0; i < n_toModify_oldID.size(); i++) {
+                //            NodeDao nodeDao = new NodeDao();
+                Node currNode = n_toModify_newNode.get(i);
+                String oldID = n_toModify_oldID.get(i);
+                int oldId_int = Integer.valueOf(oldID);
+                nodeDao.updateRow(Integer.valueOf(oldID), currNode);
+                mapHistory.addRow(
+                        new MapHistory(
+                                "UPDATE",
+                                String.valueOf(currNode.getNodeID()),
+                                "node",
+                                new Timestamp(System.currentTimeMillis())));
+              }
+              // Remove loop
+              for (String currID : n_toRemove) {
+                moveDao.deleteRow(Integer.valueOf(currID));
+                nodeDao.deleteRow(Integer.valueOf(currID));
+                // mapHistory.addRow(new MapHistory("UPDATE", String.valueOf(currNode.getNodeID()),
+                // "node", new Timestamp(System.currentTimeMillis())));
+              }
+              // a new floor assignment relating to the currently viewed floor
+              group.getChildren().remove(mapNodes);
+              mapNodes = new Group();
+              group.getChildren().add(mapNodes);
+              loadDatabase();
+              sortNodes();
+              placeNodes(floor);
+              // Delete node
+              stage
+                      .close(); // no need to close when switching floors bc any new one submitted with have
+            });
   }
 
   public void showNameMenu(ActionEvent event) {
@@ -616,17 +630,17 @@ public class EditMapController {
     submitModify.setPrefSize(100, 35);
     submitModify.setMinSize(100, 35);
     modifyBox
-        .getChildren()
-        .addAll(
-            oldName,
-            oldName_t,
-            nodeType,
-            nodeTypeText,
-            shortName,
-            shortName_t,
-            longName,
-            longName_t,
-            submitModify);
+            .getChildren()
+            .addAll(
+                    oldName,
+                    oldName_t,
+                    nodeType,
+                    nodeTypeText,
+                    shortName,
+                    shortName_t,
+                    longName,
+                    longName_t,
+                    submitModify);
     modifyBox.setSpacing(20);
 
     // remove
@@ -639,8 +653,8 @@ public class EditMapController {
     submitRemove.setPrefSize(100, 35);
     submitRemove.setMinSize(100, 35);
     removeBox
-        .getChildren()
-        .addAll(nodeID_R, nameToBeRemoved, nodeID_N, iDToBeRemoved, submitRemove);
+            .getChildren()
+            .addAll(nodeID_R, nameToBeRemoved, nodeID_N, iDToBeRemoved, submitRemove);
     removeBox.setSpacing(20);
 
     // add
@@ -665,17 +679,17 @@ public class EditMapController {
     //    inputXCoord.setPrefSize(30, 30);
     //    inputXCoord.setBorderGap(20);
     addBox
-        .getChildren()
-        .addAll(
-            nodeID,
-            nodeIDinput,
-            nodeType_t,
-            nodeTypeInput,
-            SName,
-            sNameInput,
-            LName,
-            lNameInput,
-            submitNode);
+            .getChildren()
+            .addAll(
+                    nodeID,
+                    nodeIDinput,
+                    nodeType_t,
+                    nodeTypeInput,
+                    SName,
+                    sNameInput,
+                    LName,
+                    lNameInput,
+                    submitNode);
     addBox.setSpacing(20);
 
     hBox.getChildren().addAll(addBox, modifyBox, removeBox);
@@ -709,209 +723,209 @@ public class EditMapController {
 
     // Add
     submitNode.setOnMouseClicked(
-        buttonEvent -> {
-          nodeType_temp = nodeTypeInput.getText();
-          sNameInput_temp = sNameInput.getText();
-          lNameInput_temp = lNameInput.getText();
-          nodeIDinput_temp = nodeIDinput.getText();
+            buttonEvent -> {
+              nodeType_temp = nodeTypeInput.getText();
+              sNameInput_temp = sNameInput.getText();
+              lNameInput_temp = lNameInput.getText();
+              nodeIDinput_temp = nodeIDinput.getText();
 
-          LocationName locationName =
-              new LocationName(lNameInput_temp, sNameInput_temp, nodeType_temp);
+              LocationName locationName =
+                      new LocationName(lNameInput_temp, sNameInput_temp, nodeType_temp);
 
-          long currentTime = System.currentTimeMillis();
-          Date currentDate = new Date(currentTime);
-          Move move = new Move(Integer.valueOf(nodeIDinput_temp), lNameInput_temp, currentDate);
+              long currentTime = System.currentTimeMillis();
+              Date currentDate = new Date(currentTime);
+              Move move = new Move(Integer.valueOf(nodeIDinput_temp), lNameInput_temp, currentDate);
 
-          moveNamesToAdd.add(move);
-          newNameToAdd.add(locationName);
-          nodeTypeInput.clear();
-          sNameInput.clear();
-          lNameInput.clear();
-          nodeIDinput.clear();
+              moveNamesToAdd.add(move);
+              newNameToAdd.add(locationName);
+              nodeTypeInput.clear();
+              sNameInput.clear();
+              lNameInput.clear();
+              nodeIDinput.clear();
 
-          System.out.println("printed the new node");
-        });
+              System.out.println("printed the new node");
+            });
 
     // Modify
     submitModify.setOnMouseClicked(
-        buttonEvent -> {
-          nodeType_temp = nodeTypeText.getText();
-          sNameInput_temp = shortName_t.getText();
-          lNameInput_temp = longName_t.getText();
-          oldName_temp = oldName_t.getText();
-          //          System.out.println(nodeType_temp + "   " + nodeType_temp.length());
-          if (!(nodeType_temp.length() == 4)) { // Fix later
-            nodeType_temp = "HALL";
-          }
-          LocationName locationName =
-              new LocationName(lNameInput_temp, sNameInput_temp, nodeType_temp);
+            buttonEvent -> {
+              nodeType_temp = nodeTypeText.getText();
+              sNameInput_temp = shortName_t.getText();
+              lNameInput_temp = longName_t.getText();
+              oldName_temp = oldName_t.getText();
+              //          System.out.println(nodeType_temp + "   " + nodeType_temp.length());
+              if (!(nodeType_temp.length() == 4)) { // Fix later
+                nodeType_temp = "HALL";
+              }
+              LocationName locationName =
+                      new LocationName(lNameInput_temp, sNameInput_temp, nodeType_temp);
 
-          newNameToModify.add(locationName);
-          oldNameToModify.add(oldName_temp);
-          nodeTypeText.clear();
-          shortName_t.clear();
-          longName_t.clear();
-          oldName_t.clear();
-          System.out.println("modified the name");
-        });
+              newNameToModify.add(locationName);
+              oldNameToModify.add(oldName_temp);
+              nodeTypeText.clear();
+              shortName_t.clear();
+              longName_t.clear();
+              oldName_t.clear();
+              System.out.println("modified the name");
+            });
     // remove
     submitRemove.setOnMouseClicked(
-        buttonEvent -> {
-          removeName = nameToBeRemoved.getText();
-          nameToRemove.add(removeName);
-          iD_r = iDToBeRemoved.getText();
-          idList_r.add(iD_r);
+            buttonEvent -> {
+              removeName = nameToBeRemoved.getText();
+              nameToRemove.add(removeName);
+              iD_r = iDToBeRemoved.getText();
+              idList_r.add(iD_r);
 
-          //          long currentTime = System.currentTimeMillis();
-          //          Date currentDate = new Date(currentTime);
-          //          Move move = new Move(Integer.valueOf(iD), removeName, currentDate);
-          //          moveDao1.deleteRow(move);
-          //          locationDao1.deleteRow(removeName);
-          //          LocationName nameToRemove = null;
-          //          moveNamesToRemove.add(move);
-          //          //find node to remove
-          //            switch (floor) {
-          //                case "1":
-          //                    for (LocationName name1 : Floor1Name) {
-          //                        if(name1.getLongName().equals(removeName)){
-          //                            nameToRemove = name1;
-          //                        }
-          //                    }
-          //                    //                    for (Node node : Floor1) {
-          ////                        if(node.getNodeID() == Integer.valueOf(iD)){
-          ////                            nodeToRemove = node;
-          ////                        }
-          ////                    }
-          //                    break;
-          //                case "2":
-          //                    for (Node node : Floor2) {
-          //                        if(node.getNodeID() == Integer.valueOf(iD)){
-          //                            nodeToRemove = node;
-          //                        }
-          //                    }
-          //                    break;
-          //                case "3":
-          //                    for (Node node : Floor3) {
-          //                        if(node.getNodeID() == Integer.valueOf(iD)){
-          //                            nodeToRemove = node;
-          //                        }
-          //                    }
-          //                    break;
-          //                case "G":
-          //                    for(Node node: FloorG){
-          //                        if(node.getNodeID() == Integer.valueOf(iD)){
-          //                            nodeToRemove = node;
-          //                        }
-          //                    }
-          //                    break;
-          //                    case "L1":
-          //                        for(Node node: FloorL1){
-          //                            if(node.getNodeID() == Integer.valueOf(iD)){
-          //                                nodeToRemove = node;
-          //                            }
-          //                        }
-          //                        break;
-          //                case "L2":
-          //                    for(Node node: FloorL2){
-          //                        if(node.getNodeID() == Integer.valueOf(iD)){
-          //                            nodeToRemove = node;
-          //                        }
-          //                    }
-          //                    break;
-          //
-          //                    //Find name to remove
-          //                //find node to remove
-          //                switch (floor) {
-          //                    case "1":
-          //                        for (LocationName name : Floor1Name) {
-          //                            if(name.getLongName().equals(nam)){
-          //                                nodeToRemove = node;
-          //                            }
-          //                        }
-          //                        break;
-          //                    case "2":
-          //                        for (Node node : Floor2Name) {
-          //                            if(node.getNodeID() == Integer.valueOf(iD)){
-          //                                nodeToRemove = node;
-          //                            }
-          //                        }
-          //                        break;
-          //                    case "3":
-          //                        for (Node node : Floor3Name) {
-          //                            if(node.getNodeID() == Integer.valueOf(iD)){
-          //                                nodeToRemove = node;
-          //                            }
-          //                        }
-          //                        break;
-          //                    case "G":
-          //                        for(Node node: FloorGName){
-          //                            if(node.getNodeID() == Integer.valueOf(iD)){
-          //                                nodeToRemove = node;
-          //                            }
-          //                        }
-          //                        break;
-          //                    case "L1":
-          //                        for(Node node: FloorL1Name){
-          //                            if(node.getNodeID() == Integer.valueOf(iD)){
-          //                                nodeToRemove = node;
-          //                            }
-          //                        }
-          //                        break;
-          //                    case "L2":
-          //                        for(Node node: FloorL2Name){
-          //                            if(node.getNodeID() == Integer.valueOf(iD)){
-          //                                nodeToRemove = node;
-          //                            }
-          //                        }
-          //                        break;
-          //            }
-          //            listNodeToRemove.add(nodeToRemove);
+              //          long currentTime = System.currentTimeMillis();
+              //          Date currentDate = new Date(currentTime);
+              //          Move move = new Move(Integer.valueOf(iD), removeName, currentDate);
+              //          moveDao1.deleteRow(move);
+              //          locationDao1.deleteRow(removeName);
+              //          LocationName nameToRemove = null;
+              //          moveNamesToRemove.add(move);
+              //          //find node to remove
+              //            switch (floor) {
+              //                case "1":
+              //                    for (LocationName name1 : Floor1Name) {
+              //                        if(name1.getLongName().equals(removeName)){
+              //                            nameToRemove = name1;
+              //                        }
+              //                    }
+              //                    //                    for (Node node : Floor1) {
+              ////                        if(node.getNodeID() == Integer.valueOf(iD)){
+              ////                            nodeToRemove = node;
+              ////                        }
+              ////                    }
+              //                    break;
+              //                case "2":
+              //                    for (Node node : Floor2) {
+              //                        if(node.getNodeID() == Integer.valueOf(iD)){
+              //                            nodeToRemove = node;
+              //                        }
+              //                    }
+              //                    break;
+              //                case "3":
+              //                    for (Node node : Floor3) {
+              //                        if(node.getNodeID() == Integer.valueOf(iD)){
+              //                            nodeToRemove = node;
+              //                        }
+              //                    }
+              //                    break;
+              //                case "G":
+              //                    for(Node node: FloorG){
+              //                        if(node.getNodeID() == Integer.valueOf(iD)){
+              //                            nodeToRemove = node;
+              //                        }
+              //                    }
+              //                    break;
+              //                    case "L1":
+              //                        for(Node node: FloorL1){
+              //                            if(node.getNodeID() == Integer.valueOf(iD)){
+              //                                nodeToRemove = node;
+              //                            }
+              //                        }
+              //                        break;
+              //                case "L2":
+              //                    for(Node node: FloorL2){
+              //                        if(node.getNodeID() == Integer.valueOf(iD)){
+              //                            nodeToRemove = node;
+              //                        }
+              //                    }
+              //                    break;
+              //
+              //                    //Find name to remove
+              //                //find node to remove
+              //                switch (floor) {
+              //                    case "1":
+              //                        for (LocationName name : Floor1Name) {
+              //                            if(name.getLongName().equals(nam)){
+              //                                nodeToRemove = node;
+              //                            }
+              //                        }
+              //                        break;
+              //                    case "2":
+              //                        for (Node node : Floor2Name) {
+              //                            if(node.getNodeID() == Integer.valueOf(iD)){
+              //                                nodeToRemove = node;
+              //                            }
+              //                        }
+              //                        break;
+              //                    case "3":
+              //                        for (Node node : Floor3Name) {
+              //                            if(node.getNodeID() == Integer.valueOf(iD)){
+              //                                nodeToRemove = node;
+              //                            }
+              //                        }
+              //                        break;
+              //                    case "G":
+              //                        for(Node node: FloorGName){
+              //                            if(node.getNodeID() == Integer.valueOf(iD)){
+              //                                nodeToRemove = node;
+              //                            }
+              //                        }
+              //                        break;
+              //                    case "L1":
+              //                        for(Node node: FloorL1Name){
+              //                            if(node.getNodeID() == Integer.valueOf(iD)){
+              //                                nodeToRemove = node;
+              //                            }
+              //                        }
+              //                        break;
+              //                    case "L2":
+              //                        for(Node node: FloorL2Name){
+              //                            if(node.getNodeID() == Integer.valueOf(iD)){
+              //                                nodeToRemove = node;
+              //                            }
+              //                        }
+              //                        break;
+              //            }
+              //            listNodeToRemove.add(nodeToRemove);
 
-          nameToBeRemoved.clear();
-          System.out.println("removed the node");
-        });
+              nameToBeRemoved.clear();
+              System.out.println("removed the node");
+            });
 
     submitNodeEdits.setOnMouseClicked(
-        buttonEvent -> {
-          LocationDao locationDao = new LocationDao();
-          MoveDao moveDao = new MoveDao();
+            buttonEvent -> {
+              LocationDao locationDao = new LocationDao();
+              MoveDao moveDao = new MoveDao();
 
-          // Add
-          for (int i = 0; i < newNameToAdd.size(); i++) {
-            LocationName currName = newNameToAdd.get(i);
-            Move currMove = moveNamesToAdd.get(i);
-            locationDao.addRow(currName);
-            moveDao.addRow(currMove);
-          }
-          // Modify
-          for (int i = 0; i < oldNameToModify.size(); i++) {
-            String currOldName = oldNameToModify.get(i);
-            LocationName currNewName = newNameToModify.get(i);
-            locationDao.updateRow(currOldName, currNewName);
+              // Add
+              for (int i = 0; i < newNameToAdd.size(); i++) {
+                LocationName currName = newNameToAdd.get(i);
+                Move currMove = moveNamesToAdd.get(i);
+                locationDao.addRow(currName);
+                moveDao.addRow(currMove);
+              }
+              // Modify
+              for (int i = 0; i < oldNameToModify.size(); i++) {
+                String currOldName = oldNameToModify.get(i);
+                LocationName currNewName = newNameToModify.get(i);
+                locationDao.updateRow(currOldName, currNewName);
 
-            ///// METHOD TO REPLACE NAME OF NODE AND INPUT TO TABLE
-          }
-          // Remove
-          for (int i = 0; i < nameToRemove.size(); i++) {
+                ///// METHOD TO REPLACE NAME OF NODE AND INPUT TO TABLE
+              }
+              // Remove
+              for (int i = 0; i < nameToRemove.size(); i++) {
 
-            long currentTime = System.currentTimeMillis();
-            Date currentDate = new Date(currentTime);
-            String currName = nameToRemove.get(i);
-            String iD = idList_r.get(i);
-            Move move = new Move(Integer.valueOf(iD), currName, currentDate);
-            moveDao.deleteRow(move);
-            locationDao.deleteRow(currName);
-            //// METHOD TO FIND NODE IN DAO AND REMOVE IT BASED ON ID
-            //                nodeDao.deleteRow(currID); ////NEED TO MAKE WORK WITH NODE ID ONLY AS
-            // SUPPLIED
-          }
-          group.getChildren().remove(mapNodes);
-          mapNodes = new Group();
-          group.getChildren().add(mapNodes);
-          sortNodes();
-          placeNodes(floor);
-          stage.close();
-        });
+                long currentTime = System.currentTimeMillis();
+                Date currentDate = new Date(currentTime);
+                String currName = nameToRemove.get(i);
+                String iD = idList_r.get(i);
+                Move move = new Move(Integer.valueOf(iD), currName, currentDate);
+                moveDao.deleteRow(move);
+                locationDao.deleteRow(currName);
+                //// METHOD TO FIND NODE IN DAO AND REMOVE IT BASED ON ID
+                //                nodeDao.deleteRow(currID); ////NEED TO MAKE WORK WITH NODE ID ONLY AS
+                // SUPPLIED
+              }
+              group.getChildren().remove(mapNodes);
+              mapNodes = new Group();
+              group.getChildren().add(mapNodes);
+              sortNodes();
+              placeNodes(floor);
+              stage.close();
+            });
   }
 
   public void getGoHome(ActionEvent event) {

@@ -5,10 +5,12 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.tableview2.FilteredTableView?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.MapHistoryController">
     <children>
@@ -90,6 +92,15 @@
                         </MFXButton>
                     </children>
                 </AnchorPane>
+            <FilteredTableView fx:id="historyTable" layoutX="408.0" layoutY="152.0" prefHeight="748.0" prefWidth="1191.0">
+                <columns>
+                    <TableColumn fx:id="ColumnOne" prefWidth="75.0" text="" />
+                    <TableColumn fx:id="ColumnTwo" prefWidth="75.0" text="" />
+                    <TableColumn fx:id="ColumnThree" prefWidth="75.0" text="" />
+                    <TableColumn fx:id="ColumnFour" prefWidth="75.0" text="" />
+                    <TableColumn fx:id="ColumnFive" prefWidth="75.0" text="" />
+                </columns>
+            </FilteredTableView>
             </children>
         </AnchorPane>
     </children>

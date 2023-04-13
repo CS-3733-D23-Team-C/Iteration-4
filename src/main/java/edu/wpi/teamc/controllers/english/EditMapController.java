@@ -7,6 +7,7 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -146,6 +147,53 @@ public class EditMapController {
     sortNodes();
     placeNodes("G");
   }
+  
+  // load database
+  public void loadDatabase() {
+    nodeList = new NodeDao().fetchAllObjects();
+    edgeList = new EdgeDao().fetchAllObjects();
+    locationNameList = new LocationDao().fetchAllObjects();
+    moveList = new MoveDao().fetchAllObjects();
+
+    for (Move move : moveList) {
+      try {
+        move.getLongName();
+      } catch (NullPointerException e) {
+        move.setLongName("ERROR");
+      }
+      nodeIDtoMove.put(move.getNodeID(), move);
+    }
+    for (LocationName locationName : locationNameList) {
+      longNametoLocationName.put(locationName.getLongName(), locationName);
+    }
+    longNametoLocationName.put("ERROR", new LocationName("ERROR", "ERROR", "ERROR"));
+  }
+  // comparators
+  class NodeComparator implements Comparator<Node> {
+    public int compare(Node node1, Node node2) {
+      int group1 = getGroupNumber(node1.getFloor());
+      int group2 = getGroupNumber(node2.getFloor());
+      return Integer.compare(group1, group2);
+    }
+  }
+
+  private int getGroupNumber(String floor) {
+    int group = 0;
+    if (floor.startsWith("L")) {
+      group = Integer.parseInt(floor.substring(1)) + 2;
+    } else {
+      group = Integer.parseInt(floor);
+    }
+    return group;
+  }
+
+  private int getFloorNumber(String floor) {
+    if (floor.startsWith("L")) {
+      return Integer.parseInt(floor.substring(1)) + 2;
+    } else {
+      return Integer.parseInt(floor);
+    }
+  }
 
   public void changeFloor(ActionEvent event) {
     floorButton = (MFXButton) event.getTarget();
@@ -237,32 +285,92 @@ public class EditMapController {
     switch (floor) {
       case "1":
         for (int i = 0; i < Floor1.size(); i++) {
-          createMapNodes(Floor1.get(i), Floor1Name.get(i));
+          int nodeID = Floor1.get(i).getNodeID();
+          String longName;
+          try {
+            longName = nodeIDtoMove.get(nodeID).getLongName();
+          } catch (NullPointerException e) {
+            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new Date(100)));
+          }
+          longName = nodeIDtoMove.get(nodeID).getLongName();
+          String shortName = longNametoLocationName.get(longName).getShortName();
+          String nodeType = longNametoLocationName.get(longName).getNodeType();
+          createMapNodes(Floor1.get(i), shortName, nodeType);
         }
         break;
       case "2":
         for (int i = 0; i < Floor2.size(); i++) {
-          createMapNodes(Floor2.get(i), Floor2Name.get(i));
+          int nodeID = Floor2.get(i).getNodeID();
+          String longName;
+          try {
+            longName = nodeIDtoMove.get(nodeID).getLongName();
+          } catch (NullPointerException e) {
+            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new Date(100)));
+          }
+          longName = nodeIDtoMove.get(nodeID).getLongName();
+          String shortName = longNametoLocationName.get(longName).getShortName();
+          String nodeType = longNametoLocationName.get(longName).getNodeType();
+          createMapNodes(Floor2.get(i), shortName, nodeType);
         }
         break;
       case "3":
         for (int i = 0; i < Floor3.size(); i++) {
-          createMapNodes(Floor3.get(i), Floor3Name.get(i));
+          int nodeID = Floor3.get(i).getNodeID();
+          String longName;
+          try {
+            longName = nodeIDtoMove.get(nodeID).getLongName();
+          } catch (NullPointerException e) {
+            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new Date(100)));
+          }
+          longName = nodeIDtoMove.get(nodeID).getLongName();
+          String shortName = longNametoLocationName.get(longName).getShortName();
+          String nodeType = longNametoLocationName.get(longName).getNodeType();
+          createMapNodes(Floor3.get(i), shortName, nodeType);
         }
         break;
       case "G":
         for (int i = 0; i < FloorG.size(); i++) {
-          createMapNodes(FloorG.get(i), FloorGName.get(i));
+          int nodeID = FloorG.get(i).getNodeID();
+          String longName;
+          try {
+            longName = nodeIDtoMove.get(nodeID).getLongName();
+          } catch (NullPointerException e) {
+            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new Date(100)));
+          }
+          longName = nodeIDtoMove.get(nodeID).getLongName();
+          String shortName = longNametoLocationName.get(longName).getShortName();
+          String nodeType = longNametoLocationName.get(longName).getNodeType();
+          createMapNodes(FloorG.get(i), shortName, nodeType);
         }
         break;
       case "L1":
         for (int i = 0; i < FloorL1.size(); i++) {
-          createMapNodes(FloorL1.get(i), FloorL1Name.get(i));
+          int nodeID = FloorL1.get(i).getNodeID();
+          String longName;
+          try {
+            longName = nodeIDtoMove.get(nodeID).getLongName();
+          } catch (NullPointerException e) {
+            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new Date(100)));
+          }
+          longName = nodeIDtoMove.get(nodeID).getLongName();
+          String shortName = longNametoLocationName.get(longName).getShortName();
+          String nodeType = longNametoLocationName.get(longName).getNodeType();
+          createMapNodes(FloorL1.get(i), shortName, nodeType);
         }
         break;
       case "L2":
         for (int i = 0; i < FloorL2.size(); i++) {
-          createMapNodes(FloorL2.get(i), FloorL2Name.get(i));
+          int nodeID = FloorL2.get(i).getNodeID();
+          String longName;
+          try {
+            longName = nodeIDtoMove.get(nodeID).getLongName();
+          } catch (NullPointerException e) {
+            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new Date(100)));
+          }
+          longName = nodeIDtoMove.get(nodeID).getLongName();
+          String shortName = longNametoLocationName.get(longName).getShortName();
+          String nodeType = longNametoLocationName.get(longName).getNodeType();
+          createMapNodes(FloorL2.get(i), shortName, nodeType);
         }
     }
     mapNodes.toFront();
@@ -270,7 +378,7 @@ public class EditMapController {
 
   public void createMapNodes(Node node, String shortname) {
     Circle newCircle = new Circle();
-    if (!shortname.equals("")) {
+    if (!nodeType.equals("HALL") && !nodeType.equals("ERROR")) {
       Tooltip nodeName = new Tooltip(shortname);
       nodeName.setShowDelay(Duration.ZERO);
       nodeName.setShowDuration(Duration.hours(2));
@@ -438,9 +546,16 @@ public class EditMapController {
           NodeDao nodeDao = new NodeDao();
           MoveDao moveDao = new MoveDao();
 
+          MapHistoryDao mapHistory = new MapHistoryDao();
           // Add loop
           for (Node currNode : n_toAdd) {
             nodeDao.addRow(currNode);
+            mapHistory.addRow(
+                new MapHistory(
+                    "ADD",
+                    String.valueOf(currNode.getNodeID()),
+                    "node",
+                    new Timestamp(System.currentTimeMillis())));
           }
           // Modify loop
           for (int i = 0; i < n_toModify_oldID.size(); i++) {
@@ -449,18 +564,25 @@ public class EditMapController {
             String oldID = n_toModify_oldID.get(i);
             int oldId_int = Integer.valueOf(oldID);
             nodeDao.updateRow(Integer.valueOf(oldID), currNode);
-            //                nodeDao.getNodeFromID() ////////NEED TO CREATE THIS METHOD
-            ///// REPLACE NODE METHOD
+            mapHistory.addRow(
+                new MapHistory(
+                    "UPDATE",
+                    String.valueOf(currNode.getNodeID()),
+                    "node",
+                    new Timestamp(System.currentTimeMillis())));
           }
           // Remove loop
           for (String currID : n_toRemove) {
             moveDao.deleteRow(Integer.valueOf(currID));
             nodeDao.deleteRow(Integer.valueOf(currID));
+            // mapHistory.addRow(new MapHistory("UPDATE", String.valueOf(currNode.getNodeID()),
+            // "node", new Timestamp(System.currentTimeMillis())));
           }
           // a new floor assignment relating to the currently viewed floor
           group.getChildren().remove(mapNodes);
           mapNodes = new Group();
           group.getChildren().add(mapNodes);
+          loadDatabase();
           sortNodes();
           placeNodes(floor);
           // Delete node
@@ -600,6 +722,7 @@ public class EditMapController {
           sNameInput.clear();
           lNameInput.clear();
           nodeIDinput.clear();
+
           System.out.println("printed the new node");
         });
 

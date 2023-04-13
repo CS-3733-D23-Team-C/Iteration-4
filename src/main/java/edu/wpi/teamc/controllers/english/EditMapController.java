@@ -6,6 +6,9 @@ import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.*;
@@ -25,6 +28,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.swing.*;
@@ -926,6 +930,142 @@ public class EditMapController {
               placeNodes(floor);
               stage.close();
             });
+  }
+
+  @FXML
+  void getImportNodes(ActionEvent event) {
+    FileChooser fileChooser = new FileChooser();
+    FileChooser.ExtensionFilter extFilter =
+            new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+    fileChooser.getExtensionFilters().add(extFilter);
+    File file = fileChooser.showOpenDialog(new Stage());
+    if (file != null) {
+      try {
+        desktop.open(file);
+        filePath = file.getAbsolutePath();
+        InodeDao.importCSV(filePath);
+      } catch (Exception ex) {
+        ex.printStackTrace();
+      }
+    }
+  }
+
+  @FXML
+  void getImportEdges(ActionEvent event) {
+    FileChooser fileChooser = new FileChooser();
+    FileChooser.ExtensionFilter extFilter =
+            new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+    fileChooser.getExtensionFilters().add(extFilter);
+    File file = fileChooser.showOpenDialog(new Stage());
+    if (file != null) {
+      try {
+        desktop.open(file);
+        filePath = file.getAbsolutePath();
+        IedgeDao.importCSV(filePath);
+      } catch (Exception ex) {
+        ex.printStackTrace();
+      }
+    }
+  }
+
+  @FXML
+  void getImportLocationNames(ActionEvent event) {
+    FileChooser fileChooser = new FileChooser();
+    FileChooser.ExtensionFilter extFilter =
+            new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+    fileChooser.getExtensionFilters().add(extFilter);
+    File file = fileChooser.showOpenDialog(new Stage());
+    if (file != null) {
+      try {
+        desktop.open(file);
+        filePath = file.getAbsolutePath();
+        IlocationDao.importCSV(filePath);
+      } catch (Exception ex) {
+        ex.printStackTrace();
+      }
+    }
+  }
+
+  @FXML
+  void getImportMove(ActionEvent event) {
+    FileChooser fileChooser = new FileChooser();
+    FileChooser.ExtensionFilter extFilter =
+            new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+    fileChooser.getExtensionFilters().add(extFilter);
+    File file = fileChooser.showOpenDialog(new Stage());
+    if (file != null) {
+      try {
+        desktop.open(file);
+        filePath = file.getAbsolutePath();
+        ImoveDao.importCSV(filePath);
+      } catch (Exception ex) {
+        ex.printStackTrace();
+      }
+    }
+  }
+
+  @FXML
+  void getExportNodes(ActionEvent event) throws IOException {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Save");
+    fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.*"));
+    File file = fileChooser.showSaveDialog(new Stage());
+    if (file != null) {
+      String filePath = file.getAbsolutePath();
+      if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
+        filePath += ".csv"; // append ".csv" to the file path
+      }
+      InodeDao.exportCSV(filePath);
+      testText.setText(filePath);
+    }
+  }
+
+  @FXML
+  void getExportEdges(ActionEvent event) throws IOException {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Save");
+    fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.*"));
+    File file = fileChooser.showSaveDialog(new Stage());
+    if (file != null) {
+      String filePath = file.getAbsolutePath();
+      if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
+        filePath += ".csv"; // append ".csv" to the file path
+      }
+      IedgeDao.exportCSV(filePath);
+      testText.setText(filePath);
+    }
+  }
+
+  @FXML
+  void getExportLocationNames(ActionEvent event) throws IOException {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Save");
+    fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.*"));
+    File file = fileChooser.showSaveDialog(new Stage());
+    if (file != null) {
+      String filePath = file.getAbsolutePath();
+      if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
+        filePath += ".csv"; // append ".csv" to the file path
+      }
+      IlocationDao.exportCSV(filePath);
+      testText.setText(filePath);
+    }
+  }
+
+  @FXML
+  void getExportMove(ActionEvent event) throws IOException {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Save");
+    fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.*"));
+    File file = fileChooser.showSaveDialog(new Stage());
+    if (file != null) {
+      String filePath = file.getAbsolutePath();
+      if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
+        filePath += ".csv"; // append ".csv" to the file path
+      }
+      ImoveDao.exportCSV(filePath);
+      testText.setText(filePath);
+    }
   }
 
   public void getGoHome(ActionEvent event) {

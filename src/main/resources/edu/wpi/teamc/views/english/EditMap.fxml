@@ -13,7 +13,6 @@
 <?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.EditMapController">
     <children>
         <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="900.0" prefWidth="1600.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -31,7 +30,7 @@
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#getRoomReservationPage" text="Room Reservation" />
                                 <MenuItem mnemonicParsing="false" onAction="#getMealDeliveryPage" text="Meal Request" />
-                        <MenuItem mnemonicParsing="false" onAction="#getGiftBasketRequestPage" text="Gift Basket Request" />
+                                <MenuItem mnemonicParsing="false" onAction="#getGiftBasketRequestPage" text="Gift Basket Request" />
                                 <MenuItem mnemonicParsing="false" onAction="#getFlowerDeliveryPage" text="Flower Delivery" />
                                 <MenuItem mnemonicParsing="false" onAction="#getFurnitureDeliveryPage" text="Furniture Delivery" />
                                 <MenuItem mnemonicParsing="false" onAction="#getOfficeSuppliesPage" text="Supply Delivery" />
@@ -94,53 +93,69 @@
                         </MFXButton>
                     </children>
                 </AnchorPane>
-            <AnchorPane layoutX="410.0" layoutY="163.0" prefHeight="730.0" prefWidth="1182.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="410.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="163.0">
-                <children>
-                    <GesturePane fx:id="mapGPane" fitHeight="false" fitMode="COVER" fitWidth="false" layoutX="16.0" layoutY="44.0" minScale="0.1" prefHeight="698.0" prefWidth="1155.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0">
-                        <Group fx:id="group" />
-                    </GesturePane>
-                    <VBox prefHeight="188.0" prefWidth="33.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="50.0">
-                        <children>
-                            <AnchorPane prefHeight="30.0" prefWidth="20.0">
-                                <children>
-                                    <MFXButton fx:id="FL3" layoutX="24.0" onAction="#changeFloor" text="3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                </children>
-                            </AnchorPane>
-                            <AnchorPane prefHeight="30.0" prefWidth="20.0">
-                                <children>
-                                    <MFXButton fx:id="FL2" onAction="#changeFloor" text="2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                </children>
-                            </AnchorPane>
-                            <AnchorPane prefHeight="30.0" prefWidth="20.0">
-                                <children>
-                                    <MFXButton fx:id="FL1" onAction="#changeFloor" text="1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                </children>
-                            </AnchorPane>
-                            <AnchorPane prefHeight="30.0" prefWidth="20.0">
-                                <children>
-                                    <MFXButton fx:id="FLG" onAction="#changeFloor" text="G" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                </children>
-                            </AnchorPane>
-                            <AnchorPane prefHeight="30.0" prefWidth="20.0">
-                                <children>
-                                    <MFXButton fx:id="FLB1" onAction="#changeFloor" text="B1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                </children>
-                            </AnchorPane>
-                            <AnchorPane prefHeight="30.0" prefWidth="20.0">
-                                <children>
-                                    <MFXButton fx:id="FLB2" onAction="#changeFloor" text="B2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                </children>
-                            </AnchorPane>
-                        </children>
-                    </VBox>
-                    <VBox layoutX="408.0" layoutY="238.0" prefHeight="50.0" prefWidth="56.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="238.0">
-                        <children>
-                            <MFXButton fx:id="showNodeMenu" onAction="#showNodeMenu" prefHeight="25.0" prefWidth="56.0" text="Node" />
-                            <MFXButton onAction="#showNameMenu" prefHeight="25.0" prefWidth="56.0" text="Name" />
-                        </children>
-                    </VBox>
-                </children>
-            </AnchorPane>
+                <AnchorPane layoutX="410.0" layoutY="163.0" prefHeight="730.0" prefWidth="1182.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="410.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="163.0">
+                    <children>
+                        <GesturePane fx:id="mapGPane" fitHeight="false" fitMode="COVER" fitWidth="false" layoutX="16.0" layoutY="44.0" minScale="0.1" prefHeight="698.0" prefWidth="1155.0" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="16.0">
+                            <Group fx:id="group" />
+                        </GesturePane>
+                        <VBox prefHeight="188.0" prefWidth="33.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="50.0">
+                            <children>
+                                <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                                    <children>
+                                        <MFXButton fx:id="FL3" layoutX="24.0" onAction="#changeFloor" text="3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                                    <children>
+                                        <MFXButton fx:id="FL2" onAction="#changeFloor" text="2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                                    <children>
+                                        <MFXButton fx:id="FL1" onAction="#changeFloor" text="1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                                    <children>
+                                        <MFXButton fx:id="FLG" onAction="#changeFloor" text="G" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                                    <children>
+                                        <MFXButton fx:id="FLB1" onAction="#changeFloor" text="B1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                                    <children>
+                                        <MFXButton fx:id="FLB2" onAction="#changeFloor" text="B2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </VBox>
+                        <VBox layoutX="408.0" layoutY="238.0" prefHeight="50.0" prefWidth="56.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="238.0">
+                            <children>
+                                <MFXButton fx:id="showNodeMenu" onAction="#showNodeMenu" prefHeight="25.0" prefWidth="56.0" text="Node" />
+                                <MFXButton onAction="#showNameMenu" prefHeight="25.0" prefWidth="56.0" text="Name" />
+                            </children>
+                        </VBox>
+                        <MenuButton alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="642.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="134.0" style="-fx-background-color: #978787; -fx-font-weight: bold; -fx-font-size: 16;" text="Import" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="30.0">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#getImportNodes" text="Import Nodes" />
+                                <MenuItem mnemonicParsing="false" onAction="#getImportEdges" text="Import Edges" />
+                                <MenuItem mnemonicParsing="false" onAction="#getImportLocationNames" text="Import Location Names" />
+                                <MenuItem mnemonicParsing="false" onAction="#getImportMove" text="Import Move" />
+                            </items>
+                        </MenuButton>
+                        <MenuButton alignment="CENTER" contentDisplay="CENTER" layoutX="996.0" layoutY="642.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="134.0" style="-fx-background-color: #978787; -fx-font-weight: bold; -fx-font-size: 16;" text="Export" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#getExportNodes" text="Export Nodes" />
+                                <MenuItem mnemonicParsing="false" onAction="#getExportEdges" text="Export Edges" />
+                                <MenuItem mnemonicParsing="false" onAction="#getExportLocationNames" text="Export Location Names" />
+                                <MenuItem mnemonicParsing="false" onAction="#getExportMove" text="Export Move" />
+                            </items>
+                        </MenuButton>
+                    </children>
+                </AnchorPane>
             </children>
         </AnchorPane>
     </children>

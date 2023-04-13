@@ -191,11 +191,17 @@ public class EditMapController {
     moveList = new MoveDao().fetchAllObjects();
 
     for (Move move : moveList) {
+      try {
+        move.getLongName();
+      } catch (NullPointerException e) {
+        move.setLongName("ERROR");
+      }
       nodeIDtoMove.put(move.getNodeID(), move);
     }
     for (LocationName locationName : locationNameList) {
       longNametoLocationName.put(locationName.getLongName(), locationName);
     }
+    longNametoLocationName.put("ERROR", new LocationName("ERROR", "ERROR", "ERROR"));
   }
   // comparators
   class NodeComparator implements Comparator<Node> {
@@ -299,7 +305,13 @@ public class EditMapController {
       case "1":
         for (int i = 0; i < Floor1.size(); i++) {
           int nodeID = Floor1.get(i).getNodeID();
-          String longName = nodeIDtoMove.get(nodeID).getLongName();
+          String longName;
+          try {
+            longName = nodeIDtoMove.get(nodeID).getLongName();
+          } catch (NullPointerException e) {
+            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new Date(100)));
+          }
+          longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
           createMapNodes(Floor1.get(i), shortName, nodeType);
@@ -308,7 +320,13 @@ public class EditMapController {
       case "2":
         for (int i = 0; i < Floor2.size(); i++) {
           int nodeID = Floor2.get(i).getNodeID();
-          String longName = nodeIDtoMove.get(nodeID).getLongName();
+          String longName;
+          try {
+            longName = nodeIDtoMove.get(nodeID).getLongName();
+          } catch (NullPointerException e) {
+            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new Date(100)));
+          }
+          longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
           createMapNodes(Floor2.get(i), shortName, nodeType);
@@ -317,7 +335,13 @@ public class EditMapController {
       case "3":
         for (int i = 0; i < Floor3.size(); i++) {
           int nodeID = Floor3.get(i).getNodeID();
-          String longName = nodeIDtoMove.get(nodeID).getLongName();
+          String longName;
+          try {
+            longName = nodeIDtoMove.get(nodeID).getLongName();
+          } catch (NullPointerException e) {
+            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new Date(100)));
+          }
+          longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
           createMapNodes(Floor3.get(i), shortName, nodeType);
@@ -326,7 +350,13 @@ public class EditMapController {
       case "G":
         for (int i = 0; i < FloorG.size(); i++) {
           int nodeID = FloorG.get(i).getNodeID();
-          String longName = nodeIDtoMove.get(nodeID).getLongName();
+          String longName;
+          try {
+            longName = nodeIDtoMove.get(nodeID).getLongName();
+          } catch (NullPointerException e) {
+            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new Date(100)));
+          }
+          longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
           createMapNodes(FloorG.get(i), shortName, nodeType);
@@ -335,7 +365,13 @@ public class EditMapController {
       case "L1":
         for (int i = 0; i < FloorL1.size(); i++) {
           int nodeID = FloorL1.get(i).getNodeID();
-          String longName = nodeIDtoMove.get(nodeID).getLongName();
+          String longName;
+          try {
+            longName = nodeIDtoMove.get(nodeID).getLongName();
+          } catch (NullPointerException e) {
+            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new Date(100)));
+          }
+          longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
           createMapNodes(FloorL1.get(i), shortName, nodeType);
@@ -344,7 +380,13 @@ public class EditMapController {
       case "L2":
         for (int i = 0; i < FloorL2.size(); i++) {
           int nodeID = FloorL2.get(i).getNodeID();
-          String longName = nodeIDtoMove.get(nodeID).getLongName();
+          String longName;
+          try {
+            longName = nodeIDtoMove.get(nodeID).getLongName();
+          } catch (NullPointerException e) {
+            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new Date(100)));
+          }
+          longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
           createMapNodes(FloorL2.get(i), shortName, nodeType);
@@ -355,7 +397,7 @@ public class EditMapController {
 
   public void createMapNodes(Node node, String shortname, String nodeType) {
     Circle newCircle = new Circle();
-    if (!nodeType.equals("HALL")) {
+    if (!nodeType.equals("HALL") && !nodeType.equals("ERROR")) {
       Tooltip nodeName = new Tooltip(shortname);
       nodeName.setShowDelay(Duration.ZERO);
       nodeName.setShowDuration(Duration.hours(2));
@@ -546,6 +588,7 @@ public class EditMapController {
           group.getChildren().remove(mapNodes);
           mapNodes = new Group();
           group.getChildren().add(mapNodes);
+          loadDatabase();
           sortNodes();
           placeNodes(floor);
           // Delete node
@@ -685,6 +728,7 @@ public class EditMapController {
           sNameInput.clear();
           lNameInput.clear();
           nodeIDinput.clear();
+
           System.out.println("printed the new node");
         });
 

@@ -7,6 +7,7 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -565,9 +566,16 @@ public class EditMapController {
           NodeDao nodeDao = new NodeDao();
           MoveDao moveDao = new MoveDao();
 
+          MapHistoryDao mapHistory = new MapHistoryDao();
           // Add loop
           for (Node currNode : n_toAdd) {
             nodeDao.addRow(currNode);
+            mapHistory.addRow(
+                new MapHistory(
+                    "ADD",
+                    String.valueOf(currNode.getNodeID()),
+                    "node",
+                    new Timestamp(System.currentTimeMillis())));
           }
           // Modify loop
           for (int i = 0; i < n_toModify_oldID.size(); i++) {
@@ -576,13 +584,19 @@ public class EditMapController {
             String oldID = n_toModify_oldID.get(i);
             int oldId_int = Integer.valueOf(oldID);
             nodeDao.updateRow(Integer.valueOf(oldID), currNode);
-            //                nodeDao.getNodeFromID() ////////NEED TO CREATE THIS METHOD
-            ///// REPLACE NODE METHOD
+            mapHistory.addRow(
+                new MapHistory(
+                    "UPDATE",
+                    String.valueOf(currNode.getNodeID()),
+                    "node",
+                    new Timestamp(System.currentTimeMillis())));
           }
           // Remove loop
           for (String currID : n_toRemove) {
             moveDao.deleteRow(Integer.valueOf(currID));
             nodeDao.deleteRow(Integer.valueOf(currID));
+            // mapHistory.addRow(new MapHistory("UPDATE", String.valueOf(currNode.getNodeID()),
+            // "node", new Timestamp(System.currentTimeMillis())));
           }
           // a new floor assignment relating to the currently viewed floor
           group.getChildren().remove(mapNodes);

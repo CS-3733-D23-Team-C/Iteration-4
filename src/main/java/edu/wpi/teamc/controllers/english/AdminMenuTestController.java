@@ -1,6 +1,5 @@
 package edu.wpi.teamc.controllers.english;
 
-import edu.wpi.teamc.controllers.AbsAdminMenuController;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -8,7 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 
-public class AdminMenuTestController extends AbsAdminMenuController {
+public class AdminMenuTestController {
 
   @FXML private MFXButton serviceRequest;
   @FXML private AnchorPane navList;

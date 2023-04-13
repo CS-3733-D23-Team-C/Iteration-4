@@ -7,7 +7,6 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.awt.*;
-import java.awt.TextArea;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
@@ -160,9 +159,9 @@ public class EditMapController {
     ImageView imageView = new ImageView(image);
     imageView.relocate(0, 0);
     group.getChildren().add(imageView);
-    stackPane.getChildren().add(mapNodes);
-    group.getChildren().add(stackPane);
-//    group.getChildren().add(mapNodes);
+    //    stackPane.getChildren().add(mapNodes);
+    //    group.getChildren().add(stackPane);
+    group.getChildren().add(mapNodes);
     Pane pane = new Pane();
     pane.setMinWidth(image.getWidth());
     pane.setMaxWidth(image.getWidth());
@@ -170,7 +169,7 @@ public class EditMapController {
     pane.setMaxHeight(image.getHeight());
     pane.relocate(0, 0);
     group.getChildren().add(pane);
-//    group.getChildren().add(stackPane);
+    //    group.getChildren().add(stackPane);
     loadDatabase();
     sortNodes();
 
@@ -273,14 +272,14 @@ public class EditMapController {
       floor = "L2";
     }
     group.getChildren().removeAll();
-    group.getChildren().remove(stackPane);
-    stackPane.getChildren().remove(mapNodes);
+    group.getChildren().remove(mapNodes);
+    //    stackPane.getChildren().remove(mapNodes);
     ImageView imageView = new ImageView(image);
     imageView.relocate(0, 0);
     mapNodes = new Group();
     group.getChildren().add(imageView);
-    stackPane.getChildren().add(mapNodes);
-    group.getChildren().add(stackPane);
+    //    stackPane.getChildren().add(mapNodes);
+    group.getChildren().add(mapNodes);
     Pane pane = new Pane();
     pane.setMinWidth(image.getWidth());
     pane.setMaxWidth(image.getWidth());
@@ -414,17 +413,18 @@ public class EditMapController {
           createMapNodes(FloorL2.get(i), shortName, nodeType);
         }
     }
-    stackPane.toFront();
-//    mapNodes.toFront();
+    //    stackPane.toFront();
+    mapNodes.toFront();
     //    mapNodes.getChildren().s
   }
 
   public void createMapNodes(Node node, String shortname, String nodeType) {
     Circle newCircle = new Circle();
-//    Text text = new Text();
-    TextArea text = new TextArea();
+    Text text = new Text();
+    //    TextArea text = new TextArea();
     if (!nodeType.equals("HALL") && !nodeType.equals("ERROR")) {
-      text = new TextArea(shortname);
+      //      text = new TextArea(shortname);
+      text = new Text(shortname);
       //      text.setX();
       //      Tooltip nodeName = new Tooltip(shortname);
       //      nodeName.setShowDelay(Duration.ZERO);
@@ -434,15 +434,15 @@ public class EditMapController {
     newCircle.setRadius(10);
     newCircle.setCenterX(node.getXCoord());
     newCircle.setCenterY(node.getYCoord());
-    text.setLocation(node.getXCoord() + 10, node.getYCoord() - 10);
+    //    text.setLocation(node.getXCoord() + 10, node.getYCoord() - 10);
 
     //    text.(node.getXCoord() + 10);
     //    text.snapPositionY(node.getYCoord() - 10);
-    //    text.setX(node.getXCoord() + 10);
-    //    text.setY(node.getYCoord() - 10);
+    text.setX(node.getXCoord() + 10);
+    text.setY(node.getYCoord() - 10);
     //    text.setStroke(Paint.valueOf("#FFFFFF"));
     //    text.setFill(Paint.valueOf("#CD8003"));
-    text.setBackground(Color.getColor("#13DAF7"));
+    //    text.setBackground(Color.getColor("#13DAF7"));
     //    text.setStyle("-fx-background-color: black; -fx-text-fill: white");
     newCircle.setId(String.valueOf(node.getNodeID()));
     newCircle.setStroke(Paint.valueOf("#13DAF7"));
@@ -451,10 +451,14 @@ public class EditMapController {
     text.setVisible(true);
 
     mapNodes.getChildren().add(newCircle);
-//    text.setBounds(10,10,10,10);
-    stackPane.getChildren().add(mapNodes);
-    stackPane.getChildren().add(text);
-    group.getChildren().add(text);
+    //    mapNodes.getChildren().add(text);
+    //    stackPane.getChildren().add(mapNodes);
+    //    text.setBounds(10,10,10,10);
+    //    stackPane.getChildren().add(text);
+    //    stackPane.getChildren().add(text);
+    //    group.getChildren().add(stackPane);
+    group.getChildren().add(mapNodes);
+    //    group.getChildren().add(text);
   }
 
   public void showNodeMenu(ActionEvent event) {

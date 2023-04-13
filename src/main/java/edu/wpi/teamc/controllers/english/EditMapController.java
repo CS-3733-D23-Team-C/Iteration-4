@@ -147,7 +147,7 @@ public class EditMapController {
     sortNodes();
     placeNodes("G");
   }
-  
+
   // load database
   public void loadDatabase() {
     nodeList = new NodeDao().fetchAllObjects();

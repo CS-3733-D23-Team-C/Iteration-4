@@ -1,17 +1,16 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.Main;
-import edu.wpi.teamc.dao.map.Node;
-import edu.wpi.teamc.dao.map.NodeDao;
+import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.graph.Graph;
 import edu.wpi.teamc.graph.GraphNode;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+
+import java.util.*;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -73,6 +72,18 @@ public class PathFindingController {
   List<Node> n_toModify_newNode = new ArrayList<Node>();
   List<String> n_toModify_oldID = new ArrayList<String>();
   List<String> n_toRemove = new ArrayList<String>();
+  List<Move> moveList = new ArrayList<Move>();
+  List<Node> Floor1 = new ArrayList<Node>();
+  List<Node> Floor2 = new ArrayList<Node>();
+  List<Node> Floor3 = new ArrayList<Node>();
+  List<Node> FloorG = new ArrayList<Node>();
+  List<Node> FloorL1 = new ArrayList<Node>();
+  List<Node> FloorL2 = new ArrayList<Node>();
+  List<Node> nodeList = new ArrayList<Node>();
+  List<Edge> edgeList = new ArrayList<Edge>();
+  List<LocationName> locationNameList = new ArrayList<LocationName>();
+  HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
+  HashMap<String, LocationName> longNametoLocationName = new HashMap<String, LocationName>();
 
   /** Method run when controller is initialized */
   public void initialize() {
@@ -93,7 +104,7 @@ public class PathFindingController {
 
     placeNodes("G");
   }
-  
+
   // load database
   public void loadDatabase() {
     nodeList = new NodeDao().fetchAllObjects();
@@ -276,8 +287,7 @@ public class PathFindingController {
     mapNodes.toFront();
   }
 
-  public void createMapNodes(Node node) {
-    String shortname = new NodeDao().getShortName(node.getNodeID());
+  public void createMapNodes(Node node, String shortname, String nodeType) {
     Circle newCircle = new Circle();
     if (!nodeType.equals("HALL") && !nodeType.equals("ERROR")) {
       Tooltip nodeName = new Tooltip(shortname);

@@ -86,6 +86,10 @@ public class EditMapController {
   @FXML MFXButton FLB2;
   @FXML MFXButton floorButton;
   Group mapNodes = new Group();
+  NodeDao InodeDao = new NodeDao();
+  EdgeDao IedgeDao = new EdgeDao();
+  LocationDao IlocationDao = new LocationDao();
+  MoveDao ImoveDao = new MoveDao();
 
   @FXML private Button goHome;
   int XCoord = 0;

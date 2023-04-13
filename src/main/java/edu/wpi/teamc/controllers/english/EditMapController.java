@@ -128,6 +128,12 @@ public class EditMapController {
   String lNameInput_temp;
   String oldName_temp;
   String nodeIDinput_temp;
+  List<Move> moveList = new ArrayList<Move>();
+  List<Node> nodeList = new ArrayList<Node>();
+  List<Edge> edgeList = new ArrayList<Edge>();
+  List<LocationName> locationNameList = new ArrayList<LocationName>();
+  HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
+  HashMap<String, LocationName> longNametoLocationName = new HashMap<String, LocationName>();
 
   /** Method run when controller is initialized */
   public void initialize() {
@@ -376,7 +382,7 @@ public class EditMapController {
     mapNodes.toFront();
   }
 
-  public void createMapNodes(Node node, String shortname) {
+  public void createMapNodes(Node node, String shortname, String nodeType) {
     Circle newCircle = new Circle();
     if (!nodeType.equals("HALL") && !nodeType.equals("ERROR")) {
       Tooltip nodeName = new Tooltip(shortname);

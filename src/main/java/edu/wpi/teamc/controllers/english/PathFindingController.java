@@ -1,14 +1,17 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.Main;
-import edu.wpi.teamc.dao.map.*;
+import edu.wpi.teamc.dao.map.Node;
+import edu.wpi.teamc.dao.map.NodeDao;
 import edu.wpi.teamc.graph.Graph;
 import edu.wpi.teamc.graph.GraphNode;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -71,18 +74,6 @@ public class PathFindingController {
   List<String> n_toModify_oldID = new ArrayList<String>();
   List<String> n_toRemove = new ArrayList<String>();
 
-  List<Move> moveList = new ArrayList<Move>();
-  List<Node> Floor1 = new ArrayList<Node>();
-  List<Node> Floor2 = new ArrayList<Node>();
-  List<Node> Floor3 = new ArrayList<Node>();
-  List<Node> FloorG = new ArrayList<Node>();
-  List<Node> FloorL1 = new ArrayList<Node>();
-  List<Node> FloorL2 = new ArrayList<Node>();
-  List<Node> nodeList = new ArrayList<Node>();
-  List<Edge> edgeList = new ArrayList<Edge>();
-  List<LocationName> locationNameList = new ArrayList<LocationName>();
-  HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
-  HashMap<String, LocationName> longNametoLocationName = new HashMap<String, LocationName>();
   /** Method run when controller is initialized */
   public void initialize() {
 
@@ -99,11 +90,10 @@ public class PathFindingController {
     pane.setMaxHeight(image.getHeight());
     pane.relocate(0, 0);
     group.getChildren().add(pane);
-    this.loadDatabase();
-    this.sortNodes();
 
     placeNodes("G");
   }
+  
   // load database
   public void loadDatabase() {
     nodeList = new NodeDao().fetchAllObjects();
@@ -180,6 +170,7 @@ public class PathFindingController {
     mapNodes = new Group();
     group.getChildren().add(imageView);
     group.getChildren().add(mapNodes);
+    group.getChildren().add(edges);
     Pane pane = new Pane();
     pane.setMinWidth(image.getWidth());
     pane.setMaxWidth(image.getWidth());
@@ -187,39 +178,8 @@ public class PathFindingController {
     pane.setMaxHeight(image.getHeight());
     pane.relocate(0, 0);
     group.getChildren().add(pane);
-    placeNodes(floor);
-  }
-
-  public void comparatorSortNode() {}
-
-  public void sortNodes() {
-    Floor1.clear();
-    Floor2.clear();
-    Floor3.clear();
-    FloorG.clear();
-    FloorL1.clear();
-    FloorL2.clear();
-    for (Node node : nodeList) {
-      if (node.getFloor().equals("1")) {
-        Floor1.add(node);
-      }
-      if (node.getFloor().equals("2")) {
-        Floor2.add(node);
-      }
-      if (node.getFloor().equals("3")) {
-        Floor3.add(node);
-      }
-      if (node.getFloor().equals("G")) {
-        FloorG.add(node);
-      }
-      if (node.getFloor().equals("L1")) {
-        FloorL1.add(node);
-      }
-      if (node.getFloor().equals("L2")) {
-        FloorL2.add(node);
-      }
-    }
-  }
+    // placeNodes(floor);
+  } // initialize end
 
   public void placeNodes(String floor) {
     switch (floor) {
@@ -316,7 +276,8 @@ public class PathFindingController {
     mapNodes.toFront();
   }
 
-  public void createMapNodes(Node node, String shortname, String nodeType) {
+  public void createMapNodes(Node node) {
+    String shortname = new NodeDao().getShortName(node.getNodeID());
     Circle newCircle = new Circle();
     if (!nodeType.equals("HALL") && !nodeType.equals("ERROR")) {
       Tooltip nodeName = new Tooltip(shortname);

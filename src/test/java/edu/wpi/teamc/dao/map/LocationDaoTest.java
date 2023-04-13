@@ -22,7 +22,7 @@ public class LocationDaoTest {
         new LocationName("15 Francis Security Desk Floor 2", "Information Desk", "INFO");
     LocationName repl = new LocationName("15 Francis Desk", "Information Desk", "INFO");
 
-    Assertions.assertEquals(1, locDao.updateRow(locName, repl));
+    Assertions.assertEquals(repl, locDao.updateRow(locName, repl));
   }
 
   @Test
@@ -30,7 +30,7 @@ public class LocationDaoTest {
     LocationDao locDao = new LocationDao();
     LocationName locName = new LocationName("15 Francis Info Center", "Information Center", "INFO");
 
-    Assertions.assertEquals(1, locDao.addRow(locName));
+    Assertions.assertEquals(locName, locDao.addRow(locName));
   }
 
   @Test
@@ -38,7 +38,7 @@ public class LocationDaoTest {
     LocationDao locDao = new LocationDao();
     LocationName locName = new LocationName("15 Francis Desk", "Information Desk", "INFO");
 
-    Assertions.assertEquals(1, locDao.deleteRow(locName));
+    Assertions.assertEquals(locName, locDao.deleteRow(locName));
   }
 
   @Test

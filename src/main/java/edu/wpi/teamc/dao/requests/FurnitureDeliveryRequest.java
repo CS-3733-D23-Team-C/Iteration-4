@@ -3,20 +3,33 @@ package edu.wpi.teamc.dao.requests;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
+@Setter
 public class FurnitureDeliveryRequest extends AbsServiceRequest {
-  @Getter
-private String furniture;
-@Getter @Setter
-private String eta;
-  public FurnitureDeliveryRequest(int requestID, Requester requester, String roomName, String additionalNotes, String furniture, String eta) {
-    super(requestID,  requester,  roomName,  additionalNotes);
-    this.furniture = furniture;
+
+  private String furnitureType;
+  private String eta;
+
+  public FurnitureDeliveryRequest(
+      int requestID,
+      Requester requester,
+      String roomName,
+      String additionalNotes,
+      String furnitureType,
+      String eta) {
+    super(requestID, requester, roomName, additionalNotes);
+    this.furnitureType = furnitureType;
     this.eta = eta;
   }
 
-  public FurnitureDeliveryRequest(int requestID, Requester requester, String roomName, String additionalNotes, String furniture) {
-    super(requestID,  requester,  roomName,  additionalNotes);
-    this.furniture = furniture;
+  public FurnitureDeliveryRequest(
+      int requestID,
+      Requester requester,
+      String roomName,
+      String additionalNotes,
+      String furnitureType) {
+    super(requestID, requester, roomName, additionalNotes);
+    this.furnitureType = furnitureType;
   }
 
   @Override

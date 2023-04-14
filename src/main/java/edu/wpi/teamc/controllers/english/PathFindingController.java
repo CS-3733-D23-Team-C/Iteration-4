@@ -20,6 +20,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
+import javax.swing.*;
 import net.kurobako.gesturefx.GesturePane;
 
 public class PathFindingController {
@@ -37,6 +38,9 @@ public class PathFindingController {
 
   /** */
   @FXML MFXButton backButton;
+
+  @FXML MFXButton nextFloor;
+  @FXML MFXButton prevFloor;
 
   /** Method run when controller is initialized */
   @FXML
@@ -72,6 +76,9 @@ public class PathFindingController {
   HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
   HashMap<String, LocationName> longNametoLocationName = new HashMap<String, LocationName>();
   private LinkedList<List<GraphNode>> splitPath = new LinkedList<>();
+  private int pathLoc = 0;
+  private GraphNode src;
+  private GraphNode dest;
 
   /** Method run when controller is initialized */
   public void initialize() {
@@ -335,38 +342,28 @@ public class PathFindingController {
   }
 
   public void breakPathIntoFloors(List<GraphNode> path) {
-    LinkedList<GraphNode> floorPath = new LinkedList<>();
     int index;
+    int pathSize = path.size();
+    splitPath.clear();
+    pathLoc = 0;
 
-    for (int i = 0; i < path.size() - 1; i++) {
+    for (int i = 0; i < pathSize - 1; i++) {
       index = i;
 
-      while (path.get(i).getFloor().equals(path.get(i + 1).getFloor())) {
+      while (i < pathSize - 1 && path.get(index).getFloor().equals(path.get(i + 1).getFloor())) {
         i++;
       }
 
-      splitPath.add(path.subList(index, i));
+      splitPath.add(path.subList(index, i + 1));
+    }
+
+    // edge case where the second to last location in path is traveling through an elevator
+    if (!path.get(pathSize - 1).getFloor().equals(path.get(pathSize - 2).getFloor())) {
+      splitPath.add(path.subList(pathSize - 2, pathSize));
     }
   }
 
-  @FXML
-  void getSubmit(ActionEvent event) {
-    edges.getChildren().clear();
-    mapNodes.getChildren().clear();
-    String startNode = startNodeId.getText();
-    String endNode = endNodeId.getText();
-
-    Graph graph = new Graph();
-    graph.syncWithDB();
-
-    GraphNode src = graph.getNode(Integer.valueOf(startNode));
-    GraphNode dest = graph.getNode(Integer.valueOf(endNode));
-    changeFloorFromString(src.getFloor());
-
-    List<GraphNode> path = graph.getDirectionsAstar(src, dest);
-    breakPathIntoFloors(path);
-    // TODO : remember that if a broken up path has a list of size 1, just considerate it an elevator
-
+  public void placeDestCircle() {
     Circle circ = new Circle();
     circ.setCenterX(dest.getXCoord());
     circ.setCenterY(dest.getYCoord());
@@ -375,6 +372,27 @@ public class PathFindingController {
     circ.setStroke(Paint.valueOf("#FF0000"));
     circ.setVisible(true);
     mapNodes.getChildren().add(circ);
+  }
+
+  @FXML
+  void getSubmit(ActionEvent event) {
+    nextFloor.setDisable(false);
+    edges.getChildren().clear();
+    mapNodes.getChildren().clear();
+    String startNode = startNodeId.getText();
+    String endNode = endNodeId.getText();
+
+    Graph graph = new Graph();
+    graph.syncWithDB();
+
+    src = graph.getNode(Integer.valueOf(startNode));
+    dest = graph.getNode(Integer.valueOf(endNode));
+    changeFloorFromString(src.getFloor());
+
+    List<GraphNode> path = graph.getDirectionsAstar(src, dest);
+    breakPathIntoFloors(path);
+    // TODO : remember that if a broken up path has a list of size 1, just considerate it an
+    // elevator
 
     Circle circ2 = new Circle();
     circ2.setCenterX(src.getXCoord());
@@ -385,20 +403,58 @@ public class PathFindingController {
     circ2.setVisible(true);
     mapNodes.getChildren().add(circ2);
 
-    for (int i = 0; i < path.size() - 1; i++) {
+    for (int i = 0; i < splitPath.get(0).size() - 1; i++) {
       Line temp =
           new Line(
-              path.get(i).getXCoord(),
-              path.get(i).getYCoord(),
-              path.get(i + 1).getXCoord(),
-              path.get(i + 1).getYCoord());
+              splitPath.get(0).get(i).getXCoord(),
+              splitPath.get(0).get(i).getYCoord(),
+              splitPath.get(0).get(i + 1).getXCoord(),
+              splitPath.get(0).get(i + 1).getYCoord());
       temp.setStrokeWidth(12);
       temp.setVisible(true);
       temp.setStroke(Paint.valueOf("FF0000"));
       edges.getChildren().add(temp);
     }
+    pathLoc++;
+
+    if (splitPath.size() == 1) {
+      placeDestCircle();
+      nextFloor.setDisable(true);
+      prevFloor.setDisable(true);
+    }
+
     edges.toFront();
   }
+
+  @FXML
+  void getNextFloor(ActionEvent event) {
+    edges.getChildren().clear();
+    changeFloorFromString(splitPath.get(pathLoc).get(1).getFloor());
+
+    if (pathLoc == splitPath.size() - 1) {
+      placeDestCircle();
+      nextFloor.setDisable(true);
+    }
+
+    for (int i = 0; i < splitPath.get(pathLoc).size() - 1; i++) {
+      Line temp =
+          new Line(
+              splitPath.get(pathLoc).get(i).getXCoord(),
+              splitPath.get(pathLoc).get(i).getYCoord(),
+              splitPath.get(pathLoc).get(i + 1).getXCoord(),
+              splitPath.get(pathLoc).get(i + 1).getYCoord());
+      temp.setStrokeWidth(12);
+      temp.setVisible(true);
+      temp.setStroke(Paint.valueOf("FF0000"));
+      edges.getChildren().add(temp);
+    }
+
+    pathLoc++;
+    edges.toFront();
+  }
+
+  @FXML
+  void getPrevFloor(ActionEvent event) {}
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {

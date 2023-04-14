@@ -374,6 +374,32 @@ public class PathFindingController {
     mapNodes.getChildren().add(circ);
   }
 
+  public void placeSrcCircle() {
+    Circle circ2 = new Circle();
+    circ2.setCenterX(src.getXCoord());
+    circ2.setCenterY(src.getYCoord());
+    circ2.setRadius(20);
+    circ2.setFill(Paint.valueOf("#FF0000"));
+    circ2.setStroke(Paint.valueOf("#32CD32"));
+    circ2.setVisible(true);
+    mapNodes.getChildren().add(circ2);
+  }
+
+  public void drawEdges() {
+    for (int i = 0; i < splitPath.get(pathLoc).size() - 1; i++) {
+      Line temp =
+          new Line(
+              splitPath.get(pathLoc).get(i).getXCoord(),
+              splitPath.get(pathLoc).get(i).getYCoord(),
+              splitPath.get(pathLoc).get(i + 1).getXCoord(),
+              splitPath.get(pathLoc).get(i + 1).getYCoord());
+      temp.setStrokeWidth(12);
+      temp.setVisible(true);
+      temp.setStroke(Paint.valueOf("FF0000"));
+      edges.getChildren().add(temp);
+    }
+  }
+
   @FXML
   void getSubmit(ActionEvent event) {
     nextFloor.setDisable(false);
@@ -394,14 +420,7 @@ public class PathFindingController {
     // TODO : remember that if a broken up path has a list of size 1, just considerate it an
     // elevator
 
-    Circle circ2 = new Circle();
-    circ2.setCenterX(src.getXCoord());
-    circ2.setCenterY(src.getYCoord());
-    circ2.setRadius(20);
-    circ2.setFill(Paint.valueOf("#FF0000"));
-    circ2.setStroke(Paint.valueOf("#32CD32"));
-    circ2.setVisible(true);
-    mapNodes.getChildren().add(circ2);
+    placeSrcCircle();
 
     for (int i = 0; i < splitPath.get(0).size() - 1; i++) {
       Line temp =
@@ -436,25 +455,25 @@ public class PathFindingController {
       nextFloor.setDisable(true);
     }
 
-    for (int i = 0; i < splitPath.get(pathLoc).size() - 1; i++) {
-      Line temp =
-          new Line(
-              splitPath.get(pathLoc).get(i).getXCoord(),
-              splitPath.get(pathLoc).get(i).getYCoord(),
-              splitPath.get(pathLoc).get(i + 1).getXCoord(),
-              splitPath.get(pathLoc).get(i + 1).getYCoord());
-      temp.setStrokeWidth(12);
-      temp.setVisible(true);
-      temp.setStroke(Paint.valueOf("FF0000"));
-      edges.getChildren().add(temp);
-    }
+    drawEdges();
 
     pathLoc++;
     edges.toFront();
   }
 
   @FXML
-  void getPrevFloor(ActionEvent event) {}
+  void getPrevFloor(ActionEvent event) {
+    pathLoc--;
+    edges.getChildren().clear();
+    changeFloorFromString(splitPath.get(pathLoc).get(1).getFloor());
+
+    if (pathLoc == 0) {
+      nextFloor.setDisable(false);
+    }
+
+    drawEdges();
+    edges.toFront();
+  }
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {

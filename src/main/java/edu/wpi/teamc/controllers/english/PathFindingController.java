@@ -403,6 +403,7 @@ public class PathFindingController {
   @FXML
   void getSubmit(ActionEvent event) {
     nextFloor.setDisable(false);
+    prevFloor.setDisable(true);
     edges.getChildren().clear();
     mapNodes.getChildren().clear();
     String startNode = startNodeId.getText();
@@ -449,10 +450,13 @@ public class PathFindingController {
   void getNextFloor(ActionEvent event) {
     edges.getChildren().clear();
     changeFloorFromString(splitPath.get(pathLoc).get(1).getFloor());
+    prevFloor.setDisable(false);
 
     if (pathLoc == splitPath.size() - 1) {
       placeDestCircle();
       nextFloor.setDisable(true);
+    } else if (pathLoc == 0) {
+      pathLoc++;
     }
 
     drawEdges();
@@ -463,12 +467,19 @@ public class PathFindingController {
 
   @FXML
   void getPrevFloor(ActionEvent event) {
+    nextFloor.setDisable(false);
+
+    if (pathLoc == splitPath.size()) {
+      pathLoc--;
+    }
+
     pathLoc--;
+
     edges.getChildren().clear();
     changeFloorFromString(splitPath.get(pathLoc).get(1).getFloor());
 
     if (pathLoc == 0) {
-      nextFloor.setDisable(false);
+      placeSrcCircle();
     }
 
     drawEdges();

@@ -153,6 +153,26 @@ public class PathFindingController {
     longNametoLocationName.put("ERROR", new LocationName("ERROR", "ERROR", "ERROR"));
   }
 
+  public void resetGroupVar() {
+    group.getChildren().clear();
+    group.getChildren().remove(mapNodes);
+    group.getChildren().remove(edges);
+    ImageView imageView = new ImageView(image);
+    imageView.relocate(0, 0);
+    mapNodes = new Group();
+    edges = new Group();
+    group.getChildren().add(imageView);
+    group.getChildren().add(edges);
+    group.getChildren().add(mapNodes);
+    Pane pane = new Pane();
+    pane.setMinWidth(image.getWidth());
+    pane.setMaxWidth(image.getWidth());
+    pane.setMinHeight(image.getHeight());
+    pane.setMaxHeight(image.getHeight());
+    pane.relocate(0, 0);
+    group.getChildren().add(pane);
+  }
+
   public void changeFloor(ActionEvent event) {
     floorButton = (MFXButton) event.getTarget();
 
@@ -175,24 +195,8 @@ public class PathFindingController {
       image = new Image(Main.class.getResource("./views/Images/B2.png").toString());
       floor = "L2";
     }
-    group.getChildren().removeAll();
-    group.getChildren().remove(mapNodes);
-    group.getChildren().remove(edges);
-    ImageView imageView = new ImageView(image);
-    imageView.relocate(0, 0);
-    mapNodes = new Group();
-    edges = new Group();
-    group.getChildren().add(imageView);
-    group.getChildren().add(edges);
-    group.getChildren().add(mapNodes);
-    Pane pane = new Pane();
-    pane.setMinWidth(image.getWidth());
-    pane.setMaxWidth(image.getWidth());
-    pane.setMinHeight(image.getHeight());
-    pane.setMaxHeight(image.getHeight());
-    pane.relocate(0, 0);
-    group.getChildren().add(pane);
-    placeNodes(floor);
+    resetGroupVar();
+    // placeNodes(floor);
   }
 
   public void changeFloorFromString(String floor) {
@@ -209,24 +213,8 @@ public class PathFindingController {
     } else if (floor.equals("L2")) {
       image = new Image(Main.class.getResource("./views/Images/B2.png").toString());
     }
-    group.getChildren().removeAll();
-    group.getChildren().remove(mapNodes);
-    group.getChildren().remove(edges);
-    ImageView imageView = new ImageView(image);
-    imageView.relocate(0, 0);
-    mapNodes = new Group();
-    edges = new Group();
-    group.getChildren().add(imageView);
-    group.getChildren().add(edges);
-    group.getChildren().add(mapNodes);
-    Pane pane = new Pane();
-    pane.setMinWidth(image.getWidth());
-    pane.setMaxWidth(image.getWidth());
-    pane.setMinHeight(image.getHeight());
-    pane.setMaxHeight(image.getHeight());
-    pane.relocate(0, 0);
-    group.getChildren().add(pane);
-    placeNodes(floor);
+    resetGroupVar();
+    // placeNodes(floor);
   }
 
   public void placeNodes(String floor) {
@@ -474,6 +462,7 @@ public class PathFindingController {
 
     if (pathLoc == 0) {
       placeSrcCircle();
+      prevFloor.setDisable(true);
     }
 
     drawEdges();

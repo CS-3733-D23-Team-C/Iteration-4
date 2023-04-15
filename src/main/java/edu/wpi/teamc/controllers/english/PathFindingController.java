@@ -2,6 +2,7 @@ package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.map.*;
+import edu.wpi.teamc.graph.AlgoSingleton;
 import edu.wpi.teamc.graph.Graph;
 import edu.wpi.teamc.graph.GraphNode;
 import edu.wpi.teamc.navigation.Navigation;
@@ -409,21 +410,19 @@ public class PathFindingController {
     String startNode = startNodeId.getText();
     String endNode = endNodeId.getText();
 
-    Graph graph = new Graph();
+    // TODO : add drop down algo selection
+    AlgoSingleton.INSTANCE.setType("A*");
+    Graph graph = new Graph(AlgoSingleton.INSTANCE.getType());
     graph.syncWithDB();
 
     src = graph.getNode(Integer.valueOf(startNode));
     dest = graph.getNode(Integer.valueOf(endNode));
     changeFloorFromString(src.getFloor());
 
-    List<GraphNode> path = graph.getDirectionsAstar(src, dest);
+    List<GraphNode> path = graph.getPathway(src, dest);
     breakPathIntoFloors(path);
     // TODO : remember that if a broken up path has a list of size 1, just considerate it an
-    // elevator
-
-    /*
-    when you submit the floor, disable the button until the coordinate boxes are changed
-     */
+    // stair/elevator
 
     placeSrcCircle();
 

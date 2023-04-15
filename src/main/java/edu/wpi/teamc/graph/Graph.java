@@ -9,16 +9,27 @@ import java.sql.*;
 import java.util.*;
 
 public class Graph {
-  private Map<Integer, GraphNode> nodes = new HashMap<>();
-  private Set<GraphNode> settled = new HashSet<>();
-  private Set<GraphNode> unsettled = new HashSet<>();
-  private Map<GraphNode, GraphNode> nodeBefore = new HashMap<>();
-  private Map<GraphNode, Double> distance = new HashMap<>();
-  private PriorityQueue<GraphNode> pq;
-  private final double DIST_DEFAULT = Double.POSITIVE_INFINITY;
+  protected Map<Integer, GraphNode> nodes = new HashMap<>();
+  protected Set<GraphNode> settled = new HashSet<>();
+  protected Set<GraphNode> unsettled = new HashSet<>();
+  protected Map<GraphNode, GraphNode> nodeBefore = new HashMap<>();
+  protected Map<GraphNode, Double> distance = new HashMap<>();
+  protected PriorityQueue<GraphNode> pq;
+  protected final double DIST_DEFAULT = Double.POSITIVE_INFINITY;
+  private IAlgorithm algo;
 
   /** Empty Constructor for Graph */
   public Graph() {}
+
+  public Graph(String algoChoice) {
+    if (algoChoice.equals("A*")) {
+      algo = new AStar();
+    } else if (algoChoice.equals("BFS")) {
+      algo = new BFS();
+    } else {
+      algo = new DFS();
+    }
+  }
 
   public void syncWithDB() {
     IDao<Node> nodeDao = new NodeDao();
@@ -73,65 +84,8 @@ public class Graph {
    * @param src source node
    * @param dest destination node
    */
-  public List<GraphNode> getDirectionsAstar(GraphNode src, GraphNode dest) {
-    // organize priority queue based on weight
-    // distance defaults to max (if it hasn't been visited yet)
-    pq =
-        new PriorityQueue<>(
-            Comparator.comparingDouble(
-                node -> distance.getOrDefault(node, DIST_DEFAULT) + node.getHeuristic()));
-
-    // set all the heuristic vals based on dest node location
-    for (GraphNode node : nodes.values()) {
-      if (!node.equals(dest)) {
-        node.setHeuristic(dest);
-      }
-    }
-
-    // src dist is 0
-    distance.put(src, 0.0);
-    // add src node to unsettled and queue
-    unsettled.add(src);
-    pq.add(src);
-
-    while (!pq.isEmpty()) {
-      GraphNode node = pq.poll();
-      unsettled.remove(node);
-      settled.add(node);
-      findMinDist(node);
-    }
-
-    return getPath(dest);
-  }
-
-  /**
-   * A method to find the minimum distance between a given node and its neighbors
-   *
-   * @param node
-   */
-  private void findMinDist(GraphNode node) {
-    List<GraphNode> adjacentNodes = getNeighbors(node);
-    double edgeDist, heuristic, total;
-
-    for (GraphNode neighbor : adjacentNodes) {
-      edgeDist = getDistance(node, neighbor);
-      heuristic = neighbor.getHeuristic();
-      total = distance.getOrDefault(node, DIST_DEFAULT) + edgeDist + heuristic;
-
-      // if total is less than what is currently stored, or it hasn't been reached yet
-      if (total < distance.getOrDefault(neighbor, DIST_DEFAULT)) {
-        // put new total dist value in
-        // put given node as the previous node in the path to neighbor
-        distance.put(neighbor, total);
-        nodeBefore.put(neighbor, node);
-
-        // add to pq and unsettled if it's not in unsettled
-        if (!unsettled.contains(neighbor)) {
-          unsettled.add(neighbor);
-          pq.add(neighbor);
-        }
-      }
-    }
+  public List<GraphNode> getPathway(GraphNode src, GraphNode dest) {
+    return algo.getDirections(src, dest);
   }
 
   /**
@@ -140,7 +94,7 @@ public class Graph {
    * @param node
    * @return
    */
-  private List<GraphNode> getNeighbors(GraphNode node) {
+  protected List<GraphNode> getNeighbors(GraphNode node) {
     List<GraphNode> neighbors = new ArrayList<>();
 
     for (GraphEdge edge : node.getGraphEdges()) {
@@ -160,7 +114,7 @@ public class Graph {
    * @param target dest node
    * @return the distance
    */
-  private double getDistance(GraphNode node, GraphNode target) {
+  protected double getDistance(GraphNode node, GraphNode target) {
     for (GraphEdge edge : node.getGraphEdges()) {
       if (edge.getSrc().equals(node) && edge.getDest().equals(target)) {
         return edge.getWeight();
@@ -176,7 +130,7 @@ public class Graph {
    * @param target
    * @return the path
    */
-  public List<GraphNode> getPath(GraphNode target) {
+  protected List<GraphNode> getPath(GraphNode target) {
     List<GraphNode> path = new LinkedList<>();
     GraphNode node = target;
 

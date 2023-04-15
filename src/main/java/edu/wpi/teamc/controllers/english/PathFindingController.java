@@ -421,6 +421,10 @@ public class PathFindingController {
     // TODO : remember that if a broken up path has a list of size 1, just considerate it an
     // elevator
 
+    /*
+    when you submit the floor, disable the button until the coordinate boxes are changed
+     */
+
     placeSrcCircle();
 
     for (int i = 0; i < splitPath.get(0).size() - 1; i++) {
@@ -435,7 +439,6 @@ public class PathFindingController {
       temp.setStroke(Paint.valueOf("FF0000"));
       edges.getChildren().add(temp);
     }
-    pathLoc++;
 
     if (splitPath.size() == 1) {
       placeDestCircle();
@@ -448,6 +451,7 @@ public class PathFindingController {
 
   @FXML
   void getNextFloor(ActionEvent event) {
+    pathLoc++;
     edges.getChildren().clear();
     changeFloorFromString(splitPath.get(pathLoc).get(1).getFloor());
     prevFloor.setDisable(false);
@@ -455,24 +459,15 @@ public class PathFindingController {
     if (pathLoc == splitPath.size() - 1) {
       placeDestCircle();
       nextFloor.setDisable(true);
-    } else if (pathLoc == 0) {
-      pathLoc++;
     }
 
     drawEdges();
-
-    pathLoc++;
     edges.toFront();
   }
 
   @FXML
   void getPrevFloor(ActionEvent event) {
     nextFloor.setDisable(false);
-
-    if (pathLoc == splitPath.size()) {
-      pathLoc--;
-    }
-
     pathLoc--;
 
     edges.getChildren().clear();

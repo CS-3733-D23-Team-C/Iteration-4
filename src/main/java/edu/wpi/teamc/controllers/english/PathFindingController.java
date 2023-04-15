@@ -8,8 +8,10 @@ import edu.wpi.teamc.graph.GraphNode;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import java.util.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -32,6 +34,8 @@ public class PathFindingController {
   @FXML MFXButton nextFloor;
   @FXML MFXButton prevFloor;
   @FXML MenuButton algChoice;
+  @FXML MFXComboBox<String> startChoice;
+  @FXML MFXComboBox<String> endChoice;
 
   /** Method run when controller is initialized */
   @FXML
@@ -49,8 +53,6 @@ public class PathFindingController {
   @FXML MFXButton floorButton;
   Group mapNodes = new Group();
   Group edges = new Group();
-  @FXML MFXTextField startNodeId;
-  @FXML MFXTextField endNodeId;
   @FXML MFXButton submit;
   @FXML private Button goHome;
   String floor = "G";
@@ -65,6 +67,7 @@ public class PathFindingController {
   List<Edge> edgeList = new ArrayList<Edge>();
   List<LocationName> locationNameList = new ArrayList<LocationName>();
   HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
+  HashMap<String, Integer> longNameToNodeID = new HashMap<>();
   HashMap<String, LocationName> longNametoLocationName = new HashMap<String, LocationName>();
   private LinkedList<List<GraphNode>> splitPath = new LinkedList<>();
   private int pathLoc = 0;
@@ -90,6 +93,8 @@ public class PathFindingController {
 
     loadDatabase();
     sortNodes();
+    addLocationsToSelect();
+
     nextFloor.setDisable(true);
     prevFloor.setDisable(true);
     // placeNodes("G");
@@ -138,11 +143,23 @@ public class PathFindingController {
         move.setLongName("ERROR");
       }
       nodeIDtoMove.put(move.getNodeID(), move);
+      longNameToNodeID.put(move.getLongName(), move.getNodeID());
     }
     for (LocationName locationName : locationNameList) {
       longNametoLocationName.put(locationName.getLongName(), locationName);
     }
     longNametoLocationName.put("ERROR", new LocationName("ERROR", "ERROR", "ERROR"));
+  }
+
+  public void addLocationsToSelect() {
+    ObservableList<String> locNames = FXCollections.observableArrayList();
+
+    for (Move move : moveList) {
+      locNames.add(move.getLongName());
+    }
+
+    startChoice.setItems(locNames);
+    endChoice.setItems(locNames);
   }
 
   public void resetGroupVar() {
@@ -387,16 +404,21 @@ public class PathFindingController {
     prevFloor.setDisable(true);
     edges.getChildren().clear();
     mapNodes.getChildren().clear();
-    String startNode = startNodeId.getText();
-    String endNode = endNodeId.getText();
+    // String startNode = startNodeId.getText();
+    // String endNode = endNodeId.getText();
+
+    String startName = startChoice.getText();
+    String endName = endChoice.getText();
 
     // TODO : add drop down algo selection
     AlgoSingleton.INSTANCE.setType(algChoice.getText());
     Graph graph = new Graph(AlgoSingleton.INSTANCE.getType());
     graph.syncWithDB();
 
-    src = graph.getNode(Integer.valueOf(startNode));
-    dest = graph.getNode(Integer.valueOf(endNode));
+    // src = graph.getNode(Integer.valueOf(startNode));
+    // dest = graph.getNode(Integer.valueOf(endNode));
+    src = graph.getNode(longNameToNodeID.get(startName));
+    dest = graph.getNode(longNameToNodeID.get(endName));
     changeFloorFromString(src.getFloor());
 
     List<GraphNode> path = graph.getPathway(src, dest);
@@ -545,4 +567,10 @@ public class PathFindingController {
   void getChoiceDFS(ActionEvent event) {
     algChoice.setText("DFS");
   }
+
+  @FXML
+  void getStartChoice(ActionEvent event) {}
+
+  @FXML
+  void getEndChoice(ActionEvent event) {}
 }

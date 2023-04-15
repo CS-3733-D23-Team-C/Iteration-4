@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.MenuButton?>
@@ -134,8 +135,6 @@
                                 </AnchorPane>
                             </children>
                         </VBox>
-                  <MFXTextField fx:id="startNodeId" layoutX="445.0" layoutY="636.0" prefHeight="50.0" prefWidth="127.0" promptText="Enter start node ID" />
-                  <MFXTextField fx:id="endNodeId" layoutX="584.0" layoutY="636.0" prefHeight="50.0" prefWidth="127.0" promptText="Enter end node ID" />
                   <MFXButton fx:id="submit" layoutX="1002.0" layoutY="636.0" onAction="#getSubmit" prefHeight="50.0" prefWidth="127.0" text="Submit" />
                   <MFXButton fx:id="prevFloor" layoutX="862.0" layoutY="636.0" onAction="#getPrevFloor" prefHeight="50.0" prefWidth="127.0" text="Previous Floor" />
                   <MFXButton fx:id="nextFloor" layoutX="722.0" layoutY="636.0" onAction="#getNextFloor" prefHeight="50.0" prefWidth="127.0" text="Next Floor" />
@@ -149,6 +148,12 @@
                         <Font size="11.0" />
                      </font>
                   </MenuButton>
+                  <MFXComboBox fx:id="startChoice" floatMode="ABOVE" layoutX="287.0" layoutY="636.0" onAction="#getStartChoice" prefHeight="50.0" prefWidth="206.0" scaleShape="false" text="Choose Start">
+                     <rotationAxis>
+                        <Point3D />
+                     </rotationAxis>
+                  </MFXComboBox>
+                  <MFXComboBox fx:id="endChoice" floatMode="ABOVE" layoutX="505.0" layoutY="636.0" onAction="#getEndChoice" prefHeight="50.0" prefWidth="206.0" scaleShape="false" text="Choose End" />
                     </children>
                 </AnchorPane>
             </children>

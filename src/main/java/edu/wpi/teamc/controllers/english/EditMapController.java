@@ -157,9 +157,11 @@ public class EditMapController {
   String nodeIDinput_temp;
   StackPane stackPane = new StackPane();
   Boolean nodeClicked = false;
+  Node currNodeClicked;
   HandleMapModes mapMode;
   Boolean addClicked = false;
   Boolean modifyClicked = false;
+  Boolean lockMap = false;
   //  Boolean
 
   /** Method run when controller is initialized */
@@ -184,20 +186,26 @@ public class EditMapController {
 
     group.setOnMouseClicked(
         e -> {
+          System.out.print(lockMap);
           mouseX = e.getX();
           mouseY = e.getY();
           System.out.println(mouseX + "  " + mouseY);
-          //          if(addClicked) //dont need this bc when add is clicked will update mapMode to
+          //          if(addClicked) //dont need this bc when add is clicked will update mapMode
+          // to
           // Add, need to set that up
 
-          if (Objects.equals(mapMode.getMapMode(), "Add")) {
+          if ((Objects.equals(mapMode.getMapMode(), "Add")) && !lockMap) {
+            lockMap = true;
+            System.out.println(lockMap);
             addNodeByMouseLoc((int) mouseX, (int) mouseY);
           } // bring up node add popup
 
-          if (nodeClicked) {
-            if (Objects.equals(mapMode.getMapMode(), "Add")) {
+          if (nodeClicked && !lockMap) {
+            if (Objects.equals(mapMode.getMapMode(), "Add")) { // to add a location name to a node
             } // bring up location name add popup
             else if (Objects.equals(mapMode.getMapMode(), "Modify")) {
+              lockMap = true;
+              modifyMenu();
             } // bring up modify popup
             else if (Objects.equals(mapMode.getMapMode(), "Remove")) {
             } // bring up remove popup
@@ -487,6 +495,7 @@ public class EditMapController {
     newCircle.setOnMouseClicked(
         e -> {
           nodeClicked = true; // clicked on a node
+          currNodeClicked = node;
           System.out.println("circle clicked");
         });
     //    newCircle.setOnMouseDragEntered(
@@ -549,6 +558,116 @@ public class EditMapController {
 
           // close menu
           stage.close();
+          lockMap = false;
+        });
+  }
+
+  public void modifyMenu() {
+    BorderPane borderPane = new BorderPane();
+
+    // Stuff to show on pop up
+    VBox vBox = new VBox();
+    Text modify_1 = new Text("Modify node by text input?");
+    Text modify_2 = new Text("Modify node by dragging on map?");
+    Text modify_3 = new Text("Modify location name of node?");
+    MFXButton byText = new MFXButton("By Text");
+    MFXButton byDrag = new MFXButton("By Drag");
+    MFXButton editName = new MFXButton("Edit Name");
+
+    vBox.getChildren().addAll(modify_1, byText, modify_2, byDrag, modify_3, editName);
+
+    // Set and show screen
+    AnchorPane aPane = new AnchorPane();
+    aPane.getChildren().add(vBox);
+    Insets insets = new Insets(0, 0, 0, 200);
+    aPane.setPadding(insets);
+    borderPane.getChildren().add(aPane);
+    Scene scene = new Scene(borderPane, 650, 500);
+    borderPane.relocate(0, 0);
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.setTitle("Modify Window");
+    stage.show();
+
+    byText.setOnMouseClicked(
+        event -> {
+          stage.close();
+          modifyNodeByInput();
+        });
+    byDrag.setOnMouseClicked(event -> {});
+  }
+
+  public void modifyNodeByInput() {
+    BorderPane borderPane = new BorderPane();
+
+    // Stuff to show on pop up
+    VBox vBox = new VBox();
+
+    Text xCoord_t = new Text("Input new Xcoord");
+    Text yCoord_t = new Text("Input new YCoord");
+    MFXTextField xCoord_input = new MFXTextField();
+    MFXTextField yCoord_input = new MFXTextField();
+
+    MFXButton submitModify = new MFXButton("Modify");
+    submitModify.setPrefSize(100, 35);
+    submitModify.setMinSize(100, 35);
+
+    vBox.getChildren().addAll(xCoord_t, xCoord_input, yCoord_t, yCoord_input, submitModify);
+    vBox.setSpacing(20);
+
+    // Set and show screen
+    AnchorPane aPane = new AnchorPane();
+    aPane.getChildren().add(vBox);
+    Insets insets = new Insets(0, 0, 0, 200);
+    aPane.setPadding(insets);
+    borderPane.getChildren().add(aPane);
+    Scene scene = new Scene(borderPane, 650, 500);
+    borderPane.relocate(0, 0);
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.setTitle("Modify Node Window");
+    stage.show();
+
+    submitModify.setOnMouseClicked(
+        buttonEvent -> {
+
+          // take inputted text and clear
+          xCoord_temp = xCoord_input.getText();
+          xCoord_input.clear();
+          yCoord_temp = yCoord_input.getText();
+          yCoord_input.clear();
+
+          // make new node
+          Node newNode =
+              new Node(
+                  currNodeClicked.getNodeID(),
+                  Integer.valueOf(xCoord_temp),
+                  Integer.valueOf(yCoord_temp),
+                  floor,
+                  building);
+
+          // Add node to database
+          NodeDao nodeDao = new NodeDao();
+          MapHistoryDao mapHistoryDao = new MapHistoryDao();
+          nodeDao.updateRow(currNodeClicked.getNodeID(), newNode);
+          mapHistoryDao.addRow(
+              new MapHistory(
+                  "UPDATE",
+                  String.valueOf(newNode.getNodeID()),
+                  "node",
+                  new Timestamp(System.currentTimeMillis())));
+
+          // Paint node
+          group.getChildren().remove(mapNodes);
+          mapNodes = new Group();
+          group.getChildren().add(mapNodes);
+          loadDatabase();
+          sortNodes();
+          placeNodes(floor);
+
+          // close menu
+          stage.close();
+          lockMap = false;
         });
   }
 
@@ -670,18 +789,10 @@ public class EditMapController {
                   Integer.valueOf(yCoord_temp),
                   floor,
                   building);
-          //          NodeDao oldDao = new NodeDao();
-          //              Node oldNode = oldDao.getNode(nodeID_temp); ////*******Need to add this
-          // getter method
-          //          NodeDao nodeDao = new NodeDao();
+
           n_toModify_newNode.add(newNode);
           n_toModify_oldID.add(nodeID_temp);
-          //              nodeDao.updateRow(newNode, oldNode); //////////********
-          //              placeNodes(
-          //                      floor); // later implement an update map button that updates all
-          // changes made at once
-          // so
-          // user can submit multiple at a time
+
           System.out.println("modified the node");
         });
     // Remove

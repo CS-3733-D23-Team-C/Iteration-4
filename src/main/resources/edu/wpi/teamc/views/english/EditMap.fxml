@@ -154,6 +154,14 @@
                                 <MenuItem mnemonicParsing="false" onAction="#getExportMove" text="Export Move" />
                             </items>
                         </MenuButton>
+                  <VBox layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <MFXButton fx:id="Select" onAction="#changeMapMode" text="Select" />
+                        <MFXButton fx:id="Add" onAction="#changeMapMode" text="Add" />
+                        <MFXButton fx:id="Modify" onAction="#changeMapMode" text="Modify" />
+                        <MFXButton fx:id="Remove" onAction="#changeMapMode" text="Remove" />
+                     </children>
+                  </VBox>
                     </children>
                 </AnchorPane>
             </children>

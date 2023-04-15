@@ -1,6 +1,7 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.Main;
+import edu.wpi.teamc.controllers.english.MapHelpers.HandleMapModes;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
@@ -89,6 +90,7 @@ public class EditMapController {
   @FXML MFXButton FLB1;
   @FXML MFXButton FLB2;
   @FXML MFXButton floorButton;
+  @FXML MFXButton modeButton;
   Group mapNodes = new Group();
   Group mapText = new Group();
   private Desktop desktop = Desktop.getDesktop();
@@ -154,7 +156,11 @@ public class EditMapController {
   String oldName_temp;
   String nodeIDinput_temp;
   StackPane stackPane = new StackPane();
-  Boolean mouseClicked = false;
+  Boolean nodeClicked = false;
+  HandleMapModes mapMode;
+  Boolean addClicked = false;
+  Boolean modifyClicked = false;
+  //  Boolean
 
   /** Method run when controller is initialized */
   public void initialize() {
@@ -173,6 +179,7 @@ public class EditMapController {
     pane.setMaxHeight(image.getHeight());
     pane.relocate(0, 0);
     group.getChildren().add(pane);
+    mapMode = HandleMapModes.SELECT;
     //    group.getChildren().add(stackPane);
 
     group.setOnMouseClicked(
@@ -180,19 +187,39 @@ public class EditMapController {
           mouseX = e.getX();
           mouseY = e.getY();
           System.out.println(mouseX + "  " + mouseY);
+          //          if(addClicked) //dont need this bc when add is clicked will update mapMode to
+          // Add, need to set that up
+
+          if (Objects.equals(mapMode.getMapMode(), "Add")) {
+            addNodeByMouseLoc((int) mouseX, (int) mouseY);
+          } // bring up node add popup
+
+          if (nodeClicked) {
+            if (Objects.equals(mapMode.getMapMode(), "Add")) {
+            } // bring up location name add popup
+            else if (Objects.equals(mapMode.getMapMode(), "Modify")) {
+            } // bring up modify popup
+            else if (Objects.equals(mapMode.getMapMode(), "Remove")) {
+            } // bring up remove popup
+            // if modify, first popup asks if you want to modify node by drag or by entering?
+            // also if modify pop up asks if you want to modify node or name
+          }
         });
 
-    enum Test { //Look at observers from lecture to see if those will help here, need to be set mode externally and call an instance of the HandleMapNodes object to check which mode, mode will determine action of mouse action event where listeners for that must be set up here in initialize
-      SELECT,
-      ADD,
-      MODIFY,
-      REMOVE;
-    }
+    //    enum Test { //Look at observers from lecture to see if those will help here, need to be
+    // set mode externally and call an instance of the HandleMapNodes object to check which mode,
+    // mode will determine action of mouse action event where listeners for that must be set up here
+    // in initialize
+    //      SELECT,
+    //      ADD,
+    //      MODIFY,
+    //      REMOVE;
+    //    }
 
     loadDatabase();
     sortNodes();
     placeNodes("G");
-  } //end initialize
+  } // end initialize
   // load database
   public void loadDatabase() {
     nodeList = new NodeDao().fetchAllObjects();
@@ -237,6 +264,19 @@ public class EditMapController {
       return Integer.parseInt(floor.substring(1)) + 2;
     } else {
       return Integer.parseInt(floor);
+    }
+  }
+
+  public void changeMapMode(ActionEvent event) {
+    modeButton = (MFXButton) event.getTarget();
+    if (Objects.equals(modeButton.getId(), "Select")) {
+      mapMode = HandleMapModes.SELECT;
+    } else if (Objects.equals(modeButton.getId(), "Add")) {
+      mapMode = HandleMapModes.ADD;
+    } else if (Objects.equals(modeButton.getId(), "Modify")) {
+      mapMode = HandleMapModes.MODIFY;
+    } else if (Objects.equals(modeButton.getId(), "Remove")) {
+      mapMode = HandleMapModes.REMOVE;
     }
   }
 
@@ -446,7 +486,7 @@ public class EditMapController {
     text.setVisible(true);
     newCircle.setOnMouseClicked(
         e -> {
-          mouseClicked = true; // clicked on a node
+          nodeClicked = true; // clicked on a node
           System.out.println("circle clicked");
         });
     //    newCircle.setOnMouseDragEntered(
@@ -456,6 +496,60 @@ public class EditMapController {
 
     mapNodes.getChildren().add(newCircle);
     mapText.getChildren().add(text);
+  }
+
+  public void addNodeByMouseLoc(int x, int y) {
+    BorderPane borderPane = new BorderPane();
+
+    // Stuff to show on pop up
+    VBox vBox = new VBox();
+    Text building = new Text("Input name of building the node will be in");
+    MFXTextField b_input = new MFXTextField();
+    MFXButton addButton = new MFXButton("Submit Add");
+    vBox.getChildren().addAll(building, b_input, addButton);
+
+    // Set and show screen
+    AnchorPane aPane = new AnchorPane();
+    aPane.getChildren().add(vBox);
+    Insets insets = new Insets(0, 0, 0, 200);
+    aPane.setPadding(insets);
+    borderPane.getChildren().add(aPane);
+    Scene scene = new Scene(borderPane, 650, 500);
+    borderPane.relocate(0, 0);
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.setTitle("Add Node Window");
+    stage.show();
+
+    addButton.setOnMouseClicked(
+        buttonEvent -> {
+          // make new node
+          Node newNode = new Node(x, y, floor, b_input.getText());
+          NodeDao nodeDao = new NodeDao();
+          b_input.clear();
+          //          MoveDao moveDao = new MoveDao();
+
+          // add to database and history page
+          MapHistoryDao mapHistory = new MapHistoryDao();
+          nodeDao.addRow(newNode);
+          mapHistory.addRow(
+              new MapHistory(
+                  "ADD",
+                  String.valueOf(newNode.getNodeID()),
+                  "node",
+                  new Timestamp(System.currentTimeMillis())));
+
+          // Paint node
+          group.getChildren().remove(mapNodes);
+          mapNodes = new Group();
+          group.getChildren().add(mapNodes);
+          loadDatabase();
+          sortNodes();
+          placeNodes(floor);
+
+          // close menu
+          stage.close();
+        });
   }
 
   public void showNodeMenu(ActionEvent event) {
@@ -819,111 +913,6 @@ public class EditMapController {
           nameToRemove.add(removeName);
           iD_r = iDToBeRemoved.getText();
           idList_r.add(iD_r);
-
-          //          long currentTime = System.currentTimeMillis();
-          //          Date currentDate = new Date(currentTime);
-          //          Move move = new Move(Integer.valueOf(iD), removeName, currentDate);
-          //          moveDao1.deleteRow(move);
-          //          locationDao1.deleteRow(removeName);
-          //          LocationName nameToRemove = null;
-          //          moveNamesToRemove.add(move);
-          //          //find node to remove
-          //            switch (floor) {
-          //                case "1":
-          //                    for (LocationName name1 : Floor1Name) {
-          //                        if(name1.getLongName().equals(removeName)){
-          //                            nameToRemove = name1;
-          //                        }
-          //                    }
-          //                    //                    for (Node node : Floor1) {
-          ////                        if(node.getNodeID() == Integer.valueOf(iD)){
-          ////                            nodeToRemove = node;
-          ////                        }
-          ////                    }
-          //                    break;
-          //                case "2":
-          //                    for (Node node : Floor2) {
-          //                        if(node.getNodeID() == Integer.valueOf(iD)){
-          //                            nodeToRemove = node;
-          //                        }
-          //                    }
-          //                    break;
-          //                case "3":
-          //                    for (Node node : Floor3) {
-          //                        if(node.getNodeID() == Integer.valueOf(iD)){
-          //                            nodeToRemove = node;
-          //                        }
-          //                    }
-          //                    break;
-          //                case "G":
-          //                    for(Node node: FloorG){
-          //                        if(node.getNodeID() == Integer.valueOf(iD)){
-          //                            nodeToRemove = node;
-          //                        }
-          //                    }
-          //                    break;
-          //                    case "L1":
-          //                        for(Node node: FloorL1){
-          //                            if(node.getNodeID() == Integer.valueOf(iD)){
-          //                                nodeToRemove = node;
-          //                            }
-          //                        }
-          //                        break;
-          //                case "L2":
-          //                    for(Node node: FloorL2){
-          //                        if(node.getNodeID() == Integer.valueOf(iD)){
-          //                            nodeToRemove = node;
-          //                        }
-          //                    }
-          //                    break;
-          //
-          //                    //Find name to remove
-          //                //find node to remove
-          //                switch (floor) {
-          //                    case "1":
-          //                        for (LocationName name : Floor1Name) {
-          //                            if(name.getLongName().equals(nam)){
-          //                                nodeToRemove = node;
-          //                            }
-          //                        }
-          //                        break;
-          //                    case "2":
-          //                        for (Node node : Floor2Name) {
-          //                            if(node.getNodeID() == Integer.valueOf(iD)){
-          //                                nodeToRemove = node;
-          //                            }
-          //                        }
-          //                        break;
-          //                    case "3":
-          //                        for (Node node : Floor3Name) {
-          //                            if(node.getNodeID() == Integer.valueOf(iD)){
-          //                                nodeToRemove = node;
-          //                            }
-          //                        }
-          //                        break;
-          //                    case "G":
-          //                        for(Node node: FloorGName){
-          //                            if(node.getNodeID() == Integer.valueOf(iD)){
-          //                                nodeToRemove = node;
-          //                            }
-          //                        }
-          //                        break;
-          //                    case "L1":
-          //                        for(Node node: FloorL1Name){
-          //                            if(node.getNodeID() == Integer.valueOf(iD)){
-          //                                nodeToRemove = node;
-          //                            }
-          //                        }
-          //                        break;
-          //                    case "L2":
-          //                        for(Node node: FloorL2Name){
-          //                            if(node.getNodeID() == Integer.valueOf(iD)){
-          //                                nodeToRemove = node;
-          //                            }
-          //                        }
-          //                        break;
-          //            }
-          //            listNodeToRemove.add(nodeToRemove);
 
           nameToBeRemoved.clear();
           System.out.println("removed the node");

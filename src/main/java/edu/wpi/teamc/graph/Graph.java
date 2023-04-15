@@ -72,7 +72,6 @@ public class Graph {
     // check if node already exists
     if (nodes.containsKey(node.getNodeID())) {
       System.out.println("Node already exists");
-      return;
     } else {
       nodes.put(node.getNodeID(), node);
     }

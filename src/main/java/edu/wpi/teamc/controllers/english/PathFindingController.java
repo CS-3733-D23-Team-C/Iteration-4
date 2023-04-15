@@ -28,20 +28,10 @@ public class PathFindingController {
   public Group group;
   public Image image =
       new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
-
-  /*
-  Notes:
-  * implement import and export buttons and get rid of navigation actions
-  * implement a submit button that submits all edits at once
-      * maybe store edits and their indices in an array and iterate over that array after the submit
-      * button is pressed to update the move list from the database
-   */
-
-  /** */
   @FXML MFXButton backButton;
-
   @FXML MFXButton nextFloor;
   @FXML MFXButton prevFloor;
+  @FXML MenuButton algChoice;
 
   /** Method run when controller is initialized */
   @FXML
@@ -100,7 +90,7 @@ public class PathFindingController {
 
     loadDatabase();
     sortNodes();
-    placeNodes("G");
+    // placeNodes("G");
   }
 
   public void sortNodes() {
@@ -399,7 +389,7 @@ public class PathFindingController {
     String endNode = endNodeId.getText();
 
     // TODO : add drop down algo selection
-    AlgoSingleton.INSTANCE.setType("A*");
+    AlgoSingleton.INSTANCE.setType(algChoice.getText());
     Graph graph = new Graph(AlgoSingleton.INSTANCE.getType());
     graph.syncWithDB();
 
@@ -537,5 +527,20 @@ public class PathFindingController {
   @FXML
   void getHelpage(ActionEvent event) {
     Navigation.navigate(Screen.HELP);
+  }
+
+  @FXML
+  void getChoiceAStar(ActionEvent event) {
+    algChoice.setText("A*");
+  }
+
+  @FXML
+  void getChoiceBFS(ActionEvent event) {
+    algChoice.setText("BFS");
+  }
+
+  @FXML
+  void getChoiceDFS(ActionEvent event) {
+    algChoice.setText("DFS");
   }
 }

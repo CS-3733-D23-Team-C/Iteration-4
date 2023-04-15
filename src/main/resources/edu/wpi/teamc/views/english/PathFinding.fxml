@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
@@ -138,6 +139,16 @@
                   <MFXButton fx:id="submit" layoutX="1002.0" layoutY="636.0" onAction="#getSubmit" prefHeight="50.0" prefWidth="127.0" text="Submit" />
                   <MFXButton fx:id="prevFloor" layoutX="862.0" layoutY="636.0" onAction="#getPrevFloor" prefHeight="50.0" prefWidth="127.0" text="Previous Floor" />
                   <MFXButton fx:id="nextFloor" layoutX="722.0" layoutY="636.0" onAction="#getNextFloor" prefHeight="50.0" prefWidth="127.0" text="Next Floor" />
+                  <MenuButton fx:id="algChoice" layoutX="1003.0" layoutY="595.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="Choose Algorithm">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#getChoiceAStar" text="A*" />
+                      <MenuItem mnemonicParsing="false" onAction="#getChoiceBFS" text="BFS" />
+                      <MenuItem mnemonicParsing="false" onAction="#getChoiceDFS" text="DFS" />
+                    </items>
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </MenuButton>
                     </children>
                 </AnchorPane>
             </children>

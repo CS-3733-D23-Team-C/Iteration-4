@@ -90,6 +90,8 @@ public class PathFindingController {
 
     loadDatabase();
     sortNodes();
+    nextFloor.setDisable(true);
+    prevFloor.setDisable(true);
     // placeNodes("G");
   }
 

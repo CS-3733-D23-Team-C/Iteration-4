@@ -158,6 +158,7 @@ public class EditMapController {
   StackPane stackPane = new StackPane();
   Boolean nodeClicked = false;
   Node currNodeClicked;
+  String currNodeLongname = "";
   HandleMapModes mapMode;
   Boolean addClicked = false;
   Boolean modifyClicked = false;
@@ -377,7 +378,7 @@ public class EditMapController {
           longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
-          createMapNodes(Floor1.get(i), shortName, nodeType);
+          createMapNodes(Floor1.get(i), shortName, nodeType, longName);
         }
         break;
       case "2":
@@ -392,7 +393,7 @@ public class EditMapController {
           longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
-          createMapNodes(Floor2.get(i), shortName, nodeType);
+          createMapNodes(Floor2.get(i), shortName, nodeType, longName);
         }
         break;
       case "3":
@@ -407,7 +408,7 @@ public class EditMapController {
           longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
-          createMapNodes(Floor3.get(i), shortName, nodeType);
+          createMapNodes(Floor3.get(i), shortName, nodeType, longName);
         }
         break;
       case "G":
@@ -422,7 +423,7 @@ public class EditMapController {
           longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
-          createMapNodes(FloorG.get(i), shortName, nodeType);
+          createMapNodes(FloorG.get(i), shortName, nodeType, longName);
         }
         break;
       case "L1":
@@ -437,7 +438,7 @@ public class EditMapController {
           longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
-          createMapNodes(FloorL1.get(i), shortName, nodeType);
+          createMapNodes(FloorL1.get(i), shortName, nodeType, longName);
         }
         break;
       case "L2":
@@ -452,7 +453,7 @@ public class EditMapController {
           longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
-          createMapNodes(FloorL2.get(i), shortName, nodeType);
+          createMapNodes(FloorL2.get(i), shortName, nodeType, longName);
         }
     }
     //    stackPane.toFront();
@@ -461,7 +462,7 @@ public class EditMapController {
     //    mapNodes.getChildren().s
   }
 
-  public void createMapNodes(Node node, String shortname, String nodeType) {
+  public void createMapNodes(Node node, String shortname, String nodeType, String longName) {
     Circle newCircle = new Circle();
     Text text = new Text();
     //    TextArea text = new TextArea();
@@ -496,6 +497,7 @@ public class EditMapController {
         e -> {
           nodeClicked = true; // clicked on a node
           currNodeClicked = node;
+          currNodeLongname = longName;
           System.out.println("circle clicked");
         });
     //    newCircle.setOnMouseDragEntered(
@@ -669,6 +671,52 @@ public class EditMapController {
           stage.close();
           lockMap = false;
         });
+  }
+
+  public void removeMenu() { //make this a pop up window instead of a whole new scene?
+    BorderPane borderPane = new BorderPane();
+
+    // Stuff to show on pop up
+    VBox vBox = new VBox();
+    Text remove_1 = new Text("Remove Node?");
+    Text remove_2 = new Text("Remove Node Location Name");
+    MFXButton removeNode = new MFXButton("By Text");
+    MFXButton removeName = new MFXButton("By Drag");
+
+    vBox.getChildren().addAll(remove_1, removeNode, remove_2, removeName);
+
+    // Set and show screen
+    AnchorPane aPane = new AnchorPane();
+    aPane.getChildren().add(vBox);
+    Insets insets = new Insets(0, 0, 0, 200);
+    aPane.setPadding(insets);
+    borderPane.getChildren().add(aPane);
+    Scene scene = new Scene(borderPane, 650, 500);
+    borderPane.relocate(0, 0);
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.setTitle("Remove Window");
+    stage.show();
+
+    removeNode.setOnMouseClicked(event -> {
+      MoveDao moveDao = new MoveDao();
+      NodeDao nodeDao = new NodeDao();
+      moveDao.deleteRow(currNodeClicked.getNodeID());
+      nodeDao.deleteRow(currNodeClicked.getNodeID());
+      stage.close();
+      lockMap = false;
+    });
+    removeName.setOnMouseClicked(event -> {
+      MoveDao moveDao = new MoveDao();
+      LocationDao locationDao = new LocationDao();
+      long currentTime = System.currentTimeMillis();
+      Date currentDate = new Date(currentTime);
+      Move move = new Move(currNodeClicked.getNodeID(), currNodeLongname, currentDate);
+      moveDao.deleteRow(move);
+      locationDao.deleteRow(currNodeLongname);
+      stage.close();
+      lockMap = false;
+    });
   }
 
   public void showNodeMenu(ActionEvent event) {

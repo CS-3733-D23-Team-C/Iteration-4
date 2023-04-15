@@ -182,38 +182,17 @@ public class EditMapController {
           System.out.println(mouseX + "  " + mouseY);
         });
 
+    enum Test { //Look at observers from lecture to see if those will help here, need to be set mode externally and call an instance of the HandleMapNodes object to check which mode, mode will determine action of mouse action event where listeners for that must be set up here in initialize
+      SELECT,
+      ADD,
+      MODIFY,
+      REMOVE;
+    }
+
     loadDatabase();
     sortNodes();
-
-    //    Comparator<Node> comp = new NodeComparator();
-    //    Collections.sort(nodeList, comp);
-    // System.out.println(nodeList.size());
-    //    for (Node node : nodeList) {
-    //      System.out.println(node.getFloor());
-    //    }
-
-    //    for (Node node : nodeList) {
-    //      int groupNum = comp.compare(node, null);
-    //      switch (groupNum) {
-    //        case 1:
-    //          FloorL1.add(node);
-    //          break;
-    //        case 2:
-    //          FloorL2.add(node);
-    //          break;
-    //        case 3:
-    //          Floor1.add(node);
-    //          break;
-    //        case 4:
-    //          Floor2.add(node);
-    //          break;
-    //        case 5:
-    //          Floor3.add(node);
-    //          break;
-    //      }
-    //    }
     placeNodes("G");
-  }
+  } //end initialize
   // load database
   public void loadDatabase() {
     nodeList = new NodeDao().fetchAllObjects();

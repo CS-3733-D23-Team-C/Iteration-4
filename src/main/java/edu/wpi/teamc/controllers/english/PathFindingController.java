@@ -76,7 +76,7 @@ public class PathFindingController {
 
   /** Method run when controller is initialized */
   public void initialize() {
-
+    submit.setDisable(true);
     //    File file = new File();
     Image image = new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
     ImageView imageView = new ImageView(image);
@@ -556,16 +556,19 @@ public class PathFindingController {
   @FXML
   void getChoiceAStar(ActionEvent event) {
     algChoice.setText("A*");
+    activateSubmit();
   }
 
   @FXML
   void getChoiceBFS(ActionEvent event) {
     algChoice.setText("BFS");
+    activateSubmit();
   }
 
   @FXML
   void getChoiceDFS(ActionEvent event) {
     algChoice.setText("DFS");
+    activateSubmit();
   }
 
   @FXML
@@ -573,4 +576,8 @@ public class PathFindingController {
 
   @FXML
   void getEndChoice(ActionEvent event) {}
+
+  void activateSubmit() {
+    submit.setDisable(false);
+  }
 }

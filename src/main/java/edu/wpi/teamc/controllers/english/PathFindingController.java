@@ -410,7 +410,6 @@ public class PathFindingController {
     String startName = startChoice.getText();
     String endName = endChoice.getText();
 
-    // TODO : add drop down algo selection
     AlgoSingleton.INSTANCE.setType(algChoice.getText());
     Graph graph = new Graph(AlgoSingleton.INSTANCE.getType());
     graph.syncWithDB();

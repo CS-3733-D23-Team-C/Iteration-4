@@ -168,7 +168,7 @@ public class EditMapController {
   /** Method run when controller is initialized */
   public void initialize() {
 
-    Image image = new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
+    Image image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
     ImageView imageView = new ImageView(image);
     imageView.relocate(0, 0);
     group.getChildren().add(imageView);
@@ -301,9 +301,9 @@ public class EditMapController {
     } else if (Objects.equals(floorButton.getId(), "FL3")) {
       image = new Image(Main.class.getResource("./views/Images/ThirdFloor.png").toString());
       floor = "3";
-    } else if (Objects.equals(floorButton.getId(), "FLG")) {
-      image = new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
-      floor = "G";
+//    } else if (Objects.equals(floorButton.getId(), "FLG")) {
+//      image = new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
+//      floor = "G";
     } else if (Objects.equals(floorButton.getId(), "FLB1")) {
       image = new Image(Main.class.getResource("./views/Images/B1.png").toString());
       floor = "L1";

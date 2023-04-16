@@ -60,6 +60,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#getEditMap" text="Edit Map" />
                   <MenuItem mnemonicParsing="false" onAction="#getMapHistory" text="Map History" />
                   <MenuItem mnemonicParsing="false" onAction="#getPathfindingPage" text="Pathfinding" />
+                  <MenuItem mnemonicParsing="false" onAction="#getMoveTablePage" text="Location Moves" />
                </items>
                <padding>
                   <Insets left="30.0" />

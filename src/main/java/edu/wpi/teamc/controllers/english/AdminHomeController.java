@@ -170,4 +170,8 @@ public class AdminHomeController {
       exitButton.setText("Salir");
     }
   }
+
+  public void getMoveTablePage(ActionEvent actionEvent) {
+    Navigation.navigate(Screen.MOVETABLE_PAGE);
+  }
 }

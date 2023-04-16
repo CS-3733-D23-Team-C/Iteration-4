@@ -11,6 +11,7 @@ public enum Screen {
   SIGNAGE("views/english/ElevatorSignage.fxml"),
   MAP_HISTORY_PAGE("views/english/MapHistory.fxml"),
   PATHFINDING_PAGE("views/english/PathFinding.fxml"),
+  MOVETABLE_PAGE("views/english/MoveTable.fxml"),
   EDIT_MAP("views/english/EditMap.fxml"),
   FLOOR_PLAN("views/english/FloorPlan.fxml"),
 

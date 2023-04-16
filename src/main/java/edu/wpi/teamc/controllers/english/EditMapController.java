@@ -158,6 +158,7 @@ public class EditMapController {
   StackPane stackPane = new StackPane();
   Boolean nodeClicked = false;
   Node currNodeClicked;
+  Node nodeToDrag;
   String currNodeLongname = "";
   HandleMapModes mapMode;
   Boolean addClicked = false;
@@ -203,12 +204,16 @@ public class EditMapController {
 
           if (nodeClicked && !lockMap) {
             if (Objects.equals(mapMode.getMapMode(), "Add")) { // to add a location name to a node
+              lockMap = true;
+              addMenu();
             } // bring up location name add popup
             else if (Objects.equals(mapMode.getMapMode(), "Modify")) {
               lockMap = true;
               modifyMenu();
             } // bring up modify popup
             else if (Objects.equals(mapMode.getMapMode(), "Remove")) {
+              lockMap = true;
+              removeMenu();
             } // bring up remove popup
             // if modify, first popup asks if you want to modify node by drag or by entering?
             // also if modify pop up asks if you want to modify node or name
@@ -301,9 +306,10 @@ public class EditMapController {
     } else if (Objects.equals(floorButton.getId(), "FL3")) {
       image = new Image(Main.class.getResource("./views/Images/ThirdFloor.png").toString());
       floor = "3";
-//    } else if (Objects.equals(floorButton.getId(), "FLG")) {
-//      image = new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
-//      floor = "G";
+      //    } else if (Objects.equals(floorButton.getId(), "FLG")) {
+      //      image = new
+      // Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
+      //      floor = "G";
     } else if (Objects.equals(floorButton.getId(), "FLB1")) {
       image = new Image(Main.class.getResource("./views/Images/B1.png").toString());
       floor = "L1";
@@ -597,6 +603,10 @@ public class EditMapController {
           modifyNodeByInput();
         });
     byDrag.setOnMouseClicked(event -> {});
+    editName.setOnMouseClicked(event -> {
+      stage.close();
+      modifyName();
+    });
   }
 
   public void modifyNodeByInput() {
@@ -673,7 +683,7 @@ public class EditMapController {
         });
   }
 
-  public void removeMenu() { //make this a pop up window instead of a whole new scene?
+  public void removeMenu() { // make this a pop up window instead of a whole new scene?
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
@@ -698,26 +708,153 @@ public class EditMapController {
     stage.setTitle("Remove Window");
     stage.show();
 
-    removeNode.setOnMouseClicked(event -> {
-      MoveDao moveDao = new MoveDao();
-      NodeDao nodeDao = new NodeDao();
-      moveDao.deleteRow(currNodeClicked.getNodeID());
-      nodeDao.deleteRow(currNodeClicked.getNodeID());
-      stage.close();
-      lockMap = false;
-    });
-    removeName.setOnMouseClicked(event -> {
-      MoveDao moveDao = new MoveDao();
-      LocationDao locationDao = new LocationDao();
-      long currentTime = System.currentTimeMillis();
-      Date currentDate = new Date(currentTime);
-      Move move = new Move(currNodeClicked.getNodeID(), currNodeLongname, currentDate);
-      moveDao.deleteRow(move);
-      locationDao.deleteRow(currNodeLongname);
-      stage.close();
-      lockMap = false;
-    });
+    removeNode.setOnMouseClicked(
+        event -> {
+          MoveDao moveDao = new MoveDao();
+          NodeDao nodeDao = new NodeDao();
+          moveDao.deleteRow(currNodeClicked.getNodeID());
+          nodeDao.deleteRow(currNodeClicked.getNodeID());
+          stage.close();
+          lockMap = false;
+        });
+    removeName.setOnMouseClicked(
+        event -> {
+          MoveDao moveDao = new MoveDao();
+          LocationDao locationDao = new LocationDao();
+          long currentTime = System.currentTimeMillis();
+          Date currentDate = new Date(currentTime);
+          Move move = new Move(currNodeClicked.getNodeID(), currNodeLongname, currentDate);
+          moveDao.deleteRow(move);
+          locationDao.deleteRow(currNodeLongname);
+          stage.close();
+          lockMap = false;
+        });
   }
+
+  public void addMenu() { // make this a pop up window instead of a whole new scene?
+    BorderPane borderPane = new BorderPane();
+
+    // Stuff to show on pop up
+    VBox vBox = new VBox();
+    Text nodeType = new Text("Input New Node Type");
+    Text SName = new Text("Input New Shortname");
+    Text LName = new Text("Input New Longname");
+
+    MFXTextField nodeTypeInput = new MFXTextField();
+    MFXTextField sNameInput = new MFXTextField();
+    MFXTextField lNameInput = new MFXTextField();
+
+    MFXButton addName = new MFXButton("Submit");
+
+    vBox.getChildren().addAll(nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, addName);
+
+    // Set and show screen
+    AnchorPane aPane = new AnchorPane();
+    aPane.getChildren().add(vBox);
+    Insets insets = new Insets(0, 0, 0, 200);
+    aPane.setPadding(insets);
+    borderPane.getChildren().add(aPane);
+    Scene scene = new Scene(borderPane, 650, 500);
+    borderPane.relocate(0, 0);
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.setTitle("Add Location Name Window");
+    stage.show();
+
+    addName.setOnMouseClicked(
+            event -> {
+              LocationDao locationDao = new LocationDao();
+              MoveDao moveDao = new MoveDao();
+              LocationName locationName = new LocationName(lNameInput.getText(), sNameInput.getText(), nodeTypeInput.getText());
+
+              long currentTime = System.currentTimeMillis();
+              Date currentDate = new Date(currentTime);
+              Move move = new Move(currNodeClicked.getNodeID(), lNameInput.getText(), currentDate);
+              locationDao.addRow(locationName);
+              moveDao.addRow(move);
+
+              stage.close();
+              lockMap = false;
+            });
+  }
+
+  public void modifyName() { // make this a pop up window instead of a whole new scene?
+    BorderPane borderPane = new BorderPane();
+
+    // Stuff to show on pop up
+    VBox vBox = new VBox();
+
+    Text nodeType = new Text("Input new Node Type");
+    Text LName = new Text("Input new Longname");
+    Text SName = new Text("Input new Shortname"); //need current longname of current node
+
+    MFXTextField nodeTypeInput = new MFXTextField();
+    MFXTextField lNameInput = new MFXTextField();
+    MFXTextField sNameInput = new MFXTextField();
+
+    MFXButton modifyName = new MFXButton("Modify Name");
+
+    vBox.getChildren().addAll(nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, modifyName);
+
+    // Set and show screen
+    AnchorPane aPane = new AnchorPane();
+    aPane.getChildren().add(vBox);
+    Insets insets = new Insets(0, 0, 0, 200);
+    aPane.setPadding(insets);
+    borderPane.getChildren().add(aPane);
+    Scene scene = new Scene(borderPane, 650, 500);
+    borderPane.relocate(0, 0);
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.setTitle("Add Location Name Window");
+    stage.show();
+
+    modifyName.setOnMouseClicked(
+            event -> {
+              LocationDao locationDao = new LocationDao();
+
+              //If nodeType entered is not equal to 4 characters, assign the nodeType as HALL
+              String nodeType_t = nodeTypeInput.getText();
+              if (!(nodeType_t.length() == 4)) { // Fix later
+                nodeType_t = "HALL";
+              }
+
+              //Add to LocationName and Move Tables
+              LocationName locationName = new LocationName(lNameInput.getText(), sNameInput.getText(), nodeType_t);
+              locationDao.updateRow(currNodeLongname, locationName);
+
+              stage.close();
+              lockMap = false;
+            });
+  }
+
+  public void modifyByDrag() { // make this a pop up window instead of a whole new scene?
+    nodeToDrag = currNodeClicked;
+
+//    group.setOnMouseClicked(event -> {
+//      if (Objects.equals(currNodeClicked.getNodeID(), nodeToDrag.getNodeID())) {
+    group.setOnMouseDragged(dragEvent -> {
+      if (Objects.equals(currNodeClicked.getNodeID(), nodeToDrag.getNodeID())) {
+
+        // make new node
+        Node newNode = new Node(nodeToDrag.getNodeID(), (int) dragEvent.getX(), (int) dragEvent.getY(), floor, nodeToDrag.getBuilding());
+
+        // Add node to database
+        NodeDao nodeDao = new NodeDao();
+        nodeDao.updateRow(nodeToDrag.getNodeID(), newNode);
+
+        // Paint node
+        group.getChildren().remove(mapNodes);
+        mapNodes = new Group();
+        group.getChildren().add(mapNodes);
+        loadDatabase();
+        sortNodes();
+        placeNodes(floor);
+      }});
+
+
+  }
+//    })
 
   public void showNodeMenu(ActionEvent event) {
     BorderPane borderPane = new BorderPane();
@@ -1084,6 +1221,7 @@ public class EditMapController {
 
           // Add
           for (int i = 0; i < newNameToAdd.size(); i++) {
+
             LocationName currName = newNameToAdd.get(i);
             Move currMove = moveNamesToAdd.get(i);
             locationDao.addRow(currName);
@@ -1351,3 +1489,15 @@ public class EditMapController {
     Navigation.navigate(Screen.HELP);
   }
 }
+
+/* Notes
+ * make it so when you click on a floor the button for that floor is a different color than the rest
+ * when in drag mode to modify, have a red x and green check on the screen somewhere to cancel move of node (x) or exit the drag mode (check)
+ * still need to paint edges on the map
+ * go over with ian what is required for new move component
+ *  * idea is to implement another mode on the map to enter move mode and can click on a node and submit a move for it and a date for that move to be implemented
+ *  * separate button to enter this mode appears if in admin
+ * if stair or elevator, bypass the floor number attribute and print on every floor
+ *
+ * ***** If modifying or deleting a node that is a stair or elevator, need to modify or delete relating nodes accordingly, check for relating nodes using longname of elevator
+ */

@@ -1032,7 +1032,7 @@ public class EditMapController {
     // group.onMouseDraggedProperty();
     EventHandler<? super MouseEvent> eventHandlerDrag = group.getOnMouseDragged();
     //    EventHandler<? super MouseEvent> eventHandlerPress = group.getOnMousePressed();
-    //    EventHandler<? super MouseEvent> eventHandlerRel = group.getOnMouseReleased();
+    EventHandler<? super MouseEvent> eventHandlerRel = group.getOnMouseReleased();
     //    EventHandler<? super MouseEvent> eventHandlerDrag_Node = group.getOnMouseDragged();
     NodeDao nodeDao = new NodeDao();
 
@@ -1148,19 +1148,52 @@ public class EditMapController {
           mapHistoryDao.addRow(
               new MapHistory(
                   "UPDATE",
-                  String.valueOf(newNodeTemp.getNodeID()),
+                  String.valueOf(newNodeTemp.getNodeID()), //need to fix this
                   "node",
                   new Timestamp(System.currentTimeMillis())));
+          Node newNode =
+              new Node(
+                  currNodeClicked.getNodeID(),
+                  currNodeClicked.getXCoord(),
+                  currNodeClicked.getYCoord(),
+                  floor,
+                  nodeToDrag.getBuilding());
+
+          //          newNodeTemp = newNode;
+
+          nodeDao.updateRow(nodeToDrag.getNodeID(), newNode); // ////////////////
+
+          // Paint node
+          group
+              .getChildren()
+              .removeAll(
+                  mapNodes,
+                  mapText,
+                  movingNode,
+                  movingText); // highlight last spot in one color, dragging spot in
+          // another
+          mapNodes = new Group();
+          mapText = new Group();
+          movingNode = new Group();
+          movingText = new Group();
+          group.getChildren().addAll(mapNodes, mapText, movingNode, movingText);
+
+          mapMode = HandleMapModes.MODIFY;
+          loadDatabase();
+          sortNodes();
 
           dragModeOn = false;
-          mapMode = HandleMapModes.MODIFY;
           lockMap = false;
           checkAndX_HBox.setVisible(false);
           checkAndX_HBox.setMouseTransparent(true);
           nodeClicked = false;
           mapGPane.setGestureEnabled(true);
           group.setOnMouseDragged(eventHandlerDrag);
-          currNodeClicked = helperNode1;
+          group.setOnMouseReleased(eventHandlerRel);
+
+          currNodeClicked =
+              helperNode1; // ensures clicking on the map again won't try to cause modify to run
+          // again
         });
 
     x_button.setOnMouseClicked(
@@ -1186,6 +1219,7 @@ public class EditMapController {
           nodeClicked = false;
           mapGPane.setGestureEnabled(true);
           group.setOnMouseDragged(eventHandlerDrag);
+          group.setOnMouseReleased(eventHandlerRel);
 
           currNodeClicked = helperNode1;
         });

@@ -120,7 +120,7 @@ public class EditMapController {
   String nodeType_temp = "";
   String iD;
   String building = "";
-  String floor = "G";
+  String floor = "1";
   List<Node> n_toAdd = new ArrayList<Node>();
   List<Node> n_toModify_newNode = new ArrayList<Node>();
   List<String> n_toModify_oldID = new ArrayList<String>();
@@ -248,7 +248,7 @@ public class EditMapController {
 
     loadDatabase();
     sortNodes();
-    placeNodes("G");
+    placeNodes("1");
   } // end initialize
   // load database
   public void loadDatabase() {
@@ -529,6 +529,11 @@ public class EditMapController {
     //    if (Objects.equals(mapMode.getMapMode(), "Modify_drag")) {
     //      newCircle.setOnMousePressed
     //    }
+    newCircle.setOnMouseEntered(
+        e -> {
+          newCircle.setStroke(Paint.valueOf("#C51919"));
+        });
+
     newCircle.setOnMousePressed( // was set on mouse clicked
         e -> {
           nodeClicked = true; // clicked on a node
@@ -537,11 +542,26 @@ public class EditMapController {
           currNodeShortname = shortname;
           currNodeType = nodeType;
 
+          if (!(Objects.equals(mapMode.getMapMode(), "Modify_drag"))) {
+            newCircle.setFill(Paint.valueOf("#45a37f"));
+          } else if (Objects.equals(node.getNodeID(), mapModeSaver.getNodeID())) {
+            newCircle.setFill(Paint.valueOf("#45a37f"));
+          }
+
           if ((Objects.equals(mapMode.getMapMode(), "Modify_drag"))
               && !mapModeSaver.getDraggingNodeCreated()) {
             movingNodeClicked = true;
           }
           //          System.out.println("circle clicked");
+        });
+    newCircle.setOnMouseExited(
+        e -> {
+          if (!(Objects.equals(mapMode.getMapMode(), "Modify_drag"))) {
+            newCircle.setFill(Paint.valueOf("#13DAF7"));
+            newCircle.setStroke(Paint.valueOf("#13DAF7"));
+          } else if (!(Objects.equals(node.getNodeID(), mapModeSaver.getNodeID()))) {
+            newCircle.setStroke(Paint.valueOf("13DAF7"));
+          }
         });
     //    newCircle.setOnMouseDragEntered(
     //        e -> {
@@ -564,6 +584,7 @@ public class EditMapController {
   }
 
   public void createMovingMapNode(
+      Node node,
       int nodeID,
       String shortname,
       String nodeType,
@@ -604,8 +625,8 @@ public class EditMapController {
     //      text.setVisible(true);
     //    }
     newCircle.setId(String.valueOf(nodeID));
-    newCircle.setStroke(Paint.valueOf("#13DAF7"));
-    newCircle.setFill(Paint.valueOf("#13DAF7"));
+    newCircle.setStroke(Paint.valueOf("#45a37f"));
+    newCircle.setFill(Paint.valueOf("#8745a3"));
     newCircle.setVisible(true);
     text.setVisible(true);
     newCircle.setOnMousePressed(
@@ -616,6 +637,9 @@ public class EditMapController {
           currNodeShortname = shortname;
           currNodeType = nodeType;
           movingNodeClicked = true;
+          if (Objects.equals(node.getNodeID(), mapModeSaver.getNodeID())) {
+            newCircle.setFill(Paint.valueOf("#45a37f"));
+          }
           //          System.out.println("circle clicked");
         });
     //    newCircle.setOnMouseDragEntered(
@@ -1144,6 +1168,7 @@ public class EditMapController {
               movingText = new Group();
               group.getChildren().addAll(movingNode, movingText);
               createMovingMapNode(
+                  currNodeClicked,
                   0,
                   currNodeShortname,
                   currNodeType,

@@ -382,8 +382,8 @@ public class PathFindingController {
     circ.setCenterX(node.getXCoord());
     circ.setCenterY(node.getYCoord());
     circ.setRadius(20);
-    circ.setFill(Paint.valueOf("#32CD32"));
-    circ.setStroke(Paint.valueOf("#FF0000"));
+    circ.setFill(Paint.valueOf("#4CAF50"));
+    circ.setStroke(Paint.valueOf("#021335"));
     circ.setVisible(true);
     mapNodes.getChildren().add(circ);
   }
@@ -393,8 +393,8 @@ public class PathFindingController {
     circ2.setCenterX(node.getXCoord());
     circ2.setCenterY(node.getYCoord());
     circ2.setRadius(20);
-    circ2.setFill(Paint.valueOf("#FF0000"));
-    circ2.setStroke(Paint.valueOf("#32CD32"));
+    circ2.setFill(Paint.valueOf("#021335"));
+    circ2.setStroke(Paint.valueOf("#021335"));
     circ2.setVisible(true);
     mapNodes.getChildren().add(circ2);
   }
@@ -409,7 +409,7 @@ public class PathFindingController {
               splitPath.get(pathLoc).get(i + 1).getYCoord());
       temp.setStrokeWidth(12);
       temp.setVisible(true);
-      temp.setStroke(Paint.valueOf("FF0000"));
+      temp.setStroke(Paint.valueOf("021335"));
       edges.getChildren().add(temp);
     }
 

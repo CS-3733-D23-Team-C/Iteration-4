@@ -31,7 +31,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -144,14 +143,6 @@ public class EditMapController {
   List<Node> FloorG = new ArrayList<Node>();
   List<Node> FloorL1 = new ArrayList<Node>();
   List<Node> FloorL2 = new ArrayList<Node>();
-
-  //  List<String> Floor1Name = new ArrayList<String>();
-  //  List<String> Floor2Name = new ArrayList<String>();
-  //  List<String> Floor3Name = new ArrayList<String>();
-  //  List<String> FloorGName = new ArrayList<String>();
-  //  List<String> FloorL1Name = new ArrayList<String>();
-  //  List<String> FloorL2Name = new ArrayList<String>();
-
   String sNameInput_temp;
   String lNameInput_temp;
   String oldName_temp;
@@ -167,6 +158,10 @@ public class EditMapController {
   Boolean modifyClicked = false;
   Boolean lockMap = false;
   Boolean dragModeOn = false;
+  @FXML HBox checkAndX_HBox;
+  @FXML MFXButton check_button;
+  @FXML MFXButton x_button;
+
   //  Boolean
 
   /** Method run when controller is initialized */
@@ -177,8 +172,8 @@ public class EditMapController {
     imageView.relocate(0, 0);
     group.getChildren().add(imageView);
 
-    group.getChildren().add(mapNodes);
-    group.getChildren().add(mapText);
+    group.getChildren().add(mapNodes); // nodes
+    group.getChildren().add(mapText); // shortnames of nodes
     Pane pane = new Pane();
     pane.setMinWidth(image.getWidth());
     pane.setMaxWidth(image.getWidth());
@@ -187,6 +182,7 @@ public class EditMapController {
     pane.relocate(0, 0);
     group.getChildren().add(pane);
     mapMode = HandleMapModes.SELECT;
+    checkAndX_HBox.setMouseTransparent(true);
     //    group.getChildren().add(stackPane);
 
     group.setOnMouseClicked(
@@ -285,7 +281,7 @@ public class EditMapController {
   }
 
   public void changeMapMode(ActionEvent event) {
-    if(!dragModeOn) {
+    if (!dragModeOn) {
       modeButton = (MFXButton) event.getTarget();
       if (Objects.equals(modeButton.getId(), "Select")) {
         mapMode = HandleMapModes.SELECT;
@@ -607,11 +603,17 @@ public class EditMapController {
           stage.close();
           modifyNodeByInput();
         });
-    byDrag.setOnMouseClicked(event -> {});
-    editName.setOnMouseClicked(event -> {
-      stage.close();
-      modifyName();
-    });
+    byDrag.setOnMouseClicked(
+        event -> {
+          stage.close();
+          mapMode = HandleMapModes.MODIFY_DRAG;
+          modifyByDrag();
+        });
+    editName.setOnMouseClicked(
+        event -> {
+          stage.close();
+          modifyName();
+        });
   }
 
   public void modifyNodeByInput() {
@@ -751,7 +753,8 @@ public class EditMapController {
 
     MFXButton addName = new MFXButton("Submit");
 
-    vBox.getChildren().addAll(nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, addName);
+    vBox.getChildren()
+        .addAll(nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, addName);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
@@ -767,20 +770,21 @@ public class EditMapController {
     stage.show();
 
     addName.setOnMouseClicked(
-            event -> {
-              LocationDao locationDao = new LocationDao();
-              MoveDao moveDao = new MoveDao();
-              LocationName locationName = new LocationName(lNameInput.getText(), sNameInput.getText(), nodeTypeInput.getText());
+        event -> {
+          LocationDao locationDao = new LocationDao();
+          MoveDao moveDao = new MoveDao();
+          LocationName locationName =
+              new LocationName(lNameInput.getText(), sNameInput.getText(), nodeTypeInput.getText());
 
-              long currentTime = System.currentTimeMillis();
-              Date currentDate = new Date(currentTime);
-              Move move = new Move(currNodeClicked.getNodeID(), lNameInput.getText(), currentDate);
-              locationDao.addRow(locationName);
-              moveDao.addRow(move);
+          long currentTime = System.currentTimeMillis();
+          Date currentDate = new Date(currentTime);
+          Move move = new Move(currNodeClicked.getNodeID(), lNameInput.getText(), currentDate);
+          locationDao.addRow(locationName);
+          moveDao.addRow(move);
 
-              stage.close();
-              lockMap = false;
-            });
+          stage.close();
+          lockMap = false;
+        });
   }
 
   public void modifyName() { // make this a pop up window instead of a whole new scene?
@@ -791,7 +795,7 @@ public class EditMapController {
 
     Text nodeType = new Text("Input new Node Type");
     Text LName = new Text("Input new Longname");
-    Text SName = new Text("Input new Shortname"); //need current longname of current node
+    Text SName = new Text("Input new Shortname"); // need current longname of current node
 
     MFXTextField nodeTypeInput = new MFXTextField();
     MFXTextField lNameInput = new MFXTextField();
@@ -799,7 +803,8 @@ public class EditMapController {
 
     MFXButton modifyName = new MFXButton("Modify Name");
 
-    vBox.getChildren().addAll(nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, modifyName);
+    vBox.getChildren()
+        .addAll(nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, modifyName);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
@@ -815,93 +820,114 @@ public class EditMapController {
     stage.show();
 
     modifyName.setOnMouseClicked(
-            event -> {
-              LocationDao locationDao = new LocationDao();
+        event -> {
+          LocationDao locationDao = new LocationDao();
 
-              //If nodeType entered is not equal to 4 characters, assign the nodeType as HALL
-              String nodeType_t = nodeTypeInput.getText();
-              if (!(nodeType_t.length() == 4)) { // Fix later
-                nodeType_t = "HALL";
-              }
+          // If nodeType entered is not equal to 4 characters, assign the nodeType as HALL
+          String nodeType_t = nodeTypeInput.getText();
+          if (!(nodeType_t.length() == 4)) { // Fix later
+            nodeType_t = "HALL";
+          }
 
-              //Add to LocationName and Move Tables
-              LocationName locationName = new LocationName(lNameInput.getText(), sNameInput.getText(), nodeType_t);
-              locationDao.updateRow(currNodeLongname, locationName);
+          // Add to LocationName and Move Tables
+          LocationName locationName =
+              new LocationName(lNameInput.getText(), sNameInput.getText(), nodeType_t);
+          locationDao.updateRow(currNodeLongname, locationName);
 
-              stage.close();
-              lockMap = false;
-            });
+          stage.close();
+          lockMap = false;
+        });
   }
 
   public void modifyByDrag() { // make this a pop up window instead of a whole new scene?
+    checkAndX_HBox.setVisible(true);
+    checkAndX_HBox.setMouseTransparent(false);
     nodeToDrag = currNodeClicked;
-    int initialX = nodeToDrag.getXCoord();
-    int initialY = nodeToDrag.getYCoord();
-    MFXButton checkBox = new MFXButton();
-    MFXButton xBox = new MFXButton();
+    //    int initialX = nodeToDrag.getXCoord();
+    //    int initialY = nodeToDrag.getYCoord();
 
-//    SVGPath checkBox;
+    //    MFXButton checkBox = new MFXButton();
+    //    MFXButton xBox = new MFXButton();
+    //    HBox checkAndX = new HBox();
+    //    checkAndX.getChildren().addAll(xBox, checkBox);
+    //    group.getChildren().add(checkAndX);
+    //    checkAndX.setVisible;
 
-//    group.setOnMouseClicked(event -> {
-//      if (Objects.equals(currNodeClicked.getNodeID(), nodeToDrag.getNodeID())) {
-    group.setOnMouseDragged(dragEvent -> {
-      if (Objects.equals(currNodeClicked.getNodeID(), nodeToDrag.getNodeID())) {
+    //    SVGPath checkBox;
 
-        // make new node
-        Node newNode = new Node(nodeToDrag.getNodeID(), (int) dragEvent.getX(), (int) dragEvent.getY(), floor, nodeToDrag.getBuilding());
-        newNodeTemp = newNode;
+    //    group.setOnMouseClicked(event -> {
+    //      if (Objects.equals(currNodeClicked.getNodeID(), nodeToDrag.getNodeID())) {
 
-        // Add node to database
-        NodeDao nodeDao = new NodeDao();
-        nodeDao.updateRow(nodeToDrag.getNodeID(), newNode);
+    // update node as drag occurs
+    group.setOnMouseDragged(
+        dragEvent -> {
+          if (Objects.equals(currNodeClicked.getNodeID(), nodeToDrag.getNodeID())) {
 
-        // Paint node
-        group.getChildren().remove(mapNodes);
-        mapNodes = new Group();
-        group.getChildren().add(mapNodes);
-        loadDatabase();
-        sortNodes();
-        placeNodes(floor);
-      }});
+            // make new node
+            Node newNode =
+                new Node(
+                    nodeToDrag.getNodeID(),
+                    (int) dragEvent.getX(),
+                    (int) dragEvent.getY(),
+                    floor,
+                    nodeToDrag.getBuilding());
+            newNodeTemp = newNode;
 
-    //exit conditions
-    checkBox.setOnMouseClicked(event -> {
-      MapHistoryDao mapHistoryDao = new MapHistoryDao();
-      mapHistoryDao.addRow(
+            // Add node to database
+            NodeDao nodeDao = new NodeDao();
+            nodeDao.updateRow(nodeToDrag.getNodeID(), newNode);
+
+            // Paint node
+            group.getChildren().remove(mapNodes);
+            mapNodes = new Group();
+            group.getChildren().add(mapNodes);
+            loadDatabase();
+            sortNodes();
+            placeNodes(floor);
+          }
+        });
+
+    // exit conditions
+    check_button.setOnMouseClicked(
+        event -> { // maybe when this is pressed ask if you want to modify now or later? set move
+          // for future here
+          MapHistoryDao mapHistoryDao = new MapHistoryDao();
+          mapHistoryDao.addRow(
               new MapHistory(
-                      "UPDATE",
-                      String.valueOf(newNodeTemp.getNodeID()),
-                      "node",
-                      new Timestamp(System.currentTimeMillis())));
+                  "UPDATE",
+                  String.valueOf(newNodeTemp.getNodeID()),
+                  "node",
+                  new Timestamp(System.currentTimeMillis())));
 
-      dragModeOn = false;
-      mapMode = HandleMapModes.MODIFY;
-      lockMap = false;
-    });
+          dragModeOn = false;
+          mapMode = HandleMapModes.MODIFY;
+          lockMap = false;
+          checkAndX_HBox.setVisible(false);
+          checkAndX_HBox.setMouseTransparent(true);
+        });
 
-    xBox.setOnMouseClicked(event -> { //set tooltip describing check and exit buttons
-      // Add node to database
-      NodeDao nodeDao = new NodeDao();
-      nodeDao.updateRow(nodeToDrag.getNodeID(), nodeToDrag);
+    x_button.setOnMouseClicked(
+        event -> { // set tooltip describing check and exit buttons
+          // Add node to database
+          NodeDao nodeDao = new NodeDao();
+          nodeDao.updateRow(nodeToDrag.getNodeID(), nodeToDrag);
 
-      // Paint node
-      group.getChildren().remove(mapNodes);
-      mapNodes = new Group();
-      group.getChildren().add(mapNodes);
-      loadDatabase();
-      sortNodes();
-      placeNodes(floor);
+          // Paint node
+          group.getChildren().remove(mapNodes);
+          mapNodes = new Group();
+          group.getChildren().add(mapNodes);
+          loadDatabase();
+          sortNodes();
+          placeNodes(floor);
 
-      dragModeOn = false;
-      mapMode = HandleMapModes.MODIFY;
-      lockMap = false;
-    });
-
-
-
-
+          dragModeOn = false;
+          mapMode = HandleMapModes.MODIFY;
+          lockMap = false;
+          checkAndX_HBox.setVisible(false);
+          checkAndX_HBox.setMouseTransparent(true);
+        });
   }
-//    })
+  //    })
 
   public void showNodeMenu(ActionEvent event) {
     BorderPane borderPane = new BorderPane();

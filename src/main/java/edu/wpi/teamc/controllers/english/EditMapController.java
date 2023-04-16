@@ -177,6 +177,7 @@ public class EditMapController {
   @FXML HBox checkAndX_HBox;
   @FXML MFXButton check_button;
   @FXML MFXButton x_button;
+  ImageView imageView;
 
   //  Boolean
 
@@ -184,7 +185,7 @@ public class EditMapController {
   public void initialize() {
 
     Image image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
-    ImageView imageView = new ImageView(image);
+    imageView = new ImageView(image); // was ImageView imageView
     imageView.relocate(0, 0);
     group.getChildren().add(imageView);
 
@@ -334,18 +335,19 @@ public class EditMapController {
       image = new Image(Main.class.getResource("./views/Images/B2.png").toString());
       floor = "L2";
     }
-    group.getChildren().removeAll();
+    group.getChildren().removeAll(mapNodes, mapText, imageView);
     group.getChildren().remove(mapNodes);
     group.getChildren().remove(mapText);
     //    stackPane.getChildren().remove(mapNodes);
-    ImageView imageView = new ImageView(image);
+
+    imageView = new ImageView(image);
     imageView.relocate(0, 0);
     mapNodes = new Group();
     mapText = new Group();
-    group.getChildren().add(imageView);
+    group.getChildren().addAll(imageView, mapNodes, mapText);
     //    stackPane.getChildren().add(mapNodes);
-    group.getChildren().add(mapNodes);
-    group.getChildren().add(mapText);
+    //    group.getChildren().add(mapNodes);
+    //    group.getChildren().add(mapText);
     Pane pane = new Pane();
     pane.setMinWidth(image.getWidth());
     pane.setMaxWidth(image.getWidth());

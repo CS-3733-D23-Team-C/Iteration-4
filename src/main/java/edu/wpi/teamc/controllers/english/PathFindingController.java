@@ -8,8 +8,10 @@ import edu.wpi.teamc.graph.GraphNode;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.util.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -28,20 +30,12 @@ public class PathFindingController {
   public Group group;
   public Image image =
       new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
-
-  /*
-  Notes:
-  * implement import and export buttons and get rid of navigation actions
-  * implement a submit button that submits all edits at once
-      * maybe store edits and their indices in an array and iterate over that array after the submit
-      * button is pressed to update the move list from the database
-   */
-
-  /** */
   @FXML MFXButton backButton;
-
   @FXML MFXButton nextFloor;
   @FXML MFXButton prevFloor;
+  @FXML MenuButton algChoice;
+  @FXML MFXFilterComboBox<String> startChoice;
+  @FXML MFXFilterComboBox<String> endChoice;
 
   /** Method run when controller is initialized */
   @FXML
@@ -56,11 +50,11 @@ public class PathFindingController {
   @FXML MFXButton FLG;
   @FXML MFXButton FLB1;
   @FXML MFXButton FLB2;
+  private MFXButton tempSave;
+  private final Paint DEFAULT_BG = Paint.valueOf("#bebebe");
   @FXML MFXButton floorButton;
   Group mapNodes = new Group();
   Group edges = new Group();
-  @FXML MFXTextField startNodeId;
-  @FXML MFXTextField endNodeId;
   @FXML MFXButton submit;
   @FXML private Button goHome;
   String floor = "G";
@@ -75,6 +69,7 @@ public class PathFindingController {
   List<Edge> edgeList = new ArrayList<Edge>();
   List<LocationName> locationNameList = new ArrayList<LocationName>();
   HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
+  HashMap<String, Integer> longNameToNodeID = new HashMap<>();
   HashMap<String, LocationName> longNametoLocationName = new HashMap<String, LocationName>();
   private LinkedList<List<GraphNode>> splitPath = new LinkedList<>();
   private int pathLoc = 0;
@@ -83,7 +78,8 @@ public class PathFindingController {
 
   /** Method run when controller is initialized */
   public void initialize() {
-
+    submit.setDisable(true);
+    tempSave = FLG;
     //    File file = new File();
     Image image = new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
     ImageView imageView = new ImageView(image);
@@ -100,7 +96,11 @@ public class PathFindingController {
 
     loadDatabase();
     sortNodes();
-    placeNodes("G");
+    addLocationsToSelect();
+
+    nextFloor.setDisable(true);
+    prevFloor.setDisable(true);
+    // placeNodes("G");
   }
 
   public void sortNodes() {
@@ -146,11 +146,44 @@ public class PathFindingController {
         move.setLongName("ERROR");
       }
       nodeIDtoMove.put(move.getNodeID(), move);
+      longNameToNodeID.put(move.getLongName(), move.getNodeID());
     }
     for (LocationName locationName : locationNameList) {
       longNametoLocationName.put(locationName.getLongName(), locationName);
     }
     longNametoLocationName.put("ERROR", new LocationName("ERROR", "ERROR", "ERROR"));
+  }
+
+  public void addLocationsToSelect() {
+    ObservableList<String> locNames = FXCollections.observableArrayList();
+
+    for (Move move : moveList) {
+      locNames.add(move.getLongName());
+    }
+
+    Collections.sort(locNames);
+    startChoice.setItems(locNames);
+    endChoice.setItems(locNames);
+  }
+
+  public void resetGroupVar() {
+    group.getChildren().clear();
+    group.getChildren().remove(mapNodes);
+    group.getChildren().remove(edges);
+    ImageView imageView = new ImageView(image);
+    imageView.relocate(0, 0);
+    mapNodes = new Group();
+    edges = new Group();
+    group.getChildren().add(imageView);
+    group.getChildren().add(edges);
+    group.getChildren().add(mapNodes);
+    Pane pane = new Pane();
+    pane.setMinWidth(image.getWidth());
+    pane.setMaxWidth(image.getWidth());
+    pane.setMinHeight(image.getHeight());
+    pane.setMaxHeight(image.getHeight());
+    pane.relocate(0, 0);
+    group.getChildren().add(pane);
   }
 
   public void changeFloor(ActionEvent event) {
@@ -175,58 +208,38 @@ public class PathFindingController {
       image = new Image(Main.class.getResource("./views/Images/B2.png").toString());
       floor = "L2";
     }
-    group.getChildren().removeAll();
-    group.getChildren().remove(mapNodes);
-    group.getChildren().remove(edges);
-    ImageView imageView = new ImageView(image);
-    imageView.relocate(0, 0);
-    mapNodes = new Group();
-    edges = new Group();
-    group.getChildren().add(imageView);
-    group.getChildren().add(edges);
-    group.getChildren().add(mapNodes);
-    Pane pane = new Pane();
-    pane.setMinWidth(image.getWidth());
-    pane.setMaxWidth(image.getWidth());
-    pane.setMinHeight(image.getHeight());
-    pane.setMaxHeight(image.getHeight());
-    pane.relocate(0, 0);
-    group.getChildren().add(pane);
-    placeNodes(floor);
+    resetGroupVar();
+    // placeNodes(floor);
+  }
+
+  public void resetAndSetFloorIndicator(MFXButton button) {
+    button.setBackground(Background.fill(Paint.valueOf("#32CD32")));
+    tempSave.setBackground(Background.fill(DEFAULT_BG));
+    tempSave = button;
   }
 
   public void changeFloorFromString(String floor) {
     if (floor.equals("1")) {
       image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
+      resetAndSetFloorIndicator(FL1);
     } else if (floor.equals("2")) {
       image = new Image(Main.class.getResource("./views/Images/SecondFloor.png").toString());
+      resetAndSetFloorIndicator(FL2);
     } else if (floor.equals("3")) {
       image = new Image(Main.class.getResource("./views/Images/ThirdFloor.png").toString());
+      resetAndSetFloorIndicator(FL3);
     } else if (floor.equals("G")) {
       image = new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
+      resetAndSetFloorIndicator(FLG);
     } else if (floor.equals("L1")) {
       image = new Image(Main.class.getResource("./views/Images/B1.png").toString());
+      resetAndSetFloorIndicator(FLB1);
     } else if (floor.equals("L2")) {
       image = new Image(Main.class.getResource("./views/Images/B2.png").toString());
+      resetAndSetFloorIndicator(FLB2);
     }
-    group.getChildren().removeAll();
-    group.getChildren().remove(mapNodes);
-    group.getChildren().remove(edges);
-    ImageView imageView = new ImageView(image);
-    imageView.relocate(0, 0);
-    mapNodes = new Group();
-    edges = new Group();
-    group.getChildren().add(imageView);
-    group.getChildren().add(edges);
-    group.getChildren().add(mapNodes);
-    Pane pane = new Pane();
-    pane.setMinWidth(image.getWidth());
-    pane.setMaxWidth(image.getWidth());
-    pane.setMinHeight(image.getHeight());
-    pane.setMaxHeight(image.getHeight());
-    pane.relocate(0, 0);
-    group.getChildren().add(pane);
-    placeNodes(floor);
+    resetGroupVar();
+    // placeNodes(floor);
   }
 
   public void placeNodes(String floor) {
@@ -364,10 +377,10 @@ public class PathFindingController {
     }
   }
 
-  public void placeDestCircle() {
+  public void placeDestCircle(GraphNode node) {
     Circle circ = new Circle();
-    circ.setCenterX(dest.getXCoord());
-    circ.setCenterY(dest.getYCoord());
+    circ.setCenterX(node.getXCoord());
+    circ.setCenterY(node.getYCoord());
     circ.setRadius(20);
     circ.setFill(Paint.valueOf("#32CD32"));
     circ.setStroke(Paint.valueOf("#FF0000"));
@@ -375,10 +388,10 @@ public class PathFindingController {
     mapNodes.getChildren().add(circ);
   }
 
-  public void placeSrcCircle() {
+  public void placeSrcCircle(GraphNode node) {
     Circle circ2 = new Circle();
-    circ2.setCenterX(src.getXCoord());
-    circ2.setCenterY(src.getYCoord());
+    circ2.setCenterX(node.getXCoord());
+    circ2.setCenterY(node.getYCoord());
     circ2.setRadius(20);
     circ2.setFill(Paint.valueOf("#FF0000"));
     circ2.setStroke(Paint.valueOf("#32CD32"));
@@ -399,6 +412,9 @@ public class PathFindingController {
       temp.setStroke(Paint.valueOf("FF0000"));
       edges.getChildren().add(temp);
     }
+
+    placeSrcCircle(splitPath.get(pathLoc).get(0));
+    placeDestCircle(splitPath.get(pathLoc).get(splitPath.get(pathLoc).size() - 1));
   }
 
   @FXML
@@ -407,40 +423,22 @@ public class PathFindingController {
     prevFloor.setDisable(true);
     edges.getChildren().clear();
     mapNodes.getChildren().clear();
-    String startNode = startNodeId.getText();
-    String endNode = endNodeId.getText();
 
-    // TODO : add drop down algo selection
-    AlgoSingleton.INSTANCE.setType("A*");
+    String startName = startChoice.getText();
+    String endName = endChoice.getText();
+
     Graph graph = new Graph(AlgoSingleton.INSTANCE.getType());
     graph.syncWithDB();
 
-    src = graph.getNode(Integer.valueOf(startNode));
-    dest = graph.getNode(Integer.valueOf(endNode));
+    src = graph.getNode(longNameToNodeID.get(startName));
+    dest = graph.getNode(longNameToNodeID.get(endName));
     changeFloorFromString(src.getFloor());
 
     List<GraphNode> path = graph.getPathway(src, dest);
     breakPathIntoFloors(path);
-    // TODO : remember that if a broken up path has a list of size 1, just considerate it an
-    // stair/elevator
-
-    placeSrcCircle();
-
-    for (int i = 0; i < splitPath.get(0).size() - 1; i++) {
-      Line temp =
-          new Line(
-              splitPath.get(0).get(i).getXCoord(),
-              splitPath.get(0).get(i).getYCoord(),
-              splitPath.get(0).get(i + 1).getXCoord(),
-              splitPath.get(0).get(i + 1).getYCoord());
-      temp.setStrokeWidth(12);
-      temp.setVisible(true);
-      temp.setStroke(Paint.valueOf("FF0000"));
-      edges.getChildren().add(temp);
-    }
+    drawEdges();
 
     if (splitPath.size() == 1) {
-      placeDestCircle();
       nextFloor.setDisable(true);
       prevFloor.setDisable(true);
     }
@@ -456,7 +454,6 @@ public class PathFindingController {
     prevFloor.setDisable(false);
 
     if (pathLoc == splitPath.size() - 1) {
-      placeDestCircle();
       nextFloor.setDisable(true);
     }
 
@@ -473,7 +470,7 @@ public class PathFindingController {
     changeFloorFromString(splitPath.get(pathLoc).get(1).getFloor());
 
     if (pathLoc == 0) {
-      placeSrcCircle();
+      prevFloor.setDisable(true);
     }
 
     drawEdges();
@@ -548,5 +545,36 @@ public class PathFindingController {
   @FXML
   void getHelpage(ActionEvent event) {
     Navigation.navigate(Screen.HELP);
+  }
+
+  @FXML
+  void getChoiceAStar(ActionEvent event) {
+    algChoice.setText("A*");
+    AlgoSingleton.INSTANCE.setType(algChoice.getText());
+    activateSubmit();
+  }
+
+  @FXML
+  void getChoiceBFS(ActionEvent event) {
+    algChoice.setText("BFS");
+    AlgoSingleton.INSTANCE.setType(algChoice.getText());
+    activateSubmit();
+  }
+
+  @FXML
+  void getChoiceDFS(ActionEvent event) {
+    algChoice.setText("DFS");
+    AlgoSingleton.INSTANCE.setType(algChoice.getText());
+    activateSubmit();
+  }
+
+  @FXML
+  void getStartChoice(ActionEvent event) {}
+
+  @FXML
+  void getEndChoice(ActionEvent event) {}
+
+  void activateSubmit() {
+    submit.setDisable(false);
   }
 }

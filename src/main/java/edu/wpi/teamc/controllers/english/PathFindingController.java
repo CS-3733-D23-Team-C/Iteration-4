@@ -410,7 +410,6 @@ public class PathFindingController {
     String startName = startChoice.getText();
     String endName = endChoice.getText();
 
-    AlgoSingleton.INSTANCE.setType(algChoice.getText());
     Graph graph = new Graph(AlgoSingleton.INSTANCE.getType());
     graph.syncWithDB();
 
@@ -555,18 +554,21 @@ public class PathFindingController {
   @FXML
   void getChoiceAStar(ActionEvent event) {
     algChoice.setText("A*");
+    AlgoSingleton.INSTANCE.setType(algChoice.getText());
     activateSubmit();
   }
 
   @FXML
   void getChoiceBFS(ActionEvent event) {
     algChoice.setText("BFS");
+    AlgoSingleton.INSTANCE.setType(algChoice.getText());
     activateSubmit();
   }
 
   @FXML
   void getChoiceDFS(ActionEvent event) {
     algChoice.setText("DFS");
+    AlgoSingleton.INSTANCE.setType(algChoice.getText());
     activateSubmit();
   }
 

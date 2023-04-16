@@ -50,6 +50,8 @@ public class PathFindingController {
   @FXML MFXButton FLG;
   @FXML MFXButton FLB1;
   @FXML MFXButton FLB2;
+  private MFXButton tempSave;
+  private final Paint DEFAULT_BG = Paint.valueOf("#bebebe");
   @FXML MFXButton floorButton;
   Group mapNodes = new Group();
   Group edges = new Group();
@@ -77,6 +79,7 @@ public class PathFindingController {
   /** Method run when controller is initialized */
   public void initialize() {
     submit.setDisable(true);
+    tempSave = FLG;
     //    File file = new File();
     Image image = new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
     ImageView imageView = new ImageView(image);
@@ -209,19 +212,31 @@ public class PathFindingController {
     // placeNodes(floor);
   }
 
+  public void resetAndSetFloorIndicator(MFXButton button) {
+    button.setBackground(Background.fill(Paint.valueOf("#32CD32")));
+    tempSave.setBackground(Background.fill(DEFAULT_BG));
+    tempSave = button;
+  }
+
   public void changeFloorFromString(String floor) {
     if (floor.equals("1")) {
       image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
+      resetAndSetFloorIndicator(FL1);
     } else if (floor.equals("2")) {
       image = new Image(Main.class.getResource("./views/Images/SecondFloor.png").toString());
+      resetAndSetFloorIndicator(FL2);
     } else if (floor.equals("3")) {
       image = new Image(Main.class.getResource("./views/Images/ThirdFloor.png").toString());
+      resetAndSetFloorIndicator(FL3);
     } else if (floor.equals("G")) {
       image = new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
+      resetAndSetFloorIndicator(FLG);
     } else if (floor.equals("L1")) {
       image = new Image(Main.class.getResource("./views/Images/B1.png").toString());
+      resetAndSetFloorIndicator(FLB1);
     } else if (floor.equals("L2")) {
       image = new Image(Main.class.getResource("./views/Images/B2.png").toString());
+      resetAndSetFloorIndicator(FLB2);
     }
     resetGroupVar();
     // placeNodes(floor);

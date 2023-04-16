@@ -104,32 +104,32 @@
                             <children>
                                 <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                     <children>
-                                        <MFXButton fx:id="FL3" layoutX="24.0" onAction="#changeFloor" text="3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <MFXButton fx:id="FL3" layoutX="24.0" onAction="#changeFloor" style="-fx-background-color: #bebebe;" text="3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                     <children>
-                                        <MFXButton fx:id="FL2" onAction="#changeFloor" text="2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <MFXButton fx:id="FL2" onAction="#changeFloor" style="-fx-background-color: #bebebe;" text="2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                     <children>
-                                        <MFXButton fx:id="FL1" onAction="#changeFloor" text="1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <MFXButton fx:id="FL1" onAction="#changeFloor" style="-fx-background-color: #bebebe;" text="1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                     <children>
-                                        <MFXButton fx:id="FLG" onAction="#changeFloor" text="G" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <MFXButton fx:id="FLG" onAction="#changeFloor" style="-fx-background-color: #bebebe;" text="G" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                     <children>
-                                        <MFXButton fx:id="FLB1" onAction="#changeFloor" text="B1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <MFXButton fx:id="FLB1" onAction="#changeFloor" style="-fx-background-color: #bebebe;" text="B1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                     <children>
-                                        <MFXButton fx:id="FLB2" onAction="#changeFloor" text="B2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <MFXButton fx:id="FLB2" onAction="#changeFloor" style="-fx-background-color: #bebebe;" text="B2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                             </children>

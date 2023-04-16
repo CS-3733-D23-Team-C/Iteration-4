@@ -381,7 +381,7 @@ public class PathFindingController {
     Circle circ = new Circle();
     circ.setCenterX(node.getXCoord());
     circ.setCenterY(node.getYCoord());
-    circ.setRadius(20);
+    circ.setRadius(15);
     circ.setFill(Paint.valueOf("#4CAF50"));
     circ.setStroke(Paint.valueOf("#021335"));
     circ.setVisible(true);
@@ -392,7 +392,7 @@ public class PathFindingController {
     Circle circ2 = new Circle();
     circ2.setCenterX(node.getXCoord());
     circ2.setCenterY(node.getYCoord());
-    circ2.setRadius(20);
+    circ2.setRadius(15);
     circ2.setFill(Paint.valueOf("#021335"));
     circ2.setStroke(Paint.valueOf("#021335"));
     circ2.setVisible(true);

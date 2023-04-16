@@ -16,7 +16,9 @@ import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -28,13 +30,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javax.swing.*;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
@@ -623,7 +625,7 @@ public class EditMapController {
         event -> {
           stage.close();
           mapMode = HandleMapModes.MODIFY_DRAG;
-          modifyByDrag();
+//          modifyByDrag();
         });
     editName.setOnMouseClicked(
         event -> {
@@ -923,39 +925,37 @@ public class EditMapController {
         });
   }
 
+  /*
   public void modifyByDrag() { // make this a pop up window instead of a whole new scene?
     //    mapGPane.setGestureEnabled(false);
     checkAndX_HBox.setVisible(true);
     checkAndX_HBox.setMouseTransparent(false);
     nodeToDrag = currNodeClicked;
-    //    int initialX = nodeToDrag.getXCoord();
-    //    int initialY = nodeToDrag.getYCoord();
+    AtomicBoolean onChosenNode = new AtomicBoolean(true);
+    //    mapGPane.getOnMouseDragged();
+    //    ObjectProperty<EventHandler<? super MouseEvent>> eventHandlerDrag =
+    // group.onMouseDraggedProperty();
+    EventHandler<? super MouseEvent> eventHandlerDrag = group.getOnMouseDragged();
+    EventHandler<? super MouseEvent> eventHandlerPress = group.getOnMousePressed();
+    EventHandler<? super MouseEvent> eventHandlerRel = group.getOnMouseReleased();
 
-    //    MFXButton checkBox = new MFXButton();
-    //    MFXButton xBox = new MFXButton();
-    //    HBox checkAndX = new HBox();
-    //    checkAndX.getChildren().addAll(xBox, checkBox);
-    //    group.getChildren().add(checkAndX);
-    //    checkAndX.setVisible;
-
-    //    SVGPath checkBox;
-
-    //    group.setOnMouseClicked(event -> {
-    //      if (Objects.equals(currNodeClicked.getNodeID(), nodeToDrag.getNodeID())) {
-
-    //lock
-    group.setOnMouseDragEntered(event -> {
-        if (Objects.equals(currNodeClicked.getNodeID(), nodeToDrag.getNodeID())) {
-          mapGPane.setGestureEnabled(false);
-        }
-    });
+    //    group.setOnMousePressed( event -> {
+    //            mapGPane.setGestureEnabled(false);
+    ////        event -> {
+    ////          if (Objects.equals(currNodeClicked.getNodeID(), nodeToDrag.getNodeID())) {
+    ////            onChosenNode.set(true);
+    ////            mapGPane.setGestureEnabled(false);
+    //
+    //        });
 
     // update node as drag occurs
     group.setOnMouseDragged(
         dragEvent -> {
           // lock gesture pane to drag node
-//          mapGPane.setGestureEnabled(false);
+          mapGPane.setGestureEnabled(false);
           if (Objects.equals(currNodeClicked.getNodeID(), nodeToDrag.getNodeID())) {
+            //          if (onChosenNode.get()) {
+            //                        mapGPane.setGestureEnabled(false);
 
             // make new node
             Node newNode =
@@ -979,13 +979,20 @@ public class EditMapController {
             loadDatabase();
             sortNodes();
             placeNodes(floor);
+          } else {
+            group.setOnMouseDragged(eventHandlerDrag);
           }
         });
 
     // unlock gesture pane if not clicking on and dragging node
-    group.setOnMouseDragReleased(
+    //    group.setOnMouseDragReleased(
+    //        event -> {
+    //          mapGPane.setGestureEnabled(true);
+    //        });
+    group.setOnMouseReleased(
         event -> {
           mapGPane.setGestureEnabled(true);
+          //          onChosenNode.set(false);
         });
 
     // exit conditions
@@ -1007,6 +1014,7 @@ public class EditMapController {
           checkAndX_HBox.setMouseTransparent(true);
           nodeClicked = false;
           mapGPane.setGestureEnabled(true);
+          currNodeClicked = null;
         });
 
     x_button.setOnMouseClicked(
@@ -1031,8 +1039,11 @@ public class EditMapController {
           checkAndX_HBox.setMouseTransparent(true);
           nodeClicked = false;
           mapGPane.setGestureEnabled(true);
+          currNodeClicked = null;
         });
   }
+
+   */
   //    })
 
   public void showNodeMenu(ActionEvent event) {

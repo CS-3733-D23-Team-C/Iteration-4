@@ -7,7 +7,9 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -952,9 +954,25 @@ public class EditMapController {
     File file = fileChooser.showOpenDialog(new Stage());
     if (file != null) {
       try {
-        desktop.open(file);
-        filePath = file.getAbsolutePath();
-        InodeDao.importCSV(filePath);
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String nodeHeader = "nodeID,xcoord,ycoord,floor,building";
+        String importedHeader = br.readLine();
+        //        System.out.println(importedHeader);
+        // check if file header matches Node header format
+        if (importedHeader.equals(nodeHeader)) {
+          desktop.open(file);
+          filePath = file.getAbsolutePath();
+          // TODO if it does, add file to file list for mass import
+          System.out.println("import works");
+        } else {
+          // if it doesn't, display error message
+          Alert alert = new Alert(Alert.AlertType.ERROR);
+          alert.setTitle("Error");
+          alert.setHeaderText("File header does not match Node header format");
+          alert.setContentText("Please select a valid file");
+          alert.showAndWait();
+        }
+
       } catch (Exception ex) {
         ex.printStackTrace();
       }
@@ -970,9 +988,23 @@ public class EditMapController {
     File file = fileChooser.showOpenDialog(new Stage());
     if (file != null) {
       try {
-        desktop.open(file);
-        filePath = file.getAbsolutePath();
-        IedgeDao.importCSV(filePath);
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String edgeHeader = "startNode,endNode";
+        String importedHeader = br.readLine();
+        // check if file header matches Edge header format
+        if (importedHeader.equals(edgeHeader)) {
+          desktop.open(file);
+          filePath = file.getAbsolutePath();
+          // TODO if it does, add file to file list for mass import
+          System.out.println("import works");
+        } else {
+          // if it doesn't, display error message
+          Alert alert = new Alert(Alert.AlertType.ERROR);
+          alert.setTitle("Error");
+          alert.setHeaderText("File header does not match Edge header format");
+          alert.setContentText("Please select a valid file");
+          alert.showAndWait();
+        }
       } catch (Exception ex) {
         ex.printStackTrace();
       }
@@ -988,9 +1020,23 @@ public class EditMapController {
     File file = fileChooser.showOpenDialog(new Stage());
     if (file != null) {
       try {
-        desktop.open(file);
-        filePath = file.getAbsolutePath();
-        IlocationDao.importCSV(filePath);
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String locationNameHeader = "longName,shortName,nodeType";
+        String importedHeader = br.readLine();
+        // check if file header matches Edge header format
+        if (importedHeader.equals(locationNameHeader)) {
+          desktop.open(file);
+          filePath = file.getAbsolutePath();
+          // TODO if it does, add file to file list for mass import
+          System.out.println("import works");
+        } else {
+          // if it doesn't, display error message
+          Alert alert = new Alert(Alert.AlertType.ERROR);
+          alert.setTitle("Error");
+          alert.setHeaderText("File header does not match Location name header format");
+          alert.setContentText("Please select a valid file");
+          alert.showAndWait();
+        }
       } catch (Exception ex) {
         ex.printStackTrace();
       }
@@ -1006,9 +1052,23 @@ public class EditMapController {
     File file = fileChooser.showOpenDialog(new Stage());
     if (file != null) {
       try {
-        desktop.open(file);
-        filePath = file.getAbsolutePath();
-        ImoveDao.importCSV(filePath);
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String moveHeader = "nodeID,longName,date";
+        String importedHeader = br.readLine();
+        // check if file header matches Edge header format
+        if (importedHeader.equals(moveHeader)) {
+          desktop.open(file);
+          filePath = file.getAbsolutePath();
+          // TODO if it does, add file to file list for mass import
+          System.out.println("import works");
+        } else {
+          // if it doesn't, display error message
+          Alert alert = new Alert(Alert.AlertType.ERROR);
+          alert.setTitle("Error");
+          alert.setHeaderText("File header does not match move header format");
+          alert.setContentText("Please select a valid file");
+          alert.showAndWait();
+        }
       } catch (Exception ex) {
         ex.printStackTrace();
       }

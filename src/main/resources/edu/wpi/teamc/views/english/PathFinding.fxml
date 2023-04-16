@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.MenuButton?>
@@ -148,12 +147,8 @@
                         <Font size="11.0" />
                      </font>
                   </MenuButton>
-                  <MFXComboBox fx:id="startChoice" floatMode="ABOVE" layoutX="287.0" layoutY="636.0" onAction="#getStartChoice" prefHeight="50.0" prefWidth="206.0" scaleShape="false" text="Choose Start">
-                     <rotationAxis>
-                        <Point3D />
-                     </rotationAxis>
-                  </MFXComboBox>
-                  <MFXComboBox fx:id="endChoice" floatMode="ABOVE" layoutX="505.0" layoutY="636.0" onAction="#getEndChoice" prefHeight="50.0" prefWidth="206.0" scaleShape="false" text="Choose End" />
+                  <MFXFilterComboBox fx:id="startChoice" floatMode="ABOVE" layoutX="289.0" layoutY="636.0" onAction="#getStartChoice" prefHeight="50.0" prefWidth="206.0" text="Choose Start" />
+                  <MFXFilterComboBox fx:id="endChoice" floatMode="ABOVE" layoutX="506.0" layoutY="636.0" onAction="#getEndChoice" prefHeight="50.0" prefWidth="206.0" text="Choose End" />
                     </children>
                 </AnchorPane>
             </children>

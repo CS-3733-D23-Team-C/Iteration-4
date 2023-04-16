@@ -8,7 +8,7 @@ import edu.wpi.teamc.graph.GraphNode;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,8 +34,8 @@ public class PathFindingController {
   @FXML MFXButton nextFloor;
   @FXML MFXButton prevFloor;
   @FXML MenuButton algChoice;
-  @FXML MFXComboBox<String> startChoice;
-  @FXML MFXComboBox<String> endChoice;
+  @FXML MFXFilterComboBox<String> startChoice;
+  @FXML MFXFilterComboBox<String> endChoice;
 
   /** Method run when controller is initialized */
   @FXML
@@ -158,6 +158,7 @@ public class PathFindingController {
       locNames.add(move.getLongName());
     }
 
+    Collections.sort(locNames);
     startChoice.setItems(locNames);
     endChoice.setItems(locNames);
   }

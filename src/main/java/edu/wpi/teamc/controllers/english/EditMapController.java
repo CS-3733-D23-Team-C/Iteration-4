@@ -515,7 +515,10 @@ public class EditMapController {
     newCircle.setFill(Paint.valueOf("#13DAF7"));
     newCircle.setVisible(true);
     text.setVisible(true);
-    newCircle.setOnMouseClicked(
+    //    if (Objects.equals(mapMode.getMapMode(), "Modify_drag")) {
+    //      newCircle.setOnMousePressed
+    //    }
+    newCircle.setOnMousePressed( // was set on mouse clicked
         e -> {
           nodeClicked = true; // clicked on a node
           currNodeClicked = node;
@@ -534,10 +537,10 @@ public class EditMapController {
     //        });
 
     if (Objects.equals(mapMode.getMapMode(), "Modify_drag")) {
-//      newCircle.setOnMousePressed( //////////////
-//          event -> {
-//            movingNodeClicked = true;
-//          });
+      //      newCircle.setOnMousePressed( //////////////
+      //          event -> {
+      //            movingNodeClicked = true;
+      //          });
 
       System.out.println("GOT HERE");
       movingNode.getChildren().add(newCircle);
@@ -588,7 +591,7 @@ public class EditMapController {
     newCircle.setFill(Paint.valueOf("#13DAF7"));
     newCircle.setVisible(true);
     text.setVisible(true);
-    newCircle.setOnMouseClicked(
+    newCircle.setOnMousePressed(
         e -> {
           nodeClicked = true; // clicked on a node
           currNodeClicked = node;

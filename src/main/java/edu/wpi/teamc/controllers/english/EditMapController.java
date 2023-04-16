@@ -31,6 +31,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -159,11 +160,13 @@ public class EditMapController {
   Boolean nodeClicked = false;
   Node currNodeClicked;
   Node nodeToDrag;
+  Node newNodeTemp;
   String currNodeLongname = "";
   HandleMapModes mapMode;
   Boolean addClicked = false;
   Boolean modifyClicked = false;
   Boolean lockMap = false;
+  Boolean dragModeOn = false;
   //  Boolean
 
   /** Method run when controller is initialized */
@@ -282,15 +285,17 @@ public class EditMapController {
   }
 
   public void changeMapMode(ActionEvent event) {
-    modeButton = (MFXButton) event.getTarget();
-    if (Objects.equals(modeButton.getId(), "Select")) {
-      mapMode = HandleMapModes.SELECT;
-    } else if (Objects.equals(modeButton.getId(), "Add")) {
-      mapMode = HandleMapModes.ADD;
-    } else if (Objects.equals(modeButton.getId(), "Modify")) {
-      mapMode = HandleMapModes.MODIFY;
-    } else if (Objects.equals(modeButton.getId(), "Remove")) {
-      mapMode = HandleMapModes.REMOVE;
+    if(!dragModeOn) {
+      modeButton = (MFXButton) event.getTarget();
+      if (Objects.equals(modeButton.getId(), "Select")) {
+        mapMode = HandleMapModes.SELECT;
+      } else if (Objects.equals(modeButton.getId(), "Add")) {
+        mapMode = HandleMapModes.ADD;
+      } else if (Objects.equals(modeButton.getId(), "Modify")) {
+        mapMode = HandleMapModes.MODIFY;
+      } else if (Objects.equals(modeButton.getId(), "Remove")) {
+        mapMode = HandleMapModes.REMOVE;
+      }
     }
   }
 
@@ -830,6 +835,12 @@ public class EditMapController {
 
   public void modifyByDrag() { // make this a pop up window instead of a whole new scene?
     nodeToDrag = currNodeClicked;
+    int initialX = nodeToDrag.getXCoord();
+    int initialY = nodeToDrag.getYCoord();
+    MFXButton checkBox = new MFXButton();
+    MFXButton xBox = new MFXButton();
+
+//    SVGPath checkBox;
 
 //    group.setOnMouseClicked(event -> {
 //      if (Objects.equals(currNodeClicked.getNodeID(), nodeToDrag.getNodeID())) {
@@ -838,6 +849,7 @@ public class EditMapController {
 
         // make new node
         Node newNode = new Node(nodeToDrag.getNodeID(), (int) dragEvent.getX(), (int) dragEvent.getY(), floor, nodeToDrag.getBuilding());
+        newNodeTemp = newNode;
 
         // Add node to database
         NodeDao nodeDao = new NodeDao();
@@ -851,6 +863,41 @@ public class EditMapController {
         sortNodes();
         placeNodes(floor);
       }});
+
+    //exit conditions
+    checkBox.setOnMouseClicked(event -> {
+      MapHistoryDao mapHistoryDao = new MapHistoryDao();
+      mapHistoryDao.addRow(
+              new MapHistory(
+                      "UPDATE",
+                      String.valueOf(newNodeTemp.getNodeID()),
+                      "node",
+                      new Timestamp(System.currentTimeMillis())));
+
+      dragModeOn = false;
+      mapMode = HandleMapModes.MODIFY;
+      lockMap = false;
+    });
+
+    xBox.setOnMouseClicked(event -> { //set tooltip describing check and exit buttons
+      // Add node to database
+      NodeDao nodeDao = new NodeDao();
+      nodeDao.updateRow(nodeToDrag.getNodeID(), nodeToDrag);
+
+      // Paint node
+      group.getChildren().remove(mapNodes);
+      mapNodes = new Group();
+      group.getChildren().add(mapNodes);
+      loadDatabase();
+      sortNodes();
+      placeNodes(floor);
+
+      dragModeOn = false;
+      mapMode = HandleMapModes.MODIFY;
+      lockMap = false;
+    });
+
+
 
 
   }

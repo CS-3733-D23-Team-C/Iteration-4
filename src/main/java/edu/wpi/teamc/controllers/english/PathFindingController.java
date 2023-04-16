@@ -362,10 +362,10 @@ public class PathFindingController {
     }
   }
 
-  public void placeDestCircle() {
+  public void placeDestCircle(GraphNode node) {
     Circle circ = new Circle();
-    circ.setCenterX(dest.getXCoord());
-    circ.setCenterY(dest.getYCoord());
+    circ.setCenterX(node.getXCoord());
+    circ.setCenterY(node.getYCoord());
     circ.setRadius(20);
     circ.setFill(Paint.valueOf("#32CD32"));
     circ.setStroke(Paint.valueOf("#FF0000"));
@@ -373,10 +373,10 @@ public class PathFindingController {
     mapNodes.getChildren().add(circ);
   }
 
-  public void placeSrcCircle() {
+  public void placeSrcCircle(GraphNode node) {
     Circle circ2 = new Circle();
-    circ2.setCenterX(src.getXCoord());
-    circ2.setCenterY(src.getYCoord());
+    circ2.setCenterX(node.getXCoord());
+    circ2.setCenterY(node.getYCoord());
     circ2.setRadius(20);
     circ2.setFill(Paint.valueOf("#FF0000"));
     circ2.setStroke(Paint.valueOf("#32CD32"));
@@ -397,6 +397,9 @@ public class PathFindingController {
       temp.setStroke(Paint.valueOf("FF0000"));
       edges.getChildren().add(temp);
     }
+
+    placeSrcCircle(splitPath.get(pathLoc).get(0));
+    placeDestCircle(splitPath.get(pathLoc).get(splitPath.get(pathLoc).size() - 1));
   }
 
   @FXML
@@ -405,8 +408,6 @@ public class PathFindingController {
     prevFloor.setDisable(true);
     edges.getChildren().clear();
     mapNodes.getChildren().clear();
-    // String startNode = startNodeId.getText();
-    // String endNode = endNodeId.getText();
 
     String startName = startChoice.getText();
     String endName = endChoice.getText();
@@ -414,34 +415,15 @@ public class PathFindingController {
     Graph graph = new Graph(AlgoSingleton.INSTANCE.getType());
     graph.syncWithDB();
 
-    // src = graph.getNode(Integer.valueOf(startNode));
-    // dest = graph.getNode(Integer.valueOf(endNode));
     src = graph.getNode(longNameToNodeID.get(startName));
     dest = graph.getNode(longNameToNodeID.get(endName));
     changeFloorFromString(src.getFloor());
 
     List<GraphNode> path = graph.getPathway(src, dest);
     breakPathIntoFloors(path);
-    // TODO : remember that if a broken up path has a list of size 1, just considerate it an
-    // stair/elevator
-
-    placeSrcCircle();
-
-    for (int i = 0; i < splitPath.get(0).size() - 1; i++) {
-      Line temp =
-          new Line(
-              splitPath.get(0).get(i).getXCoord(),
-              splitPath.get(0).get(i).getYCoord(),
-              splitPath.get(0).get(i + 1).getXCoord(),
-              splitPath.get(0).get(i + 1).getYCoord());
-      temp.setStrokeWidth(12);
-      temp.setVisible(true);
-      temp.setStroke(Paint.valueOf("FF0000"));
-      edges.getChildren().add(temp);
-    }
+    drawEdges();
 
     if (splitPath.size() == 1) {
-      placeDestCircle();
       nextFloor.setDisable(true);
       prevFloor.setDisable(true);
     }
@@ -457,7 +439,6 @@ public class PathFindingController {
     prevFloor.setDisable(false);
 
     if (pathLoc == splitPath.size() - 1) {
-      placeDestCircle();
       nextFloor.setDisable(true);
     }
 
@@ -474,7 +455,6 @@ public class PathFindingController {
     changeFloorFromString(splitPath.get(pathLoc).get(1).getFloor());
 
     if (pathLoc == 0) {
-      placeSrcCircle();
       prevFloor.setDisable(true);
     }
 

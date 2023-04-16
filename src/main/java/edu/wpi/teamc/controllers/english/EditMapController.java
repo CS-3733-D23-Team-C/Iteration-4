@@ -2,6 +2,7 @@ package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.controllers.english.MapHelpers.HandleMapModes;
+import edu.wpi.teamc.controllers.english.MapHelpers.MapModeSaver;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
@@ -98,6 +99,10 @@ public class EditMapController {
   Group movingText = new Group();
   Group mapText = new Group();
   private Desktop desktop = Desktop.getDesktop();
+  Node initialNodeClicked;
+  int initXCoord = 0;
+  int initYCoord = 0;
+
   private String filePath;
   @FXML private Label testText;
 
@@ -154,7 +159,10 @@ public class EditMapController {
   StackPane stackPane = new StackPane();
   Boolean nodeClicked = false;
   Node currNodeClicked;
+  Node draggedNode;
   Node nodeToDrag;
+  Boolean firstPass = true;
+  //  Node initialNodeClicked;
   Node newNodeTemp;
   String currNodeLongname = "";
   String currNodeShortname = "";
@@ -165,6 +173,7 @@ public class EditMapController {
   Boolean modifyClicked = false;
   Boolean lockMap = false;
   Boolean dragModeOn = false;
+  MapModeSaver mapModeSaver = new MapModeSaver();
   @FXML HBox checkAndX_HBox;
   @FXML MFXButton check_button;
   @FXML MFXButton x_button;
@@ -526,7 +535,8 @@ public class EditMapController {
           currNodeShortname = shortname;
           currNodeType = nodeType;
 
-          if (Objects.equals(mapMode.getMapMode(), "Modify_drag")) {
+          if ((Objects.equals(mapMode.getMapMode(), "Modify_drag"))
+              && !mapModeSaver.getDraggingNodeCreated()) {
             movingNodeClicked = true;
           }
           //          System.out.println("circle clicked");
@@ -552,7 +562,12 @@ public class EditMapController {
   }
 
   public void createMovingMapNode(
-      Node node, String shortname, String nodeType, String longName, int x, int y) {
+      int nodeID,
+      String shortname,
+      String nodeType,
+      String longName,
+      int x,
+      int y) { // updated nodeID input
     Circle newCircle = new Circle();
     Text text = new Text();
     //    TextArea text = new TextArea();
@@ -586,7 +601,7 @@ public class EditMapController {
     //      newCircle.setVisible(true);
     //      text.setVisible(true);
     //    }
-    newCircle.setId(String.valueOf(node.getNodeID()));
+    newCircle.setId(String.valueOf(nodeID));
     newCircle.setStroke(Paint.valueOf("#13DAF7"));
     newCircle.setFill(Paint.valueOf("#13DAF7"));
     newCircle.setVisible(true);
@@ -594,7 +609,7 @@ public class EditMapController {
     newCircle.setOnMousePressed(
         e -> {
           nodeClicked = true; // clicked on a node
-          currNodeClicked = node;
+          //          currNodeClicked = node; //took this out, is it still needed?*************
           currNodeLongname = longName;
           currNodeShortname = shortname;
           currNodeType = nodeType;
@@ -718,6 +733,12 @@ public class EditMapController {
         event -> {
           stage.close();
           mapMode = HandleMapModes.MODIFY_DRAG;
+          initialNodeClicked = currNodeClicked;
+          mapModeSaver.setNodeID(currNodeClicked.getNodeID());
+          mapModeSaver.setLocationName(
+              new LocationName(currNodeLongname, currNodeShortname, currNodeType));
+          initXCoord = currNodeClicked.getXCoord();
+          initYCoord = currNodeClicked.getYCoord();
           modifyByDrag();
         });
     editName.setOnMouseClicked(
@@ -1008,6 +1029,7 @@ public class EditMapController {
           mapNodes = new Group();
           mapText = new Group();
           group.getChildren().addAll(mapNodes, mapText);
+
           loadDatabase();
           sortNodes();
           placeNodes(floor);
@@ -1024,8 +1046,14 @@ public class EditMapController {
     checkAndX_HBox.setMouseTransparent(false);
     Node helperNode1 = new Node(0, 5, 5, "test", "test");
     Node helperNode2 = new Node(20000, 5, 5, "test", "test");
-
+    //    final Node initialNodeClicked = currNodeClicked;
     nodeToDrag = currNodeClicked;
+    draggedNode = currNodeClicked;
+    draggedNode.setNodeID(0);
+    //    if (firstPass) {
+    //      initialNodeClicked = currNodeClicked;
+    //    }
+    //    firstPass = false;
     AtomicBoolean onChosenNode = new AtomicBoolean(true);
     //    mapGPane.getOnMouseDragged();
     //    ObjectProperty<EventHandler<? super MouseEvent>> eventHandlerDrag =
@@ -1035,6 +1063,8 @@ public class EditMapController {
     EventHandler<? super MouseEvent> eventHandlerRel = group.getOnMouseReleased();
     //    EventHandler<? super MouseEvent> eventHandlerDrag_Node = group.getOnMouseDragged();
     NodeDao nodeDao = new NodeDao();
+    int eventX = 0;
+    int eventY = 0;
 
     //    group.setOnMousePressed(
     //        event -> {
@@ -1063,11 +1093,13 @@ public class EditMapController {
             mapGPane.setGestureEnabled(true);
           } else {
             mapGPane.setGestureEnabled(false);
-            System.out.println(currNodeClicked.getNodeID() + "  " + nodeToDrag.getNodeID());
+            //            System.out.println(currNodeClicked.getNodeID() + "  " +
+            // nodeToDrag.getNodeID());
             //            if ((Objects.equals(currNodeClicked.getNodeID(), nodeToDrag.getNodeID()))
             // || Objects.equals(currNodeClicked.getNodeID(), 0)) {
             // //was currNodeClicked.getNodeID(); //testNode
             if (movingNodeClicked) { // remove if want to click anywhere and move mouse to update
+              mapModeSaver.setDraggingNodeCreated(true);
               // moving node
               //                        mapGPane.setGestureEnabled(false);
 
@@ -1084,8 +1116,11 @@ public class EditMapController {
               //            nodeToDrag.setXCoord((int) dragEvent.getX());
               //            nodeToDrag.setYCoord((int) dragEvent.getY());
               //
-              currNodeClicked.setXCoord((int) dragEvent.getX());
-              currNodeClicked.setYCoord((int) dragEvent.getY());
+              //              draggedNode.setXCoord((int) dragEvent.getX());
+              //              draggedNode.setYCoord((int) dragEvent.getY());
+              mapModeSaver.setEventCoords((int) dragEvent.getX(), (int) dragEvent.getY());
+              //              eventX = (int) dragEvent.getX();
+              //              eventY = (int) dragEvent.getY();
 
               // Add node to database
               //            nodeDao.updateRow(nodeToDrag.getNodeID(), newNode); //////////////////
@@ -1107,7 +1142,7 @@ public class EditMapController {
               movingText = new Group();
               group.getChildren().addAll(movingNode, movingText);
               createMovingMapNode(
-                  currNodeClicked,
+                  0,
                   currNodeShortname,
                   currNodeType,
                   currNodeLongname,
@@ -1133,7 +1168,7 @@ public class EditMapController {
     group.setOnMouseReleased(
         event -> {
           mapGPane.setGestureEnabled(true);
-          currNodeClicked = helperNode2;
+          currNodeClicked = helperNode2; // necessary still?
           movingNodeClicked =
               false; // remove if want to move mouse anywhere, click and drag and node to follow
           //          group.setOnMouseDragged(eventHandlerDrag);
@@ -1144,24 +1179,34 @@ public class EditMapController {
     check_button.setOnMouseClicked(
         event -> { // maybe when this is pressed ask if you want to modify now or later? set move
           // for future here
+          currNodeClicked = helperNode2;
           MapHistoryDao mapHistoryDao = new MapHistoryDao();
           mapHistoryDao.addRow(
               new MapHistory(
                   "UPDATE",
-                  String.valueOf(newNodeTemp.getNodeID()), //need to fix this
+                  String.valueOf(mapModeSaver.getNodeID()),
                   "node",
                   new Timestamp(System.currentTimeMillis())));
+
           Node newNode =
               new Node(
-                  currNodeClicked.getNodeID(),
-                  currNodeClicked.getXCoord(),
-                  currNodeClicked.getYCoord(),
+                  mapModeSaver.getNodeID(),
+                  mapModeSaver.getEventX(),
+                  mapModeSaver.getEventY(),
                   floor,
                   nodeToDrag.getBuilding());
 
+          System.out.println(
+              mapModeSaver.getEventX()
+                  + "    "
+                  + draggedNode.getXCoord()
+                  + "      "
+                  + initialNodeClicked.getXCoord());
+
           //          newNodeTemp = newNode;
 
-          nodeDao.updateRow(nodeToDrag.getNodeID(), newNode); // ////////////////
+          //          NodeDao nodeDao3 = new NodeDao();
+          nodeDao.updateRow(mapModeSaver.getNodeID(), newNode); // ////////////////
 
           // Paint node
           group
@@ -1179,8 +1224,6 @@ public class EditMapController {
           group.getChildren().addAll(mapNodes, mapText, movingNode, movingText);
 
           mapMode = HandleMapModes.MODIFY;
-          loadDatabase();
-          sortNodes();
 
           dragModeOn = false;
           lockMap = false;
@@ -1190,6 +1233,12 @@ public class EditMapController {
           mapGPane.setGestureEnabled(true);
           group.setOnMouseDragged(eventHandlerDrag);
           group.setOnMouseReleased(eventHandlerRel);
+          firstPass = true;
+          mapModeSaver.setDraggingNodeCreated(false);
+
+          loadDatabase();
+          sortNodes();
+          placeNodes(floor);
 
           currNodeClicked =
               helperNode1; // ensures clicking on the map again won't try to cause modify to run
@@ -1199,20 +1248,34 @@ public class EditMapController {
     x_button.setOnMouseClicked(
         event -> { // set tooltip describing check and exit buttons
           // Add node to database
-          //          NodeDao nodeDao = new NodeDao();
-          nodeDao.updateRow(nodeToDrag.getNodeID(), nodeToDrag);
+          NodeDao nodeDao2 = new NodeDao();
+          nodeDao2.updateRow(initialNodeClicked.getNodeID(), initialNodeClicked);
+          System.out.println(
+              currNodeClicked.getXCoord()
+                  + "   "
+                  + nodeToDrag.getXCoord()
+                  + "   "
+                  + initialNodeClicked.getXCoord()
+                  + "   "
+                  + draggedNode.getXCoord());
 
           // Paint node
-          group.getChildren().removeAll(mapNodes, mapText);
+          // Paint node
+          group
+              .getChildren()
+              .removeAll(
+                  mapNodes,
+                  mapText,
+                  movingNode,
+                  movingText); // highlight last spot in one color, dragging spot in
+          // another
           mapNodes = new Group();
           mapText = new Group();
-          group.getChildren().addAll(mapNodes, mapText);
-          loadDatabase();
-          sortNodes();
-          placeNodes(floor);
-
-          dragModeOn = false;
+          movingNode = new Group();
+          movingText = new Group();
+          group.getChildren().addAll(mapNodes, mapText, movingNode, movingText);
           mapMode = HandleMapModes.MODIFY;
+          dragModeOn = false;
           lockMap = false;
           checkAndX_HBox.setVisible(false);
           checkAndX_HBox.setMouseTransparent(true);
@@ -1220,6 +1283,12 @@ public class EditMapController {
           mapGPane.setGestureEnabled(true);
           group.setOnMouseDragged(eventHandlerDrag);
           group.setOnMouseReleased(eventHandlerRel);
+          firstPass = true;
+          mapModeSaver.setDraggingNodeCreated(false);
+
+          loadDatabase();
+          sortNodes();
+          placeNodes(floor);
 
           currNodeClicked = helperNode1;
         });
@@ -1872,3 +1941,5 @@ public class EditMapController {
  *
  * ***** If modifying or deleting a node that is a stair or elevator, need to modify or delete relating nodes accordingly, check for relating nodes using longname of elevator
  */
+
+// NEED TO MAKE EXCEPTION CASES FOR IF TRYING TO ADD A NAME TO A NODE THAT ALREADY HAS A NAME

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
@@ -103,41 +104,51 @@
                             <children>
                                 <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                     <children>
-                                        <MFXButton fx:id="FL3" layoutX="24.0" onAction="#changeFloor" text="3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <MFXButton fx:id="FL3" layoutX="24.0" onAction="#changeFloor" style="-fx-background-color: #bebebe;" text="3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                     <children>
-                                        <MFXButton fx:id="FL2" onAction="#changeFloor" text="2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <MFXButton fx:id="FL2" onAction="#changeFloor" style="-fx-background-color: #bebebe;" text="2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                     <children>
-                                        <MFXButton fx:id="FL1" onAction="#changeFloor" text="1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <MFXButton fx:id="FL1" onAction="#changeFloor" style="-fx-background-color: #bebebe;" text="1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                     <children>
-                                        <MFXButton fx:id="FLG" onAction="#changeFloor" text="G" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <MFXButton fx:id="FLG" onAction="#changeFloor" style="-fx-background-color: #bebebe;" text="G" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                     <children>
-                                        <MFXButton fx:id="FLB1" onAction="#changeFloor" text="B1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <MFXButton fx:id="FLB1" onAction="#changeFloor" style="-fx-background-color: #bebebe;" text="B1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                     <children>
-                                        <MFXButton fx:id="FLB2" onAction="#changeFloor" text="B2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <MFXButton fx:id="FLB2" onAction="#changeFloor" style="-fx-background-color: #bebebe;" text="B2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                             </children>
                         </VBox>
-                  <MFXTextField fx:id="startNodeId" layoutX="445.0" layoutY="636.0" prefHeight="50.0" prefWidth="127.0" promptText="Enter start node ID" />
-                  <MFXTextField fx:id="endNodeId" layoutX="584.0" layoutY="636.0" prefHeight="50.0" prefWidth="127.0" promptText="Enter end node ID" />
                   <MFXButton fx:id="submit" layoutX="1002.0" layoutY="636.0" onAction="#getSubmit" prefHeight="50.0" prefWidth="127.0" text="Submit" />
                   <MFXButton fx:id="prevFloor" layoutX="862.0" layoutY="636.0" onAction="#getPrevFloor" prefHeight="50.0" prefWidth="127.0" text="Previous Floor" />
                   <MFXButton fx:id="nextFloor" layoutX="722.0" layoutY="636.0" onAction="#getNextFloor" prefHeight="50.0" prefWidth="127.0" text="Next Floor" />
+                  <MenuButton fx:id="algChoice" layoutX="1003.0" layoutY="595.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="Choose Algorithm">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#getChoiceAStar" text="A*" />
+                      <MenuItem mnemonicParsing="false" onAction="#getChoiceBFS" text="BFS" />
+                      <MenuItem mnemonicParsing="false" onAction="#getChoiceDFS" text="DFS" />
+                    </items>
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </MenuButton>
+                  <MFXFilterComboBox fx:id="startChoice" floatMode="ABOVE" layoutX="289.0" layoutY="636.0" onAction="#getStartChoice" prefHeight="50.0" prefWidth="206.0" text="Choose Start" />
+                  <MFXFilterComboBox fx:id="endChoice" floatMode="ABOVE" layoutX="506.0" layoutY="636.0" onAction="#getEndChoice" prefHeight="50.0" prefWidth="206.0" text="Choose End" />
                     </children>
                 </AnchorPane>
             </children>

@@ -924,6 +924,7 @@ public class EditMapController {
   }
 
   public void modifyByDrag() { // make this a pop up window instead of a whole new scene?
+    //    mapGPane.setGestureEnabled(false);
     checkAndX_HBox.setVisible(true);
     checkAndX_HBox.setMouseTransparent(false);
     nodeToDrag = currNodeClicked;
@@ -942,9 +943,18 @@ public class EditMapController {
     //    group.setOnMouseClicked(event -> {
     //      if (Objects.equals(currNodeClicked.getNodeID(), nodeToDrag.getNodeID())) {
 
+    //lock
+    group.setOnMouseDragEntered(event -> {
+        if (Objects.equals(currNodeClicked.getNodeID(), nodeToDrag.getNodeID())) {
+          mapGPane.setGestureEnabled(false);
+        }
+    });
+
     // update node as drag occurs
     group.setOnMouseDragged(
         dragEvent -> {
+          // lock gesture pane to drag node
+//          mapGPane.setGestureEnabled(false);
           if (Objects.equals(currNodeClicked.getNodeID(), nodeToDrag.getNodeID())) {
 
             // make new node
@@ -972,6 +982,12 @@ public class EditMapController {
           }
         });
 
+    // unlock gesture pane if not clicking on and dragging node
+    group.setOnMouseDragReleased(
+        event -> {
+          mapGPane.setGestureEnabled(true);
+        });
+
     // exit conditions
     check_button.setOnMouseClicked(
         event -> { // maybe when this is pressed ask if you want to modify now or later? set move
@@ -990,6 +1006,7 @@ public class EditMapController {
           checkAndX_HBox.setVisible(false);
           checkAndX_HBox.setMouseTransparent(true);
           nodeClicked = false;
+          mapGPane.setGestureEnabled(true);
         });
 
     x_button.setOnMouseClicked(
@@ -1013,6 +1030,7 @@ public class EditMapController {
           checkAndX_HBox.setVisible(false);
           checkAndX_HBox.setMouseTransparent(true);
           nodeClicked = false;
+          mapGPane.setGestureEnabled(true);
         });
   }
   //    })

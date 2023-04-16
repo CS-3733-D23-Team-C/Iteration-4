@@ -11,8 +11,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class HomeController {
@@ -23,6 +25,7 @@ public class HomeController {
 
   @FXML private MFXButton clear;
 
+  @FXML private AnchorPane mainSignin;
   @FXML private Rectangle HOME_sqr;
 
   @FXML private ImageView English_flag;
@@ -53,8 +56,17 @@ public class HomeController {
   }
 
   @FXML
-  public void initialize() {
+  public void initialize(Stage primaryStage) throws Exception {
+    //    try {
     setLanguage(language_choice);
+    //      AnchorPane root = mainSignin;
+    //      Scene scene = new Scene(root, mainSignin.getPrefWidth(), mainSignin.getPrefHeight());
+    //      primaryStage.setScene(scene);
+    //      primaryStage.show();
+    //      primaryStage.setResizable(true);
+    //    } catch (Exception e) {
+    //      e.printStackTrace();
+    //    }
   }
 
   @FXML

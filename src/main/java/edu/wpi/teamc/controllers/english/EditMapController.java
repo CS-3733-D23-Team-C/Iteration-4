@@ -195,7 +195,7 @@ public class EditMapController {
           // to
           // Add, need to set that up
 
-          if ((Objects.equals(mapMode.getMapMode(), "Add")) && !lockMap) {
+          if ((Objects.equals(mapMode.getMapMode(), "Add")) && !lockMap && !nodeClicked) {
             lockMap = true;
             System.out.println(lockMap);
             addNodeByMouseLoc((int) mouseX, (int) mouseY);
@@ -539,6 +539,13 @@ public class EditMapController {
     stage.setTitle("Add Node Window");
     stage.show();
 
+    // When stage closed with inherit x, will unlock map and understand a node is no longer selected
+    stage.setOnCloseRequest(
+        event -> {
+          lockMap = false;
+          nodeClicked = false;
+        });
+
     addButton.setOnMouseClicked(
         buttonEvent -> {
           // make new node
@@ -558,15 +565,17 @@ public class EditMapController {
                   new Timestamp(System.currentTimeMillis())));
 
           // Paint node
-          group.getChildren().remove(mapNodes);
+          group.getChildren().removeAll(mapNodes, mapText);
           mapNodes = new Group();
-          group.getChildren().add(mapNodes);
+          mapText = new Group();
+          group.getChildren().addAll(mapNodes, mapText);
           loadDatabase();
           sortNodes();
           placeNodes(floor);
 
           // close menu
           stage.close();
+          nodeClicked = false;
           lockMap = false;
         });
   }
@@ -597,6 +606,13 @@ public class EditMapController {
     stage.setScene(scene);
     stage.setTitle("Modify Window");
     stage.show();
+
+    // When stage closed with inherit x, will unlock map and understand a node is no longer selected
+    stage.setOnCloseRequest(
+        event -> {
+          lockMap = false;
+          nodeClicked = false;
+        });
 
     byText.setOnMouseClicked(
         event -> {
@@ -647,6 +663,13 @@ public class EditMapController {
     stage.setTitle("Modify Node Window");
     stage.show();
 
+    // When stage closed with inherit x, will unlock map and understand a node is no longer selected
+    stage.setOnCloseRequest(
+        event -> {
+          lockMap = false;
+          nodeClicked = false;
+        });
+
     submitModify.setOnMouseClicked(
         buttonEvent -> {
 
@@ -677,15 +700,17 @@ public class EditMapController {
                   new Timestamp(System.currentTimeMillis())));
 
           // Paint node
-          group.getChildren().remove(mapNodes);
+          group.getChildren().removeAll(mapNodes, mapText);
           mapNodes = new Group();
-          group.getChildren().add(mapNodes);
+          mapText = new Group();
+          group.getChildren().addAll(mapNodes, mapText);
           loadDatabase();
           sortNodes();
           placeNodes(floor);
 
           // close menu
           stage.close();
+          nodeClicked = false;
           lockMap = false;
         });
   }
@@ -697,8 +722,8 @@ public class EditMapController {
     VBox vBox = new VBox();
     Text remove_1 = new Text("Remove Node?");
     Text remove_2 = new Text("Remove Node Location Name");
-    MFXButton removeNode = new MFXButton("By Text");
-    MFXButton removeName = new MFXButton("By Drag");
+    MFXButton removeNode = new MFXButton("Remove Node");
+    MFXButton removeName = new MFXButton("Remove Name");
 
     vBox.getChildren().addAll(remove_1, removeNode, remove_2, removeName);
 
@@ -715,13 +740,30 @@ public class EditMapController {
     stage.setTitle("Remove Window");
     stage.show();
 
+    // When stage closed with inherit x, will unlock map and understand a node is no longer selected
+    stage.setOnCloseRequest(
+        event -> {
+          lockMap = false;
+          nodeClicked = false;
+        });
+
     removeNode.setOnMouseClicked(
         event -> {
           MoveDao moveDao = new MoveDao();
           NodeDao nodeDao = new NodeDao();
           moveDao.deleteRow(currNodeClicked.getNodeID());
           nodeDao.deleteRow(currNodeClicked.getNodeID());
+
+          group.getChildren().removeAll(mapNodes, mapText);
+          mapNodes = new Group();
+          mapText = new Group();
+          group.getChildren().addAll(mapNodes, mapText);
+          loadDatabase();
+          sortNodes();
+          placeNodes(floor);
+
           stage.close();
+          nodeClicked = false;
           lockMap = false;
         });
     removeName.setOnMouseClicked(
@@ -733,7 +775,17 @@ public class EditMapController {
           Move move = new Move(currNodeClicked.getNodeID(), currNodeLongname, currentDate);
           moveDao.deleteRow(move);
           locationDao.deleteRow(currNodeLongname);
+
+          group.getChildren().removeAll(mapNodes, mapText);
+          mapNodes = new Group();
+          mapText = new Group();
+          group.getChildren().addAll(mapNodes, mapText);
+          loadDatabase();
+          sortNodes();
+          placeNodes(floor);
+
           stage.close();
+          nodeClicked = false;
           lockMap = false;
         });
   }
@@ -769,6 +821,13 @@ public class EditMapController {
     stage.setTitle("Add Location Name Window");
     stage.show();
 
+    // When stage closed with inherit x, will unlock map and understand a node is no longer selected
+    stage.setOnCloseRequest(
+        event -> {
+          lockMap = false;
+          nodeClicked = false;
+        });
+
     addName.setOnMouseClicked(
         event -> {
           LocationDao locationDao = new LocationDao();
@@ -782,7 +841,16 @@ public class EditMapController {
           locationDao.addRow(locationName);
           moveDao.addRow(move);
 
+          group.getChildren().removeAll(mapNodes, mapText);
+          mapNodes = new Group();
+          mapText = new Group();
+          group.getChildren().addAll(mapNodes, mapText);
+          loadDatabase();
+          sortNodes();
+          placeNodes(floor);
+
           stage.close();
+          nodeClicked = false;
           lockMap = false;
         });
   }
@@ -819,6 +887,13 @@ public class EditMapController {
     stage.setTitle("Add Location Name Window");
     stage.show();
 
+    // When stage closed with inherit x, will unlock map and understand a node is no longer selected
+    stage.setOnCloseRequest(
+        event -> {
+          lockMap = false;
+          nodeClicked = false;
+        });
+
     modifyName.setOnMouseClicked(
         event -> {
           LocationDao locationDao = new LocationDao();
@@ -834,7 +909,16 @@ public class EditMapController {
               new LocationName(lNameInput.getText(), sNameInput.getText(), nodeType_t);
           locationDao.updateRow(currNodeLongname, locationName);
 
+          group.getChildren().removeAll(mapNodes, mapText);
+          mapNodes = new Group();
+          mapText = new Group();
+          group.getChildren().addAll(mapNodes, mapText);
+          loadDatabase();
+          sortNodes();
+          placeNodes(floor);
+
           stage.close();
+          nodeClicked = false;
           lockMap = false;
         });
   }
@@ -878,9 +962,10 @@ public class EditMapController {
             nodeDao.updateRow(nodeToDrag.getNodeID(), newNode);
 
             // Paint node
-            group.getChildren().remove(mapNodes);
+            group.getChildren().removeAll(mapNodes, mapText);
             mapNodes = new Group();
-            group.getChildren().add(mapNodes);
+            mapText = new Group();
+            group.getChildren().addAll(mapNodes, mapText);
             loadDatabase();
             sortNodes();
             placeNodes(floor);
@@ -904,6 +989,7 @@ public class EditMapController {
           lockMap = false;
           checkAndX_HBox.setVisible(false);
           checkAndX_HBox.setMouseTransparent(true);
+          nodeClicked = false;
         });
 
     x_button.setOnMouseClicked(
@@ -913,9 +999,10 @@ public class EditMapController {
           nodeDao.updateRow(nodeToDrag.getNodeID(), nodeToDrag);
 
           // Paint node
-          group.getChildren().remove(mapNodes);
+          group.getChildren().removeAll(mapNodes, mapText);
           mapNodes = new Group();
-          group.getChildren().add(mapNodes);
+          mapText = new Group();
+          group.getChildren().addAll(mapNodes, mapText);
           loadDatabase();
           sortNodes();
           placeNodes(floor);
@@ -925,6 +1012,7 @@ public class EditMapController {
           lockMap = false;
           checkAndX_HBox.setVisible(false);
           checkAndX_HBox.setMouseTransparent(true);
+          nodeClicked = false;
         });
   }
   //    })

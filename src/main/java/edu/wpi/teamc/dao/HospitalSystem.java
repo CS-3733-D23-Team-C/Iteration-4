@@ -7,47 +7,25 @@ import edu.wpi.teamc.dao.users.EmployeeDao;
 import java.sql.SQLException;
 import java.util.List;
 
+//facade pattern
+
 public class HospitalSystem {
   // Map DAOs
-  NodeDao nodeDao = new NodeDao();
-  EdgeDao edgeDao = new EdgeDao();
-  LocationDao locationDao = new LocationDao();
-  MoveDao moveDao = new MoveDao();
+  private NodeDao nodeDao;
+  private EdgeDao edgeDao;
+  private LocationDao locationDao;
+  private MoveDao moveDao;
 
   // Service Request DAOs
-  ConferenceRoomRequestDAO conferenceRoomRequestDAO = new ConferenceRoomRequestDAO();
-  FlowerDeliveryRequestDAO flowerDeliveryRequestDAO = new FlowerDeliveryRequestDAO();
-  FurnitureDeliveryRequestDAO furnitureDeliveryRequestDAO = new FurnitureDeliveryRequestDAO();
-  MealRequestDAO mealRequestDAO = new MealRequestDAO();
-  OfficeSuppliesRequestDAO officeSuppliesRequestDAO = new OfficeSuppliesRequestDAO();
+  private ConferenceRoomRequestDAO conferenceRoomRequestDAO ;
+  private FlowerDeliveryRequestDAO flowerDeliveryRequestDAO;
+  private FurnitureDeliveryRequestDAO furnitureDeliveryRequestDAO;
+  private MealRequestDAO mealRequestDAO;
+  private OfficeSuppliesRequestDAO officeSuppliesRequestDAO;
 
   // User DAOs
-  EmployeeDao employeeDao = new EmployeeDao();
-
-  public HospitalSystem(
-      NodeDao nodeDao,
-      EdgeDao edgeDao,
-      LocationDao locationDao,
-      MoveDao moveDao,
-      ConferenceRoomRequestDAO conferenceRoomRequestDAO,
-      EmployeeDao employeeDao,
-      FlowerDeliveryRequestDAO flowerDeliveryRequestDAO,
-      FurnitureDeliveryRequestDAO furnitureDeliveryRequestDAO,
-      MealRequestDAO mealRequestDAO,
-      OfficeSuppliesRequestDAO officeSuppliesRequestDAO) {
-    this.nodeDao = nodeDao;
-    this.edgeDao = edgeDao;
-    this.locationDao = locationDao;
-    this.moveDao = moveDao;
-    this.conferenceRoomRequestDAO = conferenceRoomRequestDAO;
-    this.employeeDao = employeeDao;
-    this.flowerDeliveryRequestDAO = flowerDeliveryRequestDAO;
-    this.furnitureDeliveryRequestDAO = furnitureDeliveryRequestDAO;
-    this.mealRequestDAO = mealRequestDAO;
-    this.officeSuppliesRequestDAO = officeSuppliesRequestDAO;
-  }
-
-  public List<? extends IOrm> fetchAllObjects(IOrm request) {
+  private EmployeeDao employeeDao;
+   List<? extends IOrm> fetchAllObjects(IOrm request) {
     if (request instanceof Node) {
       return nodeDao.fetchAllObjects();
     } else if (request instanceof Edge) {
@@ -72,7 +50,7 @@ public class HospitalSystem {
     return null;
   }
 
-  public IOrm addRow(IOrm request) {
+   IOrm addRow(IOrm request) {
     if (request instanceof Node) {
       return nodeDao.addRow((Node) request);
     } else if (request instanceof Edge) {
@@ -98,7 +76,7 @@ public class HospitalSystem {
     }
   }
 
-  public IOrm deleteRow(IOrm request) {
+   IOrm deleteRow(IOrm request) {
     if (request instanceof Node) {
       return nodeDao.deleteRow((Node) request);
     } else if (request instanceof Edge) {

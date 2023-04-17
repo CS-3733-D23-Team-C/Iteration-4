@@ -667,22 +667,57 @@ public class EditMapController {
 
     // Stuff to show on pop up
     VBox vBox = new VBox();
+    Text headerText = new Text("Add Node Using Mouse Location");
     Text building = new Text("Input name of building the node will be in");
     MFXTextField b_input = new MFXTextField();
     MFXButton addButton = new MFXButton("Submit Add");
-    vBox.getChildren().addAll(building, b_input, addButton);
+    vBox.getChildren().addAll(headerText, building, b_input, addButton);
+
+    // set styles
+    headerText.getStyleClass().add("Header");
+    building.getStyleClass().add("Text");
+    b_input.getStyleClass().add("MFXtextIn");
+    addButton.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // add input boxes styles
+    //    nodeTypeInput.setPrefWidth(120);
+
+    //    vBox.getChildren() //vBox does not work bc usage with it sucks with spacing
+    //            .addAll(building, b_input, addButton);
+    //
+    //    // set vBox location
+    //    vBox.setLayoutX(50);
+    //    vBox.setLayoutY(20);
+    //    vBox.setSpacing(15);
+
+    // set object locations
+    int lay_x = 50;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    building.setLayoutX(lay_x);
+    building.setLayoutY(lay_y + 35);
+    b_input.setLayoutX(lay_x);
+    b_input.setLayoutY(lay_y + 35);
+    addButton.setLayoutX(lay_x);
+    addButton.setLayoutY(lay_y + 95);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
+    aPane.getChildren().addAll(headerText, building, b_input, addButton);
+    //    Insets insets = new Insets(0, 0, 0, 200);
+    //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 410, 225);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.setTitle("Add Node Window");
+    stage.setAlwaysOnTop(true);
     stage.show();
 
     // When stage closed with inherit x, will unlock map and understand a node is no longer selected
@@ -731,6 +766,7 @@ public class EditMapController {
 
     // Stuff to show on pop up
     VBox vBox = new VBox();
+    Text headerText = new Text("Select Modification Method");
     Text modify_1 = new Text("Modify node by text input?");
     Text modify_2 = new Text("Modify node by dragging on map?");
     Text modify_3 = new Text("Modify location name of node?");
@@ -738,19 +774,62 @@ public class EditMapController {
     MFXButton byDrag = new MFXButton("By Drag");
     MFXButton editName = new MFXButton("Edit Name");
 
-    vBox.getChildren().addAll(modify_1, byText, modify_2, byDrag, modify_3, editName);
+    vBox.getChildren().addAll(headerText, modify_1, byText, modify_2, byDrag, modify_3, editName);
+
+    // set styles
+    headerText.getStyleClass().add("Header");
+    modify_1.getStyleClass().add("Text");
+    modify_2.getStyleClass().add("Text");
+    modify_3.getStyleClass().add("Text");
+    byText.getStyleClass().add("MFXbutton");
+    byDrag.getStyleClass().add("MFXbutton");
+    editName.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // add input boxes styles
+    //    nodeTypeInput.setPrefWidth(120);
+
+    //    vBox.getChildren() //vBox does not work bc usage with it sucks with spacing
+    //            .addAll(building, b_input, addButton);
+    //
+    //    // set vBox location
+    //    vBox.setLayoutX(50);
+    //    vBox.setLayoutY(20);
+    //    vBox.setSpacing(15);
+
+    // set object locations
+    int lay_x = 50;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    modify_1.setLayoutX(lay_x);
+    modify_1.setLayoutY(lay_y + 35);
+    byText.setLayoutX(lay_x);
+    byText.setLayoutY(lay_y + 50);
+    modify_2.setLayoutX(lay_x);
+    modify_2.setLayoutY(lay_y + 120);
+    byDrag.setLayoutX(lay_x);
+    byDrag.setLayoutY(lay_y + 135);
+    modify_3.setLayoutX(lay_x);
+    modify_3.setLayoutY(lay_y + 205);
+    editName.setLayoutX(lay_x);
+    editName.setLayoutY(lay_y + 220);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
+    aPane.getChildren().addAll(headerText, modify_1, byText, modify_2, byDrag, modify_3, editName);
+    //    Insets insets = new Insets(0, 0, 0, 200);
+    //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 350, 330);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.setTitle("Modify Window");
+    stage.setAlwaysOnTop(true);
     stage.show();
 
     // When stage closed with inherit x, will unlock map and understand a node is no longer selected
@@ -790,6 +869,7 @@ public class EditMapController {
     // Stuff to show on pop up
     VBox vBox = new VBox();
 
+    Text headerText = new Text("Modify Node Location");
     Text xCoord_t = new Text("Input new Xcoord");
     Text yCoord_t = new Text("Input new YCoord");
     MFXTextField xCoord_input = new MFXTextField();
@@ -799,20 +879,52 @@ public class EditMapController {
     submitModify.setPrefSize(100, 35);
     submitModify.setMinSize(100, 35);
 
-    vBox.getChildren().addAll(xCoord_t, xCoord_input, yCoord_t, yCoord_input, submitModify);
-    vBox.setSpacing(20);
+    //    vBox.getChildren().addAll(headerText, xCoord_t, xCoord_input, yCoord_t, yCoord_input,
+    // submitModify);
+    //    vBox.setSpacing(20);
+
+    // set styles
+    headerText.getStyleClass().add("Header");
+    xCoord_t.getStyleClass().add("Text");
+    yCoord_t.getStyleClass().add("Text");
+    xCoord_input.getStyleClass().add("MFXtextIn");
+    yCoord_input.getStyleClass().add("MFXtextIn");
+    submitModify.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // set object locations
+    int lay_x = 50;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    xCoord_t.setLayoutX(lay_x);
+    xCoord_t.setLayoutY(lay_y + 35);
+    xCoord_input.setLayoutX(lay_x);
+    xCoord_input.setLayoutY(lay_y + 50);
+    yCoord_t.setLayoutX(lay_x);
+    yCoord_t.setLayoutY(lay_y + 120);
+    yCoord_input.setLayoutX(lay_x);
+    yCoord_input.setLayoutY(lay_y + 135);
+    submitModify.setLayoutX(lay_x);
+    submitModify.setLayoutY(lay_y + 205);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
+    aPane
+        .getChildren()
+        .addAll(headerText, xCoord_t, xCoord_input, yCoord_t, yCoord_input, submitModify);
+    //    Insets insets = new Insets(0, 0, 0, 200);
+    //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
     Scene scene = new Scene(borderPane, 650, 500);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.setTitle("Modify Node Window");
+    stage.setAlwaysOnTop(true);
     stage.show();
 
     // When stage closed with inherit x, will unlock map and understand a node is no longer selected
@@ -975,7 +1087,7 @@ public class EditMapController {
     // add input boxes styles
     //    nodeTypeInput.setPrefWidth(120);
 
-    vBox.getChildren()
+    vBox.getChildren() // vBox does not work bc usage with it sucks with spacing
         .addAll(headerText, nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, addName);
 
     // set vBox location

@@ -2,63 +2,42 @@ package edu.wpi.teamc.dao;
 
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.dao.requests.*;
-import edu.wpi.teamc.dao.users.Employee;
-import edu.wpi.teamc.dao.users.EmployeeDao;
+import edu.wpi.teamc.dao.users.EmployeeUser;
+import edu.wpi.teamc.dao.users.EmployeeUserDao;
 import java.sql.SQLException;
 import java.util.List;
 
+// facade pattern
+
 public class HospitalSystem {
   // Map DAOs
-  NodeDao nodeDao = new NodeDao();
-  EdgeDao edgeDao = new EdgeDao();
-  LocationDao locationDao = new LocationDao();
-  MoveDao moveDao = new MoveDao();
+  private static NodeDao nodeDao;
+  private static EdgeDao edgeDao;
+  private static LocationNameDao locationNameDao;
+  private static MoveDao moveDao;
 
   // Service Request DAOs
-  ConferenceRoomRequestDAO conferenceRoomRequestDAO = new ConferenceRoomRequestDAO();
-  FlowerDeliveryRequestDAO flowerDeliveryRequestDAO = new FlowerDeliveryRequestDAO();
-  FurnitureDeliveryRequestDAO furnitureDeliveryRequestDAO = new FurnitureDeliveryRequestDAO();
-  MealRequestDAO mealRequestDAO = new MealRequestDAO();
-  OfficeSuppliesRequestDAO officeSuppliesRequestDAO = new OfficeSuppliesRequestDAO();
+  private static ConferenceRoomRequestDAO conferenceRoomRequestDAO;
+  private static FlowerDeliveryRequestDAO flowerDeliveryRequestDAO;
+  private static FurnitureDeliveryRequestDAO furnitureDeliveryRequestDAO;
+  private static MealRequestDAO mealRequestDAO;
+  private static OfficeSuppliesRequestDAO officeSuppliesRequestDAO;
 
   // User DAOs
-  EmployeeDao employeeDao = new EmployeeDao();
+  private static EmployeeUserDao employeeDao;
 
-  public HospitalSystem(
-      NodeDao nodeDao,
-      EdgeDao edgeDao,
-      LocationDao locationDao,
-      MoveDao moveDao,
-      ConferenceRoomRequestDAO conferenceRoomRequestDAO,
-      EmployeeDao employeeDao,
-      FlowerDeliveryRequestDAO flowerDeliveryRequestDAO,
-      FurnitureDeliveryRequestDAO furnitureDeliveryRequestDAO,
-      MealRequestDAO mealRequestDAO,
-      OfficeSuppliesRequestDAO officeSuppliesRequestDAO) {
-    this.nodeDao = nodeDao;
-    this.edgeDao = edgeDao;
-    this.locationDao = locationDao;
-    this.moveDao = moveDao;
-    this.conferenceRoomRequestDAO = conferenceRoomRequestDAO;
-    this.employeeDao = employeeDao;
-    this.flowerDeliveryRequestDAO = flowerDeliveryRequestDAO;
-    this.furnitureDeliveryRequestDAO = furnitureDeliveryRequestDAO;
-    this.mealRequestDAO = mealRequestDAO;
-    this.officeSuppliesRequestDAO = officeSuppliesRequestDAO;
-  }
-
-  public List<? extends IOrm> fetchAllObjects(IOrm request) {
+  static List<? extends IOrm> fetchAllObjects(IOrm request) {
     if (request instanceof Node) {
       return nodeDao.fetchAllObjects();
     } else if (request instanceof Edge) {
       return edgeDao.fetchAllObjects();
     } else if (request instanceof LocationName) {
-      return locationDao.fetchAllObjects();
+      return locationNameDao.fetchAllObjects();
     } else if (request instanceof Move) {
       return moveDao.fetchAllObjects();
     } else if (request instanceof ConferenceRoomRequest) {
       return conferenceRoomRequestDAO.fetchAllObjects();
-    } else if (request instanceof Employee) {
+    } else if (request instanceof EmployeeUser) {
       return employeeDao.fetchAllObjects();
     } else if (request instanceof FlowerDeliveryRequest) {
       return flowerDeliveryRequestDAO.fetchAllObjects();
@@ -72,19 +51,19 @@ public class HospitalSystem {
     return null;
   }
 
-  public IOrm addRow(IOrm request) {
+  static IOrm addRow(IOrm request) {
     if (request instanceof Node) {
       return nodeDao.addRow((Node) request);
     } else if (request instanceof Edge) {
       return edgeDao.addRow((Edge) request);
     } else if (request instanceof LocationName) {
-      return locationDao.addRow((LocationName) request);
+      return locationNameDao.addRow((LocationName) request);
     } else if (request instanceof Move) {
       return moveDao.addRow((Move) request);
     } else if (request instanceof ConferenceRoomRequest) {
       return conferenceRoomRequestDAO.addRow((ConferenceRoomRequest) request);
-    } else if (request instanceof Employee) {
-      return employeeDao.addRow((Employee) request);
+    } else if (request instanceof EmployeeUser) {
+      return employeeDao.addRow((EmployeeUser) request);
     } else if (request instanceof FlowerDeliveryRequest) {
       return flowerDeliveryRequestDAO.addRow((FlowerDeliveryRequest) request);
     } else if (request instanceof FurnitureDeliveryRequest) {
@@ -98,13 +77,13 @@ public class HospitalSystem {
     }
   }
 
-  public IOrm deleteRow(IOrm request) {
+  static IOrm deleteRow(IOrm request) {
     if (request instanceof Node) {
       return nodeDao.deleteRow((Node) request);
     } else if (request instanceof Edge) {
       return edgeDao.deleteRow((Edge) request);
     } else if (request instanceof LocationName) {
-      return locationDao.deleteRow((LocationName) request);
+      return locationNameDao.deleteRow((LocationName) request);
     } else if (request instanceof Move) {
       return moveDao.deleteRow((Move) request);
     } else if (request instanceof ConferenceRoomRequest) {
@@ -113,8 +92,8 @@ public class HospitalSystem {
       } catch (SQLException e) {
         throw new RuntimeException(e);
       }
-    } else if (request instanceof Employee) {
-      return employeeDao.deleteRow((Employee) request);
+    } else if (request instanceof EmployeeUser) {
+      return employeeDao.deleteRow((EmployeeUser) request);
     } else if (request instanceof FlowerDeliveryRequest) {
       return flowerDeliveryRequestDAO.deleteRow((FlowerDeliveryRequest) request);
     } else if (request instanceof FurnitureDeliveryRequest) {
@@ -127,20 +106,20 @@ public class HospitalSystem {
     return null;
   }
 
-  public IOrm updateRow(IOrm request) {
+  static IOrm updateRow(IOrm request) {
     if (request instanceof Node) {
       return nodeDao.updateRow((Node) request, (Node) request);
     } else if (request instanceof Edge) {
       return edgeDao.updateRow((Edge) request, (Edge) request);
     } else if (request instanceof LocationName) {
-      return locationDao.updateRow((LocationName) request, (LocationName) request);
+      return locationNameDao.updateRow((LocationName) request, (LocationName) request);
     } else if (request instanceof Move) {
       return moveDao.updateRow((Move) request, (Move) request);
     } else if (request instanceof ConferenceRoomRequest) {
       return conferenceRoomRequestDAO.updateRow(
           (ConferenceRoomRequest) request, (ConferenceRoomRequest) request);
-    } else if (request instanceof Employee) {
-      return employeeDao.updateRow((Employee) request, (Employee) request);
+    } else if (request instanceof EmployeeUser) {
+      return employeeDao.updateRow((EmployeeUser) request, (EmployeeUser) request);
     } else if (request instanceof FlowerDeliveryRequest) {
       return flowerDeliveryRequestDAO.updateRow(
           (FlowerDeliveryRequest) request, (FlowerDeliveryRequest) request);

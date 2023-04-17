@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryRequest> {
+public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryRequest, Integer> {
   public List<FurnitureDeliveryRequest> fetchAllObjects() {
     List<FurnitureDeliveryRequest> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
@@ -110,5 +110,37 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
       e.printStackTrace();
     }
     return orm;
+  }
+
+  @Override
+  public FurnitureDeliveryRequest fetchObject(Integer key) throws SQLException {
+    FurnitureDeliveryRequest request = null;
+    try {
+      DBConnection db = new DBConnection();
+      String query =
+          "SELECT * FROM \"ServiceRequests\".\"furnitureDeliveryRequest\" WHERE requestID = ?";
+      PreparedStatement ps = db.getConnection().prepareStatement(query);
+      ps.setInt(1, key);
+      ResultSet rs = ps.executeQuery();
+      rs.next();
+      int requestID = rs.getInt("requestID");
+      String requester = rs.getString("requester");
+      String furnitureType = rs.getString("furnituretype");
+      String additionalNotes = rs.getString("additionalNotes");
+      String deliveryTime = rs.getString("eta");
+      String deliveryLocation = rs.getString("roomname");
+
+      request =
+          new FurnitureDeliveryRequest(
+              requestID,
+              new Requester(requestID, requester),
+              deliveryLocation,
+              additionalNotes,
+              furnitureType,
+              deliveryTime);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return request;
   }
 }

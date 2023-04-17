@@ -78,7 +78,7 @@ public class ConferenceController {
             end.toString(),
             status);
 
-    IDao<ConferenceRoomRequest> dao = new ConferenceRoomRequestDAO();
+    IDao<ConferenceRoomRequest, Integer> dao = new ConferenceRoomRequestDAO();
     dao.addRow(req);
 
     Navigation.navigate(Screen.CONGRATS_PAGE);

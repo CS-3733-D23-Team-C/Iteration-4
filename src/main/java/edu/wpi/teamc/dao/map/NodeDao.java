@@ -5,13 +5,14 @@ import edu.wpi.teamc.dao.IDao;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NodeDao implements IDao<Node> {
+public class NodeDao implements IDao<Node, Integer> {
   public List<Node> fetchAllObjects() {
     List<Node> databaseNodeList = new ArrayList<>();
     DBConnection db = new DBConnection();
@@ -149,6 +150,37 @@ public class NodeDao implements IDao<Node> {
     dbConnection.closeConnection();
 
     return orm;
+  }
+
+  @Override
+  public Node fetchObject(Integer key) throws SQLException {
+    Node node = null;
+    DBConnection db = new DBConnection();
+
+    try {
+      Statement stmtNode = db.getConnection().createStatement();
+      // table names
+      String NODE = "\"hospitalNode\".node";
+      // queries
+      String queryDisplayNodes = "SELECT * FROM " + NODE + " WHERE \"nodeID\" = " + key;
+
+      ResultSet rsNodes = stmtNode.executeQuery(queryDisplayNodes);
+
+      while (rsNodes.next()) {
+        int nodeID = rsNodes.getInt("nodeID");
+        int xCoord = rsNodes.getInt("xcoord");
+        int yCoord = rsNodes.getInt("ycoord");
+        String floor = rsNodes.getString("floorNum");
+        String building = rsNodes.getString("building");
+
+        node = new Node(nodeID, xCoord, yCoord, floor, building);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    db.closeConnection();
+    return node;
   }
 
   public int deleteRow(int nodeID) {

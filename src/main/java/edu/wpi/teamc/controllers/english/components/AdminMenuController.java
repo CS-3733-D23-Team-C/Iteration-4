@@ -83,6 +83,10 @@ public class AdminMenuController {
     Navigation.navigate(Screen.HELP);
   }
 
+  @FXML
+  void getMoveTablePage(ActionEvent actionEvent) {
+    Navigation.navigate(Screen.MOVETABLE_PAGE);
+  }
   // LANGUAGE//
 
 }

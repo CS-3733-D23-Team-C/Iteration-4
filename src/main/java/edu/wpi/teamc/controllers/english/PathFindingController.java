@@ -29,7 +29,7 @@ import net.kurobako.gesturefx.GesturePane;
 public class PathFindingController {
   public Group group;
   public Image image =
-      new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
+      new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
   @FXML MFXButton backButton;
   @FXML MFXButton nextFloor;
   @FXML MFXButton prevFloor;
@@ -78,7 +78,7 @@ public class PathFindingController {
   /** Method run when controller is initialized */
   public void initialize() {
     submit.setDisable(true);
-    tempSave = FLG;
+    tempSave = FL1;
     //    File file = new File();
     Image image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
     ImageView imageView = new ImageView(image);

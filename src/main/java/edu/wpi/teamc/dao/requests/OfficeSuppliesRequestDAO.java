@@ -90,28 +90,27 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
   @Override
   public OfficeSuppliesRequest fetchObject(Integer key) throws SQLException {
     OfficeSuppliesRequest request = null;
-    try{
-        DBConnection db = new DBConnection();
-        String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
-        // queries
-        String query = "SELECT * FROM " + table + " WHERE requestID = " + key + ";";
-        ResultSet rs = db.getConnection().prepareStatement(query).executeQuery();
-        while (rs.next()) {
-            int requestID = rs.getInt("requestID");
-            Requester req = new Requester(0, rs.getString("Requester"));
-            String roomName = rs.getString("roomname");
-            String supplies = rs.getString("officesupplytype");
-            STATUS status = STATUS.valueOf(rs.getString("status"));
-            String additionalNotes = rs.getString("additionalnotes");
-            String eta = rs.getString("eta");
-            request =
-                new OfficeSuppliesRequest(requestID, req, roomName, supplies, additionalNotes);
-            request.setStatus(status);
-            request.setEta(eta);
-        }
-        db.closeConnection();
-        } catch (Exception e) {
-        e.printStackTrace();
+    try {
+      DBConnection db = new DBConnection();
+      String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
+      // queries
+      String query = "SELECT * FROM " + table + " WHERE requestID = " + key + ";";
+      ResultSet rs = db.getConnection().prepareStatement(query).executeQuery();
+      while (rs.next()) {
+        int requestID = rs.getInt("requestID");
+        Requester req = new Requester(0, rs.getString("Requester"));
+        String roomName = rs.getString("roomname");
+        String supplies = rs.getString("officesupplytype");
+        STATUS status = STATUS.valueOf(rs.getString("status"));
+        String additionalNotes = rs.getString("additionalnotes");
+        String eta = rs.getString("eta");
+        request = new OfficeSuppliesRequest(requestID, req, roomName, supplies, additionalNotes);
+        request.setStatus(status);
+        request.setEta(eta);
+      }
+      db.closeConnection();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
     return request;
   }

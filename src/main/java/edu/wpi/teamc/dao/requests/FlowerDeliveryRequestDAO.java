@@ -142,34 +142,32 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
   @Override
   public FlowerDeliveryRequest fetchObject(Integer key) throws SQLException {
     FlowerDeliveryRequest fdr = null;
-    try{
-        DBConnection db = new DBConnection();
-        Statement stmtNode = db.getConnection().createStatement();
-        // table names
-        String table = "\"ServiceRequests\".\"flowerRequest\"";
-        // queries
-        String query = "SELECT * FROM " + table + " WHERE requestID = ?";
+    try {
+      DBConnection db = new DBConnection();
+      Statement stmtNode = db.getConnection().createStatement();
+      // table names
+      String table = "\"ServiceRequests\".\"flowerRequest\"";
+      // queries
+      String query = "SELECT * FROM " + table + " WHERE requestID = ?";
 
-        PreparedStatement ps = db.getConnection().prepareStatement(query);
-        ps.setInt(1, key);
-        ResultSet rs = ps.executeQuery();
+      PreparedStatement ps = db.getConnection().prepareStatement(query);
+      ps.setInt(1, key);
+      ResultSet rs = ps.executeQuery();
 
-        while (rs.next()) {
-            int requestID = rs.getInt("requestID");
-            Requester req = new Requester(0, rs.getString("Requester"));
-            String roomName = rs.getString("roomName");
-            String flower = rs.getString("flower");
-            STATUS status = STATUS.valueOf(rs.getString("status"));
-            String additionalNotes = rs.getString("additionalNotes");
-            String eta = rs.getString("ETA");
-            fdr =
-                new FlowerDeliveryRequest(requestID, req, roomName, flower, additionalNotes);
-            fdr.setStatus(status);
-            fdr.setEta(eta);
-
-        }
-        } catch (Exception e) {
-        e.printStackTrace();
+      while (rs.next()) {
+        int requestID = rs.getInt("requestID");
+        Requester req = new Requester(0, rs.getString("Requester"));
+        String roomName = rs.getString("roomName");
+        String flower = rs.getString("flower");
+        STATUS status = STATUS.valueOf(rs.getString("status"));
+        String additionalNotes = rs.getString("additionalNotes");
+        String eta = rs.getString("ETA");
+        fdr = new FlowerDeliveryRequest(requestID, req, roomName, flower, additionalNotes);
+        fdr.setStatus(status);
+        fdr.setEta(eta);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
     }
     return fdr;
   }

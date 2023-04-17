@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 // TODO - change PKs for all tables to be all three
 public class MoveDao implements IDao<Move, Move> {
   public List<Move> fetchAllObjects() {

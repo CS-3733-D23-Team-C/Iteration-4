@@ -9,9 +9,7 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.awt.*;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -130,7 +128,7 @@ public class EditMapController {
   String nodeType_temp = "";
   String iD;
   String building = "";
-  String floor = "G";
+  String floor = "1";
   List<Node> n_toAdd = new ArrayList<Node>();
   List<Node> n_toModify_newNode = new ArrayList<Node>();
   List<String> n_toModify_oldID = new ArrayList<String>();
@@ -185,10 +183,12 @@ public class EditMapController {
   Boolean dragModeOn = false;
   MapModeSaver mapModeSaver = new MapModeSaver();
   @FXML HBox checkAndX_HBox;
-  @FXML HBox checkAndX_HBox1;
 
-  //  @FXML MFXButton check_button;
-  //  @FXML MFXButton x_button;
+  @FXML HBox checkAndX_HBox1;
+  @FXML MFXButton check_button;
+  @FXML MFXButton x_button;
+  ImageView imageView;
+
 
   //  Boolean
 
@@ -196,7 +196,7 @@ public class EditMapController {
   public void initialize() {
 
     Image image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
-    ImageView imageView = new ImageView(image);
+    imageView = new ImageView(image); // was ImageView imageView
     imageView.relocate(0, 0);
     group.getChildren().add(imageView);
 
@@ -260,7 +260,7 @@ public class EditMapController {
 
     loadDatabase();
     sortNodes();
-    placeNodes("G");
+    placeNodes("1");
   } // end initialize
   // load database
   public void loadDatabase() {
@@ -347,18 +347,19 @@ public class EditMapController {
       image = new Image(Main.class.getResource("./views/Images/B2.png").toString());
       floor = "L2";
     }
-    group.getChildren().removeAll();
+    group.getChildren().removeAll(mapNodes, mapText, imageView);
     group.getChildren().remove(mapNodes);
     group.getChildren().remove(mapText);
     //    stackPane.getChildren().remove(mapNodes);
-    ImageView imageView = new ImageView(image);
+
+    imageView = new ImageView(image);
     imageView.relocate(0, 0);
     mapNodes = new Group();
     mapText = new Group();
-    group.getChildren().add(imageView);
+    group.getChildren().addAll(imageView, mapNodes, mapText);
     //    stackPane.getChildren().add(mapNodes);
-    group.getChildren().add(mapNodes);
-    group.getChildren().add(mapText);
+    //    group.getChildren().add(mapNodes);
+    //    group.getChildren().add(mapText);
     Pane pane = new Pane();
     pane.setMinWidth(image.getWidth());
     pane.setMaxWidth(image.getWidth());
@@ -540,6 +541,11 @@ public class EditMapController {
     //    if (Objects.equals(mapMode.getMapMode(), "Modify_drag")) {
     //      newCircle.setOnMousePressed
     //    }
+    newCircle.setOnMouseEntered(
+        e -> {
+          newCircle.setStroke(Paint.valueOf("#C51919"));
+        });
+
     newCircle.setOnMousePressed( // was set on mouse clicked
         e -> {
           nodeClicked = true; // clicked on a node
@@ -548,11 +554,26 @@ public class EditMapController {
           currNodeShortname = shortname;
           currNodeType = nodeType;
 
+          if (!(Objects.equals(mapMode.getMapMode(), "Modify_drag"))) {
+            newCircle.setFill(Paint.valueOf("#45a37f"));
+          } else if (Objects.equals(node.getNodeID(), mapModeSaver.getNodeID())) {
+            newCircle.setFill(Paint.valueOf("#45a37f"));
+          }
+
           if ((Objects.equals(mapMode.getMapMode(), "Modify_drag"))
               && !mapModeSaver.getDraggingNodeCreated()) {
             movingNodeClicked = true;
           }
           //          System.out.println("circle clicked");
+        });
+    newCircle.setOnMouseExited(
+        e -> {
+          if (!(Objects.equals(mapMode.getMapMode(), "Modify_drag"))) {
+            newCircle.setFill(Paint.valueOf("#13DAF7"));
+            newCircle.setStroke(Paint.valueOf("#13DAF7"));
+          } else if (!(Objects.equals(node.getNodeID(), mapModeSaver.getNodeID()))) {
+            newCircle.setStroke(Paint.valueOf("13DAF7"));
+          }
         });
     //    newCircle.setOnMouseDragEntered(
     //        e -> {
@@ -575,6 +596,7 @@ public class EditMapController {
   }
 
   public void createMovingMapNode(
+      Node node,
       int nodeID,
       String shortname,
       String nodeType,
@@ -615,8 +637,8 @@ public class EditMapController {
     //      text.setVisible(true);
     //    }
     newCircle.setId(String.valueOf(nodeID));
-    newCircle.setStroke(Paint.valueOf("#13DAF7"));
-    newCircle.setFill(Paint.valueOf("#13DAF7"));
+    newCircle.setStroke(Paint.valueOf("#45a37f"));
+    newCircle.setFill(Paint.valueOf("#8745a3"));
     newCircle.setVisible(true);
     text.setVisible(true);
     newCircle.setOnMousePressed(
@@ -627,6 +649,9 @@ public class EditMapController {
           currNodeShortname = shortname;
           currNodeType = nodeType;
           movingNodeClicked = true;
+          if (Objects.equals(node.getNodeID(), mapModeSaver.getNodeID())) {
+            newCircle.setFill(Paint.valueOf("#45a37f"));
+          }
           //          System.out.println("circle clicked");
         });
     //    newCircle.setOnMouseDragEntered(
@@ -1157,6 +1182,7 @@ public class EditMapController {
               movingText = new Group();
               group.getChildren().addAll(movingNode, movingText);
               createMovingMapNode(
+                  currNodeClicked,
                   0,
                   currNodeShortname,
                   currNodeType,
@@ -1766,7 +1792,6 @@ public class EditMapController {
           alert.setContentText("Please select a valid file");
           alert.showAndWait();
         }
-
       } catch (Exception ex) {
         ex.printStackTrace();
       }
@@ -1782,6 +1807,7 @@ public class EditMapController {
     File file = fileChooser.showOpenDialog(new Stage());
     if (file != null) {
       try {
+
         BufferedReader br = new BufferedReader(new FileReader(file));
         String edgeHeader = "startNode,endNode";
         String importedHeader = br.readLine();
@@ -1815,6 +1841,7 @@ public class EditMapController {
     File file = fileChooser.showOpenDialog(new Stage());
     if (file != null) {
       try {
+
         BufferedReader br = new BufferedReader(new FileReader(file));
         String locationNameHeader = "longName,shortName,nodeType";
         String importedHeader = br.readLine();
@@ -2070,3 +2097,4 @@ public class EditMapController {
  */
 
 // NEED TO MAKE EXCEPTION CASES FOR IF TRYING TO ADD A NAME TO A NODE THAT ALREADY HAS A NAME
+

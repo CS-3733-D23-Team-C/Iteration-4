@@ -83,6 +83,15 @@ public class MenuController {
           historyTrigger.setVisible(false);
           exitTrigger.setVisible(false);
           logoutTrigger.setVisible(false);
+
+          serviceRequestButton.setVisible(true);
+          navigationButton.setVisible(true);
+          settingsButton.setVisible(true);
+          helpButton.setVisible(true);
+          historyButton.setVisible(true);
+          exitButton.setVisible(true);
+          logoutButton.setVisible(true);
+
           navigationPopOutTransition.setDuration(javafx.util.Duration.millis(200));
           navigationPopOutTransition.setNode(navigationPopOut);
           navigationPopOutTransition.setToX(0);
@@ -214,6 +223,15 @@ public class MenuController {
           historyTrigger.setVisible(false);
           exitTrigger.setVisible(false);
           logoutTrigger.setVisible(false);
+
+          homeButton.setVisible(true);
+
+          navigationButton.setVisible(true);
+          settingsButton.setVisible(true);
+          helpButton.setVisible(true);
+          historyButton.setVisible(true);
+          exitButton.setVisible(true);
+          logoutButton.setVisible(true);
           homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
           homePopOutTransition.setNode(homePopOut);
           homePopOutTransition.setToX(0);
@@ -352,6 +370,15 @@ public class MenuController {
           historyTrigger.setVisible(false);
           exitTrigger.setVisible(false);
           logoutTrigger.setVisible(false);
+
+          homeButton.setVisible(true);
+          serviceRequestButton.setVisible(true);
+
+          settingsButton.setVisible(true);
+          helpButton.setVisible(true);
+          historyButton.setVisible(true);
+          exitButton.setVisible(true);
+          logoutButton.setVisible(true);
           homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
           homePopOutTransition.setNode(homePopOut);
           homePopOutTransition.setToX(0);
@@ -489,6 +516,16 @@ public class MenuController {
 
           exitTrigger.setVisible(false);
           logoutTrigger.setVisible(false);
+
+          homeButton.setVisible(true);
+          serviceRequestButton.setVisible(true);
+          navigationButton.setVisible(true);
+          settingsButton.setVisible(true);
+          helpButton.setVisible(true);
+
+          exitButton.setVisible(true);
+          logoutButton.setVisible(true);
+
           homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
           homePopOutTransition.setNode(homePopOut);
           homePopOutTransition.setToX(0);
@@ -626,6 +663,15 @@ public class MenuController {
           exitTrigger.setVisible(false);
           logoutTrigger.setVisible(false);
 
+          homeButton.setVisible(true);
+          serviceRequestButton.setVisible(true);
+          navigationButton.setVisible(true);
+
+          helpButton.setVisible(true);
+          historyButton.setVisible(true);
+          exitButton.setVisible(true);
+          logoutButton.setVisible(true);
+
           homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
           homePopOutTransition.setNode(homePopOut);
           homePopOutTransition.setToX(0);
@@ -762,6 +808,16 @@ public class MenuController {
           historyTrigger.setVisible(false);
           exitTrigger.setVisible(false);
           logoutTrigger.setVisible(false);
+
+          homeButton.setVisible(true);
+          serviceRequestButton.setVisible(true);
+          navigationButton.setVisible(true);
+          settingsButton.setVisible(true);
+
+          historyButton.setVisible(true);
+          exitButton.setVisible(true);
+          logoutButton.setVisible(true);
+
           homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
           homePopOutTransition.setNode(homePopOut);
           homePopOutTransition.setToX(0);
@@ -896,6 +952,15 @@ public class MenuController {
           settingsTrigger.setVisible(false);
           helpTrigger.setVisible(false);
           historyTrigger.setVisible(false);
+
+          homeButton.setVisible(true);
+          serviceRequestButton.setVisible(true);
+          navigationButton.setVisible(true);
+          settingsButton.setVisible(true);
+          helpButton.setVisible(true);
+          historyButton.setVisible(true);
+
+          logoutButton.setVisible(true);
 
           logoutTrigger.setVisible(false);
           homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
@@ -1035,6 +1100,14 @@ public class MenuController {
           historyTrigger.setVisible(false);
           exitTrigger.setVisible(false);
 
+          homeButton.setVisible(true);
+          serviceRequestButton.setVisible(true);
+          navigationButton.setVisible(true);
+          settingsButton.setVisible(true);
+          helpButton.setVisible(true);
+          historyButton.setVisible(true);
+          exitButton.setVisible(true);
+
           homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
           homePopOutTransition.setNode(homePopOut);
           homePopOutTransition.setToX(0);
@@ -1160,121 +1233,6 @@ public class MenuController {
         e -> {
           logoutTrigger.setVisible(false);
           logoutButton.setVisible(true);
-        });
-    menuPane.setOnMouseExited(
-        e -> {
-          homeTrigger.setVisible(false);
-          serviceRequestTrigger.setVisible(false);
-          navigationTrigger.setVisible(false);
-          settingsTrigger.setVisible(false);
-          helpTrigger.setVisible(false);
-          historyTrigger.setVisible(false);
-          exitTrigger.setVisible(false);
-          logoutTrigger.setVisible(false);
-
-          homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          homePopOutTransition.setNode(homePopOut);
-          homePopOutTransition.setToX(0);
-          homePopOutTransition.play();
-
-          pause.setOnFinished(
-              h -> {
-                homePopOut.setVisible(false);
-                homeTrigger.setVisible(false);
-                homeButton.setVisible(true);
-              });
-          pause.play();
-
-          navigationPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          navigationPopOutTransition.setNode(navigationPopOut);
-          navigationPopOutTransition.setToX(0);
-          navigationPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                navigationPopOut.setVisible(false);
-                navigationTrigger.setVisible(false);
-                navigationButton.setVisible(true);
-              });
-          pause.play();
-
-          serviceRequestPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
-          serviceRequestPopOutTransition.setToX(0);
-          serviceRequestPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                serviceRequestPopOut.setVisible(false);
-                serviceRequestTrigger.setVisible(false);
-                serviceRequestButton.setVisible(true);
-              });
-          pause.play();
-
-          settingsPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          settingsPopOutTransition.setNode(settingsPopOut);
-          settingsPopOutTransition.setToX(0);
-          settingsPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                settingsPopOut.setVisible(false);
-                settingsTrigger.setVisible(false);
-                settingsButton.setVisible(true);
-              });
-          pause.play();
-
-          helpPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          helpPopOutTransition.setNode(helpPopOut);
-          helpPopOutTransition.setToX(0);
-          helpPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                helpPopOut.setVisible(false);
-                helpTrigger.setVisible(false);
-                helpButton.setVisible(true);
-              });
-          pause.play();
-
-          exitPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          exitPopOutTransition.setNode(exitPopOut);
-          exitPopOutTransition.setToX(0);
-          exitPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                exitPopOut.setVisible(false);
-                exitTrigger.setVisible(false);
-                exitButton.setVisible(true);
-              });
-          pause.play();
-
-          logoutPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          logoutPopOutTransition.setNode(logoutPopOut);
-          logoutPopOutTransition.setToX(0);
-          logoutPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                logoutPopOut.setVisible(false);
-                logoutTrigger.setVisible(false);
-                logoutButton.setVisible(true);
-              });
-          pause.play();
-
-          historyPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          historyPopOutTransition.setNode(historyPopOut);
-          historyPopOutTransition.setToX(0);
-          historyPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                historyPopOut.setVisible(false);
-                historyTrigger.setVisible(false);
-                historyButton.setVisible(true);
-              });
-          pause.play();
         });
 
     basePane.setOnMouseEntered(

@@ -1,14 +1,19 @@
 package edu.wpi.teamc.controllers.english;
 
 // import edu.wpi.teamc.map.Move;
+import edu.wpi.teamc.dao.map.MapHistory;
+import edu.wpi.teamc.dao.map.MapHistoryDao;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.sql.Timestamp;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class MapHistoryController {
@@ -24,25 +29,38 @@ public class MapHistoryController {
 
   @FXML private Button testButton;
   @FXML private TextField inputBox;
-  @FXML private FilteredTableView<TableRow> historyTable;
-  @FXML TableView<TableRow> otherTable;
-  @FXML TableColumn<TableRow, String> ColumnOne;
-  @FXML TableColumn<TableRow, String> ColumnTwo;
-  @FXML TableColumn<TableRow, String> ColumnThree;
-  ObservableList<TableRow> rows = FXCollections.observableArrayList();
+  @FXML private FilteredTableView<MapHistory> historyTable;
+  @FXML TableView<MapHistory> otherTable;
+  @FXML TableColumn<MapHistory, Integer> ColumnOne;
+  @FXML TableColumn<MapHistory, String> ColumnTwo;
+  @FXML TableColumn<MapHistory, String> ColumnThree;
+  @FXML TableColumn<MapHistory, String> ColumnFour;
+  @FXML TableColumn<MapHistory, Timestamp> ColumnFive;
+
+  ObservableList<MapHistory> rows = FXCollections.observableArrayList();
 
   @FXML private Button goHome;
 
   /** Method run when controller is initialized */
   public void initialize() {
-    //    ColumnOne.setCellValueFactory(new PropertyValueFactory<TableRow, String>("nodeID"));
-    //    ColumnTwo.setCellValueFactory(new PropertyValueFactory<TableRow, String>("longName"));
-    //    ColumnThree.setCellValueFactory(new PropertyValueFactory<TableRow, String>("date"));
+    ColumnOne.setCellValueFactory(new PropertyValueFactory<MapHistory, Integer>("id"));
+    ColumnTwo.setCellValueFactory(new PropertyValueFactory<MapHistory, String>("action"));
+    ColumnThree.setCellValueFactory(new PropertyValueFactory<MapHistory, String>("nodepk"));
+    ColumnFour.setCellValueFactory(new PropertyValueFactory<MapHistory, String>("table"));
+    ColumnFive.setCellValueFactory(new PropertyValueFactory<MapHistory, Timestamp>("timestamp"));
+    ColumnOne.setText("History ID");
+    ColumnTwo.setText("Action");
+    ColumnThree.setText("Primary Key");
+    ColumnFour.setText("Table");
+    ColumnFive.setText("Timestamp");
     //    //    ColumnOne.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     //    //    ColumnTwo.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     //    //    ColumnThree.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     //
-    //    historyTable.getItems().setAll(gettableRows(Cdb.databaseMoveList));
+    MapHistoryDao dao = new MapHistoryDao();
+    List<MapHistory> list = dao.fetchAllObjects();
+    rows.addAll(list);
+    historyTable.getItems().setAll(rows);
     //
     //    System.out.println("did it");
   }
@@ -50,39 +68,6 @@ public class MapHistoryController {
   public void getGoHome(ActionEvent event) {
     Navigation.navigate(Screen.HOME);
   }
-
-  //  public void dispTable(List<Move> moveList) {
-  //    ColumnOne.setCellValueFactory(new PropertyValueFactory<TableRow, String>("nodeID"));
-  //    ColumnTwo.setCellValueFactory(new PropertyValueFactory<TableRow, String>("longName"));
-  //    ColumnThree.setCellValueFactory(new PropertyValueFactory<TableRow, String>("date"));
-  //    //    testTable.getItems().setAll(gettableRows(moveList));
-  //    historyTable.getItems().setAll(gettableRows(moveList));
-  //    //    ColumnOne.setEditable(true);
-  //    //    ColumnTwo.setEditable(true);
-  //    //    ColumnThree.setEditable(true);
-  //
-  //    System.out.println("did it");
-  //  }
-
-  //  public ObservableList<TableRow> gettableRows(List<Move> moveList) {
-  //    String nodeID;
-  //    String longName;
-  //    String date;
-  //    for (Move currMove : moveList) {
-  //      nodeID = currMove.getNodeID();
-  //      longName = currMove.getLongName();
-  //      date = currMove.getDate().toString();
-  //      rows.add(new TableRow(nodeID, longName, date));
-  //    }
-  //    return rows;
-  //  }
-  //
-  //  public String getText(javafx.event.ActionEvent actionEvent) {
-  //    String inputtedText;
-  //    inputtedText = inputBox.getText();
-  //    inputBox.clear();
-  //    return inputtedText;
-  //  }
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {
@@ -115,12 +100,19 @@ public class MapHistoryController {
   }
 
   @FXML
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
+  }
+
+  @FXML
   void getSignagePage(ActionEvent event) {
     Navigation.navigate(Screen.SIGNAGE);
   }
 
   @FXML
-  void getEditMap(ActionEvent event) {}
+  void getEditMap(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
 
   @FXML
   void getLogOut(ActionEvent event) {
@@ -129,15 +121,26 @@ public class MapHistoryController {
 
   @FXML
   void getExit(ActionEvent event) {
-    // Navigation.navigate(Screen.EXIT_PAGE);
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML
-  void getMapHistory(ActionEvent event) {}
+  void getMapHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
+  }
+
+  //  @FXML
+  //  void getMapPage(ActionEvent event) {
+  //    Navigation.navigate(Screen.FLOOR_PLAN);
+  //  }
 
   @FXML
-  void getMapPage(ActionEvent event) {}
+  void getPathfindingPage(ActionEvent event) {
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
 
   @FXML
-  void getPathfindingPage(ActionEvent event) {}
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 }

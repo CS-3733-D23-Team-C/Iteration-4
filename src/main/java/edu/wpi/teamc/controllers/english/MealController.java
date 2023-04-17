@@ -78,7 +78,7 @@ public class MealController {
     String menuSelection = menuButton.getText();
     MealRequest req =
         new MealRequest(0, new Requester(0, name), room, notes, new Meal(menuSelection, ""));
-
+    req.setEta("Test o clock");
     IDao<MealRequest> dao = new MealRequestDAO();
     dao.addRow(req);
     Navigation.navigate(Screen.CONGRATS_PAGE);
@@ -127,8 +127,18 @@ public class MealController {
   }
 
   @FXML
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
+  }
+
+  @FXML
   void getSignagePage(ActionEvent event) {
     Navigation.navigate(Screen.SIGNAGE);
+  }
+
+  @FXML
+  void getHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MEAL_HISTORY);
   }
 
   @FXML
@@ -138,11 +148,13 @@ public class MealController {
 
   @FXML
   void getExit(ActionEvent event) {
-    System.exit(0);
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML
-  void getEditMap(ActionEvent event) {}
+  void getEditMap(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
 
   @FXML
   void getMapHistory(ActionEvent event) {
@@ -154,6 +166,13 @@ public class MealController {
     Navigation.navigate(Screen.MEAL_HISTORY);
   }
 
+  //  @FXML
+  //  void getMapPage(ActionEvent event) {
+  //    Navigation.navigate(Screen.FLOOR_PLAN);
+  //  }
+
   @FXML
-  void getMapPage(ActionEvent event) {}
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 }

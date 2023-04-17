@@ -30,14 +30,17 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
         String additionalNotes = rs.getString("additionalNotes");
         String startTime = rs.getString("startTime");
         String endTime = rs.getString("endTime");
-        returnList.add(
+        STATUS status = STATUS.valueOf(rs.getString("status"));
+        ConferenceRoomRequest request =
             new ConferenceRoomRequest(
                 requestID,
                 new Requester(requestID, requester),
                 new ConferenceRoom(conferenceRoom, "", null),
                 additionalNotes,
                 startTime,
-                endTime));
+                endTime);
+        request.setStatus(status);
+        returnList.add(request);
       }
     } catch (SQLException e) {
       e.printStackTrace();

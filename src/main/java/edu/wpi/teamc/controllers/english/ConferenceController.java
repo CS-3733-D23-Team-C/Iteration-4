@@ -85,12 +85,17 @@ public class ConferenceController {
   }
 
   @FXML
-  void getClear() {
-    clear.setOnMouseClicked(event -> Navigation.navigate(Screen.CONFERENCE));
+  void getClear(ActionEvent event) {
+    Navigation.navigate(Screen.CONFERENCE);
   }
 
   @FXML
   void getMenuButton() {}
+
+  @FXML
+  void getHistory(ActionEvent event) {
+    Navigation.navigate(Screen.CONFERENCE_HISTORY);
+  }
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {
@@ -132,12 +137,19 @@ public class ConferenceController {
     Navigation.navigate(Screen.CONFERENCE_HISTORY);
   }
 
+  @FXML
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
+  }
+
   /** Method run when controller is initialized */
   @FXML
   public void initialize() {}
 
   @FXML
-  void getEditMap(ActionEvent event) {}
+  void getEditMap(ActionEvent event) {
+    Navigation.navigate(Screen.EDIT_MAP);
+  }
 
   @FXML
   void getLogOut(ActionEvent event) {
@@ -146,15 +158,26 @@ public class ConferenceController {
 
   @FXML
   void getExit(ActionEvent event) {
-    System.exit(0);
+    Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML
-  void getMapHistory(ActionEvent event) {}
+  void getMapHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
+  }
+
+  //  @FXML
+  //  void getMapPage(ActionEvent event) {
+  //    Navigation.navigate(Screen.FLOOR_PLAN);
+  //  }
 
   @FXML
-  void getMapPage(ActionEvent event) {}
+  void getPathfindingPage(ActionEvent event) {
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
 
   @FXML
-  void getPathfindingPage(ActionEvent event) {}
+  void getHelpage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
+  }
 }

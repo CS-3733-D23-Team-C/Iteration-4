@@ -2,61 +2,103 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane style="-fx-background-color: E3DFDF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.HomeController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: E3DFDF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.HomeController">
    <children>
-      <VBox alignment="CENTER" fillWidth="false" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="250.0">
+      <ImageView fitHeight="1440.0" fitWidth="2560.0" opacity="0.55" pickOnBounds="true" style="-fx-background-color: black; -fx-blend-mode: hardl-light;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../Images/Shapiro-Center-at-dusk-.jpg" />
+         </image>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+         <effect>
+            <Blend mode="OVERLAY" />
+         </effect>
+      </ImageView>
+      <AnchorPane fx:id="mainSignIn" layoutX="597.0" layoutY="336.0" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: rgba(0,0,0,0.70);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="597.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="336.0">
          <children>
-            <AnchorPane prefHeight="618.0" prefWidth="583.0" style="-fx-background-color: #ECE9E9; -fx-background-radius: 26; -fx-border-color: #978787; -fx-border-width: 1; -fx-border-radius: 26; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 4, 0.25, 0, 2)">
+            <Text fx:id="HOME_HospitalName" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 40; -fx-font-weight: bold;" text="Brigham and Women's Hospital" wrappingWidth="422.4759216308594" AnchorPane.leftAnchor="131.0" AnchorPane.topAnchor="63.0" />
+            <VBox alignment="CENTER_RIGHT" fillWidth="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Text fill="#0157ec" layoutX="137.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 48; -fx-font-weight: bold;" text="Sign In" textAlignment="CENTER" wrappingWidth="223.58984375" AnchorPane.leftAnchor="181.0" AnchorPane.topAnchor="43.0" />
-                  <MFXTextField floatMode="DISABLED" floatingTextGap="1.5" layoutX="124.0" layoutY="209.0" prefHeight="35.0" prefWidth="343.0" promptText="Password" style="-fx-font-family: Arial; -fx-font-size: 20; -fx-background-radius: 7; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: rgba(131, 114, 114, 0.5); -fx-border-radius: 7; -fx-text-box-border: transparent; -fx-focus-color: transparent;" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="210.0">
-                     <textFill>
-                        <Color red="0.529411792755127" green="0.545098066329956" blue="0.5607843399047852" opacity="0.8700000047683716" />
-                     </textFill>
-                  </MFXTextField>
-                  <MFXButton fx:id="adminPage" layoutX="35.0" layoutY="122.0" onAction="#getAdmin" prefHeight="58.0" prefWidth="343.0" style="-fx-background-color: #0157ec; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Login" textFill="WHITE" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="280.0">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </MFXButton>
-                  <MFXTextField floatMode="DISABLED" floatingTextGap="1.5" layoutX="217.0" layoutY="384.0" prefHeight="35.0" prefWidth="343.0" promptText="Username" style="-fx-font-family: Arial; -fx-font-size: 20; -fx-background-radius: 7; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: rgba(131, 114, 114, 0.5); -fx-border-radius: 7; -fx-text-box-border: transparent; -fx-focus-color: transparent;" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="151.0">
-                     <textFill>
-                        <Color red="0.529411792755127" green="0.545098066329956" blue="0.5607843399047852" opacity="0.8700000047683716" />
-                     </textFill>
-                  </MFXTextField>
-                  <MFXButton fx:id="guestPage" layoutX="35.0" layoutY="231.0" onAction="#getGuest" prefHeight="58.0" prefWidth="343.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Continue as Guest" textFill="WHITE" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="505.0">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </MFXButton>
-                  <Hyperlink alignment="CENTER" layoutX="35.0" layoutY="160.0" prefHeight="24.0" prefWidth="281.0" style="-fx-font-family: Arial; -fx-underline: true; -fx-font-size: 16;" text="Forgot Username or Password?" textFill="#837272" AnchorPane.leftAnchor="152.0" AnchorPane.topAnchor="373.0" />
-                  <Hyperlink alignment="CENTER" layoutX="35.0" layoutY="173.0" prefHeight="24.0" prefWidth="281.0" style="-fx-font-family: Arial; -fx-underline: true; -fx-font-size: 16;" text="Create an Account" textFill="#837272" AnchorPane.leftAnchor="152.0" AnchorPane.topAnchor="397.0" />
-                  <Line endX="18.0" startX="-100.0" stroke="#837272" strokeWidth="2.0" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="456.0" />
-                  <Text fill="#837272" layoutX="147.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 24;" text="OR" textAlignment="CENTER" wrappingWidth="291.5" AnchorPane.leftAnchor="147.0" AnchorPane.topAnchor="442.2734375" />
-                  <Line endX="18.0" layoutX="440.0" layoutY="458.0" startX="-100.0" stroke="#837272" strokeWidth="2.0" AnchorPane.leftAnchor="346.0" AnchorPane.topAnchor="456.0" />
+                  <AnchorPane fx:id="signinAnchor1" prefHeight="618.0" prefWidth="583.0" style="-fx-background-color: #ECEDE8; -fx-background-radius: 26;">
+                     <children>
+                        <Text fx:id="HOME_SignInText" fill="#02143b" layoutX="113.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 48; -fx-font-weight: bold;" text="Sign In" textAlignment="CENTER" wrappingWidth="360.58984375" AnchorPane.leftAnchor="113.0" AnchorPane.topAnchor="43.0" />
+                        <MFXTextField fx:id="HOME_password" floatMode="DISABLED" floatingTextGap="1.5" layoutX="124.0" layoutY="209.0" prefHeight="35.0" prefWidth="343.0" promptText="Password" style="-fx-font-family: Arial; -fx-font-size: 15; -fx-background-radius: 7; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: #D9D9D9; -fx-border-radius: 7; -fx-text-box-border: transparent; -fx-focus-color: transparent;" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="210.0">
+                           <textFill>
+                              <Color red="0.529411792755127" green="0.545098066329956" blue="0.5607843399047852" opacity="0.8700000047683716" />
+                           </textFill>
+                        </MFXTextField>
+                        <MFXButton fx:id="HOME_login" layoutX="35.0" layoutY="122.0" onAction="#getAdmin" prefHeight="58.0" prefWidth="343.0" style="-fx-background-color: #02143B; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="LOGIN" textFill="WHITE" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="280.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </MFXButton>
+                        <MFXTextField fx:id="HOME_username" floatMode="DISABLED" floatingTextGap="1.5" layoutX="217.0" layoutY="384.0" prefHeight="35.0" prefWidth="343.0" promptText="Username" style="-fx-font-family: Arial; -fx-font-size: 15; -fx-background-radius: 7; -fx-background-color: white; -fx-border-width: 2; -fx-border-color: #D9D9D9; -fx-border-radius: 7; -fx-text-box-border: transparent; -fx-focus-color: transparent;" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="151.0">
+                           <textFill>
+                              <Color red="0.529411792755127" green="0.545098066329956" blue="0.5607843399047852" opacity="0.8700000047683716" />
+                           </textFill>
+                        </MFXTextField>
+                        <MFXButton fx:id="HOME_guest" layoutX="35.0" layoutY="231.0" onAction="#getGuest" prefHeight="58.0" prefWidth="343.0" style="-fx-background-color: rgba(252, 194, 1, 0.4); -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Continue as Guest" textFill="#02143b" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="505.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </MFXButton>
+                        <Hyperlink fx:id="HOME_forgot" alignment="CENTER" layoutX="102.0" layoutY="370.0" prefHeight="28.0" prefWidth="378.0" style="-fx-font-family: Arial; -fx-underline: true; -fx-font-size: 16;" text="Forgot Username or Password?" textFill="#02143b" AnchorPane.leftAnchor="102.0" AnchorPane.topAnchor="370.0" />
+                        <Hyperlink fx:id="HOME_create" alignment="CENTER" layoutX="35.0" layoutY="173.0" prefHeight="24.0" prefWidth="281.0" style="-fx-font-family: Arial; -fx-underline: true; -fx-font-size: 16;" text="Create an Account" textFill="#02143b" AnchorPane.leftAnchor="152.0" AnchorPane.topAnchor="397.0" />
+                        <Line endX="18.0" startX="-100.0" stroke="#02143b" strokeWidth="2.0" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="456.0" />
+                        <Text fx:id="HOME_or" fill="#02143b" layoutX="147.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 24;" text="OR" textAlignment="CENTER" wrappingWidth="291.5" AnchorPane.leftAnchor="147.0" AnchorPane.topAnchor="442.2734375" />
+                        <Line endX="18.0" layoutX="440.0" layoutY="458.0" startX="-100.0" stroke="#02143b" strokeWidth="2.0" AnchorPane.leftAnchor="346.0" AnchorPane.topAnchor="456.0" />
+                     </children>
+                  </AnchorPane>
                </children>
-            </AnchorPane>
-         </children>
-      </VBox>
-      <AnchorPane prefHeight="175.0" prefWidth="1600.0" style="-fx-background-color: ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.5),5,0.75,0,0);" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <SVGPath content="M40,60 C42,48 44,30 25,32" layoutX="10.0" layoutY="-13.0" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="33.0" />
-            <Text fill="#003da6" layoutX="84.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 40; -fx-font-weight: 700;" text="Brigham and Women's Hospital" wrappingWidth="377.58984375" AnchorPane.leftAnchor="147.0" AnchorPane.topAnchor="23.0" />
+               <padding>
+                  <Insets right="100.0" />
+               </padding>
+            </VBox>
+            <MFXButton fx:id="HOME_exit" onAction="#fancy_exit" prefHeight="42.0" prefWidth="98.0" style="-fx-background-color: #E3DFDF; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 20;" text="Exit" textFill="#02143b" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="54.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </MFXButton>
+            <Text fx:id="Home_motto" fill="WHITE" layoutX="10.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 35;" text="Transforming Medicine Through Life-giving Breakthroughs" wrappingWidth="569.2683715820312" AnchorPane.bottomAnchor="164.0" AnchorPane.leftAnchor="52.0" />
+            <Group AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="200.0">
+               <children>
+                  <ImageView fx:id="Spanish_flag1" fitHeight="37.0" fitWidth="70.0" layoutX="82.0" onMouseClicked="#spanish" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/spanish_flag.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fx:id="English_flag1" fitHeight="37.0" fitWidth="70.0" onMouseClicked="#english" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/english_flag.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Group>
          </children>
       </AnchorPane>
-      <MFXButton fx:id="exitButton" onAction="#getExit" prefHeight="42.0" prefWidth="98.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 20;" text="Exit" textFill="#978787" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="75.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </MFXButton>
    </children>
+   <padding>
+      <Insets left="-597.0" top="-336.0" />
+   </padding>
 </AnchorPane>

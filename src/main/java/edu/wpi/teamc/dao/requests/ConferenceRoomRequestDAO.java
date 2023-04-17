@@ -2,8 +2,6 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
-import edu.wpi.teamc.dao.IOrm;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
-  public List<IOrm> fetchAllObjects() {
+  public List<ConferenceRoomRequest> fetchAllObjects() {
     List<ConferenceRoomRequest> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
     try {

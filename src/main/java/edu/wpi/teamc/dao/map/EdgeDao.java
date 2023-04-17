@@ -2,8 +2,6 @@ package edu.wpi.teamc.dao.map;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
-import edu.wpi.teamc.dao.IOrm;
-
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,7 +33,7 @@ public class EdgeDao implements IDao<Edge> {
       e.printStackTrace();
     }
     db.closeConnection();
-    return  databaseEdgeList;
+    return databaseEdgeList;
   }
 
   public Edge updateRow(Edge orm, Edge repl) {

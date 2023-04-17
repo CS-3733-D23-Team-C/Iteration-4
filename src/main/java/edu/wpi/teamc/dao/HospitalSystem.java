@@ -4,7 +4,6 @@ import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.dao.users.Employee;
 import edu.wpi.teamc.dao.users.EmployeeDao;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class HospitalSystem {
   MealRequestDAO mealRequestDAO = new MealRequestDAO();
   OfficeSuppliesRequestDAO officeSuppliesRequestDAO = new OfficeSuppliesRequestDAO();
 
-  //User DAOs
+  // User DAOs
   EmployeeDao employeeDao = new EmployeeDao();
 
   public HospitalSystem(
@@ -72,6 +71,7 @@ public class HospitalSystem {
     }
     return null;
   }
+
   public IOrm addRow(IOrm request) {
     if (request instanceof Node) {
       return nodeDao.addRow((Node) request);
@@ -137,19 +137,22 @@ public class HospitalSystem {
     } else if (request instanceof Move) {
       return moveDao.updateRow((Move) request, (Move) request);
     } else if (request instanceof ConferenceRoomRequest) {
-      return conferenceRoomRequestDAO.updateRow((ConferenceRoomRequest) request, (ConferenceRoomRequest) request);
+      return conferenceRoomRequestDAO.updateRow(
+          (ConferenceRoomRequest) request, (ConferenceRoomRequest) request);
     } else if (request instanceof Employee) {
-      return  employeeDao.updateRow((Employee) request, (Employee) request);
+      return employeeDao.updateRow((Employee) request, (Employee) request);
     } else if (request instanceof FlowerDeliveryRequest) {
-      return flowerDeliveryRequestDAO.updateRow((FlowerDeliveryRequest) request, (FlowerDeliveryRequest) request);
+      return flowerDeliveryRequestDAO.updateRow(
+          (FlowerDeliveryRequest) request, (FlowerDeliveryRequest) request);
     } else if (request instanceof FurnitureDeliveryRequest) {
-      return furnitureDeliveryRequestDAO.updateRow((FurnitureDeliveryRequest) request, (FurnitureDeliveryRequest) request);
+      return furnitureDeliveryRequestDAO.updateRow(
+          (FurnitureDeliveryRequest) request, (FurnitureDeliveryRequest) request);
     } else if (request instanceof MealRequest) {
       return mealRequestDAO.updateRow((MealRequest) request, (MealRequest) request);
     } else if (request instanceof OfficeSuppliesRequest) {
-      return officeSuppliesRequestDAO.updateRow((OfficeSuppliesRequest) request, (OfficeSuppliesRequest) request);
+      return officeSuppliesRequestDAO.updateRow(
+          (OfficeSuppliesRequest) request, (OfficeSuppliesRequest) request);
     }
     return null;
   }
-
 }

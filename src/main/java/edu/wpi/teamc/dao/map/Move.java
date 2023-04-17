@@ -1,8 +1,7 @@
 package edu.wpi.teamc.dao.map;
 
-import java.sql.Date;
-
 import edu.wpi.teamc.dao.IOrm;
+import java.sql.Date;
 import lombok.Getter;
 import lombok.Setter;
 

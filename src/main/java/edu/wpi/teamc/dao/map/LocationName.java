@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LocationName  implements IOrm  {
+public class LocationName implements IOrm {
   private String longName;
   private String shortName;
   private String nodeType;

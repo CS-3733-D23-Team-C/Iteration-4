@@ -2,8 +2,6 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
-import edu.wpi.teamc.dao.IOrm;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -11,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest> {
-  public List<IOrm> fetchAllObjects() {
+  public List<FlowerDeliveryRequest> fetchAllObjects() {
     List<FlowerDeliveryRequest> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
 

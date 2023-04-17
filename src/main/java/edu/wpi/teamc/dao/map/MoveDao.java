@@ -2,8 +2,6 @@ package edu.wpi.teamc.dao.map;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
-import edu.wpi.teamc.dao.IOrm;
-
 import java.io.*;
 import java.sql.*;
 import java.sql.ResultSet;
@@ -16,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MoveDao implements IDao<Move> {
-  public List<IOrm> fetchAllObjects() {
+  public List<Move> fetchAllObjects() {
     List<Move> databaseMoveList = new ArrayList<>();
     DBConnection db = new DBConnection();
     try {

@@ -1,8 +1,7 @@
 package edu.wpi.teamc.dao.map;
 
-import java.sql.Timestamp;
-
 import edu.wpi.teamc.dao.IOrm;
+import java.sql.Timestamp;
 import lombok.Getter;
 
 @Getter

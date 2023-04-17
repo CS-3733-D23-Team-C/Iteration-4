@@ -2,8 +2,6 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
-import edu.wpi.teamc.dao.IOrm;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -74,7 +72,7 @@ public class ConferenceRoomDAO implements IDao<ConferenceRoom> {
   }
 
   @Override
-  public List<IOrm> fetchAllObjects() throws SQLException {
+  public List<ConferenceRoom> fetchAllObjects() throws SQLException {
     return null;
   }
 }

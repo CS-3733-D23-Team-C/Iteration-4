@@ -2,8 +2,6 @@ package edu.wpi.teamc.dao.map;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
-import edu.wpi.teamc.dao.IOrm;
-
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LocationDao implements IDao<LocationName> {
-  public List<IOrm> fetchAllObjects() {
+  public List<LocationName> fetchAllObjects() {
     List<LocationName> databaseLocationNameList = new ArrayList<>();
     DBConnection db = new DBConnection();
     try {

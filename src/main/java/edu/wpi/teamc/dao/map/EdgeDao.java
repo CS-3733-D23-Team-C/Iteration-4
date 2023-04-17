@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EdgeDao implements IDao<Edge> {
+public class EdgeDao implements IDao<Edge, Edge> {
   public List<Edge> fetchAllObjects() {
     List<Edge> databaseEdgeList = new ArrayList<>();
     DBConnection db = new DBConnection();
@@ -104,6 +104,34 @@ public class EdgeDao implements IDao<Edge> {
     return orm;
   }
 
+  public Edge fetchObject(Edge orm) {
+    DBConnection db = new DBConnection();
+    try {
+      // table names
+      String EDGE = "\"hospitalNode\".edge";
+      // queries
+      String queryDisplayEdges =
+          "SELECT * FROM " + EDGE + " WHERE \"startNode\"=? AND \"endNode\"=?;";
+
+      PreparedStatement ps = db.getConnection().prepareStatement(queryDisplayEdges);
+
+      ps.setInt(1, orm.getStartNode());
+      ps.setInt(2, orm.getEndNode());
+
+      ResultSet rsEdges = ps.executeQuery();
+      while (rsEdges.next()) {
+        int startNode = rsEdges.getInt("startNode");
+        int endNode = rsEdges.getInt("endNode");
+        Edge edge = new Edge(startNode, endNode);
+        return edge;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    db.closeConnection();
+    return null;
+  }
+
   public boolean importCSV(String CSVfilepath) {
     // Regular expression to match each row
     String regex = "(.*),(.*)";
@@ -150,4 +178,5 @@ public class EdgeDao implements IDao<Edge> {
       System.out.println("File already exists.");
     }
   }
+
 }

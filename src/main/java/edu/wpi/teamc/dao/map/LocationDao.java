@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LocationDao implements IDao<LocationName> {
+public class LocationDao implements IDao<LocationName, String> {
   public List<LocationName> fetchAllObjects() {
     List<LocationName> databaseLocationNameList = new ArrayList<>();
     DBConnection db = new DBConnection();

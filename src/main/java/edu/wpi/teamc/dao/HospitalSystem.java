@@ -11,21 +11,21 @@ import java.util.List;
 
 public class HospitalSystem {
   // Map DAOs
-  private NodeDao nodeDao;
-  private EdgeDao edgeDao;
-  private LocationDao locationDao;
-  private MoveDao moveDao;
+  private static NodeDao nodeDao;
+  private static EdgeDao edgeDao;
+  private static LocationDao locationDao;
+  private static MoveDao moveDao;
 
   // Service Request DAOs
-  private ConferenceRoomRequestDAO conferenceRoomRequestDAO ;
-  private FlowerDeliveryRequestDAO flowerDeliveryRequestDAO;
-  private FurnitureDeliveryRequestDAO furnitureDeliveryRequestDAO;
-  private MealRequestDAO mealRequestDAO;
-  private OfficeSuppliesRequestDAO officeSuppliesRequestDAO;
+  private static ConferenceRoomRequestDAO conferenceRoomRequestDAO ;
+  private static FlowerDeliveryRequestDAO flowerDeliveryRequestDAO;
+  private static FurnitureDeliveryRequestDAO furnitureDeliveryRequestDAO;
+  private static MealRequestDAO mealRequestDAO;
+  private static OfficeSuppliesRequestDAO officeSuppliesRequestDAO;
 
   // User DAOs
-  private EmployeeUserDao employeeDao;
-   List<? extends IOrm> fetchAllObjects(IOrm request) {
+  private static EmployeeUserDao employeeDao;
+   static List<? extends IOrm> fetchAllObjects(IOrm request) {
     if (request instanceof Node) {
       return nodeDao.fetchAllObjects();
     } else if (request instanceof Edge) {
@@ -50,7 +50,7 @@ public class HospitalSystem {
     return null;
   }
 
-   IOrm addRow(IOrm request) {
+    static IOrm addRow(IOrm request) {
     if (request instanceof Node) {
       return nodeDao.addRow((Node) request);
     } else if (request instanceof Edge) {
@@ -76,7 +76,7 @@ public class HospitalSystem {
     }
   }
 
-   IOrm deleteRow(IOrm request) {
+    static IOrm deleteRow(IOrm request) {
     if (request instanceof Node) {
       return nodeDao.deleteRow((Node) request);
     } else if (request instanceof Edge) {
@@ -105,7 +105,7 @@ public class HospitalSystem {
     return null;
   }
 
-  public IOrm updateRow(IOrm request) {
+    static IOrm updateRow(IOrm request) {
     if (request instanceof Node) {
       return nodeDao.updateRow((Node) request, (Node) request);
     } else if (request instanceof Edge) {

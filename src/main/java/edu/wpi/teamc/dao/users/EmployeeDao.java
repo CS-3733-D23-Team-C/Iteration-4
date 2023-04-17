@@ -1,6 +1,8 @@
 package edu.wpi.teamc.dao.users;
 
 import edu.wpi.teamc.dao.DBConnection;
+import edu.wpi.teamc.dao.IDao;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeDao {
+public class EmployeeDao implements IDao<Employee> {
 
   public List<Employee> fetchAllObjects() {
     List<Employee> returnList = new ArrayList<>();
@@ -30,7 +32,7 @@ public class EmployeeDao {
         String department = rs.getString("department");
         String position = rs.getString("position");
 
-        Employee employee = new Employee(id,userName,name,department,position);
+        Employee employee = new Employee(id, userName, name, department, position);
         returnList.add(employee);
       }
     } catch (SQLException e) {
@@ -57,7 +59,9 @@ public class EmployeeDao {
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
       int id = rs.getInt("id");
-      orm = new Employee(id, orm.getName(), orm.getUserName(), orm.getDepartment(), orm.getPosition());
+      orm =
+          new Employee(
+              id, orm.getName(), orm.getUserName(), orm.getDepartment(), orm.getPosition());
     } catch (SQLException e) {
       e.printStackTrace();
     }

@@ -165,6 +165,7 @@ public class EditMapController {
   StackPane stackPane = new StackPane();
   Boolean nodeClicked = false;
   Node currNodeClicked;
+  MFXButton tempSave = new MFXButton();
   Node draggedNode;
   Node nodeToDrag;
   Boolean firstPass = true;
@@ -946,6 +947,7 @@ public class EditMapController {
 
     // Stuff to show on pop up
     VBox vBox = new VBox();
+    Text headerText = new Text("Add Location Name to Node");
     Text nodeType = new Text("Input New Node Type");
     Text SName = new Text("Input New Shortname");
     Text LName = new Text("Input New Longname");
@@ -956,20 +958,51 @@ public class EditMapController {
 
     MFXButton addName = new MFXButton("Submit");
 
+    // set styles
+    headerText.getStyleClass().add("Header");
+    nodeType.getStyleClass().add("Text");
+    SName.getStyleClass().add("Text");
+    LName.getStyleClass().add("Text");
+    nodeTypeInput.getStyleClass().add("MFXtextIn");
+    sNameInput.getStyleClass().add("MFXtextIn");
+    lNameInput.getStyleClass().add("MFXtextIn");
+    addName.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // add input boxes styles
+    //    nodeTypeInput.setPrefWidth(120);
+
     vBox.getChildren()
-        .addAll(nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, addName);
+        .addAll(headerText, nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, addName);
+
+    // set vBox location
+    vBox.setLayoutX(50);
+    vBox.setLayoutY(20);
+    vBox.setSpacing(5);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
     aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
+    //    Insets insets = new Insets(0, 0, 0, 200);
+    //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 400, 350);
+
+    // Set Scene styleClass
+    //    scene.setFill(Paint.valueOf("#02143b"));
+    //    scene.set
+
+    //    File stylesheet = new
+    // File((Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString()));
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.setTitle("Add Location Name Window");
+
     stage.show();
 
     // When stage closed with inherit x, will unlock map and understand a node is no longer selected
@@ -1335,6 +1368,12 @@ public class EditMapController {
           currNodeClicked = helperNode1;
         });
   }
+
+  //  public void resetAndSetFloorIndicator(MFXButton button) {
+  //    button.setBackground(Background.fill(Paint.valueOf("#32CD32")));
+  //    tempSave.setBackground(Background.fill(DEFAULT_BG));
+  //    tempSave = button;
+  //  }
 
   //    })
 

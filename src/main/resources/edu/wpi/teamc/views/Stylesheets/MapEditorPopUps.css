@@ -1,0 +1,40 @@
+.MFXbutton{
+    -fx-background-color: "#32CD32";
+    -fx-padding: 0px 0px;
+    -fx-pref-height: 36px;
+    -fx-pref-width: 128px;
+    -fx-start-margin: 20px;
+    -fx-end-margin: 0px;
+}
+.MFXtextIn {
+    -fx-text-fill: "#32CD32";
+    -fx-padding: 0px 0px;
+    -fx-pref-height: 36px;
+    -fx-pref-width: 200px;
+    -fx-start-margin: 0px 0px;
+    -fx-end-margin: 0px 0px;
+    -fx-font-family: Arial;
+}
+.Text {
+    -fx-font-size: 16px;
+    -fx-start-margin: 0px 0px;
+    -fx-end-margin: 0px 0px;
+    -fx-padding: 0px 0px;
+    -fx-fill: "FFFFFF";
+    -fx-font-weight: bold;
+    -fx-font-family: Arial;
+
+}
+.scenePane {
+    -fx-background-color: "#02143b";
+}
+.Header {
+    -fx-font-size: 20px;
+    -fx-start-margin: 0px 0px;
+    -fx-end-margin: 0px 0px;
+    -fx-padding: 0px 0px;
+    -fx-fill: "FFFFFF";
+    -fx-font-weight: bold;
+    -fx-font-family: Arial;
+    -fx-underline: true;
+}

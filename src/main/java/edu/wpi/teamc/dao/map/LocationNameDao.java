@@ -165,26 +165,27 @@ public class LocationNameDao implements IDao<LocationName, String> {
     return locationName;
   }
 
-//  public String deleteRow(String longName) {
-//    DBConnection db = new DBConnection();
-//    try {
-//      // table names
-//      String LOCATIONNAME = "\"hospitalNode\".\"locationName\"";
-//      // queries
-//      String queryDeleteLocationNamesDB = "DELETE FROM " + LOCATIONNAME + " WHERE \"longName\"=?; ";
-//
-//      PreparedStatement ps = db.getConnection().prepareStatement(queryDeleteLocationNamesDB);
-//
-//      ps.setString(1, longName);
-//
-//      ps.executeUpdate();
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//    }
-//    db.closeConnection();
-//
-//    return longName;
-//  }
+  // TODO delete this method and use method from facade in the edit map controller
+  public String deleteRow(String longName) {
+    DBConnection db = new DBConnection();
+    try {
+      // table names
+      String LOCATIONNAME = "\"hospitalNode\".\"locationName\"";
+      // queries
+      String queryDeleteLocationNamesDB = "DELETE FROM " + LOCATIONNAME + " WHERE \"longName\"=?; ";
+
+      PreparedStatement ps = db.getConnection().prepareStatement(queryDeleteLocationNamesDB);
+
+      ps.setString(1, longName);
+
+      ps.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    db.closeConnection();
+
+    return longName;
+  }
 
   public boolean importCSV(String CSVfilepath) {
     // Regular expression to match each row

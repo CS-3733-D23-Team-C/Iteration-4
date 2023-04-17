@@ -1,0 +1,19 @@
+.menuSidebar {
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+}
+
+.menuButton {
+
+    -fx-background-color: #02143B;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 54px;
+}
+
+.menuButton:hover {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #02143B;
+    -fx-border-color: #02143B;
+    -fx-border-width: 6px 6px 6px 6px;
+    -fx-border-radius: 54px;
+    -fx-border-style: none;
+}

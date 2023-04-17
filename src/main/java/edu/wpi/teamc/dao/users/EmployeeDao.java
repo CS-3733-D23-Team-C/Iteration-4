@@ -1,4 +1,4 @@
-package edu.wpi.teamc.dao.requests;
+package edu.wpi.teamc.dao.users;
 
 import edu.wpi.teamc.dao.DBConnection;
 import java.sql.PreparedStatement;
@@ -54,7 +54,7 @@ public class EmployeeDao {
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
       int empID = rs.getInt("empid");
-      orm.setEmpid(empID);
+      orm = new Employee(empID, orm.getName(), orm.getDepartment(), orm.getPosition());
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -80,7 +80,7 @@ public class EmployeeDao {
       ps.setString(1, repl.getName());
       ps.setString(2, repl.getDepartment());
       ps.setString(3, repl.getPosition());
-      ps.setInt(4, orm.getEmpid());
+      ps.setInt(4, orm.getId());
       ps.execute();
       db.closeConnection();
     } catch (Exception e) {
@@ -97,7 +97,7 @@ public class EmployeeDao {
       // table names
       String table = "\"ServiceRequests\".\"Employee\"";
       // queries
-      String query = "DELETE FROM " + table + " WHERE empID = " + orm.getEmpid();
+      String query = "DELETE FROM " + table + " WHERE empID = " + orm.getId();
       stmtNode.executeUpdate(query);
     } catch (Exception e) {
       e.printStackTrace();

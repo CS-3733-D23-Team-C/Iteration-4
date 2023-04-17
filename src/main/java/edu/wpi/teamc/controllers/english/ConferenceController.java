@@ -26,7 +26,7 @@ public class ConferenceController {
 
   @FXML private MenuButton menuButton;
   @FXML private TextField nameBox;
-  @FXML private TextField specialRequest;
+  @FXML private TextArea specialRequest;
   @FXML private DatePicker startTime;
   @FXML private DatePicker endTime;
 

@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
+public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Integer> {
   public List<ConferenceRoomRequest> fetchAllObjects() {
     List<ConferenceRoomRequest> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
@@ -123,5 +123,44 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest> {
     }
     db.closeConnection();
     return orm;
+  }
+
+  @Override
+  public ConferenceRoomRequest fetchObject(Integer key) throws SQLException {
+    ConferenceRoomRequest request = null;
+    try{
+        DBConnection db = new DBConnection();
+        Statement stmt = db.getConnection().createStatement();
+        // Table Name
+        String table = "\"ServiceRequests\".\"conferenceRoomRequest\"";
+        // Query
+        String query = "SELECT * FROM " + table + " WHERE requestID = " + key;
+
+        ResultSet rs = stmt.executeQuery(query);
+
+        while (rs.next()) {
+            // Get all the data from the table
+            int requestID = rs.getInt("requestID");
+            String requester = rs.getString("Requester");
+            String conferenceRoom = rs.getString("roomName");
+            String additionalNotes = rs.getString("additionalNotes");
+            String startTime = rs.getString("startTime");
+            String endTime = rs.getString("endTime");
+            STATUS status = STATUS.valueOf(rs.getString("status"));
+            request =
+                new ConferenceRoomRequest(
+                    requestID,
+                    new Requester(requestID, requester),
+                    new ConferenceRoom(conferenceRoom, "", null),
+                    additionalNotes,
+                    startTime,
+                    endTime);
+            request.setStatus(status);
+
+        }
+        } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return request;
   }
 }

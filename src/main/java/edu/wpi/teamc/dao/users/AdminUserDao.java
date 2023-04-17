@@ -5,7 +5,7 @@ import edu.wpi.teamc.dao.IDao;
 import java.sql.SQLException;
 import java.util.List;
 
-public class AdminUserDao implements IDao<AdminUser> {
+public class AdminUserDao implements IDao<AdminUser, Integer> {
     @Override
     public List<AdminUser> fetchAllObjects() throws SQLException {
         return null;
@@ -23,6 +23,11 @@ public class AdminUserDao implements IDao<AdminUser> {
 
     @Override
     public AdminUser deleteRow(AdminUser type) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public AdminUser fetchObject(Integer key) throws SQLException {
         return null;
     }
 }

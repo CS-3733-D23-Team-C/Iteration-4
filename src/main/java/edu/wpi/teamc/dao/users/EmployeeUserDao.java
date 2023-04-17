@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeUserDao implements IDao<EmployeeUser> {
+public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
 
   public List<EmployeeUser> fetchAllObjects() {
     List<EmployeeUser> returnList = new ArrayList<>();
@@ -111,5 +111,10 @@ public class EmployeeUserDao implements IDao<EmployeeUser> {
     }
     db.closeConnection();
     return orm;
+  }
+
+  @Override
+  public EmployeeUser fetchObject(Integer key) throws SQLException {
+    return null;
   }
 }

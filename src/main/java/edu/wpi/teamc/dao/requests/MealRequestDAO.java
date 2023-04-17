@@ -2,6 +2,8 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.IOrm;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MealRequestDAO implements IDao<MealRequest> {
-  public List<MealRequest> fetchAllObjects() {
+  public List<IOrm> fetchAllObjects() {
     List<MealRequest> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
     try {

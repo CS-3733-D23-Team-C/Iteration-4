@@ -2,6 +2,8 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.IOrm;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -10,7 +12,7 @@ import java.util.List;
 
 public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest> {
 
-  public List<OfficeSuppliesRequest> fetchAllObjects() {
+  public List<IOrm> fetchAllObjects() {
     DBConnection db = new DBConnection();
     List<OfficeSuppliesRequest> returnList = new ArrayList<>();
     String table = "\"ServiceRequests\".\"officeSupplyRequest\"";

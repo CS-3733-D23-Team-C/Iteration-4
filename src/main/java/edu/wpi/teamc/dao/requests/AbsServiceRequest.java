@@ -1,9 +1,10 @@
 package edu.wpi.teamc.dao.requests;
 
+import edu.wpi.teamc.dao.IOrm;
 import lombok.Getter;
 import lombok.Setter;
 
-abstract class AbsServiceRequest {
+abstract class AbsServiceRequest implements IOrm {
   @Getter @Setter private int requestID;
   @Getter Requester requester;
   @Getter @Setter private String roomName;

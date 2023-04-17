@@ -2,13 +2,15 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.IOrm;
+
 import java.sql.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryRequest> {
-  public List<FurnitureDeliveryRequest> fetchAllObjects() {
+  public List<IOrm> fetchAllObjects() {
     List<FurnitureDeliveryRequest> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
 

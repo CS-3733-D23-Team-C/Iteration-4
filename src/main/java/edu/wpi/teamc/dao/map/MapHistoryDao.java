@@ -2,13 +2,15 @@ package edu.wpi.teamc.dao.map;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.IOrm;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MapHistoryDao implements IDao<MapHistory> {
 
-  public List<MapHistory> fetchAllObjects() {
+  public List<IOrm> fetchAllObjects() {
     List<MapHistory> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
     try {

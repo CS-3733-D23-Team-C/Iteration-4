@@ -15,6 +15,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CApp extends Application {
 
+
+
+
+
+
   @Setter @Getter private static Stage primaryStage;
   @Setter @Getter private static BorderPane rootPane;
   //  List<Node> Floor1 = new ArrayList<Node>();

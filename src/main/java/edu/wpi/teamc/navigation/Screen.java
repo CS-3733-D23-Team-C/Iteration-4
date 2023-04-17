@@ -19,6 +19,7 @@ public enum Screen {
   LOGIN("views/english/LoginPage.fxml"),
   ADMIN_HOME("views/english/AdminHome.fxml"),
   GUEST_HOME("views/english/GuestHome.fxml"),
+  MENU("views/english/Menu.fxml"),
 
   // -------SERVICE REQUEST-------//
   MEAL("views/english/MealRequest.fxml"),

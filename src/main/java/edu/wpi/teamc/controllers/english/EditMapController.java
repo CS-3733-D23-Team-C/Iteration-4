@@ -917,9 +917,7 @@ public class EditMapController {
     //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
     Scene scene = new Scene(borderPane, 650, 500);
-    scene
-        .getStylesheets()
-        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+    scene.getStylesheets().add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);

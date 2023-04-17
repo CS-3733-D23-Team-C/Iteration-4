@@ -2,8 +2,8 @@ package edu.wpi.teamc.dao;
 
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.dao.requests.*;
-import edu.wpi.teamc.dao.users.Employee;
-import edu.wpi.teamc.dao.users.EmployeeDao;
+import edu.wpi.teamc.dao.users.EmployeeUser;
+import edu.wpi.teamc.dao.users.EmployeeUserDao;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class HospitalSystem {
   private OfficeSuppliesRequestDAO officeSuppliesRequestDAO;
 
   // User DAOs
-  private EmployeeDao employeeDao;
+  private EmployeeUserDao employeeDao;
    List<? extends IOrm> fetchAllObjects(IOrm request) {
     if (request instanceof Node) {
       return nodeDao.fetchAllObjects();
@@ -36,7 +36,7 @@ public class HospitalSystem {
       return moveDao.fetchAllObjects();
     } else if (request instanceof ConferenceRoomRequest) {
       return conferenceRoomRequestDAO.fetchAllObjects();
-    } else if (request instanceof Employee) {
+    } else if (request instanceof EmployeeUser) {
       return employeeDao.fetchAllObjects();
     } else if (request instanceof FlowerDeliveryRequest) {
       return flowerDeliveryRequestDAO.fetchAllObjects();
@@ -61,8 +61,8 @@ public class HospitalSystem {
       return moveDao.addRow((Move) request);
     } else if (request instanceof ConferenceRoomRequest) {
       return conferenceRoomRequestDAO.addRow((ConferenceRoomRequest) request);
-    } else if (request instanceof Employee) {
-      return employeeDao.addRow((Employee) request);
+    } else if (request instanceof EmployeeUser) {
+      return employeeDao.addRow((EmployeeUser) request);
     } else if (request instanceof FlowerDeliveryRequest) {
       return flowerDeliveryRequestDAO.addRow((FlowerDeliveryRequest) request);
     } else if (request instanceof FurnitureDeliveryRequest) {
@@ -91,8 +91,8 @@ public class HospitalSystem {
       } catch (SQLException e) {
         throw new RuntimeException(e);
       }
-    } else if (request instanceof Employee) {
-      return employeeDao.deleteRow((Employee) request);
+    } else if (request instanceof EmployeeUser) {
+      return employeeDao.deleteRow((EmployeeUser) request);
     } else if (request instanceof FlowerDeliveryRequest) {
       return flowerDeliveryRequestDAO.deleteRow((FlowerDeliveryRequest) request);
     } else if (request instanceof FurnitureDeliveryRequest) {
@@ -117,8 +117,8 @@ public class HospitalSystem {
     } else if (request instanceof ConferenceRoomRequest) {
       return conferenceRoomRequestDAO.updateRow(
           (ConferenceRoomRequest) request, (ConferenceRoomRequest) request);
-    } else if (request instanceof Employee) {
-      return employeeDao.updateRow((Employee) request, (Employee) request);
+    } else if (request instanceof EmployeeUser) {
+      return employeeDao.updateRow((EmployeeUser) request, (EmployeeUser) request);
     } else if (request instanceof FlowerDeliveryRequest) {
       return flowerDeliveryRequestDAO.updateRow(
           (FlowerDeliveryRequest) request, (FlowerDeliveryRequest) request);

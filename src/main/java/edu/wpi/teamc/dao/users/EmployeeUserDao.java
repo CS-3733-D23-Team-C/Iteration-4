@@ -10,10 +10,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeDao implements IDao<Employee> {
+public class EmployeeUserDao implements IDao<EmployeeUser> {
 
-  public List<Employee> fetchAllObjects() {
-    List<Employee> returnList = new ArrayList<>();
+  public List<EmployeeUser> fetchAllObjects() {
+    List<EmployeeUser> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
     try {
       Statement stmt = db.getConnection().createStatement();
@@ -32,7 +32,7 @@ public class EmployeeDao implements IDao<Employee> {
         String department = rs.getString("department");
         String position = rs.getString("position");
 
-        Employee employee = new Employee(id, userName, name, department, position);
+        EmployeeUser employee = new EmployeeUser(id, userName, name, department, position);
         returnList.add(employee);
       }
     } catch (SQLException e) {
@@ -41,7 +41,7 @@ public class EmployeeDao implements IDao<Employee> {
     return returnList;
   }
 
-  public Employee addRow(Employee orm) {
+  public EmployeeUser addRow(EmployeeUser orm) {
     DBConnection db = new DBConnection();
     try {
       String query =
@@ -60,7 +60,7 @@ public class EmployeeDao implements IDao<Employee> {
       rs.next();
       int id = rs.getInt("id");
       orm =
-          new Employee(
+          new EmployeeUser(
               id, orm.getName(), orm.getUserName(), orm.getDepartment(), orm.getPosition());
     } catch (SQLException e) {
       e.printStackTrace();
@@ -68,7 +68,7 @@ public class EmployeeDao implements IDao<Employee> {
     return orm;
   }
 
-  public Employee updateRow(Employee orm, Employee repl) {
+  public EmployeeUser updateRow(EmployeeUser orm, EmployeeUser repl) {
     DBConnection db = new DBConnection();
     try {
       // table names
@@ -97,7 +97,7 @@ public class EmployeeDao implements IDao<Employee> {
     return repl;
   }
 
-  public Employee deleteRow(Employee orm) {
+  public EmployeeUser deleteRow(EmployeeUser orm) {
     DBConnection db = new DBConnection();
     try {
       Statement stmtNode = db.getConnection().createStatement();

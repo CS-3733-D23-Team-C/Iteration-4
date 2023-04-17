@@ -35,6 +35,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -89,12 +90,12 @@ public class EditMapController {
   @FXML MFXButton FL1;
   @FXML MFXButton FL2;
   @FXML MFXButton FL3;
-  @FXML MFXButton FLG;
   @FXML MFXButton FLB1;
   @FXML MFXButton FLB2;
   @FXML MFXButton floorButton;
   @FXML MFXButton modeButton;
   Group mapNodes = new Group();
+  Group mapEdges = new Group();
   Group movingNode = new Group();
   Group movingText = new Group();
   Group mapText = new Group();
@@ -142,16 +143,27 @@ public class EditMapController {
   List<Node> nodeList = new ArrayList<Node>();
   List<Edge> edgeList = new ArrayList<Edge>();
   List<LocationName> locationNameList = new ArrayList<LocationName>();
+  // hash maps
   HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
   HashMap<String, LocationName> longNametoLocationName = new HashMap<String, LocationName>();
+  HashMap<Integer, Node> nodeIDToNode = new HashMap<Integer, Node>();
+  //  HashMap<Integer,String> nodeIDToFloor = new HashMap<Integer, String>();
 
   List<Move> moveList = new ArrayList<Move>();
+  // List of nodes by floor
   List<Node> Floor1 = new ArrayList<Node>();
   List<Node> Floor2 = new ArrayList<Node>();
   List<Node> Floor3 = new ArrayList<Node>();
   List<Node> FloorG = new ArrayList<Node>();
   List<Node> FloorL1 = new ArrayList<Node>();
   List<Node> FloorL2 = new ArrayList<Node>();
+  // List of edges by floor
+  List<Edge> Floor1Edges = new ArrayList<Edge>();
+  List<Edge> Floor2Edges = new ArrayList<Edge>();
+  List<Edge> Floor3Edges = new ArrayList<Edge>();
+  List<Edge> FloorL1Edges = new ArrayList<Edge>();
+  List<Edge> FloorL2Edges = new ArrayList<Edge>();
+
   String sNameInput_temp;
   String lNameInput_temp;
   String oldName_temp;
@@ -246,10 +258,108 @@ public class EditMapController {
     //      REMOVE;
     //    }
 
+    // TODO sort edges and display edges
+    // find all edges for given floor
     loadDatabase();
+    loadNodeIDToNode();
     sortNodes();
+    sortEdges();
     placeNodes("1");
+    placeEdges("1");
   } // end initialize
+
+  // load hashmap of nodeID to floor
+  private void loadNodeIDToNode() {
+    for (Node node : nodeList) {
+      nodeIDToNode.put(node.getNodeID(), node);
+    }
+  }
+  // see if both nodes are on the same floor
+  private boolean sameFloor(int nodeID1, int nodeID2) {
+    String node1Floor = nodeIDToNode.get(nodeID1).getFloor();
+    String node2Floor = nodeIDToNode.get(nodeID2).getFloor();
+    System.out.println(node1Floor + "    " + node2Floor);
+    if (node1Floor.equals(node2Floor)) {
+      return true;
+    }
+    return false;
+  }
+
+  private void placeEdges(String floor) {
+    switch (floor) {
+      case "1":
+        for (Edge edge : Floor1Edges) {
+          createMapEdges(edge);
+        }
+        break;
+      case "2":
+        for (Edge edge : Floor2Edges) {
+          createMapEdges(edge);
+        }
+        break;
+      case "3":
+        for (Edge edge : Floor3Edges) {
+          createMapEdges(edge);
+        }
+        break;
+      case "L1":
+        for (Edge edge : FloorL1Edges) {
+          createMapEdges(edge);
+        }
+        break;
+      case "L2":
+        for (Edge edge : FloorL2Edges) {
+          createMapEdges(edge);
+        }
+        break;
+    }
+    mapEdges.toFront();
+  }
+
+  public void createMapEdges(Edge edge) {
+    Line line = new Line();
+    line.setStartX(nodeIDToNode.get(edge.getStartNode()).getXCoord());
+    line.setStartY(nodeIDToNode.get(edge.getStartNode()).getYCoord());
+    line.setEndX(nodeIDToNode.get(edge.getEndNode()).getXCoord());
+    line.setEndY(nodeIDToNode.get(edge.getEndNode()).getYCoord());
+    line.setStrokeWidth(5);
+    line.setStroke(Paint.valueOf("021335"));
+    mapEdges.getChildren().add(line);
+  }
+
+  private void sortEdges() {
+    // look at floor list and find all edges that have both nodes in that floor list
+    Floor1Edges.clear();
+    Floor2Edges.clear();
+    Floor3Edges.clear();
+    FloorL1Edges.clear();
+    FloorL2Edges.clear();
+
+    for (Edge edge : edgeList) {
+      String floor = nodeIDToNode.get(edge.getStartNode()).getFloor();
+      String floor2 = nodeIDToNode.get(edge.getEndNode()).getFloor();
+      System.out.println(floor + "   " + floor2);
+      // see if both nodes are in the floor list
+      sameFloor(edge.getStartNode(), edge.getEndNode());
+      if (sameFloor(edge.getStartNode(), edge.getEndNode())
+          && (nodeIDToNode.get(edge.getStartNode()).getFloor().equals("1"))) {
+        Floor1Edges.add(edge);
+      } else if (sameFloor(edge.getStartNode(), edge.getEndNode())
+          && nodeIDToNode.get(edge.getStartNode()).getFloor().equals("2")) {
+        Floor2Edges.add(edge);
+      } else if (sameFloor(edge.getStartNode(), edge.getEndNode())
+          && nodeIDToNode.get(edge.getStartNode()).getFloor().equals("3")) {
+        Floor3Edges.add(edge);
+      } else if (sameFloor(edge.getStartNode(), edge.getEndNode())
+          && nodeIDToNode.get(edge.getStartNode()).getFloor().equals("L1")) {
+        FloorL1Edges.add(edge);
+      } else if (sameFloor(edge.getStartNode(), edge.getEndNode())
+          && nodeIDToNode.get(edge.getStartNode()).getFloor().equals("L2")) {
+        FloorL2Edges.add(edge);
+      }
+    }
+  }
+
   // load database
   public void loadDatabase() {
     nodeList = new NodeDao().fetchAllObjects();
@@ -1970,4 +2080,3 @@ public class EditMapController {
  */
 
 // NEED TO MAKE EXCEPTION CASES FOR IF TRYING TO ADD A NAME TO A NODE THAT ALREADY HAS A NAME
-

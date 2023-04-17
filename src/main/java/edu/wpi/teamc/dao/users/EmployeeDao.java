@@ -24,12 +24,13 @@ public class EmployeeDao {
 
       while (rs.next()) {
         // Get all the data from the table
-        int empid = rs.getInt("empid");
+        int id = rs.getInt("id");
+        String userName = rs.getString("username");
         String name = rs.getString("name");
         String department = rs.getString("department");
         String position = rs.getString("position");
 
-        Employee employee = new Employee(empid, name, department, position);
+        Employee employee = new Employee(id,userName,name,department,position);
         returnList.add(employee);
       }
     } catch (SQLException e) {
@@ -42,19 +43,21 @@ public class EmployeeDao {
     DBConnection db = new DBConnection();
     try {
       String query =
-          "INSERT INTO \"ServiceRequests\".\"Employee\" (name ,department, position) VALUES (?,?,?)";
+          "INSERT INTO \"ServiceRequests\".\"Employee\" (id, username, name, department, position) VALUES (?,?,?,?,?)";
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-      ps.setString(1, orm.getName());
-      ps.setString(2, orm.getDepartment());
-      ps.setString(3, orm.getPosition());
+      ps.setInt(1, orm.getId());
+      ps.setString(2, orm.getUserName());
+      ps.setString(3, orm.getName());
+      ps.setString(4, orm.getDepartment());
+      ps.setString(5, orm.getPosition());
       ps.executeUpdate();
 
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
-      int empID = rs.getInt("empid");
-      orm = new Employee(empID, orm.getName(), orm.getDepartment(), orm.getPosition());
+      int id = rs.getInt("id");
+      orm = new Employee(id, orm.getName(), orm.getUserName(), orm.getDepartment(), orm.getPosition());
     } catch (SQLException e) {
       e.printStackTrace();
     }

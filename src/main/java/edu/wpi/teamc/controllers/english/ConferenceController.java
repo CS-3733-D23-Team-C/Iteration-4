@@ -44,12 +44,12 @@ public class ConferenceController {
     Navigation.navigate(Screen.ADMIN_HOME);
   }
 
-//  @FXML
-//  void getChoice0() {
-//    roomMenu.setText("--Please Conference Room--");
-//  }
+  //  @FXML
+  //  void getChoice0() {
+  //    roomMenu.setText("--Please Conference Room--");
+  //  }
 
-  //These 4 choices(1-4) are for the conference room
+  // These 4 choices(1-4) are for the conference room
   @FXML
   void getChoice1() {
     roomMenu.setText("Conference A1");
@@ -70,7 +70,7 @@ public class ConferenceController {
     roomMenu.setText("Conference A4");
   }
 
-  //These 4 choices(5-8) are for the employee name
+  // These 4 choices(5-8) are for the employee name
   @FXML
   void getChoice5() {
     employeeName.setText(choice5.getText());

@@ -119,11 +119,6 @@
                                 </AnchorPane>
                                 <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                     <children>
-                                        <MFXButton fx:id="FLG" onAction="#changeFloor" style="-fx-background-color: #bebebe;" text="G" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane prefHeight="30.0" prefWidth="20.0">
-                                    <children>
                                         <MFXButton fx:id="FLB1" onAction="#changeFloor" style="-fx-background-color: #bebebe;" text="B1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>

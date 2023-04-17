@@ -9,7 +9,9 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -98,10 +100,6 @@ public class EditMapController {
 
   @FXML VBox exportMenu;
 
-  @FXML MFXButton check_button;
-
-  @FXML MFXButton x_button;
-
   Group mapNodes = new Group();
   Group movingNode = new Group();
   Group movingText = new Group();
@@ -188,7 +186,6 @@ public class EditMapController {
   @FXML MFXButton check_button;
   @FXML MFXButton x_button;
   ImageView imageView;
-
 
   //  Boolean
 
@@ -2097,4 +2094,3 @@ public class EditMapController {
  */
 
 // NEED TO MAKE EXCEPTION CASES FOR IF TRYING TO ADD A NAME TO A NODE THAT ALREADY HAS A NAME
-

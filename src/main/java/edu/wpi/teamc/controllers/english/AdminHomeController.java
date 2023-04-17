@@ -1,9 +1,6 @@
 package edu.wpi.teamc.controllers.english;
 
-import edu.wpi.teamc.navigation.Navigation;
-import edu.wpi.teamc.navigation.Screen;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
 import javafx.scene.text.*;
@@ -68,9 +65,5 @@ public class AdminHomeController {
     //   UTF-8
     //        exitButton.setText("Salir");
     //      }
-  }
-
-  public void getMoveTablePage(ActionEvent actionEvent) {
-    Navigation.navigate(Screen.MOVETABLE_PAGE);
   }
 }

@@ -13,10 +13,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ImportCSV {
-  DBConnection dbConnection = new DBConnection();
-  Connection connection;
+  static DBConnection dbConnection = new DBConnection();
+  static Connection connection;
 
-  public Boolean importAllCSV(
+  public static Boolean importAllCSV(
       String CSVfilepathNode,
       String CSVfilepathEdge,
       String CSVfilepathMove,
@@ -38,7 +38,7 @@ public class ImportCSV {
     return true;
   }
 
-  public void importNodeCSV(String CSVfilepath) {
+  public static void importNodeCSV(String CSVfilepath) {
     // Regular expression to match each row
     String regex = "(\\d+),(\\d+),(\\d+),(.*),(.*)";
     // Compile regular expression pattern
@@ -64,7 +64,7 @@ public class ImportCSV {
     }
   }
 
-  public void importNodeRow(Node orm) {
+  public static void importNodeRow(Node orm) {
     try {
       // table names
       String NODE = "\"hospitalNode\".node";
@@ -85,7 +85,7 @@ public class ImportCSV {
     }
   }
 
-  private void importLocationNameCSV(String CSVfilepath) {
+  private static void importLocationNameCSV(String CSVfilepath) {
     // Regular expression to match each row
     String regex = "(.*),(.*),(.*)";
     // Compile regular expression pattern
@@ -109,7 +109,7 @@ public class ImportCSV {
     }
   }
 
-  public LocationName importLocationRow(LocationName orm) {
+  public static LocationName importLocationRow(LocationName orm) {
     try {
       // table names
       String LOCATIONNAME = "\"hospitalNode\".\"locationName\"";
@@ -129,7 +129,7 @@ public class ImportCSV {
     return orm;
   }
 
-  private void importMoveCSV(String CSVfilepath) {
+  private static void importMoveCSV(String CSVfilepath) {
     // Regular expression to match each row
     String regex = "(.*),(.*),(.*)";
     // Compile regular expression pattern
@@ -154,7 +154,7 @@ public class ImportCSV {
     }
   }
 
-  public Move importMoveRow(Move orm) {
+  public static Move importMoveRow(Move orm) {
     try {
       // table names
       String MOVE = "\"hospitalNode\".move";
@@ -174,7 +174,7 @@ public class ImportCSV {
     return orm;
   }
 
-  private void importEdgeCSV(String CSVfilepath) {
+  private static void importEdgeCSV(String CSVfilepath) {
     // Regular expression to match each row
     String regex = "(.*),(.*)";
     // Compile regular expression pattern
@@ -199,7 +199,7 @@ public class ImportCSV {
     }
   }
 
-  public Edge importEdgeRow(Edge orm) {
+  public static Edge importEdgeRow(Edge orm) {
     try {
       String EDGE = "\"hospitalNode\".edge";
       String queryInsertEdgesDB = "INSERT INTO " + EDGE + " VALUES (?,?); ";
@@ -217,7 +217,7 @@ public class ImportCSV {
     return orm;
   }
 
-  public void nukeDatabase() {
+  public static void nukeDatabase() {
     try {
       // table names
       String NODE = "\"hospitalNode\".node";
@@ -245,7 +245,7 @@ public class ImportCSV {
     }
   }
 
-  public Date returnDate(String dateString) {
+  public static Date returnDate(String dateString) {
     // function to convert to yyyy-mm-dd
     SimpleDateFormat[] formats =
         new SimpleDateFormat[] {
@@ -266,3 +266,4 @@ public class ImportCSV {
     return null;
   }
 }
+

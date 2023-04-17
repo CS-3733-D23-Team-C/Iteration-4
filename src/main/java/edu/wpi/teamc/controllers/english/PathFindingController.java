@@ -23,7 +23,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
-import javax.swing.*;
 import net.kurobako.gesturefx.GesturePane;
 
 public class PathFindingController {
@@ -126,7 +125,7 @@ public class PathFindingController {
   public void loadDatabase() {
     nodeList = new NodeDao().fetchAllObjects();
     edgeList = new EdgeDao().fetchAllObjects();
-    locationNameList = new LocationDao().fetchAllObjects();
+    locationNameList = new LocationNameDao().fetchAllObjects();
     moveList = new MoveDao().fetchAllObjects();
 
     for (Move move : moveList) {

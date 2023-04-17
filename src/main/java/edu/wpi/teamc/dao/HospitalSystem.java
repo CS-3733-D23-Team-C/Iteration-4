@@ -13,7 +13,7 @@ public class HospitalSystem {
   // Map DAOs
   private static NodeDao nodeDao;
   private static EdgeDao edgeDao;
-  private static LocationDao locationDao;
+  private static LocationNameDao locationNameDao;
   private static MoveDao moveDao;
 
   // Service Request DAOs
@@ -31,7 +31,7 @@ public class HospitalSystem {
     } else if (request instanceof Edge) {
       return edgeDao.fetchAllObjects();
     } else if (request instanceof LocationName) {
-      return locationDao.fetchAllObjects();
+      return locationNameDao.fetchAllObjects();
     } else if (request instanceof Move) {
       return moveDao.fetchAllObjects();
     } else if (request instanceof ConferenceRoomRequest) {
@@ -56,7 +56,7 @@ public class HospitalSystem {
     } else if (request instanceof Edge) {
       return edgeDao.addRow((Edge) request);
     } else if (request instanceof LocationName) {
-      return locationDao.addRow((LocationName) request);
+      return locationNameDao.addRow((LocationName) request);
     } else if (request instanceof Move) {
       return moveDao.addRow((Move) request);
     } else if (request instanceof ConferenceRoomRequest) {
@@ -82,7 +82,7 @@ public class HospitalSystem {
     } else if (request instanceof Edge) {
       return edgeDao.deleteRow((Edge) request);
     } else if (request instanceof LocationName) {
-      return locationDao.deleteRow((LocationName) request);
+      return locationNameDao.deleteRow((LocationName) request);
     } else if (request instanceof Move) {
       return moveDao.deleteRow((Move) request);
     } else if (request instanceof ConferenceRoomRequest) {
@@ -111,7 +111,7 @@ public class HospitalSystem {
     } else if (request instanceof Edge) {
       return edgeDao.updateRow((Edge) request, (Edge) request);
     } else if (request instanceof LocationName) {
-      return locationDao.updateRow((LocationName) request, (LocationName) request);
+      return locationNameDao.updateRow((LocationName) request, (LocationName) request);
     } else if (request instanceof Move) {
       return moveDao.updateRow((Move) request, (Move) request);
     } else if (request instanceof ConferenceRoomRequest) {

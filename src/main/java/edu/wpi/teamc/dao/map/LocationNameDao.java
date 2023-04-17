@@ -5,13 +5,14 @@ import edu.wpi.teamc.dao.IDao;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LocationDao implements IDao<LocationName, String> {
+public class LocationNameDao implements IDao<LocationName, String> {
   public List<LocationName> fetchAllObjects() {
     List<LocationName> databaseLocationNameList = new ArrayList<>();
     DBConnection db = new DBConnection();
@@ -136,26 +137,54 @@ public class LocationDao implements IDao<LocationName, String> {
     return orm;
   }
 
-  public String deleteRow(String longName) {
+  @Override
+  public LocationName fetchObject(String key) throws SQLException {
     DBConnection db = new DBConnection();
+    LocationName locationName = null;
     try {
       // table names
       String LOCATIONNAME = "\"hospitalNode\".\"locationName\"";
       // queries
-      String queryDeleteLocationNamesDB = "DELETE FROM " + LOCATIONNAME + " WHERE \"longName\"=?; ";
+      String queryDisplayLocationNames = "SELECT * FROM " + LOCATIONNAME + " WHERE \"longName\"=?";
 
-      PreparedStatement ps = db.getConnection().prepareStatement(queryDeleteLocationNamesDB);
+      PreparedStatement ps = db.getConnection().prepareStatement(queryDisplayLocationNames);
+      ps.setString(1, key);
+      ResultSet rsLocationNames = ps.executeQuery();
+      while (rsLocationNames.next()) {
+        String locationNameLong = rsLocationNames.getString("longName");
+        String locationNameShort = rsLocationNames.getString("shortName");
+        String nodeType = rsLocationNames.getString("nodeType");
+        locationName = new LocationName(locationNameLong, locationNameShort, nodeType);
+      }
 
-      ps.setString(1, longName);
-
-      ps.executeUpdate();
     } catch (Exception e) {
       e.printStackTrace();
     }
-    db.closeConnection();
 
-    return longName;
+    db.closeConnection();
+    return locationName;
   }
+
+//  public String deleteRow(String longName) {
+//    DBConnection db = new DBConnection();
+//    try {
+//      // table names
+//      String LOCATIONNAME = "\"hospitalNode\".\"locationName\"";
+//      // queries
+//      String queryDeleteLocationNamesDB = "DELETE FROM " + LOCATIONNAME + " WHERE \"longName\"=?; ";
+//
+//      PreparedStatement ps = db.getConnection().prepareStatement(queryDeleteLocationNamesDB);
+//
+//      ps.setString(1, longName);
+//
+//      ps.executeUpdate();
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//    db.closeConnection();
+//
+//    return longName;
+//  }
 
   public boolean importCSV(String CSVfilepath) {
     // Regular expression to match each row

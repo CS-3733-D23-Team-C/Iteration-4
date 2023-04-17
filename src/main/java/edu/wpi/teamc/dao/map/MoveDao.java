@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-public class MoveDao implements IDao<Move> {
+// TODO - change PKs for all tables to be all three
+public class MoveDao implements IDao<Move, Move> {
   public List<Move> fetchAllObjects() {
     List<Move> databaseMoveList = new ArrayList<>();
     DBConnection db = new DBConnection();
@@ -108,6 +108,33 @@ public class MoveDao implements IDao<Move> {
     db.closeConnection();
 
     return orm;
+  }
+
+  @Override
+  public Move fetchObject(Move key) throws SQLException {
+    DBConnection db = new DBConnection();
+    Move move = null;
+    try {
+      // table names
+      String MOVE = "\"hospitalNode\".move";
+      // queries
+      String queryDisplayMoves = "SELECT * FROM " + MOVE + " WHERE \"nodeID\"=?;";
+
+      PreparedStatement ps = db.getConnection().prepareStatement(queryDisplayMoves);
+      ps.setInt(1, key.getNodeID());
+
+      ResultSet rsMoves = ps.executeQuery();
+
+      while (rsMoves.next()) {
+        int nodeID = rsMoves.getInt("nodeID");
+        String longName = rsMoves.getString("longName");
+        Date date = rsMoves.getDate("moveDate");
+        move = new Move(nodeID, longName, date);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return move;
   }
 
   public int deleteRow(int nodeID) {

@@ -957,6 +957,9 @@ public class EditMapController {
     MFXTextField lNameInput = new MFXTextField();
 
     MFXButton addName = new MFXButton("Submit");
+    VBox v1 = new VBox();
+    VBox v2 = new VBox();
+    VBox v3 = new VBox();
 
     // set styles
     headerText.getStyleClass().add("Header");
@@ -978,15 +981,45 @@ public class EditMapController {
     // set vBox location
     vBox.setLayoutX(50);
     vBox.setLayoutY(20);
-    vBox.setSpacing(5);
+    vBox.setSpacing(15);
+
+    // set object locations
+    int lay_x = 50;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    nodeType.setLayoutX(lay_x);
+    nodeType.setLayoutY(lay_y + 35);
+    nodeTypeInput.setLayoutX(lay_x);
+    nodeTypeInput.setLayoutY(lay_y + 35);
+    SName.setLayoutX(lay_x);
+    SName.setLayoutY(lay_y + 110);
+    sNameInput.setLayoutX(lay_x);
+    sNameInput.setLayoutY(lay_y + 110);
+    LName.setLayoutX(lay_x);
+    LName.setLayoutY(lay_y + 185);
+    lNameInput.setLayoutX(lay_x);
+    lNameInput.setLayoutY(lay_y + 185);
+    addName.setLayoutX(lay_x);
+    addName.setLayoutY(lay_y + 250);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
+    aPane
+        .getChildren()
+        .addAll(
+            headerText,
+            nodeType,
+            nodeTypeInput,
+            SName,
+            sNameInput,
+            LName,
+            lNameInput,
+            addName); // was add vBox
     //    Insets insets = new Insets(0, 0, 0, 200);
     //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 400, 350);
+    Scene scene = new Scene(borderPane, 370, 360);
 
     // Set Scene styleClass
     //    scene.setFill(Paint.valueOf("#02143b"));
@@ -1002,6 +1035,7 @@ public class EditMapController {
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.setTitle("Add Location Name Window");
+    stage.setAlwaysOnTop(true);
 
     stage.show();
 

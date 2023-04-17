@@ -288,7 +288,7 @@ public class EditMapController {
   private boolean sameFloor(int nodeID1, int nodeID2) {
     String node1Floor = nodeIDToNode.get(nodeID1).getFloor();
     String node2Floor = nodeIDToNode.get(nodeID2).getFloor();
-    System.out.println(node1Floor + "    " + node2Floor);
+    //    System.out.println(node1Floor + "    " + node2Floor);
     if (node1Floor.equals(node2Floor)) {
       return true;
     }
@@ -351,7 +351,7 @@ public class EditMapController {
     for (Edge edge : edgeList) {
       String floor = nodeIDToNode.get(edge.getStartNode()).getFloor();
       String floor2 = nodeIDToNode.get(edge.getEndNode()).getFloor();
-      System.out.println(floor + "   " + floor2);
+      //      System.out.println(floor + "   " + floor2);
       // see if both nodes are in the floor list
       sameFloor(edge.getStartNode(), edge.getEndNode());
       if (sameFloor(edge.getStartNode(), edge.getEndNode())
@@ -1140,8 +1140,11 @@ public class EditMapController {
           mapText = new Group();
           group.getChildren().addAll(mapNodes, mapText);
           loadDatabase();
+          loadNodeIDToNode();
           sortNodes();
+          sortEdges();
           placeNodes(floor);
+          placeEdges(floor);
 
           stage.close();
           nodeClicked = false;

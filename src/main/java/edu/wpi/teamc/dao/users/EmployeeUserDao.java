@@ -30,7 +30,6 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
         String name = rs.getString("name");
         String department = rs.getString("department");
         String position = rs.getString("position");
-
         EmployeeUser employee = new EmployeeUser(id, userName, name, department, position);
         returnList.add(employee);
       }

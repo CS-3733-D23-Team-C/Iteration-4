@@ -96,6 +96,14 @@ public class EditMapController {
   @FXML MFXButton FLB2;
   @FXML MFXButton floorButton;
   @FXML MFXButton modeButton;
+  @FXML VBox importMenu;
+
+  @FXML VBox exportMenu;
+
+  @FXML MFXButton check_button;
+
+  @FXML MFXButton x_button;
+
   Group mapNodes = new Group();
   Group movingNode = new Group();
   Group movingText = new Group();
@@ -177,8 +185,10 @@ public class EditMapController {
   Boolean dragModeOn = false;
   MapModeSaver mapModeSaver = new MapModeSaver();
   @FXML HBox checkAndX_HBox;
-  @FXML MFXButton check_button;
-  @FXML MFXButton x_button;
+  @FXML HBox checkAndX_HBox1;
+
+  //  @FXML MFXButton check_button;
+  //  @FXML MFXButton x_button;
 
   //  Boolean
 
@@ -201,6 +211,7 @@ public class EditMapController {
     group.getChildren().add(pane);
     mapMode = HandleMapModes.SELECT;
     checkAndX_HBox.setMouseTransparent(true);
+    checkAndX_HBox1.setMouseTransparent(true);
     //    group.getChildren().add(stackPane);
 
     group.setOnMouseClicked(
@@ -1045,7 +1056,9 @@ public class EditMapController {
   public void modifyByDrag() { // make this a pop up window instead of a whole new scene?
     //    mapGPane.setGestureEnabled(false);
     checkAndX_HBox.setVisible(true);
+    checkAndX_HBox1.setVisible(true);
     checkAndX_HBox.setMouseTransparent(false);
+    checkAndX_HBox1.setMouseTransparent(false);
     Node helperNode1 = new Node(0, 5, 5, "test", "test");
     Node helperNode2 = new Node(20000, 5, 5, "test", "test");
     //    final Node initialNodeClicked = currNodeClicked;
@@ -1230,7 +1243,9 @@ public class EditMapController {
           dragModeOn = false;
           lockMap = false;
           checkAndX_HBox.setVisible(false);
+          checkAndX_HBox1.setVisible(false);
           checkAndX_HBox.setMouseTransparent(true);
+          checkAndX_HBox1.setMouseTransparent(true);
           nodeClicked = false;
           mapGPane.setGestureEnabled(true);
           group.setOnMouseDragged(eventHandlerDrag);
@@ -1280,7 +1295,9 @@ public class EditMapController {
           dragModeOn = false;
           lockMap = false;
           checkAndX_HBox.setVisible(false);
+          checkAndX_HBox1.setVisible(false);
           checkAndX_HBox.setMouseTransparent(true);
+          checkAndX_HBox1.setMouseTransparent(true);
           nodeClicked = false;
           mapGPane.setGestureEnabled(true);
           group.setOnMouseDragged(eventHandlerDrag);
@@ -1700,6 +1717,27 @@ public class EditMapController {
         });
   }
 
+  private String[] selectedFilePaths = new String[4];
+
+  @FXML
+  void getImportMenu(ActionEvent event) {
+    selectedFilePaths[0] = null;
+    selectedFilePaths[1] = null;
+    selectedFilePaths[2] = null;
+    selectedFilePaths[3] = null;
+    importMenu.setVisible(true);
+    exportMenu.setVisible(false);
+  }
+
+  @FXML
+  void getImportCancel(ActionEvent event) {
+    importMenu.setVisible(false);
+    selectedFilePaths[0] = null;
+    selectedFilePaths[1] = null;
+    selectedFilePaths[2] = null;
+    selectedFilePaths[3] = null;
+  }
+
   @FXML
   void getImportNodes(ActionEvent event) {
     FileChooser fileChooser = new FileChooser();
@@ -1717,6 +1755,7 @@ public class EditMapController {
         if (importedHeader.equals(nodeHeader)) {
           desktop.open(file);
           filePath = file.getAbsolutePath();
+          selectedFilePaths[0] = filePath;
           // TODO if it does, add file to file list for mass import
           System.out.println("import works");
         } else {
@@ -1750,6 +1789,7 @@ public class EditMapController {
         if (importedHeader.equals(edgeHeader)) {
           desktop.open(file);
           filePath = file.getAbsolutePath();
+          selectedFilePaths[1] = filePath;
           // TODO if it does, add file to file list for mass import
           System.out.println("import works");
         } else {
@@ -1782,6 +1822,7 @@ public class EditMapController {
         if (importedHeader.equals(locationNameHeader)) {
           desktop.open(file);
           filePath = file.getAbsolutePath();
+          selectedFilePaths[2] = filePath;
           // TODO if it does, add file to file list for mass import
           System.out.println("import works");
         } else {
@@ -1815,6 +1856,7 @@ public class EditMapController {
           desktop.open(file);
           filePath = file.getAbsolutePath();
           // TODO if it does, add file to file list for mass import
+          selectedFilePaths[3] = filePath;
           System.out.println("import works");
         } else {
           // if it doesn't, display error message
@@ -1828,6 +1870,31 @@ public class EditMapController {
         ex.printStackTrace();
       }
     }
+  }
+
+  @FXML
+  void getImportSubmit(ActionEvent event) {
+    importMenu.setVisible(false);
+    String nodesFilePath = selectedFilePaths[0];
+    String edgesFilePath = selectedFilePaths[1];
+    String moveFilePath = selectedFilePaths[2];
+    String locationNamesFilePath = selectedFilePaths[3];
+    ImportCSV.importAllCSV(nodesFilePath, edgesFilePath, moveFilePath, locationNamesFilePath);
+    selectedFilePaths[0] = null;
+    selectedFilePaths[1] = null;
+    selectedFilePaths[2] = null;
+    selectedFilePaths[3] = null;
+  }
+
+  @FXML
+  void getExportMenu(ActionEvent event) {
+    importMenu.setVisible(false);
+    exportMenu.setVisible(true);
+  }
+
+  @FXML
+  void getExportBack(ActionEvent event) {
+    exportMenu.setVisible(false);
   }
 
   @FXML

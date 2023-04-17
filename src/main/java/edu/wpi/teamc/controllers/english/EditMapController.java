@@ -286,6 +286,8 @@ public class EditMapController {
   }
 
   private void placeEdges(String floor) {
+    group.getChildren().remove(mapEdges);
+    mapEdges = new Group();
     switch (floor) {
       case "1":
         for (Edge edge : Floor1Edges) {
@@ -313,6 +315,7 @@ public class EditMapController {
         }
         break;
     }
+    group.getChildren().add(mapEdges);
     mapEdges.toFront();
   }
 
@@ -466,6 +469,7 @@ public class EditMapController {
     pane.relocate(0, 0);
     group.getChildren().add(pane);
     placeNodes(floor);
+    placeEdges(floor);
   }
 
   public void comparatorSortNode() {}
@@ -957,8 +961,11 @@ public class EditMapController {
           mapText = new Group();
           group.getChildren().addAll(mapNodes, mapText);
           loadDatabase();
+          loadNodeIDToNode();
           sortNodes();
+          sortEdges();
           placeNodes(floor);
+          placeEdges(floor);
 
           // close menu
           stage.close();
@@ -1374,8 +1381,11 @@ public class EditMapController {
           mapModeSaver.setDraggingNodeCreated(false);
 
           loadDatabase();
+          loadNodeIDToNode();
           sortNodes();
+          sortEdges();
           placeNodes(floor);
+          placeEdges(floor);
 
           currNodeClicked =
               helperNode1; // ensures clicking on the map again won't try to cause modify to run
@@ -1426,6 +1436,7 @@ public class EditMapController {
           loadDatabase();
           sortNodes();
           placeNodes(floor);
+          //          placeEdges(floor);
 
           currNodeClicked = helperNode1;
         });

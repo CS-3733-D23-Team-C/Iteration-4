@@ -893,20 +893,20 @@ public class EditMapController {
     borderPane.getStyleClass().add("scenePane");
 
     // set object locations
-    int lay_x = 50;
+    int lay_x = 40;
     int lay_y = 40;
     headerText.setLayoutX(lay_x);
     headerText.setLayoutY(lay_y);
     xCoord_t.setLayoutX(lay_x);
     xCoord_t.setLayoutY(lay_y + 35);
     xCoord_input.setLayoutX(lay_x);
-    xCoord_input.setLayoutY(lay_y + 50);
+    xCoord_input.setLayoutY(lay_y + 35);
     yCoord_t.setLayoutX(lay_x);
-    yCoord_t.setLayoutY(lay_y + 120);
+    yCoord_t.setLayoutY(lay_y + 105);
     yCoord_input.setLayoutX(lay_x);
-    yCoord_input.setLayoutY(lay_y + 135);
+    yCoord_input.setLayoutY(lay_y + 105);
     submitModify.setLayoutX(lay_x);
-    submitModify.setLayoutY(lay_y + 205);
+    submitModify.setLayoutY(lay_y + 165);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
@@ -916,8 +916,10 @@ public class EditMapController {
     //    Insets insets = new Insets(0, 0, 0, 200);
     //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
-    scene.getStylesheets().add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+    Scene scene = new Scene(borderPane, 290, 290);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);

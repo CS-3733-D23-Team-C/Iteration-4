@@ -4,16 +4,22 @@ import edu.wpi.teamc.dao.IOrm;
 import lombok.Getter;
 import lombok.Setter;
 
-public abstract class AbsUser implements IOrm {
+@Setter
+@Getter
+abstract class AbsUser implements IOrm {
   @Getter private int id;
   @Setter @Getter private String name;
 
-  public AbsUser(int id, String name) {
+  @Setter @Getter private String username;
+
+  AbsUser(int id, String name, String username) {
     this.id = id;
     this.name = name;
+    this.username = username;
   }
 
-  public AbsUser(String name) {
+  AbsUser(String name, String username) {
     this.name = name;
+    this.username = username;
   }
 }

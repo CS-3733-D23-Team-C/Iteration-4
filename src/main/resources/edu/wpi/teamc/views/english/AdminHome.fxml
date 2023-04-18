@@ -9,17 +9,17 @@
 
 <AnchorPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.AdminHomeController">
    <children>
-      <AnchorPane layoutX="402.0" prefHeight="153.0" prefWidth="1208.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.5),5,0.75,0,0);" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="389.0" prefHeight="153.0" prefWidth="1208.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.5),5,0.75,0,0);" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0">
          <children>
             <Text fx:id="AdminHome_Title" fill="#003da6" layoutX="299.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 40; -fx-font-weight: bold;" text="Admin Home Page" textAlignment="CENTER" wrappingWidth="569.5101928710938" AnchorPane.leftAnchor="299.0" AnchorPane.topAnchor="48.7890625" />
             <Group layoutX="1033.0" layoutY="53.0" AnchorPane.rightAnchor="39.50975036621094" AnchorPane.topAnchor="53.0">
                <children>
-                  <ImageView  fitHeight="37.0" fitWidth="70.0" layoutX="82.0" onMouseClicked="#spanish" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="37.0" fitWidth="70.0" layoutX="82.0" onMouseClicked="#spanish" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Images/spanish_flag.png" />
                      </image>
                   </ImageView>
-                  <ImageView  fitHeight="37.0" fitWidth="70.0" onMouseClicked="#english" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="37.0" fitWidth="70.0" onMouseClicked="#english" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Images/english_flag.png" />
                      </image>

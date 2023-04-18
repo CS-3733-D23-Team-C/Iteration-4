@@ -26,7 +26,7 @@ public class ConferenceController {
 
   @FXML private MenuButton menuButton;
   @FXML private TextField nameBox;
-  @FXML private TextField specialRequest;
+  @FXML private TextArea specialRequest;
   @FXML private DatePicker startTime;
   @FXML private DatePicker endTime;
 
@@ -78,7 +78,7 @@ public class ConferenceController {
             end.toString(),
             status);
 
-    IDao<ConferenceRoomRequest> dao = new ConferenceRoomRequestDAO();
+    IDao<ConferenceRoomRequest, Integer> dao = new ConferenceRoomRequestDAO();
     dao.addRow(req);
 
     Navigation.navigate(Screen.CONGRATS_PAGE);

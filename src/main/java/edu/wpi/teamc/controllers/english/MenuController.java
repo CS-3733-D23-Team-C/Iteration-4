@@ -10,6 +10,7 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.*;
@@ -191,6 +192,32 @@ public class MenuController {
 
     // Define a PauseTransition with a delay of 200 milliseconds
     PauseTransition delay = new PauseTransition(Duration.millis(200));
+
+    helpTrigger.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.HELP);
+        });
+    homeTrigger.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.ADMIN_HOME);
+        });
+    settingsTrigger.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.HELP);
+        });
+    logoutTrigger.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.LOGIN);
+        });
+    exitTrigger.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.EXIT_PAGE);
+        });
 
     homeButton
         .hoverProperty()

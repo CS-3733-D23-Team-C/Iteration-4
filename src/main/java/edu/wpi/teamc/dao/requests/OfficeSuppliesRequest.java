@@ -9,13 +9,24 @@ public class OfficeSuppliesRequest extends AbsServiceRequest {
 
   @Getter @Setter private String eta;
 
-  public OfficeSuppliesRequest(
-      int requestID,
+   public OfficeSuppliesRequest(
+
       Requester requester,
       String roomName,
       String supplies,
       String additionalNotes,
       String quantity) {
+    super( requester, roomName, additionalNotes);
+    this.supplies = supplies;
+    this.quantity = quantity;
+  }
+   OfficeSuppliesRequest(
+          int requestID,
+          Requester requester,
+          String roomName,
+          String supplies,
+          String additionalNotes,
+          String quantity) {
     super(requestID, requester, roomName, additionalNotes);
     this.supplies = supplies;
     this.quantity = quantity;

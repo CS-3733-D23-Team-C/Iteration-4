@@ -19,6 +19,6 @@ public class FurnitureDeliveryRequestDAOTest {
   public void addRow() {
     FurnitureDeliveryRequestDAO dao = new FurnitureDeliveryRequestDAO();
     dao.addRow(
-        new FurnitureDeliveryRequest(0, new Requester(0, "Angela"), "Cubicle 7", "None", "Couch"));
+        new FurnitureDeliveryRequest( new Requester(0, "Angela"), "Cubicle 7", "None", "Couch"));
   }
 }

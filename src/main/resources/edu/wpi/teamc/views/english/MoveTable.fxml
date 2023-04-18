@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -26,12 +27,14 @@
                               <TableColumn fx:id="ColumnFive" prefWidth="240" text="" />
                            </columns>
                         </FilteredTableView>
-                        <MFXFilterComboBox layoutX="1057.0" layoutY="82.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="130.0" />
-                        <MFXFilterComboBox layoutX="1067.0" layoutY="156.0" AnchorPane.bottomAnchor="530.5" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="60.0" />
+                        <MFXFilterComboBox layoutX="1057.0" layoutY="82.0" style="-fx-background-color: white;" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="130.0" />
+                        <MFXFilterComboBox layoutX="1067.0" layoutY="156.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="530.5" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="60.0" />
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-size: 20; -fx-font-weight: bold;" text="Node ID:" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="73.0" />
                         <Text fill="WHITE" layoutX="10.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-size: 20; -fx-font-weight: bold;" text="Location Name:" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="140.0" />
                         <Text fill="WHITE" layoutX="20.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-size: 20; -fx-font-weight: bold;" text="Date:" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="215.0" />
                         <DatePicker AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="210.0" />
+                        <Button mnemonicParsing="false" onAction="#getAdd" prefHeight="23.0" prefWidth="110.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold;" text="Submit" textFill="#02143b" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="280.0" />
+                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#getDelete" prefHeight="23.0" prefWidth="110.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold;" text="Delete" textFill="#02143b" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="280.0" />
                      </children>
                   </AnchorPane>
                </children>

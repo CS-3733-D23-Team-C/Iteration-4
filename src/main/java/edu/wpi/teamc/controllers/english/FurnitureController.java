@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-
 public class FurnitureController {
   @FXML private MFXButton goHome;
   @FXML private MFXButton submit;
@@ -207,7 +206,7 @@ public class FurnitureController {
 
   @FXML
   void getClear(ActionEvent event) {
-    Navigation.navigate(Screen.CONFERENCE);
+    Navigation.navigate(Screen.FURNITURE);
   }
 
   @FXML

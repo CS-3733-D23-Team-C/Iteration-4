@@ -115,7 +115,7 @@ public class OfficeSupplyController {
     String quantity = supplyAmount.getText();
     OfficeSuppliesRequest req =
         new OfficeSuppliesRequest(0, new Requester(0, name), room, menuSelection, notes, quantity);
-    IDao<OfficeSuppliesRequest> dao = new OfficeSuppliesRequestDAO();
+    IDao<OfficeSuppliesRequest, Integer> dao = new OfficeSuppliesRequestDAO();
     dao.addRow(req);
     Navigation.navigate(Screen.CONGRATS_PAGE);
   }

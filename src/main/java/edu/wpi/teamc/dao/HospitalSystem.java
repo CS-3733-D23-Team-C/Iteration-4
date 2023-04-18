@@ -10,17 +10,18 @@ import java.util.List;
 
 public class HospitalSystem {
   // Map DAOs
-  private static NodeDao nodeDao;
-  private static EdgeDao edgeDao;
-  private static LocationNameDao locationNameDao;
-  private static MoveDao moveDao;
+  private static NodeDao nodeDao = new NodeDao();
+  private static EdgeDao edgeDao = new EdgeDao();
+  private static LocationNameDao locationNameDao = new LocationNameDao();
+  private static MoveDao moveDao = new MoveDao();
 
   // Service Request DAOs
-  private static ConferenceRoomRequestDAO conferenceRoomRequestDAO;
-  private static FlowerDeliveryRequestDAO flowerDeliveryRequestDAO;
-  private static FurnitureDeliveryRequestDAO furnitureDeliveryRequestDAO;
-  private static MealRequestDAO mealRequestDAO;
-  private static OfficeSuppliesRequestDAO officeSuppliesRequestDAO;
+  private static ConferenceRoomRequestDAO conferenceRoomRequestDAO = new ConferenceRoomRequestDAO();
+  private static FlowerDeliveryRequestDAO flowerDeliveryRequestDAO = new FlowerDeliveryRequestDAO();
+  private static FurnitureDeliveryRequestDAO furnitureDeliveryRequestDAO =
+      new FurnitureDeliveryRequestDAO();
+  private static MealRequestDAO mealRequestDAO = new MealRequestDAO();
+  private static OfficeSuppliesRequestDAO officeSuppliesRequestDAO = new OfficeSuppliesRequestDAO();
 
   // User DAOs
   private static EmployeeUserDao employeeDao = new EmployeeUserDao();

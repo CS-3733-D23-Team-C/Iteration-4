@@ -17,4 +17,6 @@ public class Move implements IOrm {
     this.longName = longName;
     this.date = date;
   }
+
+  public Move() {}
 }

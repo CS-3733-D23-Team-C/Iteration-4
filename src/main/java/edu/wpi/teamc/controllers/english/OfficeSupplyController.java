@@ -40,7 +40,7 @@ public class OfficeSupplyController {
   @FXML private TextArea specialRequest;
   @FXML private MenuButton employeeName;
 
-  //special for Office Supply
+  // special for Office Supply
   @FXML private TextField supplyAmount;
 
   public void getGoHome() {

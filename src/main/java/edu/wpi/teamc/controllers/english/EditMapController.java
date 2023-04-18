@@ -268,14 +268,12 @@ public class EditMapController {
     //      REMOVE;
     //    }
 
-    // TODO sort edges and display edges
-    // find all edges for given floor
     loadDatabase();
     loadNodeIDToNode();
     sortNodes();
     sortEdges();
-    placeNodes("1");
     placeEdges("1");
+    placeNodes("1");
   } // end initialize
 
   // load hashmap of nodeID to floor
@@ -431,6 +429,8 @@ public class EditMapController {
         mapMode = HandleMapModes.MODIFY;
       } else if (Objects.equals(modeButton.getId(), "Remove")) {
         mapMode = HandleMapModes.REMOVE;
+      } else if (Objects.equals(modeButton.getId(), "move")) {
+        mapMode = HandleMapModes.MOVE;
       }
     }
   }
@@ -478,8 +478,8 @@ public class EditMapController {
     pane.setMaxHeight(image.getHeight());
     pane.relocate(0, 0);
     group.getChildren().add(pane);
-    placeNodes(floor);
     placeEdges(floor);
+    placeNodes(floor);
   }
 
   public void comparatorSortNode() {}
@@ -1086,8 +1086,8 @@ public class EditMapController {
           loadNodeIDToNode();
           sortNodes();
           sortEdges();
-          placeNodes(floor);
           placeEdges(floor);
+          placeNodes(floor);
 
           // close menu
           stage.close();
@@ -1143,8 +1143,8 @@ public class EditMapController {
           loadNodeIDToNode();
           sortNodes();
           sortEdges();
-          placeNodes(floor);
           placeEdges(floor);
+          placeNodes(floor);
 
           stage.close();
           nodeClicked = false;
@@ -1579,8 +1579,8 @@ public class EditMapController {
           loadNodeIDToNode();
           sortNodes();
           sortEdges();
-          placeNodes(floor);
           placeEdges(floor);
+          placeNodes(floor);
 
           currNodeClicked =
               helperNode1; // ensures clicking on the map again won't try to cause modify to run
@@ -1632,8 +1632,8 @@ public class EditMapController {
 
           loadDatabase();
           sortNodes();
-          placeNodes(floor);
           //          placeEdges(floor);
+          placeNodes(floor);
 
           currNodeClicked = helperNode1;
         });

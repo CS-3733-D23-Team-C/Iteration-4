@@ -24,3 +24,21 @@
 .menuButtonTrigger {
     -fx-background-color: #FFFFFF;
 }
+
+.helpButton {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #02143B;
+    -fx-background-radius: 1px;
+    -fx-border-color: #02143B;
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-radius: 1px;
+    -fx-border-style: none;
+}
+.helpButton:hover {
+    -fx-background-color: #02143B;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-radius: 2px;
+    -fx-border-style: none;
+}

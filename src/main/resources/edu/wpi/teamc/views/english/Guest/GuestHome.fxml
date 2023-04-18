@@ -9,9 +9,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.web.HTMLEditor?>
 
-<AnchorPane prefHeight="787.0" prefWidth="1368.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.AdminHomeController">
+<AnchorPane prefHeight="787.0" prefWidth="1368.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.Guest.GuestHomeController">
    <children>
       <AnchorPane layoutX="71.0" layoutY="153.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
          <children>
@@ -30,21 +29,19 @@
                   </TextField>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="99.0" layoutY="47.0" prefHeight="289.0" prefWidth="1101.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0">
-               <children>
-                  <HTMLEditor fx:id="weather" disable="true" htmlText="&lt;a class=&quot;weatherwidget-io&quot; href=&quot;https://forecast7.com/en/42d36n71d06/boston/?unit=us&quot; data-label_1=&quot;BOSTON&quot; data-label_2=&quot;WEATHER&quot; data-theme=&quot;original&quot; &gt;BOSTON WEATHER&lt;/a&gt;&lt;script&gt;!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');&lt;/script&gt;" layoutX="6.0" prefHeight="200.0" prefWidth="506.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <AnchorPane layoutY="1.0" prefHeight="76.0" prefWidth="1098.0" style="-fx-background-color: #ffffff; -fx-border-color: #ffffff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children></AnchorPane>
+            <AnchorPane layoutX="99.0" layoutY="47.0" prefHeight="289.0" prefWidth="1101.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
          </children>
       </AnchorPane>
       <VBox layoutX="-3.0" layoutY="-3.0" prefHeight="900.0" prefWidth="53.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <fx:include fx:id="adminMenu" source="components/Menu.fxml" />
+         <children>
+            <fx:include fx:id="guestMenu" source="GuestMenu.fxml" />
+         </children>
       </VBox>
       <AnchorPane layoutX="100.0" layoutY="30.0" prefHeight="76.0" prefWidth="1366.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),10,0.75,0,0);" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox alignment="CENTER_LEFT" layoutX="-28.0" layoutY="-24.0" prefHeight="76.0" prefWidth="721.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="577.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Text fx:id="AdminHome_Title" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Admin Home Page" wrappingWidth="643.5101928710938" />
+                  <Text fx:id="GuestHome_Title" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Guest Home Page" wrappingWidth="643.5101928710938" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -57,12 +54,12 @@
                <children>
                   <ImageView fitHeight="37.0" fitWidth="70.0" layoutX="82.0" onMouseClicked="#spanish" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/spanish_flag.png" />
+                        <Image url="@../../Images/spanish_flag.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="37.0" fitWidth="70.0" onMouseClicked="#english" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/english_flag.png" />
+                        <Image url="@../../Images/english_flag.png" />
                      </image>
                   </ImageView>
                </children>

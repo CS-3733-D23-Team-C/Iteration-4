@@ -7,7 +7,7 @@ import edu.wpi.teamc.dao.users.EmployeeUserDao;
 import java.sql.SQLException;
 import java.util.List;
 
-//facade pattern
+// facade pattern
 
 public class HospitalSystem {
   // Map DAOs
@@ -17,7 +17,7 @@ public class HospitalSystem {
   private static MoveDao moveDao;
 
   // Service Request DAOs
-  private static ConferenceRoomRequestDAO conferenceRoomRequestDAO ;
+  private static ConferenceRoomRequestDAO conferenceRoomRequestDAO;
   private static FlowerDeliveryRequestDAO flowerDeliveryRequestDAO;
   private static FurnitureDeliveryRequestDAO furnitureDeliveryRequestDAO;
   private static MealRequestDAO mealRequestDAO;
@@ -25,7 +25,8 @@ public class HospitalSystem {
 
   // User DAOs
   private static EmployeeUserDao employeeDao;
-   static List<? extends IOrm> fetchAllObjects(IOrm request) {
+
+  static List<? extends IOrm> fetchAllObjects(IOrm request) {
     if (request instanceof Node) {
       return nodeDao.fetchAllObjects();
     } else if (request instanceof Edge) {
@@ -50,7 +51,7 @@ public class HospitalSystem {
     return null;
   }
 
-    static IOrm addRow(IOrm request) {
+  static IOrm addRow(IOrm request) {
     if (request instanceof Node) {
       return nodeDao.addRow((Node) request);
     } else if (request instanceof Edge) {
@@ -76,7 +77,7 @@ public class HospitalSystem {
     }
   }
 
-    static IOrm deleteRow(IOrm request) {
+  static IOrm deleteRow(IOrm request) {
     if (request instanceof Node) {
       return nodeDao.deleteRow((Node) request);
     } else if (request instanceof Edge) {
@@ -105,7 +106,7 @@ public class HospitalSystem {
     return null;
   }
 
-    static IOrm updateRow(IOrm request) {
+  static IOrm updateRow(IOrm request) {
     if (request instanceof Node) {
       return nodeDao.updateRow((Node) request, (Node) request);
     } else if (request instanceof Edge) {

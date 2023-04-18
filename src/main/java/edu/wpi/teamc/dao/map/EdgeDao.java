@@ -178,5 +178,4 @@ public class EdgeDao implements IDao<Edge, Edge> {
       System.out.println("File already exists.");
     }
   }
-
 }

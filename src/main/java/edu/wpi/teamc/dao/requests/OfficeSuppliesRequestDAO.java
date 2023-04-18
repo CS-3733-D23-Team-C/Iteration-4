@@ -27,10 +27,8 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
         STATUS status = STATUS.valueOf(rs.getString("status"));
         String additionalNotes = rs.getString("additionalnotes");
         String eta = rs.getString("eta");
-        String quantity = rs.getString("quantity");
         OfficeSuppliesRequest request =
-            new OfficeSuppliesRequest(
-                requestID, req, roomName, supplies, additionalNotes, quantity);
+            new OfficeSuppliesRequest(requestID, req, roomName, supplies, additionalNotes);
         request.setStatus(status);
         request.setEta(eta);
         returnList.add(request);
@@ -56,7 +54,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
 
       ps.setString(1, orm.getRequester().toString());
       ps.setString(2, orm.getRoomName());
-      ps.setString(3, orm.getSupplies());
+      ps.setString(3, orm.getOfficesupplytype());
       ps.setString(4, orm.getAdditionalNotes());
       ps.setString(5, orm.getStatus().toString());
       ps.executeUpdate();
@@ -106,10 +104,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
         STATUS status = STATUS.valueOf(rs.getString("status"));
         String additionalNotes = rs.getString("additionalnotes");
         String eta = rs.getString("eta");
-        String quantity = rs.getString("quantity");
-        request =
-            new OfficeSuppliesRequest(
-                requestID, req, roomName, supplies, additionalNotes, quantity);
+        request = new OfficeSuppliesRequest(requestID, req, roomName, supplies, additionalNotes);
         request.setStatus(status);
         request.setEta(eta);
       }
@@ -133,7 +128,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, repl.getRequester().toString());
       ps.setString(2, repl.getRoomName());
-      ps.setString(3, repl.getSupplies());
+      ps.setString(3, repl.getOfficesupplytype());
       ps.setString(4, repl.getAdditionalNotes());
       ps.setString(5, repl.getStatus().toString());
       ps.setString(6, repl.getEta());

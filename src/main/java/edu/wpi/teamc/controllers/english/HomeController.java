@@ -85,21 +85,22 @@ public class HomeController {
   @FXML
   void getAdmin(ActionEvent event) {
     String password = HOME_password.getText();
-    boolean login = false;
     if (wrongNextLogin == false) {
       try {
-        login = currentLogin.checkPassword(password);
+        if (currentLogin.checkPassword(password)) {
+          if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN)) {
+            Navigation.navigate(Screen.ADMIN_HOME);
+          } else {
+            // Show Error Message
+            wrongPass.setVisible(true);
+          }
+        } else {
+          // Show Error Message
+          wrongPass.setVisible(true);
+        }
       } catch (Exception e) {
         wrongPass.setVisible(true);
         e.printStackTrace();
-      }
-    }
-    if (login) {
-      if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN)) {
-        Navigation.navigate(Screen.ADMIN_HOME);
-      } else {
-        // Show Error Message
-        wrongPass.setVisible(true);
       }
     }
   }

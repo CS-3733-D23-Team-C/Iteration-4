@@ -119,6 +119,11 @@ public class MenuController {
   }
 
   @FXML
+  void getMoveTable(ActionEvent event) {
+    Navigation.navigate(Screen.MOVE_TABLE);
+  }
+
+  @FXML
   void getMealHistory(ActionEvent event) {
     Navigation.navigate(Screen.MEAL_HISTORY);
   }

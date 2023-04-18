@@ -28,7 +28,7 @@ public enum Screen {
 
   CONFERENCE("views/english/Conference.fxml"),
   CONFERENCE_HISTORY("views/english/ConferenceHistory.fxml"),
-
+  MOVE_TABLE("views/english/MoveTable.fxml"),
   FLOWER("views/english/FlowerRequest.fxml"),
   FLOWER_HISTORY("views/english/FlowerHistory.fxml"),
   FURNITURE("views/english/FurnitureRequest.fxml"),

@@ -2,6 +2,9 @@ package edu.wpi.teamc.controllers.english;
 
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
+import edu.wpi.teamc.dao.users.Login;
+import edu.wpi.teamc.dao.users.LoginDao;
+import edu.wpi.teamc.dao.users.PERMISSIONS;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -37,12 +40,67 @@ public class HomeController {
   @FXML private Hyperlink HOME_forgot;
   @FXML private Hyperlink HOME_create;
   @FXML private Text HOME_or;
+  @FXML private Text wrongPass;
   @FXML private MFXButton HOME_guest;
   @FXML private MFXButton HOME_exit;
+  @FXML private MFXButton HOME_next;
+  @FXML private MFXButton HOME_back;
+
+  boolean wrongNextLogin = true;
+  Login currentLogin;
+
+  @FXML
+  void getAdminNext(ActionEvent event) {
+    String username = HOME_username.getText();
+    HOME_password.setVisible(true);
+    HOME_login.setVisible(true);
+    HOME_next.setVisible(false);
+    HOME_login.setVisible(true);
+    HOME_username.setEditable(false);
+    HOME_back.setVisible(true);
+
+    LoginDao loginDao = new LoginDao();
+    try {
+      currentLogin = loginDao.fetchObject(username);
+      wrongNextLogin = false; // if the username is correct
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  @FXML
+  void editUsername(ActionEvent event) {
+    HOME_username.setEditable(true);
+    HOME_password.setVisible(false);
+    HOME_back.setVisible(false);
+    HOME_login.setVisible(false);
+    HOME_next.setVisible(true);
+    wrongPass.setVisible(false);
+    HOME_password.setText("");
+  }
 
   @FXML
   void getAdmin(ActionEvent event) {
-    Navigation.navigate(Screen.MENU);
+    String password = HOME_password.getText();
+    boolean login = false;
+    if (wrongNextLogin == false) {
+      try {
+        login = currentLogin.checkPassword(password);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    if (login) {
+      if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN)) {
+        Navigation.navigate(Screen.MENU);
+      } else {
+
+      }
+
+    } else {
+      // Show Error Message
+      wrongPass.setVisible(true);
+    }
   }
 
   @FXML

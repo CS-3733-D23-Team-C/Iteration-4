@@ -115,31 +115,28 @@ public class LoginDao implements IDao<Login, String> {
   }
 
   @Override
-  public Login fetchObject(String key) {
+  public Login fetchObject(String key) throws SQLException {
     DBConnection db = new DBConnection();
     Login login = null;
     key = key.toLowerCase();
-    try {
-      // table names
-      String table = "\"users\".\"login\"";
-      // queries
-      String query = "SELECT * FROM " + table + " WHERE username = ?";
+    // table names
+    String table = "\"users\".\"login\"";
+    // queries
+    String query = "SELECT * FROM " + table + " WHERE username = ?";
 
-      PreparedStatement ps = db.getConnection().prepareStatement(query);
-      ps.setString(1, key);
-      ResultSet rs = ps.executeQuery();
+    PreparedStatement ps = db.getConnection().prepareStatement(query);
+    ps.setString(1, key);
+    ResultSet rs = ps.executeQuery();
 
-      while (rs.next()) {
-        // Get all the data from the table
-        String username = rs.getString("username");
-        String password = rs.getString("password");
-        PERMISSIONS permissions = PERMISSIONS.valueOf(rs.getString("permissions"));
-        String salt = rs.getString("salt");
-        login = new Login(username, password, permissions, salt);
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
+    while (rs.next()) {
+      // Get all the data from the table
+      String username = rs.getString("username");
+      String password = rs.getString("password");
+      PERMISSIONS permissions = PERMISSIONS.valueOf(rs.getString("permissions"));
+      String salt = rs.getString("salt");
+      login = new Login(username, password, permissions, salt);
     }
+
     return login;
   }
 }

@@ -29,7 +29,7 @@
          </children>
       </AnchorPane>
       <VBox layoutX="-3.0" layoutY="-3.0" prefHeight="900.0" prefWidth="393.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <fx:include fx:id="adminMenu" source="components/AdminMenu.fxml" />
+         <fx:include fx:id="adminMenu" source="Menu.fxml" />
       </VBox>
    </children>
 </AnchorPane>

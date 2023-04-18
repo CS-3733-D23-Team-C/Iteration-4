@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.MapDisplay.TableRow;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.map.LocationName;
 import edu.wpi.teamc.dao.users.EmployeeUser;
@@ -14,7 +15,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.IntegerStringConverter;
 import org.controlsfx.control.tableview2.FilteredTableView;
+
+import javax.swing.*;
 
 public class EmployeeTableController {
 
@@ -29,7 +34,7 @@ public class EmployeeTableController {
 
   //    @FXML private Button testButton;
   //    @FXML private TextField inputBox;
-  @FXML private FilteredTableView<EmployeeUser> historyTable;
+  @FXML private FilteredTableView<EmployeeUser> employeeTable;
   //    @FXML
   //    TableView<Move> otherTable;
   @FXML TableColumn<EmployeeUser, Integer> id;
@@ -53,16 +58,28 @@ public class EmployeeTableController {
     department.setCellValueFactory(new PropertyValueFactory<EmployeeUser, String>("department"));
     position.setCellValueFactory(new PropertyValueFactory<EmployeeUser, String>("position"));
 
+//    id.setCellFactory(TextFieldTableCell.<EmployeeUser>forTableColumn());
+//    username.setCellFactory(TextFieldTableCell.<EmployeeUser>forTableColumn());
+//    name.setCellFactory(TextFieldTableCell.<EmployeeUser>forTableColumn());
+//    department.setCellFactory(TextFieldTableCell.<EmployeeUser>forTableColumn());
+//    position.setCellFactory(TextFieldTableCell.<EmployeeUser>forTableColumn());
+
     id.setText("ID");
     username.setText("Username");
     name.setText("Name");
     department.setText("Department");
     position.setText("Position");
 
+    username.setEditable(true);
+    name.setEditable(true);
+    department.setEditable(true);
+    position.setEditable(true);
+
     List<EmployeeUser> list =
         (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
     rows.addAll(list);
-    historyTable.getItems().setAll(rows);
+    employeeTable.getItems().setAll(rows);
+    employeeTable.setEditable(true);
 
     //        List<EmployeeUser> employeeUsers = (List<EmployeeUser>)
     // HospitalSystem.fetchAllObjects(new EmployeeUser());

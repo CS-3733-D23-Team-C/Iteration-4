@@ -15,7 +15,7 @@
                     <children>
                         <AnchorPane style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
                             <children>
-                                <FilteredTableView fx:id="historyTable" layoutX="15.0" layoutY="15.0" prefHeight="602.0" prefWidth="1199.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="15.0">
+                                <FilteredTableView fx:id="employeeTable" layoutX="15.0" layoutY="15.0" prefHeight="602.0" prefWidth="1199.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="15.0">
                                     <columns>
                                         <TableColumn fx:id="id" prefWidth="240" text="" />
                                         <TableColumn fx:id="username" prefWidth="240" text="" />

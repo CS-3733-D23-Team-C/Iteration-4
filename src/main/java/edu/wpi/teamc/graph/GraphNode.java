@@ -10,6 +10,7 @@ import lombok.Getter;
 @Getter
 public class GraphNode extends Node {
   private List<GraphEdge> graphEdges;
+  private String nodeType;
   private double heuristic;
 
   /**
@@ -21,13 +22,22 @@ public class GraphNode extends Node {
    * @param floor - floor of the node ex: L1
    * @param building - building of the node ex: CCONF
    */
-  public GraphNode(int nodeID, int xCoord, int yCoord, String floor, String building) {
+  public GraphNode(int nodeID, int xCoord, int yCoord, String floor, String building, String nodeType) {
     super(nodeID, xCoord, yCoord, floor, building);
     this.graphEdges = new LinkedList<>();
+    this.nodeType = nodeType;
   }
 
   public void setHeuristic(GraphNode targetNode) {
     this.heuristic =
         abs(getXCoord() - targetNode.getXCoord()) + abs(getYCoord() - targetNode.getYCoord());
+
+    if (!this.getFloor().equals(targetNode.getFloor())) {
+        if (nodeType.equals("ELEV")) {
+
+        } else if (nodeType.equals("STAI")) {
+
+        }
+    }
   }
 }

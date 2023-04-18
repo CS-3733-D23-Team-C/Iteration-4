@@ -1,10 +1,8 @@
 package edu.wpi.teamc.graph;
 
 import edu.wpi.teamc.dao.IDao;
-import edu.wpi.teamc.dao.map.Edge;
-import edu.wpi.teamc.dao.map.EdgeDao;
-import edu.wpi.teamc.dao.map.Node;
-import edu.wpi.teamc.dao.map.NodeDao;
+import edu.wpi.teamc.dao.map.*;
+
 import java.sql.*;
 import java.util.*;
 
@@ -14,6 +12,9 @@ public class Graph {
   protected Set<GraphNode> unsettled = new HashSet<>();
   protected Map<GraphNode, GraphNode> nodeBefore = new HashMap<>();
   protected Map<GraphNode, Double> distance = new HashMap<>();
+  protected Map<GraphNode, String> nodeType = new HashMap<>();
+  protected Map<Integer, String> nodeIDtoLongName = new HashMap<>();
+  protected Map<String, String> longNameToNodeType = new HashMap<>();
   protected PriorityQueue<GraphNode> pq;
   protected final double DIST_DEFAULT = Double.POSITIVE_INFINITY;
   private IAlgorithm algo;
@@ -34,24 +35,44 @@ public class Graph {
   public void syncWithDB() {
     IDao<Node, Integer> nodeDao = new NodeDao();
     IDao<Edge, Edge> edgeDao = new EdgeDao();
+    IDao<Move, Move> moveDao = new MoveDao();
+    IDao<LocationName, String> locDao = new LocationNameDao();
+
     List<Node> nodes = new LinkedList<>();
     List<Edge> edges = new LinkedList<>();
+    List<Move> moves = new LinkedList<>();
+    List<LocationName> locs = new LinkedList<>();
     try {
       nodes = nodeDao.fetchAllObjects();
       edges = edgeDao.fetchAllObjects();
+      moves = moveDao.fetchAllObjects();
+      locs = locDao.fetchAllObjects();
     } catch (Exception e) {
       // error
     }
 
-    for (Node node : nodes) {
-      addNode(
-          new GraphNode(
-              node.getNodeID(),
-              node.getXCoord(),
-              node.getYCoord(),
-              node.getFloor(),
-              node.getBuilding()));
+    for (Move move : moves) {
+      nodeIDtoLongName.put(move.getNodeID(), move.getLongName());
     }
+
+    for (LocationName loc : locs) {
+      longNameToNodeType.put(loc.getLongName(), loc.getNodeType());
+    }
+
+    for (Node node : nodes) {
+      String longName = nodeIDtoLongName.get(node.getNodeID());
+      String nodeType = longNameToNodeType.get(longName);
+
+      addNode(
+              new GraphNode(
+                      node.getNodeID(),
+                      node.getXCoord(),
+                      node.getYCoord(),
+                      node.getFloor(),
+                      node.getBuilding(),
+                      nodeType));
+    }
+
     for (Edge edge : edges) {
       GraphNode src = this.nodes.get(edge.getStartNode());
       GraphNode dest = this.nodes.get(edge.getEndNode());

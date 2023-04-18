@@ -257,7 +257,7 @@ public class EditMapController {
             // also if modify pop up asks if you want to modify node or name
             else if (Objects.equals(mapMode.getMapMode(), "Move")) {
               lockMap = true;
-              //moveMenu();
+              // moveMenu();
             }
           }
         });

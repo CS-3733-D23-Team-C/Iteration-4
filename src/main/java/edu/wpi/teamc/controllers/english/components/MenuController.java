@@ -150,6 +150,10 @@ public class MenuController {
     Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
   }
 
+  public void getEmployeeTablePage(ActionEvent actionEvent) {
+    Navigation.navigate(Screen.EMPLOYEETABLE_PAGE);
+  }
+
   //    @FXML
   //    void getGiftBasketHistory(ActionEvent event) {
   //        Navigation.navigate(Screen.GIFTBASKET_HISTORY);
@@ -214,17 +218,17 @@ public class MenuController {
         event -> {
           Navigation.navigate(Screen.ADMIN_HOME);
         });
-    settingsTrigger.addEventFilter(
-        MouseEvent.MOUSE_CLICKED,
-        event -> {
-          settingsPaneTransition.setDuration(Duration.millis(350));
-          settingsPaneTransition.setNode(settingsPane);
-          settingsPaneTransition.setToY(768);
-          settingsPaneTransition.play();
-          settingsPane.setVisible(true);
-          settingsTrigger.setVisible(true);
-          settingsButton.setVisible(false);
-        });
+    //    settingsTrigger.addEventFilter(
+    //        MouseEvent.MOUSE_CLICKED,
+    //        event -> {
+    //          settingsPaneTransition.setDuration(Duration.millis(350));
+    //          settingsPaneTransition.setNode(settingsPane);
+    //          settingsPaneTransition.setToY(768);
+    //          settingsPaneTransition.play();
+    //          settingsPane.setVisible(true);
+    //          settingsTrigger.setVisible(true);
+    //          settingsButton.setVisible(false);
+    //        });
 
     settingsClose.addEventFilter(
         MouseEvent.MOUSE_CLICKED,

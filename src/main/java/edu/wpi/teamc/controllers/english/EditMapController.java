@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.english;
 
+
 import edu.wpi.teamc.controllers.english.MapHelpers.*;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.navigation.Navigation;
@@ -820,7 +821,6 @@ public class EditMapController {
     floorResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
     floorResetterHelper.getButton().setRippleAnimateBackground(true);
     floorResetterHelper.getButton().setButtonType(ButtonType.RAISED);
-
     floorResetterHelper.setButton(button);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;

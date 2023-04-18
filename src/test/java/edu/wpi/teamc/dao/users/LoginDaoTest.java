@@ -11,14 +11,14 @@ public class LoginDaoTest {
 
   @Test
   public void testAddUser1() {
-    Login login = new Login("Aaron", "password", ADMIN);
+    Login login = new Login("jeff", "jeff", STAFF);
     Assertions.assertEquals(login, HospitalSystem.addRow(login));
   }
 
   @Test
   public void testAddUser2() {
     LoginDao loginDao = new LoginDao();
-    Login login = new Login("Randy", "password", ADMIN);
+    Login login = new Login("mark", "mark", STAFF);
     Assertions.assertEquals(login, HospitalSystem.addRow(login));
   }
 

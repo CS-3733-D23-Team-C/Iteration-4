@@ -219,7 +219,6 @@ public class MenuController {
           Navigation.navigate(Screen.EXIT_PAGE);
         });
 
-
     homeButton
         .hoverProperty()
         .addListener(

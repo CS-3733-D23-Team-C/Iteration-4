@@ -73,12 +73,12 @@
                                     <Insets bottom="10.0" left="10.0" top="10.0" />
                                  </padding>
                               </TextField>
-                              <MenuButton fx:id="mealMenu" layoutX="23.0" layoutY="50.0" prefHeight="40.0" prefWidth="483.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" text="Select Meal:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
+                              <MenuButton fx:id="serviceMenu" layoutX="23.0" layoutY="50.0" prefHeight="40.0" prefWidth="483.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" text="Select Meal:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
                                  <items>
-                                    <MenuItem fx:id="mealchoice1" mnemonicParsing="false" onAction="#getMealChoice1" text="Spaghetti" />
-                                    <MenuItem fx:id="mealchoice2" mnemonicParsing="false" onAction="#getMealChoice2" text="Garlic Steak" />
-                                    <MenuItem fx:id="mealchoice3" mnemonicParsing="false" onAction="#getMealChoice3" text="Grill Chicken" />
-                                    <MenuItem fx:id="mealchoice4" mnemonicParsing="false" onAction="#getMealChoice4" text="Fried Rice" />
+                                    <MenuItem fx:id="servicechoice1" mnemonicParsing="false" onAction="#getServicechoice1" text="Spaghetti" />
+                                    <MenuItem fx:id="servicechoice2" mnemonicParsing="false" onAction="#getServicechoice2" text="Garlic Steak" />
+                                    <MenuItem fx:id="servicechoice3" mnemonicParsing="false" onAction="#getServicechoice3" text="Grill Chicken" />
+                                    <MenuItem fx:id="servicechoice4" mnemonicParsing="false" onAction="#getServicechoice4" text="Fried Rice" />
                                  </items>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />

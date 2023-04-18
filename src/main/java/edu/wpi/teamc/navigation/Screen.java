@@ -1,6 +1,5 @@
 package edu.wpi.teamc.navigation;
 
-
 public enum Screen {
   // -------NON USING PAGES-------//
   ROOT("views/english/Root.fxml"),

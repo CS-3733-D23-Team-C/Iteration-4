@@ -210,6 +210,7 @@
                                     <Insets top="15.0" />
                                  </padding>
                               </VBox>
+                              <Text fx:id="edgeMadeText" layoutX="191.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 30; -fx-font-family: arial;" wrappingWidth="202.5367431640625" />
                            </children>
                         </AnchorPane>
                           </children>

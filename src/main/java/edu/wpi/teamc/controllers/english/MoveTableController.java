@@ -9,7 +9,6 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.sql.Date;
-import java.util.Collections;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,7 +46,7 @@ public class MoveTableController {
 
   /** Method run when controller is initialized */
   public void initialize() {
-    ColumnOne.setCellValueFactory(new PropertyValueFactory<Move, Integer>("id"));
+    ColumnOne.setCellValueFactory(new PropertyValueFactory<Move, Integer>("nodeID"));
     ColumnTwo.setCellValueFactory(new PropertyValueFactory<Move, String>("longName"));
     ColumnThree.setCellValueFactory(new PropertyValueFactory<Move, Date>("date"));
     ColumnOne.setText("Node ID");
@@ -58,7 +57,7 @@ public class MoveTableController {
     //    //    ColumnTwo.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     //    //    ColumnThree.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
 
-    ObservableList<Move> list = (ObservableList<Move>) HospitalSystem.fetchAllObjects(new Move(-1, "", null));
+    List<Move> list = (List<Move>) HospitalSystem.fetchAllObjects(new Move());
     rows.addAll(list);
     historyTable.getItems().setAll(rows);
 
@@ -75,15 +74,15 @@ public class MoveTableController {
     Navigation.navigate(Screen.HOME);
   }
 
-    public void getAdd(ActionEvent event) {
-        Move move = new Move();
-        move.setNodeID(nodeID.getValue().getNodeID());
-        move.setLongName(locationName.getValue().getLongName());
-        move.setDate(Date.valueOf(date.getValue()));
-        HospitalSystem.addRow(move);
-        rows.add(move);
-        historyTable.getItems().setAll(rows);
-    }
+  public void getAdd(ActionEvent event) {
+    Move move = new Move();
+    move.setNodeID(nodeID.getValue().getNodeID());
+    move.setLongName(locationName.getValue().getLongName());
+    move.setDate(Date.valueOf(date.getValue()));
+    HospitalSystem.addRow(move);
+    rows.add(move);
+    historyTable.getItems().setAll(rows);
+  }
 
   public void getDelete(ActionEvent event) {
     Move move = historyTable.getSelectionModel().getSelectedItem();

@@ -30,15 +30,17 @@ public class OfficeSupplyController {
 
   @FXML private MenuItem choice8;
   // Supply Choice
-  @FXML private MenuItem supplychoice1;
-  @FXML private MenuItem supplychoice2;
-  @FXML private MenuItem supplychoice3;
-  @FXML private MenuItem supplychoice4;
+  @FXML private MenuItem servicechoice1;
+  @FXML private MenuItem servicechoice2;
+  @FXML private MenuItem servicechoice3;
+  @FXML private MenuItem servicechoice4;
   @FXML private MenuButton roomMenu;
-  @FXML private MenuButton supplyMenu;
+  @FXML private MenuButton serviceMenu;
   @FXML private TextField nameBox;
   @FXML private TextArea specialRequest;
   @FXML private MenuButton employeeName;
+
+  //special for Office Supply
   @FXML private TextField supplyAmount;
 
   public void getGoHome() {
@@ -87,23 +89,23 @@ public class OfficeSupplyController {
   }
 
   @FXML
-  void getSupplyChoice1() {
-    supplyMenu.setText("Pen");
+  void getServicechoice1() {
+    serviceMenu.setText(servicechoice1.getText());
   }
 
   @FXML
-  void getSupplyChoice2() {
-    supplyMenu.setText("Pencil");
+  void getServicechoice2() {
+    serviceMenu.setText(servicechoice2.getText());
   }
 
   @FXML
-  void getSupplyChoice3() {
-    supplyMenu.setText("Paper");
+  void getServicechoice3() {
+    serviceMenu.setText(servicechoice3.getText());
   }
 
   @FXML
-  void getSupplyChoice4() {
-    supplyMenu.setText("Staples");
+  void getServicechoice4() {
+    serviceMenu.setText(servicechoice4.getText());
   }
 
   @FXML
@@ -111,7 +113,7 @@ public class OfficeSupplyController {
     String notes = specialRequest.getText();
     String name = nameBox.getText();
     String room = roomMenu.getText();
-    String menuSelection = supplyMenu.getText();
+    String menuSelection = serviceMenu.getText();
     String quantity = supplyAmount.getText();
     OfficeSuppliesRequest req =
         new OfficeSuppliesRequest(0, new Requester(0, name), room, menuSelection, notes, quantity);

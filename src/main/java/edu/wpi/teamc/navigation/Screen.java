@@ -9,6 +9,7 @@ public enum Screen {
 
   // -------MAP & SIGNAGE-------//
   SIGNAGE("views/english/ElevatorSignage.fxml"),
+  GUEST_SIGNAGE("views/english/Guest/GuestElevatorSignage.fxml"),
   MAP_HISTORY_PAGE("views/english/MapHistory.fxml"),
   PATHFINDING_PAGE("views/english/PathFinding.fxml"),
   GUEST_PATHFINDING_PAGE("views/english/Guest/GuestPathFinding.fxml"),

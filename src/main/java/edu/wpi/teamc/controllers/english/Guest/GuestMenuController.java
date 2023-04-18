@@ -51,7 +51,7 @@ public class GuestMenuController {
 
   @FXML
   void getSignagePage(ActionEvent event) {
-    Navigation.navigate(Screen.SIGNAGE);
+    Navigation.navigate(Screen.GUEST_SIGNAGE);
   }
 
   @FXML

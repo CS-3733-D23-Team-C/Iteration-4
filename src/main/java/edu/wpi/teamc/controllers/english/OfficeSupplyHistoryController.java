@@ -48,7 +48,7 @@ public class OfficeSupplyHistoryController {
     ColumnThree.setCellValueFactory(
         new PropertyValueFactory<OfficeSuppliesRequest, String>("roomName"));
     ColumnFour.setCellValueFactory(
-        new PropertyValueFactory<OfficeSuppliesRequest, String>("supplies"));
+        new PropertyValueFactory<OfficeSuppliesRequest, String>("officesupplytype"));
     ColumnFive.setCellValueFactory(
         new PropertyValueFactory<OfficeSuppliesRequest, String>("additionalNotes"));
     ColumnSix.setCellValueFactory(

@@ -150,7 +150,7 @@ public class EditMapController {
   List<Edge> edgeList = new ArrayList<Edge>();
   List<LocationName> locationNameList = new ArrayList<LocationName>();
   // hash maps
-  HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
+  HashMap<Integer, Move> nodeIDtoMove = new HashMap<>();
   HashMap<String, LocationName> longNametoLocationName = new HashMap<String, LocationName>();
   HashMap<Integer, Node> nodeIDToNode = new HashMap<Integer, Node>();
   //  HashMap<Integer,String> nodeIDToFloor = new HashMap<Integer, String>();
@@ -381,6 +381,7 @@ public class EditMapController {
     edgeList = new EdgeDao().fetchAllObjects();
     locationNameList = new LocationNameDao().fetchAllObjects();
     moveList = new MoveDao().fetchAllObjects();
+    java.sql.Date currentDate = new Date(System.currentTimeMillis());
 
     for (Move move : moveList) {
       try {
@@ -388,7 +389,16 @@ public class EditMapController {
       } catch (NullPointerException e) {
         move.setLongName("ERROR");
       }
-      nodeIDtoMove.put(move.getNodeID(), move);
+      if (nodeIDtoMove.get(move.getNodeID()) == null) {
+        nodeIDtoMove.put(move.getNodeID(), move);
+      } else {
+        Move inHashMap = nodeIDtoMove.get(move.getNodeID());
+        if (currentDate.compareTo(move.getDate()) >= 0) {
+          if (move.getDate().compareTo(inHashMap.getDate()) >= 0) {
+            nodeIDtoMove.put(move.getNodeID(), move);
+          }
+        }
+      }
     }
     for (LocationName locationName : locationNameList) {
       longNametoLocationName.put(locationName.getLongName(), locationName);

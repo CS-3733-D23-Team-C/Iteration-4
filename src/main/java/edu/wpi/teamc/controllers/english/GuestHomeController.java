@@ -4,9 +4,12 @@ import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.web.HTMLEditor;
+import javax.swing.text.html.ImageView;
 
 public class GuestHomeController {
 
+  @FXML private HTMLEditor weather;
   @FXML
   public void getLogout(ActionEvent actionEvent) {
     Navigation.navigate(Screen.HOME);

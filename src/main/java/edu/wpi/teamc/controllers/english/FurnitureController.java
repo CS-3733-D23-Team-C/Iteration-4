@@ -62,7 +62,7 @@ public class FurnitureController {
     FurnitureDeliveryRequest req =
         new FurnitureDeliveryRequest(0, new Requester(0, name), room, notes, menuSelection);
 
-    IDao<FurnitureDeliveryRequest> dao = new FurnitureDeliveryRequestDAO();
+    IDao<FurnitureDeliveryRequest, Integer> dao = new FurnitureDeliveryRequestDAO();
     dao.addRow(req);
     Navigation.navigate(Screen.CONGRATS_PAGE);
   }

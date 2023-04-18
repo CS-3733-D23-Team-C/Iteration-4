@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ConferenceRoomDAO implements IDao<ConferenceRoom> {
+public class ConferenceRoomDAO implements IDao<ConferenceRoom, String> {
 
   DBConnection db = new DBConnection();
 
@@ -47,6 +47,11 @@ public class ConferenceRoomDAO implements IDao<ConferenceRoom> {
       db.closeConnection();
       return null;
     }
+  }
+
+  @Override
+  public ConferenceRoom fetchObject(String key) throws SQLException {
+    return null;
   }
 
   @Override

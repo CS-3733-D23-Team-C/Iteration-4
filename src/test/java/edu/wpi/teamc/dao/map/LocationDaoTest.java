@@ -9,7 +9,7 @@ public class LocationDaoTest {
 
   @Test
   public void fetchAllObjects() {
-    LocationDao locDao = new LocationDao();
+    LocationNameDao locDao = new LocationNameDao();
     List<LocationName> locations = locDao.fetchAllObjects();
 
     Assertions.assertNotNull(locations);
@@ -17,7 +17,7 @@ public class LocationDaoTest {
 
   @Test
   public void updateRow() {
-    LocationDao locDao = new LocationDao();
+    LocationNameDao locDao = new LocationNameDao();
     LocationName locName =
         new LocationName("15 Francis Security Desk Floor 2", "Information Desk", "INFO");
     LocationName repl = new LocationName("15 Francis Desk", "Information Desk", "INFO");
@@ -27,7 +27,7 @@ public class LocationDaoTest {
 
   @Test
   public void addRow() {
-    LocationDao locDao = new LocationDao();
+    LocationNameDao locDao = new LocationNameDao();
     LocationName locName = new LocationName("15 Francis Info Center", "Information Center", "INFO");
 
     Assertions.assertEquals(locName, locDao.addRow(locName));
@@ -35,7 +35,7 @@ public class LocationDaoTest {
 
   @Test
   public void deleteRow() {
-    LocationDao locDao = new LocationDao();
+    LocationNameDao locDao = new LocationNameDao();
     LocationName locName = new LocationName("15 Francis Desk", "Information Desk", "INFO");
 
     Assertions.assertEquals(locName, locDao.deleteRow(locName));
@@ -43,7 +43,7 @@ public class LocationDaoTest {
 
   @Test
   public void importCSV() {
-    LocationDao locationDao = new LocationDao();
+    LocationNameDao locationDao = new LocationNameDao();
     Assertions.assertEquals(
         true,
         locationDao.importCSV(
@@ -52,7 +52,7 @@ public class LocationDaoTest {
 
   @Test
   public void exportCSV() throws IOException {
-    LocationDao locationDao = new LocationDao();
+    LocationNameDao locationDao = new LocationNameDao();
     Assertions.assertEquals(
         true,
         locationDao.exportCSV(

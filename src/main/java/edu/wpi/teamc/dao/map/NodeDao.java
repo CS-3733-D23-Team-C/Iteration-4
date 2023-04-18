@@ -1,19 +1,18 @@
 package edu.wpi.teamc.dao.map;
 
-import static java.nio.file.Files.createFile;
-
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NodeDao implements IDao<Node> {
+public class NodeDao implements IDao<Node, Integer> {
   public List<Node> fetchAllObjects() {
     List<Node> databaseNodeList = new ArrayList<>();
     DBConnection db = new DBConnection();
@@ -153,6 +152,37 @@ public class NodeDao implements IDao<Node> {
     return orm;
   }
 
+  @Override
+  public Node fetchObject(Integer key) throws SQLException {
+    Node node = null;
+    DBConnection db = new DBConnection();
+
+    try {
+      Statement stmtNode = db.getConnection().createStatement();
+      // table names
+      String NODE = "\"hospitalNode\".node";
+      // queries
+      String queryDisplayNodes = "SELECT * FROM " + NODE + " WHERE \"nodeID\" = " + key;
+
+      ResultSet rsNodes = stmtNode.executeQuery(queryDisplayNodes);
+
+      while (rsNodes.next()) {
+        int nodeID = rsNodes.getInt("nodeID");
+        int xCoord = rsNodes.getInt("xcoord");
+        int yCoord = rsNodes.getInt("ycoord");
+        String floor = rsNodes.getString("floorNum");
+        String building = rsNodes.getString("building");
+
+        node = new Node(nodeID, xCoord, yCoord, floor, building);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    db.closeConnection();
+    return node;
+  }
+
   public int deleteRow(int nodeID) {
     DBConnection dbConnection = new DBConnection();
     try {
@@ -254,39 +284,5 @@ public class NodeDao implements IDao<Node> {
     } else {
       System.out.println("File already exists.");
     }
-  }
-
-  public static String getShortName(int nodeID) {
-    Node node = null;
-    List<Node> nodeList = new NodeDao().fetchAllObjects();
-    List<LocationName> nameList = new LocationDao().fetchAllObjects();
-    List<Move> moveList = new MoveDao().fetchAllObjects();
-    // get the node
-    for (Node NODE : nodeList) {
-      if (NODE.getNodeID() == nodeID) {
-        node = NODE;
-        break;
-      }
-    }
-    // find the newest date associated with node
-    Move newestMove = moveList.get(0);
-    for (Move move : moveList) {
-      if (move.getNodeID() == node.getNodeID()) {
-        if (move.getDate().compareTo(newestMove.getDate()) >= 0) {
-          newestMove = move;
-          break;
-        }
-      }
-    }
-    // find the name associated with the newest date
-    String shortName = "";
-    for (LocationName name : nameList) {
-      if (name.getNodeType().equals("HALL")) {
-      } else if (name.getLongName().equals(newestMove.getLongName())) {
-        shortName = name.getShortName();
-        break;
-      }
-    }
-    return shortName;
   }
 }

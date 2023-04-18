@@ -197,6 +197,7 @@ public class MealController {
     MealRequest req = new MealRequest(0, new Requester(0, name), room, notes, meal);
 
     IDao<MealRequest> dao = new MealRequestDAO();
+
     dao.addRow(req);
 
     Navigation.navigate(Screen.CONGRATS_PAGE);

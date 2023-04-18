@@ -16,7 +16,7 @@ public class LoginController {
 
   @FXML
   void getAdminPage(ActionEvent event) {
-    Navigation.navigate(Screen.HOME);
+    Navigation.navigate(Screen.MENU);
   }
 
   @FXML

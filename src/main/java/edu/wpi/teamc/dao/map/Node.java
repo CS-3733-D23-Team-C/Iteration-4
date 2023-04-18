@@ -1,11 +1,12 @@
 package edu.wpi.teamc.dao.map;
 
+import edu.wpi.teamc.dao.IOrm;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Node {
+public class Node implements IOrm {
   private int nodeID;
   private int xCoord;
   private int yCoord;

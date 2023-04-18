@@ -115,7 +115,7 @@ public class EditMapController {
 
   NodeDao InodeDao = new NodeDao();
   EdgeDao IedgeDao = new EdgeDao();
-  LocationDao IlocationDao = new LocationDao();
+  LocationNameDao IlocationDao = new LocationNameDao();
   MoveDao ImoveDao = new MoveDao();
 
   @FXML private Button goHome;
@@ -379,7 +379,7 @@ public class EditMapController {
   public void loadDatabase() {
     nodeList = new NodeDao().fetchAllObjects();
     edgeList = new EdgeDao().fetchAllObjects();
-    locationNameList = new LocationDao().fetchAllObjects();
+    locationNameList = new LocationNameDao().fetchAllObjects();
     moveList = new MoveDao().fetchAllObjects();
 
     for (Move move : moveList) {
@@ -1157,7 +1157,7 @@ public class EditMapController {
     removeName.setOnMouseClicked(
         event -> {
           MoveDao moveDao = new MoveDao();
-          LocationDao locationDao = new LocationDao();
+          LocationNameDao locationDao = new LocationNameDao();
           long currentTime = System.currentTimeMillis();
           Date currentDate = new Date(currentTime);
           Move move = new Move(currNodeClicked.getNodeID(), currNodeLongname, currentDate);
@@ -1284,7 +1284,7 @@ public class EditMapController {
 
     addName.setOnMouseClicked(
         event -> {
-          LocationDao locationDao = new LocationDao();
+          LocationNameDao locationNameDao = new LocationNameDao();
           MoveDao moveDao = new MoveDao();
           LocationName locationName =
               new LocationName(lNameInput.getText(), sNameInput.getText(), nodeTypeInput.getText());
@@ -1292,7 +1292,7 @@ public class EditMapController {
           long currentTime = System.currentTimeMillis();
           Date currentDate = new Date(currentTime);
           Move move = new Move(currNodeClicked.getNodeID(), lNameInput.getText(), currentDate);
-          locationDao.addRow(locationName);
+          locationNameDao.addRow(locationName);
           moveDao.addRow(move);
 
           group.getChildren().removeAll(mapNodes, mapText);
@@ -1350,7 +1350,7 @@ public class EditMapController {
 
     modifyName.setOnMouseClicked(
         event -> {
-          LocationDao locationDao = new LocationDao();
+          LocationNameDao locationNameDao = new LocationNameDao();
 
           // If nodeType entered is not equal to 4 characters, assign the nodeType as HALL
           String nodeType_t = nodeTypeInput.getText();
@@ -1361,7 +1361,7 @@ public class EditMapController {
           // Add to LocationName and Move Tables
           LocationName locationName =
               new LocationName(lNameInput.getText(), sNameInput.getText(), nodeType_t);
-          locationDao.updateRow(currNodeLongname, locationName);
+          locationNameDao.updateRow(currNodeLongname, locationName);
 
           group.getChildren().removeAll(mapNodes, mapText);
           mapNodes = new Group();
@@ -2011,7 +2011,7 @@ public class EditMapController {
 
     submitNodeEdits.setOnMouseClicked(
         buttonEvent -> {
-          LocationDao locationDao = new LocationDao();
+          LocationNameDao locationNameDao = new LocationNameDao();
           MoveDao moveDao = new MoveDao();
 
           // Add
@@ -2019,14 +2019,14 @@ public class EditMapController {
 
             LocationName currName = newNameToAdd.get(i);
             Move currMove = moveNamesToAdd.get(i);
-            locationDao.addRow(currName);
+            locationNameDao.addRow(currName);
             moveDao.addRow(currMove);
           }
           // Modify
           for (int i = 0; i < oldNameToModify.size(); i++) {
             String currOldName = oldNameToModify.get(i);
             LocationName currNewName = newNameToModify.get(i);
-            locationDao.updateRow(currOldName, currNewName);
+            locationNameDao.updateRow(currOldName, currNewName);
 
             ///// METHOD TO REPLACE NAME OF NODE AND INPUT TO TABLE
           }
@@ -2039,7 +2039,7 @@ public class EditMapController {
             String iD = idList_r.get(i);
             Move move = new Move(Integer.valueOf(iD), currName, currentDate);
             moveDao.deleteRow(move);
-            locationDao.deleteRow(currName);
+            locationNameDao.deleteRow(currName);
             //// METHOD TO FIND NODE IN DAO AND REMOVE IT BASED ON ID
             //                nodeDao.deleteRow(currID); ////NEED TO MAKE WORK WITH NODE ID ONLY AS
             // SUPPLIED

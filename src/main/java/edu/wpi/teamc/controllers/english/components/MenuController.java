@@ -217,7 +217,6 @@ public class MenuController {
     settingsTrigger.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
-
           settingsPaneTransition.setDuration(Duration.millis(350));
           settingsPaneTransition.setNode(settingsPane);
           settingsPaneTransition.setToY(768);

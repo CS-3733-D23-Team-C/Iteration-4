@@ -23,8 +23,6 @@
                               <TableColumn fx:id="ColumnOne" prefWidth="240" text="" />
                               <TableColumn fx:id="ColumnTwo" prefWidth="240" text="" />
                               <TableColumn fx:id="ColumnThree" prefWidth="240" text="" />
-                              <TableColumn fx:id="ColumnFour" prefWidth="240" text="" />
-                              <TableColumn fx:id="ColumnFive" prefWidth="240" text="" />
                            </columns>
                         </FilteredTableView>
                         <MFXFilterComboBox fx:id="locationName" layoutX="1057.0" layoutY="82.0" style="-fx-background-color: white;" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="130.0" />

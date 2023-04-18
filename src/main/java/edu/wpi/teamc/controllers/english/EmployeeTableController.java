@@ -48,7 +48,7 @@ public class EmployeeTableController {
   /** Method run when controller is initialized */
   public void initialize() {
     id.setCellValueFactory(new PropertyValueFactory<EmployeeUser, Integer>("id"));
-    username.setCellValueFactory(new PropertyValueFactory<EmployeeUser, String>("username"));
+    username.setCellValueFactory(new PropertyValueFactory<EmployeeUser, String>("userName"));
     name.setCellValueFactory(new PropertyValueFactory<EmployeeUser, String>("name"));
     department.setCellValueFactory(new PropertyValueFactory<EmployeeUser, String>("department"));
     position.setCellValueFactory(new PropertyValueFactory<EmployeeUser, String>("position"));

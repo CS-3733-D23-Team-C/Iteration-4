@@ -17,7 +17,7 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
     try {
       Statement stmt = db.getConnection().createStatement();
       // Table Name
-      String table = "\"users\".\"employee\"";
+      String table = "users.employee";
       // Query
       String query = "SELECT * FROM " + table;
 

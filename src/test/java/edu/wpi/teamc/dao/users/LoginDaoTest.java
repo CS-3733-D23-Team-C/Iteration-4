@@ -1,10 +1,10 @@
 package edu.wpi.teamc.dao.users;
 
+import static edu.wpi.teamc.dao.users.PERMISSIONS.ADMIN;
+
 import edu.wpi.teamc.dao.HospitalSystem;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import static edu.wpi.teamc.dao.users.PERMISSIONS.ADMIN;
 
 public class LoginDaoTest {
 

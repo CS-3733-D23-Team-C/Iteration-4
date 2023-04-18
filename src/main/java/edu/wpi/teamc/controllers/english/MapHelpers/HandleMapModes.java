@@ -6,7 +6,8 @@ public enum HandleMapModes {
   MODIFY("Modify"),
   MODIFY_DRAG("Modify_drag"),
   REMOVE("Remove"),
-  MOVE("Move");
+  MOVE("Move"),
+  MAKE_EDGES("Make_edges");
 
   private final String mode;
 

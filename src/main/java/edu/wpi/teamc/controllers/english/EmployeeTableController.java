@@ -1,6 +1,5 @@
 package edu.wpi.teamc.controllers.english;
 
-import edu.wpi.teamc.MapDisplay.TableRow;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.map.LocationName;
 import edu.wpi.teamc.dao.users.EmployeeUser;
@@ -15,11 +14,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.util.converter.IntegerStringConverter;
-import org.controlsfx.control.tableview2.FilteredTableView;
-
 import javax.swing.*;
+import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class EmployeeTableController {
 
@@ -58,11 +54,17 @@ public class EmployeeTableController {
     department.setCellValueFactory(new PropertyValueFactory<EmployeeUser, String>("department"));
     position.setCellValueFactory(new PropertyValueFactory<EmployeeUser, String>("position"));
 
-//    id.setCellFactory(TextFieldTableCell.<EmployeeUser>forTableColumn());
-//    username.setCellFactory(TextFieldTableCell.<EmployeeUser>forTableColumn());
-//    name.setCellFactory(TextFieldTableCell.<EmployeeUser>forTableColumn());
-//    department.setCellFactory(TextFieldTableCell.<EmployeeUser>forTableColumn());
-//    position.setCellFactory(TextFieldTableCell.<EmployeeUser>forTableColumn());
+    //    id.setCellValueFactory(new PropertyValueFactory<TableRow, Integer>("id"));
+    //    username.setCellValueFactory(new PropertyValueFactory<TableRow, String>("userName"));
+    //    name.setCellValueFactory(new PropertyValueFactory<TableRow, String>("name"));
+    //    department.setCellValueFactory(new PropertyValueFactory<TableRow, String>("department"));
+    //    position.setCellValueFactory(new PropertyValueFactory<TableRow, String>("position"));
+
+    //    id.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    //    username.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    //    name.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    //    department.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
+    //    position.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
 
     id.setText("ID");
     username.setText("Username");

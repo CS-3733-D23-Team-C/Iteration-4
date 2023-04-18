@@ -1,9 +1,7 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.Main;
-import edu.wpi.teamc.controllers.english.MapHelpers.HandleMapModes;
-import edu.wpi.teamc.controllers.english.MapHelpers.MakeEdgesHelper;
-import edu.wpi.teamc.controllers.english.MapHelpers.MapModeSaver;
+import edu.wpi.teamc.controllers.english.MapHelpers.*;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
@@ -46,6 +44,11 @@ import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class EditMapController {
   public Group group;
+  public MFXButton Add;
+  public MFXButton Modify;
+  public MFXButton Remove;
+  public MFXButton Move;
+  public MFXButton Edges;
   double mouseX;
   double mouseY;
   public Image image =
@@ -94,6 +97,7 @@ public class EditMapController {
   @FXML MFXButton FL3;
   @FXML MFXButton FLB1;
   @FXML MFXButton FLB2;
+  @FXML MFXButton selectButton;
   @FXML MFXButton floorButton;
   @FXML MFXButton modeButton;
   @FXML VBox importMenu;
@@ -146,6 +150,9 @@ public class EditMapController {
   String removeName = "";
   List<Move> moveNamesToRemove = new ArrayList<Move>();
   List<Node> listNodeToRemove = new ArrayList<Node>();
+  NodeResetterHelper nodeResetterHelper = new NodeResetterHelper();
+  ModeResetterHelper modeResetterHelper = new ModeResetterHelper();
+  FloorResetterHelper floorResetterHelper = new FloorResetterHelper();
 
   // ORM lists
   List<Node> nodeList = new ArrayList<Node>();
@@ -225,6 +232,10 @@ public class EditMapController {
     mapMode = HandleMapModes.SELECT;
     checkAndX_HBox.setMouseTransparent(true);
     checkAndX_HBox1.setMouseTransparent(true);
+    selectButton.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    modeResetterHelper.setButton(selectButton);
+    FL1.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    floorResetterHelper.setButton(FL1);
     //    group.getChildren().add(stackPane);
 
     group.setOnMouseClicked(
@@ -465,18 +476,24 @@ public class EditMapController {
       modeButton = (MFXButton) event.getTarget();
       if (Objects.equals(modeButton.getId(), "Select")) {
         mapMode = HandleMapModes.SELECT;
+        resetAndSetModes(modeButton);
       } else if (Objects.equals(modeButton.getId(), "Add")) {
         mapMode = HandleMapModes.ADD;
+        resetAndSetModes(modeButton);
       } else if (Objects.equals(modeButton.getId(), "Modify")) {
         mapMode = HandleMapModes.MODIFY;
+        resetAndSetModes(modeButton);
       } else if (Objects.equals(modeButton.getId(), "Remove")) {
         mapMode = HandleMapModes.REMOVE;
+        resetAndSetModes(modeButton);
         System.out.println("Removing");
       } else if (Objects.equals(modeButton.getId(), "Move")) {
         mapMode = HandleMapModes.MOVE;
+        resetAndSetModes(modeButton);
         System.out.println("Moving");
       } else if (Objects.equals(modeButton.getId(), "Edges")) {
         mapMode = HandleMapModes.MAKE_EDGES;
+        resetAndSetModes(modeButton);
         System.out.println("Making Edges");
       }
     }
@@ -488,18 +505,23 @@ public class EditMapController {
     if (Objects.equals(floorButton.getId(), "FL1")) {
       image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
       floor = "1";
+      resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FL2")) {
       image = new Image(Main.class.getResource("./views/Images/SecondFloor.png").toString());
       floor = "2";
+      resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FL3")) {
       image = new Image(Main.class.getResource("./views/Images/ThirdFloor.png").toString());
       floor = "3";
+      resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FLB1")) {
       image = new Image(Main.class.getResource("./views/Images/B1.png").toString());
       floor = "L1";
+      resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FLB2")) {
       image = new Image(Main.class.getResource("./views/Images/B2.png").toString());
       floor = "L2";
+      resetAndSetFloorIndicators(floorButton);
     }
     group.getChildren().removeAll(mapNodes, mapText, imageView);
     group.getChildren().remove(mapNodes);
@@ -510,6 +532,8 @@ public class EditMapController {
     mapNodes = new Group();
     mapText = new Group();
     group.getChildren().addAll(imageView, mapNodes, mapText);
+
+    //    resetAndSetModes(floorButton);
 
     Pane pane = new Pane();
     pane.setMinWidth(image.getWidth());
@@ -760,8 +784,26 @@ public class EditMapController {
 
   public void resetAndSetCircle(Circle circle) {
     circle.setFill(Paint.valueOf("#32CD32"));
-    tempSave.setFill(Paint.valueOf("#13DAF7"));
-    tempSave = circle;
+    nodeResetterHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
+    nodeResetterHelper.setCircle(circle);
+    //    tempSave.setFill(Paint.valueOf("#13DAF7"));
+    //    tempSave = circle;
+  }
+
+  public void resetAndSetModes(MFXButton button) {
+    button.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    modeResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#bebebe")));
+    modeResetterHelper.setButton(button);
+    //    tempSave.setFill(Paint.valueOf("#13DAF7"));
+    //    tempSave = circle;
+  }
+
+  public void resetAndSetFloorIndicators(MFXButton button) {
+    button.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    floorResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#bebebe")));
+    floorResetterHelper.setButton(button);
+    //    tempSave.setFill(Paint.valueOf("#13DAF7"));
+    //    tempSave = circle;
   }
 
   public void addNodeByMouseLoc(int x, int y) {

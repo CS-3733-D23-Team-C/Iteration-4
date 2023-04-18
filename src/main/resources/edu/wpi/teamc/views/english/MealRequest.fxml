@@ -10,7 +10,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -18,11 +17,6 @@
 
 <AnchorPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.MealController">
    <children>
-      <HBox layoutX="20.0" layoutY="20.0" prefHeight="768.0" prefWidth="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" />
-         </children>
-      </HBox>
       <AnchorPane layoutX="410.0" layoutY="163.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
          <children>
             <AnchorPane prefWidth="625.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="671.0" AnchorPane.topAnchor="0.0">
@@ -79,12 +73,12 @@
                                     <Insets bottom="10.0" left="10.0" top="10.0" />
                                  </padding>
                               </TextField>
-                              <MenuButton fx:id="mealMenu" layoutX="23.0" layoutY="50.0" prefHeight="40.0" prefWidth="483.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" text="Select Meal:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
+                              <MenuButton fx:id="serviceMenu" layoutX="23.0" layoutY="50.0" prefHeight="40.0" prefWidth="483.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" text="Select Meal:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
                                  <items>
-                                    <MenuItem fx:id="mealchoice1" mnemonicParsing="false" onAction="#getMealChoice1" text="Spaghetti" />
-                                    <MenuItem fx:id="mealchoice2" mnemonicParsing="false" onAction="#getMealChoice2" text="Garlic Steak" />
-                                    <MenuItem fx:id="mealchoice3" mnemonicParsing="false" onAction="#getMealChoice3" text="Grill Chicken" />
-                                    <MenuItem fx:id="mealchoice4" mnemonicParsing="false" onAction="#getMealChoice4" text="Fried Rice" />
+                                    <MenuItem fx:id="servicechoice1" mnemonicParsing="false" onAction="#getServicechoice1" text="Spaghetti" />
+                                    <MenuItem fx:id="servicechoice2" mnemonicParsing="false" onAction="#getServicechoice2" text="Garlic Steak" />
+                                    <MenuItem fx:id="servicechoice3" mnemonicParsing="false" onAction="#getServicechoice3" text="Grill Chicken" />
+                                    <MenuItem fx:id="servicechoice4" mnemonicParsing="false" onAction="#getServicechoice4" text="Fried Rice" />
                                  </items>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -117,7 +111,7 @@
                                  </padding>
                               </TextField>
                               <TextArea fx:id="specialRequest" layoutX="23.0" layoutY="53.0" prefHeight="40.0" prefWidth="481.0" promptText="(Optional) Additional Notes" style="-fx-font-family: arial; -fx-background-color: white; -fx-border-color: #02143b; -fx-font-size: 12;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
-                              <DatePicker fx:id="startTime" layoutX="22.0" layoutY="100.0" prefHeight="40.0" prefWidth="482.0" promptText="Select Start Time:" style="-fx-background-color: white; -fx-border-color: #02143b;" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="100.0" />
+                              <DatePicker fx:id="startTime" layoutX="22.0" layoutY="100.0" prefHeight="40.0" prefWidth="482.0" promptText="Select Start Time:" style="-fx-background-color: white; -fx-border-color: #02143b;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="110.0" prefWidth="525.0" style="-fx-border-color: #02143b; -fx-background-color: white;">
@@ -242,5 +236,8 @@
             </VBox>
          </children>
       </AnchorPane>
+      <VBox prefHeight="200.0" prefWidth="70.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <fx:include fx:id="adminMenu" source="Menu.fxml" />
+      </VBox>
    </children>
 </AnchorPane>

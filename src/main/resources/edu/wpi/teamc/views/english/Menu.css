@@ -1,5 +1,8 @@
 .menuSidebar {
-    -fx-background-color: rgba(255, 255, 255, 0.5);
+    -fx-background-color: rgba(255, 255, 255, 1);
+    -fx-border-color: #02143B;
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-style: none;
 }
 
 .menuButton {

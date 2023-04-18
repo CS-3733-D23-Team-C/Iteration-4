@@ -36,4 +36,11 @@ public class Node implements IOrm {
     this.floor = floor;
     this.building = building;
   }
+
+  public Node() {}
+
+  @Override
+  public String toString() {
+    return Integer.toString(nodeID);
+  }
 }

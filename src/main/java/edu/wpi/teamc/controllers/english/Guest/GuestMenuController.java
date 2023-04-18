@@ -1,8 +1,7 @@
-package edu.wpi.teamc.controllers.english.components;
+package edu.wpi.teamc.controllers.english.Guest;
 
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
-import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.animation.PauseTransition;
@@ -16,7 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.*;
 import javafx.util.Duration;
 
-public class MenuController {
+public class GuestMenuController {
 
   @FXML private Pane menuPane;
   @FXML private ImageView homeButton;
@@ -29,14 +28,12 @@ public class MenuController {
   @FXML private ImageView helpButton;
   @FXML private ImageView exitButton;
   @FXML private ImageView logoutButton;
-  @FXML private ImageView historyButton;
 
   @FXML private Pane homeTrigger;
   @FXML private Pane serviceRequestTrigger;
   @FXML private Pane navigationTrigger;
   @FXML private Pane settingsTrigger;
   @FXML private Pane helpTrigger;
-  @FXML private Pane historyTrigger;
 
   @FXML private Pane exitTrigger;
   @FXML private Pane logoutTrigger;
@@ -44,43 +41,13 @@ public class MenuController {
   @FXML private Pane navigationPopOut;
   @FXML private Pane settingsPopOut;
   @FXML private Pane helpPopOut;
-  @FXML private Pane historyPopOut;
+
   @FXML private Pane exitPopOut;
   @FXML private Pane logoutPopOut;
   @FXML private Pane homePopOut;
   @FXML private AnchorPane basePane;
 
-  @FXML private MFXButton flowerButton;
-
-  @FXML
-  void getFlowerDeliveryPage(ActionEvent event) {
-    Navigation.navigate(Screen.FLOWER);
-  }
-
-  @FXML
-  void getFurnitureDeliveryPage(ActionEvent event) {
-    Navigation.navigate(Screen.FURNITURE);
-  }
-
-  @FXML
-  void getHelpPage(ActionEvent event) {
-    Navigation.navigate(Screen.HELP);
-  }
-
-  @FXML
-  void getMealDeliveryPage(ActionEvent event) {
-    Navigation.navigate(Screen.MEAL);
-  }
-
-  @FXML
-  void getOfficeSuppliesPage(ActionEvent event) {
-    Navigation.navigate(Screen.OFFICE_SUPPLY);
-  }
-
-  @FXML
-  void getRoomReservationPage(ActionEvent event) {
-    Navigation.navigate(Screen.CONFERENCE);
-  }
+  // @FXML private MFXButton flowerButton;
 
   @FXML
   void getSignagePage(ActionEvent event) {
@@ -89,12 +56,7 @@ public class MenuController {
 
   @FXML
   void getPathfindingPage(ActionEvent event) {
-    Navigation.navigate(Screen.PATHFINDING_PAGE);
-  }
-
-  @FXML
-  void getGiftBasketRequestPage(ActionEvent event) {
-    Navigation.navigate(Screen.GIFT_BASKET);
+    Navigation.navigate(Screen.GUEST_PATHFINDING_PAGE);
   }
 
   @FXML
@@ -104,54 +66,9 @@ public class MenuController {
 
   /** Method run when controller is initialized */
   @FXML
-  void getEditMap(ActionEvent event) {
-    Navigation.navigate(Screen.EDIT_MAP);
-  }
-
-  @FXML
   void getLogOut(ActionEvent event) {
     Navigation.navigate(Screen.HOME);
   }
-
-  @FXML
-  void getMapHistory(ActionEvent event) {
-    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
-  }
-
-  @FXML
-  void getMoveTable(ActionEvent event) {
-    Navigation.navigate(Screen.MOVE_TABLE);
-  }
-
-  @FXML
-  void getMealHistory(ActionEvent event) {
-    Navigation.navigate(Screen.MEAL_HISTORY);
-  }
-
-  @FXML
-  void getFlowerHistory(ActionEvent event) {
-    Navigation.navigate(Screen.FLOWER_HISTORY);
-  }
-
-  @FXML
-  void getFurnitureHistory(ActionEvent event) {
-    Navigation.navigate(Screen.FURNITURE_HISTORY);
-  }
-
-  @FXML
-  void getConferenceHistory(ActionEvent event) {
-    Navigation.navigate(Screen.CONFERENCE_HISTORY);
-  }
-
-  @FXML
-  void getOfficeSupplyHistory(ActionEvent event) {
-    Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
-  }
-
-  //    @FXML
-  //    void getGiftBasketHistory(ActionEvent event) {
-  //        Navigation.navigate(Screen.GIFTBASKET_HISTORY);
-  //    }
 
   //  @FXML
   //  void getMapPage(ActionEvent event) {
@@ -170,13 +87,14 @@ public class MenuController {
     navigationTrigger.setVisible(false);
     settingsTrigger.setVisible(false);
     helpTrigger.setVisible(false);
-    historyTrigger.setVisible(false);
+
     exitTrigger.setVisible(false);
     logoutTrigger.setVisible(false);
     serviceRequestPopOut.setVisible(false);
     navigationPopOut.setVisible(false);
     settingsPopOut.setVisible(false);
     helpPopOut.setVisible(false);
+
     exitPopOut.setVisible(false);
     logoutPopOut.setVisible(false);
     homePopOut.setVisible(false);
@@ -187,7 +105,6 @@ public class MenuController {
     TranslateTransition serviceRequestPopOutTransition = new TranslateTransition();
     TranslateTransition settingsPopOutTransition = new TranslateTransition();
     TranslateTransition helpPopOutTransition = new TranslateTransition();
-    TranslateTransition historyPopOutTransition = new TranslateTransition();
     TranslateTransition exitPopOutTransition = new TranslateTransition();
     TranslateTransition logoutPopOutTransition = new TranslateTransition();
     TranslateTransition homePopOutTransition = new TranslateTransition();
@@ -205,7 +122,7 @@ public class MenuController {
     homeTrigger.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.navigate(Screen.ADMIN_HOME);
+          Navigation.navigate(Screen.GUEST_HOME);
         });
     settingsTrigger.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
@@ -546,86 +463,6 @@ public class MenuController {
                 settingsPopOutTransition.setNode(settingsPopOut);
                 settingsPopOut.setTranslateX(180);
                 settingsPopOutTransition.play();
-              }
-            });
-    historyButton
-        .hoverProperty()
-        .addListener(
-            (observable, oldValue, newValue) -> {
-              if (newValue || isHovering.get()) {
-                delay.setOnFinished(
-                    event -> {
-                      historyPopOutTransition.setDuration(Duration.millis(200));
-                      historyPopOutTransition.setNode(historyPopOut);
-                      historyPopOutTransition.setToX(180);
-                      historyPopOutTransition.play();
-                      historyPopOut.setVisible(true);
-                      historyTrigger.setVisible(true);
-                      historyButton.setVisible(false);
-                    });
-                delay.play();
-              } else {
-                delay.setOnFinished(null); // Clear the delay's onFinished event
-                historyPopOutTransition.setDuration(Duration.millis(200));
-                historyPopOutTransition.setNode(historyPopOut);
-                historyPopOutTransition.setToX(0);
-                historyPopOutTransition.setOnFinished(
-                    e -> {
-                      if (!historyPopOut.isHover() && !historyTrigger.isHover()) {
-                        historyPopOut.setVisible(false);
-                        historyTrigger.setVisible(false);
-                        historyButton.setVisible(true);
-                      }
-                    });
-                historyPopOutTransition.play();
-              }
-            });
-    historyPopOut
-        .hoverProperty()
-        .addListener(
-            (observable, oldValue, newValue) -> {
-              isHovering.set(newValue);
-              if (!newValue && !historyButton.isHover() && !historyTrigger.isHover()) {
-                historyPopOutTransition.setDuration(Duration.millis(200));
-                historyPopOutTransition.setNode(historyPopOut);
-                historyPopOutTransition.setToX(0);
-                historyPopOutTransition.setOnFinished(
-                    e -> {
-                      if (!historyPopOut.isHover() && !historyTrigger.isHover()) {
-                        historyPopOut.setVisible(false);
-                        historyTrigger.setVisible(false);
-                        historyButton.setVisible(true);
-                      }
-                    });
-                historyPopOutTransition.play();
-              } else if (newValue) {
-                historyPopOutTransition.stop();
-                historyPopOut.setTranslateX(180);
-              }
-            });
-    historyTrigger
-        .hoverProperty()
-        .addListener(
-            (observable, oldValue, newValue) -> {
-              isHovering.set(newValue);
-              if (!newValue && !historyButton.isHover() && !historyPopOut.isHover()) {
-                historyPopOutTransition.setDuration(Duration.millis(200));
-                historyPopOutTransition.setNode(historyPopOut);
-                historyPopOutTransition.setToX(0);
-                historyPopOutTransition.setOnFinished(
-                    e -> {
-                      if (!historyPopOut.isHover() && !historyTrigger.isHover()) {
-                        historyPopOut.setVisible(false);
-                        historyTrigger.setVisible(false);
-                        historyButton.setVisible(true);
-                      }
-                    });
-                historyPopOutTransition.play();
-              } else if (newValue) {
-                historyPopOutTransition.setDuration(Duration.millis(200));
-                historyPopOutTransition.setNode(historyPopOut);
-                historyPopOut.setTranslateX(180);
-                historyPopOutTransition.play();
               }
             });
     helpButton

@@ -8,6 +8,8 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class MealController {
   @FXML private MFXButton goHome;
@@ -47,6 +49,11 @@ public class MealController {
   @FXML private TextField nameBox;
   @FXML private TextArea specialRequest;
   @FXML private MenuButton employeeName;
+
+  // Image and Food Information
+  @FXML private ImageView mealImage;
+  @FXML private TextArea ingredients;
+  @FXML private TextArea allergyInfo;
 
   @FXML
   void getGoHome(ActionEvent event) {
@@ -104,21 +111,25 @@ public class MealController {
   @FXML
   void getMealChoice1() {
     mealMenu.setText(mealchoice1.getText());
+    getMealInfo(1);
   }
 
   @FXML
   void getMealChoice2() {
     mealMenu.setText(mealchoice2.getText());
+    getMealInfo(2);
   }
 
   @FXML
   void getMealChoice3() {
     mealMenu.setText(mealchoice3.getText());
+    getMealInfo(3);
   }
 
   @FXML
   void getMealChoice4() {
     mealMenu.setText(mealchoice4.getText());
+    getMealInfo(4);
   }
 
   // These 4 choices(1-4) are for the drink menu
@@ -140,6 +151,41 @@ public class MealController {
   @FXML
   void getDrinkChoice4() {
     drinkMenu.setText(drinkchoice4.getText());
+  }
+
+  @FXML
+  void getMealInfo(int mealChoice) {
+    switch (mealChoice) {
+      case 1:
+        mealImage.setImage(
+            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Meal/spaghetti.png"));
+        ingredients.setText("Ground Beef, Spaghetti, Tomato Sauce, Cheese");
+        allergyInfo.setText("Contains: Milk, Wheat");
+        break;
+      case 2:
+        mealImage.setImage(
+            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Meal/garlic_steak.png"));
+        ingredients.setText("Beef, Garlic, Butter");
+        allergyInfo.setText("Contains: Milk");
+        break;
+      case 3:
+        mealImage.setImage(
+            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Meal/grill_chicken.png"));
+        ingredients.setText("Chicken, Broccoli, Honey, Soy Sauce");
+        allergyInfo.setText("Contains: Soy, Honey");
+        break;
+      case 4:
+        mealImage.setImage(
+            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Meal/fried_rice.png"));
+        ingredients.setText("Chicken, Rice, Egg, Soy Sauce");
+        allergyInfo.setText("Contains: Egg, Soy");
+        break;
+      default:
+        mealImage.setImage(new Image("file:src/main/resources/images/meal1.png"));
+        ingredients.setText("");
+        allergyInfo.setText("Contains:");
+        break;
+    }
   }
 
   @FXML
@@ -216,7 +262,10 @@ public class MealController {
 
   /** Method run when controller is initialized */
   @FXML
-  public void initialize() {}
+  public void initialize() {
+    ingredients.setWrapText(true);
+    allergyInfo.setWrapText(true);
+  }
 
   @FXML
   void getEditMap(ActionEvent event) {

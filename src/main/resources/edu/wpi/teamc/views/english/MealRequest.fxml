@@ -3,6 +3,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextArea?>
@@ -11,6 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -114,7 +116,8 @@
                                     <Insets bottom="10.0" left="10.0" top="10.0" />
                                  </padding>
                               </TextField>
-                              <TextArea fx:id="specialRequest" prefHeight="200.0" prefWidth="200.0" promptText="(Optional) Additional Notes" style="-fx-font-family: arial; -fx-background-color: white; -fx-border-color: #02143b; -fx-font-size: 12;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
+                              <TextArea fx:id="specialRequest" layoutX="23.0" layoutY="53.0" prefHeight="40.0" prefWidth="481.0" promptText="(Optional) Additional Notes" style="-fx-font-family: arial; -fx-background-color: white; -fx-border-color: #02143b; -fx-font-size: 12;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
+                              <DatePicker fx:id="startTime" layoutX="22.0" layoutY="100.0" prefHeight="40.0" prefWidth="482.0" promptText="Select Start Time:" style="-fx-background-color: white; -fx-border-color: #02143b;" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="100.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="110.0" prefWidth="525.0" style="-fx-border-color: #02143b; -fx-background-color: white;">
@@ -165,11 +168,44 @@
                               <Insets bottom="10.0" left="10.0" top="10.0" />
                            </padding>
                         </TextField>
-                        <VBox alignment="CENTER" layoutX="51.0" layoutY="96.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="75.0">
+                        <VBox alignment="CENTER" layoutX="2.0" layoutY="50.0" prefHeight="292.0" prefWidth="525.0" AnchorPane.bottomAnchor="177.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                            <children>
-                              <ImageView fitHeight="373.0" fitWidth="423.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="mealImage" fitHeight="250.0" fitWidth="333.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </VBox>
+                        <AnchorPane layoutX="48.0" layoutY="353.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="350.0">
+                           <children>
+                              <TextField alignment="TOP_LEFT" editable="false" prefHeight="37.0" prefWidth="176.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="Ingredients:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font size="35.0" />
+                                 </font>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" top="10.0" />
+                                 </padding>
+                              </TextField>
+                              <TextArea fx:id="ingredients" layoutX="-48.0" layoutY="37.0" prefHeight="98.0" prefWidth="176.0" style="-fx-font-family: arial; -fx-background-color: white; -fx-font-size: 12; -fx-border-color: #02143b;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="37.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="304.0" layoutY="354.0" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="350.0">
+                           <children>
+                              <TextField alignment="TOP_LEFT" editable="false" layoutX="1.0" prefHeight="37.0" prefWidth="176.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="Allergy Info:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font size="35.0" />
+                                 </font>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" top="10.0" />
+                                 </padding>
+                              </TextField>
+                              <TextArea fx:id="allergyInfo" layoutX="-8.0" layoutY="33.0" prefHeight="98.0" prefWidth="176.0" style="-fx-font-family: arial; -fx-background-color: white; -fx-font-size: 12; -fx-border-color: #02143b;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="37.0" />
+                           </children>
+                        </AnchorPane>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#02143b" height="2.0" layoutX="10.0" layoutY="354.0" stroke="TRANSPARENT" strokeType="INSIDE" style="-fx-fill: #02143b;" width="525.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="340.0" />
                      </children>
                   </AnchorPane>
                   <MFXButton layoutX="265.0" layoutY="568.0" onAction="#getSubmit" prefHeight="40.0" prefWidth="525.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 16;" text="Submit" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="540.0">

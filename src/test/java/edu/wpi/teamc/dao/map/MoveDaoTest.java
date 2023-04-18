@@ -41,6 +41,14 @@ public class MoveDaoTest {
   }
 
   @Test
+  public void deleteRow2() {
+    MoveDao moveDao = new MoveDao();
+    Move moveOrm = new Move(100, "Hallway 10 Floor L1", new Date(2023 - 1900, 4 - 1, 9));
+
+    Assertions.assertEquals(moveOrm, moveDao.deleteRow(5));
+  }
+
+  @Test
   public void importCSV() {
     MoveDao moveDao = new MoveDao();
     Assertions.assertEquals(

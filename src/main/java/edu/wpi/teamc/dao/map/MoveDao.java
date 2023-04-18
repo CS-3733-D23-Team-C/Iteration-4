@@ -50,7 +50,7 @@ public class MoveDao implements IDao<Move, Move> {
       String queryUpdateMovesDB =
           "UPDATE  "
               + MOVE
-              + " SET \"nodeID\"=?, \"longName\"=?, \"moveDate\"=? WHERE \"nodeID\"=?; ";
+              + " SET \"nodeID\"=?, \"longName\"=?, \"moveDate\"=? WHERE \"nodeID\"=?, \"longName\"=?, \"moveDate\"=?; ";
 
       PreparedStatement ps = db.getConnection().prepareStatement(queryUpdateMovesDB);
 
@@ -58,6 +58,8 @@ public class MoveDao implements IDao<Move, Move> {
       ps.setString(2, repl.getLongName());
       ps.setDate(3, repl.getDate());
       ps.setInt(4, orm.getNodeID());
+      ps.setString(5, orm.getLongName());
+      ps.setDate(6, orm.getDate());
 
       ps.executeUpdate();
     } catch (Exception e) {
@@ -97,10 +99,13 @@ public class MoveDao implements IDao<Move, Move> {
       // table names
       String MOVE = "\"hospitalNode\".move";
       // queries
-      String queryDeleteMovesDB = "DELETE FROM " + MOVE + " WHERE \"nodeID\"=?; ";
+      String queryDeleteMovesDB =
+          "DELETE FROM " + MOVE + " WHERE \"nodeID\"=?, \"longName\"=?, \"moveDate\"=?; ";
 
       PreparedStatement ps = db.getConnection().prepareStatement(queryDeleteMovesDB);
       ps.setInt(1, orm.getNodeID());
+      ps.setString(2, orm.getLongName());
+      ps.setDate(3, orm.getDate());
 
       ps.executeUpdate();
     } catch (Exception e) {
@@ -119,10 +124,13 @@ public class MoveDao implements IDao<Move, Move> {
       // table names
       String MOVE = "\"hospitalNode\".move";
       // queries
-      String queryDisplayMoves = "SELECT * FROM " + MOVE + " WHERE \"nodeID\"=?;";
+      String queryDisplayMoves =
+          "SELECT * FROM " + MOVE + " WHERE \"nodeID\"=?, \"longName\"=?, \"moveDate\"=?; ";
 
       PreparedStatement ps = db.getConnection().prepareStatement(queryDisplayMoves);
       ps.setInt(1, key.getNodeID());
+      ps.setString(2, key.getLongName());
+      ps.setDate(3, key.getDate());
 
       ResultSet rsMoves = ps.executeQuery();
 

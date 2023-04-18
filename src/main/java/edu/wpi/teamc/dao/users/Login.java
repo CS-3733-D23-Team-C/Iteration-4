@@ -16,8 +16,8 @@ public class Login implements IOrm {
   public Login(String username, String password, String permissions) {
     this.username = username;
     this.permissions = permissions;
-    this.salt = saltPassword(password);
-    this.hashedPassword = hashPassword(salt);
+    this.salt = saltPassword();
+    this.hashedPassword = hashPassword(password + this.salt);
   }
 
   // only database should use this constructor
@@ -28,7 +28,7 @@ public class Login implements IOrm {
     this.hashedPassword = password;
   }
 
-  public String saltPassword(String password) {
+  public String saltPassword() {
     SecureRandom random = new SecureRandom();
     byte[] salt = new byte[16];
     random.nextBytes(salt);
@@ -42,6 +42,7 @@ public class Login implements IOrm {
   }
 
   private String hashPassword(String password) {
+    String hashedPassword = null;
     try {
       MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
 
@@ -53,7 +54,7 @@ public class Login implements IOrm {
       for (byte b : hash) {
         hexString.append(String.format("%02X", b));
       }
-      String hashedPassword = hexString.toString();
+      hashedPassword = hexString.toString();
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     }
@@ -62,7 +63,7 @@ public class Login implements IOrm {
 
   public boolean checkPassword(String password) {
     // check hashed password against database
-    String givenSaltedPassword = password + salt;
+    String givenSaltedPassword = password + this.salt;
     String givenHashedPassword = hashPassword(givenSaltedPassword);
     if (givenHashedPassword.equals(this.hashedPassword)) {
       return true;

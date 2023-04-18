@@ -9,4 +9,16 @@ public class LoginTest {
     Login testAccount = new Login("Wong", "password", "Admin");
     Assertions.assertEquals(true, testAccount.checkPassword("password"));
   }
+
+  @Test
+  public void testPassword2() {
+    Login testAccount = new Login("Wong", "password1", "Admin");
+    Assertions.assertEquals(true, testAccount.checkPassword("password1"));
+  }
+
+  @Test
+  public void testPassword3() {
+    Login testAccount = new Login("Wong", "SoftEng", "Admin");
+    Assertions.assertEquals(false, testAccount.checkPassword("pass123"));
+  }
 }

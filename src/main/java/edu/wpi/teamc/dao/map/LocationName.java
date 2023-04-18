@@ -16,4 +16,11 @@ public class LocationName implements IOrm {
     this.shortName = shortName;
     this.nodeType = type;
   }
+
+  public LocationName() {}
+
+  @Override
+  public String toString() {
+    return longName;
+  }
 }

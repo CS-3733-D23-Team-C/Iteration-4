@@ -64,7 +64,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
       int requestID = rs.getInt("requestID");
-      orm.setRequestID(requestID);
+      orm.requestID = (requestID);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -90,7 +90,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
       ResultSet rs = ps.getResultSet();
       rs.next();
       int requestID = rs.getInt("requestID");
-      orm2.setRequestID(requestID);
+      orm2.requestID = (requestID);
     } catch (SQLException e) {
       e.printStackTrace();
     }

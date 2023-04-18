@@ -109,7 +109,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
       int requestID = rs.getInt("requestID");
-      orm.setRequestID(requestID);
+      orm.requestID = (requestID);
     } catch (Exception e) {
       e.printStackTrace();
     }

@@ -17,7 +17,7 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
     try {
       Statement stmt = db.getConnection().createStatement();
       // Table Name
-      String table = "\"ServiceRequests\".\"Employee\"";
+      String table = "\"users\".\"employee\"";
       // Query
       String query = "SELECT * FROM " + table;
 
@@ -43,7 +43,7 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
     DBConnection db = new DBConnection();
     try {
       String query =
-          "INSERT INTO \"ServiceRequests\".\"Employee\" (id, username, name, department, position) VALUES (?,?,?,?,?)";
+          "INSERT INTO \"users\".\"employee\" (id, username, name, department, position) VALUES (?,?,?,?,?)";
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
@@ -70,7 +70,7 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
     DBConnection db = new DBConnection();
     try {
       // table names
-      String table = "\"ServiceRequests\".\"Employee\"";
+      String table = "\"users\".\"employee\"";
       // queries
       String query =
           "UPDATE "
@@ -100,7 +100,7 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
     try {
       Statement stmtNode = db.getConnection().createStatement();
       // table names
-      String table = "\"ServiceRequests\".\"Employee\"";
+      String table = "\"user\".\"employee\"";
       // queries
       String query = "DELETE FROM " + table + " WHERE empID = " + orm.getId();
       stmtNode.executeUpdate(query);

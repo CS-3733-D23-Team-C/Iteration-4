@@ -14,7 +14,7 @@ public class Login implements IOrm {
   private String hashedPassword;
 
   public Login(String username, String password, String permissions) {
-    this.username = username;
+    this.username = username.toLowerCase();
     this.permissions = permissions;
     this.salt = saltPassword();
     this.hashedPassword = hashPassword(password + this.salt);
@@ -22,7 +22,7 @@ public class Login implements IOrm {
 
   // only database should use this constructor
   protected Login(String username, String password, String permissions, String salt) {
-    this.username = username;
+    this.username = username.toLowerCase();
     this.permissions = permissions;
     this.salt = salt;
     this.hashedPassword = password;

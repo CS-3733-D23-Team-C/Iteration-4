@@ -8,6 +8,7 @@ import edu.wpi.teamc.dao.users.PERMISSIONS;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
@@ -35,7 +36,7 @@ public class HomeController {
   @FXML private ImageView Spanish_flag;
   @FXML private Text HOME_SignInText;
   @FXML private MFXTextField HOME_username;
-  @FXML private MFXTextField HOME_password;
+  @FXML private MFXPasswordField HOME_password;
   @FXML private MFXButton HOME_login;
   @FXML private Hyperlink HOME_forgot;
   @FXML private Hyperlink HOME_create;
@@ -57,6 +58,7 @@ public class HomeController {
     HOME_next.setVisible(false);
     HOME_login.setVisible(true);
     HOME_username.setEditable(false);
+    HOME_username.setOpacity(0.5);
     HOME_back.setVisible(true);
 
     LoginDao loginDao = new LoginDao();
@@ -77,6 +79,7 @@ public class HomeController {
     HOME_next.setVisible(true);
     wrongPass.setVisible(false);
     HOME_password.setText("");
+    HOME_username.setOpacity(1);
   }
 
   @FXML
@@ -93,13 +96,15 @@ public class HomeController {
     if (login) {
       if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN)) {
         Navigation.navigate(Screen.MENU);
+        //      } else if (currentLogin.getPermissions().equals(PERMISSIONS.EMPLOYEE)) {
+        //        Navigation.navigate(Screen.EMPLOYEE_HOME);
+        //      } else if (currentLogin.getPermissions().equals(PERMISSIONS.GUEST)) {
+        //        Navigation.navigate(Screen.GUEST_HOME);
+        //      }
       } else {
-
+        // Show Error Message
+        wrongPass.setVisible(true);
       }
-
-    } else {
-      // Show Error Message
-      wrongPass.setVisible(true);
     }
   }
 

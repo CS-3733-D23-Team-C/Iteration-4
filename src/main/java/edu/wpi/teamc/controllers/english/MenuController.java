@@ -3,6 +3,7 @@ package edu.wpi.teamc.controllers.english;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import java.awt.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.animation.PauseTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -153,1290 +154,655 @@ public class MenuController {
     TranslateTransition logoutPopOutTransition = new TranslateTransition();
     TranslateTransition homePopOutTransition = new TranslateTransition();
 
-    homeButton.setOnMouseEntered(
-        e -> {
-          serviceRequestTrigger.setVisible(false);
-          navigationTrigger.setVisible(false);
-          settingsTrigger.setVisible(false);
-          helpTrigger.setVisible(false);
-          historyTrigger.setVisible(false);
-          exitTrigger.setVisible(false);
-          logoutTrigger.setVisible(false);
+    AtomicBoolean isHovering = new AtomicBoolean(false);
 
-          serviceRequestButton.setVisible(true);
-          navigationButton.setVisible(true);
-          settingsButton.setVisible(true);
-          helpButton.setVisible(true);
-          historyButton.setVisible(true);
-          exitButton.setVisible(true);
-          logoutButton.setVisible(true);
+    // Define a PauseTransition with a delay of 200 milliseconds
+    PauseTransition delay = new PauseTransition(Duration.millis(200));
 
-          navigationPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          navigationPopOutTransition.setNode(navigationPopOut);
-          navigationPopOutTransition.setToX(0);
-          navigationPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                navigationPopOut.setVisible(false);
-                navigationTrigger.setVisible(false);
-                navigationButton.setVisible(true);
-              });
-          pause.play();
-
-          historyPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          historyPopOutTransition.setNode(historyPopOut);
-          historyPopOutTransition.setToX(0);
-          historyPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                historyPopOut.setVisible(false);
-                historyTrigger.setVisible(false);
-                historyButton.setVisible(true);
-              });
-          pause.play();
-
-          settingsPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          settingsPopOutTransition.setNode(settingsPopOut);
-          settingsPopOutTransition.setToX(0);
-          settingsPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                settingsPopOut.setVisible(false);
-                settingsTrigger.setVisible(false);
-                settingsButton.setVisible(true);
-              });
-          pause.play();
-
-          helpPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          helpPopOutTransition.setNode(helpPopOut);
-          helpPopOutTransition.setToX(0);
-          helpPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                helpPopOut.setVisible(false);
-                helpTrigger.setVisible(false);
-                helpButton.setVisible(true);
-              });
-          pause.play();
-
-          exitPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          exitPopOutTransition.setNode(exitPopOut);
-          exitPopOutTransition.setToX(0);
-          exitPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                exitPopOut.setVisible(false);
-                exitTrigger.setVisible(false);
-                exitButton.setVisible(true);
-              });
-          pause.play();
-
-          logoutPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          logoutPopOutTransition.setNode(logoutPopOut);
-          logoutPopOutTransition.setToX(0);
-          logoutPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                logoutPopOut.setVisible(false);
-                logoutTrigger.setVisible(false);
-                logoutButton.setVisible(true);
-              });
-          pause.play();
-
-          serviceRequestPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
-          serviceRequestPopOutTransition.setToX(0);
-          serviceRequestPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                serviceRequestPopOut.setVisible(false);
-                serviceRequestTrigger.setVisible(false);
-                serviceRequestButton.setVisible(true);
-              });
-          pause.play();
-
-          homeTrigger.setVisible(true);
-          homeButton.setVisible(false);
-          homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          homePopOutTransition.setNode(homePopOut);
-          homePopOutTransition.setToX(180);
-          homePopOutTransition.play();
-
-          homePopOut.setVisible(true);
-
-          homePopOut.setOnMouseExited(
-              g -> {
-                homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
+    homeButton
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue || isHovering.get()) {
+                delay.setOnFinished(
+                    event -> {
+                      homePopOutTransition.setDuration(Duration.millis(200));
+                      homePopOutTransition.setNode(homePopOut);
+                      homePopOutTransition.setToX(180);
+                      homePopOutTransition.play();
+                      homePopOut.setVisible(true);
+                      homeTrigger.setVisible(true);
+                      homeButton.setVisible(false);
+                    });
+                delay.play();
+              } else {
+                delay.setOnFinished(null); // Clear the delay's onFinished event
+                homePopOutTransition.setDuration(Duration.millis(200));
                 homePopOutTransition.setNode(homePopOut);
                 homePopOutTransition.setToX(0);
-                homePopOutTransition.play();
-
-                pause.setOnFinished(
-                    h -> {
-                      homePopOut.setVisible(false);
-                      homeTrigger.setVisible(false);
-                      homeButton.setVisible(true);
+                homePopOutTransition.setOnFinished(
+                    e -> {
+                      if (!homePopOut.isHover() && !homeTrigger.isHover()) {
+                        homePopOut.setVisible(false);
+                        homeTrigger.setVisible(false);
+                        homeButton.setVisible(true);
+                      }
                     });
-                pause.play();
-              });
-        });
-    homeTrigger.setOnMouseExited(
-        e -> {
-          homeTrigger.setVisible(false);
-          homeButton.setVisible(true);
-        });
-    serviceRequestButton.setOnMouseEntered(
-        e -> {
-          homeTrigger.setVisible(false);
+                homePopOutTransition.play();
+              }
+            });
 
-          navigationTrigger.setVisible(false);
-          settingsTrigger.setVisible(false);
-          helpTrigger.setVisible(false);
-          historyTrigger.setVisible(false);
-          exitTrigger.setVisible(false);
-          logoutTrigger.setVisible(false);
+    homePopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !homeButton.isHover() && !homeTrigger.isHover()) {
+                homePopOutTransition.setDuration(Duration.millis(200));
+                homePopOutTransition.setNode(homePopOut);
+                homePopOutTransition.setToX(0);
+                homePopOutTransition.setOnFinished(
+                    e -> {
+                      if (!homePopOut.isHover() && !homeTrigger.isHover()) {
+                        homePopOut.setVisible(false);
+                        homeTrigger.setVisible(false);
+                        homeButton.setVisible(true);
+                      }
+                    });
+                homePopOutTransition.play();
+              } else if (newValue) {
+                homePopOutTransition.stop();
+                homePopOut.setTranslateX(180);
+              }
+            });
 
-          homeButton.setVisible(true);
+    homeTrigger
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !homeButton.isHover() && !homePopOut.isHover()) {
+                homePopOutTransition.setDuration(Duration.millis(200));
+                homePopOutTransition.setNode(homePopOut);
+                homePopOutTransition.setToX(0);
+                homePopOutTransition.setOnFinished(
+                    e -> {
+                      if (!homePopOut.isHover() && !homeTrigger.isHover()) {
+                        homePopOut.setVisible(false);
+                        homeTrigger.setVisible(false);
+                        homeButton.setVisible(true);
+                      }
+                    });
+                homePopOutTransition.play();
+              } else if (newValue) {
+                homePopOutTransition.setDuration(Duration.millis(200));
+                homePopOutTransition.setNode(homePopOut);
+                homePopOut.setTranslateX(180);
+                homePopOutTransition.play();
+              }
+            });
 
-          navigationButton.setVisible(true);
-          settingsButton.setVisible(true);
-          helpButton.setVisible(true);
-          historyButton.setVisible(true);
-          exitButton.setVisible(true);
-          logoutButton.setVisible(true);
-          homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          homePopOutTransition.setNode(homePopOut);
-          homePopOutTransition.setToX(0);
-          homePopOutTransition.play();
-
-          pause.setOnFinished(
-              h -> {
-                homePopOut.setVisible(false);
-                homeTrigger.setVisible(false);
-                homeButton.setVisible(true);
-              });
-          pause.play();
-
-          navigationPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          navigationPopOutTransition.setNode(navigationPopOut);
-          navigationPopOutTransition.setToX(0);
-          navigationPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                navigationPopOut.setVisible(false);
-                navigationTrigger.setVisible(false);
-                navigationButton.setVisible(true);
-              });
-          pause.play();
-
-          historyPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          historyPopOutTransition.setNode(historyPopOut);
-          historyPopOutTransition.setToX(0);
-          historyPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                historyPopOut.setVisible(false);
-                historyTrigger.setVisible(false);
-                historyButton.setVisible(true);
-              });
-          pause.play();
-
-          settingsPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          settingsPopOutTransition.setNode(settingsPopOut);
-          settingsPopOutTransition.setToX(0);
-          settingsPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                settingsPopOut.setVisible(false);
-                settingsTrigger.setVisible(false);
-                settingsButton.setVisible(true);
-              });
-          pause.play();
-
-          helpPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          helpPopOutTransition.setNode(helpPopOut);
-          helpPopOutTransition.setToX(0);
-          helpPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                helpPopOut.setVisible(false);
-                helpTrigger.setVisible(false);
-                helpButton.setVisible(true);
-              });
-          pause.play();
-
-          exitPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          exitPopOutTransition.setNode(exitPopOut);
-          exitPopOutTransition.setToX(0);
-          exitPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                exitPopOut.setVisible(false);
-                exitTrigger.setVisible(false);
-                exitButton.setVisible(true);
-              });
-          pause.play();
-
-          logoutPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          logoutPopOutTransition.setNode(logoutPopOut);
-          logoutPopOutTransition.setToX(0);
-          logoutPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                logoutPopOut.setVisible(false);
-                logoutTrigger.setVisible(false);
-                logoutButton.setVisible(true);
-              });
-          pause.play();
-
-          serviceRequestTrigger.setVisible(true);
-          serviceRequestButton.setVisible(false);
-
-          serviceRequestPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
-          serviceRequestPopOutTransition.setToX(180);
-          serviceRequestPopOutTransition.play();
-
-          serviceRequestPopOut.setVisible(true);
-
-          serviceRequestPopOut.setOnMouseExited(
-              f -> {
-                serviceRequestPopOutTransition.setDuration(javafx.util.Duration.millis(200));
+    serviceRequestButton
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue || isHovering.get()) {
+                delay.setOnFinished(
+                    event -> {
+                      serviceRequestPopOutTransition.setDuration(Duration.millis(200));
+                      serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
+                      serviceRequestPopOutTransition.setToX(180);
+                      serviceRequestPopOutTransition.play();
+                      serviceRequestPopOut.setVisible(true);
+                      serviceRequestTrigger.setVisible(true);
+                      serviceRequestButton.setVisible(false);
+                    });
+                delay.play();
+              } else {
+                delay.setOnFinished(null); // Clear the delay's onFinished event
+                serviceRequestPopOutTransition.setDuration(Duration.millis(200));
                 serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
                 serviceRequestPopOutTransition.setToX(0);
-                serviceRequestPopOutTransition.play();
-
-                pause.setOnFinished(
-                    g -> {
-                      serviceRequestPopOut.setVisible(false);
-                      serviceRequestTrigger.setVisible(false);
-                      serviceRequestButton.setVisible(true);
+                serviceRequestPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!serviceRequestPopOut.isHover() && !serviceRequestTrigger.isHover()) {
+                        serviceRequestPopOut.setVisible(false);
+                        serviceRequestTrigger.setVisible(false);
+                        serviceRequestButton.setVisible(true);
+                      }
                     });
-                pause.play();
-              });
-        });
-    serviceRequestTrigger.setOnMouseExited(
-        e -> {
-          serviceRequestTrigger.setVisible(false);
-          serviceRequestButton.setVisible(true);
-        });
-    serviceRequestPopOut.setOnMouseEntered(
-        e -> {
-          serviceRequestTrigger.setVisible(true);
-          serviceRequestButton.setVisible(false);
-        });
-
-    navigationButton.setOnMouseEntered(
-        e -> {
-          homeTrigger.setVisible(false);
-          serviceRequestTrigger.setVisible(false);
-
-          settingsTrigger.setVisible(false);
-          helpTrigger.setVisible(false);
-          historyTrigger.setVisible(false);
-          exitTrigger.setVisible(false);
-          logoutTrigger.setVisible(false);
-
-          homeButton.setVisible(true);
-          serviceRequestButton.setVisible(true);
-
-          settingsButton.setVisible(true);
-          helpButton.setVisible(true);
-          historyButton.setVisible(true);
-          exitButton.setVisible(true);
-          logoutButton.setVisible(true);
-          homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          homePopOutTransition.setNode(homePopOut);
-          homePopOutTransition.setToX(0);
-          homePopOutTransition.play();
-
-          pause.setOnFinished(
-              h -> {
-                homePopOut.setVisible(false);
-                homeTrigger.setVisible(false);
-                homeButton.setVisible(true);
-              });
-          pause.play();
-
-          serviceRequestPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
-          serviceRequestPopOutTransition.setToX(0);
-          serviceRequestPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                serviceRequestPopOut.setVisible(false);
-                serviceRequestTrigger.setVisible(false);
-                serviceRequestButton.setVisible(true);
-              });
-          pause.play();
-
-          historyPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          historyPopOutTransition.setNode(historyPopOut);
-          historyPopOutTransition.setToX(0);
-          historyPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                historyPopOut.setVisible(false);
-                historyTrigger.setVisible(false);
-                historyButton.setVisible(true);
-              });
-          pause.play();
-
-          settingsPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          settingsPopOutTransition.setNode(settingsPopOut);
-          settingsPopOutTransition.setToX(0);
-          settingsPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                settingsPopOut.setVisible(false);
-                settingsTrigger.setVisible(false);
-                settingsButton.setVisible(true);
-              });
-          pause.play();
-
-          helpPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          helpPopOutTransition.setNode(helpPopOut);
-          helpPopOutTransition.setToX(0);
-          helpPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                helpPopOut.setVisible(false);
-                helpTrigger.setVisible(false);
-                helpButton.setVisible(true);
-              });
-          pause.play();
-
-          exitPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          exitPopOutTransition.setNode(exitPopOut);
-          exitPopOutTransition.setToX(0);
-          exitPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                exitPopOut.setVisible(false);
-                exitTrigger.setVisible(false);
-                exitButton.setVisible(true);
-              });
-          pause.play();
-
-          logoutPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          logoutPopOutTransition.setNode(logoutPopOut);
-          logoutPopOutTransition.setToX(0);
-          logoutPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                logoutPopOut.setVisible(false);
-                logoutTrigger.setVisible(false);
-                logoutButton.setVisible(true);
-              });
-          pause.play();
-
-          navigationTrigger.setVisible(true);
-          navigationButton.setVisible(false);
-
-          navigationPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          navigationPopOutTransition.setNode(navigationPopOut);
-          navigationPopOutTransition.setToX(180);
-          navigationPopOutTransition.play();
-
-          navigationPopOut.setVisible(true);
-
-          navigationPopOut.setOnMouseExited(
-              f -> {
-                navigationPopOutTransition.setDuration(javafx.util.Duration.millis(200));
+                serviceRequestPopOutTransition.play();
+              }
+            });
+    serviceRequestPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue
+                  && !serviceRequestButton.isHover()
+                  && !serviceRequestTrigger.isHover()) {
+                serviceRequestPopOutTransition.setDuration(Duration.millis(200));
+                serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
+                serviceRequestPopOutTransition.setToX(0);
+                serviceRequestPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!serviceRequestPopOut.isHover() && !serviceRequestTrigger.isHover()) {
+                        serviceRequestPopOut.setVisible(false);
+                        serviceRequestTrigger.setVisible(false);
+                        serviceRequestButton.setVisible(true);
+                      }
+                    });
+                serviceRequestPopOutTransition.play();
+              } else if (newValue) {
+                serviceRequestPopOutTransition.stop();
+                serviceRequestPopOut.setTranslateX(180);
+              }
+            });
+    serviceRequestTrigger
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !serviceRequestButton.isHover() && !serviceRequestPopOut.isHover()) {
+                serviceRequestPopOutTransition.setDuration(Duration.millis(200));
+                serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
+                serviceRequestPopOutTransition.setToX(0);
+                serviceRequestPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!serviceRequestPopOut.isHover() && !serviceRequestTrigger.isHover()) {
+                        serviceRequestPopOut.setVisible(false);
+                        serviceRequestTrigger.setVisible(false);
+                        serviceRequestButton.setVisible(true);
+                      }
+                    });
+                serviceRequestPopOutTransition.play();
+              } else if (newValue) {
+                serviceRequestPopOutTransition.setDuration(Duration.millis(200));
+                serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
+                serviceRequestPopOut.setTranslateX(180);
+                serviceRequestPopOutTransition.play();
+              }
+            });
+    navigationButton
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue || isHovering.get()) {
+                delay.setOnFinished(
+                    event -> {
+                      navigationPopOutTransition.setDuration(Duration.millis(200));
+                      navigationPopOutTransition.setNode(navigationPopOut);
+                      navigationPopOutTransition.setToX(180);
+                      navigationPopOutTransition.play();
+                      navigationPopOut.setVisible(true);
+                      navigationTrigger.setVisible(true);
+                      navigationButton.setVisible(false);
+                    });
+                delay.play();
+              } else {
+                delay.setOnFinished(null); // Clear the delay's onFinished event
+                navigationPopOutTransition.setDuration(Duration.millis(200));
                 navigationPopOutTransition.setNode(navigationPopOut);
                 navigationPopOutTransition.setToX(0);
+                navigationPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!navigationPopOut.isHover() && !navigationTrigger.isHover()) {
+                        navigationPopOut.setVisible(false);
+                        navigationTrigger.setVisible(false);
+                        navigationButton.setVisible(true);
+                      }
+                    });
                 navigationPopOutTransition.play();
-
-                pause.setOnFinished(
-                    g -> {
-                      navigationPopOut.setVisible(false);
-                      navigationTrigger.setVisible(false);
-                      navigationButton.setVisible(true);
+              }
+            });
+    navigationPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !navigationButton.isHover() && !navigationTrigger.isHover()) {
+                navigationPopOutTransition.setDuration(Duration.millis(200));
+                navigationPopOutTransition.setNode(navigationPopOut);
+                navigationPopOutTransition.setToX(0);
+                navigationPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!navigationPopOut.isHover() && !navigationTrigger.isHover()) {
+                        navigationPopOut.setVisible(false);
+                        navigationTrigger.setVisible(false);
+                        navigationButton.setVisible(true);
+                      }
                     });
-                pause.play();
-              });
-        });
-    navigationPopOut.setOnMouseEntered(
-        e -> {
-          navigationTrigger.setVisible(true);
-          navigationButton.setVisible(false);
-        });
-    navigationTrigger.setOnMouseExited(
-        e -> {
-          navigationTrigger.setVisible(false);
-          navigationButton.setVisible(true);
-        });
-    historyButton.setOnMouseEntered(
-        e -> {
-          homeTrigger.setVisible(false);
-          serviceRequestTrigger.setVisible(false);
-          navigationTrigger.setVisible(false);
-          settingsTrigger.setVisible(false);
-          helpTrigger.setVisible(false);
-
-          exitTrigger.setVisible(false);
-          logoutTrigger.setVisible(false);
-
-          homeButton.setVisible(true);
-          serviceRequestButton.setVisible(true);
-          navigationButton.setVisible(true);
-          settingsButton.setVisible(true);
-          helpButton.setVisible(true);
-
-          exitButton.setVisible(true);
-          logoutButton.setVisible(true);
-
-          homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          homePopOutTransition.setNode(homePopOut);
-          homePopOutTransition.setToX(0);
-          homePopOutTransition.play();
-
-          pause.setOnFinished(
-              h -> {
-                homePopOut.setVisible(false);
-                homeTrigger.setVisible(false);
-                homeButton.setVisible(true);
-              });
-          pause.play();
-
-          navigationPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          navigationPopOutTransition.setNode(navigationPopOut);
-          navigationPopOutTransition.setToX(0);
-          navigationPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                navigationPopOut.setVisible(false);
-                navigationTrigger.setVisible(false);
-                navigationButton.setVisible(true);
-              });
-          pause.play();
-
-          serviceRequestPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
-          serviceRequestPopOutTransition.setToX(0);
-          serviceRequestPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                serviceRequestPopOut.setVisible(false);
-                serviceRequestTrigger.setVisible(false);
-                serviceRequestButton.setVisible(true);
-              });
-          pause.play();
-
-          settingsPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          settingsPopOutTransition.setNode(settingsPopOut);
-          settingsPopOutTransition.setToX(0);
-          settingsPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                settingsPopOut.setVisible(false);
-                settingsTrigger.setVisible(false);
-                settingsButton.setVisible(true);
-              });
-          pause.play();
-
-          helpPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          helpPopOutTransition.setNode(helpPopOut);
-          helpPopOutTransition.setToX(0);
-          helpPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                helpPopOut.setVisible(false);
-                helpTrigger.setVisible(false);
-                helpButton.setVisible(true);
-              });
-          pause.play();
-
-          exitPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          exitPopOutTransition.setNode(exitPopOut);
-          exitPopOutTransition.setToX(0);
-          exitPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                exitPopOut.setVisible(false);
-                exitTrigger.setVisible(false);
-                exitButton.setVisible(true);
-              });
-          pause.play();
-
-          logoutPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          logoutPopOutTransition.setNode(logoutPopOut);
-          logoutPopOutTransition.setToX(0);
-          logoutPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                logoutPopOut.setVisible(false);
-                logoutTrigger.setVisible(false);
-                logoutButton.setVisible(true);
-              });
-          pause.play();
-
-          historyTrigger.setVisible(true);
-          historyButton.setVisible(false);
-
-          historyPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          historyPopOutTransition.setNode(historyPopOut);
-          historyPopOutTransition.setToX(180);
-          historyPopOutTransition.play();
-
-          historyPopOut.setVisible(true);
-          historyPopOut.setOnMouseExited(
-              f -> {
-                historyPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-                historyPopOutTransition.setNode(historyPopOut);
-                historyPopOutTransition.setToX(0);
-                historyPopOutTransition.play();
-
-                pause.setOnFinished(
-                    g -> {
-                      historyPopOut.setVisible(false);
-                      historyTrigger.setVisible(false);
-                      historyButton.setVisible(true);
+                navigationPopOutTransition.play();
+              } else if (newValue) {
+                navigationPopOutTransition.stop();
+                navigationPopOut.setTranslateX(180);
+              }
+            });
+    navigationTrigger
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !navigationButton.isHover() && !navigationPopOut.isHover()) {
+                navigationPopOutTransition.setDuration(Duration.millis(200));
+                navigationPopOutTransition.setNode(navigationPopOut);
+                navigationPopOutTransition.setToX(0);
+                navigationPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!navigationPopOut.isHover() && !navigationTrigger.isHover()) {
+                        navigationPopOut.setVisible(false);
+                        navigationTrigger.setVisible(false);
+                        navigationButton.setVisible(true);
+                      }
                     });
-                pause.play();
-              });
-        });
-    historyPopOut.setOnMouseEntered(
-        e -> {
-          historyTrigger.setVisible(true);
-          historyButton.setVisible(false);
-        });
-    historyTrigger.setOnMouseExited(
-        e -> {
-          historyTrigger.setVisible(false);
-          historyButton.setVisible(true);
-        });
-    settingsButton.setOnMouseEntered(
-        e -> {
-          homeTrigger.setVisible(false);
-          serviceRequestTrigger.setVisible(false);
-          navigationTrigger.setVisible(false);
-
-          helpTrigger.setVisible(false);
-          historyTrigger.setVisible(false);
-          exitTrigger.setVisible(false);
-          logoutTrigger.setVisible(false);
-
-          homeButton.setVisible(true);
-          serviceRequestButton.setVisible(true);
-          navigationButton.setVisible(true);
-
-          helpButton.setVisible(true);
-          historyButton.setVisible(true);
-          exitButton.setVisible(true);
-          logoutButton.setVisible(true);
-
-          homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          homePopOutTransition.setNode(homePopOut);
-          homePopOutTransition.setToX(0);
-          homePopOutTransition.play();
-
-          pause.setOnFinished(
-              h -> {
-                homePopOut.setVisible(false);
-                homeTrigger.setVisible(false);
-                homeButton.setVisible(true);
-              });
-          pause.play();
-
-          navigationPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          navigationPopOutTransition.setNode(navigationPopOut);
-          navigationPopOutTransition.setToX(0);
-          navigationPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                navigationPopOut.setVisible(false);
-                navigationTrigger.setVisible(false);
-                navigationButton.setVisible(true);
-              });
-          pause.play();
-
-          serviceRequestPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
-          serviceRequestPopOutTransition.setToX(0);
-          serviceRequestPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                serviceRequestPopOut.setVisible(false);
-                serviceRequestTrigger.setVisible(false);
-                serviceRequestButton.setVisible(true);
-              });
-          pause.play();
-
-          historyPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          historyPopOutTransition.setNode(historyPopOut);
-          historyPopOutTransition.setToX(0);
-          historyPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                historyPopOut.setVisible(false);
-                historyTrigger.setVisible(false);
-                historyButton.setVisible(true);
-              });
-          pause.play();
-
-          helpPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          helpPopOutTransition.setNode(helpPopOut);
-          helpPopOutTransition.setToX(0);
-          helpPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                helpPopOut.setVisible(false);
-                helpTrigger.setVisible(false);
-                helpButton.setVisible(true);
-              });
-          pause.play();
-
-          exitPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          exitPopOutTransition.setNode(exitPopOut);
-          exitPopOutTransition.setToX(0);
-          exitPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                exitPopOut.setVisible(false);
-                exitTrigger.setVisible(false);
-                exitButton.setVisible(true);
-              });
-          pause.play();
-
-          logoutPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          logoutPopOutTransition.setNode(logoutPopOut);
-          logoutPopOutTransition.setToX(0);
-          logoutPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                logoutPopOut.setVisible(false);
-                logoutTrigger.setVisible(false);
-                logoutButton.setVisible(true);
-              });
-          pause.play();
-
-          settingsTrigger.setVisible(true);
-          settingsButton.setVisible(false);
-
-          settingsPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          settingsPopOutTransition.setNode(settingsPopOut);
-          settingsPopOutTransition.setToX(180);
-          settingsPopOutTransition.play();
-
-          settingsPopOut.setVisible(true);
-          settingsPopOut.setOnMouseExited(
-              f -> {
-                settingsPopOutTransition.setDuration(javafx.util.Duration.millis(200));
+                navigationPopOutTransition.play();
+              } else if (newValue) {
+                navigationPopOutTransition.setDuration(Duration.millis(200));
+                navigationPopOutTransition.setNode(navigationPopOut);
+                navigationPopOut.setTranslateX(180);
+                navigationPopOutTransition.play();
+              }
+            });
+    settingsButton
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue || isHovering.get()) {
+                delay.setOnFinished(
+                    event -> {
+                      settingsPopOutTransition.setDuration(Duration.millis(200));
+                      settingsPopOutTransition.setNode(settingsPopOut);
+                      settingsPopOutTransition.setToX(180);
+                      settingsPopOutTransition.play();
+                      settingsPopOut.setVisible(true);
+                      settingsTrigger.setVisible(true);
+                      settingsButton.setVisible(false);
+                    });
+                delay.play();
+              } else {
+                delay.setOnFinished(null); // Clear the delay's onFinished event
+                settingsPopOutTransition.setDuration(Duration.millis(200));
                 settingsPopOutTransition.setNode(settingsPopOut);
                 settingsPopOutTransition.setToX(0);
-                settingsPopOutTransition.play();
-
-                pause.setOnFinished(
-                    g -> {
-                      settingsPopOut.setVisible(false);
-                      settingsTrigger.setVisible(false);
-                      settingsButton.setVisible(true);
+                settingsPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!settingsPopOut.isHover() && !settingsTrigger.isHover()) {
+                        settingsPopOut.setVisible(false);
+                        settingsTrigger.setVisible(false);
+                        settingsButton.setVisible(true);
+                      }
                     });
-                pause.play();
-              });
-        });
-    settingsPopOut.setOnMouseEntered(
-        e -> {
-          settingsTrigger.setVisible(true);
-          settingsButton.setVisible(false);
-        });
-    settingsTrigger.setOnMouseExited(
-        e -> {
-          settingsTrigger.setVisible(false);
-          settingsButton.setVisible(true);
-        });
-    helpButton.setOnMouseEntered(
-        e -> {
-          homeTrigger.setVisible(false);
-          serviceRequestTrigger.setVisible(false);
-          navigationTrigger.setVisible(false);
-          settingsTrigger.setVisible(false);
-
-          historyTrigger.setVisible(false);
-          exitTrigger.setVisible(false);
-          logoutTrigger.setVisible(false);
-
-          homeButton.setVisible(true);
-          serviceRequestButton.setVisible(true);
-          navigationButton.setVisible(true);
-          settingsButton.setVisible(true);
-
-          historyButton.setVisible(true);
-          exitButton.setVisible(true);
-          logoutButton.setVisible(true);
-
-          homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          homePopOutTransition.setNode(homePopOut);
-          homePopOutTransition.setToX(0);
-          homePopOutTransition.play();
-
-          pause.setOnFinished(
-              h -> {
-                homePopOut.setVisible(false);
-                homeTrigger.setVisible(false);
-                homeButton.setVisible(true);
-              });
-          pause.play();
-
-          navigationPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          navigationPopOutTransition.setNode(navigationPopOut);
-          navigationPopOutTransition.setToX(0);
-          navigationPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                navigationPopOut.setVisible(false);
-                navigationTrigger.setVisible(false);
-                navigationButton.setVisible(true);
-              });
-          pause.play();
-
-          serviceRequestPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
-          serviceRequestPopOutTransition.setToX(0);
-          serviceRequestPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                serviceRequestPopOut.setVisible(false);
-                serviceRequestTrigger.setVisible(false);
-                serviceRequestButton.setVisible(true);
-              });
-          pause.play();
-
-          historyPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          historyPopOutTransition.setNode(historyPopOut);
-          historyPopOutTransition.setToX(0);
-          historyPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                historyPopOut.setVisible(false);
-                historyTrigger.setVisible(false);
-                historyButton.setVisible(true);
-              });
-          pause.play();
-
-          settingsPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          settingsPopOutTransition.setNode(settingsPopOut);
-          settingsPopOutTransition.setToX(0);
-          settingsPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                settingsPopOut.setVisible(false);
-                settingsTrigger.setVisible(false);
-                settingsButton.setVisible(true);
-              });
-          pause.play();
-
-          exitPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          exitPopOutTransition.setNode(exitPopOut);
-          exitPopOutTransition.setToX(0);
-          exitPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                exitPopOut.setVisible(false);
-                exitTrigger.setVisible(false);
-                exitButton.setVisible(true);
-              });
-          pause.play();
-
-          helpTrigger.setVisible(true);
-          helpButton.setVisible(false);
-
-          helpPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          helpPopOutTransition.setNode(helpPopOut);
-          helpPopOutTransition.setToX(180);
-          helpPopOutTransition.play();
-
-          logoutPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          logoutPopOutTransition.setNode(logoutPopOut);
-          logoutPopOutTransition.setToX(0);
-          logoutPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                logoutPopOut.setVisible(false);
-                logoutTrigger.setVisible(false);
-                logoutButton.setVisible(true);
-              });
-          pause.play();
-
-          helpPopOut.setVisible(true);
-          helpPopOut.setOnMouseExited(
-              f -> {
-                helpPopOutTransition.setDuration(javafx.util.Duration.millis(200));
+                settingsPopOutTransition.play();
+              }
+            });
+    settingsPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !settingsButton.isHover() && !settingsTrigger.isHover()) {
+                settingsPopOutTransition.setDuration(Duration.millis(200));
+                settingsPopOutTransition.setNode(settingsPopOut);
+                settingsPopOutTransition.setToX(0);
+                settingsPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!settingsPopOut.isHover() && !settingsTrigger.isHover()) {
+                        settingsPopOut.setVisible(false);
+                        settingsTrigger.setVisible(false);
+                        settingsButton.setVisible(true);
+                      }
+                    });
+                settingsPopOutTransition.play();
+              } else if (newValue) {
+                settingsPopOutTransition.stop();
+                settingsPopOut.setTranslateX(180);
+              }
+            });
+    settingsTrigger
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !settingsButton.isHover() && !settingsPopOut.isHover()) {
+                settingsPopOutTransition.setDuration(Duration.millis(200));
+                settingsPopOutTransition.setNode(settingsPopOut);
+                settingsPopOutTransition.setToX(0);
+                settingsPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!settingsPopOut.isHover() && !settingsTrigger.isHover()) {
+                        settingsPopOut.setVisible(false);
+                        settingsTrigger.setVisible(false);
+                        settingsButton.setVisible(true);
+                      }
+                    });
+                settingsPopOutTransition.play();
+              } else if (newValue) {
+                settingsPopOutTransition.setDuration(Duration.millis(200));
+                settingsPopOutTransition.setNode(settingsPopOut);
+                settingsPopOut.setTranslateX(180);
+                settingsPopOutTransition.play();
+              }
+            });
+    historyButton
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue || isHovering.get()) {
+                delay.setOnFinished(
+                    event -> {
+                      historyPopOutTransition.setDuration(Duration.millis(200));
+                      historyPopOutTransition.setNode(historyPopOut);
+                      historyPopOutTransition.setToX(180);
+                      historyPopOutTransition.play();
+                      historyPopOut.setVisible(true);
+                      historyTrigger.setVisible(true);
+                      historyButton.setVisible(false);
+                    });
+                delay.play();
+              } else {
+                delay.setOnFinished(null); // Clear the delay's onFinished event
+                historyPopOutTransition.setDuration(Duration.millis(200));
+                historyPopOutTransition.setNode(historyPopOut);
+                historyPopOutTransition.setToX(0);
+                historyPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!historyPopOut.isHover() && !historyTrigger.isHover()) {
+                        historyPopOut.setVisible(false);
+                        historyTrigger.setVisible(false);
+                        historyButton.setVisible(true);
+                      }
+                    });
+                historyPopOutTransition.play();
+              }
+            });
+    historyPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !historyButton.isHover() && !historyTrigger.isHover()) {
+                historyPopOutTransition.setDuration(Duration.millis(200));
+                historyPopOutTransition.setNode(historyPopOut);
+                historyPopOutTransition.setToX(0);
+                historyPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!historyPopOut.isHover() && !historyTrigger.isHover()) {
+                        historyPopOut.setVisible(false);
+                        historyTrigger.setVisible(false);
+                        historyButton.setVisible(true);
+                      }
+                    });
+                historyPopOutTransition.play();
+              } else if (newValue) {
+                historyPopOutTransition.stop();
+                historyPopOut.setTranslateX(180);
+              }
+            });
+    historyTrigger
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !historyButton.isHover() && !historyPopOut.isHover()) {
+                historyPopOutTransition.setDuration(Duration.millis(200));
+                historyPopOutTransition.setNode(historyPopOut);
+                historyPopOutTransition.setToX(0);
+                historyPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!historyPopOut.isHover() && !historyTrigger.isHover()) {
+                        historyPopOut.setVisible(false);
+                        historyTrigger.setVisible(false);
+                        historyButton.setVisible(true);
+                      }
+                    });
+                historyPopOutTransition.play();
+              } else if (newValue) {
+                historyPopOutTransition.setDuration(Duration.millis(200));
+                historyPopOutTransition.setNode(historyPopOut);
+                historyPopOut.setTranslateX(180);
+                historyPopOutTransition.play();
+              }
+            });
+    helpButton
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue || isHovering.get()) {
+                delay.setOnFinished(
+                    event -> {
+                      helpPopOutTransition.setDuration(Duration.millis(200));
+                      helpPopOutTransition.setNode(helpPopOut);
+                      helpPopOutTransition.setToX(180);
+                      helpPopOutTransition.play();
+                      helpPopOut.setVisible(true);
+                      helpTrigger.setVisible(true);
+                      helpButton.setVisible(false);
+                    });
+                delay.play();
+              } else {
+                delay.setOnFinished(null); // Clear the delay's onFinished event
+                helpPopOutTransition.setDuration(Duration.millis(200));
                 helpPopOutTransition.setNode(helpPopOut);
                 helpPopOutTransition.setToX(0);
+                helpPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!helpPopOut.isHover() && !helpTrigger.isHover()) {
+                        helpPopOut.setVisible(false);
+                        helpTrigger.setVisible(false);
+                        helpButton.setVisible(true);
+                      }
+                    });
                 helpPopOutTransition.play();
-
-                pause.setOnFinished(
-                    g -> {
-                      helpPopOut.setVisible(false);
-                      helpTrigger.setVisible(false);
-                      helpButton.setVisible(true);
+              }
+            });
+    helpPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !helpButton.isHover() && !helpTrigger.isHover()) {
+                helpPopOutTransition.setDuration(Duration.millis(200));
+                helpPopOutTransition.setNode(helpPopOut);
+                helpPopOutTransition.setToX(0);
+                helpPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!helpPopOut.isHover() && !helpTrigger.isHover()) {
+                        helpPopOut.setVisible(false);
+                        helpTrigger.setVisible(false);
+                        helpButton.setVisible(true);
+                      }
                     });
-                pause.play();
-              });
-        });
-    helpPopOut.setOnMouseEntered(
-        e -> {
-          helpTrigger.setVisible(true);
-          helpButton.setVisible(false);
-        });
-    helpTrigger.setOnMouseExited(
-        e -> {
-          helpTrigger.setVisible(false);
-          helpButton.setVisible(true);
-        });
-    exitButton.setOnMouseEntered(
-        e -> {
-          homeTrigger.setVisible(false);
-          serviceRequestTrigger.setVisible(false);
-          navigationTrigger.setVisible(false);
-          settingsTrigger.setVisible(false);
-          helpTrigger.setVisible(false);
-          historyTrigger.setVisible(false);
-
-          homeButton.setVisible(true);
-          serviceRequestButton.setVisible(true);
-          navigationButton.setVisible(true);
-          settingsButton.setVisible(true);
-          helpButton.setVisible(true);
-          historyButton.setVisible(true);
-
-          logoutButton.setVisible(true);
-
-          logoutTrigger.setVisible(false);
-          homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          homePopOutTransition.setNode(homePopOut);
-          homePopOutTransition.setToX(0);
-          homePopOutTransition.play();
-
-          pause.setOnFinished(
-              h -> {
-                homePopOut.setVisible(false);
-                homeTrigger.setVisible(false);
-                homeButton.setVisible(true);
-              });
-          pause.play();
-
-          navigationPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          navigationPopOutTransition.setNode(navigationPopOut);
-          navigationPopOutTransition.setToX(0);
-          navigationPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                navigationPopOut.setVisible(false);
-                navigationTrigger.setVisible(false);
-                navigationButton.setVisible(true);
-              });
-          pause.play();
-
-          serviceRequestPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
-          serviceRequestPopOutTransition.setToX(0);
-          serviceRequestPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                serviceRequestPopOut.setVisible(false);
-                serviceRequestTrigger.setVisible(false);
-                serviceRequestButton.setVisible(true);
-              });
-          pause.play();
-
-          historyPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          historyPopOutTransition.setNode(historyPopOut);
-          historyPopOutTransition.setToX(0);
-          historyPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                historyPopOut.setVisible(false);
-                historyTrigger.setVisible(false);
-                historyButton.setVisible(true);
-              });
-          pause.play();
-
-          settingsPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          settingsPopOutTransition.setNode(settingsPopOut);
-          settingsPopOutTransition.setToX(0);
-          settingsPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                settingsPopOut.setVisible(false);
-                settingsTrigger.setVisible(false);
-                settingsButton.setVisible(true);
-              });
-          pause.play();
-
-          helpPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          helpPopOutTransition.setNode(helpPopOut);
-          helpPopOutTransition.setToX(0);
-          helpPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                helpPopOut.setVisible(false);
-                helpTrigger.setVisible(false);
-                helpButton.setVisible(true);
-              });
-          pause.play();
-
-          exitTrigger.setVisible(true);
-          exitButton.setVisible(false);
-
-          exitPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          exitPopOutTransition.setNode(exitPopOut);
-          exitPopOutTransition.setToX(180);
-          exitPopOutTransition.play();
-
-          logoutPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          logoutPopOutTransition.setNode(logoutPopOut);
-          logoutPopOutTransition.setToX(0);
-          logoutPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                logoutPopOut.setVisible(false);
-                logoutTrigger.setVisible(false);
-                logoutButton.setVisible(true);
-              });
-          pause.play();
-
-          exitPopOut.setVisible(true);
-          exitPopOut.setOnMouseExited(
-              f -> {
-                exitPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-                exitPopOutTransition.setNode(exitPopOut);
-                exitPopOutTransition.setToX(0);
-                exitPopOutTransition.play();
-
-                pause.setOnFinished(
-                    g -> {
-                      exitPopOut.setVisible(false);
-                      exitTrigger.setVisible(false);
-                      exitButton.setVisible(true);
+                helpPopOutTransition.play();
+              } else if (newValue) {
+                helpPopOutTransition.stop();
+                helpPopOut.setTranslateX(180);
+              }
+            });
+    helpTrigger
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !helpButton.isHover() && !helpPopOut.isHover()) {
+                helpPopOutTransition.setDuration(Duration.millis(200));
+                helpPopOutTransition.setNode(helpPopOut);
+                helpPopOutTransition.setToX(0);
+                helpPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!helpPopOut.isHover() && !helpTrigger.isHover()) {
+                        helpPopOut.setVisible(false);
+                        helpTrigger.setVisible(false);
+                        helpButton.setVisible(true);
+                      }
                     });
-                pause.play();
-              });
-        });
-    exitPopOut.setOnMouseEntered(
-        e -> {
-          exitTrigger.setVisible(true);
-          exitButton.setVisible(false);
-        });
-
-    exitTrigger.setOnMouseExited(
-        e -> {
-          exitTrigger.setVisible(false);
-          exitButton.setVisible(true);
-        });
-    logoutButton.setOnMouseEntered(
-        e -> {
-          homeTrigger.setVisible(false);
-          serviceRequestTrigger.setVisible(false);
-          navigationTrigger.setVisible(false);
-          settingsTrigger.setVisible(false);
-          helpTrigger.setVisible(false);
-          historyTrigger.setVisible(false);
-          exitTrigger.setVisible(false);
-
-          homeButton.setVisible(true);
-          serviceRequestButton.setVisible(true);
-          navigationButton.setVisible(true);
-          settingsButton.setVisible(true);
-          helpButton.setVisible(true);
-          historyButton.setVisible(true);
-          exitButton.setVisible(true);
-
-          homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          homePopOutTransition.setNode(homePopOut);
-          homePopOutTransition.setToX(0);
-          homePopOutTransition.play();
-
-          pause.setOnFinished(
-              h -> {
-                homePopOut.setVisible(false);
-                homeTrigger.setVisible(false);
-                homeButton.setVisible(true);
-              });
-          pause.play();
-
-          navigationPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          navigationPopOutTransition.setNode(navigationPopOut);
-          navigationPopOutTransition.setToX(0);
-          navigationPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                navigationPopOut.setVisible(false);
-                navigationTrigger.setVisible(false);
-                navigationButton.setVisible(true);
-              });
-          pause.play();
-
-          serviceRequestPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
-          serviceRequestPopOutTransition.setToX(0);
-          serviceRequestPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                serviceRequestPopOut.setVisible(false);
-                serviceRequestTrigger.setVisible(false);
-                serviceRequestButton.setVisible(true);
-              });
-          pause.play();
-
-          settingsPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          settingsPopOutTransition.setNode(settingsPopOut);
-          settingsPopOutTransition.setToX(0);
-          settingsPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                settingsPopOut.setVisible(false);
-                settingsTrigger.setVisible(false);
-                settingsButton.setVisible(true);
-              });
-          pause.play();
-
-          helpPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          helpPopOutTransition.setNode(helpPopOut);
-          helpPopOutTransition.setToX(0);
-          helpPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                helpPopOut.setVisible(false);
-                helpTrigger.setVisible(false);
-                helpButton.setVisible(true);
-              });
-          pause.play();
-
-          exitPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          exitPopOutTransition.setNode(exitPopOut);
-          exitPopOutTransition.setToX(0);
-          exitPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                exitPopOut.setVisible(false);
-                exitTrigger.setVisible(false);
-                exitButton.setVisible(true);
-              });
-          pause.play();
-
-          logoutTrigger.setVisible(true);
-          logoutButton.setVisible(false);
-
-          logoutPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          logoutPopOutTransition.setNode(logoutPopOut);
-          logoutPopOutTransition.setToX(180);
-          logoutPopOutTransition.play();
-
-          historyPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          historyPopOutTransition.setNode(historyPopOut);
-          historyPopOutTransition.setToX(0);
-          historyPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                historyPopOut.setVisible(false);
-                historyTrigger.setVisible(false);
-                historyButton.setVisible(true);
-              });
-          pause.play();
-
-          logoutPopOut.setVisible(true);
-          logoutPopOut.setOnMouseExited(
-              f -> {
-                logoutPopOutTransition.setDuration(javafx.util.Duration.millis(200));
+                helpPopOutTransition.play();
+              } else if (newValue) {
+                helpPopOutTransition.setDuration(Duration.millis(200));
+                helpPopOutTransition.setNode(helpPopOut);
+                helpPopOut.setTranslateX(180);
+                helpPopOutTransition.play();
+              }
+            });
+    logoutButton
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue || isHovering.get()) {
+                delay.setOnFinished(
+                    event -> {
+                      logoutPopOutTransition.setDuration(Duration.millis(200));
+                      logoutPopOutTransition.setNode(logoutPopOut);
+                      logoutPopOutTransition.setToX(180);
+                      logoutPopOutTransition.play();
+                      logoutPopOut.setVisible(true);
+                      logoutTrigger.setVisible(true);
+                      logoutButton.setVisible(false);
+                    });
+                delay.play();
+              } else {
+                delay.setOnFinished(null); // Clear the delay's onFinished event
+                logoutPopOutTransition.setDuration(Duration.millis(200));
                 logoutPopOutTransition.setNode(logoutPopOut);
                 logoutPopOutTransition.setToX(0);
-                logoutPopOutTransition.play();
-
-                pause.setOnFinished(
-                    g -> {
-                      logoutPopOut.setVisible(false);
-                      logoutTrigger.setVisible(false);
-                      logoutButton.setVisible(true);
+                logoutPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!logoutPopOut.isHover() && !logoutTrigger.isHover()) {
+                        logoutPopOut.setVisible(false);
+                        logoutTrigger.setVisible(false);
+                        logoutButton.setVisible(true);
+                      }
                     });
-                pause.play();
-              });
-        });
-    logoutPopOut.setOnMouseEntered(
-        e -> {
-          logoutTrigger.setVisible(true);
-          logoutButton.setVisible(false);
-        });
-    logoutTrigger.setOnMouseExited(
-        e -> {
-          logoutTrigger.setVisible(false);
-          logoutButton.setVisible(true);
-        });
-
-    basePane.setOnMouseEntered(
-        e -> {
-          homeTrigger.setVisible(false);
-          serviceRequestTrigger.setVisible(false);
-          navigationTrigger.setVisible(false);
-          settingsTrigger.setVisible(false);
-          helpTrigger.setVisible(false);
-          historyTrigger.setVisible(false);
-          exitTrigger.setVisible(false);
-          logoutTrigger.setVisible(false);
-
-          homeButton.setVisible(true);
-          serviceRequestButton.setVisible(true);
-          navigationButton.setVisible(true);
-          settingsButton.setVisible(true);
-          helpButton.setVisible(true);
-          historyButton.setVisible(true);
-          exitButton.setVisible(true);
-          logoutButton.setVisible(true);
-
-          homePopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          homePopOutTransition.setNode(homePopOut);
-          homePopOutTransition.setToX(0);
-          homePopOutTransition.play();
-
-          pause.setOnFinished(
-              h -> {
-                homePopOut.setVisible(false);
-                homeTrigger.setVisible(false);
-                homeButton.setVisible(true);
-              });
-          pause.play();
-
-          navigationPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          navigationPopOutTransition.setNode(navigationPopOut);
-          navigationPopOutTransition.setToX(0);
-          navigationPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                navigationPopOut.setVisible(false);
-                navigationTrigger.setVisible(false);
-                navigationButton.setVisible(true);
-              });
-          pause.play();
-
-          serviceRequestPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
-          serviceRequestPopOutTransition.setToX(0);
-          serviceRequestPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                serviceRequestPopOut.setVisible(false);
-                serviceRequestTrigger.setVisible(false);
-                serviceRequestButton.setVisible(true);
-              });
-          pause.play();
-
-          settingsPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          settingsPopOutTransition.setNode(settingsPopOut);
-          settingsPopOutTransition.setToX(0);
-          settingsPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                settingsPopOut.setVisible(false);
-                settingsTrigger.setVisible(false);
-                settingsButton.setVisible(true);
-              });
-          pause.play();
-
-          helpPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          helpPopOutTransition.setNode(helpPopOut);
-          helpPopOutTransition.setToX(0);
-          helpPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                helpPopOut.setVisible(false);
-                helpTrigger.setVisible(false);
-                helpButton.setVisible(true);
-              });
-          pause.play();
-
-          exitPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          exitPopOutTransition.setNode(exitPopOut);
-          exitPopOutTransition.setToX(0);
-          exitPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                exitPopOut.setVisible(false);
-                exitTrigger.setVisible(false);
-                exitButton.setVisible(true);
-              });
-          pause.play();
-
-          logoutPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          logoutPopOutTransition.setNode(logoutPopOut);
-          logoutPopOutTransition.setToX(0);
-          logoutPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                logoutPopOut.setVisible(false);
-                logoutTrigger.setVisible(false);
-                logoutButton.setVisible(true);
-              });
-          pause.play();
-
-          historyPopOutTransition.setDuration(javafx.util.Duration.millis(200));
-          historyPopOutTransition.setNode(historyPopOut);
-          historyPopOutTransition.setToX(0);
-          historyPopOutTransition.play();
-
-          pause.setOnFinished(
-              g -> {
-                historyPopOut.setVisible(false);
-                historyTrigger.setVisible(false);
-                historyButton.setVisible(true);
-              });
-          pause.play();
-        });
+                logoutPopOutTransition.play();
+              }
+            });
+    logoutPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !logoutButton.isHover() && !logoutTrigger.isHover()) {
+                logoutPopOutTransition.setDuration(Duration.millis(200));
+                logoutPopOutTransition.setNode(logoutPopOut);
+                logoutPopOutTransition.setToX(0);
+                logoutPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!logoutPopOut.isHover() && !logoutTrigger.isHover()) {
+                        logoutPopOut.setVisible(false);
+                        logoutTrigger.setVisible(false);
+                        logoutButton.setVisible(true);
+                      }
+                    });
+                logoutPopOutTransition.play();
+              } else if (newValue) {
+                logoutPopOutTransition.stop();
+                logoutPopOut.setTranslateX(180);
+              }
+            });
+    logoutTrigger
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !logoutButton.isHover() && !logoutPopOut.isHover()) {
+                logoutPopOutTransition.setDuration(Duration.millis(200));
+                logoutPopOutTransition.setNode(logoutPopOut);
+                logoutPopOutTransition.setToX(0);
+                logoutPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!logoutPopOut.isHover() && !logoutTrigger.isHover()) {
+                        logoutPopOut.setVisible(false);
+                        logoutTrigger.setVisible(false);
+                        logoutButton.setVisible(true);
+                      }
+                    });
+                logoutPopOutTransition.play();
+              } else if (newValue) {
+                logoutPopOutTransition.setDuration(Duration.millis(200));
+                logoutPopOutTransition.setNode(logoutPopOut);
+                logoutPopOut.setTranslateX(180);
+                logoutPopOutTransition.play();
+              }
+            });
+    exitButton
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue || isHovering.get()) {
+                delay.setOnFinished(
+                    event -> {
+                      exitPopOutTransition.setDuration(Duration.millis(200));
+                      exitPopOutTransition.setNode(exitPopOut);
+                      exitPopOutTransition.setToX(180);
+                      exitPopOutTransition.play();
+                      exitPopOut.setVisible(true);
+                      exitTrigger.setVisible(true);
+                      exitButton.setVisible(false);
+                    });
+                delay.play();
+              } else {
+                delay.setOnFinished(null); // Clear the delay's onFinished event
+                exitPopOutTransition.setDuration(Duration.millis(200));
+                exitPopOutTransition.setNode(exitPopOut);
+                exitPopOutTransition.setToX(0);
+                exitPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!exitPopOut.isHover() && !exitTrigger.isHover()) {
+                        exitPopOut.setVisible(false);
+                        exitTrigger.setVisible(false);
+                        exitButton.setVisible(true);
+                      }
+                    });
+                exitPopOutTransition.play();
+              }
+            });
+    exitPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !exitButton.isHover() && !exitTrigger.isHover()) {
+                exitPopOutTransition.setDuration(Duration.millis(200));
+                exitPopOutTransition.setNode(exitPopOut);
+                exitPopOutTransition.setToX(0);
+                exitPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!exitPopOut.isHover() && !exitTrigger.isHover()) {
+                        exitPopOut.setVisible(false);
+                        exitTrigger.setVisible(false);
+                        exitButton.setVisible(true);
+                      }
+                    });
+                exitPopOutTransition.play();
+              } else if (newValue) {
+                exitPopOutTransition.stop();
+                exitPopOut.setTranslateX(180);
+              }
+            });
+    exitTrigger
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !exitButton.isHover() && !exitPopOut.isHover()) {
+                exitPopOutTransition.setDuration(Duration.millis(200));
+                exitPopOutTransition.setNode(exitPopOut);
+                exitPopOutTransition.setToX(0);
+                exitPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!exitPopOut.isHover() && !exitTrigger.isHover()) {
+                        exitPopOut.setVisible(false);
+                        exitTrigger.setVisible(false);
+                        exitButton.setVisible(true);
+                      }
+                    });
+                exitPopOutTransition.play();
+              } else if (newValue) {
+                exitPopOutTransition.setDuration(Duration.millis(200));
+                exitPopOutTransition.setNode(exitPopOut);
+                exitPopOut.setTranslateX(180);
+                exitPopOutTransition.play();
+              }
+            });
   }
 }

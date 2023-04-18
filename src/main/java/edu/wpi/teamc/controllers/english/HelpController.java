@@ -54,6 +54,11 @@ public class HelpController {
     Navigation.navigate(Screen.SIGNAGE);
   }
 
+  @FXML
+  void getPathfindingPage(ActionEvent event) {
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
+
   /** Method run when controller is initialized */
   @FXML
   public void initialize() {}
@@ -65,7 +70,7 @@ public class HelpController {
 
   @FXML
   void getLogOut(ActionEvent event) {
-    Navigation.navigate(Screen.LOGIN);
+    Navigation.navigate(Screen.HOME);
   }
 
   @FXML

@@ -2,6 +2,7 @@ package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.animation.PauseTransition;
@@ -47,6 +48,8 @@ public class MenuController {
   @FXML private Pane logoutPopOut;
   @FXML private Pane homePopOut;
   @FXML private AnchorPane basePane;
+
+  @FXML private MFXButton flowerButton;
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {
@@ -113,6 +116,36 @@ public class MenuController {
   void getMapHistory(ActionEvent event) {
     Navigation.navigate(Screen.MAP_HISTORY_PAGE);
   }
+
+  @FXML
+  void getMealHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MEAL_HISTORY);
+  }
+
+  @FXML
+  void getFlowerHistory(ActionEvent event) {
+    Navigation.navigate(Screen.FLOWER_HISTORY);
+  }
+
+  @FXML
+  void getFurnitureHistory(ActionEvent event) {
+    Navigation.navigate(Screen.FURNITURE_HISTORY);
+  }
+
+  @FXML
+  void getConferenceHistory(ActionEvent event) {
+    Navigation.navigate(Screen.CONFERENCE_HISTORY);
+  }
+
+  @FXML
+  void getOfficeSupplyHistory(ActionEvent event) {
+    Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
+  }
+
+  //    @FXML
+  //    void getGiftBasketHistory(ActionEvent event) {
+  //        Navigation.navigate(Screen.GIFTBASKET_HISTORY);
+  //    }
 
   //  @FXML
   //  void getMapPage(ActionEvent event) {

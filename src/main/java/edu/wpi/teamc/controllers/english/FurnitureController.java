@@ -265,6 +265,12 @@ public class FurnitureController {
   /** Method run when controller is initialized */
   @FXML
   public void initialize() {
+    if (Dimensions == null) {
+      Dimensions = new TextArea();
+    }
+    if (weightInfo == null) {
+      weightInfo = new TextArea();
+    }
     Dimensions.setWrapText(true);
     weightInfo.setWrapText(true);
   }

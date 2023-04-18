@@ -9,6 +9,7 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.sql.Date;
+import java.util.Collections;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -57,7 +58,7 @@ public class MoveTableController {
     //    //    ColumnTwo.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
     //    //    ColumnThree.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
 
-    List<Move> list = (List<Move>) HospitalSystem.fetchAllObjects(new Move(-1, "", null));
+    ObservableList<Move> list = (ObservableList<Move>) HospitalSystem.fetchAllObjects(new Move(-1, "", null));
     rows.addAll(list);
     historyTable.getItems().setAll(rows);
 
@@ -83,4 +84,11 @@ public class MoveTableController {
         rows.add(move);
         historyTable.getItems().setAll(rows);
     }
+
+  public void getDelete(ActionEvent event) {
+    Move move = historyTable.getSelectionModel().getSelectedItem();
+    HospitalSystem.deleteRow(move);
+    rows.remove(move);
+    historyTable.getItems().setAll(rows);
+  }
 }

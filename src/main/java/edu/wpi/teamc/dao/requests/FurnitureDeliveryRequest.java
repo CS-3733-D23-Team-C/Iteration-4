@@ -10,7 +10,7 @@ public class FurnitureDeliveryRequest extends AbsServiceRequest {
   private String furnitureType;
   private String eta;
 
-   FurnitureDeliveryRequest(
+  FurnitureDeliveryRequest(
       int requestID,
       Requester requester,
       String roomName,
@@ -23,11 +23,8 @@ public class FurnitureDeliveryRequest extends AbsServiceRequest {
   }
 
   public FurnitureDeliveryRequest(
-      Requester requester,
-      String roomName,
-      String additionalNotes,
-      String furnitureType) {
-    super( requester, roomName, additionalNotes);
+      Requester requester, String roomName, String additionalNotes, String furnitureType) {
+    super(requester, roomName, additionalNotes);
     this.furnitureType = furnitureType;
   }
 

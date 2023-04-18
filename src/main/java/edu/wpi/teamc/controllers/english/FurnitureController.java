@@ -195,7 +195,7 @@ public class FurnitureController {
     String room = roomMenu.getText();
     String notes = specialRequest.getText();
     Meal meal = new Meal(furnitureMenu.getText(), "");
-    MealRequest req = new MealRequest( new Requester(0, name), room, notes, meal);
+    MealRequest req = new MealRequest(new Requester(0, name), room, notes, meal);
 
     IDao<MealRequest, Integer> dao = new MealRequestDAO();
 

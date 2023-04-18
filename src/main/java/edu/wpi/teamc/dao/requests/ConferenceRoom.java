@@ -16,8 +16,6 @@ public class ConferenceRoom {
     this.availability = availability;
   }
 
-
-
   @Override
   public String toString() {
     return this.longName;

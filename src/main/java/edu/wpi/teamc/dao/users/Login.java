@@ -21,7 +21,7 @@ public class Login implements IOrm {
   }
 
   // only database should use this constructor
-   Login(String username, String password, PERMISSIONS permissions, String salt) {
+  Login(String username, String password, PERMISSIONS permissions, String salt) {
     this.username = username.toLowerCase();
     this.permissions = permissions;
     this.salt = salt;

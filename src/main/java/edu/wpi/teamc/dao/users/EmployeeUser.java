@@ -9,7 +9,7 @@ public class EmployeeUser extends AbsUser {
   private String department;
   private String position;
 
-   EmployeeUser(int id, String name, String username, String department, String position) {
+  EmployeeUser(int id, String name, String username, String department, String position) {
     super(id, name, username);
     this.department = department;
     this.position = position;

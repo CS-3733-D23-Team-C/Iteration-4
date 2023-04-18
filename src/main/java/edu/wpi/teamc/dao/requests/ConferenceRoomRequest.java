@@ -12,7 +12,7 @@ public class ConferenceRoomRequest extends AbsServiceRequest {
 
   private ConferenceRoom conferenceRoom;
 
- ConferenceRoomRequest(
+  ConferenceRoomRequest(
       int requestID,
       Requester requester,
       ConferenceRoom conferenceRoom,

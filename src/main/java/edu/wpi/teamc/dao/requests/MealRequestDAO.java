@@ -62,7 +62,7 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
       int requestID = rs.getInt("requestID");
-      orm.setRequestID(requestID);
+      orm.requestID = (requestID);
     } catch (SQLException e) {
       e.printStackTrace();
     }

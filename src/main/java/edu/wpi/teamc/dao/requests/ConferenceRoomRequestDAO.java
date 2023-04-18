@@ -67,7 +67,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
       int requestID = rs.getInt("requestID");
-      orm.setRequestID(requestID);
+      orm.requestID = requestID;
     } catch (SQLException e) {
       e.printStackTrace();
     }

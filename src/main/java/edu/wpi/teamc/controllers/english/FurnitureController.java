@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-
 public class FurnitureController {
   @FXML private MFXButton goHome;
   @FXML private MFXButton submit;
@@ -266,6 +265,12 @@ public class FurnitureController {
   /** Method run when controller is initialized */
   @FXML
   public void initialize() {
+    if (Dimensions == null) {
+      Dimensions = new TextArea();
+    }
+    if (weightInfo == null) {
+      weightInfo = new TextArea();
+    }
     Dimensions.setWrapText(true);
     weightInfo.setWrapText(true);
   }

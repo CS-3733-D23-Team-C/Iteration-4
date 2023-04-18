@@ -38,6 +38,16 @@ public class EmployeeTableController {
   @FXML TableColumn<EmployeeUser, String> name;
   @FXML TableColumn<EmployeeUser, String> department;
   @FXML TableColumn<EmployeeUser, String> position;
+  @FXML Button clearButton;
+  @FXML Button addButton;
+  @FXML Button deleteButton;
+  @FXML Button updateButton;
+  @FXML TextField idField;
+  @FXML TextField usernameField;
+  @FXML TextField nameField;
+  @FXML TextField departmentField;
+  @FXML TextField positionField;
+
   @FXML MFXFilterComboBox<EmployeeUser> employeeID;
   @FXML MFXFilterComboBox<LocationName> locationName;
   @FXML DatePicker date;
@@ -72,11 +82,6 @@ public class EmployeeTableController {
     department.setText("Department");
     position.setText("Position");
 
-    username.setEditable(true);
-    name.setEditable(true);
-    department.setEditable(true);
-    position.setEditable(true);
-
     List<EmployeeUser> list =
         (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
     rows.addAll(list);
@@ -87,26 +92,52 @@ public class EmployeeTableController {
     // HospitalSystem.fetchAllObjects(new EmployeeUser());
     //        employeeID.setItems(FXCollections.observableArrayList(employeeUsers));
 
+    employeeTable.setOnMouseClicked(
+        event -> {
+          updateEmployeeView();
+        });
+    clearButton.setOnAction(
+        event -> {
+          clearView();
+        });
+    addButton.setOnAction(
+        event -> {
+          addEmployee();
+        });
+  }
+
+  private void addEmployee() {
+    int id = Integer.valueOf(idField.getText());
+    String username = usernameField.getText();
+    String name = nameField.getText();
+    String department = departmentField.getText();
+    String position = positionField.getText();
+    EmployeeUser employeeUser = new EmployeeUser(id, username, name, department, position);
+    HospitalSystem.addRow(employeeUser);
   }
 
   public void getGoHome(ActionEvent event) {
     Navigation.navigate(Screen.HOME);
   }
 
-  public void getAdd(ActionEvent event) {
-    //          Move move = new Move();
-    //          move.setNodeID(nodeID.getValue().getNodeID());
-    //          move.setLongName(locationName.getValue().getLongName());
-    //          move.setDate(Date.valueOf(date.getValue()));
-    //          HospitalSystem.addRow(move);
-    //          rows.add(move);
-    //          historyTable.getItems().setAll(rows);
+  private void updateEmployeeView() {
+    EmployeeUser selected = employeeTable.getSelectionModel().getSelectedItem();
+    setEmployeeView(selected);
   }
 
-  public void getDelete(ActionEvent event) {
-    //          Move move = historyTable.getSelectionModel().getSelectedItem();
-    //          HospitalSystem.deleteRow(move);
-    //          rows.remove(move);
-    //          historyTable.getItems().setAll(rows);
+  private void setEmployeeView(EmployeeUser selected) {
+    idField.setText(Integer.toString(selected.getId()));
+    usernameField.setText(selected.getUserName());
+    nameField.setText(selected.getName());
+    departmentField.setText(selected.getDepartment());
+    positionField.setText(selected.getPosition());
+  }
+
+  private void clearView() {
+    idField.setText("");
+    usernameField.setText("");
+    nameField.setText("");
+    departmentField.setText("");
+    positionField.setText("");
   }
 }

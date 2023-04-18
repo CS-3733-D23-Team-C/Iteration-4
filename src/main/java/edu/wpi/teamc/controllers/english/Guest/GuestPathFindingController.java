@@ -1,5 +1,6 @@
-package edu.wpi.teamc.controllers.english;
+package edu.wpi.teamc.controllers.english.Guest;
 
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.graph.AlgoSingleton;
 import edu.wpi.teamc.graph.Graph;
@@ -24,10 +25,10 @@ import javafx.scene.shape.Line;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 
-public class PathFindingController {
+public class GuestPathFindingController {
   public Group group;
   public Image image =
-      new Image("file:src/main/resources/edu/wpi/teamc/views/Images/FirstFloor.png");
+      new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
   @FXML MFXButton backButton;
   @FXML MFXButton nextFloor;
   @FXML MFXButton prevFloor;
@@ -78,7 +79,7 @@ public class PathFindingController {
     submit.setDisable(true);
     tempSave = FL1;
     //    File file = new File();
-    Image image = this.image;
+    Image image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
     ImageView imageView = new ImageView(image);
     imageView.relocate(0, 0);
     group.getChildren().add(imageView);
@@ -178,19 +179,19 @@ public class PathFindingController {
     floorButton = (MFXButton) event.getTarget();
 
     if (Objects.equals(floorButton.getId(), "FL1")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/FirstFloor.png");
+      image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
       floor = "1";
     } else if (Objects.equals(floorButton.getId(), "FL2")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/SecondFloor.png");
+      image = new Image(Main.class.getResource("./views/Images/SecondFloor.png").toString());
       floor = "2";
     } else if (Objects.equals(floorButton.getId(), "FL3")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/ThirdFloor.png");
+      image = new Image(Main.class.getResource("./views/Images/ThirdFloor.png").toString());
       floor = "3";
     } else if (Objects.equals(floorButton.getId(), "FLB1")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/B1.png");
+      image = new Image(Main.class.getResource("./views/Images/B1.png").toString());
       floor = "L1";
     } else if (Objects.equals(floorButton.getId(), "FLB2")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/B2.png");
+      image = new Image(Main.class.getResource("./views/Images/B2.png").toString());
       floor = "L2";
     }
     resetGroupVar();
@@ -205,19 +206,19 @@ public class PathFindingController {
 
   public void changeFloorFromString(String floor) {
     if (floor.equals("1")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/FirstFloor.png");
+      image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
       resetAndSetFloorIndicator(FL1);
     } else if (floor.equals("2")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/SecondFloor.png");
+      image = new Image(Main.class.getResource("./views/Images/SecondFloor.png").toString());
       resetAndSetFloorIndicator(FL2);
     } else if (floor.equals("3")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/ThirdFloor.png");
+      image = new Image(Main.class.getResource("./views/Images/ThirdFloor.png").toString());
       resetAndSetFloorIndicator(FL3);
     } else if (floor.equals("L1")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/B1.png");
+      image = new Image(Main.class.getResource("./views/Images/B1.png").toString());
       resetAndSetFloorIndicator(FLB1);
     } else if (floor.equals("L2")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/B2.png");
+      image = new Image(Main.class.getResource("./views/Images/B2.png").toString());
       resetAndSetFloorIndicator(FLB2);
     }
     resetGroupVar();

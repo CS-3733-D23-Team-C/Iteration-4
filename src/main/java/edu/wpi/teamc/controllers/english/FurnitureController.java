@@ -195,7 +195,7 @@ public class FurnitureController {
     String room = roomMenu.getText();
     String notes = specialRequest.getText();
     Meal meal = new Meal(furnitureMenu.getText(), "");
-    MealRequest req = new MealRequest(0, new Requester(0, name), room, notes, meal);
+    MealRequest req = new MealRequest(new Requester(0, name), room, notes, meal);
 
     IDao<MealRequest, Integer> dao = new MealRequestDAO();
 
@@ -206,7 +206,7 @@ public class FurnitureController {
 
   @FXML
   void getClear(ActionEvent event) {
-    Navigation.navigate(Screen.CONFERENCE);
+    Navigation.navigate(Screen.FURNITURE);
   }
 
   @FXML

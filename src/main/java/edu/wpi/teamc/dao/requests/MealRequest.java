@@ -8,8 +8,13 @@ public class MealRequest extends AbsServiceRequest {
   @Getter @Setter private Meal meal;
   @Getter @Setter private String eta;
 
-  public MealRequest(int requestID, Requester requester, String roomName, String note, Meal meal) {
+  MealRequest(int requestID, Requester requester, String roomName, String note, Meal meal) {
     super(requestID, requester, roomName, note);
+    this.meal = meal;
+  }
+
+  public MealRequest(Requester requester, String roomName, String note, Meal meal) {
+    super(requester, roomName, note);
     this.meal = meal;
   }
 

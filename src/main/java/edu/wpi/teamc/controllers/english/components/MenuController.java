@@ -1,4 +1,4 @@
-package edu.wpi.teamc.controllers.english;
+package edu.wpi.teamc.controllers.english.components;
 
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
@@ -177,7 +177,6 @@ public class MenuController {
     navigationPopOut.setVisible(false);
     settingsPopOut.setVisible(false);
     helpPopOut.setVisible(false);
-    historyPopOut.setVisible(false);
     exitPopOut.setVisible(false);
     logoutPopOut.setVisible(false);
     homePopOut.setVisible(false);

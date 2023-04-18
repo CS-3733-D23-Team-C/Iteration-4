@@ -182,7 +182,7 @@ public class FlowerController {
     String room = roomMenu.getText();
     String menuSelection = serviceMenu.getText();
     FlowerDeliveryRequest req =
-        new FlowerDeliveryRequest(0, new Requester(0, name), room, menuSelection, notes);
+        new FlowerDeliveryRequest(new Requester(0, name), room, menuSelection, notes);
     IDao<FlowerDeliveryRequest, Integer> dao = new FlowerDeliveryRequestDAO();
     dao.addRow(req);
     Navigation.navigate(Screen.CONGRATS_PAGE);

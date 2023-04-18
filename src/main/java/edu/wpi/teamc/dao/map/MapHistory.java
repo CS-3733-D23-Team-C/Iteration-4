@@ -1,10 +1,11 @@
 package edu.wpi.teamc.dao.map;
 
+import edu.wpi.teamc.dao.IOrm;
 import java.sql.Timestamp;
 import lombok.Getter;
 
 @Getter
-public class MapHistory {
+public class MapHistory implements IOrm {
   private int id;
   private String action;
   private String nodepk;

@@ -37,12 +37,42 @@ public class HomeController {
   @FXML private Hyperlink HOME_forgot;
   @FXML private Hyperlink HOME_create;
   @FXML private Text HOME_or;
+  @FXML private Text wrongPass;
   @FXML private MFXButton HOME_guest;
   @FXML private MFXButton HOME_exit;
+  @FXML private MFXButton HOME_next;
+  @FXML private MFXButton HOME_back;
+
+  @FXML
+  void getAdminNext(ActionEvent event) {
+    String username = HOME_username.getText();
+    HOME_password.setVisible(true);
+    HOME_login.setVisible(true);
+    HOME_next.setVisible(false);
+    HOME_login.setVisible(true);
+    HOME_username.setEditable(false);
+    HOME_back.setVisible(true);
+  }
+
+  @FXML
+  void editUsername(ActionEvent event) {
+    HOME_username.setEditable(true);
+    HOME_password.setVisible(false);
+    HOME_back.setVisible(false);
+    HOME_login.setVisible(false);
+    HOME_next.setVisible(true);
+  }
 
   @FXML
   void getAdmin(ActionEvent event) {
-    Navigation.navigate(Screen.MENU);
+    String username = HOME_username.getText();
+    String password = HOME_password.getText();
+    if (username.equals("admin") && password.equals("admin")) {
+      Navigation.navigate(Screen.MENU);
+    } else {
+      // Show Error Message
+      wrongPass.setVisible(true);
+    }
   }
 
   @FXML

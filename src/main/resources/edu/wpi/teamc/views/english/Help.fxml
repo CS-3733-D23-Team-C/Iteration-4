@@ -1,144 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.HelpController">
+<AnchorPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.HelpController">
    <children>
-      <AnchorPane layoutX="402.0" prefHeight="153.0" prefWidth="1208.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.5),5,0.75,0,0);" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="410.0" layoutY="163.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
          <children>
-            <Text fill="#003da6" layoutY="-13.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 40; -fx-font-weight: bold;" text="Help" textAlignment="CENTER" wrappingWidth="371.51019287109375" AnchorPane.leftAnchor="420.0" AnchorPane.topAnchor="49.0" />
+            <AnchorPane prefWidth="625.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="671.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <TextArea fx:id="basicFunctions" layoutX="11.0" layoutY="84.0" prefHeight="557.0" prefWidth="535.0" text="1.  Click into the section on table you wish to edit&#10;&#10;2. Change the room information you want in place of the current room&#10;&#10;3. Once you are satisfied with your changes, click submit&#10;&#10;4. Once submited, changes you made will be updated. These changes will be reflected on the map and in the map history" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="113.0">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </TextArea>
+                  <TextField alignment="TOP_LEFT" editable="false" layoutX="43.0" layoutY="-7.0" prefHeight="60.0" prefWidth="535.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 35; -fx-text-fill: white;" text="Basic Functions" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" top="10.0" />
+                     </padding>
+                  </TextField>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="10.0" layoutY="10.0" prefWidth="625.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <TextArea fx:id="otherFunctions" prefHeight="557.0" prefWidth="535.0" text="Export: Click Export button to export a CSV file&#10;&#10;Import: Click Import button to import a CSV file to the table&#10;&#10;Map History: Click Map Hisotry to view the edit history for the map" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="113.0">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </TextArea>
+                  <TextField alignment="TOP_LEFT" editable="false" prefHeight="60.0" prefWidth="535.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 35; -fx-text-fill: white;" text="Other Functions" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" top="10.0" />
+                     </padding>
+                  </TextField>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="900.0" prefWidth="392.0" style="-fx-background-color: #E3DFDF; -fx-border-width: 0; -fx-border-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="90.0" layoutY="20.0" prefHeight="76.0" prefWidth="1366.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),10,0.75,0,0);" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <SVGPath content="M40,60 C42,48 44,30 25,32" layoutX="46.0" layoutY="24.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="23.0" />
-            <Text fill="#003da6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 25; -fx-font-weight: bold;" text="Brigham and Women's Hospital" wrappingWidth="222.21630859375" AnchorPane.leftAnchor="137.0" AnchorPane.topAnchor="33.0" />
-            <MenuButton alignment="CENTER" layoutX="74.0" layoutY="96.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Service Request" textFill="WHITE" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="205.0">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#getRoomReservationPage" text="Room Reservation" />
-                  <MenuItem mnemonicParsing="false" onAction="#getMealDeliveryPage" text="Meal Request" />
-                  <MenuItem mnemonicParsing="false" onAction="#getFlowerDeliveryPage" text="Flower Delivery" />
-                  <MenuItem mnemonicParsing="false" onAction="#getFurnitureDeliveryPage" text="Furniture Delivery" />
-                  <MenuItem mnemonicParsing="false" onAction="#getOfficeSuppliesPage" text="Supply Delivery" />
-               </items>
-               <padding>
-                  <Insets left="30.0" />
-               </padding>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </MenuButton>
-            <MenuButton alignment="CENTER" layoutX="84.0" layoutY="106.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Navigation" textFill="WHITE" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="309.0">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#getSignagePage" text="Signage" />
-                  <MenuItem mnemonicParsing="false" onAction="#getEditMap" text="Edit Map" />
-                  <MenuItem mnemonicParsing="false" onAction="#getMapHistory" text="Map History" />
-                  <MenuItem mnemonicParsing="false" onAction="#getPathfindingPage" text="Pathfinding" />
-               </items>
-               <padding>
-                  <Insets left="30.0" />
-               </padding>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </MenuButton>
-            <MenuButton alignment="CENTER" layoutX="94.0" layoutY="116.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Settings" textFill="WHITE" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="413.0">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                  <MenuItem mnemonicParsing="false" text="Action 2" />
-               </items>
-               <padding>
-                  <Insets left="30.0" />
-               </padding>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </MenuButton>
-            <MenuButton alignment="CENTER" layoutX="104.0" layoutY="126.0" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #978787; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Help" textFill="WHITE" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="517.0">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#getHelpage" text="Help Page 1" />
-                  <MenuItem mnemonicParsing="false" text="Help Page 2" />
-               </items>
-               <padding>
-                  <Insets left="30.0" />
-               </padding>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </MenuButton>
-            <Line endX="398.0" endY="778.0" startX="-1.0" startY="778.0" stroke="#837272" strokeWidth="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="665.0" />
-            <MFXButton fx:id="logoutButton" layoutX="54.0" layoutY="704.0" onAction="#getLogOut" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Log Out" textFill="#978787" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="723.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></MFXButton>
-            <MFXButton fx:id="exitButton" layoutX="74.0" layoutY="801.0" onAction="#getExit" prefHeight="58.0" prefWidth="300.0" style="-fx-background-color: #F8F8F8; -fx-background-radius: 53; -fx-border-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Exit" textFill="#978787" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="805.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></MFXButton>
-         </children></AnchorPane>
-      <VBox layoutX="486.0" layoutY="223.0" prefHeight="556.0" prefWidth="896.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="153.0">
-         <children>
-            <Text fill="#574c4c" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 30; -fx-font-weight: Bold;" text="Basic Functions">
-               <VBox.margin>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="1147.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text fx:id="helpTitle" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Help Page" wrappingWidth="643.5101928710938" />
+    
+               </children>
+               <opaqueInsets>
                   <Insets />
-               </VBox.margin>
-            </Text>
-            <Text fill="#574c4c" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 30;" text="1. Click into the section on table you wish to edit" wrappingWidth="385.3468017578125">
-               <VBox.margin>
-                  <Insets top="30.0" />
-               </VBox.margin>
-            </Text>
-            <Text fill="#574c4c" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 30;" text="2. Change the room information you want in place of the current room" wrappingWidth="385.3468017578125">
-               <VBox.margin>
-                  <Insets top="30.0" />
-               </VBox.margin>
-            </Text>
-            <Text fill="#574c4c" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 30;" text="3. Once you are satisfied with your changes, click submit" wrappingWidth="385.3468017578125">
-               <VBox.margin>
-                  <Insets top="30.0" />
-               </VBox.margin>
-            </Text>
-            <Text fill="#574c4c" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 30;" text="4. Once submited, changes you made will be updated. These changes will be reflected on the map and in the map history" wrappingWidth="385.3468017578125">
-               <VBox.margin>
-                  <Insets top="30.0" />
-               </VBox.margin>
-            </Text>
+               </opaqueInsets>
+               <padding>
+                  <Insets left="70.0" />
+               </padding>
+            </VBox>
          </children>
-         <padding>
-            <Insets left="150.0" top="50.0" />
-         </padding>
-      </VBox>
-      <VBox layoutX="788.0" layoutY="208.0" prefHeight="747.0" prefWidth="1208.0" AnchorPane.leftAnchor="392.0" AnchorPane.topAnchor="153.0">
+      </AnchorPane>
+      <VBox prefHeight="200.0" prefWidth="70.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Text fill="#574c4c" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 30; -fx-font-weight: Bold;" text="Other Functions" />
-            <Text fill="#574c4c" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 30;" text="Export: Click Export button to export a CSV file" wrappingWidth="385.3468017578125">
-               <VBox.margin>
-                  <Insets top="30.0" />
-               </VBox.margin>
-            </Text>
-            <Text fill="#574c4c" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 30;" text="Import: Click Import button to import a CSV file to the table" wrappingWidth="385.3468017578125">
-               <VBox.margin>
-                  <Insets top="30.0" />
-               </VBox.margin>
-            </Text>
-            <Text fill="#574c4c" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 30;" text="Map History: Click Map Hisotry to view the edit history for the map" wrappingWidth="385.3468017578125">
-               <VBox.margin>
-                  <Insets top="30.0" />
-               </VBox.margin>
-            </Text>
+            <fx:include fx:id="adminMenu" source="components/Menu.fxml" />
          </children>
-         <padding>
-            <Insets left="650.0" top="50.0" />
-         </padding>
+
       </VBox>
+      <Pane layoutX="385.0" layoutY="85.0" prefHeight="680.0" prefWidth="993.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" />
    </children>
 </AnchorPane>

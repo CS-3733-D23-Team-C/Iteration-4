@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapHistoryDao implements IDao<MapHistory> {
+public class MapHistoryDao implements IDao<MapHistory, Integer> {
 
   public List<MapHistory> fetchAllObjects() {
     List<MapHistory> returnList = new ArrayList<>();
@@ -83,5 +83,34 @@ public class MapHistoryDao implements IDao<MapHistory> {
   public MapHistory deleteRow(MapHistory type) throws SQLException {
     System.out.println("Cannot delete from MapHistory, can only add baby");
     return null;
+  }
+
+  @Override
+  public MapHistory fetchObject(Integer key) throws SQLException {
+    DBConnection db = new DBConnection();
+    MapHistory returnMapHistory = null;
+    try {
+      // table names
+      String MAPHISTORY = "\"hospitalNode\".\"mapHistory\"";
+      // queries
+      String queryDisplayLocationNames =
+          "SELECT * FROM " + MAPHISTORY + " WHERE \"id\" = '" + key + "';";
+
+      Statement stmtLocationName = db.getConnection().createStatement();
+      ResultSet rsLocationNames = stmtLocationName.executeQuery(queryDisplayLocationNames);
+      rsLocationNames.next();
+      int id = rsLocationNames.getInt("id");
+      String action = rsLocationNames.getString("action");
+      String nodepk = rsLocationNames.getString("nodepk");
+      String table = rsLocationNames.getString("table");
+      Timestamp timestamp = rsLocationNames.getTimestamp("timestamp");
+      returnMapHistory = new MapHistory(id, action, nodepk, table, timestamp);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return returnMapHistory;
+    }
+
+    db.closeConnection();
+    return returnMapHistory;
   }
 }

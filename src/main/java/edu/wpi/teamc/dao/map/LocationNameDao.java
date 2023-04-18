@@ -5,13 +5,14 @@ import edu.wpi.teamc.dao.IDao;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LocationDao implements IDao<LocationName> {
+public class LocationNameDao implements IDao<LocationName, String> {
   public List<LocationName> fetchAllObjects() {
     List<LocationName> databaseLocationNameList = new ArrayList<>();
     DBConnection db = new DBConnection();
@@ -136,6 +137,35 @@ public class LocationDao implements IDao<LocationName> {
     return orm;
   }
 
+  @Override
+  public LocationName fetchObject(String key) throws SQLException {
+    DBConnection db = new DBConnection();
+    LocationName locationName = null;
+    try {
+      // table names
+      String LOCATIONNAME = "\"hospitalNode\".\"locationName\"";
+      // queries
+      String queryDisplayLocationNames = "SELECT * FROM " + LOCATIONNAME + " WHERE \"longName\"=?";
+
+      PreparedStatement ps = db.getConnection().prepareStatement(queryDisplayLocationNames);
+      ps.setString(1, key);
+      ResultSet rsLocationNames = ps.executeQuery();
+      while (rsLocationNames.next()) {
+        String locationNameLong = rsLocationNames.getString("longName");
+        String locationNameShort = rsLocationNames.getString("shortName");
+        String nodeType = rsLocationNames.getString("nodeType");
+        locationName = new LocationName(locationNameLong, locationNameShort, nodeType);
+      }
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    db.closeConnection();
+    return locationName;
+  }
+
+  // TODO delete this method and use method from facade in the edit map controller
   public String deleteRow(String longName) {
     DBConnection db = new DBConnection();
     try {

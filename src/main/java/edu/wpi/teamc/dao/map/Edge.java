@@ -1,9 +1,10 @@
 package edu.wpi.teamc.dao.map;
 
+import edu.wpi.teamc.dao.IOrm;
 import lombok.Getter;
 
 @Getter
-public class Edge {
+public class Edge implements IOrm {
   private int startNode;
   private int endNode;
 

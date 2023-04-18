@@ -115,7 +115,7 @@ public class EditMapController {
 
   NodeDao InodeDao = new NodeDao();
   EdgeDao IedgeDao = new EdgeDao();
-  LocationDao IlocationDao = new LocationDao();
+  LocationNameDao IlocationDao = new LocationNameDao();
   MoveDao ImoveDao = new MoveDao();
 
   @FXML private Button goHome;
@@ -255,6 +255,10 @@ public class EditMapController {
             } // bring up remove popup
             // if modify, first popup asks if you want to modify node by drag or by entering?
             // also if modify pop up asks if you want to modify node or name
+            else if (Objects.equals(mapMode.getMapMode(), "Move")) {
+              lockMap = true;
+              moveMenu();
+            }
           }
         });
 
@@ -268,14 +272,12 @@ public class EditMapController {
     //      REMOVE;
     //    }
 
-    // TODO sort edges and display edges
-    // find all edges for given floor
     loadDatabase();
     loadNodeIDToNode();
     sortNodes();
     sortEdges();
-    placeNodes("1");
     placeEdges("1");
+    placeNodes("1");
   } // end initialize
 
   // load hashmap of nodeID to floor
@@ -288,7 +290,7 @@ public class EditMapController {
   private boolean sameFloor(int nodeID1, int nodeID2) {
     String node1Floor = nodeIDToNode.get(nodeID1).getFloor();
     String node2Floor = nodeIDToNode.get(nodeID2).getFloor();
-    System.out.println(node1Floor + "    " + node2Floor);
+    //    System.out.println(node1Floor + "    " + node2Floor);
     if (node1Floor.equals(node2Floor)) {
       return true;
     }
@@ -351,7 +353,7 @@ public class EditMapController {
     for (Edge edge : edgeList) {
       String floor = nodeIDToNode.get(edge.getStartNode()).getFloor();
       String floor2 = nodeIDToNode.get(edge.getEndNode()).getFloor();
-      System.out.println(floor + "   " + floor2);
+      //      System.out.println(floor + "   " + floor2);
       // see if both nodes are in the floor list
       sameFloor(edge.getStartNode(), edge.getEndNode());
       if (sameFloor(edge.getStartNode(), edge.getEndNode())
@@ -377,7 +379,7 @@ public class EditMapController {
   public void loadDatabase() {
     nodeList = new NodeDao().fetchAllObjects();
     edgeList = new EdgeDao().fetchAllObjects();
-    locationNameList = new LocationDao().fetchAllObjects();
+    locationNameList = new LocationNameDao().fetchAllObjects();
     moveList = new MoveDao().fetchAllObjects();
 
     for (Move move : moveList) {
@@ -431,6 +433,8 @@ public class EditMapController {
         mapMode = HandleMapModes.MODIFY;
       } else if (Objects.equals(modeButton.getId(), "Remove")) {
         mapMode = HandleMapModes.REMOVE;
+      } else if (Objects.equals(modeButton.getId(), "Move")) {
+        mapMode = HandleMapModes.MOVE;
       }
     }
   }
@@ -478,8 +482,8 @@ public class EditMapController {
     pane.setMaxHeight(image.getHeight());
     pane.relocate(0, 0);
     group.getChildren().add(pane);
-    placeNodes(floor);
     placeEdges(floor);
+    placeNodes(floor);
   }
 
   public void comparatorSortNode() {}
@@ -1086,8 +1090,8 @@ public class EditMapController {
           loadNodeIDToNode();
           sortNodes();
           sortEdges();
-          placeNodes(floor);
           placeEdges(floor);
+          placeNodes(floor);
 
           // close menu
           stage.close();
@@ -1163,7 +1167,10 @@ public class EditMapController {
           mapText = new Group();
           group.getChildren().addAll(mapNodes, mapText);
           loadDatabase();
+          loadNodeIDToNode();
           sortNodes();
+          sortEdges();
+          placeEdges(floor);
           placeNodes(floor);
 
           stage.close();
@@ -1173,7 +1180,90 @@ public class EditMapController {
     removeName.setOnMouseClicked(
         event -> {
           MoveDao moveDao = new MoveDao();
-          LocationDao locationDao = new LocationDao();
+          LocationNameDao locationDao = new LocationNameDao();
+          long currentTime = System.currentTimeMillis();
+          Date currentDate = new Date(currentTime);
+          Move move = new Move(currNodeClicked.getNodeID(), currNodeLongname, currentDate);
+          moveDao.deleteRow(move);
+          locationDao.deleteRow(currNodeLongname);
+
+          group.getChildren().removeAll(mapNodes, mapText);
+          mapNodes = new Group();
+          mapText = new Group();
+          group.getChildren().addAll(mapNodes, mapText);
+          loadDatabase();
+          sortNodes();
+          placeNodes(floor);
+
+          stage.close();
+          nodeClicked = false;
+          lockMap = false;
+        });
+  }
+
+  public void moveMenu() { // make this a pop up window instead of a whole new scene?
+    BorderPane borderPane = new BorderPane();
+
+    // Stuff to show on pop up
+    //    VBox vBox = new VBox();
+    //    Text remove_1 = new Text("move Node?");
+    //    Text remove_2 = new Text("move Node Location Name");
+    //    MFXButton moveNode = new MFXButton("move Node");
+    //    MFXButton moveName = new MFXButton("move Name");
+    Text headerText = new Text("Select Move Method");
+    Text moveByNodeID = new Text("Node ID to move to");
+    Text moveByLocationName = new Text("Name of location to move to");
+    MFXButton byNode = new MFXButton("By node ID");
+    MFXButton byLocationName = new MFXButton("By location name");
+    //    MFXButton editName = new MFXButton("Edit Name");
+
+    //    vBox.getChildren().addAll(remove_1, moveNode, remove_2, moveName);
+
+    // Set and show screen
+    AnchorPane aPane = new AnchorPane();
+    //    aPane.getChildren().add(vBox);
+    borderPane.getChildren().add(aPane);
+    Scene scene = new Scene(borderPane, 650, 500);
+    borderPane.relocate(0, 0);
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.setTitle("move Window");
+    stage.show();
+
+    // When stage closed with inherit x, will unlock map and understand a node is no longer selected
+    stage.setOnCloseRequest(
+        event -> {
+          lockMap = false;
+          nodeClicked = false;
+        });
+    // TODO fix
+    byNode.setOnMouseClicked(
+        event -> {
+          MoveDao moveDao = new MoveDao();
+          NodeDao nodeDao = new NodeDao();
+          moveDao.deleteRow(currNodeClicked.getNodeID());
+          nodeDao.deleteRow(currNodeClicked.getNodeID());
+
+          group.getChildren().removeAll(mapNodes, mapText);
+          mapNodes = new Group();
+          mapText = new Group();
+          group.getChildren().addAll(mapNodes, mapText);
+          loadDatabase();
+          loadNodeIDToNode();
+          sortNodes();
+          sortEdges();
+          placeEdges(floor);
+          placeNodes(floor);
+
+          stage.close();
+          nodeClicked = false;
+          lockMap = false;
+        });
+    // TODO fix
+    byLocationName.setOnMouseClicked(
+        event -> {
+          MoveDao moveDao = new MoveDao();
+          LocationNameDao locationDao = new LocationNameDao();
           long currentTime = System.currentTimeMillis();
           Date currentDate = new Date(currentTime);
           Move move = new Move(currNodeClicked.getNodeID(), currNodeLongname, currentDate);
@@ -1300,7 +1390,7 @@ public class EditMapController {
 
     addName.setOnMouseClicked(
         event -> {
-          LocationDao locationDao = new LocationDao();
+          LocationNameDao locationNameDao = new LocationNameDao();
           MoveDao moveDao = new MoveDao();
           LocationName locationName =
               new LocationName(lNameInput.getText(), sNameInput.getText(), nodeTypeInput.getText());
@@ -1308,7 +1398,7 @@ public class EditMapController {
           long currentTime = System.currentTimeMillis();
           Date currentDate = new Date(currentTime);
           Move move = new Move(currNodeClicked.getNodeID(), lNameInput.getText(), currentDate);
-          locationDao.addRow(locationName);
+          locationNameDao.addRow(locationName);
           moveDao.addRow(move);
 
           group.getChildren().removeAll(mapNodes, mapText);
@@ -1405,7 +1495,7 @@ public class EditMapController {
 
     modifyName.setOnMouseClicked(
         event -> {
-          LocationDao locationDao = new LocationDao();
+          LocationNameDao locationNameDao = new LocationNameDao();
 
           // If nodeType entered is not equal to 4 characters, assign the nodeType as HALL
           String nodeType_t = nodeTypeInput.getText();
@@ -1416,7 +1506,7 @@ public class EditMapController {
           // Add to LocationName and Move Tables
           LocationName locationName =
               new LocationName(lNameInput.getText(), sNameInput.getText(), nodeType_t);
-          locationDao.updateRow(currNodeLongname, locationName);
+          locationNameDao.updateRow(currNodeLongname, locationName);
 
           group.getChildren().removeAll(mapNodes, mapText);
           mapNodes = new Group();
@@ -1638,8 +1728,8 @@ public class EditMapController {
           loadNodeIDToNode();
           sortNodes();
           sortEdges();
-          placeNodes(floor);
           placeEdges(floor);
+          placeNodes(floor);
 
           currNodeClicked =
               helperNode1; // ensures clicking on the map again won't try to cause modify to run
@@ -1691,8 +1781,8 @@ public class EditMapController {
 
           loadDatabase();
           sortNodes();
-          placeNodes(floor);
           //          placeEdges(floor);
+          placeNodes(floor);
 
           currNodeClicked = helperNode1;
         });
@@ -2066,7 +2156,7 @@ public class EditMapController {
 
     submitNodeEdits.setOnMouseClicked(
         buttonEvent -> {
-          LocationDao locationDao = new LocationDao();
+          LocationNameDao locationNameDao = new LocationNameDao();
           MoveDao moveDao = new MoveDao();
 
           // Add
@@ -2074,14 +2164,14 @@ public class EditMapController {
 
             LocationName currName = newNameToAdd.get(i);
             Move currMove = moveNamesToAdd.get(i);
-            locationDao.addRow(currName);
+            locationNameDao.addRow(currName);
             moveDao.addRow(currMove);
           }
           // Modify
           for (int i = 0; i < oldNameToModify.size(); i++) {
             String currOldName = oldNameToModify.get(i);
             LocationName currNewName = newNameToModify.get(i);
-            locationDao.updateRow(currOldName, currNewName);
+            locationNameDao.updateRow(currOldName, currNewName);
 
             ///// METHOD TO REPLACE NAME OF NODE AND INPUT TO TABLE
           }
@@ -2094,7 +2184,7 @@ public class EditMapController {
             String iD = idList_r.get(i);
             Move move = new Move(Integer.valueOf(iD), currName, currentDate);
             moveDao.deleteRow(move);
-            locationDao.deleteRow(currName);
+            locationNameDao.deleteRow(currName);
             //// METHOD TO FIND NODE IN DAO AND REMOVE IT BASED ON ID
             //                nodeDao.deleteRow(currID); ////NEED TO MAKE WORK WITH NODE ID ONLY AS
             // SUPPLIED

@@ -32,8 +32,8 @@ public class Graph {
   }
 
   public void syncWithDB() {
-    IDao<Node> nodeDao = new NodeDao();
-    IDao<Edge> edgeDao = new EdgeDao();
+    IDao<Node, Integer> nodeDao = new NodeDao();
+    IDao<Edge, Edge> edgeDao = new EdgeDao();
     List<Node> nodes = new LinkedList<>();
     List<Edge> edges = new LinkedList<>();
     try {

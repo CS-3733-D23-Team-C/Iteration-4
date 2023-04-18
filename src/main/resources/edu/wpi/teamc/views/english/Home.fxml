@@ -62,7 +62,7 @@
                         <Line endX="18.0" startX="-100.0" stroke="#02143b" strokeWidth="2.0" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="456.0" />
                         <Text fx:id="HOME_or" fill="#02143b" layoutX="147.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 24;" text="OR" textAlignment="CENTER" wrappingWidth="291.5" AnchorPane.leftAnchor="147.0" AnchorPane.topAnchor="442.2734375" />
                         <Line endX="18.0" layoutX="440.0" layoutY="458.0" startX="-100.0" stroke="#02143b" strokeWidth="2.0" AnchorPane.leftAnchor="346.0" AnchorPane.topAnchor="456.0" />
-                        <MFXButton fx:id="HOME_next" layoutX="131.0" layoutY="290.0" onAction="#getAdminNext" prefHeight="58.0" prefWidth="343.0" style="-fx-background-color: #02143B; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Next" textFill="WHITE" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="280.0">
+                        <MFXButton fx:id="HOME_next" layoutX="131.0" layoutY="290.0" onAction="#getAdminNext" prefHeight="58.0" prefWidth="343.0" style="-fx-background-color: #02143B; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="CONTINUE" textFill="WHITE" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="280.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

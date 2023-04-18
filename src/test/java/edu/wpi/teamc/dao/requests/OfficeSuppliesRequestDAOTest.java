@@ -17,6 +17,7 @@ public class OfficeSuppliesRequestDAOTest {
   public void addRow() {
     OfficeSuppliesRequestDAO dao = new OfficeSuppliesRequestDAO();
     dao.addRow(
-        new OfficeSuppliesRequest(0, new Requester(0, "Chonk"), "Office Five", "Pencisl", "None"));
+        new OfficeSuppliesRequest(
+            0, new Requester(0, "Chonk"), "Office Five", "Pencil", "None", "1"));
   }
 }

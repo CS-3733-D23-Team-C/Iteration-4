@@ -27,8 +27,10 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
         STATUS status = STATUS.valueOf(rs.getString("status"));
         String additionalNotes = rs.getString("additionalnotes");
         String eta = rs.getString("eta");
+        String quantity = rs.getString("quantity");
         OfficeSuppliesRequest request =
-            new OfficeSuppliesRequest(requestID, req, roomName, supplies, additionalNotes);
+            new OfficeSuppliesRequest(
+                requestID, req, roomName, supplies, additionalNotes, quantity);
         request.setStatus(status);
         request.setEta(eta);
         returnList.add(request);
@@ -104,7 +106,10 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
         STATUS status = STATUS.valueOf(rs.getString("status"));
         String additionalNotes = rs.getString("additionalnotes");
         String eta = rs.getString("eta");
-        request = new OfficeSuppliesRequest(requestID, req, roomName, supplies, additionalNotes);
+        String quantity = rs.getString("quantity");
+        request =
+            new OfficeSuppliesRequest(
+                requestID, req, roomName, supplies, additionalNotes, quantity);
         request.setStatus(status);
         request.setEta(eta);
       }

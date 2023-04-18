@@ -148,6 +148,10 @@ public class MenuController {
     Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
   }
 
+  public void getEmployeeTablePage(ActionEvent actionEvent) {
+    Navigation.navigate(Screen.EMPLOYEETABLE_PAGE);
+  }
+
   //    @FXML
   //    void getGiftBasketHistory(ActionEvent event) {
   //        Navigation.navigate(Screen.GIFTBASKET_HISTORY);

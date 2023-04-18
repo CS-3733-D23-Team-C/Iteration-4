@@ -16,4 +16,6 @@ public abstract class AbsUser implements IOrm {
   public AbsUser(String name) {
     this.name = name;
   }
+
+  public AbsUser() {}
 }

@@ -23,4 +23,8 @@ public class EmployeeUser extends AbsUser {
     this.department = department;
     this.position = position;
   }
+
+  public EmployeeUser() {
+    super();
+  }
 }

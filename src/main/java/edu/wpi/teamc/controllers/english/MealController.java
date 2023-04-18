@@ -34,21 +34,23 @@ public class MealController {
 
   @FXML private MenuButton roomMenu;
   // Meal Menu
-  @FXML private MenuButton mealMenu;
-  @FXML private MenuItem mealchoice1;
-  @FXML private MenuItem mealchoice2;
-  @FXML private MenuItem mealchoice3;
-  @FXML private MenuItem mealchoice4;
+  @FXML private MenuButton serviceMenu;
+  @FXML private MenuItem servicechoice1;
+  @FXML private MenuItem servicechoice2;
+  @FXML private MenuItem servicechoice3;
+  @FXML private MenuItem servicechoice4;
+
+  @FXML private TextField nameBox;
+  @FXML private TextArea specialRequest;
+  @FXML private MenuButton employeeName;
+
+  // Special for Meal
   // Drink Menu
   @FXML private MenuButton drinkMenu;
   @FXML private MenuItem drinkchoice1;
   @FXML private MenuItem drinkchoice2;
   @FXML private MenuItem drinkchoice3;
   @FXML private MenuItem drinkchoice4;
-
-  @FXML private TextField nameBox;
-  @FXML private TextArea specialRequest;
-  @FXML private MenuButton employeeName;
 
   // Image and Food Information
   @FXML private ImageView mealImage;
@@ -109,26 +111,26 @@ public class MealController {
 
   // These 4 choices(1-4) are for the meal menu
   @FXML
-  void getMealChoice1() {
-    mealMenu.setText(mealchoice1.getText());
+  void getServicechoice1() {
+    serviceMenu.setText(servicechoice1.getText());
     getMealInfo(1);
   }
 
   @FXML
-  void getMealChoice2() {
-    mealMenu.setText(mealchoice2.getText());
+  void getServicechoice2() {
+    serviceMenu.setText(servicechoice2.getText());
     getMealInfo(2);
   }
 
   @FXML
-  void getMealChoice3() {
-    mealMenu.setText(mealchoice3.getText());
+  void getServicechoice3() {
+    serviceMenu.setText(servicechoice3.getText());
     getMealInfo(3);
   }
 
   @FXML
-  void getMealChoice4() {
-    mealMenu.setText(mealchoice4.getText());
+  void getServicechoice4() {
+    serviceMenu.setText(servicechoice4.getText());
     getMealInfo(4);
   }
 
@@ -193,7 +195,7 @@ public class MealController {
     String name = nameBox.getText();
     String room = roomMenu.getText();
     String notes = specialRequest.getText();
-    Meal meal = new Meal(mealMenu.getText(), "");
+    Meal meal = new Meal(serviceMenu.getText(), "");
     MealRequest req = new MealRequest(0, new Requester(0, name), room, notes, meal);
 
     IDao<MealRequest, Integer> dao = new MealRequestDAO();

@@ -92,7 +92,7 @@ public class HomeController {
     }
     if (login) {
       if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN)) {
-        Navigation.navigate(Screen.MENU);
+        Navigation.navigate(Screen.ADMIN_HOME);
       } else {
 
       }

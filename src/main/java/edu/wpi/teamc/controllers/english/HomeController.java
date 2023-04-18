@@ -2,6 +2,9 @@ package edu.wpi.teamc.controllers.english;
 
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
+import edu.wpi.teamc.dao.users.Login;
+import edu.wpi.teamc.dao.users.LoginDao;
+import edu.wpi.teamc.dao.users.PERMISSIONS;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -43,6 +46,9 @@ public class HomeController {
   @FXML private MFXButton HOME_next;
   @FXML private MFXButton HOME_back;
 
+  boolean wrongNextLogin = true;
+  Login currentLogin;
+
   @FXML
   void getAdminNext(ActionEvent event) {
     String username = HOME_username.getText();
@@ -52,6 +58,14 @@ public class HomeController {
     HOME_login.setVisible(true);
     HOME_username.setEditable(false);
     HOME_back.setVisible(true);
+
+    LoginDao loginDao = new LoginDao();
+    try {
+      currentLogin = loginDao.fetchObject(username);
+      wrongNextLogin = false; // if the username is correct
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @FXML
@@ -61,14 +75,28 @@ public class HomeController {
     HOME_back.setVisible(false);
     HOME_login.setVisible(false);
     HOME_next.setVisible(true);
+    wrongPass.setVisible(false);
+    HOME_password.setText("");
   }
 
   @FXML
   void getAdmin(ActionEvent event) {
-    String username = HOME_username.getText();
     String password = HOME_password.getText();
-    if (username.equals("admin") && password.equals("admin")) {
-      Navigation.navigate(Screen.MENU);
+    boolean login = false;
+    if (wrongNextLogin == false) {
+      try {
+        login = currentLogin.checkPassword(password);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    if (login) {
+      if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN)) {
+        Navigation.navigate(Screen.MENU);
+      } else {
+
+      }
+
     } else {
       // Show Error Message
       wrongPass.setVisible(true);

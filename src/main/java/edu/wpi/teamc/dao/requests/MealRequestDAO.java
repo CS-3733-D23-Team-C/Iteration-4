@@ -25,6 +25,7 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
         int requestID = rs.getInt("requestID");
         String requester = rs.getString("Requester");
         String mealType = rs.getString("meal");
+        String drinkType = rs.getString("drink");
         String roomName = rs.getString("roomName");
         String additionalNotes = rs.getString("additionalNotes");
         String deliveryTime = rs.getString("ETA");
@@ -34,7 +35,7 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
                 new Requester(requestID, requester),
                 roomName,
                 additionalNotes,
-                new Meal(mealType, ""));
+                new Meal(mealType, drinkType, ""));
         returnList.add(request);
       }
     } catch (SQLException e) {

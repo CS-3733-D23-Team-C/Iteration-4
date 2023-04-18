@@ -18,7 +18,7 @@
 
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: E3DFDF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.HomeController">
    <children>
-      <ImageView fitHeight="1440.0" fitWidth="2560.0" opacity="0.55" pickOnBounds="true" style="-fx-background-color: black; -fx-blend-mode: hardl-light;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="1440.0" fitWidth="2560.0" opacity="0.55" pickOnBounds="true" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../Images/Shapiro-Center-at-dusk-.jpg" />
          </image>

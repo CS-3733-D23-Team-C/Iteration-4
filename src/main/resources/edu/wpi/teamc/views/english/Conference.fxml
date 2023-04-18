@@ -30,7 +30,7 @@
                      <children>
                         <AnchorPane prefHeight="160.0" prefWidth="525.0" style="-fx-border-color: #02143b; -fx-background-color: white;">
                            <children>
-                              <TextField alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="1. Delivery Information:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TextField alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="1. Appointment Information:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
@@ -52,7 +52,7 @@
                                     <Insets bottom="10.0" left="10.0" top="10.0" />
                                  </padding>
                               </TextField>
-                              <MenuButton fx:id="menuButton" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" text="Select Conference Room:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
+                              <MenuButton fx:id="roomMenu" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" text="Select Conference Room:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
                                  <items>
                                     <MenuItem fx:id="choice1" mnemonicParsing="false" onAction="#getChoice1" text="Conference A1" />
                                     <MenuItem fx:id="choice2" mnemonicParsing="false" onAction="#getChoice2" text="Conference A2" />
@@ -113,10 +113,10 @@
                               </TextField>
                               <MenuButton fx:id="employeeName" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" text="Select Employee:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
                                  <items>
-                                    <MenuItem fx:id="choice11" mnemonicParsing="false" onAction="#getChoice1" text="Ian" />
-                                    <MenuItem fx:id="choice21" mnemonicParsing="false" onAction="#getChoice2" text="George" />
-                                    <MenuItem fx:id="choice31" mnemonicParsing="false" onAction="#getChoice3" text="Ben" />
-                                    <MenuItem fx:id="choice41" mnemonicParsing="false" onAction="#getChoice4" text="Wilson" />
+                                    <MenuItem fx:id="choice5" mnemonicParsing="false" onAction="#getChoice5" text="Ian" />
+                                    <MenuItem fx:id="choice6" mnemonicParsing="false" onAction="#getChoice6" text="George" />
+                                    <MenuItem fx:id="choice7" mnemonicParsing="false" onAction="#getChoice7" text="Ben" />
+                                    <MenuItem fx:id="choice8" mnemonicParsing="false" onAction="#getChoice8" text="Wilson" />
                                  </items>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />

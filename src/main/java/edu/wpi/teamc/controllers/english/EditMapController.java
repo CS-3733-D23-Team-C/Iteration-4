@@ -1101,20 +1101,43 @@ public class EditMapController {
 
     // Stuff to show on pop up
     VBox vBox = new VBox();
+    Text headerText = new Text("Remove Selection Menu");
     Text remove_1 = new Text("Remove Node?");
-    Text remove_2 = new Text("Remove Node Location Name");
+    Text remove_2 = new Text("Remove Node Location Name?");
     MFXButton removeNode = new MFXButton("Remove Node");
     MFXButton removeName = new MFXButton("Remove Name");
 
-    vBox.getChildren().addAll(remove_1, removeNode, remove_2, removeName);
+    // set styles
+    headerText.getStyleClass().add("Header");
+    remove_1.getStyleClass().add("Text");
+    remove_2.getStyleClass().add("Text");
+    removeNode.getStyleClass().add("MFXbutton");
+    removeName.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // set object locations
+    int lay_x = 40;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    remove_1.setLayoutX(lay_x);
+    remove_1.setLayoutY(lay_y + 35);
+    removeNode.setLayoutX(lay_x);
+    removeNode.setLayoutY(lay_y + 50);
+    remove_2.setLayoutX(lay_x);
+    remove_2.setLayoutY(lay_y + 120);
+    removeName.setLayoutX(lay_x);
+    removeName.setLayoutY(lay_y + 135);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
+    aPane.getChildren().addAll(headerText, remove_1, removeNode, remove_2, removeName);
+
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 325, 260);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -1308,6 +1331,7 @@ public class EditMapController {
     // Stuff to show on pop up
     VBox vBox = new VBox();
 
+    Text headerText = new Text("Modify Location Name");
     Text nodeType = new Text("Input new Node Type");
     Text LName = new Text("Input new Longname");
     Text SName = new Text("Input new Shortname"); // need current longname of current node
@@ -1319,19 +1343,57 @@ public class EditMapController {
     MFXButton modifyName = new MFXButton("Modify Name");
 
     vBox.getChildren()
-        .addAll(nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, modifyName);
+        .addAll(
+            headerText, nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, modifyName);
+
+    // set styles
+    headerText.getStyleClass().add("Header");
+    nodeType.getStyleClass().add("Text");
+    LName.getStyleClass().add("Text");
+    SName.getStyleClass().add("Text");
+    nodeTypeInput.getStyleClass().add("MFXtextIn");
+    lNameInput.getStyleClass().add("MFXtextIn");
+    sNameInput.getStyleClass().add("MFXtextIn");
+    modifyName.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // set object locations
+    int lay_x = 40;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    nodeType.setLayoutX(lay_x);
+    nodeType.setLayoutY(lay_y + 35);
+    nodeTypeInput.setLayoutX(lay_x);
+    nodeTypeInput.setLayoutY(lay_y + 35);
+    SName.setLayoutX(lay_x);
+    SName.setLayoutY(lay_y + 110);
+    sNameInput.setLayoutX(lay_x);
+    sNameInput.setLayoutY(lay_y + 110);
+    LName.setLayoutX(lay_x);
+    LName.setLayoutY(lay_y + 185);
+    lNameInput.setLayoutX(lay_x);
+    lNameInput.setLayoutY(lay_y + 185);
+    modifyName.setLayoutX(lay_x);
+    modifyName.setLayoutY(lay_y + 250);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
+    aPane
+        .getChildren()
+        .addAll(
+            headerText, nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, modifyName);
+
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 295, 360);
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
     stage.setScene(scene);
     stage.setTitle("Add Location Name Window");
+    stage.setAlwaysOnTop(true);
     stage.show();
 
     // When stage closed with inherit x, will unlock map and understand a node is no longer selected

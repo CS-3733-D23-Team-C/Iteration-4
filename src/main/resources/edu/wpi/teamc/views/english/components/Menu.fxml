@@ -6,13 +6,14 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="basePane" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.MenuController">
+<AnchorPane fx:id="basePane" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.components.MenuController">
    <children>
       <Pane fx:id="homePopOut" layoutX="-110.0" layoutY="11.0" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
          <children>
@@ -141,7 +142,7 @@
                   <MFXButton onAction="#getOfficeSupplyHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Stationary History" />
                   <MFXButton onAction="#getFurnitureHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Furniture History" />
                   <MFXButton onAction="#getConferenceHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Reservation History" />
-                  <MFXButton prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket History" />
+                  <MFXButton disable="true" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket History" />
                   <MFXButton onAction="#getMapHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Map Change History" />
                </children>
             </VBox>
@@ -200,38 +201,64 @@
             </VBox>
          </children>
       </Pane>
+      <Pane fx:id="settingsPane" layoutX="70.0" layoutY="-768.0" prefHeight="768.0" prefWidth="1297.0" style="-fx-background-color: #02143B;">
+         <children>
+            <BorderPane prefHeight="768.0" prefWidth="1297.0">
+               <top>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" textAlignment="CENTER" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                     <BorderPane.margin>
+                        <Insets top="100.0" />
+                     </BorderPane.margin>
+                  </Text>
+               </top>
+               <bottom>
+                  <MFXButton fx:id="settingsClose" alignment="CENTER" prefHeight="47.0" prefWidth="156.0" styleClass="menuButton" stylesheets="@Menu.css" text="Close" BorderPane.alignment="CENTER_RIGHT">
+                     <BorderPane.margin>
+                        <Insets bottom="100.0" right="150.0" />
+                     </BorderPane.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </MFXButton>
+               </bottom>
+            </BorderPane>
+         </children>
+      </Pane>
       <Pane fx:id="menuPane" layoutY="-1.0" prefHeight="768.0" prefWidth="70.0" style="-fx-background-color: #02143B;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Line endX="40.0" layoutX="15.0" layoutY="76.0" stroke="WHITE" />
             <Line endX="40.0" layoutX="15.0" layoutY="631.0" stroke="WHITE" />
             <ImageView fx:id="serviceRequestButton" fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="106.75" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/serviceRequestButton.png" />
+                  <Image url="@../../Images/serviceRequestButton.png" />
                </image>
             </ImageView>
             <ImageView fx:id="navigationButton" fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="161.5" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/navigationButton.png" />
+                  <Image url="@../../Images/navigationButton.png" />
                </image>
             </ImageView>
             <ImageView fx:id="historyButton" fitHeight="36.5" fitWidth="36.5" layoutX="16.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/historyButton.png" />
+                  <Image url="@../../Images/historyButton.png" />
                </image>
             </ImageView>
             <ImageView fx:id="settingsButton" fitHeight="36.5" fitWidth="36.5" layoutX="19.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/settingsButton.png" />
+                  <Image url="@../../Images/settingsButton.png" />
                </image>
             </ImageView>
             <ImageView fx:id="helpButton" fitHeight="36.5" fitWidth="36.5" layoutX="18.0" layoutY="347.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/helpButton.png" />
+                  <Image url="@../../Images/helpButton.png" />
                </image>
             </ImageView>
             <ImageView fx:id="homeButton" fitHeight="36.5" fitWidth="36.5" layoutX="23.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/homeButton.png" />
+                  <Image url="@../../Images/homeButton.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
@@ -239,7 +266,7 @@
             </ImageView>
             <ImageView fx:id="logoutButton" fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="651.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/logoutButton.png" />
+                  <Image url="@../../Images/logoutButton.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
@@ -247,14 +274,14 @@
             </ImageView>
             <ImageView fx:id="exitButton" fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="713.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/exitButton.png" />
+                  <Image url="@../../Images/exitButton.png" />
                </image>
             </ImageView>
             <Pane fx:id="homeTrigger" layoutX="1.0" layoutY="11.0" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
                <children>
                   <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="22.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/homeSelected.png" />
+                        <Image url="@../../Images/homeSelected.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
@@ -266,7 +293,7 @@
                <children>
                   <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/serviceRequestSelection.png" />
+                        <Image url="@../../Images/serviceRequestSelection.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
@@ -278,7 +305,7 @@
                <children>
                   <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/navigationSelection.png" />
+                        <Image url="@../../Images/navigationSelection.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
@@ -290,7 +317,7 @@
                <children>
                   <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="16.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/historySelection.png" />
+                        <Image url="@../../Images/historySelection.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
@@ -302,7 +329,7 @@
                <children>
                   <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="19.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/settingsSelection.png" />
+                        <Image url="@../../Images/settingsSelection.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
@@ -314,7 +341,7 @@
                <children>
                   <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="19.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/helpSelection.png" />
+                        <Image url="@../../Images/helpSelection.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
@@ -326,7 +353,7 @@
                <children>
                   <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/logoutSelection.png" />
+                        <Image url="@../../Images/logoutSelection.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
@@ -338,7 +365,7 @@
                <children>
                   <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/exitSelection.png" />
+                        <Image url="@../../Images/exitSelection.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />

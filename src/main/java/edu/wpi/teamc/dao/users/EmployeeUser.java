@@ -6,24 +6,24 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EmployeeUser extends AbsUser implements IOrm {
+public class EmployeeUser extends AbsUser{
   private String userName;
   private String department;
   private String position;
 
-  public EmployeeUser(int id, String name, String userName, String department, String position) {
-    super(id, name);
-    this.userName = userName;
+  public EmployeeUser(int id, String name, String username, String department, String position) {
+    super(id, name, username);
     this.department = department;
     this.position = position;
   }
 
-  public EmployeeUser(String name, String userName, String department, String position) {
-    super(name);
-    this.userName = userName;
+  public EmployeeUser(String name, String username, String department, String position) {
+    super(name, username);
     this.department = department;
     this.position = position;
   }
 
   public EmployeeUser() {}
+
+
 }

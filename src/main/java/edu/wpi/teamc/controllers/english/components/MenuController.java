@@ -1,4 +1,4 @@
-package edu.wpi.teamc.controllers.english;
+package edu.wpi.teamc.controllers.english.components;
 
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
@@ -49,6 +49,8 @@ public class MenuController {
   @FXML private Pane logoutPopOut;
   @FXML private Pane homePopOut;
   @FXML private AnchorPane basePane;
+  @FXML private Pane settingsPane;
+  @FXML private MFXButton settingsClose;
 
   @FXML private MFXButton flowerButton;
 
@@ -181,12 +183,15 @@ public class MenuController {
     navigationPopOut.setVisible(false);
     settingsPopOut.setVisible(false);
     helpPopOut.setVisible(false);
-    historyPopOut.setVisible(false);
     exitPopOut.setVisible(false);
     logoutPopOut.setVisible(false);
     homePopOut.setVisible(false);
     // basePane.setVisible(false);
     menuPane.setVisible(true);
+    settingsPane.setVisible(false);
+    settingsPane.toFront();
+    menuPane.toFront();
+    basePane.toFront();
     TranslateTransition navigationPopOutTransition = new TranslateTransition();
     PauseTransition pause = new PauseTransition(Duration.millis(200));
     TranslateTransition serviceRequestPopOutTransition = new TranslateTransition();
@@ -196,6 +201,7 @@ public class MenuController {
     TranslateTransition exitPopOutTransition = new TranslateTransition();
     TranslateTransition logoutPopOutTransition = new TranslateTransition();
     TranslateTransition homePopOutTransition = new TranslateTransition();
+    TranslateTransition settingsPaneTransition = new TranslateTransition();
 
     AtomicBoolean isHovering = new AtomicBoolean(false);
 
@@ -215,7 +221,25 @@ public class MenuController {
     settingsTrigger.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.navigate(Screen.HELP);
+          settingsPaneTransition.setDuration(Duration.millis(350));
+          settingsPaneTransition.setNode(settingsPane);
+          settingsPaneTransition.setToY(768);
+          settingsPaneTransition.play();
+          settingsPane.setVisible(true);
+          settingsTrigger.setVisible(true);
+          settingsButton.setVisible(false);
+        });
+
+    settingsClose.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          settingsPaneTransition.setDuration(Duration.millis(350));
+          settingsPaneTransition.setNode(settingsPane);
+          settingsPaneTransition.setToY(0);
+          settingsPaneTransition.play();
+          settingsPane.setVisible(false);
+          settingsTrigger.setVisible(false);
+          settingsButton.setVisible(true);
         });
     logoutTrigger.addEventFilter(
         MouseEvent.MOUSE_CLICKED,

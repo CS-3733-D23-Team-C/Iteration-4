@@ -1,12 +1,13 @@
 package edu.wpi.teamc.controllers.english;
 
-import edu.wpi.teamc.Main;
+
 import edu.wpi.teamc.controllers.english.MapHelpers.*;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.enums.ButtonType;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -52,7 +53,7 @@ public class EditMapController {
   double mouseX;
   double mouseY;
   public Image image =
-      new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
+      new Image("file:src/main/resources/edu/wpi/teamc/views/Images/FirstFloor.png");
 
   /*
   Notes:
@@ -116,6 +117,7 @@ public class EditMapController {
 
   private String filePath;
   @FXML private Label testText;
+  @FXML Text edgeMadeText;
 
   NodeDao InodeDao = new NodeDao();
   EdgeDao IedgeDao = new EdgeDao();
@@ -215,7 +217,7 @@ public class EditMapController {
   /** Method run when controller is initialized */
   public void initialize() {
 
-    Image image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
+    Image image = this.image;
     imageView = new ImageView(image); // was ImageView imageView
     imageView.relocate(0, 0);
     group.getChildren().add(imageView);
@@ -273,6 +275,7 @@ public class EditMapController {
             } else if (Objects.equals(mapMode.getMapMode(), "Make_edges")) {
               lockMap = true;
               createEdgesForNodes();
+              edgeMadeText.setVisible(true);
             }
           }
         });
@@ -333,6 +336,8 @@ public class EditMapController {
       lockMap = false;
       currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
       edgesHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
+      edgeMadeText.setText(
+          "New Edge: " + edgesHelper.getNode().getNodeID() + " to " + currNodeClicked.getNodeID());
     }
   }
 
@@ -477,19 +482,29 @@ public class EditMapController {
       if (Objects.equals(modeButton.getId(), "Select")) {
         mapMode = HandleMapModes.SELECT;
         resetAndSetModes(modeButton);
+        edgeMadeText.setText("");
+        edgeMadeText.setVisible(false);
       } else if (Objects.equals(modeButton.getId(), "Add")) {
         mapMode = HandleMapModes.ADD;
         resetAndSetModes(modeButton);
+        edgeMadeText.setText("");
+        edgeMadeText.setVisible(false);
       } else if (Objects.equals(modeButton.getId(), "Modify")) {
         mapMode = HandleMapModes.MODIFY;
         resetAndSetModes(modeButton);
+        edgeMadeText.setText("");
+        edgeMadeText.setVisible(false);
       } else if (Objects.equals(modeButton.getId(), "Remove")) {
         mapMode = HandleMapModes.REMOVE;
         resetAndSetModes(modeButton);
+        edgeMadeText.setText("");
+        edgeMadeText.setVisible(false);
         System.out.println("Removing");
       } else if (Objects.equals(modeButton.getId(), "Move")) {
         mapMode = HandleMapModes.MOVE;
         resetAndSetModes(modeButton);
+        edgeMadeText.setText("");
+        edgeMadeText.setVisible(false);
         System.out.println("Moving");
       } else if (Objects.equals(modeButton.getId(), "Edges")) {
         mapMode = HandleMapModes.MAKE_EDGES;
@@ -503,23 +518,23 @@ public class EditMapController {
     floorButton = (MFXButton) event.getTarget();
 
     if (Objects.equals(floorButton.getId(), "FL1")) {
-      image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
+      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/FirstFloor.png");
       floor = "1";
       resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FL2")) {
-      image = new Image(Main.class.getResource("./views/Images/SecondFloor.png").toString());
+      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/SecondFloor.png");
       floor = "2";
       resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FL3")) {
-      image = new Image(Main.class.getResource("./views/Images/ThirdFloor.png").toString());
+      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/ThirdFloor.png");
       floor = "3";
       resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FLB1")) {
-      image = new Image(Main.class.getResource("./views/Images/B1.png").toString());
+      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/B1.png");
       floor = "L1";
       resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FLB2")) {
-      image = new Image(Main.class.getResource("./views/Images/B2.png").toString());
+      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/B2.png");
       floor = "L2";
       resetAndSetFloorIndicators(floorButton);
     }
@@ -792,7 +807,10 @@ public class EditMapController {
 
   public void resetAndSetModes(MFXButton button) {
     button.setBackground(Background.fill(Paint.valueOf("32CD32")));
-    modeResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#bebebe")));
+    modeResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
+    modeResetterHelper.getButton().setRippleAnimateBackground(true);
+    //    modeResetterHelper.getButton().setDepthLevel(DepthLevel.LEVEL4);
+    modeResetterHelper.getButton().setButtonType(ButtonType.RAISED);
     modeResetterHelper.setButton(button);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;
@@ -800,7 +818,9 @@ public class EditMapController {
 
   public void resetAndSetFloorIndicators(MFXButton button) {
     button.setBackground(Background.fill(Paint.valueOf("32CD32")));
-    floorResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#bebebe")));
+    floorResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
+    floorResetterHelper.getButton().setRippleAnimateBackground(true);
+    floorResetterHelper.getButton().setButtonType(ButtonType.RAISED);
     floorResetterHelper.setButton(button);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;
@@ -845,7 +865,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 410, 225);
     scene
         .getStylesheets()
-        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -946,7 +966,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 350, 330);
     scene
         .getStylesheets()
-        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -1041,7 +1061,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 290, 290);
     scene
         .getStylesheets()
-        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -1109,18 +1129,43 @@ public class EditMapController {
 
     // Stuff to show on pop up
     VBox vBox = new VBox();
+    Text headerText = new Text("Remove Selection Menu");
     Text remove_1 = new Text("Remove Node?");
-    Text remove_2 = new Text("Remove Node Location Name");
+    Text remove_2 = new Text("Remove Node Location Name?");
     MFXButton removeNode = new MFXButton("Remove Node");
     MFXButton removeName = new MFXButton("Remove Name");
 
-    vBox.getChildren().addAll(remove_1, removeNode, remove_2, removeName);
+    // set styles
+    headerText.getStyleClass().add("Header");
+    remove_1.getStyleClass().add("Text");
+    remove_2.getStyleClass().add("Text");
+    removeNode.getStyleClass().add("MFXbutton");
+    removeName.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // set object locations
+    int lay_x = 40;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    remove_1.setLayoutX(lay_x);
+    remove_1.setLayoutY(lay_y + 35);
+    removeNode.setLayoutX(lay_x);
+    removeNode.setLayoutY(lay_y + 50);
+    remove_2.setLayoutX(lay_x);
+    remove_2.setLayoutY(lay_y + 120);
+    removeName.setLayoutX(lay_x);
+    removeName.setLayoutY(lay_y + 135);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
+    aPane.getChildren().addAll(headerText, remove_1, removeNode, remove_2, removeName);
+
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 325, 260);
+    scene
+        .getStylesheets()
+        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -1350,7 +1395,7 @@ public class EditMapController {
     // File((Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString()));
     scene
         .getStylesheets()
-        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
 
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
@@ -1400,6 +1445,7 @@ public class EditMapController {
     // Stuff to show on pop up
     VBox vBox = new VBox();
 
+    Text headerText = new Text("Modify Location Name");
     Text nodeType = new Text("Input new Node Type");
     Text LName = new Text("Input new Longname");
     Text SName = new Text("Input new Shortname"); // need current longname of current node
@@ -1411,19 +1457,57 @@ public class EditMapController {
     MFXButton modifyName = new MFXButton("Modify Name");
 
     vBox.getChildren()
-        .addAll(nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, modifyName);
+        .addAll(
+            headerText, nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, modifyName);
+
+    // set styles
+    headerText.getStyleClass().add("Header");
+    nodeType.getStyleClass().add("Text");
+    LName.getStyleClass().add("Text");
+    SName.getStyleClass().add("Text");
+    nodeTypeInput.getStyleClass().add("MFXtextIn");
+    lNameInput.getStyleClass().add("MFXtextIn");
+    sNameInput.getStyleClass().add("MFXtextIn");
+    modifyName.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // set object locations
+    int lay_x = 40;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    nodeType.setLayoutX(lay_x);
+    nodeType.setLayoutY(lay_y + 35);
+    nodeTypeInput.setLayoutX(lay_x);
+    nodeTypeInput.setLayoutY(lay_y + 35);
+    SName.setLayoutX(lay_x);
+    SName.setLayoutY(lay_y + 110);
+    sNameInput.setLayoutX(lay_x);
+    sNameInput.setLayoutY(lay_y + 110);
+    LName.setLayoutX(lay_x);
+    LName.setLayoutY(lay_y + 185);
+    lNameInput.setLayoutX(lay_x);
+    lNameInput.setLayoutY(lay_y + 185);
+    modifyName.setLayoutX(lay_x);
+    modifyName.setLayoutY(lay_y + 250);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
+    aPane
+        .getChildren()
+        .addAll(
+            headerText, nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, modifyName);
+
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 295, 360);
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
+    scene
+        .getStylesheets()
+        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
     stage.setScene(scene);
     stage.setTitle("Add Location Name Window");
+    stage.setAlwaysOnTop(true);
     stage.show();
 
     // When stage closed with inherit x, will unlock map and understand a node is no longer selected

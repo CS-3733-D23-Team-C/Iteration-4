@@ -48,7 +48,7 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
       ps.setInt(1, orm.getId());
-      ps.setString(2, orm.getUserName());
+      ps.setString(2, orm.getUsername());
       ps.setString(3, orm.getName());
       ps.setString(4, orm.getDepartment());
       ps.setString(5, orm.getPosition());
@@ -59,7 +59,7 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
       int id = rs.getInt("id");
       orm =
           new EmployeeUser(
-              id, orm.getName(), orm.getUserName(), orm.getDepartment(), orm.getPosition());
+              id, orm.getName(), orm.getUsername(), orm.getDepartment(), orm.getPosition());
     } catch (SQLException e) {
       e.printStackTrace();
     }

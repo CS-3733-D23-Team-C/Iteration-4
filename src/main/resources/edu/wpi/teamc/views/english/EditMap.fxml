@@ -85,14 +85,13 @@
                               </VBox>
                               <VBox alignment="TOP_CENTER" layoutY="2.0" prefWidth="94.5" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="20.0">
                                  <children>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-weight: Bold; -fx-underline: True; -fx-font-size: 13;" text="Edit Options" textAlignment="CENTER" />
-                                    <MFXButton fx:id="selectButton" onAction="#changeMapMode" prefWidth="70.0" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-color: white;" text="Select" textFill="#02143b" />
-                                    <MFXButton fx:id="Add" onAction="#changeMapMode" prefWidth="70.0" style="-fx-font-weight: bold; -fx-font-family: arial; -fx-font-size: 12; -fx-background-color: white;" text="Add" textFill="#02143b" />
-                                    <MFXButton fx:id="Modify" onAction="#changeMapMode" prefWidth="70.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold;" text="Modify" textFill="#02143b" />
-                                    <MFXButton fx:id="Remove" onAction="#changeMapMode" prefWidth="70.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Remove" textFill="#02143b" />
-                                    <MFXButton fx:id="Move" layoutX="23.0" layoutY="154.0" onAction="#changeMapMode" prefWidth="70.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Move" textFill="#02143b" />
-                                    <MFXButton fx:id="Edges" onAction="#changeMapMode" prefWidth="70.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Edges" textFill="#02143b" />
-
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-weight: Bold; -fx-underline: True; -fx-font-size: 13; -fx-text-fill: white;" text="Edit Options" textAlignment="CENTER" />
+                                    <MFXButton fx:id="selectButton" onAction="#changeMapMode" prefWidth="70.0" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; " text="Select" textFill="#02143b" />
+                                    <MFXButton fx:id="Add" onAction="#changeMapMode" prefWidth="70.0" style="-fx-font-weight: bold; -fx-font-family: arial; -fx-font-size: 12; " text="Add" textFill="#02143b" />
+                                    <MFXButton fx:id="Modify" onAction="#changeMapMode" prefWidth="70.0" style=" -fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold;" text="Modify" textFill="#02143b" />
+                                    <MFXButton fx:id="Remove" onAction="#changeMapMode" prefWidth="70.0" style=" -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Remove" textFill="#02143b" />
+                                    <MFXButton fx:id="Move" layoutX="23.0" layoutY="154.0" onAction="#changeMapMode" prefWidth="70.0" style=" -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Move" textFill="#02143b" />
+                                    <MFXButton fx:id="Edges" onAction="#changeMapMode" prefWidth="70.0" style=" -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Edges" textFill="#02143b" />
                                  </children>
                                  <padding>
                                     <Insets bottom="20.0" top="20.0" />
@@ -210,6 +209,7 @@
                                     <Insets top="15.0" />
                                  </padding>
                               </VBox>
+                              <Text fx:id="edgeMadeText" layoutX="191.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 30; -fx-font-family: arial;" wrappingWidth="202.5367431640625" />
                            </children>
                         </AnchorPane>
                           </children>
@@ -234,7 +234,7 @@
             </children>
         </AnchorPane>
         <VBox prefHeight="200.0" prefWidth="70.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <fx:include fx:id="adminMenu" source="Menu.fxml" />
+            <fx:include fx:id="adminMenu" source="components/Menu.fxml" />
         </VBox>
     </children>
 </AnchorPane>

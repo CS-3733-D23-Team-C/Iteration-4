@@ -565,17 +565,17 @@
                         <Insets top="20.0" />
                      </padding>
                      <children>
-                        <MFXButton fx:id="homeHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Get to the Home Page? " />
-                        <MFXButton fx:id="flowerHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Make A Flower Delivery?" />
-                        <MFXButton fx:id="mealHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Make A Meal Delivery? " />
-                        <MFXButton fx:id="stationaryHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Make A Stationary Request? " />
-                        <MFXButton fx:id="furnitureHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Make A Furniture Request? " />
-                        <MFXButton fx:id="roomReservationHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Make A Room Reservation? " />
-                        <MFXButton fx:id="directionsHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Get Directions? " />
-                        <MFXButton fx:id="editMapHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Edit the Map? " />
-                        <MFXButton fx:id="historyHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I View the History Requests? " />
-                        <MFXButton fx:id="logoutHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Logout or Switch Accounts? " />
-                        <MFXButton fx:id="exitHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Close the App? " />
+                        <MFXButton fx:id="homeHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@components/Menu.css" text="How Do I Get to the Home Page? " />
+                        <MFXButton fx:id="flowerHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@components/Menu.css" text="How Do I Make A Flower Delivery?" />
+                        <MFXButton fx:id="mealHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@components/Menu.css" text="How Do I Make A Meal Delivery? " />
+                        <MFXButton fx:id="stationaryHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@components/Menu.css" text="How Do I Make A Stationary Request? " />
+                        <MFXButton fx:id="furnitureHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@components/Menu.css" text="How Do I Make A Furniture Request? " />
+                        <MFXButton fx:id="roomReservationHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@components/Menu.css" text="How Do I Make A Room Reservation? " />
+                        <MFXButton fx:id="directionsHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@components/Menu.css" text="How Do I Get Directions? " />
+                        <MFXButton fx:id="editMapHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@components/Menu.css" text="How Do I Edit the Map? " />
+                        <MFXButton fx:id="historyHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@components/Menu.css" text="How Do I View the History Requests? " />
+                        <MFXButton fx:id="logoutHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@components/Menu.css" text="How Do I Logout or Switch Accounts? " />
+                        <MFXButton fx:id="exitHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@components/Menu.css" text="How Do I Close the App? " />
                      </children>
                   </VBox>
                </children>
@@ -584,7 +584,7 @@
       </AnchorPane>
       <AnchorPane layoutX="90.0" layoutY="20.0" prefHeight="76.0" prefWidth="1366.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),10,0.75,0,0);" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <VBox prefHeight="200.0" prefWidth="70.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <fx:include fx:id="adminMenu" source="Menu.fxml" />
+         <fx:include fx:id="adminMenu" source="components/Menu.fxml" />
       </VBox>
       <Pane layoutX="385.0" layoutY="85.0" prefHeight="680.0" prefWidth="993.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" />
    </children>

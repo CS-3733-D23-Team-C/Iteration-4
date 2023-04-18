@@ -7,9 +7,9 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class MealController {
   @FXML private MFXButton goHome;
@@ -24,81 +24,198 @@ public class MealController {
   @FXML private MenuItem choice3;
 
   @FXML private MenuItem choice4;
-  @FXML private MenuButton roomID;
+  @FXML private MenuItem choice5;
+
+  @FXML private MenuItem choice6;
+
+  @FXML private MenuItem choice7;
+
+  @FXML private MenuItem choice8;
+
+  @FXML private MenuButton roomMenu;
+  // Meal Menu
+  @FXML private MenuButton serviceMenu;
+  @FXML private MenuItem servicechoice1;
+  @FXML private MenuItem servicechoice2;
+  @FXML private MenuItem servicechoice3;
+  @FXML private MenuItem servicechoice4;
+
   @FXML private TextField nameBox;
+  @FXML private TextArea specialRequest;
+  @FXML private MenuButton employeeName;
 
-  @FXML private MenuButton menuButton;
+  // Special for Meal
+  // Drink Menu
+  @FXML private MenuButton drinkMenu;
+  @FXML private MenuItem drinkchoice1;
+  @FXML private MenuItem drinkchoice2;
+  @FXML private MenuItem drinkchoice3;
+  @FXML private MenuItem drinkchoice4;
 
-  @FXML private TextField specialNotes;
+  // Image and Food Information
+  @FXML private ImageView mealImage;
+  @FXML private TextArea ingredients;
+  @FXML private TextArea allergyInfo;
 
-  public void getGoHome() {
+  @FXML
+  void getGoHome(ActionEvent event) {
     Navigation.navigate(Screen.ADMIN_HOME);
   }
 
-  @FXML
-  void getChoice0() {
-    menuButton.setText("Halal Shack Bowl with Zucchini Noodles and Chicken Breast");
-  }
+  //  @FXML
+  //  void getChoice0() {
+  //    roomMenu.setText("--Please Conference Room--");
+  //  }
 
+  // These 4 choices(1-4) are for the conference room
   @FXML
   void getChoice1() {
-    menuButton.setText("Cheese Burger");
+    roomMenu.setText("Conference A1");
   }
 
   @FXML
   void getChoice2() {
-    menuButton.setText("Hotdog");
+    roomMenu.setText("Conference A2");
   }
 
   @FXML
   void getChoice3() {
-    menuButton.setText("Grease Bowl");
+    roomMenu.setText("Conference A3");
   }
 
   @FXML
   void getChoice4() {
-    menuButton.setText("Reverse Osmosis Water");
+    roomMenu.setText("Conference A4");
+  }
+
+  // These 4 choices(5-8) are for the employee name
+  @FXML
+  void getChoice5() {
+    employeeName.setText(choice5.getText());
   }
 
   @FXML
-  void getRoom1() {
-    roomID.setText("Room1");
+  void getChoice6() {
+    employeeName.setText(choice6.getText());
   }
 
   @FXML
-  void getRoom2() {
-    roomID.setText("Room2");
+  void getChoice7() {
+    employeeName.setText(choice7.getText());
+  }
+
+  @FXML
+  void getChoice8() {
+    employeeName.setText(choice8.getText());
+  }
+
+  // These 4 choices(1-4) are for the meal menu
+  @FXML
+  void getServicechoice1() {
+    serviceMenu.setText(servicechoice1.getText());
+    getMealInfo(1);
+  }
+
+  @FXML
+  void getServicechoice2() {
+    serviceMenu.setText(servicechoice2.getText());
+    getMealInfo(2);
+  }
+
+  @FXML
+  void getServicechoice3() {
+    serviceMenu.setText(servicechoice3.getText());
+    getMealInfo(3);
+  }
+
+  @FXML
+  void getServicechoice4() {
+    serviceMenu.setText(servicechoice4.getText());
+    getMealInfo(4);
+  }
+
+  // These 4 choices(1-4) are for the drink menu
+  @FXML
+  void getDrinkChoice1() {
+    drinkMenu.setText(drinkchoice1.getText());
+  }
+
+  @FXML
+  void getDrinkChoice2() {
+    drinkMenu.setText(drinkchoice2.getText());
+  }
+
+  @FXML
+  void getDrinkChoice3() {
+    drinkMenu.setText(drinkchoice3.getText());
+  }
+
+  @FXML
+  void getDrinkChoice4() {
+    drinkMenu.setText(drinkchoice4.getText());
+  }
+
+  @FXML
+  void getMealInfo(int mealChoice) {
+    switch (mealChoice) {
+      case 1:
+        mealImage.setImage(
+            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Meal/spaghetti.png"));
+        ingredients.setText("Ground Beef, Spaghetti, Tomato Sauce, Cheese");
+        allergyInfo.setText("Contains: Milk, Wheat");
+        break;
+      case 2:
+        mealImage.setImage(
+            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Meal/garlic_steak.png"));
+        ingredients.setText("Beef, Garlic, Butter");
+        allergyInfo.setText("Contains: Milk");
+        break;
+      case 3:
+        mealImage.setImage(
+            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Meal/grill_chicken.png"));
+        ingredients.setText("Chicken, Broccoli, Honey, Soy Sauce");
+        allergyInfo.setText("Contains: Soy, Honey");
+        break;
+      case 4:
+        mealImage.setImage(
+            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Meal/fried_rice.png"));
+        ingredients.setText("Chicken, Rice, Egg, Soy Sauce");
+        allergyInfo.setText("Contains: Egg, Soy");
+        break;
+      default:
+        mealImage.setImage(new Image("file:src/main/resources/images/meal1.png"));
+        ingredients.setText("");
+        allergyInfo.setText("Contains:");
+        break;
+    }
   }
 
   @FXML
   void getSubmit(ActionEvent event) {
-    String notes = specialNotes.getText();
     String name = nameBox.getText();
-    String room = roomID.getText();
-    String menuSelection = menuButton.getText();
-    MealRequest req =
-        new MealRequest(0, new Requester(0, name), room, notes, new Meal(menuSelection, ""));
-    req.setEta("Test o clock");
-    IDao<MealRequest> dao = new MealRequestDAO();
+    String room = roomMenu.getText();
+    String notes = specialRequest.getText();
+    Meal meal = new Meal(serviceMenu.getText(), "");
+    MealRequest req = new MealRequest(0, new Requester(0, name), room, notes, meal);
+
+    IDao<MealRequest, Integer> dao = new MealRequestDAO();
+
     dao.addRow(req);
+
     Navigation.navigate(Screen.CONGRATS_PAGE);
   }
 
   @FXML
   void getClear(ActionEvent event) {
-    Navigation.navigate(Screen.MEAL);
+    Navigation.navigate(Screen.CONFERENCE);
   }
 
-  /** Method run when controller is initialized */
   @FXML
-  public void initialize() {}
+  void getMenuButton() {}
 
-  public void getHelpPage(ActionEvent actionEvent) {
-    Navigation.navigate(Screen.HELP);
-  }
-
-  public void getLogOut(ActionEvent actionEvent) {
-    Navigation.navigate(Screen.HOME);
+  @FXML
+  void getHistory(ActionEvent event) {
+    Navigation.navigate(Screen.CONFERENCE_HISTORY);
   }
 
   @FXML
@@ -109,6 +226,11 @@ public class MealController {
   @FXML
   void getFurnitureDeliveryPage(ActionEvent event) {
     Navigation.navigate(Screen.FURNITURE);
+  }
+
+  @FXML
+  void getHelpPage(ActionEvent event) {
+    Navigation.navigate(Screen.HELP);
   }
 
   @FXML
@@ -127,28 +249,25 @@ public class MealController {
   }
 
   @FXML
-  void getGiftBasketRequestPage(ActionEvent event) {
-    Navigation.navigate(Screen.GIFT_BASKET);
-  }
-
-  @FXML
   void getSignagePage(ActionEvent event) {
     Navigation.navigate(Screen.SIGNAGE);
   }
 
   @FXML
-  void getHistory(ActionEvent event) {
-    Navigation.navigate(Screen.MEAL_HISTORY);
+  void getConferenceHistory(ActionEvent event) {
+    Navigation.navigate(Screen.CONFERENCE_HISTORY);
   }
 
   @FXML
-  void getPathfindingPage(ActionEvent event) {
-    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  void getGiftBasketRequestPage(ActionEvent event) {
+    Navigation.navigate(Screen.GIFT_BASKET);
   }
 
+  /** Method run when controller is initialized */
   @FXML
-  void getExit(ActionEvent event) {
-    Navigation.navigate(Screen.EXIT_PAGE);
+  public void initialize() {
+    ingredients.setWrapText(true);
+    allergyInfo.setWrapText(true);
   }
 
   @FXML
@@ -157,19 +276,29 @@ public class MealController {
   }
 
   @FXML
-  void getMapHistory(ActionEvent event) {
-    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
+  void getLogOut(ActionEvent event) {
+    Navigation.navigate(Screen.HOME);
   }
 
   @FXML
-  void getMealHistory(ActionEvent event) {
-    Navigation.navigate(Screen.MEAL_HISTORY);
+  void getExit(ActionEvent event) {
+    Navigation.navigate(Screen.EXIT_PAGE);
+  }
+
+  @FXML
+  void getMapHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
   }
 
   //  @FXML
   //  void getMapPage(ActionEvent event) {
   //    Navigation.navigate(Screen.FLOOR_PLAN);
   //  }
+
+  @FXML
+  void getPathfindingPage(ActionEvent event) {
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
+  }
 
   @FXML
   void getHelpage(ActionEvent event) {

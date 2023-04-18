@@ -4,11 +4,12 @@ import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest> {
+public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Integer> {
 
   public List<OfficeSuppliesRequest> fetchAllObjects() {
     DBConnection db = new DBConnection();
@@ -26,8 +27,10 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest> {
         STATUS status = STATUS.valueOf(rs.getString("status"));
         String additionalNotes = rs.getString("additionalnotes");
         String eta = rs.getString("eta");
+        String quantity = rs.getString("quantity");
         OfficeSuppliesRequest request =
-            new OfficeSuppliesRequest(requestID, req, roomName, supplies, additionalNotes);
+            new OfficeSuppliesRequest(
+                requestID, req, roomName, supplies, additionalNotes, quantity);
         request.setStatus(status);
         request.setEta(eta);
         returnList.add(request);
@@ -83,6 +86,37 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest> {
       e.printStackTrace();
     }
     db.closeConnection();
+    return request;
+  }
+
+  @Override
+  public OfficeSuppliesRequest fetchObject(Integer key) throws SQLException {
+    OfficeSuppliesRequest request = null;
+    try {
+      DBConnection db = new DBConnection();
+      String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
+      // queries
+      String query = "SELECT * FROM " + table + " WHERE requestID = " + key + ";";
+      ResultSet rs = db.getConnection().prepareStatement(query).executeQuery();
+      while (rs.next()) {
+        int requestID = rs.getInt("requestID");
+        Requester req = new Requester(0, rs.getString("Requester"));
+        String roomName = rs.getString("roomname");
+        String supplies = rs.getString("officesupplytype");
+        STATUS status = STATUS.valueOf(rs.getString("status"));
+        String additionalNotes = rs.getString("additionalnotes");
+        String eta = rs.getString("eta");
+        String quantity = rs.getString("quantity");
+        request =
+            new OfficeSuppliesRequest(
+                requestID, req, roomName, supplies, additionalNotes, quantity);
+        request.setStatus(status);
+        request.setEta(eta);
+      }
+      db.closeConnection();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     return request;
   }
 

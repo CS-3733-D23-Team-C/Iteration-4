@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MoveDao implements IDao<Move> {
+// TODO - change PKs for all tables to be all three
+public class MoveDao implements IDao<Move, Move> {
   public List<Move> fetchAllObjects() {
     List<Move> databaseMoveList = new ArrayList<>();
     DBConnection db = new DBConnection();
@@ -49,7 +50,7 @@ public class MoveDao implements IDao<Move> {
       String queryUpdateMovesDB =
           "UPDATE  "
               + MOVE
-              + " SET \"nodeID\"=?, \"longName\"=?, \"moveDate\"=? WHERE \"nodeID\"=?; ";
+              + " SET \"nodeID\"=?, \"longName\"=?, \"moveDate\"=? WHERE \"nodeID\"=?, \"longName\"=?, \"moveDate\"=?; ";
 
       PreparedStatement ps = db.getConnection().prepareStatement(queryUpdateMovesDB);
 
@@ -57,6 +58,8 @@ public class MoveDao implements IDao<Move> {
       ps.setString(2, repl.getLongName());
       ps.setDate(3, repl.getDate());
       ps.setInt(4, orm.getNodeID());
+      ps.setString(5, orm.getLongName());
+      ps.setDate(6, orm.getDate());
 
       ps.executeUpdate();
     } catch (Exception e) {
@@ -96,10 +99,13 @@ public class MoveDao implements IDao<Move> {
       // table names
       String MOVE = "\"hospitalNode\".move";
       // queries
-      String queryDeleteMovesDB = "DELETE FROM " + MOVE + " WHERE \"nodeID\"=?; ";
+      String queryDeleteMovesDB =
+          "DELETE FROM " + MOVE + " WHERE \"nodeID\"=?, \"longName\"=?, \"moveDate\"=?; ";
 
       PreparedStatement ps = db.getConnection().prepareStatement(queryDeleteMovesDB);
       ps.setInt(1, orm.getNodeID());
+      ps.setString(2, orm.getLongName());
+      ps.setDate(3, orm.getDate());
 
       ps.executeUpdate();
     } catch (Exception e) {
@@ -108,6 +114,36 @@ public class MoveDao implements IDao<Move> {
     db.closeConnection();
 
     return orm;
+  }
+
+  @Override
+  public Move fetchObject(Move key) throws SQLException {
+    DBConnection db = new DBConnection();
+    Move move = null;
+    try {
+      // table names
+      String MOVE = "\"hospitalNode\".move";
+      // queries
+      String queryDisplayMoves =
+          "SELECT * FROM " + MOVE + " WHERE \"nodeID\"=?, \"longName\"=?, \"moveDate\"=?; ";
+
+      PreparedStatement ps = db.getConnection().prepareStatement(queryDisplayMoves);
+      ps.setInt(1, key.getNodeID());
+      ps.setString(2, key.getLongName());
+      ps.setDate(3, key.getDate());
+
+      ResultSet rsMoves = ps.executeQuery();
+
+      while (rsMoves.next()) {
+        int nodeID = rsMoves.getInt("nodeID");
+        String longName = rsMoves.getString("longName");
+        Date date = rsMoves.getDate("moveDate");
+        move = new Move(nodeID, longName, date);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return move;
   }
 
   public int deleteRow(int nodeID) {

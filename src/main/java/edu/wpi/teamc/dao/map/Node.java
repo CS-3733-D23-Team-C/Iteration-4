@@ -1,11 +1,12 @@
 package edu.wpi.teamc.dao.map;
 
+import edu.wpi.teamc.dao.IOrm;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Node {
+public class Node implements IOrm {
   private int nodeID;
   private int xCoord;
   private int yCoord;
@@ -34,5 +35,12 @@ public class Node {
     this.yCoord = yCoord;
     this.floor = floor;
     this.building = building;
+  }
+
+  public Node() {}
+
+  @Override
+  public String toString() {
+    return Integer.toString(nodeID);
   }
 }

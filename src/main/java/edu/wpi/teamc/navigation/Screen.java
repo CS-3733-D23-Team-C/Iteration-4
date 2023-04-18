@@ -11,6 +11,7 @@ public enum Screen {
   SIGNAGE("views/english/ElevatorSignage.fxml"),
   MAP_HISTORY_PAGE("views/english/MapHistory.fxml"),
   PATHFINDING_PAGE("views/english/PathFinding.fxml"),
+  MOVETABLE_PAGE("views/english/MoveTable.fxml"),
   EDIT_MAP("views/english/EditMap.fxml"),
   FLOOR_PLAN("views/english/FloorPlan.fxml"),
 
@@ -19,6 +20,7 @@ public enum Screen {
   LOGIN("views/english/LoginPage.fxml"),
   ADMIN_HOME("views/english/AdminHome.fxml"),
   GUEST_HOME("views/english/GuestHome.fxml"),
+  MENU("views/english/Menu.fxml"),
 
   // -------SERVICE REQUEST-------//
   MEAL("views/english/MealRequest.fxml"),
@@ -26,7 +28,7 @@ public enum Screen {
 
   CONFERENCE("views/english/Conference.fxml"),
   CONFERENCE_HISTORY("views/english/ConferenceHistory.fxml"),
-
+  MOVE_TABLE("views/english/MoveTable.fxml"),
   FLOWER("views/english/FlowerRequest.fxml"),
   FLOWER_HISTORY("views/english/FlowerHistory.fxml"),
   FURNITURE("views/english/FurnitureRequest.fxml"),

@@ -1,8 +1,7 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.Main;
-import edu.wpi.teamc.controllers.english.MapHelpers.HandleMapModes;
-import edu.wpi.teamc.controllers.english.MapHelpers.MapModeSaver;
+import edu.wpi.teamc.controllers.english.MapHelpers.*;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
@@ -19,7 +18,6 @@ import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -37,6 +35,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -45,6 +44,11 @@ import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class EditMapController {
   public Group group;
+  public MFXButton Add;
+  public MFXButton Modify;
+  public MFXButton Remove;
+  public MFXButton Move;
+  public MFXButton Edges;
   double mouseX;
   double mouseY;
   public Image image =
@@ -91,12 +95,17 @@ public class EditMapController {
   @FXML MFXButton FL1;
   @FXML MFXButton FL2;
   @FXML MFXButton FL3;
-  @FXML MFXButton FLG;
   @FXML MFXButton FLB1;
   @FXML MFXButton FLB2;
+  @FXML MFXButton selectButton;
   @FXML MFXButton floorButton;
   @FXML MFXButton modeButton;
+  @FXML VBox importMenu;
+
+  @FXML VBox exportMenu;
+
   Group mapNodes = new Group();
+  Group mapEdges = new Group();
   Group movingNode = new Group();
   Group movingText = new Group();
   Group mapText = new Group();
@@ -110,7 +119,7 @@ public class EditMapController {
 
   NodeDao InodeDao = new NodeDao();
   EdgeDao IedgeDao = new EdgeDao();
-  LocationDao IlocationDao = new LocationDao();
+  LocationNameDao IlocationDao = new LocationNameDao();
   MoveDao ImoveDao = new MoveDao();
 
   @FXML private Button goHome;
@@ -122,12 +131,14 @@ public class EditMapController {
   String nodeType_temp = "";
   String iD;
   String building = "";
-  String floor = "G";
+  String floor = "1";
   List<Node> n_toAdd = new ArrayList<Node>();
   List<Node> n_toModify_newNode = new ArrayList<Node>();
   List<String> n_toModify_oldID = new ArrayList<String>();
   List<String> n_toRemove = new ArrayList<String>();
   List<Node> oldNameToAdd = new ArrayList<Node>();
+  MakeEdgesHelper edgesHelper = new MakeEdgesHelper(0);
+
   List<LocationName> newNameToAdd = new ArrayList<LocationName>();
   List<Move> moveNamesToAdd = new ArrayList<Move>();
 
@@ -139,21 +150,35 @@ public class EditMapController {
   String removeName = "";
   List<Move> moveNamesToRemove = new ArrayList<Move>();
   List<Node> listNodeToRemove = new ArrayList<Node>();
+  NodeResetterHelper nodeResetterHelper = new NodeResetterHelper();
+  ModeResetterHelper modeResetterHelper = new ModeResetterHelper();
+  FloorResetterHelper floorResetterHelper = new FloorResetterHelper();
 
   // ORM lists
   List<Node> nodeList = new ArrayList<Node>();
   List<Edge> edgeList = new ArrayList<Edge>();
   List<LocationName> locationNameList = new ArrayList<LocationName>();
-  HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
+  // hash maps
+  HashMap<Integer, Move> nodeIDtoMove = new HashMap<>();
   HashMap<String, LocationName> longNametoLocationName = new HashMap<String, LocationName>();
+  HashMap<Integer, Node> nodeIDToNode = new HashMap<Integer, Node>();
+  //  HashMap<Integer,String> nodeIDToFloor = new HashMap<Integer, String>();
 
   List<Move> moveList = new ArrayList<Move>();
+  // List of nodes by floor
   List<Node> Floor1 = new ArrayList<Node>();
   List<Node> Floor2 = new ArrayList<Node>();
   List<Node> Floor3 = new ArrayList<Node>();
   List<Node> FloorG = new ArrayList<Node>();
   List<Node> FloorL1 = new ArrayList<Node>();
   List<Node> FloorL2 = new ArrayList<Node>();
+  // List of edges by floor
+  List<Edge> Floor1Edges = new ArrayList<Edge>();
+  List<Edge> Floor2Edges = new ArrayList<Edge>();
+  List<Edge> Floor3Edges = new ArrayList<Edge>();
+  List<Edge> FloorL1Edges = new ArrayList<Edge>();
+  List<Edge> FloorL2Edges = new ArrayList<Edge>();
+
   String sNameInput_temp;
   String lNameInput_temp;
   String oldName_temp;
@@ -161,6 +186,8 @@ public class EditMapController {
   StackPane stackPane = new StackPane();
   Boolean nodeClicked = false;
   Node currNodeClicked;
+  Circle currCircleClicked;
+  Circle tempSave;
   Node draggedNode;
   Node nodeToDrag;
   Boolean firstPass = true;
@@ -177,8 +204,11 @@ public class EditMapController {
   Boolean dragModeOn = false;
   MapModeSaver mapModeSaver = new MapModeSaver();
   @FXML HBox checkAndX_HBox;
+
+  @FXML HBox checkAndX_HBox1;
   @FXML MFXButton check_button;
   @FXML MFXButton x_button;
+  ImageView imageView;
 
   //  Boolean
 
@@ -186,7 +216,7 @@ public class EditMapController {
   public void initialize() {
 
     Image image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
-    ImageView imageView = new ImageView(image);
+    imageView = new ImageView(image); // was ImageView imageView
     imageView.relocate(0, 0);
     group.getChildren().add(imageView);
 
@@ -201,6 +231,11 @@ public class EditMapController {
     group.getChildren().add(pane);
     mapMode = HandleMapModes.SELECT;
     checkAndX_HBox.setMouseTransparent(true);
+    checkAndX_HBox1.setMouseTransparent(true);
+    selectButton.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    modeResetterHelper.setButton(selectButton);
+    FL1.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    floorResetterHelper.setButton(FL1);
     //    group.getChildren().add(stackPane);
 
     group.setOnMouseClicked(
@@ -232,31 +267,160 @@ public class EditMapController {
               lockMap = true;
               removeMenu();
             } // bring up remove popup
-            // if modify, first popup asks if you want to modify node by drag or by entering?
-            // also if modify pop up asks if you want to modify node or name
+            else if (Objects.equals(mapMode.getMapMode(), "Move")) {
+              lockMap = true;
+              moveMenu();
+            } else if (Objects.equals(mapMode.getMapMode(), "Make_edges")) {
+              lockMap = true;
+              createEdgesForNodes();
+            }
           }
         });
 
-    //    enum Test { //Look at observers from lecture to see if those will help here, need to be
-    // set mode externally and call an instance of the HandleMapNodes object to check which mode,
-    // mode will determine action of mouse action event where listeners for that must be set up here
-    // in initialize
-    //      SELECT,
-    //      ADD,
-    //      MODIFY,
-    //      REMOVE;
-    //    }
-
     loadDatabase();
+    loadNodeIDToNode();
     sortNodes();
-    placeNodes("G");
+    sortEdges();
+    placeEdges("1");
+    placeNodes("1");
   } // end initialize
+
+  // load hashmap of nodeID to floor
+  private void loadNodeIDToNode() {
+    for (Node node : nodeList) {
+      nodeIDToNode.put(node.getNodeID(), node);
+    }
+  }
+  // see if both nodes are on the same floor
+  private boolean sameFloor(int nodeID1, int nodeID2) {
+    String node1Floor = nodeIDToNode.get(nodeID1).getFloor();
+    String node2Floor = nodeIDToNode.get(nodeID2).getFloor();
+    if (node1Floor.equals(node2Floor)) {
+      return true;
+    }
+    return false;
+  }
+
+  public void createEdgesForNodes() {
+    //    Node secondNode;
+    //    Circle secondCircle;
+    EdgeDao edgeDao = new EdgeDao();
+    if (nodeClicked && (edgesHelper.getNodesClicked() == 0)) {
+      System.out.println("first node");
+      edgesHelper.setNode(currNodeClicked);
+      currCircleClicked.setFill(Paint.valueOf("#32CD32"));
+      edgesHelper.setCircle(currCircleClicked);
+      edgesHelper.setNodesClicked(1);
+      //      System.out.println()
+
+      nodeClicked = false;
+      lockMap = false;
+    }
+    if (nodeClicked && (edgesHelper.getNodesClicked() == 1)) {
+      currCircleClicked.setFill(Paint.valueOf("#32CD32"));
+      System.out.println("second node");
+      //      secondNode = currNodeClicked;
+      //      secondCircle = currCircleClicked;
+      Edge edge = new Edge(edgesHelper.getNode().getNodeID(), currNodeClicked.getNodeID());
+      edgeDao.addRow(edge);
+      loadDatabase();
+      loadNodeIDToNode();
+      sortEdges();
+      placeEdges(floor);
+      mapNodes.toFront();
+      nodeClicked = false;
+      edgesHelper.setNodesClicked(0);
+      lockMap = false;
+      currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
+      edgesHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
+    }
+  }
+
+  private void placeEdges(String floor) {
+    group.getChildren().remove(mapEdges);
+    mapEdges = new Group();
+    switch (floor) {
+      case "1":
+        for (Edge edge : Floor1Edges) {
+          createMapEdges(edge);
+        }
+        break;
+      case "2":
+        for (Edge edge : Floor2Edges) {
+          createMapEdges(edge);
+        }
+        break;
+      case "3":
+        for (Edge edge : Floor3Edges) {
+          createMapEdges(edge);
+        }
+        break;
+      case "L1":
+        for (Edge edge : FloorL1Edges) {
+          createMapEdges(edge);
+        }
+        break;
+      case "L2":
+        for (Edge edge : FloorL2Edges) {
+          createMapEdges(edge);
+        }
+        break;
+    }
+    group.getChildren().add(mapEdges);
+    mapEdges.toFront();
+  }
+
+  public void createMapEdges(Edge edge) {
+    Line line = new Line();
+    line.setStartX(nodeIDToNode.get(edge.getStartNode()).getXCoord());
+    line.setStartY(nodeIDToNode.get(edge.getStartNode()).getYCoord());
+    line.setEndX(nodeIDToNode.get(edge.getEndNode()).getXCoord());
+    line.setEndY(nodeIDToNode.get(edge.getEndNode()).getYCoord());
+    line.setStrokeWidth(5);
+    line.setStroke(Paint.valueOf("021335"));
+    mapEdges.getChildren().add(line);
+  }
+
+  private void sortEdges() {
+    // look at floor list and find all edges that have both nodes in that floor list
+    Floor1Edges.clear();
+    Floor2Edges.clear();
+    Floor3Edges.clear();
+    FloorL1Edges.clear();
+    FloorL2Edges.clear();
+
+    for (Edge edge : edgeList) {
+      String floor = nodeIDToNode.get(edge.getStartNode()).getFloor();
+      String floor2 = nodeIDToNode.get(edge.getEndNode()).getFloor();
+      //      System.out.println(floor + "   " + floor2);
+      // see if both nodes are in the floor list
+      sameFloor(edge.getStartNode(), edge.getEndNode());
+      if (sameFloor(edge.getStartNode(), edge.getEndNode())
+          && (nodeIDToNode.get(edge.getStartNode()).getFloor().equals("1"))) {
+        Floor1Edges.add(edge);
+      } else if (sameFloor(edge.getStartNode(), edge.getEndNode())
+          && nodeIDToNode.get(edge.getStartNode()).getFloor().equals("2")) {
+        Floor2Edges.add(edge);
+      } else if (sameFloor(edge.getStartNode(), edge.getEndNode())
+          && nodeIDToNode.get(edge.getStartNode()).getFloor().equals("3")) {
+        Floor3Edges.add(edge);
+      } else if (sameFloor(edge.getStartNode(), edge.getEndNode())
+          && nodeIDToNode.get(edge.getStartNode()).getFloor().equals("L1")) {
+        FloorL1Edges.add(edge);
+      } else if (sameFloor(edge.getStartNode(), edge.getEndNode())
+          && nodeIDToNode.get(edge.getStartNode()).getFloor().equals("L2")) {
+        FloorL2Edges.add(edge);
+      }
+    }
+  }
+
   // load database
   public void loadDatabase() {
     nodeList = new NodeDao().fetchAllObjects();
     edgeList = new EdgeDao().fetchAllObjects();
-    locationNameList = new LocationDao().fetchAllObjects();
+    locationNameList = new LocationNameDao().fetchAllObjects();
     moveList = new MoveDao().fetchAllObjects();
+    java.sql.Date currentDate = new Date(System.currentTimeMillis());
 
     for (Move move : moveList) {
       try {
@@ -264,7 +428,16 @@ public class EditMapController {
       } catch (NullPointerException e) {
         move.setLongName("ERROR");
       }
-      nodeIDtoMove.put(move.getNodeID(), move);
+      if (nodeIDtoMove.get(move.getNodeID()) == null) {
+        nodeIDtoMove.put(move.getNodeID(), move);
+      } else {
+        Move inHashMap = nodeIDtoMove.get(move.getNodeID());
+        if (currentDate.compareTo(move.getDate()) >= 0) {
+          if (move.getDate().compareTo(inHashMap.getDate()) >= 0) {
+            nodeIDtoMove.put(move.getNodeID(), move);
+          }
+        }
+      }
     }
     for (LocationName locationName : locationNameList) {
       longNametoLocationName.put(locationName.getLongName(), locationName);
@@ -303,12 +476,25 @@ public class EditMapController {
       modeButton = (MFXButton) event.getTarget();
       if (Objects.equals(modeButton.getId(), "Select")) {
         mapMode = HandleMapModes.SELECT;
+        resetAndSetModes(modeButton);
       } else if (Objects.equals(modeButton.getId(), "Add")) {
         mapMode = HandleMapModes.ADD;
+        resetAndSetModes(modeButton);
       } else if (Objects.equals(modeButton.getId(), "Modify")) {
         mapMode = HandleMapModes.MODIFY;
+        resetAndSetModes(modeButton);
       } else if (Objects.equals(modeButton.getId(), "Remove")) {
         mapMode = HandleMapModes.REMOVE;
+        resetAndSetModes(modeButton);
+        System.out.println("Removing");
+      } else if (Objects.equals(modeButton.getId(), "Move")) {
+        mapMode = HandleMapModes.MOVE;
+        resetAndSetModes(modeButton);
+        System.out.println("Moving");
+      } else if (Objects.equals(modeButton.getId(), "Edges")) {
+        mapMode = HandleMapModes.MAKE_EDGES;
+        resetAndSetModes(modeButton);
+        System.out.println("Making Edges");
       }
     }
   }
@@ -319,35 +505,36 @@ public class EditMapController {
     if (Objects.equals(floorButton.getId(), "FL1")) {
       image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
       floor = "1";
+      resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FL2")) {
       image = new Image(Main.class.getResource("./views/Images/SecondFloor.png").toString());
       floor = "2";
+      resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FL3")) {
       image = new Image(Main.class.getResource("./views/Images/ThirdFloor.png").toString());
       floor = "3";
-      //    } else if (Objects.equals(floorButton.getId(), "FLG")) {
-      //      image = new
-      // Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
-      //      floor = "G";
+      resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FLB1")) {
       image = new Image(Main.class.getResource("./views/Images/B1.png").toString());
       floor = "L1";
+      resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FLB2")) {
       image = new Image(Main.class.getResource("./views/Images/B2.png").toString());
       floor = "L2";
+      resetAndSetFloorIndicators(floorButton);
     }
-    group.getChildren().removeAll();
+    group.getChildren().removeAll(mapNodes, mapText, imageView);
     group.getChildren().remove(mapNodes);
     group.getChildren().remove(mapText);
-    //    stackPane.getChildren().remove(mapNodes);
-    ImageView imageView = new ImageView(image);
+
+    imageView = new ImageView(image);
     imageView.relocate(0, 0);
     mapNodes = new Group();
     mapText = new Group();
-    group.getChildren().add(imageView);
-    //    stackPane.getChildren().add(mapNodes);
-    group.getChildren().add(mapNodes);
-    group.getChildren().add(mapText);
+    group.getChildren().addAll(imageView, mapNodes, mapText);
+
+    //    resetAndSetModes(floorButton);
+
     Pane pane = new Pane();
     pane.setMinWidth(image.getWidth());
     pane.setMaxWidth(image.getWidth());
@@ -355,10 +542,9 @@ public class EditMapController {
     pane.setMaxHeight(image.getHeight());
     pane.relocate(0, 0);
     group.getChildren().add(pane);
+    placeEdges(floor);
     placeNodes(floor);
   }
-
-  public void comparatorSortNode() {}
 
   public void sortNodes() {
     Floor1.clear();
@@ -481,78 +667,69 @@ public class EditMapController {
           createMapNodes(FloorL2.get(i), shortName, nodeType, longName);
         }
     }
-    //    stackPane.toFront();
     mapNodes.toFront();
     mapText.toFront();
-    //    mapNodes.getChildren().s
   }
 
   public void createMapNodes(Node node, String shortname, String nodeType, String longName) {
     Circle newCircle = new Circle();
     Text text = new Text();
-    //    TextArea text = new TextArea();
+
     if (!nodeType.equals("HALL") && !nodeType.equals("ERROR")) {
-      //      text = new TextArea(shortname);
       text = new Text(shortname);
-      //      text.setX();
-      //      Tooltip nodeName = new Tooltip(shortname);
-      //      nodeName.setShowDelay(Duration.ZERO);
-      //      nodeName.setShowDuration(Duration.hours(2));
-      //      Tooltip.install(newCircle, nodeName);
     }
+
     newCircle.setRadius(6);
     newCircle.setCenterX(node.getXCoord());
     newCircle.setCenterY(node.getYCoord());
-    //    text.setLocation(node.getXCoord() + 10, node.getYCoord() - 10);
 
-    //    text.(node.getXCoord() + 10);
-    //    text.snapPositionY(node.getYCoord() - 10);
     text.setX(node.getXCoord() + 5);
     text.setY(node.getYCoord() - 5);
-    //    text.setStroke(Paint.valueOf("#FFFFFF"));
-    //    text.setFill(Paint.valueOf("#CD8003"));
-    //    text.setBackground(Color.getColor("#13DAF7"));
-    //    text.setStyle("-fx-background-color: black; -fx-text-fill: white");
 
-    //    if (Objects.equals(mapMode.getMapMode(), "Modify_drag")) {
-    //      newCircle.setId(String.valueOf(0));
-    //      newCircle.setStroke(Paint.valueOf("#13DAF7"));
-    //      newCircle.setFill(Paint.valueOf("#13DAF7"));
-    //      newCircle.setVisible(true);
-    //      text.setVisible(true);
-    //    }
     newCircle.setId(String.valueOf(node.getNodeID()));
     newCircle.setStroke(Paint.valueOf("#13DAF7"));
     newCircle.setFill(Paint.valueOf("#13DAF7"));
     newCircle.setVisible(true);
     text.setVisible(true);
-    //    if (Objects.equals(mapMode.getMapMode(), "Modify_drag")) {
-    //      newCircle.setOnMousePressed
-    //    }
+
+    newCircle.setOnMouseEntered(
+        e -> {
+          newCircle.setStroke(Paint.valueOf("#1338B3"));
+        });
+
     newCircle.setOnMousePressed( // was set on mouse clicked
         e -> {
+          currCircleClicked = newCircle;
           nodeClicked = true; // clicked on a node
           currNodeClicked = node;
           currNodeLongname = longName;
           currNodeShortname = shortname;
           currNodeType = nodeType;
 
+          if (!(Objects.equals(mapMode.getMapMode(), "Modify_drag"))) {
+            resetAndSetCircle(newCircle);
+
+            //            newCircle.setFill(Paint.valueOf("#45a37f"));
+          } else if (Objects.equals(node.getNodeID(), mapModeSaver.getNodeID())) {
+            newCircle.setFill(Paint.valueOf("#45a37f"));
+          }
+
           if ((Objects.equals(mapMode.getMapMode(), "Modify_drag"))
               && !mapModeSaver.getDraggingNodeCreated()) {
             movingNodeClicked = true;
           }
-          //          System.out.println("circle clicked");
         });
-    //    newCircle.setOnMouseDragEntered(
-    //        e -> {
-    //          mouseDragged = true;
-    //        });
+
+    newCircle.setOnMouseExited(
+        e -> {
+          //          if (!(Objects.equals(mapMode.getMapMode(), "Modify_drag"))) {
+          newCircle.setStroke(Paint.valueOf("#13DAF7"));
+          //          } else if (!(Objects.equals(node.getNodeID(), mapModeSaver.getNodeID()))) {
+          //            newCircle.setStroke(Paint.valueOf("13DAF7"));
+          //          }
+        });
 
     if (Objects.equals(mapMode.getMapMode(), "Modify_drag")) {
-      //      newCircle.setOnMousePressed( //////////////
-      //          event -> {
-      //            movingNodeClicked = true;
-      //          });
 
       System.out.println("GOT HERE");
       movingNode.getChildren().add(newCircle);
@@ -564,6 +741,7 @@ public class EditMapController {
   }
 
   public void createMovingMapNode(
+      Node node,
       int nodeID,
       String shortname,
       String nodeType,
@@ -572,60 +750,60 @@ public class EditMapController {
       int y) { // updated nodeID input
     Circle newCircle = new Circle();
     Text text = new Text();
-    //    TextArea text = new TextArea();
     if (!nodeType.equals("HALL") && !nodeType.equals("ERROR")) {
-      //      text = new TextArea(shortname);
       text = new Text(shortname);
-      //      text.setX();
-      //      Tooltip nodeName = new Tooltip(shortname);
-      //      nodeName.setShowDelay(Duration.ZERO);
-      //      nodeName.setShowDuration(Duration.hours(2));
-      //      Tooltip.install(newCircle, nodeName);
     }
     newCircle.setRadius(6);
     newCircle.setCenterX(x);
     newCircle.setCenterY(y);
-    //    text.setLocation(node.getXCoord() + 10, node.getYCoord() - 10);
 
-    //    text.(node.getXCoord() + 10);
-    //    text.snapPositionY(node.getYCoord() - 10);
     text.setX(x + 5);
     text.setY(y - 5);
-    //    text.setStroke(Paint.valueOf("#FFFFFF"));
-    //    text.setFill(Paint.valueOf("#CD8003"));
-    //    text.setBackground(Color.getColor("#13DAF7"));
-    //    text.setStyle("-fx-background-color: black; -fx-text-fill: white");
 
-    //    if (Objects.equals(mapMode.getMapMode(), "Modify_drag")) {
-    //      newCircle.setId(String.valueOf(0));
-    //      newCircle.setStroke(Paint.valueOf("#13DAF7"));
-    //      newCircle.setFill(Paint.valueOf("#13DAF7"));
-    //      newCircle.setVisible(true);
-    //      text.setVisible(true);
-    //    }
     newCircle.setId(String.valueOf(nodeID));
-    newCircle.setStroke(Paint.valueOf("#13DAF7"));
-    newCircle.setFill(Paint.valueOf("#13DAF7"));
+    newCircle.setStroke(Paint.valueOf("#45a37f"));
+    newCircle.setFill(Paint.valueOf("#8745a3"));
     newCircle.setVisible(true);
     text.setVisible(true);
     newCircle.setOnMousePressed(
         e -> {
           nodeClicked = true; // clicked on a node
-          //          currNodeClicked = node; //took this out, is it still needed?*************
           currNodeLongname = longName;
           currNodeShortname = shortname;
           currNodeType = nodeType;
           movingNodeClicked = true;
-          //          System.out.println("circle clicked");
+          if (Objects.equals(node.getNodeID(), mapModeSaver.getNodeID())) {
+            newCircle.setFill(Paint.valueOf("#45a37f"));
+          }
         });
-    //    newCircle.setOnMouseDragEntered(
-    //        e -> {
-    //          mouseDragged = true;
-    //        });
 
     System.out.println("GOT HERE");
     movingNode.getChildren().add(newCircle);
     movingText.getChildren().add(text);
+  }
+
+  public void resetAndSetCircle(Circle circle) {
+    circle.setFill(Paint.valueOf("#32CD32"));
+    nodeResetterHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
+    nodeResetterHelper.setCircle(circle);
+    //    tempSave.setFill(Paint.valueOf("#13DAF7"));
+    //    tempSave = circle;
+  }
+
+  public void resetAndSetModes(MFXButton button) {
+    button.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    modeResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#bebebe")));
+    modeResetterHelper.setButton(button);
+    //    tempSave.setFill(Paint.valueOf("#13DAF7"));
+    //    tempSave = circle;
+  }
+
+  public void resetAndSetFloorIndicators(MFXButton button) {
+    button.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    floorResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#bebebe")));
+    floorResetterHelper.setButton(button);
+    //    tempSave.setFill(Paint.valueOf("#13DAF7"));
+    //    tempSave = circle;
   }
 
   public void addNodeByMouseLoc(int x, int y) {
@@ -633,22 +811,46 @@ public class EditMapController {
 
     // Stuff to show on pop up
     VBox vBox = new VBox();
+    Text headerText = new Text("Add Node Using Mouse Location");
     Text building = new Text("Input name of building the node will be in");
     MFXTextField b_input = new MFXTextField();
     MFXButton addButton = new MFXButton("Submit Add");
-    vBox.getChildren().addAll(building, b_input, addButton);
+    vBox.getChildren().addAll(headerText, building, b_input, addButton);
+
+    // set styles
+    headerText.getStyleClass().add("Header");
+    building.getStyleClass().add("Text");
+    b_input.getStyleClass().add("MFXtextIn");
+    addButton.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // set object locations
+    int lay_x = 50;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    building.setLayoutX(lay_x);
+    building.setLayoutY(lay_y + 35);
+    b_input.setLayoutX(lay_x);
+    b_input.setLayoutY(lay_y + 35);
+    addButton.setLayoutX(lay_x);
+    addButton.setLayoutY(lay_y + 95);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
+    aPane.getChildren().addAll(headerText, building, b_input, addButton);
+    //    Insets insets = new Insets(0, 0, 0, 200);
+    //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 410, 225);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.setTitle("Add Node Window");
+    stage.setAlwaysOnTop(true);
     stage.show();
 
     // When stage closed with inherit x, will unlock map and understand a node is no longer selected
@@ -697,6 +899,7 @@ public class EditMapController {
 
     // Stuff to show on pop up
     VBox vBox = new VBox();
+    Text headerText = new Text("Select Modification Method");
     Text modify_1 = new Text("Modify node by text input?");
     Text modify_2 = new Text("Modify node by dragging on map?");
     Text modify_3 = new Text("Modify location name of node?");
@@ -704,19 +907,51 @@ public class EditMapController {
     MFXButton byDrag = new MFXButton("By Drag");
     MFXButton editName = new MFXButton("Edit Name");
 
-    vBox.getChildren().addAll(modify_1, byText, modify_2, byDrag, modify_3, editName);
+    vBox.getChildren().addAll(headerText, modify_1, byText, modify_2, byDrag, modify_3, editName);
+
+    // set styles
+    headerText.getStyleClass().add("Header");
+    modify_1.getStyleClass().add("Text");
+    modify_2.getStyleClass().add("Text");
+    modify_3.getStyleClass().add("Text");
+    byText.getStyleClass().add("MFXbutton");
+    byDrag.getStyleClass().add("MFXbutton");
+    editName.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // set object locations
+    int lay_x = 50;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    modify_1.setLayoutX(lay_x);
+    modify_1.setLayoutY(lay_y + 35);
+    byText.setLayoutX(lay_x);
+    byText.setLayoutY(lay_y + 50);
+    modify_2.setLayoutX(lay_x);
+    modify_2.setLayoutY(lay_y + 120);
+    byDrag.setLayoutX(lay_x);
+    byDrag.setLayoutY(lay_y + 135);
+    modify_3.setLayoutX(lay_x);
+    modify_3.setLayoutY(lay_y + 205);
+    editName.setLayoutX(lay_x);
+    editName.setLayoutY(lay_y + 220);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
+    aPane.getChildren().addAll(headerText, modify_1, byText, modify_2, byDrag, modify_3, editName);
+    //    Insets insets = new Insets(0, 0, 0, 200);
+    //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 350, 330);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.setTitle("Modify Window");
+    stage.setAlwaysOnTop(true);
     stage.show();
 
     // When stage closed with inherit x, will unlock map and understand a node is no longer selected
@@ -756,6 +991,7 @@ public class EditMapController {
     // Stuff to show on pop up
     VBox vBox = new VBox();
 
+    Text headerText = new Text("Modify Node Location");
     Text xCoord_t = new Text("Input new Xcoord");
     Text yCoord_t = new Text("Input new YCoord");
     MFXTextField xCoord_input = new MFXTextField();
@@ -765,20 +1001,52 @@ public class EditMapController {
     submitModify.setPrefSize(100, 35);
     submitModify.setMinSize(100, 35);
 
-    vBox.getChildren().addAll(xCoord_t, xCoord_input, yCoord_t, yCoord_input, submitModify);
-    vBox.setSpacing(20);
+    //    vBox.getChildren().addAll(headerText, xCoord_t, xCoord_input, yCoord_t, yCoord_input,
+    // submitModify);
+    //    vBox.setSpacing(20);
+
+    // set styles
+    headerText.getStyleClass().add("Header");
+    xCoord_t.getStyleClass().add("Text");
+    yCoord_t.getStyleClass().add("Text");
+    xCoord_input.getStyleClass().add("MFXtextIn");
+    yCoord_input.getStyleClass().add("MFXtextIn");
+    submitModify.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // set object locations
+    int lay_x = 40;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    xCoord_t.setLayoutX(lay_x);
+    xCoord_t.setLayoutY(lay_y + 35);
+    xCoord_input.setLayoutX(lay_x);
+    xCoord_input.setLayoutY(lay_y + 35);
+    yCoord_t.setLayoutX(lay_x);
+    yCoord_t.setLayoutY(lay_y + 105);
+    yCoord_input.setLayoutX(lay_x);
+    yCoord_input.setLayoutY(lay_y + 105);
+    submitModify.setLayoutX(lay_x);
+    submitModify.setLayoutY(lay_y + 165);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
+    aPane
+        .getChildren()
+        .addAll(headerText, xCoord_t, xCoord_input, yCoord_t, yCoord_input, submitModify);
+    //    Insets insets = new Insets(0, 0, 0, 200);
+    //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 290, 290);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.setTitle("Modify Node Window");
+    stage.setAlwaysOnTop(true);
     stage.show();
 
     // When stage closed with inherit x, will unlock map and understand a node is no longer selected
@@ -823,7 +1091,10 @@ public class EditMapController {
           mapText = new Group();
           group.getChildren().addAll(mapNodes, mapText);
           loadDatabase();
+          loadNodeIDToNode();
           sortNodes();
+          sortEdges();
+          placeEdges(floor);
           placeNodes(floor);
 
           // close menu
@@ -838,20 +1109,43 @@ public class EditMapController {
 
     // Stuff to show on pop up
     VBox vBox = new VBox();
+    Text headerText = new Text("Remove Selection Menu");
     Text remove_1 = new Text("Remove Node?");
-    Text remove_2 = new Text("Remove Node Location Name");
+    Text remove_2 = new Text("Remove Node Location Name?");
     MFXButton removeNode = new MFXButton("Remove Node");
     MFXButton removeName = new MFXButton("Remove Name");
 
-    vBox.getChildren().addAll(remove_1, removeNode, remove_2, removeName);
+    // set styles
+    headerText.getStyleClass().add("Header");
+    remove_1.getStyleClass().add("Text");
+    remove_2.getStyleClass().add("Text");
+    removeNode.getStyleClass().add("MFXbutton");
+    removeName.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // set object locations
+    int lay_x = 40;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    remove_1.setLayoutX(lay_x);
+    remove_1.setLayoutY(lay_y + 35);
+    removeNode.setLayoutX(lay_x);
+    removeNode.setLayoutY(lay_y + 50);
+    remove_2.setLayoutX(lay_x);
+    remove_2.setLayoutY(lay_y + 120);
+    removeName.setLayoutX(lay_x);
+    removeName.setLayoutY(lay_y + 135);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
+    aPane.getChildren().addAll(headerText, remove_1, removeNode, remove_2, removeName);
+
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 325, 260);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -877,7 +1171,10 @@ public class EditMapController {
           mapText = new Group();
           group.getChildren().addAll(mapNodes, mapText);
           loadDatabase();
+          loadNodeIDToNode();
           sortNodes();
+          sortEdges();
+          placeEdges(floor);
           placeNodes(floor);
 
           stage.close();
@@ -887,7 +1184,90 @@ public class EditMapController {
     removeName.setOnMouseClicked(
         event -> {
           MoveDao moveDao = new MoveDao();
-          LocationDao locationDao = new LocationDao();
+          LocationNameDao locationDao = new LocationNameDao();
+          long currentTime = System.currentTimeMillis();
+          Date currentDate = new Date(currentTime);
+          Move move = new Move(currNodeClicked.getNodeID(), currNodeLongname, currentDate);
+          moveDao.deleteRow(move);
+          locationDao.deleteRow(currNodeLongname);
+
+          group.getChildren().removeAll(mapNodes, mapText);
+          mapNodes = new Group();
+          mapText = new Group();
+          group.getChildren().addAll(mapNodes, mapText);
+          loadDatabase();
+          sortNodes();
+          placeNodes(floor);
+
+          stage.close();
+          nodeClicked = false;
+          lockMap = false;
+        });
+  }
+
+  public void moveMenu() { // make this a pop up window instead of a whole new scene?
+    BorderPane borderPane = new BorderPane();
+
+    // Stuff to show on pop up
+    //    VBox vBox = new VBox();
+    //    Text remove_1 = new Text("move Node?");
+    //    Text remove_2 = new Text("move Node Location Name");
+    //    MFXButton moveNode = new MFXButton("move Node");
+    //    MFXButton moveName = new MFXButton("move Name");
+    Text headerText = new Text("Select Move Method");
+    Text moveByNodeID = new Text("Node ID to move to");
+    Text moveByLocationName = new Text("Name of location to move to");
+    MFXButton byNode = new MFXButton("By node ID");
+    MFXButton byLocationName = new MFXButton("By location name");
+    //    MFXButton editName = new MFXButton("Edit Name");
+
+    //    vBox.getChildren().addAll(remove_1, moveNode, remove_2, moveName);
+
+    // Set and show screen
+    AnchorPane aPane = new AnchorPane();
+    //    aPane.getChildren().add(vBox);
+    borderPane.getChildren().add(aPane);
+    Scene scene = new Scene(borderPane, 650, 500);
+    borderPane.relocate(0, 0);
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.setTitle("move Window");
+    stage.show();
+
+    // When stage closed with inherit x, will unlock map and understand a node is no longer selected
+    stage.setOnCloseRequest(
+        event -> {
+          lockMap = false;
+          nodeClicked = false;
+        });
+    // TODO fix
+    byNode.setOnMouseClicked(
+        event -> {
+          MoveDao moveDao = new MoveDao();
+          NodeDao nodeDao = new NodeDao();
+          moveDao.deleteRow(currNodeClicked.getNodeID());
+          nodeDao.deleteRow(currNodeClicked.getNodeID());
+
+          group.getChildren().removeAll(mapNodes, mapText);
+          mapNodes = new Group();
+          mapText = new Group();
+          group.getChildren().addAll(mapNodes, mapText);
+          loadDatabase();
+          loadNodeIDToNode();
+          sortNodes();
+          sortEdges();
+          placeEdges(floor);
+          placeNodes(floor);
+
+          stage.close();
+          nodeClicked = false;
+          lockMap = false;
+        });
+    // TODO fix
+    byLocationName.setOnMouseClicked(
+        event -> {
+          MoveDao moveDao = new MoveDao();
+          LocationNameDao locationDao = new LocationNameDao();
           long currentTime = System.currentTimeMillis();
           Date currentDate = new Date(currentTime);
           Move move = new Move(currNodeClicked.getNodeID(), currNodeLongname, currentDate);
@@ -913,6 +1293,7 @@ public class EditMapController {
 
     // Stuff to show on pop up
     VBox vBox = new VBox();
+    Text headerText = new Text("Add Location Name to Node");
     Text nodeType = new Text("Input New Node Type");
     Text SName = new Text("Input New Shortname");
     Text LName = new Text("Input New Longname");
@@ -922,21 +1303,86 @@ public class EditMapController {
     MFXTextField lNameInput = new MFXTextField();
 
     MFXButton addName = new MFXButton("Submit");
+    VBox v1 = new VBox();
+    VBox v2 = new VBox();
+    VBox v3 = new VBox();
 
-    vBox.getChildren()
-        .addAll(nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, addName);
+    // set styles
+    headerText.getStyleClass().add("Header");
+    nodeType.getStyleClass().add("Text");
+    SName.getStyleClass().add("Text");
+    LName.getStyleClass().add("Text");
+    nodeTypeInput.getStyleClass().add("MFXtextIn");
+    sNameInput.getStyleClass().add("MFXtextIn");
+    lNameInput.getStyleClass().add("MFXtextIn");
+    addName.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // add input boxes styles
+    //    nodeTypeInput.setPrefWidth(120);
+
+    vBox.getChildren() // vBox does not work bc usage with it sucks with spacing
+        .addAll(headerText, nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, addName);
+
+    // set vBox location
+    vBox.setLayoutX(50);
+    vBox.setLayoutY(20);
+    vBox.setSpacing(15);
+
+    // set object locations
+    int lay_x = 50;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    nodeType.setLayoutX(lay_x);
+    nodeType.setLayoutY(lay_y + 35);
+    nodeTypeInput.setLayoutX(lay_x);
+    nodeTypeInput.setLayoutY(lay_y + 35);
+    SName.setLayoutX(lay_x);
+    SName.setLayoutY(lay_y + 110);
+    sNameInput.setLayoutX(lay_x);
+    sNameInput.setLayoutY(lay_y + 110);
+    LName.setLayoutX(lay_x);
+    LName.setLayoutY(lay_y + 185);
+    lNameInput.setLayoutX(lay_x);
+    lNameInput.setLayoutY(lay_y + 185);
+    addName.setLayoutX(lay_x);
+    addName.setLayoutY(lay_y + 250);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
+    aPane
+        .getChildren()
+        .addAll(
+            headerText,
+            nodeType,
+            nodeTypeInput,
+            SName,
+            sNameInput,
+            LName,
+            lNameInput,
+            addName); // was add vBox
+    //    Insets insets = new Insets(0, 0, 0, 200);
+    //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 370, 360);
+
+    // Set Scene styleClass
+    //    scene.setFill(Paint.valueOf("#02143b"));
+    //    scene.set
+
+    //    File stylesheet = new
+    // File((Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString()));
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.setTitle("Add Location Name Window");
+    stage.setAlwaysOnTop(true);
+
     stage.show();
 
     // When stage closed with inherit x, will unlock map and understand a node is no longer selected
@@ -948,7 +1394,7 @@ public class EditMapController {
 
     addName.setOnMouseClicked(
         event -> {
-          LocationDao locationDao = new LocationDao();
+          LocationNameDao locationNameDao = new LocationNameDao();
           MoveDao moveDao = new MoveDao();
           LocationName locationName =
               new LocationName(lNameInput.getText(), sNameInput.getText(), nodeTypeInput.getText());
@@ -956,7 +1402,7 @@ public class EditMapController {
           long currentTime = System.currentTimeMillis();
           Date currentDate = new Date(currentTime);
           Move move = new Move(currNodeClicked.getNodeID(), lNameInput.getText(), currentDate);
-          locationDao.addRow(locationName);
+          locationNameDao.addRow(locationName);
           moveDao.addRow(move);
 
           group.getChildren().removeAll(mapNodes, mapText);
@@ -979,6 +1425,7 @@ public class EditMapController {
     // Stuff to show on pop up
     VBox vBox = new VBox();
 
+    Text headerText = new Text("Modify Location Name");
     Text nodeType = new Text("Input new Node Type");
     Text LName = new Text("Input new Longname");
     Text SName = new Text("Input new Shortname"); // need current longname of current node
@@ -990,19 +1437,57 @@ public class EditMapController {
     MFXButton modifyName = new MFXButton("Modify Name");
 
     vBox.getChildren()
-        .addAll(nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, modifyName);
+        .addAll(
+            headerText, nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, modifyName);
+
+    // set styles
+    headerText.getStyleClass().add("Header");
+    nodeType.getStyleClass().add("Text");
+    LName.getStyleClass().add("Text");
+    SName.getStyleClass().add("Text");
+    nodeTypeInput.getStyleClass().add("MFXtextIn");
+    lNameInput.getStyleClass().add("MFXtextIn");
+    sNameInput.getStyleClass().add("MFXtextIn");
+    modifyName.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // set object locations
+    int lay_x = 40;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    nodeType.setLayoutX(lay_x);
+    nodeType.setLayoutY(lay_y + 35);
+    nodeTypeInput.setLayoutX(lay_x);
+    nodeTypeInput.setLayoutY(lay_y + 35);
+    SName.setLayoutX(lay_x);
+    SName.setLayoutY(lay_y + 110);
+    sNameInput.setLayoutX(lay_x);
+    sNameInput.setLayoutY(lay_y + 110);
+    LName.setLayoutX(lay_x);
+    LName.setLayoutY(lay_y + 185);
+    lNameInput.setLayoutX(lay_x);
+    lNameInput.setLayoutY(lay_y + 185);
+    modifyName.setLayoutX(lay_x);
+    modifyName.setLayoutY(lay_y + 250);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
+    aPane
+        .getChildren()
+        .addAll(
+            headerText, nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, modifyName);
+
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 295, 360);
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
     stage.setScene(scene);
     stage.setTitle("Add Location Name Window");
+    stage.setAlwaysOnTop(true);
     stage.show();
 
     // When stage closed with inherit x, will unlock map and understand a node is no longer selected
@@ -1014,7 +1499,7 @@ public class EditMapController {
 
     modifyName.setOnMouseClicked(
         event -> {
-          LocationDao locationDao = new LocationDao();
+          LocationNameDao locationNameDao = new LocationNameDao();
 
           // If nodeType entered is not equal to 4 characters, assign the nodeType as HALL
           String nodeType_t = nodeTypeInput.getText();
@@ -1025,7 +1510,7 @@ public class EditMapController {
           // Add to LocationName and Move Tables
           LocationName locationName =
               new LocationName(lNameInput.getText(), sNameInput.getText(), nodeType_t);
-          locationDao.updateRow(currNodeLongname, locationName);
+          locationNameDao.updateRow(currNodeLongname, locationName);
 
           group.getChildren().removeAll(mapNodes, mapText);
           mapNodes = new Group();
@@ -1043,107 +1528,38 @@ public class EditMapController {
   }
 
   public void modifyByDrag() { // make this a pop up window instead of a whole new scene?
-    //    mapGPane.setGestureEnabled(false);
     checkAndX_HBox.setVisible(true);
+    checkAndX_HBox1.setVisible(true);
     checkAndX_HBox.setMouseTransparent(false);
+    checkAndX_HBox1.setMouseTransparent(false);
     Node helperNode1 = new Node(0, 5, 5, "test", "test");
     Node helperNode2 = new Node(20000, 5, 5, "test", "test");
-    //    final Node initialNodeClicked = currNodeClicked;
     nodeToDrag = currNodeClicked;
     draggedNode = currNodeClicked;
     draggedNode.setNodeID(0);
-    //    if (firstPass) {
-    //      initialNodeClicked = currNodeClicked;
-    //    }
-    //    firstPass = false;
-    AtomicBoolean onChosenNode = new AtomicBoolean(true);
-    //    mapGPane.getOnMouseDragged();
-    //    ObjectProperty<EventHandler<? super MouseEvent>> eventHandlerDrag =
-    // group.onMouseDraggedProperty();
+
     EventHandler<? super MouseEvent> eventHandlerDrag = group.getOnMouseDragged();
-    //    EventHandler<? super MouseEvent> eventHandlerPress = group.getOnMousePressed();
     EventHandler<? super MouseEvent> eventHandlerRel = group.getOnMouseReleased();
-    //    EventHandler<? super MouseEvent> eventHandlerDrag_Node = group.getOnMouseDragged();
     NodeDao nodeDao = new NodeDao();
-    int eventX = 0;
-    int eventY = 0;
-
-    //    group.setOnMousePressed(
-    //        event -> {
-    //          mapGPane.setGestureEnabled(false);
-    //          //          if (Objects.equals(currNodeClicked.getNodeID(), nodeToDrag.getNodeID()))
-    // {
-    //          //            onChosenNode.set(true);
-    //          //            mapGPane.setGestureEnabled(false);
-    //          //          }
-    //        });
-
-    //    group.setOnMousePressed(event -> {
-    //      if(movingNodeClicked) {
-    //
-    //      }
-    //    })
-    // cant figure out how to have drag functionality not start off and then to have it return when
-    // not dragging a node, placed back when mouse is over node again
 
     // update node as drag occurs
     group.setOnMouseDragged( // setOnMouseDragged
         dragEvent -> {
-          // lock gesture pane to drag node
-          //          mapGPane.setGestureEnabled(false);
           if (dragEvent.isAltDown()) {
             mapGPane.setGestureEnabled(true);
           } else {
             mapGPane.setGestureEnabled(false);
-            //            System.out.println(currNodeClicked.getNodeID() + "  " +
-            // nodeToDrag.getNodeID());
-            //            if ((Objects.equals(currNodeClicked.getNodeID(), nodeToDrag.getNodeID()))
-            // || Objects.equals(currNodeClicked.getNodeID(), 0)) {
-            // //was currNodeClicked.getNodeID(); //testNode
+
             if (movingNodeClicked) { // remove if want to click anywhere and move mouse to update
               mapModeSaver.setDraggingNodeCreated(true);
-              // moving node
-              //                        mapGPane.setGestureEnabled(false);
-
-              // make new node
-              //            Node newNode = ////////////////////////////////////
-              //                new Node(
-              //                    nodeToDrag.getNodeID(),
-              //                    (int) dragEvent.getX(),
-              //                    (int) dragEvent.getY(),
-              //                    floor,
-              //                    nodeToDrag.getBuilding());
-              //            newNodeTemp = newNode; ////////////////////////////
-
-              //            nodeToDrag.setXCoord((int) dragEvent.getX());
-              //            nodeToDrag.setYCoord((int) dragEvent.getY());
-              //
-              //              draggedNode.setXCoord((int) dragEvent.getX());
-              //              draggedNode.setYCoord((int) dragEvent.getY());
               mapModeSaver.setEventCoords((int) dragEvent.getX(), (int) dragEvent.getY());
-              //              eventX = (int) dragEvent.getX();
-              //              eventY = (int) dragEvent.getY();
 
-              // Add node to database
-              //            nodeDao.updateRow(nodeToDrag.getNodeID(), newNode); //////////////////
-
-              // Paint node
-              //            group ///////////////////////////////////////////
-              //                .getChildren()
-              //                .removeAll(
-              //                    mapNodes,
-              //                    mapText); // highlight last spot in one color, dragging spot in
-              // another
-              //            mapNodes = new Group();
-              //            mapText = new Group();
-              //            group.getChildren().addAll(mapNodes, mapText);
-              //            loadDatabase();
-              //            sortNodes(); ////////////////////////////////
               group.getChildren().removeAll(movingNode, movingText);
               movingNode = new Group();
               movingText = new Group();
               group.getChildren().addAll(movingNode, movingText);
               createMovingMapNode(
+                  currNodeClicked,
                   0,
                   currNodeShortname,
                   currNodeType,
@@ -1153,28 +1569,16 @@ public class EditMapController {
               movingNode.setVisible(true);
               movingNode.toFront();
               movingText.toFront();
-
-              //            placeNodes(floor);
             }
           }
-          //            else {
-          //              group.onMouseDraeventHandlerDrag;
-          ////              group.setOnMouseDragged(eventHandlerDrag);
-          //            }
         });
-    // unlock gesture pane if not clicking on and dragging node
-    //    group.setOnMouseDragReleased(
-    //        event -> {
-    //          mapGPane.setGestureEnabled(true);
-    //        });
+
     group.setOnMouseReleased(
         event -> {
           mapGPane.setGestureEnabled(true);
           currNodeClicked = helperNode2; // necessary still?
           movingNodeClicked =
               false; // remove if want to move mouse anywhere, click and drag and node to follow
-          //          group.setOnMouseDragged(eventHandlerDrag);
-          //          onChosenNode.set(false);
         });
 
     // exit conditions
@@ -1205,9 +1609,6 @@ public class EditMapController {
                   + "      "
                   + initialNodeClicked.getXCoord());
 
-          //          newNodeTemp = newNode;
-
-          //          NodeDao nodeDao3 = new NodeDao();
           nodeDao.updateRow(mapModeSaver.getNodeID(), newNode); // ////////////////
 
           // Paint node
@@ -1230,7 +1631,9 @@ public class EditMapController {
           dragModeOn = false;
           lockMap = false;
           checkAndX_HBox.setVisible(false);
+          checkAndX_HBox1.setVisible(false);
           checkAndX_HBox.setMouseTransparent(true);
+          checkAndX_HBox1.setMouseTransparent(true);
           nodeClicked = false;
           mapGPane.setGestureEnabled(true);
           group.setOnMouseDragged(eventHandlerDrag);
@@ -1239,7 +1642,10 @@ public class EditMapController {
           mapModeSaver.setDraggingNodeCreated(false);
 
           loadDatabase();
+          loadNodeIDToNode();
           sortNodes();
+          sortEdges();
+          placeEdges(floor);
           placeNodes(floor);
 
           currNodeClicked =
@@ -1262,7 +1668,6 @@ public class EditMapController {
                   + draggedNode.getXCoord());
 
           // Paint node
-          // Paint node
           group
               .getChildren()
               .removeAll(
@@ -1280,7 +1685,9 @@ public class EditMapController {
           dragModeOn = false;
           lockMap = false;
           checkAndX_HBox.setVisible(false);
+          checkAndX_HBox1.setVisible(false);
           checkAndX_HBox.setMouseTransparent(true);
+          checkAndX_HBox1.setMouseTransparent(true);
           nodeClicked = false;
           mapGPane.setGestureEnabled(true);
           group.setOnMouseDragged(eventHandlerDrag);
@@ -1290,11 +1697,18 @@ public class EditMapController {
 
           loadDatabase();
           sortNodes();
+          //          placeEdges(floor);
           placeNodes(floor);
 
           currNodeClicked = helperNode1;
         });
   }
+
+  //  public void resetAndSetFloorIndicator(MFXButton button) {
+  //    button.setBackground(Background.fill(Paint.valueOf("#32CD32")));
+  //    tempSave.setBackground(Background.fill(DEFAULT_BG));
+  //    tempSave = button;
+  //  }
 
   //    })
 
@@ -1658,7 +2072,7 @@ public class EditMapController {
 
     submitNodeEdits.setOnMouseClicked(
         buttonEvent -> {
-          LocationDao locationDao = new LocationDao();
+          LocationNameDao locationNameDao = new LocationNameDao();
           MoveDao moveDao = new MoveDao();
 
           // Add
@@ -1666,14 +2080,14 @@ public class EditMapController {
 
             LocationName currName = newNameToAdd.get(i);
             Move currMove = moveNamesToAdd.get(i);
-            locationDao.addRow(currName);
+            locationNameDao.addRow(currName);
             moveDao.addRow(currMove);
           }
           // Modify
           for (int i = 0; i < oldNameToModify.size(); i++) {
             String currOldName = oldNameToModify.get(i);
             LocationName currNewName = newNameToModify.get(i);
-            locationDao.updateRow(currOldName, currNewName);
+            locationNameDao.updateRow(currOldName, currNewName);
 
             ///// METHOD TO REPLACE NAME OF NODE AND INPUT TO TABLE
           }
@@ -1686,7 +2100,7 @@ public class EditMapController {
             String iD = idList_r.get(i);
             Move move = new Move(Integer.valueOf(iD), currName, currentDate);
             moveDao.deleteRow(move);
-            locationDao.deleteRow(currName);
+            locationNameDao.deleteRow(currName);
             //// METHOD TO FIND NODE IN DAO AND REMOVE IT BASED ON ID
             //                nodeDao.deleteRow(currID); ////NEED TO MAKE WORK WITH NODE ID ONLY AS
             // SUPPLIED
@@ -1698,6 +2112,27 @@ public class EditMapController {
           placeNodes(floor);
           stage.close();
         });
+  }
+
+  private String[] selectedFilePaths = new String[4];
+
+  @FXML
+  void getImportMenu(ActionEvent event) {
+    selectedFilePaths[0] = null;
+    selectedFilePaths[1] = null;
+    selectedFilePaths[2] = null;
+    selectedFilePaths[3] = null;
+    importMenu.setVisible(true);
+    exportMenu.setVisible(false);
+  }
+
+  @FXML
+  void getImportCancel(ActionEvent event) {
+    importMenu.setVisible(false);
+    selectedFilePaths[0] = null;
+    selectedFilePaths[1] = null;
+    selectedFilePaths[2] = null;
+    selectedFilePaths[3] = null;
   }
 
   @FXML
@@ -1717,6 +2152,7 @@ public class EditMapController {
         if (importedHeader.equals(nodeHeader)) {
           desktop.open(file);
           filePath = file.getAbsolutePath();
+          selectedFilePaths[0] = filePath;
           // TODO if it does, add file to file list for mass import
           System.out.println("import works");
         } else {
@@ -1727,7 +2163,6 @@ public class EditMapController {
           alert.setContentText("Please select a valid file");
           alert.showAndWait();
         }
-
       } catch (Exception ex) {
         ex.printStackTrace();
       }
@@ -1743,6 +2178,7 @@ public class EditMapController {
     File file = fileChooser.showOpenDialog(new Stage());
     if (file != null) {
       try {
+
         BufferedReader br = new BufferedReader(new FileReader(file));
         String edgeHeader = "startNode,endNode";
         String importedHeader = br.readLine();
@@ -1750,6 +2186,7 @@ public class EditMapController {
         if (importedHeader.equals(edgeHeader)) {
           desktop.open(file);
           filePath = file.getAbsolutePath();
+          selectedFilePaths[1] = filePath;
           // TODO if it does, add file to file list for mass import
           System.out.println("import works");
         } else {
@@ -1775,6 +2212,7 @@ public class EditMapController {
     File file = fileChooser.showOpenDialog(new Stage());
     if (file != null) {
       try {
+
         BufferedReader br = new BufferedReader(new FileReader(file));
         String locationNameHeader = "longName,shortName,nodeType";
         String importedHeader = br.readLine();
@@ -1782,6 +2220,7 @@ public class EditMapController {
         if (importedHeader.equals(locationNameHeader)) {
           desktop.open(file);
           filePath = file.getAbsolutePath();
+          selectedFilePaths[2] = filePath;
           // TODO if it does, add file to file list for mass import
           System.out.println("import works");
         } else {
@@ -1815,6 +2254,7 @@ public class EditMapController {
           desktop.open(file);
           filePath = file.getAbsolutePath();
           // TODO if it does, add file to file list for mass import
+          selectedFilePaths[3] = filePath;
           System.out.println("import works");
         } else {
           // if it doesn't, display error message
@@ -1828,6 +2268,31 @@ public class EditMapController {
         ex.printStackTrace();
       }
     }
+  }
+
+  @FXML
+  void getImportSubmit(ActionEvent event) {
+    importMenu.setVisible(false);
+    String nodesFilePath = selectedFilePaths[0];
+    String edgesFilePath = selectedFilePaths[1];
+    String moveFilePath = selectedFilePaths[2];
+    String locationNamesFilePath = selectedFilePaths[3];
+    ImportCSV.importAllCSV(nodesFilePath, edgesFilePath, moveFilePath, locationNamesFilePath);
+    selectedFilePaths[0] = null;
+    selectedFilePaths[1] = null;
+    selectedFilePaths[2] = null;
+    selectedFilePaths[3] = null;
+  }
+
+  @FXML
+  void getExportMenu(ActionEvent event) {
+    importMenu.setVisible(false);
+    exportMenu.setVisible(true);
+  }
+
+  @FXML
+  void getExportBack(ActionEvent event) {
+    exportMenu.setVisible(false);
   }
 
   @FXML

@@ -1,10 +1,14 @@
 package edu.wpi.teamc.controllers.english;
 
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.*;
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+
 import java.awt.*;
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextArea;
-import javafx.scene.text.*;
+import javafx.scene.text.Text;
 import javax.swing.text.html.ImageView;
 
 public class HelpController {
@@ -24,6 +28,7 @@ public class HelpController {
   @FXML private MenuButton Help;
   @FXML private TextArea basicFunctions;
   @FXML private TextArea otherFunctions;
+  @FXML private Text helpTitle;
 
   @FXML
   public void initialize() {
@@ -32,20 +37,4 @@ public class HelpController {
     otherFunctions.setWrapText(true);
     otherFunctions.setEditable(false);
   }
-
-  // LANGUAGE//
-  @FXML
-  void english() {
-    //      language_choice = 0;
-    //      setLanguage(language_choice);
-  }
-
-  @FXML
-  void spanish() {
-    //      language_choice = 1;
-    //      setLanguage(language_choice);
-  }
-
-  @FXML
-  void setLanguage(int language) {}
 }

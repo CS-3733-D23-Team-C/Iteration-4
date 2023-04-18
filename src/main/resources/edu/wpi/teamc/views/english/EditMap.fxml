@@ -91,6 +91,7 @@
                                     <MFXButton fx:id="Modify" onAction="#changeMapMode" prefWidth="70.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold;" text="Modify" textFill="#02143b" />
                                     <MFXButton fx:id="Remove" onAction="#changeMapMode" prefWidth="70.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Remove" textFill="#02143b" />
                                     <MFXButton fx:id="Move" layoutX="23.0" layoutY="154.0" onAction="#changeMapMode" prefWidth="70.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Move" textFill="#02143b" />
+                                    <MFXButton fx:id="Edges" onAction="#changeMapMode" prefWidth="70.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Edges" textFill="#02143b" />
 
                                  </children>
                                  <padding>

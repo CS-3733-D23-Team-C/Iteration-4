@@ -1,43 +1,55 @@
 package edu.wpi.teamc.controllers.english.TableHelpers;
 
-import lombok.Getter;
-import lombok.Setter;
-
 public class TableRow {
-  @Getter @Setter private int index;
-  private int id;
-  private String username;
-  private String name;
-  private String department;
-  private String position;
+    private String NodeID;
+    private String LongName;
+    private String Date;
+    private int index;
 
-  public TableRow() {
-    this.id = 0;
-    this.username = "";
-    this.name = "";
-    this.department = "";
-    this.position = "";
-  }
+    public TableRow() {
+        this.NodeID = "";
+        this.LongName = "";
+        this.Date = "";
+    }
 
-  public TableRow(int id, String username, String name, String department, String position) {
-    this.id = id;
-    this.username = username;
-    this.name = name;
-    this.department = department;
-    this.position = position;
-  }
+    public TableRow(String nodeID, String longName, String date) {
+        this.NodeID = nodeID;
+        this.LongName = longName;
+        this.Date = date;
+    }
 
-  public TableRow(
-      int id, String username, String name, String department, String position, int index) {
-    this.id = id;
-    this.username = username;
-    this.name = name;
-    this.department = department;
-    this.position = position;
-    this.index = index;
-  }
+    public TableRow(String nodeID, String longName, String date, int index) {
+        this.NodeID = nodeID;
+        this.LongName = longName;
+        this.Date = date;
+        this.index = index;
+    }
 
-  public int getIndex() {
-    return index;
-  }
+    public String getNodeID() {
+        return NodeID;
+    }
+
+    public void setNodeID(String nodeID) {
+        this.NodeID = nodeID;
+    }
+
+    public String getLongName() {
+        return LongName;
+    }
+
+    public void setLongName(String longName) {
+        this.LongName = longName;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        this.Date = date;
+    }
+
+    public int getIndex() {
+        return index;
+    }
 }

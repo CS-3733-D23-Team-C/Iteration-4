@@ -90,17 +90,13 @@ public class HomeController {
       try {
         login = currentLogin.checkPassword(password);
       } catch (Exception e) {
+        wrongPass.setVisible(true);
         e.printStackTrace();
       }
     }
     if (login) {
       if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN)) {
-        Navigation.navigate(Screen.MENU);
-        //      } else if (currentLogin.getPermissions().equals(PERMISSIONS.EMPLOYEE)) {
-        //        Navigation.navigate(Screen.EMPLOYEE_HOME);
-        //      } else if (currentLogin.getPermissions().equals(PERMISSIONS.GUEST)) {
-        //        Navigation.navigate(Screen.GUEST_HOME);
-        //      }
+        Navigation.navigate(Screen.ADMIN_HOME);
       } else {
         // Show Error Message
         wrongPass.setVisible(true);

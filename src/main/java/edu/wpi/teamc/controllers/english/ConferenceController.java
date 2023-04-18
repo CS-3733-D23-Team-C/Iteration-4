@@ -23,41 +23,72 @@ public class ConferenceController {
   @FXML private MenuItem choice3;
 
   @FXML private MenuItem choice4;
+  @FXML private MenuItem choice5;
 
-  @FXML private MenuButton menuButton;
+  @FXML private MenuItem choice6;
+
+  @FXML private MenuItem choice7;
+
+  @FXML private MenuItem choice8;
+
+  @FXML private MenuButton roomMenu;
   @FXML private TextField nameBox;
   @FXML private TextArea specialRequest;
   @FXML private DatePicker startTime;
   @FXML private DatePicker endTime;
+
+  @FXML private MenuButton employeeName;
 
   @FXML
   void getGoHome(ActionEvent event) {
     Navigation.navigate(Screen.ADMIN_HOME);
   }
 
-  @FXML
-  void getChoice0() {
-    menuButton.setText("--Please Conference Room--");
-  }
+  //  @FXML
+  //  void getChoice0() {
+  //    roomMenu.setText("--Please Conference Room--");
+  //  }
 
+  // These 4 choices(1-4) are for the conference room
   @FXML
   void getChoice1() {
-    menuButton.setText("Conference A1");
+    roomMenu.setText("Conference A1");
   }
 
   @FXML
   void getChoice2() {
-    menuButton.setText("Conference A2");
+    roomMenu.setText("Conference A2");
   }
 
   @FXML
   void getChoice3() {
-    menuButton.setText("Conference A3");
+    roomMenu.setText("Conference A3");
   }
 
   @FXML
   void getChoice4() {
-    menuButton.setText("Conference A4");
+    roomMenu.setText("Conference A4");
+  }
+
+  // These 4 choices(5-8) are for the employee name
+  @FXML
+  void getChoice5() {
+    employeeName.setText(choice5.getText());
+  }
+
+  @FXML
+  void getChoice6() {
+    employeeName.setText(choice6.getText());
+  }
+
+  @FXML
+  void getChoice7() {
+    employeeName.setText(choice7.getText());
+  }
+
+  @FXML
+  void getChoice8() {
+    employeeName.setText(choice8.getText());
   }
 
   @FXML
@@ -65,7 +96,7 @@ public class ConferenceController {
     LocalDate start = startTime.getValue();
     LocalDate end = endTime.getValue();
     String name = nameBox.getText();
-    String room = menuButton.getText();
+    String room = roomMenu.getText();
     String notes = specialRequest.getText();
     STATUS status = STATUS.COMPLETE;
     ConferenceRoomRequest req =

@@ -257,7 +257,7 @@ public class EditMapController {
             // also if modify pop up asks if you want to modify node or name
             else if (Objects.equals(mapMode.getMapMode(), "Move")) {
               lockMap = true;
-              // moveMenu();
+              moveMenu();
             }
           }
         });
@@ -433,7 +433,7 @@ public class EditMapController {
         mapMode = HandleMapModes.MODIFY;
       } else if (Objects.equals(modeButton.getId(), "Remove")) {
         mapMode = HandleMapModes.REMOVE;
-      } else if (Objects.equals(modeButton.getId(), "move")) {
+      } else if (Objects.equals(modeButton.getId(), "Move")) {
         mapMode = HandleMapModes.MOVE;
       }
     }
@@ -1115,8 +1115,6 @@ public class EditMapController {
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
     aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
     Scene scene = new Scene(borderPane, 650, 500);
     borderPane.relocate(0, 0);
@@ -1155,6 +1153,89 @@ public class EditMapController {
           lockMap = false;
         });
     removeName.setOnMouseClicked(
+        event -> {
+          MoveDao moveDao = new MoveDao();
+          LocationNameDao locationDao = new LocationNameDao();
+          long currentTime = System.currentTimeMillis();
+          Date currentDate = new Date(currentTime);
+          Move move = new Move(currNodeClicked.getNodeID(), currNodeLongname, currentDate);
+          moveDao.deleteRow(move);
+          locationDao.deleteRow(currNodeLongname);
+
+          group.getChildren().removeAll(mapNodes, mapText);
+          mapNodes = new Group();
+          mapText = new Group();
+          group.getChildren().addAll(mapNodes, mapText);
+          loadDatabase();
+          sortNodes();
+          placeNodes(floor);
+
+          stage.close();
+          nodeClicked = false;
+          lockMap = false;
+        });
+  }
+
+  public void moveMenu() { // make this a pop up window instead of a whole new scene?
+    BorderPane borderPane = new BorderPane();
+
+    // Stuff to show on pop up
+    //    VBox vBox = new VBox();
+    //    Text remove_1 = new Text("move Node?");
+    //    Text remove_2 = new Text("move Node Location Name");
+    //    MFXButton moveNode = new MFXButton("move Node");
+    //    MFXButton moveName = new MFXButton("move Name");
+    Text headerText = new Text("Select Move Method");
+    Text moveByNodeID = new Text("Node ID to move to");
+    Text moveByLocationName = new Text("Name of location to move to");
+    MFXButton byNode = new MFXButton("By node ID");
+    MFXButton byLocationName = new MFXButton("By location name");
+    //    MFXButton editName = new MFXButton("Edit Name");
+
+    //    vBox.getChildren().addAll(remove_1, moveNode, remove_2, moveName);
+
+    // Set and show screen
+    AnchorPane aPane = new AnchorPane();
+    //    aPane.getChildren().add(vBox);
+    borderPane.getChildren().add(aPane);
+    Scene scene = new Scene(borderPane, 650, 500);
+    borderPane.relocate(0, 0);
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.setTitle("move Window");
+    stage.show();
+
+    // When stage closed with inherit x, will unlock map and understand a node is no longer selected
+    stage.setOnCloseRequest(
+        event -> {
+          lockMap = false;
+          nodeClicked = false;
+        });
+    // TODO fix
+    byNode.setOnMouseClicked(
+        event -> {
+          MoveDao moveDao = new MoveDao();
+          NodeDao nodeDao = new NodeDao();
+          moveDao.deleteRow(currNodeClicked.getNodeID());
+          nodeDao.deleteRow(currNodeClicked.getNodeID());
+
+          group.getChildren().removeAll(mapNodes, mapText);
+          mapNodes = new Group();
+          mapText = new Group();
+          group.getChildren().addAll(mapNodes, mapText);
+          loadDatabase();
+          loadNodeIDToNode();
+          sortNodes();
+          sortEdges();
+          placeEdges(floor);
+          placeNodes(floor);
+
+          stage.close();
+          nodeClicked = false;
+          lockMap = false;
+        });
+    // TODO fix
+    byLocationName.setOnMouseClicked(
         event -> {
           MoveDao moveDao = new MoveDao();
           LocationNameDao locationDao = new LocationNameDao();

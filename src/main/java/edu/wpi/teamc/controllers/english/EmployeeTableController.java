@@ -1,12 +1,12 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.dao.HospitalSystem;
-import edu.wpi.teamc.dao.map.LocationName;
 import edu.wpi.teamc.dao.users.EmployeeUser;
+import edu.wpi.teamc.dao.users.Login;
+import edu.wpi.teamc.dao.users.PERMISSIONS;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +14,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javax.swing.*;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class EmployeeTableController {
@@ -28,23 +27,27 @@ public class EmployeeTableController {
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }
 
-  //    @FXML private Button testButton;
-  //    @FXML private TextField inputBox;
   @FXML private FilteredTableView<EmployeeUser> employeeTable;
-  //    @FXML
-  //    TableView<Move> otherTable;
+
   @FXML TableColumn<EmployeeUser, Integer> id;
   @FXML TableColumn<EmployeeUser, String> username;
   @FXML TableColumn<EmployeeUser, String> name;
   @FXML TableColumn<EmployeeUser, String> department;
   @FXML TableColumn<EmployeeUser, String> position;
-  @FXML MFXFilterComboBox<EmployeeUser> employeeID;
-  @FXML MFXFilterComboBox<LocationName> locationName;
-  @FXML DatePicker date;
+  @FXML TextField idField;
+  @FXML TextField usernameField;
+  @FXML TextField nameField;
+  @FXML TextField departmentField;
+  @FXML TextField positionField;
+
+  @FXML Button clearButton;
+  @FXML Button updateButton;
+  @FXML Button deleteButton;
+  @FXML Button addButton;
 
   ObservableList<EmployeeUser> rows = FXCollections.observableArrayList();
 
-  //    @FXML private Button goHome;
+  HospitalSystem hospitalSystem = new HospitalSystem();
 
   /** Method run when controller is initialized */
   public void initialize() {
@@ -54,59 +57,92 @@ public class EmployeeTableController {
     department.setCellValueFactory(new PropertyValueFactory<EmployeeUser, String>("department"));
     position.setCellValueFactory(new PropertyValueFactory<EmployeeUser, String>("position"));
 
-    //    id.setCellValueFactory(new PropertyValueFactory<TableRow, Integer>("id"));
-    //    username.setCellValueFactory(new PropertyValueFactory<TableRow, String>("userName"));
-    //    name.setCellValueFactory(new PropertyValueFactory<TableRow, String>("name"));
-    //    department.setCellValueFactory(new PropertyValueFactory<TableRow, String>("department"));
-    //    position.setCellValueFactory(new PropertyValueFactory<TableRow, String>("position"));
-
-    //    id.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    //    username.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    //    name.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    //    department.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-    //    position.setCellFactory(TextFieldTableCell.<TableRow>forTableColumn());
-
     id.setText("ID");
     username.setText("Username");
     name.setText("Name");
     department.setText("Department");
     position.setText("Position");
 
-    username.setEditable(true);
-    name.setEditable(true);
-    department.setEditable(true);
-    position.setEditable(true);
-
     List<EmployeeUser> list =
         (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
     rows.addAll(list);
     employeeTable.getItems().setAll(rows);
-    employeeTable.setEditable(true);
 
-    //        List<EmployeeUser> employeeUsers = (List<EmployeeUser>)
-    // HospitalSystem.fetchAllObjects(new EmployeeUser());
-    //        employeeID.setItems(FXCollections.observableArrayList(employeeUsers));
+    employeeTable.setOnMouseClicked(
+        event -> {
+          updateEmpView();
+        });
+    clearButton.setOnMouseClicked(
+        event -> {
+          clearEmpView();
+        });
+    addButton.setOnMouseClicked(
+        event -> {
+          hospitalSystem.addRow(
+              new Login(getEmployeeUser().getUserName(), "staff", PERMISSIONS.STAFF));
+          hospitalSystem.addRow(getEmployeeUser());
+          loadEmployees();
+        });
+    deleteButton.setOnMouseClicked(
+        event -> {
+          hospitalSystem.deleteRow(getEmployeeUser());
+          loadEmployees();
+        });
+    updateButton.setOnMouseClicked(
+        event -> {
+          hospitalSystem.deleteRow(
+              new Login(getEmployeeUser().getUserName(), "staff", PERMISSIONS.STAFF));
+          hospitalSystem.addRow(
+              new Login(getEmployeeUser().getUserName(), "staff", PERMISSIONS.STAFF));
+          hospitalSystem.updateRow(getEmployeeUser());
+          loadEmployees();
+        });
+  }
 
+  private void loadEmployees() {
+    List<EmployeeUser> list =
+        (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
+    employeeTable.getItems().removeAll();
+    employeeTable.getItems().setAll(list);
+  }
+
+  private EmployeeUser getEmployeeUser() {
+    EmployeeUser employeeUser = null;
+    try {
+      int id = Integer.parseInt(idField.getText());
+      String username = usernameField.getText();
+      String name = nameField.getText();
+      String department = departmentField.getText();
+      String position = positionField.getText();
+      employeeUser = new EmployeeUser(id, username, name, department, position);
+    } catch (NumberFormatException e) {
+      return null;
+    }
+    return employeeUser;
+  }
+
+  private void updateEmpView() {
+    EmployeeUser employeeUser = employeeTable.getSelectionModel().getSelectedItem();
+    setEmployeeView(employeeUser);
+  }
+
+  private void clearEmpView() {
+    idField.setText("");
+    usernameField.setText("");
+    nameField.setText("");
+    departmentField.setText("");
+    positionField.setText("");
+  }
+
+  public void setEmployeeView(EmployeeUser selected) {
+    idField.setText(Integer.toString(selected.getId()));
+    usernameField.setText(selected.getUserName());
+    nameField.setText(selected.getName());
+    departmentField.setText(selected.getDepartment());
+    positionField.setText(selected.getPosition());
   }
 
   public void getGoHome(ActionEvent event) {
     Navigation.navigate(Screen.HOME);
-  }
-
-  public void getAdd(ActionEvent event) {
-    //          Move move = new Move();
-    //          move.setNodeID(nodeID.getValue().getNodeID());
-    //          move.setLongName(locationName.getValue().getLongName());
-    //          move.setDate(Date.valueOf(date.getValue()));
-    //          HospitalSystem.addRow(move);
-    //          rows.add(move);
-    //          historyTable.getItems().setAll(rows);
-  }
-
-  public void getDelete(ActionEvent event) {
-    //          Move move = historyTable.getSelectionModel().getSelectedItem();
-    //          HospitalSystem.deleteRow(move);
-    //          rows.remove(move);
-    //          historyTable.getItems().setAll(rows);
   }
 }

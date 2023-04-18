@@ -15,41 +15,11 @@
     <children>
         <AnchorPane layoutX="400.0" layoutY="153.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
             <children>
-                <AnchorPane prefHeight="686.0" prefWidth="1271.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <AnchorPane style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
                             <children>
-                        <HBox fx:id="lowerPanel" layoutX="15.0" layoutY="635.0" prefHeight="47.0" prefWidth="1201.0" style="-fx-background-color: white;">
-                           <children>
-                              <Button fx:id="clearButton" mnemonicParsing="false" text="clear data">
-                                 <HBox.margin>
-                                    <Insets top="5.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Label text="ID: ">
-                                 <HBox.margin>
-                                    <Insets left="10.0" top="10.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <TextField fx:id="idField" prefHeight="26.0" prefWidth="99.0">
-                                 <HBox.margin>
-                                    <Insets left="10.0" top="5.0" />
-                                 </HBox.margin>
-                              </TextField>
-                              <Label layoutX="74.0" layoutY="20.0" text="username: " />
-                              <TextField fx:id="usernameField" layoutX="101.0" layoutY="15.0" prefHeight="26.0" prefWidth="110.0" />
-                              <Label layoutX="261.0" layoutY="10.0" text="name: " />
-                              <TextField fx:id="nameField" layoutX="278.0" layoutY="10.0" prefHeight="26.0" prefWidth="120.0" />
-                              <Label layoutX="438.0" layoutY="10.0" text="department: " />
-                              <TextField fx:id="departmentField" layoutX="455.0" layoutY="10.0" prefHeight="26.0" prefWidth="141.0" />
-                              <Label layoutX="615.0" layoutY="10.0" text="position: " />
-                              <TextField fx:id="positionField" layoutX="632.0" layoutY="10.0" />
-                              <Button fx:id="addButton" layoutX="10.0" layoutY="15.0" mnemonicParsing="false" text="add" />
-                              <Button fx:id="deleteButton" layoutX="1129.0" layoutY="10.0" mnemonicParsing="false" text="delete" />
-                              <Button fx:id="updateButton" layoutX="1146.0" layoutY="10.0" mnemonicParsing="false" text="update" />
-                           </children>
-                        </HBox>
-                                <FilteredTableView fx:id="employeeTable" layoutX="15.0" layoutY="15.0" prefHeight="587.0" prefWidth="1199.0" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="15.0">
+                                <FilteredTableView fx:id="employeeTable" layoutX="15.0" layoutY="15.0" prefHeight="561.0" prefWidth="1204.0" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="15.0">
                                     <columns>
                                         <TableColumn fx:id="id" prefWidth="240" text="" />
                                         <TableColumn fx:id="username" prefWidth="240" text="" />
@@ -58,6 +28,73 @@
                                         <TableColumn fx:id="position" prefWidth="240" text="" />
                                     </columns>
                                 </FilteredTableView>
+                        <AnchorPane layoutX="16.0" layoutY="587.0" prefHeight="48.0" prefWidth="1202.0" style="-fx-background-color: white;">
+                           <children>
+                              <HBox fx:id="bottomPane" layoutY="13.0" prefHeight="35.0" prefWidth="1198.0">
+                                 <children>
+                                    <Button fx:id="clearButton" mnemonicParsing="false" text="clear data">
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Label text="ID:">
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField fx:id="idField" prefHeight="26.0" prefWidth="92.0">
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <Label layoutX="101.0" layoutY="15.0" text="username:">
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="5.0" />
+                                       </HBox.margin></Label>
+                                    <TextField fx:id="usernameField" layoutX="126.0" layoutY="10.0" prefHeight="26.0" prefWidth="109.0">
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin></TextField>
+                                    <Label layoutX="223.0" layoutY="10.0" text="name:">
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="5.0" />
+                                       </HBox.margin></Label>
+                                    <TextField fx:id="nameField" layoutX="280.0" layoutY="10.0" prefHeight="26.0" prefWidth="109.0">
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin></TextField>
+                                    <Label layoutX="285.0" layoutY="10.0" text="department:">
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="5.0" />
+                                       </HBox.margin></Label>
+                                    <TextField fx:id="departmentField" layoutX="300.0" layoutY="10.0">
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin></TextField>
+                                    <Label layoutX="460.0" layoutY="10.0" text="position:">
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="5.0" />
+                                       </HBox.margin></Label>
+                                    <TextField fx:id="positionField" layoutX="475.0" layoutY="10.0">
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin></TextField>
+                                    <Button fx:id="addButton" layoutX="20.0" layoutY="10.0" mnemonicParsing="false" text="add">
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin></Button>
+                                    <Button fx:id="deleteButton" layoutX="815.0" layoutY="10.0" mnemonicParsing="false" text="delete">
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin></Button>
+                                    <Button fx:id="updateButton" layoutX="885.0" layoutY="10.0" mnemonicParsing="false" text="update">
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin></Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
                             </children>
                         </AnchorPane>
                     </children>

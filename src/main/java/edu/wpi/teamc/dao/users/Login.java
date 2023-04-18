@@ -9,11 +9,11 @@ import lombok.Getter;
 @Getter
 public class Login implements IOrm {
   private String username;
-  private String permissions;
   private String salt;
   private String hashedPassword;
+  private PERMISSIONS permissions;
 
-  public Login(String username, String password, String permissions) {
+  public Login(String username, String password, PERMISSIONS permissions) {
     this.username = username.toLowerCase();
     this.permissions = permissions;
     this.salt = saltPassword();
@@ -21,7 +21,7 @@ public class Login implements IOrm {
   }
 
   // only database should use this constructor
-  protected Login(String username, String password, String permissions, String salt) {
+  protected Login(String username, String password, PERMISSIONS permissions, String salt) {
     this.username = username.toLowerCase();
     this.permissions = permissions;
     this.salt = salt;

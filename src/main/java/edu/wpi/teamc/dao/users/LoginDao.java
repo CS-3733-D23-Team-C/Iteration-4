@@ -2,6 +2,8 @@ package edu.wpi.teamc.dao.users;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+
+import java.security.Permissions;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,7 +29,7 @@ public class LoginDao implements IDao<Login, String> {
         // Get all the data from the table
         String username = rs.getString("username");
         String password = rs.getString("password");
-        String permissions = rs.getString("permissions");
+        PERMISSIONS permissions = PERMISSIONS.valueOf(rs.getString("permissions"));
         String salt = rs.getString("salt");
         Login login = new Login(username, password, permissions, salt);
         returnList.add(login);
@@ -58,7 +60,7 @@ public class LoginDao implements IDao<Login, String> {
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, repl.getUsername());
       ps.setString(2, repl.getHashedPassword());
-      ps.setString(3, repl.getPermissions());
+      ps.setString(3, repl.getPermissions().toString());
       ps.setString(4, repl.getSalt());
       ps.setString(5, repl.getUsername());
       ps.execute();
@@ -83,7 +85,7 @@ public class LoginDao implements IDao<Login, String> {
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, type.getUsername());
       ps.setString(2, type.getHashedPassword());
-      ps.setString(3, type.getPermissions());
+      ps.setString(3, type.getPermissions().toString());
       ps.setString(4, type.getSalt());
       ps.execute();
       db.closeConnection();
@@ -133,7 +135,7 @@ public class LoginDao implements IDao<Login, String> {
         // Get all the data from the table
         String username = rs.getString("username");
         String password = rs.getString("password");
-        String permissions = rs.getString("permissions");
+        PERMISSIONS permissions = PERMISSIONS.valueOf(rs.getString("permissions"));
         String salt = rs.getString("salt");
         login = new Login(username, password, permissions, salt);
       }

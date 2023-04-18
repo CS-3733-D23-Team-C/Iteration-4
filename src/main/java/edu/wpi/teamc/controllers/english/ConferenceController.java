@@ -101,7 +101,6 @@ public class ConferenceController {
     STATUS status = STATUS.COMPLETE;
     ConferenceRoomRequest req =
         new ConferenceRoomRequest(
-            0,
             new Requester(0, name),
             new ConferenceRoom(room, room, false),
             notes,

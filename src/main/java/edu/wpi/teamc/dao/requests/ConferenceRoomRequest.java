@@ -25,7 +25,7 @@ public class ConferenceRoomRequest extends AbsServiceRequest {
     this.endTime = endTime;
   }
 
-  public ConferenceRoomRequest(
+  ConferenceRoomRequest(
       int requestID,
       Requester requester,
       ConferenceRoom conferenceRoom,
@@ -34,6 +34,32 @@ public class ConferenceRoomRequest extends AbsServiceRequest {
       String endTime,
       STATUS status) {
     super(requestID, requester, conferenceRoom.toString(), note);
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.conferenceRoom = conferenceRoom;
+    this.status = status;
+  }
+
+  public ConferenceRoomRequest(
+      Requester requester,
+      ConferenceRoom conferenceRoom,
+      String note,
+      String startTime,
+      String endTime) {
+    super(requester, conferenceRoom.toString(), note);
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.conferenceRoom = conferenceRoom;
+  }
+
+  public ConferenceRoomRequest(
+      Requester requester,
+      ConferenceRoom conferenceRoom,
+      String note,
+      String startTime,
+      String endTime,
+      STATUS status) {
+    super(requester, conferenceRoom.toString(), note);
     this.startTime = startTime;
     this.endTime = endTime;
     this.conferenceRoom = conferenceRoom;

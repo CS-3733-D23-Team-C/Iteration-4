@@ -255,6 +255,10 @@ public class EditMapController {
             } // bring up remove popup
             // if modify, first popup asks if you want to modify node by drag or by entering?
             // also if modify pop up asks if you want to modify node or name
+            else if (Objects.equals(mapMode.getMapMode(), "Move")) {
+              lockMap = true;
+              //moveMenu();
+            }
           }
         });
 

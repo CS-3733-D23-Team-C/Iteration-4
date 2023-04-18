@@ -211,7 +211,7 @@ public class MenuController {
     logoutTrigger.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.navigate(Screen.LOGIN);
+          Navigation.navigate(Screen.HOME);
         });
     exitTrigger.addEventFilter(
         MouseEvent.MOUSE_CLICKED,

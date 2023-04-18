@@ -90,6 +90,8 @@
                                     <MFXButton fx:id="Add" onAction="#changeMapMode" prefWidth="70.0" style="-fx-font-weight: bold; -fx-font-family: arial; -fx-font-size: 12; -fx-background-color: white;" text="Add" textFill="#02143b" />
                                     <MFXButton fx:id="Modify" onAction="#changeMapMode" prefWidth="70.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold;" text="Modify" textFill="#02143b" />
                                     <MFXButton fx:id="Remove" onAction="#changeMapMode" prefWidth="70.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Remove" textFill="#02143b" />
+                                    <MFXButton fx:id="move" layoutX="23.0" layoutY="154.0" onAction="#changeMapMode" prefWidth="70.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Move" textFill="#02143b" />
+
                                  </children>
                                  <padding>
                                     <Insets bottom="20.0" top="20.0" />
@@ -230,10 +232,8 @@
                 </AnchorPane>
             </children>
         </AnchorPane>
-      <HBox prefHeight="768.0" prefWidth="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" />
-         </children>
-      </HBox>
+        <VBox prefHeight="200.0" prefWidth="70.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <fx:include fx:id="adminMenu" source="Menu.fxml" />
+        </VBox>
     </children>
 </AnchorPane>

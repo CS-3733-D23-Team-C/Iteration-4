@@ -7,6 +7,7 @@ import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.enums.ButtonType;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -116,6 +117,7 @@ public class EditMapController {
 
   private String filePath;
   @FXML private Label testText;
+  @FXML Text edgeMadeText;
 
   NodeDao InodeDao = new NodeDao();
   EdgeDao IedgeDao = new EdgeDao();
@@ -273,6 +275,7 @@ public class EditMapController {
             } else if (Objects.equals(mapMode.getMapMode(), "Make_edges")) {
               lockMap = true;
               createEdgesForNodes();
+              edgeMadeText.setVisible(true);
             }
           }
         });
@@ -333,6 +336,8 @@ public class EditMapController {
       lockMap = false;
       currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
       edgesHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
+      edgeMadeText.setText(
+          "New Edge: " + edgesHelper.getNode().getNodeID() + " to " + currNodeClicked.getNodeID());
     }
   }
 
@@ -477,19 +482,29 @@ public class EditMapController {
       if (Objects.equals(modeButton.getId(), "Select")) {
         mapMode = HandleMapModes.SELECT;
         resetAndSetModes(modeButton);
+        edgeMadeText.setText("");
+        edgeMadeText.setVisible(false);
       } else if (Objects.equals(modeButton.getId(), "Add")) {
         mapMode = HandleMapModes.ADD;
         resetAndSetModes(modeButton);
+        edgeMadeText.setText("");
+        edgeMadeText.setVisible(false);
       } else if (Objects.equals(modeButton.getId(), "Modify")) {
         mapMode = HandleMapModes.MODIFY;
         resetAndSetModes(modeButton);
+        edgeMadeText.setText("");
+        edgeMadeText.setVisible(false);
       } else if (Objects.equals(modeButton.getId(), "Remove")) {
         mapMode = HandleMapModes.REMOVE;
         resetAndSetModes(modeButton);
+        edgeMadeText.setText("");
+        edgeMadeText.setVisible(false);
         System.out.println("Removing");
       } else if (Objects.equals(modeButton.getId(), "Move")) {
         mapMode = HandleMapModes.MOVE;
         resetAndSetModes(modeButton);
+        edgeMadeText.setText("");
+        edgeMadeText.setVisible(false);
         System.out.println("Moving");
       } else if (Objects.equals(modeButton.getId(), "Edges")) {
         mapMode = HandleMapModes.MAKE_EDGES;
@@ -792,7 +807,10 @@ public class EditMapController {
 
   public void resetAndSetModes(MFXButton button) {
     button.setBackground(Background.fill(Paint.valueOf("32CD32")));
-    modeResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#bebebe")));
+    modeResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
+    modeResetterHelper.getButton().setRippleAnimateBackground(true);
+    //    modeResetterHelper.getButton().setDepthLevel(DepthLevel.LEVEL4);
+    modeResetterHelper.getButton().setButtonType(ButtonType.RAISED);
     modeResetterHelper.setButton(button);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;
@@ -800,7 +818,10 @@ public class EditMapController {
 
   public void resetAndSetFloorIndicators(MFXButton button) {
     button.setBackground(Background.fill(Paint.valueOf("32CD32")));
-    floorResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#bebebe")));
+    floorResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
+    floorResetterHelper.getButton().setRippleAnimateBackground(true);
+    floorResetterHelper.getButton().setButtonType(ButtonType.RAISED);
+
     floorResetterHelper.setButton(button);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;

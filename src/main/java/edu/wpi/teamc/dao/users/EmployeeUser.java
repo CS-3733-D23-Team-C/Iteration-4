@@ -1,15 +1,17 @@
 package edu.wpi.teamc.dao.users;
 
+import edu.wpi.teamc.dao.IOrm;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class EmployeeUser extends AbsUser {
+public class EmployeeUser extends AbsUser{
+  private String userName;
   private String department;
   private String position;
 
-  EmployeeUser(int id, String name, String username, String department, String position) {
+  public EmployeeUser(int id, String name, String username, String department, String position) {
     super(id, name, username);
     this.department = department;
     this.position = position;
@@ -20,4 +22,8 @@ public class EmployeeUser extends AbsUser {
     this.department = department;
     this.position = position;
   }
+
+  public EmployeeUser() {}
+
+
 }

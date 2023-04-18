@@ -39,9 +39,11 @@ public class HospitalSystem {
       return moveDao.fetchAllObjects();
     } else if (request instanceof ConferenceRoomRequest) {
       return conferenceRoomRequestDAO.fetchAllObjects();
-    } else if (request instanceof EmployeeUser) {
-      return employeeDao.fetchAllObjects();
-    } else if (request instanceof FlowerDeliveryRequest) {
+    }
+    //    else if (request instanceof EmployeeUser) {
+    //      return employeeDao.fetchAllObjects();
+    //    }
+    else if (request instanceof FlowerDeliveryRequest) {
       return flowerDeliveryRequestDAO.fetchAllObjects();
     } else if (request instanceof FurnitureDeliveryRequest) {
       return furnitureDeliveryRequestDAO.fetchAllObjects();

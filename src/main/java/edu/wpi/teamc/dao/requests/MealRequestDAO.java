@@ -134,7 +134,7 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
                 new Requester(requestID, requester),
                 roomName,
                 additionalNotes,
-                new Meal(mealType, "", ""));
+                new Meal(mealType, ""));
       }
     } catch (SQLException e) {
       e.printStackTrace();

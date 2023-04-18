@@ -195,7 +195,7 @@ public class MealController {
     String name = nameBox.getText();
     String room = roomMenu.getText();
     String notes = specialRequest.getText();
-    Meal meal = new Meal(serviceMenu.getText(), drinkMenu.getText(), "");
+    Meal meal = new Meal(serviceMenu.getText(), "");
     MealRequest req = new MealRequest(0, new Requester(0, name), room, notes, meal);
 
     IDao<MealRequest, Integer> dao = new MealRequestDAO();

@@ -150,7 +150,7 @@ public class EditMapController {
   List<Edge> edgeList = new ArrayList<Edge>();
   List<LocationName> locationNameList = new ArrayList<LocationName>();
   // hash maps
-  HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
+  HashMap<Integer, Move> nodeIDtoMove = new HashMap<>();
   HashMap<String, LocationName> longNametoLocationName = new HashMap<String, LocationName>();
   HashMap<Integer, Node> nodeIDToNode = new HashMap<Integer, Node>();
   //  HashMap<Integer,String> nodeIDToFloor = new HashMap<Integer, String>();
@@ -177,6 +177,7 @@ public class EditMapController {
   StackPane stackPane = new StackPane();
   Boolean nodeClicked = false;
   Node currNodeClicked;
+  MFXButton tempSave = new MFXButton();
   Node draggedNode;
   Node nodeToDrag;
   Boolean firstPass = true;
@@ -254,6 +255,10 @@ public class EditMapController {
             } // bring up remove popup
             // if modify, first popup asks if you want to modify node by drag or by entering?
             // also if modify pop up asks if you want to modify node or name
+            else if (Objects.equals(mapMode.getMapMode(), "Move")) {
+              lockMap = true;
+              moveMenu();
+            }
           }
         });
 
@@ -267,14 +272,12 @@ public class EditMapController {
     //      REMOVE;
     //    }
 
-    // TODO sort edges and display edges
-    // find all edges for given floor
     loadDatabase();
     loadNodeIDToNode();
     sortNodes();
     sortEdges();
-    placeNodes("1");
     placeEdges("1");
+    placeNodes("1");
   } // end initialize
 
   // load hashmap of nodeID to floor
@@ -287,7 +290,7 @@ public class EditMapController {
   private boolean sameFloor(int nodeID1, int nodeID2) {
     String node1Floor = nodeIDToNode.get(nodeID1).getFloor();
     String node2Floor = nodeIDToNode.get(nodeID2).getFloor();
-    System.out.println(node1Floor + "    " + node2Floor);
+    //    System.out.println(node1Floor + "    " + node2Floor);
     if (node1Floor.equals(node2Floor)) {
       return true;
     }
@@ -350,7 +353,7 @@ public class EditMapController {
     for (Edge edge : edgeList) {
       String floor = nodeIDToNode.get(edge.getStartNode()).getFloor();
       String floor2 = nodeIDToNode.get(edge.getEndNode()).getFloor();
-      System.out.println(floor + "   " + floor2);
+      //      System.out.println(floor + "   " + floor2);
       // see if both nodes are in the floor list
       sameFloor(edge.getStartNode(), edge.getEndNode());
       if (sameFloor(edge.getStartNode(), edge.getEndNode())
@@ -378,6 +381,7 @@ public class EditMapController {
     edgeList = new EdgeDao().fetchAllObjects();
     locationNameList = new LocationNameDao().fetchAllObjects();
     moveList = new MoveDao().fetchAllObjects();
+    java.sql.Date currentDate = new Date(System.currentTimeMillis());
 
     for (Move move : moveList) {
       try {
@@ -385,7 +389,16 @@ public class EditMapController {
       } catch (NullPointerException e) {
         move.setLongName("ERROR");
       }
-      nodeIDtoMove.put(move.getNodeID(), move);
+      if (nodeIDtoMove.get(move.getNodeID()) == null) {
+        nodeIDtoMove.put(move.getNodeID(), move);
+      } else {
+        Move inHashMap = nodeIDtoMove.get(move.getNodeID());
+        if (currentDate.compareTo(move.getDate()) >= 0) {
+          if (move.getDate().compareTo(inHashMap.getDate()) >= 0) {
+            nodeIDtoMove.put(move.getNodeID(), move);
+          }
+        }
+      }
     }
     for (LocationName locationName : locationNameList) {
       longNametoLocationName.put(locationName.getLongName(), locationName);
@@ -430,6 +443,8 @@ public class EditMapController {
         mapMode = HandleMapModes.MODIFY;
       } else if (Objects.equals(modeButton.getId(), "Remove")) {
         mapMode = HandleMapModes.REMOVE;
+      } else if (Objects.equals(modeButton.getId(), "Move")) {
+        mapMode = HandleMapModes.MOVE;
       }
     }
   }
@@ -477,8 +492,8 @@ public class EditMapController {
     pane.setMaxHeight(image.getHeight());
     pane.relocate(0, 0);
     group.getChildren().add(pane);
-    placeNodes(floor);
     placeEdges(floor);
+    placeNodes(floor);
   }
 
   public void comparatorSortNode() {}
@@ -780,22 +795,57 @@ public class EditMapController {
 
     // Stuff to show on pop up
     VBox vBox = new VBox();
+    Text headerText = new Text("Add Node Using Mouse Location");
     Text building = new Text("Input name of building the node will be in");
     MFXTextField b_input = new MFXTextField();
     MFXButton addButton = new MFXButton("Submit Add");
-    vBox.getChildren().addAll(building, b_input, addButton);
+    vBox.getChildren().addAll(headerText, building, b_input, addButton);
+
+    // set styles
+    headerText.getStyleClass().add("Header");
+    building.getStyleClass().add("Text");
+    b_input.getStyleClass().add("MFXtextIn");
+    addButton.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // add input boxes styles
+    //    nodeTypeInput.setPrefWidth(120);
+
+    //    vBox.getChildren() //vBox does not work bc usage with it sucks with spacing
+    //            .addAll(building, b_input, addButton);
+    //
+    //    // set vBox location
+    //    vBox.setLayoutX(50);
+    //    vBox.setLayoutY(20);
+    //    vBox.setSpacing(15);
+
+    // set object locations
+    int lay_x = 50;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    building.setLayoutX(lay_x);
+    building.setLayoutY(lay_y + 35);
+    b_input.setLayoutX(lay_x);
+    b_input.setLayoutY(lay_y + 35);
+    addButton.setLayoutX(lay_x);
+    addButton.setLayoutY(lay_y + 95);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
+    aPane.getChildren().addAll(headerText, building, b_input, addButton);
+    //    Insets insets = new Insets(0, 0, 0, 200);
+    //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 410, 225);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.setTitle("Add Node Window");
+    stage.setAlwaysOnTop(true);
     stage.show();
 
     // When stage closed with inherit x, will unlock map and understand a node is no longer selected
@@ -844,6 +894,7 @@ public class EditMapController {
 
     // Stuff to show on pop up
     VBox vBox = new VBox();
+    Text headerText = new Text("Select Modification Method");
     Text modify_1 = new Text("Modify node by text input?");
     Text modify_2 = new Text("Modify node by dragging on map?");
     Text modify_3 = new Text("Modify location name of node?");
@@ -851,19 +902,62 @@ public class EditMapController {
     MFXButton byDrag = new MFXButton("By Drag");
     MFXButton editName = new MFXButton("Edit Name");
 
-    vBox.getChildren().addAll(modify_1, byText, modify_2, byDrag, modify_3, editName);
+    vBox.getChildren().addAll(headerText, modify_1, byText, modify_2, byDrag, modify_3, editName);
+
+    // set styles
+    headerText.getStyleClass().add("Header");
+    modify_1.getStyleClass().add("Text");
+    modify_2.getStyleClass().add("Text");
+    modify_3.getStyleClass().add("Text");
+    byText.getStyleClass().add("MFXbutton");
+    byDrag.getStyleClass().add("MFXbutton");
+    editName.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // add input boxes styles
+    //    nodeTypeInput.setPrefWidth(120);
+
+    //    vBox.getChildren() //vBox does not work bc usage with it sucks with spacing
+    //            .addAll(building, b_input, addButton);
+    //
+    //    // set vBox location
+    //    vBox.setLayoutX(50);
+    //    vBox.setLayoutY(20);
+    //    vBox.setSpacing(15);
+
+    // set object locations
+    int lay_x = 50;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    modify_1.setLayoutX(lay_x);
+    modify_1.setLayoutY(lay_y + 35);
+    byText.setLayoutX(lay_x);
+    byText.setLayoutY(lay_y + 50);
+    modify_2.setLayoutX(lay_x);
+    modify_2.setLayoutY(lay_y + 120);
+    byDrag.setLayoutX(lay_x);
+    byDrag.setLayoutY(lay_y + 135);
+    modify_3.setLayoutX(lay_x);
+    modify_3.setLayoutY(lay_y + 205);
+    editName.setLayoutX(lay_x);
+    editName.setLayoutY(lay_y + 220);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
+    aPane.getChildren().addAll(headerText, modify_1, byText, modify_2, byDrag, modify_3, editName);
+    //    Insets insets = new Insets(0, 0, 0, 200);
+    //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 350, 330);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.setTitle("Modify Window");
+    stage.setAlwaysOnTop(true);
     stage.show();
 
     // When stage closed with inherit x, will unlock map and understand a node is no longer selected
@@ -903,6 +997,7 @@ public class EditMapController {
     // Stuff to show on pop up
     VBox vBox = new VBox();
 
+    Text headerText = new Text("Modify Node Location");
     Text xCoord_t = new Text("Input new Xcoord");
     Text yCoord_t = new Text("Input new YCoord");
     MFXTextField xCoord_input = new MFXTextField();
@@ -912,20 +1007,52 @@ public class EditMapController {
     submitModify.setPrefSize(100, 35);
     submitModify.setMinSize(100, 35);
 
-    vBox.getChildren().addAll(xCoord_t, xCoord_input, yCoord_t, yCoord_input, submitModify);
-    vBox.setSpacing(20);
+    //    vBox.getChildren().addAll(headerText, xCoord_t, xCoord_input, yCoord_t, yCoord_input,
+    // submitModify);
+    //    vBox.setSpacing(20);
+
+    // set styles
+    headerText.getStyleClass().add("Header");
+    xCoord_t.getStyleClass().add("Text");
+    yCoord_t.getStyleClass().add("Text");
+    xCoord_input.getStyleClass().add("MFXtextIn");
+    yCoord_input.getStyleClass().add("MFXtextIn");
+    submitModify.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // set object locations
+    int lay_x = 40;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    xCoord_t.setLayoutX(lay_x);
+    xCoord_t.setLayoutY(lay_y + 35);
+    xCoord_input.setLayoutX(lay_x);
+    xCoord_input.setLayoutY(lay_y + 35);
+    yCoord_t.setLayoutX(lay_x);
+    yCoord_t.setLayoutY(lay_y + 105);
+    yCoord_input.setLayoutX(lay_x);
+    yCoord_input.setLayoutY(lay_y + 105);
+    submitModify.setLayoutX(lay_x);
+    submitModify.setLayoutY(lay_y + 165);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
+    aPane
+        .getChildren()
+        .addAll(headerText, xCoord_t, xCoord_input, yCoord_t, yCoord_input, submitModify);
+    //    Insets insets = new Insets(0, 0, 0, 200);
+    //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 290, 290);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.setTitle("Modify Node Window");
+    stage.setAlwaysOnTop(true);
     stage.show();
 
     // When stage closed with inherit x, will unlock map and understand a node is no longer selected
@@ -973,8 +1100,8 @@ public class EditMapController {
           loadNodeIDToNode();
           sortNodes();
           sortEdges();
-          placeNodes(floor);
           placeEdges(floor);
+          placeNodes(floor);
 
           // close menu
           stage.close();
@@ -998,8 +1125,6 @@ public class EditMapController {
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
     aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
     Scene scene = new Scene(borderPane, 650, 500);
     borderPane.relocate(0, 0);
@@ -1027,7 +1152,10 @@ public class EditMapController {
           mapText = new Group();
           group.getChildren().addAll(mapNodes, mapText);
           loadDatabase();
+          loadNodeIDToNode();
           sortNodes();
+          sortEdges();
+          placeEdges(floor);
           placeNodes(floor);
 
           stage.close();
@@ -1058,11 +1186,95 @@ public class EditMapController {
         });
   }
 
+  public void moveMenu() { // make this a pop up window instead of a whole new scene?
+    BorderPane borderPane = new BorderPane();
+
+    // Stuff to show on pop up
+    //    VBox vBox = new VBox();
+    //    Text remove_1 = new Text("move Node?");
+    //    Text remove_2 = new Text("move Node Location Name");
+    //    MFXButton moveNode = new MFXButton("move Node");
+    //    MFXButton moveName = new MFXButton("move Name");
+    Text headerText = new Text("Select Move Method");
+    Text moveByNodeID = new Text("Node ID to move to");
+    Text moveByLocationName = new Text("Name of location to move to");
+    MFXButton byNode = new MFXButton("By node ID");
+    MFXButton byLocationName = new MFXButton("By location name");
+    //    MFXButton editName = new MFXButton("Edit Name");
+
+    //    vBox.getChildren().addAll(remove_1, moveNode, remove_2, moveName);
+
+    // Set and show screen
+    AnchorPane aPane = new AnchorPane();
+    //    aPane.getChildren().add(vBox);
+    borderPane.getChildren().add(aPane);
+    Scene scene = new Scene(borderPane, 650, 500);
+    borderPane.relocate(0, 0);
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.setTitle("move Window");
+    stage.show();
+
+    // When stage closed with inherit x, will unlock map and understand a node is no longer selected
+    stage.setOnCloseRequest(
+        event -> {
+          lockMap = false;
+          nodeClicked = false;
+        });
+    // TODO fix
+    byNode.setOnMouseClicked(
+        event -> {
+          MoveDao moveDao = new MoveDao();
+          NodeDao nodeDao = new NodeDao();
+          moveDao.deleteRow(currNodeClicked.getNodeID());
+          nodeDao.deleteRow(currNodeClicked.getNodeID());
+
+          group.getChildren().removeAll(mapNodes, mapText);
+          mapNodes = new Group();
+          mapText = new Group();
+          group.getChildren().addAll(mapNodes, mapText);
+          loadDatabase();
+          loadNodeIDToNode();
+          sortNodes();
+          sortEdges();
+          placeEdges(floor);
+          placeNodes(floor);
+
+          stage.close();
+          nodeClicked = false;
+          lockMap = false;
+        });
+    // TODO fix
+    byLocationName.setOnMouseClicked(
+        event -> {
+          MoveDao moveDao = new MoveDao();
+          LocationNameDao locationDao = new LocationNameDao();
+          long currentTime = System.currentTimeMillis();
+          Date currentDate = new Date(currentTime);
+          Move move = new Move(currNodeClicked.getNodeID(), currNodeLongname, currentDate);
+          moveDao.deleteRow(move);
+          locationDao.deleteRow(currNodeLongname);
+
+          group.getChildren().removeAll(mapNodes, mapText);
+          mapNodes = new Group();
+          mapText = new Group();
+          group.getChildren().addAll(mapNodes, mapText);
+          loadDatabase();
+          sortNodes();
+          placeNodes(floor);
+
+          stage.close();
+          nodeClicked = false;
+          lockMap = false;
+        });
+  }
+
   public void addMenu() { // make this a pop up window instead of a whole new scene?
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
     VBox vBox = new VBox();
+    Text headerText = new Text("Add Location Name to Node");
     Text nodeType = new Text("Input New Node Type");
     Text SName = new Text("Input New Shortname");
     Text LName = new Text("Input New Longname");
@@ -1072,21 +1284,86 @@ public class EditMapController {
     MFXTextField lNameInput = new MFXTextField();
 
     MFXButton addName = new MFXButton("Submit");
+    VBox v1 = new VBox();
+    VBox v2 = new VBox();
+    VBox v3 = new VBox();
 
-    vBox.getChildren()
-        .addAll(nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, addName);
+    // set styles
+    headerText.getStyleClass().add("Header");
+    nodeType.getStyleClass().add("Text");
+    SName.getStyleClass().add("Text");
+    LName.getStyleClass().add("Text");
+    nodeTypeInput.getStyleClass().add("MFXtextIn");
+    sNameInput.getStyleClass().add("MFXtextIn");
+    lNameInput.getStyleClass().add("MFXtextIn");
+    addName.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // add input boxes styles
+    //    nodeTypeInput.setPrefWidth(120);
+
+    vBox.getChildren() // vBox does not work bc usage with it sucks with spacing
+        .addAll(headerText, nodeType, nodeTypeInput, SName, sNameInput, LName, lNameInput, addName);
+
+    // set vBox location
+    vBox.setLayoutX(50);
+    vBox.setLayoutY(20);
+    vBox.setSpacing(15);
+
+    // set object locations
+    int lay_x = 50;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    nodeType.setLayoutX(lay_x);
+    nodeType.setLayoutY(lay_y + 35);
+    nodeTypeInput.setLayoutX(lay_x);
+    nodeTypeInput.setLayoutY(lay_y + 35);
+    SName.setLayoutX(lay_x);
+    SName.setLayoutY(lay_y + 110);
+    sNameInput.setLayoutX(lay_x);
+    sNameInput.setLayoutY(lay_y + 110);
+    LName.setLayoutX(lay_x);
+    LName.setLayoutY(lay_y + 185);
+    lNameInput.setLayoutX(lay_x);
+    lNameInput.setLayoutY(lay_y + 185);
+    addName.setLayoutX(lay_x);
+    addName.setLayoutY(lay_y + 250);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().add(vBox);
-    Insets insets = new Insets(0, 0, 0, 200);
-    aPane.setPadding(insets);
+    aPane
+        .getChildren()
+        .addAll(
+            headerText,
+            nodeType,
+            nodeTypeInput,
+            SName,
+            sNameInput,
+            LName,
+            lNameInput,
+            addName); // was add vBox
+    //    Insets insets = new Insets(0, 0, 0, 200);
+    //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 370, 360);
+
+    // Set Scene styleClass
+    //    scene.setFill(Paint.valueOf("#02143b"));
+    //    scene.set
+
+    //    File stylesheet = new
+    // File((Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString()));
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.setTitle("Add Location Name Window");
+    stage.setAlwaysOnTop(true);
+
     stage.show();
 
     // When stage closed with inherit x, will unlock map and understand a node is no longer selected
@@ -1397,8 +1674,8 @@ public class EditMapController {
           loadNodeIDToNode();
           sortNodes();
           sortEdges();
-          placeNodes(floor);
           placeEdges(floor);
+          placeNodes(floor);
 
           currNodeClicked =
               helperNode1; // ensures clicking on the map again won't try to cause modify to run
@@ -1450,12 +1727,18 @@ public class EditMapController {
 
           loadDatabase();
           sortNodes();
-          placeNodes(floor);
           //          placeEdges(floor);
+          placeNodes(floor);
 
           currNodeClicked = helperNode1;
         });
   }
+
+  //  public void resetAndSetFloorIndicator(MFXButton button) {
+  //    button.setBackground(Background.fill(Paint.valueOf("#32CD32")));
+  //    tempSave.setBackground(Background.fill(DEFAULT_BG));
+  //    tempSave = button;
+  //  }
 
   //    })
 

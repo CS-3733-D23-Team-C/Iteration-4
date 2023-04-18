@@ -2,6 +2,7 @@ package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.animation.PauseTransition;
@@ -9,6 +10,7 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.*;
@@ -47,6 +49,8 @@ public class MenuController {
   @FXML private Pane logoutPopOut;
   @FXML private Pane homePopOut;
   @FXML private AnchorPane basePane;
+
+  @FXML private MFXButton flowerButton;
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {
@@ -114,6 +118,41 @@ public class MenuController {
     Navigation.navigate(Screen.MAP_HISTORY_PAGE);
   }
 
+  @FXML
+  void getMoveTable(ActionEvent event) {
+    Navigation.navigate(Screen.MOVE_TABLE);
+  }
+
+  @FXML
+  void getMealHistory(ActionEvent event) {
+    Navigation.navigate(Screen.MEAL_HISTORY);
+  }
+
+  @FXML
+  void getFlowerHistory(ActionEvent event) {
+    Navigation.navigate(Screen.FLOWER_HISTORY);
+  }
+
+  @FXML
+  void getFurnitureHistory(ActionEvent event) {
+    Navigation.navigate(Screen.FURNITURE_HISTORY);
+  }
+
+  @FXML
+  void getConferenceHistory(ActionEvent event) {
+    Navigation.navigate(Screen.CONFERENCE_HISTORY);
+  }
+
+  @FXML
+  void getOfficeSupplyHistory(ActionEvent event) {
+    Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
+  }
+
+  //    @FXML
+  //    void getGiftBasketHistory(ActionEvent event) {
+  //        Navigation.navigate(Screen.GIFTBASKET_HISTORY);
+  //    }
+
   //  @FXML
   //  void getMapPage(ActionEvent event) {
   //    Navigation.navigate(Screen.FLOOR_PLAN);
@@ -158,6 +197,32 @@ public class MenuController {
 
     // Define a PauseTransition with a delay of 200 milliseconds
     PauseTransition delay = new PauseTransition(Duration.millis(200));
+
+    helpTrigger.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.HELP);
+        });
+    homeTrigger.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.ADMIN_HOME);
+        });
+    settingsTrigger.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.HELP);
+        });
+    logoutTrigger.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.HOME);
+        });
+    exitTrigger.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          Navigation.navigate(Screen.EXIT_PAGE);
+        });
 
     homeButton
         .hoverProperty()

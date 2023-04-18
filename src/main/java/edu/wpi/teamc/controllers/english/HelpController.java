@@ -1,10 +1,8 @@
 package edu.wpi.teamc.controllers.english;
 
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.*;
-import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 import java.awt.*;
-import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextArea;

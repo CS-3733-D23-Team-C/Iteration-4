@@ -117,7 +117,7 @@
                                  </padding>
                               </TextField>
                               <TextArea fx:id="specialRequest" layoutX="23.0" layoutY="53.0" prefHeight="40.0" prefWidth="481.0" promptText="(Optional) Additional Notes" style="-fx-font-family: arial; -fx-background-color: white; -fx-border-color: #02143b; -fx-font-size: 12;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
-                              <DatePicker fx:id="startTime" layoutX="22.0" layoutY="100.0" prefHeight="40.0" prefWidth="482.0" promptText="Select Start Time:" style="-fx-background-color: white; -fx-border-color: #02143b;" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="100.0" />
+                              <DatePicker fx:id="startTime" layoutX="22.0" layoutY="100.0" prefHeight="40.0" prefWidth="482.0" promptText="Select Start Time:" style="-fx-background-color: white; -fx-border-color: #02143b;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="110.0" prefWidth="525.0" style="-fx-border-color: #02143b; -fx-background-color: white;">

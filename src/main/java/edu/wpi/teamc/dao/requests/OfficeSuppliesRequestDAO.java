@@ -26,8 +26,10 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest> {
         STATUS status = STATUS.valueOf(rs.getString("status"));
         String additionalNotes = rs.getString("additionalnotes");
         String eta = rs.getString("eta");
+        String quantity = rs.getString("quantity");
         OfficeSuppliesRequest request =
-            new OfficeSuppliesRequest(requestID, req, roomName, supplies, additionalNotes);
+            new OfficeSuppliesRequest(
+                requestID, req, roomName, supplies, additionalNotes, quantity);
         request.setStatus(status);
         request.setEta(eta);
         returnList.add(request);

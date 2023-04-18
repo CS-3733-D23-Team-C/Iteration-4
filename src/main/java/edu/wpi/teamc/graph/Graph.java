@@ -2,7 +2,6 @@ package edu.wpi.teamc.graph;
 
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.map.*;
-
 import java.sql.*;
 import java.util.*;
 
@@ -64,13 +63,13 @@ public class Graph {
       String nodeType = longNameToNodeType.get(longName);
 
       addNode(
-              new GraphNode(
-                      node.getNodeID(),
-                      node.getXCoord(),
-                      node.getYCoord(),
-                      node.getFloor(),
-                      node.getBuilding(),
-                      nodeType));
+          new GraphNode(
+              node.getNodeID(),
+              node.getXCoord(),
+              node.getYCoord(),
+              node.getFloor(),
+              node.getBuilding(),
+              nodeType));
     }
 
     for (Edge edge : edges) {

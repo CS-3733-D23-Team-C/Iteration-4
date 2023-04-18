@@ -22,7 +22,8 @@ public class GraphNode extends Node {
    * @param floor - floor of the node ex: L1
    * @param building - building of the node ex: CCONF
    */
-  public GraphNode(int nodeID, int xCoord, int yCoord, String floor, String building, String nodeType) {
+  public GraphNode(
+      int nodeID, int xCoord, int yCoord, String floor, String building, String nodeType) {
     super(nodeID, xCoord, yCoord, floor, building);
     this.graphEdges = new LinkedList<>();
     this.nodeType = nodeType;
@@ -33,11 +34,11 @@ public class GraphNode extends Node {
         abs(getXCoord() - targetNode.getXCoord()) + abs(getYCoord() - targetNode.getYCoord());
 
     if (!this.getFloor().equals(targetNode.getFloor())) {
-        if (nodeType.equals("ELEV")) {
-
-        } else if (nodeType.equals("STAI")) {
-
-        }
+      if (nodeType.equals("ELEV")) {
+        this.heuristic -= 10;
+      } else if (nodeType.equals("STAI")) {
+        this.heuristic += 10;
+      }
     }
   }
 }

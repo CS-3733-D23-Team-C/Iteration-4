@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.requests;
 
+import edu.wpi.teamc.dao.users.PatientUser;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,8 @@ public class FlowerDeliveryRequestDAOTest {
   @Test
   public void addRow() {
     FlowerDeliveryRequestDAO dao = new FlowerDeliveryRequestDAO();
-    dao.addRow(new FlowerDeliveryRequest(0, new IUser(0, "Charles"), "Med Bay 2", "Rose", "None"));
+    dao.addRow(
+        new FlowerDeliveryRequest(0, new PatientUser("Charles"), "Med Bay 2", "Rose", "None"));
   }
 
   @Test

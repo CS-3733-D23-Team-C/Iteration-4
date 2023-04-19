@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.requests;
 
+import edu.wpi.teamc.dao.users.PatientUser;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ public class ConferenceRoomRequestDAOTest {
     dao.addRow(
         new ConferenceRoomRequest(
             0,
-            new IUser(0, "Bob"),
+            new PatientUser("Bob"),
             new ConferenceRoom("Office Room", "", false),
             "",
             "now",
@@ -33,7 +34,7 @@ public class ConferenceRoomRequestDAOTest {
     dao.updateRow(
         new ConferenceRoomRequest(
             10,
-            new IUser(0, "Bob"),
+            new PatientUser("Bob"),
             new ConferenceRoom("Office Room", "", false),
             "",
             "now",
@@ -41,7 +42,7 @@ public class ConferenceRoomRequestDAOTest {
             STATUS.COMPLETE),
         new ConferenceRoomRequest(
             10,
-            new IUser(0, "Abby"),
+            new PatientUser("Abby"),
             new ConferenceRoom("Office Room B4", "", false),
             "",
             "then",

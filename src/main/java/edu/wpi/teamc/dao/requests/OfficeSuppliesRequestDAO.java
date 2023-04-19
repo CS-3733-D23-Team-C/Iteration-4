@@ -29,11 +29,13 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
         STATUS status = STATUS.valueOf(rs.getString("status"));
         String additionalNotes = rs.getString("additionalnotes");
         String eta = rs.getString("eta");
+        String assignedto = rs.getString("assignedto");
         OfficeSuppliesRequest request =
             new OfficeSuppliesRequest(requestID, req, roomName, supplies, additionalNotes);
         request.setStatus(status);
         request.setEta(eta);
         returnList.add(request);
+        request.setEta(assignedto);
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -49,7 +51,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
     String query =
         "INSERT INTO "
             + table
-            + " (requester, roomName, officesupplytype, additionalNotes, status) VALUES (?,?,?,?,?);";
+            + " (requester, roomName, officesupplytype, additionalNotes, status, assignedto) VALUES (?,?,?,?,?,?);";
     try {
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -59,6 +61,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
       ps.setString(3, orm.getOfficesupplytype());
       ps.setString(4, orm.getAdditionalNotes());
       ps.setString(5, orm.getStatus().toString());
+      ps.setString(6, orm.getAssingedto());
       ps.executeUpdate();
 
       ResultSet rs = ps.getGeneratedKeys();
@@ -106,9 +109,11 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
         STATUS status = STATUS.valueOf(rs.getString("status"));
         String additionalNotes = rs.getString("additionalnotes");
         String eta = rs.getString("eta");
+        String assignedto = rs.getString("assignedto");
         request = new OfficeSuppliesRequest(requestID, req, roomName, supplies, additionalNotes);
         request.setStatus(status);
         request.setEta(eta);
+        request.setAssingedto(assignedto);
       }
       db.closeConnection();
     } catch (Exception e) {
@@ -125,7 +130,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
     String query =
         "UPDATE "
             + table
-            + " SET requester=?, roomName=?, supplies=?, additionalNotes=?, status =?, eta=? WHERE requestID=?;";
+            + " SET requester=?, roomName=?, supplies=?, additionalNotes=?, status =?, eta=?, assignedto = ? WHERE requestID=?;";
     try {
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, repl.getRequester().toString());
@@ -134,7 +139,8 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
       ps.setString(4, repl.getAdditionalNotes());
       ps.setString(5, repl.getStatus().toString());
       ps.setString(6, repl.getEta());
-      ps.setInt(7, repl.getRequestID());
+      ps.setString(7, repl.getAssingedto());
+      ps.setInt(8, repl.getRequestID());
       ps.executeQuery();
 
       request = repl;

@@ -11,12 +11,9 @@ import java.time.LocalDate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import javafx.scene.layout.AnchorPane;
-
 
 public class ConferenceController {
   @FXML private MFXButton goHome;
@@ -50,7 +47,6 @@ public class ConferenceController {
   @FXML private ImageView image;
 
   @FXML AnchorPane assignEmployeeAnchor;
-
 
   @FXML
   void getGoHome(ActionEvent event) {

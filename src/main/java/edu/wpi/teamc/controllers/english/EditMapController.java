@@ -233,9 +233,9 @@ public class EditMapController {
     mapMode = HandleMapModes.SELECT;
     checkAndX_HBox.setMouseTransparent(true);
     checkAndX_HBox1.setMouseTransparent(true);
-    selectButton.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    selectButton.setBackground(Background.fill(Paint.valueOf("#EAB334")));
     modeResetterHelper.setButton(selectButton);
-    FL1.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    FL1.setBackground(Background.fill(Paint.valueOf("#EAB334")));
     floorResetterHelper.setButton(FL1);
     //    group.getChildren().add(stackPane);
 
@@ -254,6 +254,9 @@ public class EditMapController {
             //            System.out.println(lockMap);
             addNodeByMouseLoc((int) mouseX, (int) mouseY);
           } // bring up node add popup
+          if (Objects.equals(mapMode.getMapMode(), "Select")) {
+            // do Nothing
+          }
 
           if (nodeClicked && !lockMap) {
             if (Objects.equals(mapMode.getMapMode(), "Add")) { // to add a location name to a node
@@ -310,7 +313,7 @@ public class EditMapController {
     if (nodeClicked && (edgesHelper.getNodesClicked() == 0)) {
       System.out.println("first node");
       edgesHelper.setNode(currNodeClicked);
-      currCircleClicked.setFill(Paint.valueOf("#32CD32"));
+      currCircleClicked.setFill(Paint.valueOf("#EAB334"));
       edgesHelper.setCircle(currCircleClicked);
       edgesHelper.setNodesClicked(1);
       //      System.out.println()
@@ -319,7 +322,7 @@ public class EditMapController {
       lockMap = false;
     }
     if (nodeClicked && (edgesHelper.getNodesClicked() == 1)) {
-      currCircleClicked.setFill(Paint.valueOf("#32CD32"));
+      currCircleClicked.setFill(Paint.valueOf("#EAB334"));
       System.out.println("second node");
       //      secondNode = currNodeClicked;
       //      secondCircle = currCircleClicked;
@@ -478,9 +481,10 @@ public class EditMapController {
   public void changeMapMode(ActionEvent event) {
     if (!dragModeOn) {
       modeButton = (MFXButton) event.getTarget();
-      if (Objects.equals(modeButton.getId(), "Select")) {
+      if (Objects.equals(modeButton.getId(), "selectButton")) {
         mapMode = HandleMapModes.SELECT;
         resetAndSetModes(modeButton);
+        System.out.println("select mode");
         edgeMadeText.setText("");
         edgeMadeText.setVisible(false);
       } else if (Objects.equals(modeButton.getId(), "Add")) {
@@ -737,7 +741,9 @@ public class EditMapController {
     newCircle.setOnMouseExited(
         e -> {
           //          if (!(Objects.equals(mapMode.getMapMode(), "Modify_drag"))) {
-          newCircle.setStroke(Paint.valueOf("#13DAF7"));
+          if (!nodeClicked) {
+            newCircle.setStroke(Paint.valueOf("#13DAF7"));
+          }
           //          } else if (!(Objects.equals(node.getNodeID(), mapModeSaver.getNodeID()))) {
           //            newCircle.setStroke(Paint.valueOf("13DAF7"));
           //          }
@@ -797,15 +803,16 @@ public class EditMapController {
   }
 
   public void resetAndSetCircle(Circle circle) {
-    circle.setFill(Paint.valueOf("#32CD32"));
+    circle.setFill(Paint.valueOf("#EAB334"));
     nodeResetterHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
+    nodeResetterHelper.getCircle().setStroke(Paint.valueOf("#13DAF7"));
     nodeResetterHelper.setCircle(circle);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;
   }
 
   public void resetAndSetModes(MFXButton button) {
-    button.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    button.setBackground(Background.fill(Paint.valueOf("#EAB334")));
     modeResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
     modeResetterHelper.getButton().setRippleAnimateBackground(true);
     //    modeResetterHelper.getButton().setDepthLevel(DepthLevel.LEVEL4);
@@ -816,7 +823,7 @@ public class EditMapController {
   }
 
   public void resetAndSetFloorIndicators(MFXButton button) {
-    button.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    button.setBackground(Background.fill(Paint.valueOf("#EAB334")));
     floorResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
     floorResetterHelper.getButton().setRippleAnimateBackground(true);
     floorResetterHelper.getButton().setButtonType(ButtonType.RAISED);

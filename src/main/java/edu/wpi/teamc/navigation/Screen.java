@@ -9,6 +9,8 @@ public enum Screen {
 
   // -------MAP & SIGNAGE-------//
   SIGNAGE("views/english/ElevatorSignage.fxml"),
+  GUEST_SIGNAGE("views/english/Guest/GuestElevatorSignage.fxml"),
+
   MAP_HISTORY_PAGE("views/english/MapHistory.fxml"),
   PATHFINDING_PAGE("views/english/PathFinding.fxml"),
   GUEST_PATHFINDING_PAGE("views/english/Guest/GuestPathFinding.fxml"),
@@ -42,6 +44,9 @@ public enum Screen {
   // -------OTHER-------//
   CONGRATS_PAGE("views/english/Congrats.fxml"),
   HELP("views/english/Help.fxml"),
+
+  GUEST_HELP("views/english/Guest/GuestHelp.fxml"),
+
   EXIT_PAGE("views/english/ExitPage.fxml"),
   EMPLOYEETABLE_PAGE("views/english/EmployeeTable.fxml");
 

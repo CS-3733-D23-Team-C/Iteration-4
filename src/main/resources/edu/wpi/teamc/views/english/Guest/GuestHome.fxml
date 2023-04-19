@@ -9,14 +9,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.web.HTMLEditor?>
 
 <AnchorPane prefHeight="787.0" prefWidth="1368.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.Guest.GuestHomeController">
    <children>
-      <AnchorPane layoutX="71.0" layoutY="153.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
+      <AnchorPane fx:id="weather" layoutX="71.0" layoutY="153.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
          <children>
-            <AnchorPane layoutX="99.0" layoutY="46.0" prefHeight="289.0" prefWidth="1101.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="370.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0">
+            <AnchorPane layoutX="99.0" layoutY="46.0" prefHeight="289.0" prefWidth="1101.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="250.0">
                <children>
-                  <TextField alignment="TOP_LEFT" editable="false" layoutY="-4.0" prefHeight="37.0" prefWidth="1098.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 35; -fx-text-fill: white;" text="Notifications" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TextField editable="false" layoutY="-4.0" prefHeight="76.0" prefWidth="1098.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 30; -fx-text-fill: white;" text="Notifications" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font size="35.0" />
                      </font>
@@ -29,7 +30,21 @@
                   </TextField>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="99.0" layoutY="47.0" prefHeight="289.0" prefWidth="1101.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
+            <AnchorPane layoutX="99.0" layoutY="47.0" prefHeight="190.0" prefWidth="1101.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+               <children>
+                  <HTMLEditor fx:id="guestWeather" disable="true" htmlText="&lt;a class=&quot;weatherwidget-io&quot; href=&quot;https://forecast7.com/en/42d36n71d06/boston/?unit=us&quot; data-label_1=&quot;BOSTON&quot; data-label_2=&quot;WEATHER&quot; data-theme=&quot;pure&quot; &gt;BOSTON WEATHER&lt;/a&gt;&lt;script&gt;!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');&lt;/script&gt;" layoutX="-10.0" layoutY="-18.0" prefHeight="200.0" prefWidth="506.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TextField editable="false" layoutX="5.0" layoutY="94.0" prefHeight="76.0" prefWidth="1098.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 30; -fx-text-fill: white;" text="Current Weather Forcast" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" top="10.0" />
+                     </padding>
+                  </TextField>
+               </children></AnchorPane>
          </children>
       </AnchorPane>
       <VBox layoutX="-3.0" layoutY="-3.0" prefHeight="900.0" prefWidth="53.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">

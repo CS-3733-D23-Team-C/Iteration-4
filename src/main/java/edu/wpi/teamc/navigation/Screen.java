@@ -2,53 +2,50 @@ package edu.wpi.teamc.navigation;
 
 public enum Screen {
   // -------NON USING PAGES-------//
-  ROOT("views/english/Root.fxml"),
-  SERVICE_REQUEST("views/english/ServiceRequest.fxml"),
+  ROOT("views/Root.fxml"),
   //  PATHFINDING("views/english/PathfindingIt1.fxml"),
   // ELEVATOR_SIGNAGE("views/english/ElevatorSignage.fxml"),
 
   // -------MAP & SIGNAGE-------//
-  SIGNAGE("views/english/ElevatorSignage.fxml"),
-  GUEST_SIGNAGE("views/english/Guest/GuestElevatorSignage.fxml"),
+  SIGNAGE("views/pages/map/ElevatorSignage.fxml"),
+  GUEST_SIGNAGE("views/pages/guest/GuestElevatorSignage.fxml"),
 
-  MAP_HISTORY_PAGE("views/english/MapHistory.fxml"),
-  PATHFINDING_PAGE("views/english/PathFinding.fxml"),
-  GUEST_PATHFINDING_PAGE("views/english/Guest/GuestPathFinding.fxml"),
-  MOVETABLE_PAGE("views/english/MoveTable.fxml"),
-  EDIT_MAP("views/english/EditMap.fxml"),
-  FLOOR_PLAN("views/english/FloorPlan.fxml"),
+  MAP_HISTORY_PAGE("views/pages/history/MapHistory.fxml"),
+  PATHFINDING_PAGE("views/pages/map/PathFinding.fxml"),
+  GUEST_PATHFINDING_PAGE("views/pages/guest/GuestPathFinding.fxml"),
+  EDIT_MAP("views/pages/map/EditMap.fxml"),
+  FLOOR_PLAN("views/pages/map/FloorPlan.fxml"),
 
   // -------LOGIN & HOME-------//
-  HOME("views/english/Home.fxml"),
-  LOGIN("views/english/LoginPage.fxml"),
-  ADMIN_HOME("views/english/AdminHome.fxml"),
-  GUEST_HOME("views/english/Guest/GuestHome.fxml"),
-  MENU("views/english/Menu.fxml"),
-  GUEST_MENU("views/english/Guest/GuestMenu.fxml"),
+  HOME("views/pages/Home.fxml"),
+  ADMIN_HOME("views/pages/admin/AdminHome.fxml"),
+  GUEST_HOME("views/pages/guest/GuestHome.fxml"),
+  MENU("views/components/Menu.fxml"),
+  GUEST_MENU("views/pages/guest/GuestMenu.fxml"),
 
   // -------SERVICE REQUEST-------//
-  MEAL("views/english/MealRequest.fxml"),
-  MEAL_HISTORY("views/english/MealHistory.fxml"),
+  MEAL("views/pages/requests/MealRequest.fxml"),
+  MEAL_HISTORY("views/pages/history/MealHistory.fxml"),
 
-  CONFERENCE("views/english/Conference.fxml"),
-  CONFERENCE_HISTORY("views/english/ConferenceHistory.fxml"),
-  MOVE_TABLE("views/english/MoveTable.fxml"),
-  FLOWER("views/english/FlowerRequest.fxml"),
-  FLOWER_HISTORY("views/english/FlowerHistory.fxml"),
-  FURNITURE("views/english/FurnitureRequest.fxml"),
-  FURNITURE_HISTORY("views/english/FurnitureHistory.fxml"),
-  OFFICE_SUPPLY("views/english/OfficeSupplyRequest.fxml"),
-  OFFICE_SUPPLY_HISTORY("views/english/OfficeSupplyHistory.fxml"),
+  CONFERENCE("views/pages/requests/Conference.fxml"),
+  CONFERENCE_HISTORY("views/pages/history/ConferenceHistory.fxml"),
+  MOVE_TABLE("views/pages/history/MoveTable.fxml"),
+  FLOWER("views/pages/requests/FlowerRequest.fxml"),
+  FLOWER_HISTORY("views/pages/history/FlowerHistory.fxml"),
+  FURNITURE("views/pages/requests/FurnitureRequest.fxml"),
+  FURNITURE_HISTORY("views/pages/history/FurnitureHistory.fxml"),
+  OFFICE_SUPPLY("views/pages/requests/OfficeSupplyRequest.fxml"),
+  OFFICE_SUPPLY_HISTORY("views/pages/history/OfficeSupplyHistory.fxml"),
 
-  GIFT_BASKET("views/english/GiftBasketRequest.fxml"),
+  GIFT_BASKET("views/pages/requests/GiftBasketRequest.fxml"),
   // -------OTHER-------//
-  CONGRATS_PAGE("views/english/Congrats.fxml"),
-  HELP("views/english/Help.fxml"),
+  CONGRATS_PAGE("views/pages/Congrats.fxml"),
+  HELP("views/pages/Help.fxml"),
 
-  GUEST_HELP("views/english/Guest/GuestHelp.fxml"),
+  GUEST_HELP("views/pages/guest/GuestHelp.fxml"),
 
-  EXIT_PAGE("views/english/ExitPage.fxml"),
-  EMPLOYEETABLE_PAGE("views/english/EmployeeTable.fxml");
+  EXIT_PAGE("views/pages/ExitPage.fxml"),
+  EMPLOYEETABLE_PAGE("views/pages/EmployeeTable.fxml");
 
   private final String filename;
 

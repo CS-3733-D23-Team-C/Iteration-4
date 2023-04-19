@@ -890,11 +890,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 410, 225);
     scene
         .getStylesheets()
-        .add(
-            Main.class
-                .getResource("views/Stylesheets/MapEditorPopUps.css")
-                .openStream()
-                .toString());
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -995,11 +991,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 350, 330);
     scene
         .getStylesheets()
-        .add(
-            Main.class
-                .getResource("views/Stylesheets/MapEditorPopUps.css")
-                .openStream()
-                .toString());
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -1102,11 +1094,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 290, 290);
     scene
         .getStylesheets()
-        .add(
-            Main.class
-                .getResource("views/Stylesheets/MapEditorPopUps.css")
-                .openStream()
-                .toString());
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -1211,11 +1199,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 325, 260);
     scene
         .getStylesheets()
-        .add(
-            Main.class
-                .getResource("views/Stylesheets/MapEditorPopUps.css")
-                .openStream()
-                .toString());
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -1446,11 +1430,7 @@ public class EditMapController {
     // File((Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString()));
     scene
         .getStylesheets()
-        .add(
-            Main.class
-                .getResource("views/Stylesheets/MapEditorPopUps.css")
-                .openStream()
-                .toString());
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
 
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
@@ -1560,11 +1540,7 @@ public class EditMapController {
     Stage stage = new Stage();
     scene
         .getStylesheets()
-        .add(
-            Main.class
-                .getResource("views/Stylesheets/MapEditorPopUps.css")
-                .openStream()
-                .toString());
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
     stage.setScene(scene);
     stage.setTitle("Add Location Name Window");
     stage.setAlwaysOnTop(true);

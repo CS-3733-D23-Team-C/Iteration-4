@@ -2,6 +2,7 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.users.PatientUser;
 import java.sql.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,21 +24,23 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
 
       while (rs.next()) {
         // Get all the data from the table
-        int requestID = rs.getInt("requestID");
+        int requestID = rs.getInt("requestid");
         String requester = rs.getString("requester");
         String furnitureType = rs.getString("furnituretype");
         String additionalNotes = rs.getString("additionalNotes");
         String deliveryTime = rs.getString("eta");
         String deliveryLocation = rs.getString("roomname");
+        String assignedto = rs.getString("assignedto");
 
         FurnitureDeliveryRequest request =
             new FurnitureDeliveryRequest(
                 requestID,
-                new Requester(requestID, requester),
+                new PatientUser(requester),
                 deliveryLocation,
                 additionalNotes,
                 furnitureType,
                 deliveryTime);
+        request.setAssignedto(assignedto);
         returnList.add(request);
       }
     } catch (SQLException e) {
@@ -50,7 +53,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
     DBConnection db = new DBConnection();
     try {
       String query =
-          "INSERT INTO \"ServiceRequests\".\"furnitureDeliveryRequest\" (Requester, furnitureType, additionalNotes, roomName, status) VALUES (?,?,?,?,?)";
+          "INSERT INTO \"ServiceRequests\".\"furnitureDeliveryRequest\" (Requester, furnitureType, additionalNotes, roomName, status, assignedto) VALUES (?,?,?,?,?,?)";
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
@@ -59,12 +62,13 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
       ps.setString(3, orm.getAdditionalNotes());
       ps.setString(4, orm.getRoomName());
       ps.setString(5, orm.getStatus().toString());
+      ps.setString(6, orm.getAssignedto());
       ps.executeUpdate();
 
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
-      int requestID = rs.getInt("requestID");
-      orm.setRequestID(requestID);
+      int requestID = rs.getInt("requestid");
+      orm.requestID = (requestID);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -76,21 +80,23 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
     DBConnection db = new DBConnection();
     try {
       String query =
-          "UPDATE \"ServiceRequests\".\"furnitureDeliveryRequest\" SET Requester = ?, furnitureType = ?, additionalNotes = ?, ETA = ?, roomName = ? WHERE requestID = ?";
-      PreparedStatement ps = db.getConnection().prepareStatement(query);
+          "UPDATE \"ServiceRequests\".\"furnitureDeliveryRequest\" SET Requester = ?, furnitureType = ?, additionalNotes = ?, ETA = ?, roomName = ?, assignedto = ? WHERE requestid = ?";
+      PreparedStatement ps =
+          db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
       ps.setString(1, orm2.getRequester().toString());
       ps.setString(2, orm2.getFurnitureType());
       ps.setString(3, orm2.getAdditionalNotes());
       ps.setString(4, orm2.getEta());
-      ps.setString(5, orm2.getEta());
-      ps.setInt(6, orm.getRequestID());
+      ps.setString(5, orm2.getRoomName());
+      ps.setString(6, orm2.getAssignedto());
+      ps.setInt(7, orm.getRequestID());
       ps.executeUpdate();
 
       ResultSet rs = ps.getResultSet();
       rs.next();
-      int requestID = rs.getInt("requestID");
-      orm2.setRequestID(requestID);
+      int requestID = rs.getInt("requestid");
+      orm2.requestID = (requestID);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -101,7 +107,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
     DBConnection db = new DBConnection();
     try {
       String query =
-          "DELETE FROM \"ServiceRequests\".\"furnitureDeliveryRequest\" WHERE requestID = ?";
+          "DELETE FROM \"ServiceRequests\".\"furnitureDeliveryRequest\" WHERE requestid = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
 
       ps.setInt(1, orm.getRequestID());
@@ -118,26 +124,28 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
     try {
       DBConnection db = new DBConnection();
       String query =
-          "SELECT * FROM \"ServiceRequests\".\"furnitureDeliveryRequest\" WHERE requestID = ?";
+          "SELECT * FROM \"ServiceRequests\".\"furnitureDeliveryRequest\" WHERE requestid = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setInt(1, key);
       ResultSet rs = ps.executeQuery();
       rs.next();
-      int requestID = rs.getInt("requestID");
+      int requestID = rs.getInt("requestid");
       String requester = rs.getString("requester");
       String furnitureType = rs.getString("furnituretype");
       String additionalNotes = rs.getString("additionalNotes");
       String deliveryTime = rs.getString("eta");
       String deliveryLocation = rs.getString("roomname");
+      String assignedto = rs.getString("assignedto");
 
       request =
           new FurnitureDeliveryRequest(
               requestID,
-              new Requester(requestID, requester),
+              new PatientUser(requester),
               deliveryLocation,
               additionalNotes,
               furnitureType,
               deliveryTime);
+      request.setAssignedto(assignedto);
     } catch (SQLException e) {
       e.printStackTrace();
     }

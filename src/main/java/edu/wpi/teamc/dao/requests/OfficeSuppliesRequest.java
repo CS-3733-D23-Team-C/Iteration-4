@@ -1,26 +1,27 @@
 package edu.wpi.teamc.dao.requests;
 
+import edu.wpi.teamc.dao.users.IUser;
 import lombok.Getter;
 import lombok.Setter;
 
 public class OfficeSuppliesRequest extends AbsServiceRequest {
-  @Getter private String supplies;
-  @Getter private String quantity;
+  @Getter private String officesupplytype;
 
   @Getter @Setter private String eta;
 
   public OfficeSuppliesRequest(
-      int requestID,
-      Requester requester,
-      String roomName,
-      String supplies,
-      String additionalNotes,
-      String quantity) {
-    super(requestID, requester, roomName, additionalNotes);
-    this.supplies = supplies;
-    this.quantity = quantity;
+      IUser requester, String roomName, String officesupplytype, String additionalNotes) {
+    super(requester, roomName, additionalNotes);
+    this.officesupplytype = officesupplytype;
   }
 
-  @Override
-  void executeRequest() {}
+  OfficeSuppliesRequest(
+      int requestID,
+      IUser requester,
+      String roomname,
+      String officesupplytype,
+      String additionalnotes) {
+    super(requestID, requester, roomname, additionalnotes);
+    this.officesupplytype = officesupplytype;
+  }
 }

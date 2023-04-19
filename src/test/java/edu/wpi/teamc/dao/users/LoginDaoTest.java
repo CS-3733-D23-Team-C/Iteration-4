@@ -4,6 +4,8 @@ import static edu.wpi.teamc.dao.users.PERMISSIONS.ADMIN;
 import static edu.wpi.teamc.dao.users.PERMISSIONS.STAFF;
 
 import edu.wpi.teamc.dao.HospitalSystem;
+import edu.wpi.teamc.dao.users.login.Login;
+import edu.wpi.teamc.dao.users.login.LoginDao;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,14 +13,14 @@ public class LoginDaoTest {
 
   @Test
   public void testAddUser1() {
-    Login login = new Login("Aaron", "password", ADMIN);
+    Login login = new Login("jeff", "jeff", STAFF);
     Assertions.assertEquals(login, HospitalSystem.addRow(login));
   }
 
   @Test
   public void testAddUser2() {
     LoginDao loginDao = new LoginDao();
-    Login login = new Login("Randy", "password", ADMIN);
+    Login login = new Login("mark", "mark", STAFF);
     Assertions.assertEquals(login, HospitalSystem.addRow(login));
   }
 

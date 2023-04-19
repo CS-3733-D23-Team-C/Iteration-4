@@ -2,6 +2,7 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.users.PatientUser;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,15 +32,17 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
         String startTime = rs.getString("startTime");
         String endTime = rs.getString("endTime");
         STATUS status = STATUS.valueOf(rs.getString("status"));
+        String assignedto = rs.getString("assignedto");
         ConferenceRoomRequest request =
             new ConferenceRoomRequest(
                 requestID,
-                new Requester(requestID, requester),
+                new PatientUser(requester),
                 new ConferenceRoom(conferenceRoom, "", null),
                 additionalNotes,
                 startTime,
                 endTime);
         request.setStatus(status);
+        request.setAssignedto(assignedto);
         returnList.add(request);
       }
     } catch (SQLException e) {
@@ -52,7 +55,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
     DBConnection db = new DBConnection();
     try {
       String query =
-          "INSERT INTO \"ServiceRequests\".\"conferenceRoomRequest\" (Requester, roomName, status, startTime, endTime, additionalNotes) VALUES (?,?,?,?,?,?)";
+          "INSERT INTO \"ServiceRequests\".\"conferenceRoomRequest\" (Requester, roomName, status, startTime, endTime, additionalNotes, assignedto) VALUES (?,?,?,?,?,?,?)";
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
@@ -61,13 +64,14 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
       ps.setString(3, orm.getStatus().toString());
       ps.setString(4, orm.getStartTime());
       ps.setString(5, orm.getEndTime());
-      ps.setString(6, orm.getAdditionalNotes());
+      ps.setString(6, orm.getAssignedto());
+      ps.setString(7, orm.getAdditionalNotes());
       ps.executeUpdate();
 
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
       int requestID = rs.getInt("requestID");
-      orm.setRequestID(requestID);
+      orm.requestID = requestID;
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -89,7 +93,8 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
               + "roomName = ?, "
               + "additionalNotes = ?, "
               + "startTime = ?, "
-              + "endTime = ? "
+              + "endTime = ?, "
+              + "assignedto = ? "
               + "WHERE requestID = ?";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
@@ -98,7 +103,8 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
       ps.setString(3, repl.getAdditionalNotes());
       ps.setString(4, repl.getStartTime());
       ps.setString(5, repl.getEndTime());
-      ps.setInt(6, orm.getRequestID());
+      ps.setString(6, repl.getAssignedto());
+      ps.setInt(7, orm.getRequestID());
 
       ps.execute();
     } catch (Exception e) {
@@ -147,15 +153,17 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
         String startTime = rs.getString("startTime");
         String endTime = rs.getString("endTime");
         STATUS status = STATUS.valueOf(rs.getString("status"));
+        String assignedto = rs.getString("assignedto");
         request =
             new ConferenceRoomRequest(
                 requestID,
-                new Requester(requestID, requester),
+                new PatientUser(requester),
                 new ConferenceRoom(conferenceRoom, "", null),
                 additionalNotes,
                 startTime,
                 endTime);
         request.setStatus(status);
+        request.setAssignedto(assignedto);
       }
     } catch (SQLException e) {
       e.printStackTrace();

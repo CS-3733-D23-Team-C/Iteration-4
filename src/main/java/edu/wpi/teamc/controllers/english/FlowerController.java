@@ -1,10 +1,19 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.CApp;
+import edu.wpi.teamc.Main;
+import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.map.LocationName;
 import edu.wpi.teamc.dao.requests.*;
+import edu.wpi.teamc.dao.users.EmployeeUser;
+import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.IOException;
+import java.util.List;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
@@ -16,6 +25,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import org.controlsfx.control.SearchableComboBox;
 
 public class FlowerController {
 
@@ -74,116 +84,137 @@ public class FlowerController {
   @FXML private MenuItem servicechoice2;
   @FXML private MenuItem servicechoice3;
   @FXML private MenuItem servicechoice4;
-  @FXML private MenuButton roomMenu;
+  @FXML private SearchableComboBox roomMenu;
   @FXML private MenuButton serviceMenu;
   @FXML private TextField nameBox;
   @FXML private TextArea specialRequest;
-  @FXML private MenuButton employeeName;
+  @FXML private SearchableComboBox employeeName;
   @FXML private ImageView image;
 
   // Special for Flower
   @FXML private TextArea giftCard;
+  @FXML AnchorPane assignEmployeeAnchor;
 
   public void getGoHome() {
     Navigation.navigate(Screen.ADMIN_HOME);
   }
 
   // These 4 choices(1-4) are for the room name
-  @FXML
-  void getChoice1() {
-    roomMenu.setText("Conference A1");
-  }
-
-  @FXML
-  void getChoice2() {
-    roomMenu.setText("Conference A2");
-  }
-
-  @FXML
-  void getChoice3() {
-    roomMenu.setText("Conference A3");
-  }
-
-  @FXML
-  void getChoice4() {
-    roomMenu.setText("Conference A4");
-  }
+  //  @FXML
+  //  void getChoice1() {
+  //    roomMenu.setText("Conference A1");
+  //  }
+  //
+  //  @FXML
+  //  void getChoice2() {
+  //    roomMenu.setText("Conference A2");
+  //  }
+  //
+  //  @FXML
+  //  void getChoice3() {
+  //    roomMenu.setText("Conference A3");
+  //  }
+  //
+  //  @FXML
+  //  void getChoice4() {
+  //    roomMenu.setText("Conference A4");
+  //  }
   // These 4 choices(5-8) are for the employee name
-  @FXML
-  void getChoice5() {
-    employeeName.setText(choice5.getText());
-  }
-
-  @FXML
-  void getChoice6() {
-    employeeName.setText(choice6.getText());
-  }
-
-  @FXML
-  void getChoice7() {
-    employeeName.setText(choice7.getText());
-  }
-
-  @FXML
-  void getChoice8() {
-    employeeName.setText(choice8.getText());
-  }
+  //  @FXML
+  //  void getChoice5() {
+  //    employeeName.setText(choice5.getText());
+  //  }
+  //
+  //  @FXML
+  //  void getChoice6() {
+  //    employeeName.setText(choice6.getText());
+  //  }
+  //
+  //  @FXML
+  //  void getChoice7() {
+  //    employeeName.setText(choice7.getText());
+  //  }
+  //
+  //  @FXML
+  //  void getChoice8() {
+  //    employeeName.setText(choice8.getText());
+  //  }
 
   @FXML
   void getServicechoice1() {
     serviceMenu.setText(servicechoice1.getText());
-    getImage(1);
+    try {
+      getImage(1);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getServicechoice2() {
     serviceMenu.setText(servicechoice2.getText());
-    getImage(2);
+    try {
+      getImage(2);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getServicechoice3() {
     serviceMenu.setText(servicechoice3.getText());
-    getImage(3);
+    try {
+      getImage(3);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getServicechoice4() {
     serviceMenu.setText(servicechoice4.getText());
-    getImage(4);
+    try {
+      getImage(4);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
-  void getImage(int choice) {
+  void getImage(int choice) throws IOException {
     switch (choice) {
       case 1:
         image.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Flower/roses.png"));
+            new Image(Main.class.getResource("views/Images/Flower/roses.png").openStream()));
         break;
       case 2:
         image.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Flower/lilies.png"));
+            new Image(Main.class.getResource("views/Images/Flower/lilies.png").openStream()));
         break;
       case 3:
         image.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Flower/daisies.png"));
+            new Image(Main.class.getResource("views/Images/Flower/daisies.png").openStream()));
         break;
       case 4:
         image.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Flower/sunflowers.png"));
+            new Image(Main.class.getResource("views/Images/Flower/sunflowers.png").openStream()));
         break;
     }
   }
 
   @FXML
   void getSubmit() {
+
     String notes = "Gift Card Message:" + giftCard.getText() + specialRequest.getText();
     String name = nameBox.getText();
-    String room = roomMenu.getText();
+    String room = roomMenu.getValue().toString();
     String menuSelection = serviceMenu.getText();
     FlowerDeliveryRequest req =
-        new FlowerDeliveryRequest(0, new Requester(0, name), room, menuSelection, notes);
+        new FlowerDeliveryRequest(new PatientUser(name), room, menuSelection, notes);
     IDao<FlowerDeliveryRequest, Integer> dao = new FlowerDeliveryRequestDAO();
+    if (!(employeeName.getValue().toString() == null)) {
+      req.setAssignedto(employeeName.getValue().toString());
+    }
     dao.addRow(req);
     Navigation.navigate(Screen.CONGRATS_PAGE);
   }
@@ -235,7 +266,20 @@ public class FlowerController {
 
   /** Method run when controller is initialized */
   @FXML
-  public void initialize() {}
+  public void initialize() {
+    if (!CApp.getAdminLoginCheck()) {
+      assignEmployeeAnchor.setMouseTransparent(true);
+      assignEmployeeAnchor.setOpacity(0);
+    }
+
+    List<LocationName> locationNames =
+        (List<LocationName>) HospitalSystem.fetchAllObjects(new LocationName());
+    roomMenu.setItems(FXCollections.observableArrayList(locationNames));
+
+    List<EmployeeUser> employeeUsers =
+        (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
+    employeeName.setItems(FXCollections.observableArrayList(employeeUsers));
+  }
 
   @FXML
   void getEditMap(KeyEvent event) {

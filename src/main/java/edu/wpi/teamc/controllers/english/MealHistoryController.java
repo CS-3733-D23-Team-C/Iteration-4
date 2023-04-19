@@ -1,6 +1,7 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.dao.requests.*;
+import edu.wpi.teamc.dao.users.IUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -28,11 +29,12 @@ public class MealHistoryController {
   @FXML private TextField inputBox;
   @FXML private FilteredTableView<MealRequest> historyTable;
   @FXML TableColumn<MealRequest, Integer> ColumnOne;
-  @FXML TableColumn<MealRequest, Requester> ColumnTwo;
+  @FXML TableColumn<MealRequest, IUser> ColumnTwo;
   @FXML TableColumn<MealRequest, STATUS> ColumnThree;
   @FXML TableColumn<MealRequest, String> ColumnFour;
   @FXML TableColumn<MealRequest, Meal> ColumnFive;
   @FXML TableColumn<MealRequest, String> ColumnSix;
+  @FXML TableColumn<MealRequest, String> ColumnSeven;
 
   ObservableList<MealRequest> rows = FXCollections.observableArrayList();
 
@@ -41,18 +43,20 @@ public class MealHistoryController {
   /** Method run when controller is initialized */
   public void initialize() {
     ColumnOne.setCellValueFactory(new PropertyValueFactory<MealRequest, Integer>("requestID"));
-    ColumnTwo.setCellValueFactory(new PropertyValueFactory<MealRequest, Requester>("requester"));
+    ColumnTwo.setCellValueFactory(new PropertyValueFactory<MealRequest, IUser>("requester"));
     ColumnThree.setCellValueFactory(new PropertyValueFactory<MealRequest, STATUS>("status"));
     ColumnFour.setCellValueFactory(
         new PropertyValueFactory<MealRequest, String>("additionalNotes"));
     ColumnFive.setCellValueFactory(new PropertyValueFactory<MealRequest, Meal>("meal"));
     ColumnSix.setCellValueFactory(new PropertyValueFactory<MealRequest, String>("eta"));
+    ColumnSeven.setCellValueFactory(new PropertyValueFactory<MealRequest, String>("assignedto"));
     ColumnOne.setText("requestID");
     ColumnTwo.setText("Requester");
     ColumnThree.setText("Status");
     ColumnFour.setText("Additional Notes");
     ColumnFive.setText("Meal");
     ColumnSix.setText("ETA");
+    ColumnSeven.setText("Assigned To");
     //    ColumnOne.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     //    ColumnTwo.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     //    ColumnThree.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());

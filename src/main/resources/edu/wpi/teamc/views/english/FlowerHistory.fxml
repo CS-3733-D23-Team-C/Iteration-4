@@ -24,6 +24,7 @@
                               <TableColumn fx:id="ColumnFive" prefWidth="171" text="" />
                               <TableColumn fx:id="ColumnSix" prefWidth="171" text="" />
                               <TableColumn fx:id="ColumnSeven" prefWidth="171" text="" />
+                              <TableColumn fx:id="ColumnEight" prefWidth="171" text="" />
                            </columns>
                         </FilteredTableView>
                      </children>
@@ -48,7 +49,7 @@
          </children>
       </AnchorPane>
       <VBox prefHeight="200.0" prefWidth="70.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <fx:include fx:id="adminMenu" source="Menu.fxml" />
+         <fx:include fx:id="adminMenu" source="components/Menu.fxml" />
       </VBox>
    </children>
 </AnchorPane>

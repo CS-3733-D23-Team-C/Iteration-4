@@ -7,6 +7,7 @@ import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.enums.ButtonType;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -52,7 +53,7 @@ public class EditMapController {
   double mouseX;
   double mouseY;
   public Image image =
-      new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
+      new Image(Main.class.getResource("views/Images/FirstFloor.png").openStream());
 
   /*
   Notes:
@@ -70,6 +71,8 @@ public class EditMapController {
 
   /** */
   @FXML MFXButton backButton;
+
+  public EditMapController() throws IOException {}
 
   /** Method run when controller is initialized */
   @FXML
@@ -116,6 +119,7 @@ public class EditMapController {
 
   private String filePath;
   @FXML private Label testText;
+  @FXML Text edgeMadeText;
 
   NodeDao InodeDao = new NodeDao();
   EdgeDao IedgeDao = new EdgeDao();
@@ -215,7 +219,7 @@ public class EditMapController {
   /** Method run when controller is initialized */
   public void initialize() {
 
-    Image image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
+    Image image = this.image;
     imageView = new ImageView(image); // was ImageView imageView
     imageView.relocate(0, 0);
     group.getChildren().add(imageView);
@@ -232,9 +236,9 @@ public class EditMapController {
     mapMode = HandleMapModes.SELECT;
     checkAndX_HBox.setMouseTransparent(true);
     checkAndX_HBox1.setMouseTransparent(true);
-    selectButton.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    selectButton.setBackground(Background.fill(Paint.valueOf("#EAB334")));
     modeResetterHelper.setButton(selectButton);
-    FL1.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    FL1.setBackground(Background.fill(Paint.valueOf("#EAB334")));
     floorResetterHelper.setButton(FL1);
     //    group.getChildren().add(stackPane);
 
@@ -251,21 +255,40 @@ public class EditMapController {
           if ((Objects.equals(mapMode.getMapMode(), "Add")) && !lockMap && !nodeClicked) {
             lockMap = true;
             //            System.out.println(lockMap);
-            addNodeByMouseLoc((int) mouseX, (int) mouseY);
+            try {
+              addNodeByMouseLoc((int) mouseX, (int) mouseY);
+            } catch (IOException ex) {
+              throw new RuntimeException(ex);
+            }
           } // bring up node add popup
+          if (Objects.equals(mapMode.getMapMode(), "Select")) {
+            // do Nothing
+          }
 
           if (nodeClicked && !lockMap) {
             if (Objects.equals(mapMode.getMapMode(), "Add")) { // to add a location name to a node
               lockMap = true;
-              addMenu();
+              try {
+                addMenu();
+              } catch (IOException ex) {
+                throw new RuntimeException(ex);
+              }
             } // bring up location name add popup
             else if (Objects.equals(mapMode.getMapMode(), "Modify")) {
               lockMap = true;
-              modifyMenu();
+              try {
+                modifyMenu();
+              } catch (IOException ex) {
+                throw new RuntimeException(ex);
+              }
             } // bring up modify popup
             else if (Objects.equals(mapMode.getMapMode(), "Remove")) {
               lockMap = true;
-              removeMenu();
+              try {
+                removeMenu();
+              } catch (IOException ex) {
+                throw new RuntimeException(ex);
+              }
             } // bring up remove popup
             else if (Objects.equals(mapMode.getMapMode(), "Move")) {
               lockMap = true;
@@ -273,6 +296,7 @@ public class EditMapController {
             } else if (Objects.equals(mapMode.getMapMode(), "Make_edges")) {
               lockMap = true;
               createEdgesForNodes();
+              edgeMadeText.setVisible(true);
             }
           }
         });
@@ -308,7 +332,7 @@ public class EditMapController {
     if (nodeClicked && (edgesHelper.getNodesClicked() == 0)) {
       System.out.println("first node");
       edgesHelper.setNode(currNodeClicked);
-      currCircleClicked.setFill(Paint.valueOf("#32CD32"));
+      currCircleClicked.setFill(Paint.valueOf("#EAB334"));
       edgesHelper.setCircle(currCircleClicked);
       edgesHelper.setNodesClicked(1);
       //      System.out.println()
@@ -317,7 +341,7 @@ public class EditMapController {
       lockMap = false;
     }
     if (nodeClicked && (edgesHelper.getNodesClicked() == 1)) {
-      currCircleClicked.setFill(Paint.valueOf("#32CD32"));
+      currCircleClicked.setFill(Paint.valueOf("#EAB334"));
       System.out.println("second node");
       //      secondNode = currNodeClicked;
       //      secondCircle = currCircleClicked;
@@ -333,6 +357,8 @@ public class EditMapController {
       lockMap = false;
       currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
       edgesHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
+      edgeMadeText.setText(
+          "New Edge: " + edgesHelper.getNode().getNodeID() + " to " + currNodeClicked.getNodeID());
     }
   }
 
@@ -474,52 +500,63 @@ public class EditMapController {
   public void changeMapMode(ActionEvent event) {
     if (!dragModeOn) {
       modeButton = (MFXButton) event.getTarget();
-      if (Objects.equals(modeButton.getId(), "Select")) {
+      if (Objects.equals(modeButton.getId(), "selectButton")) {
         mapMode = HandleMapModes.SELECT;
         resetAndSetModes(modeButton);
+        System.out.println("select mode");
+        edgeMadeText.setText("");
+        edgeMadeText.setVisible(false);
       } else if (Objects.equals(modeButton.getId(), "Add")) {
         mapMode = HandleMapModes.ADD;
         resetAndSetModes(modeButton);
+        edgeMadeText.setText("");
+        edgeMadeText.setVisible(false);
       } else if (Objects.equals(modeButton.getId(), "Modify")) {
         mapMode = HandleMapModes.MODIFY;
         resetAndSetModes(modeButton);
+        edgeMadeText.setText("");
+        edgeMadeText.setVisible(false);
       } else if (Objects.equals(modeButton.getId(), "Remove")) {
         mapMode = HandleMapModes.REMOVE;
         resetAndSetModes(modeButton);
-        System.out.println("Removing");
+        edgeMadeText.setText("");
+        edgeMadeText.setVisible(false);
+        //        System.out.println("Removing");
       } else if (Objects.equals(modeButton.getId(), "Move")) {
         mapMode = HandleMapModes.MOVE;
         resetAndSetModes(modeButton);
-        System.out.println("Moving");
+        edgeMadeText.setText("");
+        edgeMadeText.setVisible(false);
+        //        System.out.println("Moving");
       } else if (Objects.equals(modeButton.getId(), "Edges")) {
         mapMode = HandleMapModes.MAKE_EDGES;
         resetAndSetModes(modeButton);
-        System.out.println("Making Edges");
+        //        System.out.println("Making Edges");
       }
     }
   }
 
-  public void changeFloor(ActionEvent event) {
+  public void changeFloor(ActionEvent event) throws IOException {
     floorButton = (MFXButton) event.getTarget();
 
     if (Objects.equals(floorButton.getId(), "FL1")) {
-      image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
+      image = new Image(Main.class.getResource("views/Images/FirstFloor.png").openStream());
       floor = "1";
       resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FL2")) {
-      image = new Image(Main.class.getResource("./views/Images/SecondFloor.png").toString());
+      image = new Image(Main.class.getResource("views/Images/SecondFloor.png").openStream());
       floor = "2";
       resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FL3")) {
-      image = new Image(Main.class.getResource("./views/Images/ThirdFloor.png").toString());
+      image = new Image(Main.class.getResource("views/Images/ThirdFloor.png").openStream());
       floor = "3";
       resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FLB1")) {
-      image = new Image(Main.class.getResource("./views/Images/B1.png").toString());
+      image = new Image(Main.class.getResource("views/Images/B1.png").openStream());
       floor = "L1";
       resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FLB2")) {
-      image = new Image(Main.class.getResource("./views/Images/B2.png").toString());
+      image = new Image(Main.class.getResource("views/Images/B2.png").openStream());
       floor = "L2";
       resetAndSetFloorIndicators(floorButton);
     }
@@ -723,7 +760,9 @@ public class EditMapController {
     newCircle.setOnMouseExited(
         e -> {
           //          if (!(Objects.equals(mapMode.getMapMode(), "Modify_drag"))) {
-          newCircle.setStroke(Paint.valueOf("#13DAF7"));
+          if (!nodeClicked) {
+            newCircle.setStroke(Paint.valueOf("#13DAF7"));
+          }
           //          } else if (!(Objects.equals(node.getNodeID(), mapModeSaver.getNodeID()))) {
           //            newCircle.setStroke(Paint.valueOf("13DAF7"));
           //          }
@@ -783,30 +822,36 @@ public class EditMapController {
   }
 
   public void resetAndSetCircle(Circle circle) {
-    circle.setFill(Paint.valueOf("#32CD32"));
+    circle.setFill(Paint.valueOf("#EAB334"));
     nodeResetterHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
+    nodeResetterHelper.getCircle().setStroke(Paint.valueOf("#13DAF7"));
     nodeResetterHelper.setCircle(circle);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;
   }
 
   public void resetAndSetModes(MFXButton button) {
-    button.setBackground(Background.fill(Paint.valueOf("32CD32")));
-    modeResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#bebebe")));
+    button.setBackground(Background.fill(Paint.valueOf("#EAB334")));
+    modeResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
+    modeResetterHelper.getButton().setRippleAnimateBackground(true);
+    //    modeResetterHelper.getButton().setDepthLevel(DepthLevel.LEVEL4);
+    modeResetterHelper.getButton().setButtonType(ButtonType.RAISED);
     modeResetterHelper.setButton(button);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;
   }
 
   public void resetAndSetFloorIndicators(MFXButton button) {
-    button.setBackground(Background.fill(Paint.valueOf("32CD32")));
-    floorResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#bebebe")));
+    button.setBackground(Background.fill(Paint.valueOf("#EAB334")));
+    floorResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
+    floorResetterHelper.getButton().setRippleAnimateBackground(true);
+    floorResetterHelper.getButton().setButtonType(ButtonType.RAISED);
     floorResetterHelper.setButton(button);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;
   }
 
-  public void addNodeByMouseLoc(int x, int y) {
+  public void addNodeByMouseLoc(int x, int y) throws IOException {
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
@@ -845,7 +890,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 410, 225);
     scene
         .getStylesheets()
-        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -894,7 +939,7 @@ public class EditMapController {
         });
   }
 
-  public void modifyMenu() {
+  public void modifyMenu() throws IOException {
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
@@ -946,7 +991,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 350, 330);
     scene
         .getStylesheets()
-        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -964,7 +1009,11 @@ public class EditMapController {
     byText.setOnMouseClicked(
         event -> {
           stage.close();
-          modifyNodeByInput();
+          try {
+            modifyNodeByInput();
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
         });
     byDrag.setOnMouseClicked(
         event -> {
@@ -981,11 +1030,15 @@ public class EditMapController {
     editName.setOnMouseClicked(
         event -> {
           stage.close();
-          modifyName();
+          try {
+            modifyName();
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
         });
   }
 
-  public void modifyNodeByInput() {
+  public void modifyNodeByInput() throws IOException {
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
@@ -1041,7 +1094,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 290, 290);
     scene
         .getStylesheets()
-        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -1104,7 +1157,8 @@ public class EditMapController {
         });
   }
 
-  public void removeMenu() { // make this a pop up window instead of a whole new scene?
+  public void removeMenu()
+      throws IOException { // make this a pop up window instead of a whole new scene?
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
@@ -1145,7 +1199,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 325, 260);
     scene
         .getStylesheets()
-        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -1288,7 +1342,8 @@ public class EditMapController {
         });
   }
 
-  public void addMenu() { // make this a pop up window instead of a whole new scene?
+  public void addMenu()
+      throws IOException { // make this a pop up window instead of a whole new scene?
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
@@ -1375,7 +1430,7 @@ public class EditMapController {
     // File((Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString()));
     scene
         .getStylesheets()
-        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
 
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
@@ -1419,7 +1474,8 @@ public class EditMapController {
         });
   }
 
-  public void modifyName() { // make this a pop up window instead of a whole new scene?
+  public void modifyName()
+      throws IOException { // make this a pop up window instead of a whole new scene?
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
@@ -1484,7 +1540,7 @@ public class EditMapController {
     Stage stage = new Stage();
     scene
         .getStylesheets()
-        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
     stage.setScene(scene);
     stage.setTitle("Add Location Name Window");
     stage.setAlwaysOnTop(true);
@@ -2433,21 +2489,6 @@ public class EditMapController {
   void getMapHistory(ActionEvent event) {
     Navigation.navigate(Screen.MAP_HISTORY_PAGE);
   }
-
-  //  @FXML
-  //  void getMapPage(ActionEvent event) {
-  //    Navigation.navigate(Screen.);
-  //  }
-  /////////////////////////////////////////////
-  //  @FXML
-  //  void getMapPage(ActionEvent event) {
-  //    Navigation.navigate(Screen.FLOOR_PLAN);
-  //  }
-  //
-  //  @FXML
-  //  void getPathfindingPage(ActionEvent event) {
-  //    Navigation.navigate(Screen.PATHFINDING_PAGE);
-  //  }
 
   @FXML
   void getHelpage(ActionEvent event) {

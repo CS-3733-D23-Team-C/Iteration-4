@@ -1,15 +1,26 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.CApp;
+import edu.wpi.teamc.Main;
+import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.map.LocationName;
 import edu.wpi.teamc.dao.requests.*;
+import edu.wpi.teamc.dao.users.EmployeeUser;
+import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.IOException;
+import java.util.List;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import org.controlsfx.control.SearchableComboBox;
 
 public class MealController {
   @FXML private MFXButton goHome;
@@ -32,7 +43,7 @@ public class MealController {
 
   @FXML private MenuItem choice8;
 
-  @FXML private MenuButton roomMenu;
+  @FXML private SearchableComboBox roomMenu;
   // Meal Menu
   @FXML private MenuButton serviceMenu;
   @FXML private MenuItem servicechoice1;
@@ -42,7 +53,7 @@ public class MealController {
 
   @FXML private TextField nameBox;
   @FXML private TextArea specialRequest;
-  @FXML private MenuButton employeeName;
+  @FXML private SearchableComboBox employeeName;
 
   // Special for Meal
   // Drink Menu
@@ -56,6 +67,7 @@ public class MealController {
   @FXML private ImageView mealImage;
   @FXML private TextArea ingredients;
   @FXML private TextArea allergyInfo;
+  @FXML AnchorPane assignEmployeeAnchor;
 
   @FXML
   void getGoHome(ActionEvent event) {
@@ -68,70 +80,86 @@ public class MealController {
   //  }
 
   // These 4 choices(1-4) are for the conference room
-  @FXML
-  void getChoice1() {
-    roomMenu.setText("Conference A1");
-  }
-
-  @FXML
-  void getChoice2() {
-    roomMenu.setText("Conference A2");
-  }
-
-  @FXML
-  void getChoice3() {
-    roomMenu.setText("Conference A3");
-  }
-
-  @FXML
-  void getChoice4() {
-    roomMenu.setText("Conference A4");
-  }
-
-  // These 4 choices(5-8) are for the employee name
-  @FXML
-  void getChoice5() {
-    employeeName.setText(choice5.getText());
-  }
-
-  @FXML
-  void getChoice6() {
-    employeeName.setText(choice6.getText());
-  }
-
-  @FXML
-  void getChoice7() {
-    employeeName.setText(choice7.getText());
-  }
-
-  @FXML
-  void getChoice8() {
-    employeeName.setText(choice8.getText());
-  }
+  //  @FXML
+  //  void getChoice1() {
+  //    roomMenu.setText("Conference A1");
+  //  }
+  //
+  //  @FXML
+  //  void getChoice2() {
+  //    roomMenu.setText("Conference A2");
+  //  }
+  //
+  //  @FXML
+  //  void getChoice3() {
+  //    roomMenu.setText("Conference A3");
+  //  }
+  //
+  //  @FXML
+  //  void getChoice4() {
+  //    roomMenu.setText("Conference A4");
+  //  }
+  //
+  //  // These 4 choices(5-8) are for the employee name
+  //  @FXML
+  //  void getChoice5() {
+  //    employeeName.setText(choice5.getText());
+  //  }
+  //
+  //  @FXML
+  //  void getChoice6() {
+  //    employeeName.setText(choice6.getText());
+  //  }
+  //
+  //  @FXML
+  //  void getChoice7() {
+  //    employeeName.setText(choice7.getText());
+  //  }
+  //
+  //  @FXML
+  //  void getChoice8() {
+  //    employeeName.setText(choice8.getText());
+  //  }
 
   // These 4 choices(1-4) are for the meal menu
   @FXML
   void getServicechoice1() {
     serviceMenu.setText(servicechoice1.getText());
-    getMealInfo(1);
+    try {
+      getMealInfo(1);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getServicechoice2() {
     serviceMenu.setText(servicechoice2.getText());
-    getMealInfo(2);
+    try {
+      getMealInfo(2);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getServicechoice3() {
     serviceMenu.setText(servicechoice3.getText());
-    getMealInfo(3);
+    try {
+      getMealInfo(3);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getServicechoice4() {
     serviceMenu.setText(servicechoice4.getText());
-    getMealInfo(4);
+    try {
+      getMealInfo(4);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   // These 4 choices(1-4) are for the drink menu
@@ -156,29 +184,29 @@ public class MealController {
   }
 
   @FXML
-  void getMealInfo(int mealChoice) {
+  void getMealInfo(int mealChoice) throws IOException {
     switch (mealChoice) {
       case 1:
         mealImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Meal/spaghetti.png"));
+            new Image(Main.class.getResource("views/Images/Meal/spaghetti.png").openStream()));
         ingredients.setText("Ground Beef, Spaghetti, Tomato Sauce, Cheese");
         allergyInfo.setText("Contains: Milk, Wheat");
         break;
       case 2:
         mealImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Meal/garlic_steak.png"));
+            new Image(Main.class.getResource("views/Images/Meal/garlic_steak.png").openStream()));
         ingredients.setText("Beef, Garlic, Butter");
         allergyInfo.setText("Contains: Milk");
         break;
       case 3:
         mealImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Meal/grill_chicken.png"));
+            new Image(Main.class.getResource("views/Images/Meal/grill_chicken.png").openStream()));
         ingredients.setText("Chicken, Broccoli, Honey, Soy Sauce");
         allergyInfo.setText("Contains: Soy, Honey");
         break;
       case 4:
         mealImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Meal/fried_rice.png"));
+            new Image(Main.class.getResource("views/Images/Meal/fried_rice.png").openStream()));
         ingredients.setText("Chicken, Rice, Egg, Soy Sauce");
         allergyInfo.setText("Contains: Egg, Soy");
         break;
@@ -193,13 +221,16 @@ public class MealController {
   @FXML
   void getSubmit(ActionEvent event) {
     String name = nameBox.getText();
-    String room = roomMenu.getText();
+    String room = roomMenu.getValue().toString();
     String notes = specialRequest.getText();
     Meal meal = new Meal(serviceMenu.getText(), "");
-    MealRequest req = new MealRequest(0, new Requester(0, name), room, notes, meal);
+    MealRequest req = new MealRequest(new PatientUser(name), room, notes, meal);
 
     IDao<MealRequest, Integer> dao = new MealRequestDAO();
 
+    if (!(employeeName.getValue().toString() == null)) {
+      req.setAssignedto(employeeName.getValue().toString());
+    }
     dao.addRow(req);
 
     Navigation.navigate(Screen.CONGRATS_PAGE);
@@ -266,6 +297,18 @@ public class MealController {
   /** Method run when controller is initialized */
   @FXML
   public void initialize() {
+    List<LocationName> locationNames =
+        (List<LocationName>) HospitalSystem.fetchAllObjects(new LocationName());
+    roomMenu.setItems(FXCollections.observableArrayList(locationNames));
+
+    List<EmployeeUser> employeeUsers =
+        (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
+    employeeName.setItems(FXCollections.observableArrayList(employeeUsers));
+
+    if (!CApp.getAdminLoginCheck()) {
+      assignEmployeeAnchor.setMouseTransparent(true);
+      assignEmployeeAnchor.setOpacity(0);
+    }
     ingredients.setWrapText(true);
     allergyInfo.setWrapText(true);
   }

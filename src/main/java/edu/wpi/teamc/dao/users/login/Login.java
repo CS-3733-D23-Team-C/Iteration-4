@@ -1,6 +1,7 @@
-package edu.wpi.teamc.dao.users;
+package edu.wpi.teamc.dao.users.login;
 
 import edu.wpi.teamc.dao.IOrm;
+import edu.wpi.teamc.dao.users.PERMISSIONS;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -13,6 +14,8 @@ public class Login implements IOrm {
   private String hashedPassword;
   private PERMISSIONS permissions;
 
+  public Login() {}
+
   public Login(String username, String password, PERMISSIONS permissions) {
     this.username = username.toLowerCase();
     this.permissions = permissions;
@@ -21,7 +24,7 @@ public class Login implements IOrm {
   }
 
   // only database should use this constructor
-  protected Login(String username, String password, PERMISSIONS permissions, String salt) {
+  Login(String username, String password, PERMISSIONS permissions, String salt) {
     this.username = username.toLowerCase();
     this.permissions = permissions;
     this.salt = salt;

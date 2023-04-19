@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.requests;
 
+import edu.wpi.teamc.dao.users.IUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +13,9 @@ public class ConferenceRoomRequest extends AbsServiceRequest {
 
   private ConferenceRoom conferenceRoom;
 
-  public ConferenceRoomRequest(
+  ConferenceRoomRequest(
       int requestID,
-      Requester requester,
+      IUser requester,
       ConferenceRoom conferenceRoom,
       String note,
       String startTime,
@@ -25,9 +26,9 @@ public class ConferenceRoomRequest extends AbsServiceRequest {
     this.endTime = endTime;
   }
 
-  public ConferenceRoomRequest(
+  ConferenceRoomRequest(
       int requestID,
-      Requester requester,
+      IUser requester,
       ConferenceRoom conferenceRoom,
       String note,
       String startTime,
@@ -40,6 +41,45 @@ public class ConferenceRoomRequest extends AbsServiceRequest {
     this.status = status;
   }
 
-  @Override
-  void executeRequest() {}
+  public ConferenceRoomRequest(
+      IUser requester,
+      ConferenceRoom conferenceRoom,
+      String note,
+      String startTime,
+      String endTime) {
+    super(requester, conferenceRoom.toString(), note);
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.conferenceRoom = conferenceRoom;
+  }
+
+  public ConferenceRoomRequest(
+      IUser requester,
+      ConferenceRoom conferenceRoom,
+      String note,
+      String startTime,
+      String endTime,
+      STATUS status) {
+    super(requester, conferenceRoom.toString(), note);
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.conferenceRoom = conferenceRoom;
+    this.status = status;
+  }
+
+  public ConferenceRoomRequest() {
+    super();
+  }
+
+  //  public ConferenceRoomRequest(int requestID, PatientUser requester, ConferenceRoom
+  // conferenceRoom, String additionalNotes, String startTime, String endTime, String assignedto) {
+  //    super(assignedto);
+  //    this.requestID = requestID;
+  //    this.requester = requester;
+  //    this.conferenceRoom = conferenceRoom;
+  //    this.additionalNotes = additionalNotes;
+  //    this.startTime = startTime;
+  //    this.endTime = endTime;
+  //
+  //  }
 }

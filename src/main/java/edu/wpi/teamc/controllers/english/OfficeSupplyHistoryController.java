@@ -1,6 +1,7 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.dao.requests.*;
+import edu.wpi.teamc.dao.users.IUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -28,12 +29,13 @@ public class OfficeSupplyHistoryController {
   @FXML private TextField inputBox;
   @FXML private FilteredTableView<OfficeSuppliesRequest> historyTable;
   @FXML TableColumn<OfficeSuppliesRequest, Integer> ColumnOne;
-  @FXML TableColumn<OfficeSuppliesRequest, Requester> ColumnTwo;
+  @FXML TableColumn<OfficeSuppliesRequest, IUser> ColumnTwo;
   @FXML TableColumn<OfficeSuppliesRequest, String> ColumnThree;
   @FXML TableColumn<OfficeSuppliesRequest, String> ColumnFour;
   @FXML TableColumn<OfficeSuppliesRequest, String> ColumnFive;
   @FXML TableColumn<OfficeSuppliesRequest, STATUS> ColumnSix;
   @FXML TableColumn<OfficeSuppliesRequest, String> ColumnSeven;
+  @FXML TableColumn<OfficeSuppliesRequest, String> ColumnEight;
 
   ObservableList<OfficeSuppliesRequest> rows = FXCollections.observableArrayList();
 
@@ -44,16 +46,18 @@ public class OfficeSupplyHistoryController {
     ColumnOne.setCellValueFactory(
         new PropertyValueFactory<OfficeSuppliesRequest, Integer>("requestID"));
     ColumnTwo.setCellValueFactory(
-        new PropertyValueFactory<OfficeSuppliesRequest, Requester>("requester"));
+        new PropertyValueFactory<OfficeSuppliesRequest, IUser>("requester"));
     ColumnThree.setCellValueFactory(
         new PropertyValueFactory<OfficeSuppliesRequest, String>("roomName"));
     ColumnFour.setCellValueFactory(
-        new PropertyValueFactory<OfficeSuppliesRequest, String>("supplies"));
+        new PropertyValueFactory<OfficeSuppliesRequest, String>("officesupplytype"));
     ColumnFive.setCellValueFactory(
         new PropertyValueFactory<OfficeSuppliesRequest, String>("additionalNotes"));
     ColumnSix.setCellValueFactory(
         new PropertyValueFactory<OfficeSuppliesRequest, STATUS>("status"));
     ColumnSeven.setCellValueFactory(new PropertyValueFactory<OfficeSuppliesRequest, String>("eta"));
+    ColumnEight.setCellValueFactory(
+        new PropertyValueFactory<OfficeSuppliesRequest, String>("assignedto"));
     ColumnOne.setText("requestID");
     ColumnTwo.setText("Requester");
     ColumnThree.setText("Room Name");
@@ -61,6 +65,7 @@ public class OfficeSupplyHistoryController {
     ColumnFive.setText("Additional Notes");
     ColumnSix.setText("Status");
     ColumnSeven.setText("ETA");
+    ColumnEight.setText("Assigned To");
     //    ColumnOne.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     //    ColumnTwo.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     //    ColumnThree.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());

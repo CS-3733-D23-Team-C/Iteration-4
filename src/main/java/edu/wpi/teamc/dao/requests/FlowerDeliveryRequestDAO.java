@@ -2,6 +2,8 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.users.IUser;
+import edu.wpi.teamc.dao.users.PatientUser;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,16 +27,18 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
 
       while (rs.next()) {
         int requestID = rs.getInt("requestID");
-        Requester req = new Requester(0, rs.getString("Requester"));
+        PatientUser req = new PatientUser(rs.getString("Requester"));
         String roomName = rs.getString("roomName");
         String flower = rs.getString("flower");
         STATUS status = STATUS.valueOf(rs.getString("status"));
         String additionalNotes = rs.getString("additionalNotes");
         String eta = rs.getString("ETA");
+        String assignedto = rs.getString("assignedto");
         FlowerDeliveryRequest fdr =
             new FlowerDeliveryRequest(requestID, req, roomName, flower, additionalNotes);
         fdr.setStatus(status);
         fdr.setEta(eta);
+        fdr.setAssignedto(assignedto);
         returnList.add(fdr);
       }
     } catch (Exception e) {
@@ -56,7 +60,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       String query =
           "UPDATE "
               + table
-              + " SET req=?, roomName=?, \"flower\"=?, additionalNotes=?, status =?, eta=? WHERE requestID=?;";
+              + " SET req=?, roomName=?, \"flower\"=?, additionalNotes=?, status =?, eta=?, assignedto=? WHERE requestID=?;";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
 
@@ -66,8 +70,8 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       ps.setString(4, repl.getAdditionalNotes());
       ps.setString(5, repl.getStatus().toString());
       ps.setString(6, repl.getEta());
-
-      ps.setInt(7, orm.getRequestID());
+      ps.setString(7, orm.getAssignedto());
+      ps.setInt(8, orm.getRequestID());
 
       ps.execute();
       fdr =
@@ -77,6 +81,9 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
               repl.getRoomName(),
               repl.getFlower(),
               repl.getAdditionalNotes());
+      fdr.setStatus(repl.getStatus());
+      fdr.setEta(repl.getEta());
+      fdr.setAssignedto(repl.getAssignedto());
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -94,7 +101,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       String query =
           "INSERT INTO "
               + table
-              + " (requester, roomName, flower, additionalNotes, status) VALUES (?,?,?,?,?);";
+              + " (requester, roomName, flower, additionalNotes, status, assignedto) VALUES (?,?,?,?,?,?);";
 
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -104,12 +111,13 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       ps.setString(3, orm.getFlower());
       ps.setString(4, orm.getAdditionalNotes());
       ps.setString(5, orm.getStatus().toString());
+      ps.setString(6, orm.getAssignedto());
 
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
       int requestID = rs.getInt("requestID");
-      orm.setRequestID(requestID);
+      orm.requestID = (requestID);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -156,15 +164,17 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
 
       while (rs.next()) {
         int requestID = rs.getInt("requestID");
-        Requester req = new Requester(0, rs.getString("Requester"));
+        IUser req = new PatientUser(rs.getString("Requester"));
         String roomName = rs.getString("roomName");
         String flower = rs.getString("flower");
         STATUS status = STATUS.valueOf(rs.getString("status"));
         String additionalNotes = rs.getString("additionalNotes");
         String eta = rs.getString("ETA");
+        String assignedto = rs.getString("assignedto");
         fdr = new FlowerDeliveryRequest(requestID, req, roomName, flower, additionalNotes);
         fdr.setStatus(status);
         fdr.setEta(eta);
+        fdr.setAssignedto(assignedto);
       }
     } catch (Exception e) {
       e.printStackTrace();

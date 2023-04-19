@@ -16,6 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import org.controlsfx.control.SearchableComboBox?>
 <AnchorPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.FurnitureController">
    <children>
       <HBox layoutX="20.0" layoutY="20.0" prefHeight="768.0" prefWidth="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -53,17 +54,11 @@
                                     <Insets bottom="10.0" left="10.0" top="10.0" />
                                  </padding>
                               </TextField>
-                              <MenuButton fx:id="roomMenu" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" text="Select Room:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
-                                 <items>
-                                    <MenuItem fx:id="choice1" mnemonicParsing="false" onAction="#getChoice1" text="Conference A1" />
-                                    <MenuItem fx:id="choice2" mnemonicParsing="false" onAction="#getChoice2" text="Conference A2" />
-                                    <MenuItem fx:id="choice3" mnemonicParsing="false" onAction="#getChoice3" text="Conference A3" />
-                                    <MenuItem fx:id="choice4" mnemonicParsing="false" onAction="#getChoice4" text="Conference A4" />
-                                 </items>
+                              <SearchableComboBox fx:id="roomMenu" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" promptText="Select Room:" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
-                              </MenuButton>
+                              </SearchableComboBox>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="160.0" prefWidth="525.0" style="-fx-border-color: #02143b; -fx-background-color: white;">
@@ -90,7 +85,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </MenuButton>
-                              <MenuButton fx:id="modelMenu" layoutX="21.0" layoutY="106.0" prefHeight="40.0" prefWidth="483.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" text="Select Amount:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
+                              <MenuButton fx:id="amountMenu" layoutX="21.0" layoutY="106.0" prefHeight="40.0" prefWidth="483.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" text="Select Amount:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
                                  <items>
                                     <MenuItem fx:id="amountchoice1" mnemonicParsing="false" onAction="#getAmountChoice1" text="1" />
                                     <MenuItem fx:id="amountchoice2" mnemonicParsing="false" onAction="#getAmountChoice2" text="2" />
@@ -117,10 +112,10 @@
                                  </padding>
                               </TextField>
                               <TextArea fx:id="specialRequest" layoutX="23.0" layoutY="53.0" prefHeight="40.0" prefWidth="481.0" promptText="(Optional) Additional Notes" style="-fx-font-family: arial; -fx-background-color: white; -fx-border-color: #02143b; -fx-font-size: 12;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
-                              <DatePicker fx:id="startTime" layoutX="22.0" layoutY="100.0" prefHeight="40.0" prefWidth="482.0" promptText="Select Start Time:" style="-fx-background-color: white; -fx-border-color: #02143b;" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="100.0" />
+                              <DatePicker fx:id="startTime" layoutX="22.0" layoutY="100.0" prefHeight="40.0" prefWidth="482.0" promptText="Select Start Time:" style="-fx-background-color: white; -fx-border-color: #02143b;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="110.0" prefWidth="525.0" style="-fx-border-color: #02143b; -fx-background-color: white;">
+                        <AnchorPane fx:id="assignEmployeeAnchor" prefHeight="110.0" prefWidth="525.0" style="-fx-border-color: #02143b; -fx-background-color: white;">
                            <children>
                               <TextField alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="4. Assign Employee:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
@@ -133,17 +128,11 @@
                                     <Insets bottom="10.0" left="10.0" top="10.0" />
                                  </padding>
                               </TextField>
-                              <MenuButton fx:id="employeeName" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" text="Select Employee:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
-                                 <items>
-                                    <MenuItem fx:id="choice5" mnemonicParsing="false" onAction="#getChoice5" text="Ian" />
-                                    <MenuItem fx:id="choice6" mnemonicParsing="false" onAction="#getChoice6" text="George" />
-                                    <MenuItem fx:id="choice7" mnemonicParsing="false" onAction="#getChoice7" text="Ben" />
-                                    <MenuItem fx:id="choice8" mnemonicParsing="false" onAction="#getChoice8" text="Wilson" />
-                                 </items>
+                              <SearchableComboBox fx:id="employeeName" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" promptText="Select Employee:" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
-                              </MenuButton>
+                              </SearchableComboBox>
                            </children>
                         </AnchorPane>
                      </children>
@@ -243,7 +232,7 @@
          </children>
       </AnchorPane>
       <VBox prefHeight="200.0" prefWidth="70.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <fx:include fx:id="adminMenu" source="Menu.fxml" />
+         <fx:include fx:id="adminMenu" source="components/Menu.fxml" />
       </VBox>
    </children>
 </AnchorPane>

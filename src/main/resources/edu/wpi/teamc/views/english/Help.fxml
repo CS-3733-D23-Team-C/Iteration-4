@@ -1,591 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.HelpController">
    <children>
-      <HBox fx:id="stationaryHelp" layoutX="388.0" layoutY="95.0" prefHeight="667.0" prefWidth="909.0" spacing="10.0">
+      <AnchorPane layoutX="410.0" layoutY="163.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
          <children>
-            <VBox prefHeight="375.0" prefWidth="176.0" spacing="5.0">
+            <AnchorPane prefWidth="625.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="671.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox prefHeight="375.0" prefWidth="167.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Hover Over The Bell" wrappingWidth="179.24560546875" x="176.0">
-                           <font>
-                              <Font name="Arial" size="17.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="369.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/servHelp1.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="408.0" prefWidth="190.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Select this Button" textAlignment="CENTER" wrappingWidth="176.0" x="176.0">
-                           <font>
-                              <Font name="Arial" size="17.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="381.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/stationaryHelp2.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            <VBox prefHeight="667.0" prefWidth="487.0" spacing="5.0">
-               <children>
-                  <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Fill Out the Desired Fields and Submit" textAlignment="CENTER" wrappingWidth="757.0700931549072">
+                  <TextArea fx:id="basicFunctions" layoutX="11.0" layoutY="84.0" prefHeight="557.0" prefWidth="535.0" text="1.  Click into the section on table you wish to edit&#10;&#10;2. Change the room information you want in place of the current room&#10;&#10;3. Once you are satisfied with your changes, click submit&#10;&#10;4. Once submited, changes you made will be updated. These changes will be reflected on the map and in the map history" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="113.0">
                      <font>
-                        <Font size="26.0" />
+                        <Font size="30.0" />
                      </font>
-                  </Text>
-                  <ImageView fitHeight="426.0" fitWidth="758.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/helpPage/stationaryHelp3.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets top="50.0" />
-               </padding>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox fx:id="furnitureHelp" layoutX="388.0" layoutY="95.0" prefHeight="667.0" prefWidth="909.0" spacing="10.0">
-         <children>
-            <VBox prefHeight="375.0" prefWidth="176.0" spacing="5.0">
-               <children>
-                  <VBox prefHeight="375.0" prefWidth="167.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Hover Over The Bell" wrappingWidth="179.24560546875" x="176.0">
-                           <font>
-                              <Font name="Arial" size="17.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="369.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/servHelp1.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="408.0" prefWidth="190.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Select this Button" textAlignment="CENTER" wrappingWidth="176.0" x="176.0">
-                           <font>
-                              <Font name="Arial" size="17.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="381.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/furnitureHelp2.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            <VBox prefHeight="667.0" prefWidth="487.0" spacing="5.0">
-               <children>
-                  <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Fill Out the Desired Fields and Submit" textAlignment="CENTER" wrappingWidth="757.0700931549072">
+                  </TextArea>
+                  <TextField alignment="TOP_LEFT" editable="false" layoutX="43.0" layoutY="-7.0" prefHeight="60.0" prefWidth="535.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 35; -fx-text-fill: white;" text="Basic Functions" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
                      <font>
-                        <Font size="26.0" />
+                        <Font size="35.0" />
                      </font>
-                  </Text>
-                  <ImageView fitHeight="426.0" fitWidth="758.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/helpPage/furnitureHelp3.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets top="50.0" />
-               </padding>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox fx:id="roomReservationHelp" layoutX="388.0" layoutY="95.0" prefHeight="667.0" prefWidth="909.0" spacing="10.0">
-         <children>
-            <VBox prefHeight="375.0" prefWidth="176.0" spacing="5.0">
-               <children>
-                  <VBox prefHeight="375.0" prefWidth="167.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Hover Over The Bell" wrappingWidth="179.24560546875" x="176.0">
-                           <font>
-                              <Font name="Arial" size="17.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="369.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/servHelp1.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="408.0" prefWidth="190.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Select this Button" textAlignment="CENTER" wrappingWidth="176.0" x="176.0">
-                           <font>
-                              <Font name="Arial" size="17.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="381.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/roomRequestHelp2.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            <VBox prefHeight="667.0" prefWidth="487.0" spacing="5.0">
-               <children>
-                  <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Fill Out the Desired Fields and Submit" textAlignment="CENTER" wrappingWidth="757.0700931549072">
-                     <font>
-                        <Font size="26.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="426.0" fitWidth="758.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/helpPage/roomRequestHelp3.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets top="50.0" />
-               </padding>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox fx:id="directionsHelp" layoutX="388.0" layoutY="95.0" prefHeight="667.0" prefWidth="909.0" spacing="10.0">
-         <children>
-            <VBox prefHeight="375.0" prefWidth="176.0" spacing="5.0">
-               <children>
-                  <VBox prefHeight="375.0" prefWidth="167.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Hover Over Compass" wrappingWidth="186.71221923828125" x="176.0">
-                           <font>
-                              <Font name="Arial" size="17.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="369.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/navHelp1.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="408.0" prefWidth="190.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Select this Button" textAlignment="CENTER" wrappingWidth="176.0" x="176.0">
-                           <font>
-                              <Font name="Arial" size="17.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="381.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/directionsHelp.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            <VBox prefHeight="667.0" prefWidth="487.0" spacing="5.0">
-               <children>
-                  <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Select Start and End Location to See Path" textAlignment="CENTER" wrappingWidth="757.0700931549072">
-                     <font>
-                        <Font size="26.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="426.0" fitWidth="758.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/helpPage/directionsHelp2.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets top="50.0" />
-               </padding>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox fx:id="editMapHelp" layoutX="388.0" layoutY="95.0" prefHeight="667.0" prefWidth="909.0" spacing="10.0">
-         <children>
-            <VBox prefHeight="375.0" prefWidth="176.0" spacing="5.0">
-               <children>
-                  <VBox prefHeight="375.0" prefWidth="167.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Hover Over Compass" wrappingWidth="186.71221923828125" x="176.0">
-                           <font>
-                              <Font name="Arial" size="17.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="369.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/navHelp1.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="408.0" prefWidth="190.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Select this Button" textAlignment="CENTER" wrappingWidth="176.0" x="176.0">
-                           <font>
-                              <Font name="Arial" size="17.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="381.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/editMapHelp2.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            <VBox prefHeight="667.0" prefWidth="487.0" spacing="5.0">
-               <children>
-                  <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Edit the Map by Selection one of the Options From the Pane" textAlignment="CENTER" wrappingWidth="757.0700931549072">
-                     <font>
-                        <Font size="26.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="426.0" fitWidth="758.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/helpPage/editMapHelp3.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets top="50.0" />
-               </padding>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox fx:id="historyHelp" layoutX="388.0" layoutY="95.0" prefHeight="667.0" prefWidth="909.0" spacing="10.0">
-         <children>
-            <VBox prefHeight="375.0" prefWidth="176.0" spacing="5.0">
-               <children>
-                  <VBox prefHeight="375.0" prefWidth="167.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Hover Over the Clock" wrappingWidth="186.71221923828125" x="176.0">
-                           <font>
-                              <Font name="Arial" size="17.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="369.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/histHelp1.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="408.0" prefWidth="190.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Select a History" textAlignment="CENTER" wrappingWidth="186.66668701171875" x="176.0">
-                           <font>
-                              <Font name="Arial" size="17.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="381.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/historyHelp2.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            <VBox prefHeight="667.0" prefWidth="487.0" spacing="5.0">
-               <children>
-                  <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Scroll and View the History of the Request or Service" textAlignment="CENTER" wrappingWidth="757.0700931549072">
-                     <font>
-                        <Font size="26.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="426.0" fitWidth="758.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/helpPage/historyHelp3.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets top="50.0" />
-               </padding>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox fx:id="logoutHelp" layoutX="388.0" layoutY="95.0" prefHeight="667.0" prefWidth="909.0" spacing="10.0">
-         <children>
-            <VBox prefHeight="667.0" prefWidth="308.0" spacing="5.0">
-               <children>
-                  <VBox prefHeight="663.0" prefWidth="459.0" spacing="10.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Hover Over Exit Sign" wrappingWidth="219.77886962890625" x="176.0">
-                           <font>
-                              <Font name="Arial" size="21.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="498.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/logoutHelp.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-               </children>
-               <padding>
-                  <Insets top="50.0" />
-               </padding>
-            </VBox>
-            <VBox prefHeight="667.0" prefWidth="487.0" spacing="5.0">
-               <children>
-                  <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="2.SIgn In or Continue to View as Guest" textAlignment="CENTER" wrappingWidth="757.0700931549072">
-                     <font>
-                        <Font size="26.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="426.0" fitWidth="758.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/helpPage/logoutHelp2.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets top="50.0" />
-               </padding>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox fx:id="exitHelp" layoutX="388.0" layoutY="95.0" prefHeight="667.0" prefWidth="909.0" spacing="10.0">
-         <children>
-            <VBox prefHeight="667.0" prefWidth="308.0" spacing="5.0">
-               <children>
-                  <VBox prefHeight="663.0" prefWidth="459.0" spacing="10.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Select X Sign" textAlignment="CENTER" wrappingWidth="219.77886962890625" x="176.0">
-                           <font>
-                              <Font name="Arial" size="21.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="498.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/exitHelp1.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-               </children>
-               <padding>
-                  <Insets top="50.0" />
-               </padding>
-            </VBox>
-            <VBox prefHeight="667.0" prefWidth="487.0" spacing="5.0">
-               <children>
-                  <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="2. This Screen Will Be Displayed and the App Will Close" textAlignment="CENTER" wrappingWidth="757.0700931549072">
-                     <font>
-                        <Font size="26.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="426.0" fitWidth="758.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/helpPage/exitHelp2.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets top="50.0" />
-               </padding>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox fx:id="mealHelp" layoutX="388.0" layoutY="95.0" prefHeight="667.0" prefWidth="909.0" spacing="10.0">
-         <children>
-            <VBox prefHeight="375.0" prefWidth="176.0" spacing="5.0">
-               <children>
-                  <VBox prefHeight="375.0" prefWidth="167.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Hover Over The Bell" wrappingWidth="179.24560546875" x="176.0">
-                           <font>
-                              <Font name="Arial" size="17.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="369.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/servHelp1.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="408.0" prefWidth="190.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Select this Button" textAlignment="CENTER" wrappingWidth="176.0" x="176.0">
-                           <font>
-                              <Font name="Arial" size="17.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="381.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/mealHelp2.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            <VBox prefHeight="667.0" prefWidth="487.0" spacing="5.0">
-               <children>
-                  <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Fill Out the Desired Fields and Submit" textAlignment="CENTER" wrappingWidth="757.0700931549072">
-                     <font>
-                        <Font size="26.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="426.0" fitWidth="758.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/helpPage/mealHelp.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets top="50.0" />
-               </padding>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox fx:id="flowerHelp" layoutX="388.0" layoutY="95.0" prefHeight="667.0" prefWidth="909.0" spacing="10.0">
-         <children>
-            <VBox prefHeight="375.0" prefWidth="176.0" spacing="5.0">
-               <children>
-                  <VBox prefHeight="375.0" prefWidth="167.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="1. Hover Over The Bell" wrappingWidth="179.24560546875" x="176.0">
-                           <font>
-                              <Font name="Arial" size="17.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="369.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/servHelp1.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="408.0" prefWidth="190.0">
-                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="2. Select this Button" textAlignment="CENTER" wrappingWidth="176.0" x="176.0">
-                           <font>
-                              <Font name="Arial" size="17.0" />
-                           </font>
-                        </Text>
-                        <ImageView fitHeight="381.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Images/helpPage/flowerHelp2.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            <VBox prefHeight="667.0" prefWidth="487.0" spacing="5.0">
-               <children>
-                  <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="3. Fill Out the Desired Fields and Submit" textAlignment="CENTER" wrappingWidth="757.0700931549072">
-                     <font>
-                        <Font size="26.0" />
-                     </font>
-                  </Text>
-                  <ImageView fx:id="flowerImage" fitHeight="426.0" fitWidth="758.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/helpPage/flowerHelp3.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets top="50.0" />
-               </padding>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox layoutX="20.0" layoutY="20.0" prefHeight="768.0" prefWidth="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" />
-         </children>
-      </HBox>
-      <AnchorPane layoutX="94.0" layoutY="94.0" prefHeight="636.0" prefWidth="271.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="1001.0" AnchorPane.topAnchor="94.0">
-         <children>
-            <AnchorPane prefHeight="692.0" prefWidth="1284.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="636.0" prefWidth="1295.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
                      <padding>
-                        <Insets top="20.0" />
+                        <Insets bottom="10.0" left="10.0" top="10.0" />
                      </padding>
-                     <children>
-                        <MFXButton fx:id="homeHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Get to the Home Page? " />
-                        <MFXButton fx:id="flowerHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Make A Flower Delivery?" />
-                        <MFXButton fx:id="mealHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Make A Meal Delivery? " />
-                        <MFXButton fx:id="stationaryHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Make A Stationary Request? " />
-                        <MFXButton fx:id="furnitureHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Make A Furniture Request? " />
-                        <MFXButton fx:id="roomReservationHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Make A Room Reservation? " />
-                        <MFXButton fx:id="directionsHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Get Directions? " />
-                        <MFXButton fx:id="editMapHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Edit the Map? " />
-                        <MFXButton fx:id="historyHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I View the History Requests? " />
-                        <MFXButton fx:id="logoutHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Logout or Switch Accounts? " />
-                        <MFXButton fx:id="exitHelpButton" prefHeight="25.0" prefWidth="236.0" styleClass="helpButton" stylesheets="@Menu.css" text="How Do I Close the App? " />
-                     </children>
-                  </VBox>
+                  </TextField>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="10.0" layoutY="10.0" prefWidth="625.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <TextArea fx:id="otherFunctions" prefHeight="557.0" prefWidth="535.0" text="Export: Click Export button to export a CSV file&#10;&#10;Import: Click Import button to import a CSV file to the table&#10;&#10;Map History: Click Map Hisotry to view the edit history for the map" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="113.0">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </TextArea>
+                  <TextField alignment="TOP_LEFT" editable="false" prefHeight="60.0" prefWidth="535.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 35; -fx-text-fill: white;" text="Other Functions" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" top="10.0" />
+                     </padding>
+                  </TextField>
                </children>
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="90.0" layoutY="20.0" prefHeight="76.0" prefWidth="1366.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),10,0.75,0,0);" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane layoutX="90.0" layoutY="20.0" prefHeight="76.0" prefWidth="1366.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),10,0.75,0,0);" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="1147.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text fx:id="helpTitle" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Help Page" wrappingWidth="643.5101928710938" />
+    
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="70.0" />
+               </padding>
+            </VBox>
+         </children>
+      </AnchorPane>
       <VBox prefHeight="200.0" prefWidth="70.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <fx:include fx:id="adminMenu" source="Menu.fxml" />
+         <children>
+            <fx:include fx:id="adminMenu" source="components/Menu.fxml" />
+         </children>
+
       </VBox>
-      <Pane layoutX="385.0" layoutY="85.0" prefHeight="680.0" prefWidth="993.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" />
    </children>
 </AnchorPane>

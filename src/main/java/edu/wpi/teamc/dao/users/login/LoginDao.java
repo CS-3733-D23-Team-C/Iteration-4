@@ -1,7 +1,8 @@
-package edu.wpi.teamc.dao.users;
+package edu.wpi.teamc.dao.users.login;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.users.PERMISSIONS;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -66,7 +66,7 @@ public class MoveTableController {
     List<LocationName> locationNames =
         (List<LocationName>) HospitalSystem.fetchAllObjects(new LocationName());
     locationName.setItems(FXCollections.observableArrayList(locationNames));
-    //
+
     //    System.out.println("did it");
   }
 

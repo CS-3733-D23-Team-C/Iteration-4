@@ -11,6 +11,7 @@ public enum Screen {
   SIGNAGE("views/english/ElevatorSignage.fxml"),
   MAP_HISTORY_PAGE("views/english/MapHistory.fxml"),
   PATHFINDING_PAGE("views/english/PathFinding.fxml"),
+  GUEST_PATHFINDING_PAGE("views/english/Guest/GuestPathFinding.fxml"),
   MOVETABLE_PAGE("views/english/MoveTable.fxml"),
   EDIT_MAP("views/english/EditMap.fxml"),
   FLOOR_PLAN("views/english/FloorPlan.fxml"),
@@ -19,8 +20,9 @@ public enum Screen {
   HOME("views/english/Home.fxml"),
   LOGIN("views/english/LoginPage.fxml"),
   ADMIN_HOME("views/english/AdminHome.fxml"),
-  GUEST_HOME("views/english/GuestHome.fxml"),
+  GUEST_HOME("views/english/Guest/GuestHome.fxml"),
   MENU("views/english/Menu.fxml"),
+  GUEST_MENU("views/english/Guest/GuestMenu.fxml"),
 
   // -------SERVICE REQUEST-------//
   MEAL("views/english/MealRequest.fxml"),
@@ -40,7 +42,8 @@ public enum Screen {
   // -------OTHER-------//
   CONGRATS_PAGE("views/english/Congrats.fxml"),
   HELP("views/english/Help.fxml"),
-  EXIT_PAGE("views/english/ExitPage.fxml");
+  EXIT_PAGE("views/english/ExitPage.fxml"),
+  EMPLOYEETABLE_PAGE("views/english/EmployeeTable.fxml");
 
   private final String filename;
 

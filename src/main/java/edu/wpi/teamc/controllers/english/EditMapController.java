@@ -1,6 +1,5 @@
 package edu.wpi.teamc.controllers.english;
 
-import edu.wpi.teamc.Main;
 import edu.wpi.teamc.controllers.english.MapHelpers.*;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.navigation.Navigation;
@@ -53,7 +52,7 @@ public class EditMapController {
   double mouseX;
   double mouseY;
   public Image image =
-      new Image(Main.class.getResource("./views/Images/GroundFloor.png").toString());
+      new Image("file:src/main/resources/edu/wpi/teamc/views/Images/FirstFloor.png");
 
   /*
   Notes:
@@ -217,7 +216,7 @@ public class EditMapController {
   /** Method run when controller is initialized */
   public void initialize() {
 
-    Image image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
+    Image image = this.image;
     imageView = new ImageView(image); // was ImageView imageView
     imageView.relocate(0, 0);
     group.getChildren().add(imageView);
@@ -234,9 +233,9 @@ public class EditMapController {
     mapMode = HandleMapModes.SELECT;
     checkAndX_HBox.setMouseTransparent(true);
     checkAndX_HBox1.setMouseTransparent(true);
-    selectButton.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    selectButton.setBackground(Background.fill(Paint.valueOf("#EAB334")));
     modeResetterHelper.setButton(selectButton);
-    FL1.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    FL1.setBackground(Background.fill(Paint.valueOf("#EAB334")));
     floorResetterHelper.setButton(FL1);
     //    group.getChildren().add(stackPane);
 
@@ -255,6 +254,9 @@ public class EditMapController {
             //            System.out.println(lockMap);
             addNodeByMouseLoc((int) mouseX, (int) mouseY);
           } // bring up node add popup
+          if (Objects.equals(mapMode.getMapMode(), "Select")) {
+            // do Nothing
+          }
 
           if (nodeClicked && !lockMap) {
             if (Objects.equals(mapMode.getMapMode(), "Add")) { // to add a location name to a node
@@ -311,7 +313,7 @@ public class EditMapController {
     if (nodeClicked && (edgesHelper.getNodesClicked() == 0)) {
       System.out.println("first node");
       edgesHelper.setNode(currNodeClicked);
-      currCircleClicked.setFill(Paint.valueOf("#32CD32"));
+      currCircleClicked.setFill(Paint.valueOf("#EAB334"));
       edgesHelper.setCircle(currCircleClicked);
       edgesHelper.setNodesClicked(1);
       //      System.out.println()
@@ -320,7 +322,7 @@ public class EditMapController {
       lockMap = false;
     }
     if (nodeClicked && (edgesHelper.getNodesClicked() == 1)) {
-      currCircleClicked.setFill(Paint.valueOf("#32CD32"));
+      currCircleClicked.setFill(Paint.valueOf("#EAB334"));
       System.out.println("second node");
       //      secondNode = currNodeClicked;
       //      secondCircle = currCircleClicked;
@@ -479,9 +481,10 @@ public class EditMapController {
   public void changeMapMode(ActionEvent event) {
     if (!dragModeOn) {
       modeButton = (MFXButton) event.getTarget();
-      if (Objects.equals(modeButton.getId(), "Select")) {
+      if (Objects.equals(modeButton.getId(), "selectButton")) {
         mapMode = HandleMapModes.SELECT;
         resetAndSetModes(modeButton);
+        System.out.println("select mode");
         edgeMadeText.setText("");
         edgeMadeText.setVisible(false);
       } else if (Objects.equals(modeButton.getId(), "Add")) {
@@ -518,23 +521,23 @@ public class EditMapController {
     floorButton = (MFXButton) event.getTarget();
 
     if (Objects.equals(floorButton.getId(), "FL1")) {
-      image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
+      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/FirstFloor.png");
       floor = "1";
       resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FL2")) {
-      image = new Image(Main.class.getResource("./views/Images/SecondFloor.png").toString());
+      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/SecondFloor.png");
       floor = "2";
       resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FL3")) {
-      image = new Image(Main.class.getResource("./views/Images/ThirdFloor.png").toString());
+      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/ThirdFloor.png");
       floor = "3";
       resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FLB1")) {
-      image = new Image(Main.class.getResource("./views/Images/B1.png").toString());
+      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/B1.png");
       floor = "L1";
       resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FLB2")) {
-      image = new Image(Main.class.getResource("./views/Images/B2.png").toString());
+      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/B2.png");
       floor = "L2";
       resetAndSetFloorIndicators(floorButton);
     }
@@ -738,7 +741,9 @@ public class EditMapController {
     newCircle.setOnMouseExited(
         e -> {
           //          if (!(Objects.equals(mapMode.getMapMode(), "Modify_drag"))) {
-          newCircle.setStroke(Paint.valueOf("#13DAF7"));
+          if (!nodeClicked) {
+            newCircle.setStroke(Paint.valueOf("#13DAF7"));
+          }
           //          } else if (!(Objects.equals(node.getNodeID(), mapModeSaver.getNodeID()))) {
           //            newCircle.setStroke(Paint.valueOf("13DAF7"));
           //          }
@@ -798,15 +803,16 @@ public class EditMapController {
   }
 
   public void resetAndSetCircle(Circle circle) {
-    circle.setFill(Paint.valueOf("#32CD32"));
+    circle.setFill(Paint.valueOf("#EAB334"));
     nodeResetterHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
+    nodeResetterHelper.getCircle().setStroke(Paint.valueOf("#13DAF7"));
     nodeResetterHelper.setCircle(circle);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;
   }
 
   public void resetAndSetModes(MFXButton button) {
-    button.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    button.setBackground(Background.fill(Paint.valueOf("#EAB334")));
     modeResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
     modeResetterHelper.getButton().setRippleAnimateBackground(true);
     //    modeResetterHelper.getButton().setDepthLevel(DepthLevel.LEVEL4);
@@ -817,11 +823,10 @@ public class EditMapController {
   }
 
   public void resetAndSetFloorIndicators(MFXButton button) {
-    button.setBackground(Background.fill(Paint.valueOf("32CD32")));
+    button.setBackground(Background.fill(Paint.valueOf("#EAB334")));
     floorResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
     floorResetterHelper.getButton().setRippleAnimateBackground(true);
     floorResetterHelper.getButton().setButtonType(ButtonType.RAISED);
-
     floorResetterHelper.setButton(button);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;
@@ -866,7 +871,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 410, 225);
     scene
         .getStylesheets()
-        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -967,7 +972,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 350, 330);
     scene
         .getStylesheets()
-        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -1062,7 +1067,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 290, 290);
     scene
         .getStylesheets()
-        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -1166,7 +1171,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 325, 260);
     scene
         .getStylesheets()
-        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -1396,7 +1401,7 @@ public class EditMapController {
     // File((Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString()));
     scene
         .getStylesheets()
-        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
 
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
@@ -1505,7 +1510,7 @@ public class EditMapController {
     Stage stage = new Stage();
     scene
         .getStylesheets()
-        .add(Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString());
+        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
     stage.setScene(scene);
     stage.setTitle("Add Location Name Window");
     stage.setAlwaysOnTop(true);

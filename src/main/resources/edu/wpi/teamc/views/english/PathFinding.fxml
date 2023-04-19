@@ -78,12 +78,12 @@
                                     <Insets />
                                  </VBox.margin>
                               </Text>
-                              <MFXFilterComboBox fx:id="endChoice" floatMode="ABOVE" onAction="#getEndChoice" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold;" text="Start Location:">
+                              <MFXFilterComboBox fx:id="startChoice" floatMode="ABOVE" onAction="#getStartChoice" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold;" text="Start Location:">
                                  <textFill>
                                     <Color red="0.007843137718737125" green="0.0784313753247261" blue="0.23137255012989044" opacity="0.8700000047683716" />
                                  </textFill>
                               </MFXFilterComboBox>
-                              <MFXFilterComboBox fx:id="startChoice" floatMode="ABOVE" onAction="#getStartChoice" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold;" text="End Location:">
+                              <MFXFilterComboBox fx:id="endChoice" floatMode="ABOVE" onAction="#getEndChoice" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold;" text="End Location:">
                                  <textFill>
                                     <Color red="0.007843137718737125" green="0.0784313753247261" blue="0.23137255012989044" opacity="0.8700000047683716" />
                                  </textFill>
@@ -129,7 +129,7 @@
          </children>
       </AnchorPane>
         <VBox prefHeight="200.0" prefWidth="70.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <fx:include fx:id="adminMenu" source="Menu.fxml" />
+            <fx:include fx:id="adminMenu" source="components/Menu.fxml" />
         </VBox>
     </children>
 </AnchorPane>

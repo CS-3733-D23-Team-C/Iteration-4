@@ -32,6 +32,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
         String startTime = rs.getString("startTime");
         String endTime = rs.getString("endTime");
         STATUS status = STATUS.valueOf(rs.getString("status"));
+        String assignedto = rs.getString("assignedto");
         ConferenceRoomRequest request =
             new ConferenceRoomRequest(
                 requestID,
@@ -53,7 +54,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
     DBConnection db = new DBConnection();
     try {
       String query =
-          "INSERT INTO \"ServiceRequests\".\"conferenceRoomRequest\" (Requester, roomName, status, startTime, endTime, additionalNotes) VALUES (?,?,?,?,?,?)";
+          "INSERT INTO \"ServiceRequests\".\"conferenceRoomRequest\" (Requester, roomName, status, startTime, endTime, additionalNotes, assignedto) VALUES (?,?,?,?,?,?,?)";
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
@@ -62,7 +63,8 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
       ps.setString(3, orm.getStatus().toString());
       ps.setString(4, orm.getStartTime());
       ps.setString(5, orm.getEndTime());
-      ps.setString(6, orm.getAdditionalNotes());
+      ps.setString(6, orm.getAssingedto());
+      ps.setString(7, orm.getAdditionalNotes());
       ps.executeUpdate();
 
       ResultSet rs = ps.getGeneratedKeys();
@@ -90,7 +92,8 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
               + "roomName = ?, "
               + "additionalNotes = ?, "
               + "startTime = ?, "
-              + "endTime = ? "
+              + "endTime = ?, "
+              + "assignedto = ?, "
               + "WHERE requestID = ?";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
@@ -99,7 +102,8 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
       ps.setString(3, repl.getAdditionalNotes());
       ps.setString(4, repl.getStartTime());
       ps.setString(5, repl.getEndTime());
-      ps.setInt(6, orm.getRequestID());
+      ps.setString(6, repl.getAssingedto());
+      ps.setInt(7, orm.getRequestID());
 
       ps.execute();
     } catch (Exception e) {
@@ -148,6 +152,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
         String startTime = rs.getString("startTime");
         String endTime = rs.getString("endTime");
         STATUS status = STATUS.valueOf(rs.getString("status"));
+        String assignedto = rs.getString("assignedto");
         request =
             new ConferenceRoomRequest(
                 requestID,
@@ -157,6 +162,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
                 startTime,
                 endTime);
         request.setStatus(status);
+        request.setAssingedto(assignedto);
       }
     } catch (SQLException e) {
       e.printStackTrace();

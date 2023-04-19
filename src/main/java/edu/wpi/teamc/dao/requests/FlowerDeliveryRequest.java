@@ -19,7 +19,4 @@ public class FlowerDeliveryRequest extends AbsServiceRequest {
     super(requester, roomName, additionalNotes);
     this.flower = flower;
   }
-
-  @Override
-  void executeRequest() {}
 }

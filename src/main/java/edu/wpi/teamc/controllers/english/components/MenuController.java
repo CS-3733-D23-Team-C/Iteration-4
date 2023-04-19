@@ -72,7 +72,7 @@ public class MenuController {
   @FXML private MFXButton Admin_menu_stationary_history;
   @FXML private MFXButton Admin_menu_mapchange_history;
   @FXML private MFXButton Admin_menu_reservation_history;
-  @FXML private MFXButton Admin_menu_giftbasket_history;
+  // @FXML private MFXButton Admin_menu_giftbasket_history;
   // NAVIGATION TEXT//
   @FXML private Text Admin_menu_navigation;
   @FXML private MFXButton Admin_menu_directions;
@@ -87,7 +87,7 @@ public class MenuController {
   @FXML private MFXButton Admin_menu_meal_delivery;
   @FXML private MFXButton Admin_menu_stationary_delivery;
   @FXML private MFXButton Admin_menu_room_reservation;
-  @FXML private MFXButton Admin_menu_giftbasket_delivery;
+  // @FXML private MFXButton Admin_menu_giftbasket_delivery;
   @FXML private MFXButton Admin_menu_employee_table;
 
   // LANGUAGE TEXT//
@@ -226,7 +226,7 @@ public class MenuController {
       Admin_menu_stationary_history.setText("Office Supplies");
       Admin_menu_mapchange_history.setText("Map Changes");
       Admin_menu_reservation_history.setText("Room Reservations");
-      Admin_menu_giftbasket_history.setText("Gift Basket Delivery");
+      // Admin_menu_giftbasket_history.setText("Gift Basket Delivery");
       // NAVIGATION TEXT//
       Admin_menu_navigation.setText("Navigation");
       Admin_menu_directions.setText("Directions");
@@ -240,7 +240,7 @@ public class MenuController {
       Admin_menu_meal_delivery.setText("Meal Delivery");
       Admin_menu_stationary_delivery.setText("Office Supplies");
       Admin_menu_room_reservation.setText("Room Reservations");
-      Admin_menu_giftbasket_delivery.setText("Gift Basket Delivery");
+      // Admin_menu_giftbasket_delivery.setText("Gift Basket Delivery");
       Admin_menu_employee_table.setText("Employee Table");
     } else if (language_choice == 1) {
       Admin_menu_home.setText("Accueil");
@@ -256,7 +256,7 @@ public class MenuController {
       Admin_menu_stationary_history.setText("Fournitures de bureau");
       Admin_menu_mapchange_history.setText("Changements de carte");
       Admin_menu_reservation_history.setText("R" + "\u00e9" + "servations de salles");
-      Admin_menu_giftbasket_history.setText("Livraison de paniers-cadeaux");
+      // Admin_menu_giftbasket_history.setText("Livraison de paniers-cadeaux");
       // NAVIGATION TEXT//
       Admin_menu_navigation.setText("Navigation");
       Admin_menu_directions.setText("Directions");
@@ -270,7 +270,7 @@ public class MenuController {
       Admin_menu_meal_delivery.setText("Livraison de repas");
       Admin_menu_stationary_delivery.setText("Fournitures de bureau");
       Admin_menu_room_reservation.setText("R" + "\u00e9" + "servations de salles");
-      Admin_menu_giftbasket_delivery.setText("Livraison de paniers-cadeaux");
+      // Admin_menu_giftbasket_delivery.setText("Livraison de paniers-cadeaux");
       Admin_menu_employee_table.setText("Table d'employ" + "\u00e9" + "");
     }
   }

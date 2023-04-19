@@ -1,6 +1,8 @@
 package edu.wpi.teamc.controllers.english.components;
 
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 import edu.wpi.teamc.CApp;
+
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -56,7 +58,39 @@ public class MenuController {
   @FXML private Pane settingsPane;
   @FXML private MFXButton settingsClose;
 
-  @FXML private MFXButton flowerButton;
+  // ALL TEXT//
+  @FXML private Text Admin_menu_home;
+  @FXML private Text Admin_menu_logout;
+  @FXML private Text Admin_menu_exit;
+  @FXML private Text Admin_menu_helpmenu;
+  @FXML private Text Admin_menu_settings;
+  // HISTORY TEXT//
+  @FXML private Text Admin_menu_history;
+  @FXML private MFXButton Admin_menu_flower_history;
+  @FXML private MFXButton Admin_menu_furniture_history;
+  @FXML private MFXButton Admin_menu_meal_history;
+  @FXML private MFXButton Admin_menu_stationary_history;
+  @FXML private MFXButton Admin_menu_mapchange_history;
+  @FXML private MFXButton Admin_menu_reservation_history;
+  @FXML private MFXButton Admin_menu_giftbasket_history;
+  // NAVIGATION TEXT//
+  @FXML private Text Admin_menu_navigation;
+  @FXML private MFXButton Admin_menu_directions;
+  @FXML private MFXButton Admin_menu_editmap;
+  @FXML private MFXButton Admin_menu_movetable;
+  @FXML private MFXButton Admin_menu_signage;
+
+  // SERVICE REQUEST TEXT//
+  @FXML private Text Admin_menu_servicerequests;
+  @FXML private MFXButton Admin_menu_flower_delivery;
+  @FXML private MFXButton Admin_menu_furniture_delivery;
+  @FXML private MFXButton Admin_menu_meal_delivery;
+  @FXML private MFXButton Admin_menu_stationary_delivery;
+  @FXML private MFXButton Admin_menu_room_reservation;
+  @FXML private MFXButton Admin_menu_giftbasket_delivery;
+  @FXML private MFXButton Admin_menu_employee_table;
+
+  // LANGUAGE TEXT//
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {
@@ -177,7 +211,73 @@ public class MenuController {
   }
 
   @FXML
+  public void setlanguage(int language_choice) {
+    if (language_choice == 0) {
+      Admin_menu_home.setText("Home");
+      Admin_menu_logout.setText("Logout");
+      Admin_menu_exit.setText("Exit");
+      Admin_menu_helpmenu.setText("Help Menu");
+      Admin_menu_settings.setText("Settings");
+      // HISTORY TEXT//
+      Admin_menu_history.setText("History");
+      Admin_menu_flower_history.setText("Flower Delivery");
+      Admin_menu_furniture_history.setText("Furniture Delivery");
+      Admin_menu_meal_history.setText("Meal Delivery");
+      Admin_menu_stationary_history.setText("Office Supplies");
+      Admin_menu_mapchange_history.setText("Map Changes");
+      Admin_menu_reservation_history.setText("Room Reservations");
+      Admin_menu_giftbasket_history.setText("Gift Basket Delivery");
+      // NAVIGATION TEXT//
+      Admin_menu_navigation.setText("Navigation");
+      Admin_menu_directions.setText("Directions");
+      Admin_menu_editmap.setText("Edit Map");
+      Admin_menu_movetable.setText("Move Table");
+      Admin_menu_signage.setText("Signage");
+      // SERVICE REQUEST TEXT//
+      Admin_menu_servicerequests.setText("Service Requests");
+      Admin_menu_flower_delivery.setText("Flower Delivery");
+      Admin_menu_furniture_delivery.setText("Furniture Delivery");
+      Admin_menu_meal_delivery.setText("Meal Delivery");
+      Admin_menu_stationary_delivery.setText("Office Supplies");
+      Admin_menu_room_reservation.setText("Room Reservations");
+      Admin_menu_giftbasket_delivery.setText("Gift Basket Delivery");
+      Admin_menu_employee_table.setText("Employee Table");
+    } else if (language_choice == 1) {
+      Admin_menu_home.setText("Accueil");
+      Admin_menu_logout.setText("Se d" + "\u00e9" + "connecter");
+      Admin_menu_exit.setText("Sortie");
+      Admin_menu_helpmenu.setText("Menu d'aide");
+      Admin_menu_settings.setText("Param" + "\u00e9" + "tres");
+      // HISTORY TEXT//
+      Admin_menu_history.setText("Histoire");
+      Admin_menu_flower_history.setText("Livraison de fleurs");
+      Admin_menu_furniture_history.setText("Livraison de meubles");
+      Admin_menu_meal_history.setText("Livraison de repas");
+      Admin_menu_stationary_history.setText("Fournitures de bureau");
+      Admin_menu_mapchange_history.setText("Changements de carte");
+      Admin_menu_reservation_history.setText("R" + "\u00e9" + "servations de salles");
+      Admin_menu_giftbasket_history.setText("Livraison de paniers-cadeaux");
+      // NAVIGATION TEXT//
+      Admin_menu_navigation.setText("Navigation");
+      Admin_menu_directions.setText("Directions");
+      Admin_menu_editmap.setText("Modifier la carte");
+      Admin_menu_movetable.setText("D" + "\u00e9" + "placer la table");
+      Admin_menu_signage.setText("Signalisation");
+      // SERVICE REQUEST TEXT//
+      Admin_menu_servicerequests.setText("Demandes de service");
+      Admin_menu_flower_delivery.setText("Livraison de fleurs");
+      Admin_menu_furniture_delivery.setText("Livraison de meubles");
+      Admin_menu_meal_delivery.setText("Livraison de repas");
+      Admin_menu_stationary_delivery.setText("Fournitures de bureau");
+      Admin_menu_room_reservation.setText("R" + "\u00e9" + "servations de salles");
+      Admin_menu_giftbasket_delivery.setText("Livraison de paniers-cadeaux");
+      Admin_menu_employee_table.setText("Table d'employ" + "\u00e9" + "");
+    }
+  }
+
+  @FXML
   public void initialize() {
+    setlanguage(language_choice);
     homeTrigger.setVisible(false);
     serviceRequestTrigger.setVisible(false);
     navigationTrigger.setVisible(false);

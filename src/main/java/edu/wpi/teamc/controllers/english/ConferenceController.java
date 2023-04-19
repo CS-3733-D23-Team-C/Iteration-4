@@ -11,7 +11,12 @@ import java.time.LocalDate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import javafx.scene.layout.AnchorPane;
+
 
 public class ConferenceController {
   @FXML private MFXButton goHome;
@@ -41,7 +46,11 @@ public class ConferenceController {
   @FXML private DatePicker endTime;
 
   @FXML private MenuButton employeeName;
+
+  @FXML private ImageView image;
+
   @FXML AnchorPane assignEmployeeAnchor;
+
 
   @FXML
   void getGoHome(ActionEvent event) {
@@ -57,21 +66,33 @@ public class ConferenceController {
   @FXML
   void getChoice1() {
     roomMenu.setText("Conference A1");
+    image.setImage(
+        new Image(
+            "file:src/main/resources/edu/wpi/teamc/views/Images/ConferenceRoom/conference_room_1.png"));
   }
 
   @FXML
   void getChoice2() {
     roomMenu.setText("Conference A2");
+    image.setImage(
+        new Image(
+            "file:src/main/resources/edu/wpi/teamc/views/Images/ConferenceRoom/conference_room_1.png"));
   }
 
   @FXML
   void getChoice3() {
     roomMenu.setText("Conference A3");
+    image.setImage(
+        new Image(
+            "file:src/main/resources/edu/wpi/teamc/views/Images/ConferenceRoom/conference_room_1.png"));
   }
 
   @FXML
   void getChoice4() {
     roomMenu.setText("Conference A4");
+    image.setImage(
+        new Image(
+            "file:src/main/resources/edu/wpi/teamc/views/Images/ConferenceRoom/conference_room_1.png"));
   }
 
   // These 4 choices(5-8) are for the employee name

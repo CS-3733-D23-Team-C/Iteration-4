@@ -2,6 +2,9 @@ package edu.wpi.teamc.controllers.english;
 
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
+import edu.wpi.teamc.CApp;
+//import edu.wpi.teamc.dao.users.Login;
+//import edu.wpi.teamc.dao.users.LoginDao;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
 import edu.wpi.teamc.dao.users.login.Login;
 import edu.wpi.teamc.dao.users.login.LoginDao;
@@ -88,7 +91,11 @@ public class HomeController {
     if (wrongNextLogin == false) {
       try {
         if (currentLogin.checkPassword(password)) {
-          if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN)) {
+          if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN)
+              || currentLogin.getPermissions().equals(PERMISSIONS.STAFF)) {
+            if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN)) {
+              CApp.setAdminLoginCheck(true);
+            }
             Navigation.navigate(Screen.ADMIN_HOME);
           } else {
             // Show Error Message

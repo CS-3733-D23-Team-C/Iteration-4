@@ -1,22 +1,21 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.CApp;
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.IOException;
 import java.time.LocalDate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import javafx.scene.layout.AnchorPane;
-
 
 public class ConferenceController {
   @FXML private MFXButton goHome;
@@ -51,7 +50,6 @@ public class ConferenceController {
 
   @FXML AnchorPane assignEmployeeAnchor;
 
-
   @FXML
   void getGoHome(ActionEvent event) {
     Navigation.navigate(Screen.ADMIN_HOME);
@@ -64,35 +62,43 @@ public class ConferenceController {
 
   // These 4 choices(1-4) are for the conference room
   @FXML
-  void getChoice1() {
+  void getChoice1() throws IOException {
     roomMenu.setText("Conference A1");
     image.setImage(
         new Image(
-            "file:src/main/resources/edu/wpi/teamc/views/Images/ConferenceRoom/conference_room_1.png"));
+            Main.class
+                .getResource("views/Images/ConferenceRoom/conference_room_1.png")
+                .openStream()));
   }
 
   @FXML
-  void getChoice2() {
+  void getChoice2() throws IOException {
     roomMenu.setText("Conference A2");
     image.setImage(
         new Image(
-            "file:src/main/resources/edu/wpi/teamc/views/Images/ConferenceRoom/conference_room_1.png"));
+            Main.class
+                .getResource("views/Images/ConferenceRoom/conference_room_1.png")
+                .openStream()));
   }
 
   @FXML
-  void getChoice3() {
+  void getChoice3() throws IOException {
     roomMenu.setText("Conference A3");
     image.setImage(
         new Image(
-            "file:src/main/resources/edu/wpi/teamc/views/Images/ConferenceRoom/conference_room_1.png"));
+            Main.class
+                .getResource("views/Images/ConferenceRoom/conference_room_1.png")
+                .openStream()));
   }
 
   @FXML
-  void getChoice4() {
+  void getChoice4() throws IOException {
     roomMenu.setText("Conference A4");
     image.setImage(
         new Image(
-            "file:src/main/resources/edu/wpi/teamc/views/Images/ConferenceRoom/conference_room_1.png"));
+            Main.class
+                .getResource("views/Images/ConferenceRoom/conference_room_1.png")
+                .openStream()));
   }
 
   // These 4 choices(5-8) are for the employee name

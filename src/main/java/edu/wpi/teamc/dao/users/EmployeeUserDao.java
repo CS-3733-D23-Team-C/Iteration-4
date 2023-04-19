@@ -84,7 +84,7 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, repl.getName());
-      ps.setString(2, repl.getUserName());
+      ps.setString(2, repl.getUsername());
       ps.setString(3, repl.getDepartment());
       ps.setString(4, repl.getPosition());
       ps.setInt(5, orm.getId());

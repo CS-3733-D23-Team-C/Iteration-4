@@ -77,7 +77,7 @@ public class GuestMenuController {
 
   @FXML
   void getHelpage(ActionEvent event) {
-    Navigation.navigate(Screen.HELP);
+    Navigation.navigate(Screen.GUEST_HELP);
   }
 
   @FXML
@@ -117,7 +117,7 @@ public class GuestMenuController {
     helpTrigger.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.navigate(Screen.HELP);
+          Navigation.navigate(Screen.GUEST_HELP);
         });
     homeTrigger.addEventFilter(
         MouseEvent.MOUSE_CLICKED,

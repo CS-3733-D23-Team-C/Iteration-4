@@ -43,6 +43,7 @@ public enum Screen {
   // -------OTHER-------//
   CONGRATS_PAGE("views/english/Congrats.fxml"),
   HELP("views/english/Help.fxml"),
+  GUEST_HELP("views/english/Guest/GuestHelp.fxml"),
   EXIT_PAGE("views/english/ExitPage.fxml");
 
   private final String filename;

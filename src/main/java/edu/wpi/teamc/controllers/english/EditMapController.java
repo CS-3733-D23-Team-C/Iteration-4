@@ -254,12 +254,12 @@ public class EditMapController {
             //            System.out.println(lockMap);
             addNodeByMouseLoc((int) mouseX, (int) mouseY);
           } // bring up node add popup
+          if (Objects.equals(mapMode.getMapMode(), "Select")) {
+            // do Nothing
+          }
 
           if (nodeClicked && !lockMap) {
-            if (Objects.equals(mapMode.getMapMode(), "Select")) {
-
-            } else if (Objects.equals(
-                mapMode.getMapMode(), "Add")) { // to add a location name to a node
+            if (Objects.equals(mapMode.getMapMode(), "Add")) { // to add a location name to a node
               lockMap = true;
               addMenu();
             } // bring up location name add popup
@@ -481,7 +481,7 @@ public class EditMapController {
   public void changeMapMode(ActionEvent event) {
     if (!dragModeOn) {
       modeButton = (MFXButton) event.getTarget();
-      if (Objects.equals(modeButton.getId(), "Select")) {
+      if (Objects.equals(modeButton.getId(), "selectButton")) {
         mapMode = HandleMapModes.SELECT;
         resetAndSetModes(modeButton);
         System.out.println("select mode");

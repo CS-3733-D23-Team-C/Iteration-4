@@ -173,7 +173,7 @@
             </VBox>
          </children>
       </Pane>
-      <Pane fx:id="serviceRequestPopOut" layoutX="-110.0" layoutY="98.0" prefHeight="238.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+      <Pane fx:id="serviceRequestPopOut" layoutX="-110.0" layoutY="98.0" prefHeight="265.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
          <children>
             <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
                <children>
@@ -197,7 +197,6 @@
                   <MFXButton onAction="#getRoomReservationPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Room Reservation" />
                   <MFXButton onAction="#getGiftBasketRequestPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket Delivery" />
                   <MFXButton onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Employee Table" />
-                  <MFXButton layoutX="10.0" layoutY="42.0" onAction="#getSignagePage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="View Signage" />
                </children>
             </VBox>
          </children>

@@ -502,17 +502,17 @@ public class EditMapController {
         resetAndSetModes(modeButton);
         edgeMadeText.setText("");
         edgeMadeText.setVisible(false);
-//        System.out.println("Removing");
+        //        System.out.println("Removing");
       } else if (Objects.equals(modeButton.getId(), "Move")) {
         mapMode = HandleMapModes.MOVE;
         resetAndSetModes(modeButton);
         edgeMadeText.setText("");
         edgeMadeText.setVisible(false);
-//        System.out.println("Moving");
+        //        System.out.println("Moving");
       } else if (Objects.equals(modeButton.getId(), "Edges")) {
         mapMode = HandleMapModes.MAKE_EDGES;
         resetAndSetModes(modeButton);
-//        System.out.println("Making Edges");
+        //        System.out.println("Making Edges");
       }
     }
   }

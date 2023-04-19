@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.navigation.Navigation;
@@ -83,6 +84,7 @@ public class FlowerController {
 
   // Special for Flower
   @FXML private TextArea giftCard;
+  @FXML AnchorPane assignEmployeeAnchor;
 
   public void getGoHome() {
     Navigation.navigate(Screen.ADMIN_HOME);
@@ -235,7 +237,12 @@ public class FlowerController {
 
   /** Method run when controller is initialized */
   @FXML
-  public void initialize() {}
+  public void initialize() {
+    if (!CApp.getAdminLoginCheck()) {
+      assignEmployeeAnchor.setMouseTransparent(true);
+      assignEmployeeAnchor.setOpacity(0);
+    }
+  }
 
   @FXML
   void getEditMap(KeyEvent event) {

@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.navigation.Navigation;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 public class MealController {
   @FXML private MFXButton goHome;
@@ -56,6 +58,7 @@ public class MealController {
   @FXML private ImageView mealImage;
   @FXML private TextArea ingredients;
   @FXML private TextArea allergyInfo;
+  @FXML AnchorPane assignEmployeeAnchor;
 
   @FXML
   void getGoHome(ActionEvent event) {
@@ -266,6 +269,10 @@ public class MealController {
   /** Method run when controller is initialized */
   @FXML
   public void initialize() {
+    if (!CApp.getAdminLoginCheck()) {
+      assignEmployeeAnchor.setMouseTransparent(true);
+      assignEmployeeAnchor.setOpacity(0);
+    }
     ingredients.setWrapText(true);
     allergyInfo.setWrapText(true);
   }

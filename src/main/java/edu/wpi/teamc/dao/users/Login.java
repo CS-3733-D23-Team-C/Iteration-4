@@ -13,6 +13,8 @@ public class Login implements IOrm {
   private String hashedPassword;
   private PERMISSIONS permissions;
 
+  public Login() {}
+
   public Login(String username, String password, PERMISSIONS permissions) {
     this.username = username.toLowerCase();
     this.permissions = permissions;

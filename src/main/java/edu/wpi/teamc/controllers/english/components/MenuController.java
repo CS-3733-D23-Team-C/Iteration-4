@@ -1,5 +1,7 @@
 package edu.wpi.teamc.controllers.english.components;
 
+import edu.wpi.teamc.CApp;
+import edu.wpi.teamc.dao.users.Login;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -9,6 +11,7 @@ import javafx.animation.PauseTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +21,7 @@ import javafx.util.Duration;
 
 public class MenuController {
 
+  public MFXButton moveButton;
   @FXML private Pane menuPane;
   @FXML private ImageView homeButton;
   @FXML private ImageView serviceRequestButton;
@@ -154,6 +158,9 @@ public class MenuController {
     Navigation.navigate(Screen.EMPLOYEETABLE_PAGE);
   }
 
+  Login login = new Login();
+  //  @FXML MFXButton moveButton;
+
   //    @FXML
   //    void getGiftBasketHistory(ActionEvent event) {
   //        Navigation.navigate(Screen.GIFTBASKET_HISTORY);
@@ -186,6 +193,19 @@ public class MenuController {
     exitPopOut.setVisible(false);
     logoutPopOut.setVisible(false);
     homePopOut.setVisible(false);
+
+    if (!CApp.getAdminLoginCheck()) {
+      //      moveButton.setMouseTransparent(true);
+      Tooltip tooltip = new Tooltip();
+      tooltip.setText("Can only access this page as an admin");
+      tooltip.setShowDuration(Duration.hours(2));
+      tooltip.setShowDelay(Duration.ZERO);
+      moveButton.setTooltip(tooltip);
+      moveButton.setStyle("-fx-background-color: grey");
+      moveButton.setOpacity(40);
+      moveButton.setOnAction(null);
+    }
+
     // basePane.setVisible(false);
     menuPane.setVisible(true);
     settingsPane.setVisible(false);

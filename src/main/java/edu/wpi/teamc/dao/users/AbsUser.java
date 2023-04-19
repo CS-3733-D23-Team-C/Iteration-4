@@ -22,4 +22,6 @@ abstract class AbsUser implements IOrm {
     this.name = name;
     this.username = username;
   }
+
+  public AbsUser() {}
 }

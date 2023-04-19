@@ -827,7 +827,6 @@ public class EditMapController {
     floorResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
     floorResetterHelper.getButton().setRippleAnimateBackground(true);
     floorResetterHelper.getButton().setButtonType(ButtonType.RAISED);
-
     floorResetterHelper.setButton(button);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;

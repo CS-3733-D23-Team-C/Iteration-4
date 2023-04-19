@@ -18,6 +18,5 @@ public class MealRequestDAOTest {
     MealRequestDAO dao = new MealRequestDAO();
     dao.addRow(
         new MealRequest(new Requester(0, "Bob"), "Morgue", "None", new Meal("Burger", "Water")));
-
   }
 }

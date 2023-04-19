@@ -13,7 +13,7 @@ public class AdminHomeController {
   private Desktop desktop = Desktop.getDesktop();
   // @FXML private AdminMenuController adminMenuController;
 
-  @FXML private HTMLEditor weather;
+  @FXML private HTMLEditor guestWeather;
   @FXML private ImageView English_flag;
   @FXML private ImageView Spanish_flag;
   @FXML private Text AdminHome_Title;

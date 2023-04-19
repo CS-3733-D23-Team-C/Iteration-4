@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.graph.AlgoSingleton;
 import edu.wpi.teamc.graph.Graph;
@@ -8,6 +9,7 @@ import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
+import java.io.IOException;
 import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,13 +29,15 @@ import net.kurobako.gesturefx.GesturePane;
 public class PathFindingController {
   public Group group;
   public Image image =
-      new Image("file:src/main/resources/edu/wpi/teamc/views/Images/FirstFloor.png");
+      new Image(Main.class.getResource("views/Images/FirstFloor.png").openStream());
   @FXML MFXButton backButton;
   @FXML MFXButton nextFloor;
   @FXML MFXButton prevFloor;
   @FXML MenuButton algChoice;
   @FXML MFXFilterComboBox<String> startChoice;
   @FXML MFXFilterComboBox<String> endChoice;
+
+  public PathFindingController() throws IOException {}
 
   /** Method run when controller is initialized */
   @FXML

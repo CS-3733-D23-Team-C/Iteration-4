@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.controllers.english.MapHelpers.*;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.navigation.Navigation;
@@ -52,7 +53,7 @@ public class EditMapController {
   double mouseX;
   double mouseY;
   public Image image =
-      new Image("file:src/main/resources/edu/wpi/teamc/views/Images/FirstFloor.png");
+      new Image(Main.class.getResource("views/Images/FirstFloor.png").openStream());
 
   /*
   Notes:
@@ -70,6 +71,8 @@ public class EditMapController {
 
   /** */
   @FXML MFXButton backButton;
+
+  public EditMapController() throws IOException {}
 
   /** Method run when controller is initialized */
   @FXML
@@ -252,7 +255,11 @@ public class EditMapController {
           if ((Objects.equals(mapMode.getMapMode(), "Add")) && !lockMap && !nodeClicked) {
             lockMap = true;
             //            System.out.println(lockMap);
-            addNodeByMouseLoc((int) mouseX, (int) mouseY);
+            try {
+              addNodeByMouseLoc((int) mouseX, (int) mouseY);
+            } catch (IOException ex) {
+              throw new RuntimeException(ex);
+            }
           } // bring up node add popup
           if (Objects.equals(mapMode.getMapMode(), "Select")) {
             // do Nothing
@@ -261,15 +268,27 @@ public class EditMapController {
           if (nodeClicked && !lockMap) {
             if (Objects.equals(mapMode.getMapMode(), "Add")) { // to add a location name to a node
               lockMap = true;
-              addMenu();
+              try {
+                addMenu();
+              } catch (IOException ex) {
+                throw new RuntimeException(ex);
+              }
             } // bring up location name add popup
             else if (Objects.equals(mapMode.getMapMode(), "Modify")) {
               lockMap = true;
-              modifyMenu();
+              try {
+                modifyMenu();
+              } catch (IOException ex) {
+                throw new RuntimeException(ex);
+              }
             } // bring up modify popup
             else if (Objects.equals(mapMode.getMapMode(), "Remove")) {
               lockMap = true;
-              removeMenu();
+              try {
+                removeMenu();
+              } catch (IOException ex) {
+                throw new RuntimeException(ex);
+              }
             } // bring up remove popup
             else if (Objects.equals(mapMode.getMapMode(), "Move")) {
               lockMap = true;
@@ -517,27 +536,27 @@ public class EditMapController {
     }
   }
 
-  public void changeFloor(ActionEvent event) {
+  public void changeFloor(ActionEvent event) throws IOException {
     floorButton = (MFXButton) event.getTarget();
 
     if (Objects.equals(floorButton.getId(), "FL1")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/FirstFloor.png");
+      image = new Image(Main.class.getResource("views/Images/FirstFloor.png").openStream());
       floor = "1";
       resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FL2")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/SecondFloor.png");
+      image = new Image(Main.class.getResource("views/Images/SecondFloor.png").openStream());
       floor = "2";
       resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FL3")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/ThirdFloor.png");
+      image = new Image(Main.class.getResource("views/Images/ThirdFloor.png").openStream());
       floor = "3";
       resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FLB1")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/B1.png");
+      image = new Image(Main.class.getResource("views/Images/B1.png").openStream());
       floor = "L1";
       resetAndSetFloorIndicators(floorButton);
     } else if (Objects.equals(floorButton.getId(), "FLB2")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/B2.png");
+      image = new Image(Main.class.getResource("views/Images/B2.png").openStream());
       floor = "L2";
       resetAndSetFloorIndicators(floorButton);
     }
@@ -832,7 +851,7 @@ public class EditMapController {
     //    tempSave = circle;
   }
 
-  public void addNodeByMouseLoc(int x, int y) {
+  public void addNodeByMouseLoc(int x, int y) throws IOException {
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
@@ -871,7 +890,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 410, 225);
     scene
         .getStylesheets()
-        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -920,7 +939,7 @@ public class EditMapController {
         });
   }
 
-  public void modifyMenu() {
+  public void modifyMenu() throws IOException {
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
@@ -972,7 +991,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 350, 330);
     scene
         .getStylesheets()
-        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -990,7 +1009,11 @@ public class EditMapController {
     byText.setOnMouseClicked(
         event -> {
           stage.close();
-          modifyNodeByInput();
+          try {
+            modifyNodeByInput();
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
         });
     byDrag.setOnMouseClicked(
         event -> {
@@ -1007,11 +1030,15 @@ public class EditMapController {
     editName.setOnMouseClicked(
         event -> {
           stage.close();
-          modifyName();
+          try {
+            modifyName();
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
         });
   }
 
-  public void modifyNodeByInput() {
+  public void modifyNodeByInput() throws IOException {
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
@@ -1067,7 +1094,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 290, 290);
     scene
         .getStylesheets()
-        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -1130,7 +1157,8 @@ public class EditMapController {
         });
   }
 
-  public void removeMenu() { // make this a pop up window instead of a whole new scene?
+  public void removeMenu()
+      throws IOException { // make this a pop up window instead of a whole new scene?
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
@@ -1171,7 +1199,7 @@ public class EditMapController {
     Scene scene = new Scene(borderPane, 325, 260);
     scene
         .getStylesheets()
-        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -1314,7 +1342,8 @@ public class EditMapController {
         });
   }
 
-  public void addMenu() { // make this a pop up window instead of a whole new scene?
+  public void addMenu()
+      throws IOException { // make this a pop up window instead of a whole new scene?
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
@@ -1401,7 +1430,7 @@ public class EditMapController {
     // File((Main.class.getResource("./views/Stylesheets/MapEditorPopUps.css").toString()));
     scene
         .getStylesheets()
-        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
 
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
@@ -1445,7 +1474,8 @@ public class EditMapController {
         });
   }
 
-  public void modifyName() { // make this a pop up window instead of a whole new scene?
+  public void modifyName()
+      throws IOException { // make this a pop up window instead of a whole new scene?
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
@@ -1510,7 +1540,7 @@ public class EditMapController {
     Stage stage = new Stage();
     scene
         .getStylesheets()
-        .add("file:src/main/resources/edu/wpi/teamc/views/Stylesheets/MapEditorPopUps.css");
+        .add(Main.class.getResource("views/Stylesheets/MapEditorPopUps.css").toString());
     stage.setScene(scene);
     stage.setTitle("Add Location Name Window");
     stage.setAlwaysOnTop(true);

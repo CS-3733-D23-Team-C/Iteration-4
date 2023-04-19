@@ -1,18 +1,26 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.CApp;
+import edu.wpi.teamc.Main;
+import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.map.LocationName;
 import edu.wpi.teamc.dao.requests.*;
+import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.IOException;
+import java.util.List;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import org.controlsfx.control.SearchableComboBox;
 
 public class FurnitureController {
   @FXML private MFXButton goHome;
@@ -35,7 +43,7 @@ public class FurnitureController {
 
   @FXML private MenuItem choice8;
 
-  @FXML private MenuButton roomMenu;
+  @FXML private SearchableComboBox roomMenu;
   // Meal Menu
   @FXML private MenuButton furnitureMenu;
   @FXML private MenuItem furniturechoice1;
@@ -51,7 +59,7 @@ public class FurnitureController {
 
   @FXML private TextField nameBox;
   @FXML private TextArea specialRequest;
-  @FXML private MenuButton employeeName;
+  @FXML private SearchableComboBox employeeName;
 
   // Image and Food Information
   @FXML private ImageView furnitureImage;
@@ -70,70 +78,86 @@ public class FurnitureController {
   //  }
 
   // These 4 choices(1-4) are for the conference room
-  @FXML
-  void getChoice1() {
-    roomMenu.setText("Conference A1");
-  }
-
-  @FXML
-  void getChoice2() {
-    roomMenu.setText("Conference A2");
-  }
-
-  @FXML
-  void getChoice3() {
-    roomMenu.setText("Conference A3");
-  }
-
-  @FXML
-  void getChoice4() {
-    roomMenu.setText("Conference A4");
-  }
+  //  @FXML
+  //  void getChoice1() {
+  //    roomMenu.setText("Conference A1");
+  //  }
+  //
+  //  @FXML
+  //  void getChoice2() {
+  //    roomMenu.setText("Conference A2");
+  //  }
+  //
+  //  @FXML
+  //  void getChoice3() {
+  //    roomMenu.setText("Conference A3");
+  //  }
+  //
+  //  @FXML
+  //  void getChoice4() {
+  //    roomMenu.setText("Conference A4");
+  //  }
 
   // These 4 choices(5-8) are for the employee name
-  @FXML
-  void getChoice5() {
-    employeeName.setText(choice5.getText());
-  }
-
-  @FXML
-  void getChoice6() {
-    employeeName.setText(choice6.getText());
-  }
-
-  @FXML
-  void getChoice7() {
-    employeeName.setText(choice7.getText());
-  }
-
-  @FXML
-  void getChoice8() {
-    employeeName.setText(choice8.getText());
-  }
+  //  @FXML
+  //  void getChoice5() {
+  //    employeeName.setText(choice5.getText());
+  //  }
+  //
+  //  @FXML
+  //  void getChoice6() {
+  //    employeeName.setText(choice6.getText());
+  //  }
+  //
+  //  @FXML
+  //  void getChoice7() {
+  //    employeeName.setText(choice7.getText());
+  //  }
+  //
+  //  @FXML
+  //  void getChoice8() {
+  //    employeeName.setText(choice8.getText());
+  //  }
 
   // These 4 choices(1-4) are for the meal menu
   @FXML
   void getFurnitureChoice1() {
     furnitureMenu.setText(furniturechoice1.getText());
-    getFurnitureInfo(1);
+    try {
+      getFurnitureInfo(1);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getFurnitureChoice2() {
     furnitureMenu.setText(furniturechoice2.getText());
-    getFurnitureInfo(2);
+    try {
+      getFurnitureInfo(2);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getFurnitureChoice3() {
     furnitureMenu.setText(furniturechoice3.getText());
-    getFurnitureInfo(3);
+    try {
+      getFurnitureInfo(3);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getFurnitureChoice4() {
     furnitureMenu.setText(furniturechoice4.getText());
-    getFurnitureInfo(4);
+    try {
+      getFurnitureInfo(4);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   // These 4 choices(1-4) are for the drink menu
@@ -158,35 +182,35 @@ public class FurnitureController {
   }
 
   @FXML
-  void getFurnitureInfo(int furnitureChoice) {
+  void getFurnitureInfo(int furnitureChoice) throws IOException {
     switch (furnitureChoice) {
       case 1:
         furnitureImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Furniture/chair.png"));
+            new Image(Main.class.getResource("views/Images/Furniture/chair.png").openStream()));
         Dimensions.setText("Width: 30 in, Length: 27 in, Height: 60 in");
         weightInfo.setText("25 lbs each");
         break;
       case 2:
         furnitureImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Furniture/doradesk.png"));
+            new Image(Main.class.getResource("views/Images/Furniture/doradesk.png").openStream()));
         Dimensions.setText("Width: Backpack, Length: Boots, Height: Dora");
         weightInfo.setText("5 Swipers each");
         break;
       case 3:
         furnitureImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Furniture/stool.png"));
+            new Image(Main.class.getResource("views/Images/Furniture/stool.png").openStream()));
         Dimensions.setText("Width: 15 in, Length: 15 in, Height: 30 in");
         weightInfo.setText("10 lbs each");
         break;
       case 4:
         furnitureImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Furniture/couch.png"));
+            new Image(Main.class.getResource("views/Images/Furniture/couch.png").openStream()));
         Dimensions.setText("Width: 350 in, Length: 40 in, Height: 15 in");
         weightInfo.setText("500 lbs each");
         break;
       default:
         furnitureImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Furniture/kys.png"));
+            new Image(Main.class.getResource("views/Images/Furniture/kys.png").openStream()));
         Dimensions.setText("");
         weightInfo.setText("");
         break;
@@ -196,13 +220,16 @@ public class FurnitureController {
   @FXML
   void getSubmit(ActionEvent event) {
     String name = nameBox.getText();
-    String room = roomMenu.getText();
+    String room = roomMenu.getValue().toString();
     String notes = specialRequest.getText();
     Meal meal = new Meal(furnitureMenu.getText(), "");
     MealRequest req = new MealRequest(new PatientUser(name), room, notes, meal);
 
     IDao<MealRequest, Integer> dao = new MealRequestDAO();
 
+    if (!(employeeName.getValue().toString() == null)) {
+      req.setAssignedto(employeeName.getValue().toString());
+    }
     dao.addRow(req);
 
     Navigation.navigate(Screen.CONGRATS_PAGE);
@@ -269,6 +296,14 @@ public class FurnitureController {
   /** Method run when controller is initialized */
   @FXML
   public void initialize() {
+    List<LocationName> locationNames =
+        (List<LocationName>) HospitalSystem.fetchAllObjects(new LocationName());
+    roomMenu.setItems(FXCollections.observableArrayList(locationNames));
+
+    List<EmployeeUser> employeeUsers =
+        (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
+    employeeName.setItems(FXCollections.observableArrayList(employeeUsers));
+
     if (!CApp.getAdminLoginCheck()) {
       assignEmployeeAnchor.setMouseTransparent(true);
       assignEmployeeAnchor.setOpacity(0);

@@ -1,8 +1,8 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.CApp;
-import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.Main;
+import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.map.LocationName;
 import edu.wpi.teamc.dao.requests.*;
@@ -11,9 +11,9 @@ import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.IOException;
 import java.util.List;
 import javafx.collections.FXCollections;
-import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
@@ -212,7 +212,7 @@ public class FlowerController {
     FlowerDeliveryRequest req =
         new FlowerDeliveryRequest(new PatientUser(name), room, menuSelection, notes);
     IDao<FlowerDeliveryRequest, Integer> dao = new FlowerDeliveryRequestDAO();
-    if(!(employeeName.getValue().toString() == null)) {
+    if (!(employeeName.getValue().toString() == null)) {
       req.setAssignedto(employeeName.getValue().toString());
     }
     dao.addRow(req);

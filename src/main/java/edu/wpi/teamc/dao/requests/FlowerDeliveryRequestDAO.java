@@ -2,6 +2,8 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.users.IUser;
+import edu.wpi.teamc.dao.users.PatientUser;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +27,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
 
       while (rs.next()) {
         int requestID = rs.getInt("requestID");
-        Requester req = new Requester(0, rs.getString("Requester"));
+        PatientUser req = new PatientUser(rs.getString("Requester"));
         String roomName = rs.getString("roomName");
         String flower = rs.getString("flower");
         STATUS status = STATUS.valueOf(rs.getString("status"));
@@ -156,7 +158,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
 
       while (rs.next()) {
         int requestID = rs.getInt("requestID");
-        Requester req = new Requester(0, rs.getString("Requester"));
+        IUser req = new PatientUser(rs.getString("Requester"));
         String roomName = rs.getString("roomName");
         String flower = rs.getString("flower");
         STATUS status = STATUS.valueOf(rs.getString("status"));

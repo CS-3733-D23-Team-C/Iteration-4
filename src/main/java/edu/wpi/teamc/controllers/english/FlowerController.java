@@ -2,6 +2,7 @@ package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.requests.*;
+import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -182,7 +183,7 @@ public class FlowerController {
     String room = roomMenu.getText();
     String menuSelection = serviceMenu.getText();
     FlowerDeliveryRequest req =
-        new FlowerDeliveryRequest(new Requester(0, name), room, menuSelection, notes);
+        new FlowerDeliveryRequest(new PatientUser(name), room, menuSelection, notes);
     IDao<FlowerDeliveryRequest, Integer> dao = new FlowerDeliveryRequestDAO();
     dao.addRow(req);
     Navigation.navigate(Screen.CONGRATS_PAGE);

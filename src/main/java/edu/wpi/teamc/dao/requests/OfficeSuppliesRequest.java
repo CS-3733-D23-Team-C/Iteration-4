@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.requests;
 
+import edu.wpi.teamc.dao.users.IUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,14 +10,14 @@ public class OfficeSuppliesRequest extends AbsServiceRequest {
   @Getter @Setter private String eta;
 
   public OfficeSuppliesRequest(
-      Requester requester, String roomName, String officesupplytype, String additionalNotes) {
+      IUser requester, String roomName, String officesupplytype, String additionalNotes) {
     super(requester, roomName, additionalNotes);
     this.officesupplytype = officesupplytype;
   }
 
   OfficeSuppliesRequest(
       int requestID,
-      Requester requester,
+      IUser requester,
       String roomname,
       String officesupplytype,
       String additionalnotes) {

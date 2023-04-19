@@ -27,9 +27,9 @@ public class GuestHelpController {
 
   @FXML
   public void initialize() {
-    basicFunctions.setWrapText(true);
-    basicFunctions.setEditable(false);
-    otherFunctions.setWrapText(true);
-    otherFunctions.setEditable(false);
+    //    basicFunctions.setWrapText(true);
+    //    basicFunctions.setEditable(false);
+    //    otherFunctions.setWrapText(true);
+    //    otherFunctions.setEditable(false);
   }
 }

@@ -19,25 +19,19 @@ public class GuestMenuController {
 
   @FXML private Pane menuPane;
   @FXML private ImageView homeButton;
-  @FXML private ImageView serviceRequestButton;
-
   @FXML private ImageView navigationButton;
-
   @FXML private ImageView settingsButton;
-
   @FXML private ImageView helpButton;
   @FXML private ImageView exitButton;
   @FXML private ImageView logoutButton;
 
   @FXML private Pane homeTrigger;
-  @FXML private Pane serviceRequestTrigger;
   @FXML private Pane navigationTrigger;
   @FXML private Pane settingsTrigger;
   @FXML private Pane helpTrigger;
 
   @FXML private Pane exitTrigger;
   @FXML private Pane logoutTrigger;
-  @FXML private Pane serviceRequestPopOut;
   @FXML private Pane navigationPopOut;
   @FXML private Pane settingsPopOut;
   @FXML private Pane helpPopOut;
@@ -46,8 +40,6 @@ public class GuestMenuController {
   @FXML private Pane logoutPopOut;
   @FXML private Pane homePopOut;
   @FXML private AnchorPane basePane;
-
-  // @FXML private MFXButton flowerButton;
 
   @FXML
   void getSignagePage(ActionEvent event) {
@@ -83,14 +75,12 @@ public class GuestMenuController {
   @FXML
   public void initialize() {
     homeTrigger.setVisible(false);
-    serviceRequestTrigger.setVisible(false);
     navigationTrigger.setVisible(false);
     settingsTrigger.setVisible(false);
     helpTrigger.setVisible(false);
 
     exitTrigger.setVisible(false);
     logoutTrigger.setVisible(false);
-    serviceRequestPopOut.setVisible(false);
     navigationPopOut.setVisible(false);
     settingsPopOut.setVisible(false);
     helpPopOut.setVisible(false);
@@ -124,11 +114,11 @@ public class GuestMenuController {
         event -> {
           Navigation.navigate(Screen.GUEST_HOME);
         });
-    settingsTrigger.addEventFilter(
-        MouseEvent.MOUSE_CLICKED,
-        event -> {
-          Navigation.navigate(Screen.HELP);
-        });
+    //    settingsTrigger.addEventFilter(
+    //        MouseEvent.MOUSE_CLICKED,
+    //        event -> {
+    //          Navigation.navigate(Screen.HELP);
+    //        });
     logoutTrigger.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
@@ -223,88 +213,6 @@ public class GuestMenuController {
               }
             });
 
-    serviceRequestButton
-        .hoverProperty()
-        .addListener(
-            (observable, oldValue, newValue) -> {
-              if (newValue || isHovering.get()) {
-                delay.setOnFinished(
-                    event -> {
-                      serviceRequestPopOutTransition.setDuration(Duration.millis(200));
-                      serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
-                      serviceRequestPopOutTransition.setToX(180);
-                      serviceRequestPopOutTransition.play();
-                      serviceRequestPopOut.setVisible(true);
-                      serviceRequestTrigger.setVisible(true);
-                      serviceRequestButton.setVisible(false);
-                    });
-                delay.play();
-              } else {
-                delay.setOnFinished(null); // Clear the delay's onFinished event
-                serviceRequestPopOutTransition.setDuration(Duration.millis(200));
-                serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
-                serviceRequestPopOutTransition.setToX(0);
-                serviceRequestPopOutTransition.setOnFinished(
-                    e -> {
-                      if (!serviceRequestPopOut.isHover() && !serviceRequestTrigger.isHover()) {
-                        serviceRequestPopOut.setVisible(false);
-                        serviceRequestTrigger.setVisible(false);
-                        serviceRequestButton.setVisible(true);
-                      }
-                    });
-                serviceRequestPopOutTransition.play();
-              }
-            });
-    serviceRequestPopOut
-        .hoverProperty()
-        .addListener(
-            (observable, oldValue, newValue) -> {
-              isHovering.set(newValue);
-              if (!newValue
-                  && !serviceRequestButton.isHover()
-                  && !serviceRequestTrigger.isHover()) {
-                serviceRequestPopOutTransition.setDuration(Duration.millis(200));
-                serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
-                serviceRequestPopOutTransition.setToX(0);
-                serviceRequestPopOutTransition.setOnFinished(
-                    e -> {
-                      if (!serviceRequestPopOut.isHover() && !serviceRequestTrigger.isHover()) {
-                        serviceRequestPopOut.setVisible(false);
-                        serviceRequestTrigger.setVisible(false);
-                        serviceRequestButton.setVisible(true);
-                      }
-                    });
-                serviceRequestPopOutTransition.play();
-              } else if (newValue) {
-                serviceRequestPopOutTransition.stop();
-                serviceRequestPopOut.setTranslateX(180);
-              }
-            });
-    serviceRequestTrigger
-        .hoverProperty()
-        .addListener(
-            (observable, oldValue, newValue) -> {
-              isHovering.set(newValue);
-              if (!newValue && !serviceRequestButton.isHover() && !serviceRequestPopOut.isHover()) {
-                serviceRequestPopOutTransition.setDuration(Duration.millis(200));
-                serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
-                serviceRequestPopOutTransition.setToX(0);
-                serviceRequestPopOutTransition.setOnFinished(
-                    e -> {
-                      if (!serviceRequestPopOut.isHover() && !serviceRequestTrigger.isHover()) {
-                        serviceRequestPopOut.setVisible(false);
-                        serviceRequestTrigger.setVisible(false);
-                        serviceRequestButton.setVisible(true);
-                      }
-                    });
-                serviceRequestPopOutTransition.play();
-              } else if (newValue) {
-                serviceRequestPopOutTransition.setDuration(Duration.millis(200));
-                serviceRequestPopOutTransition.setNode(serviceRequestPopOut);
-                serviceRequestPopOut.setTranslateX(180);
-                serviceRequestPopOutTransition.play();
-              }
-            });
     navigationButton
         .hoverProperty()
         .addListener(

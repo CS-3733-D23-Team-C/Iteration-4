@@ -63,7 +63,7 @@ public class EmployeeTableController {
     name.setText("Name");
     department.setText("Department");
     position.setText("Position");
-
+    //
     deleteButton
         .disableProperty()
         .bind(Bindings.isEmpty(employeeTable.getSelectionModel().getSelectedItems()));

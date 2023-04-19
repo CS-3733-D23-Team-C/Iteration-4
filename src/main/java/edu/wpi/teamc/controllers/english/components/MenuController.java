@@ -218,7 +218,7 @@ public class MenuController {
         event -> {
           Navigation.navigate(Screen.ADMIN_HOME);
         });
-        
+
     settingsTrigger.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {

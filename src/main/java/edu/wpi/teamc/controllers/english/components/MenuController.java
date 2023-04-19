@@ -6,11 +6,11 @@ import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.animation.PauseTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -22,7 +22,7 @@ import javafx.util.Duration;
 
 public class MenuController {
 
-  public MFXButton moveButton;
+  @FXML public MFXButton Admin_menu_movetable;
 
   @FXML private Pane menuPane;
   @FXML private ImageView homeButton;
@@ -77,7 +77,7 @@ public class MenuController {
   @FXML private Text Admin_menu_navigation;
   @FXML private MFXButton Admin_menu_directions;
   @FXML private MFXButton Admin_menu_editmap;
-  @FXML private MFXButton Admin_menu_movetable;
+  //  @FXML private MFXButton Admin_menu_movetable;
   @FXML private MFXButton Admin_menu_signage;
 
   // SERVICE REQUEST TEXT//
@@ -275,6 +275,11 @@ public class MenuController {
     }
   }
 
+  public EventHandler<ActionEvent> nothing() {
+
+    return null;
+  }
+
   @FXML
   public void initialize() {
     setlanguage(language_choice);
@@ -295,15 +300,16 @@ public class MenuController {
     homePopOut.setVisible(false);
 
     if (!CApp.getAdminLoginCheck()) {
-      //      moveButton.setMouseTransparent(true);
+      Admin_menu_movetable.setMouseTransparent(true);
       Tooltip tooltip = new Tooltip();
       tooltip.setText("Can only access this page as an admin");
       tooltip.setShowDuration(Duration.hours(2));
-      tooltip.setShowDelay(Duration.ZERO);
-      moveButton.setTooltip(tooltip);
-      moveButton.setStyle("-fx-background-color: grey");
-      moveButton.setOpacity(40);
-      moveButton.setOnAction(null);
+      // tooltip.setShowDelay(Duration.hours(0));
+      Admin_menu_movetable.setTooltip(tooltip);
+      Admin_menu_movetable.setStyle("-fx-background-color: grey");
+      Admin_menu_movetable.setOpacity(40);
+      Admin_menu_movetable.setOnAction(null);
+      //      moveButton.setMouseTransparent(true);
     }
 
     // basePane.setVisible(false);

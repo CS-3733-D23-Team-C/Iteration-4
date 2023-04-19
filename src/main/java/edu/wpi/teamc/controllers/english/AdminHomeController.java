@@ -35,10 +35,10 @@ public class AdminHomeController {
 
   @FXML
   public void initialize() {
+    setLanguage(language_choice);
     if (!CApp.getAdminLoginCheck()) {
       AdminHome_Title.setText("Staff Home Page");
     }
-    setLanguage(language_choice);
   }
 
   // LANGUAGE//

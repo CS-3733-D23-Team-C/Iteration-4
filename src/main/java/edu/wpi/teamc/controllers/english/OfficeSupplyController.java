@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.dao.users.PatientUser;
@@ -9,8 +10,12 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import javafx.scene.layout.AnchorPane;
+
 
 public class OfficeSupplyController {
   @FXML private MFXButton goHome;
@@ -46,6 +51,7 @@ public class OfficeSupplyController {
 
   // special for Office Supply
   @FXML private TextField supplyAmount;
+  @FXML AnchorPane assignEmployeeAnchor;
 
   public void getGoHome() {
     Navigation.navigate(Screen.ADMIN_HOME);
@@ -180,7 +186,12 @@ public class OfficeSupplyController {
 
   /** Method run when controller is initialized */
   @FXML
-  public void initialize() {}
+  public void initialize() {
+    if (!CApp.getAdminLoginCheck()) {
+      assignEmployeeAnchor.setMouseTransparent(true);
+      assignEmployeeAnchor.setOpacity(0);
+    }
+  }
 
   @FXML
   void getEditMap(ActionEvent event) {

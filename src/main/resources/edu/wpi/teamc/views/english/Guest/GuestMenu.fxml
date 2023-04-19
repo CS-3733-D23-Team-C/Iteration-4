@@ -119,7 +119,7 @@
             </VBox>
          </children>
       </Pane>
-      <Pane fx:id="navigationPopOut" layoutX="-110.0" layoutY="98.0" prefHeight="147.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@../components/Menu.css">
+      <Pane fx:id="navigationPopOut" layoutX="-110.0" layoutY="98.0" prefHeight="129.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@../components/Menu.css">
          <children>
             <VBox layoutX="10.0" layoutY="15.0" prefHeight="117.0" prefWidth="156.0" spacing="5.0">
                <children>

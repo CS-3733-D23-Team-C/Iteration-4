@@ -1,6 +1,7 @@
 package edu.wpi.teamc.controllers.english;
 
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+import edu.wpi.teamc.CApp;
 
 import java.awt.*;
 import javafx.fxml.FXML;
@@ -20,13 +21,27 @@ public class AdminHomeController {
   @FXML private ImageView Spanish_flag;
   // ALL TEXT//
   @FXML private Text AdminHome_Title;
+
   @FXML private TextField weather_title;
   @FXML private TextField notifications_title;
 
+  //  Login login;
+
+  // public void initialize() {
+  //  LoginDao loginDao = new LoginDao();
+  //    try {
+  //      login = loginDao.;
+  //    }
+
   @FXML
   public void initialize() {
-    setLanguage(language_choice);
-  }
+    if (!CApp.getAdminLoginCheck()) {
+      AdminHome_Title.setText("Staff Home Page");
+      }
+      setLanguage(language_choice);
+    }
+
+  
 
   // LANGUAGE//
   @FXML
@@ -45,7 +60,12 @@ public class AdminHomeController {
   void setLanguage(int language) {
     // this.language_choice = language;
     if (language == 0) { // 0 is english
+      if (!CApp.getAdminLoginCheck()) {
+      AdminHome_Title.setText("Staff Home Page");
+      }
+      else{
       AdminHome_Title.setText("Admin Home Page");
+      }
       weather_title.setText("Current Weather Forcast");
       notifications_title.setText("Notifications");
 

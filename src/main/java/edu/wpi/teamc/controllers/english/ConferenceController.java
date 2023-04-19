@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.dao.users.PatientUser;
@@ -10,8 +11,12 @@ import java.time.LocalDate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import javafx.scene.layout.AnchorPane;
+
 
 public class ConferenceController {
   @FXML private MFXButton goHome;
@@ -41,7 +46,11 @@ public class ConferenceController {
   @FXML private DatePicker endTime;
 
   @FXML private MenuButton employeeName;
+
   @FXML private ImageView image;
+
+  @FXML AnchorPane assignEmployeeAnchor;
+
 
   @FXML
   void getGoHome(ActionEvent event) {
@@ -190,7 +199,12 @@ public class ConferenceController {
 
   /** Method run when controller is initialized */
   @FXML
-  public void initialize() {}
+  public void initialize() {
+    if (!CApp.getAdminLoginCheck()) {
+      assignEmployeeAnchor.setMouseTransparent(true);
+      assignEmployeeAnchor.setOpacity(0);
+    }
+  }
 
   @FXML
   void getEditMap(ActionEvent event) {

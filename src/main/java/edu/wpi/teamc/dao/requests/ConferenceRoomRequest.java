@@ -67,6 +67,10 @@ public class ConferenceRoomRequest extends AbsServiceRequest {
     this.status = status;
   }
 
+  public ConferenceRoomRequest() {
+    super();
+  }
+
   //  public ConferenceRoomRequest(int requestID, PatientUser requester, ConferenceRoom
   // conferenceRoom, String additionalNotes, String startTime, String endTime, String assignedto) {
   //    super(assignedto);

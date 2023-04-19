@@ -42,4 +42,6 @@ abstract class AbsServiceRequest implements IOrm {
     this.status = status;
     this.assignedto = assignedto;
   }
+
+  AbsServiceRequest() {}
 }

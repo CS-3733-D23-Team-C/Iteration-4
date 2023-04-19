@@ -1,6 +1,8 @@
 package edu.wpi.teamc.controllers.english;
 
+import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.requests.*;
+import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.dao.users.IUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
@@ -12,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class FurnitureHistoryController {
@@ -36,6 +39,35 @@ public class FurnitureHistoryController {
   @FXML TableColumn<FurnitureDeliveryRequest, STATUS> ColumnSix;
   @FXML TableColumn<FurnitureDeliveryRequest, String> ColumnSeven;
   @FXML TableColumn<FurnitureDeliveryRequest, String> ColumnEight;
+
+  @FXML Button clearButton;
+  @FXML TextField idField;
+  @FXML MenuButton statusField;
+  @FXML SearchableComboBox assignedtoField;
+  @FXML DatePicker etaField;
+
+  @FXML Button updateButton;
+  @FXML Button deleteButton;
+
+  @FXML
+  void status1(ActionEvent event) {
+    statusField.setText("PENDING");
+  }
+
+  @FXML
+  void status2(ActionEvent event) {
+    statusField.setText("IN_PROGRESS");
+  }
+
+  @FXML
+  void status3(ActionEvent event) {
+    statusField.setText("COMPLETE");
+  }
+
+  @FXML
+  void status4(ActionEvent event) {
+    statusField.setText("CANCELLED");
+  }
 
   ObservableList<FurnitureDeliveryRequest> rows = FXCollections.observableArrayList();
 
@@ -67,12 +99,7 @@ public class FurnitureHistoryController {
     ColumnSix.setText("Status");
     ColumnSeven.setText("ETA");
     ColumnEight.setText("Assigned To");
-    //    ColumnOne.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
-    //    ColumnTwo.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
-    //    ColumnThree.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
-    //    ColumnFour.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
-    //    ColumnFive.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
-    //    ColumnSix.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
+
     // get conference room table
     FurnitureDeliveryRequestDAO dao = new FurnitureDeliveryRequestDAO();
     List<FurnitureDeliveryRequest> list = dao.fetchAllObjects();
@@ -80,7 +107,59 @@ public class FurnitureHistoryController {
       rows.add(r);
     }
     historyTable.setItems(rows);
+
+    List<EmployeeUser> employeeList =
+        (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
+    assignedtoField.getItems().addAll(FXCollections.observableArrayList(employeeList));
+
     System.out.println("did it");
+
+    historyTable.setOnMouseClicked(
+        event -> {
+          updateCurrentSelection();
+        });
+    clearButton.setOnAction(
+        event -> {
+          idField.clear();
+          statusField.setText("");
+          assignedtoField.getSelectionModel().clearSelection();
+          etaField.getEditor().clear();
+        });
+
+    updateButton.setOnMouseClicked(
+        event -> {
+          //   ConferenceRoomRequestDAO dao2 = new ConferenceRoomRequestDAO();
+          FurnitureDeliveryRequest selected = historyTable.getSelectionModel().getSelectedItem();
+          selected.setAssignedto(assignedtoField.getSelectionModel().getSelectedItem().toString());
+          selected.setStatus(STATUS.valueOf(statusField.getText()));
+          selected.setEta(etaField.getEditor().getText());
+          HospitalSystem.updateRow(selected);
+          loadRequests();
+        });
+
+    deleteButton.setOnMouseClicked(
+        event -> {
+          FurnitureDeliveryRequest selected = historyTable.getSelectionModel().getSelectedItem();
+          HospitalSystem.deleteRow(selected);
+          rows.remove(selected);
+          loadRequests();
+        });
+  }
+
+  private void loadRequests() {
+    List<FurnitureDeliveryRequest> list =
+        (List<FurnitureDeliveryRequest>)
+            HospitalSystem.fetchAllObjects(new FurnitureDeliveryRequest());
+    historyTable.getItems().removeAll();
+    historyTable.getItems().setAll(list);
+  }
+
+  private void updateCurrentSelection() {
+    FurnitureDeliveryRequest selected = historyTable.getSelectionModel().getSelectedItem();
+    idField.setText(String.valueOf(selected.getRequestID()));
+    statusField.setText(selected.getStatus().toString());
+    assignedtoField.getSelectionModel().select(selected.getAssignedto());
+    etaField.getEditor().setText(selected.getEta());
   }
 
   public void getGoHome(ActionEvent event) {

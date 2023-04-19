@@ -1,12 +1,14 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.CApp;
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -115,25 +117,41 @@ public class FurnitureController {
   @FXML
   void getFurnitureChoice1() {
     furnitureMenu.setText(furniturechoice1.getText());
-    getFurnitureInfo(1);
+    try {
+      getFurnitureInfo(1);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getFurnitureChoice2() {
     furnitureMenu.setText(furniturechoice2.getText());
-    getFurnitureInfo(2);
+    try {
+      getFurnitureInfo(2);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getFurnitureChoice3() {
     furnitureMenu.setText(furniturechoice3.getText());
-    getFurnitureInfo(3);
+    try {
+      getFurnitureInfo(3);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getFurnitureChoice4() {
     furnitureMenu.setText(furniturechoice4.getText());
-    getFurnitureInfo(4);
+    try {
+      getFurnitureInfo(4);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   // These 4 choices(1-4) are for the drink menu
@@ -158,35 +176,35 @@ public class FurnitureController {
   }
 
   @FXML
-  void getFurnitureInfo(int furnitureChoice) {
+  void getFurnitureInfo(int furnitureChoice) throws IOException {
     switch (furnitureChoice) {
       case 1:
         furnitureImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Furniture/chair.png"));
+            new Image(Main.class.getResource("views/Images/Furniture/chair.png").openStream()));
         Dimensions.setText("Width: 30 in, Length: 27 in, Height: 60 in");
         weightInfo.setText("25 lbs each");
         break;
       case 2:
         furnitureImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Furniture/doradesk.png"));
+            new Image(Main.class.getResource("views/Images/Furniture/doradesk.png").openStream()));
         Dimensions.setText("Width: Backpack, Length: Boots, Height: Dora");
         weightInfo.setText("5 Swipers each");
         break;
       case 3:
         furnitureImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Furniture/stool.png"));
+            new Image(Main.class.getResource("views/Images/Furniture/stool.png").openStream()));
         Dimensions.setText("Width: 15 in, Length: 15 in, Height: 30 in");
         weightInfo.setText("10 lbs each");
         break;
       case 4:
         furnitureImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Furniture/couch.png"));
+            new Image(Main.class.getResource("views/Images/Furniture/couch.png").openStream()));
         Dimensions.setText("Width: 350 in, Length: 40 in, Height: 15 in");
         weightInfo.setText("500 lbs each");
         break;
       default:
         furnitureImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Furniture/kys.png"));
+            new Image(Main.class.getResource("views/Images/Furniture/kys.png").openStream()));
         Dimensions.setText("");
         weightInfo.setText("");
         break;

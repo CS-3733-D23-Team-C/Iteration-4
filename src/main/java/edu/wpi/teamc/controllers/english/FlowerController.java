@@ -1,12 +1,14 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.CApp;
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
@@ -135,45 +137,61 @@ public class FlowerController {
   @FXML
   void getServicechoice1() {
     serviceMenu.setText(servicechoice1.getText());
-    getImage(1);
+    try {
+      getImage(1);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getServicechoice2() {
     serviceMenu.setText(servicechoice2.getText());
-    getImage(2);
+    try {
+      getImage(2);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getServicechoice3() {
     serviceMenu.setText(servicechoice3.getText());
-    getImage(3);
+    try {
+      getImage(3);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getServicechoice4() {
     serviceMenu.setText(servicechoice4.getText());
-    getImage(4);
+    try {
+      getImage(4);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
-  void getImage(int choice) {
+  void getImage(int choice) throws IOException {
     switch (choice) {
       case 1:
         image.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Flower/roses.png"));
+            new Image(Main.class.getResource("views/Images/Flower/roses.png").openStream()));
         break;
       case 2:
         image.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Flower/lilies.png"));
+            new Image(Main.class.getResource("views/Images/Flower/lilies.png").openStream()));
         break;
       case 3:
         image.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Flower/daisies.png"));
+            new Image(Main.class.getResource("views/Images/Flower/daisies.png").openStream()));
         break;
       case 4:
         image.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Flower/sunflowers.png"));
+            new Image(Main.class.getResource("views/Images/Flower/sunflowers.png").openStream()));
         break;
     }
   }

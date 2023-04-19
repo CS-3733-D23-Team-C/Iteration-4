@@ -21,6 +21,7 @@ import javafx.util.Duration;
 public class MenuController {
 
   public MFXButton moveButton;
+
   @FXML private Pane menuPane;
   @FXML private ImageView homeButton;
   @FXML private ImageView serviceRequestButton;

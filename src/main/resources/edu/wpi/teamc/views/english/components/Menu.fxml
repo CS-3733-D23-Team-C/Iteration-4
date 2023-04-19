@@ -120,7 +120,7 @@
             </VBox>
          </children>
       </Pane>
-      <Pane fx:id="historyPopOut" layoutX="-110.0" layoutY="215.0" prefHeight="265.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+      <Pane fx:id="historyPopOut" layoutX="-110.0" layoutY="215.0" prefHeight="285.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
          <children>
             <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
                <children>
@@ -148,7 +148,7 @@
             </VBox>
          </children>
       </Pane>
-      <Pane fx:id="navigationPopOut" layoutX="-110.0" layoutY="155.0" prefHeight="174.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+      <Pane fx:id="navigationPopOut" layoutX="-110.0" layoutY="155.0" prefHeight="188.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
          <children>
             <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
                <children>
@@ -167,13 +167,13 @@
                   </Line>
                   <MFXButton onAction="#getPathfindingPage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
                   <MFXButton onAction="#getEditMap" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Edit Map" />
-                  <MFXButton fx:id= "moveButton" onAction="#getMoveTable" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Move Table" />
+                  <MFXButton fx:id="moveButton" onAction="#getMoveTable" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Move Table" />
                   <MFXButton onAction="#getSignagePage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="View Signage" />
                </children>
             </VBox>
          </children>
       </Pane>
-      <Pane fx:id="serviceRequestPopOut" layoutX="-110.0" layoutY="98.0" prefHeight="238.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+      <Pane fx:id="serviceRequestPopOut" layoutX="-110.0" layoutY="98.0" prefHeight="285.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
          <children>
             <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
                <children>
@@ -195,9 +195,8 @@
                   <MFXButton onAction="#getOfficeSuppliesPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Stationary Request" />
                   <MFXButton onAction="#getFurnitureDeliveryPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Furniture Request" />
                   <MFXButton onAction="#getRoomReservationPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Room Reservation" />
-                  <MFXButton onAction="#getGiftBasketRequestPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket Delivery" />
+                  <MFXButton disable="true" onAction="#getGiftBasketRequestPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket Delivery" />
                   <MFXButton onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Employee Table" />
-                  <MFXButton layoutX="10.0" layoutY="42.0" onAction="#getSignagePage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="View Signage" />
                </children>
             </VBox>
          </children>

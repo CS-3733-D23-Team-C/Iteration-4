@@ -1,6 +1,7 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.dao.requests.*;
+import edu.wpi.teamc.dao.users.IUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -28,7 +29,7 @@ public class FurnitureHistoryController {
   @FXML private TextField inputBox;
   @FXML private FilteredTableView<FurnitureDeliveryRequest> historyTable;
   @FXML TableColumn<FurnitureDeliveryRequest, Integer> ColumnOne;
-  @FXML TableColumn<FurnitureDeliveryRequest, Requester> ColumnTwo;
+  @FXML TableColumn<FurnitureDeliveryRequest, IUser> ColumnTwo;
   @FXML TableColumn<FurnitureDeliveryRequest, String> ColumnThree;
   @FXML TableColumn<FurnitureDeliveryRequest, String> ColumnFour;
   @FXML TableColumn<FurnitureDeliveryRequest, String> ColumnFive;
@@ -44,7 +45,7 @@ public class FurnitureHistoryController {
     ColumnOne.setCellValueFactory(
         new PropertyValueFactory<FurnitureDeliveryRequest, Integer>("requestID"));
     ColumnTwo.setCellValueFactory(
-        new PropertyValueFactory<FurnitureDeliveryRequest, Requester>("requester"));
+        new PropertyValueFactory<FurnitureDeliveryRequest, IUser>("requester"));
     ColumnThree.setCellValueFactory(
         new PropertyValueFactory<FurnitureDeliveryRequest, String>("roomName"));
     ColumnFour.setCellValueFactory(

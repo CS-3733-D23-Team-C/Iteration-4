@@ -1,6 +1,7 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.dao.requests.*;
+import edu.wpi.teamc.dao.users.IUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -28,7 +29,7 @@ public class OfficeSupplyHistoryController {
   @FXML private TextField inputBox;
   @FXML private FilteredTableView<OfficeSuppliesRequest> historyTable;
   @FXML TableColumn<OfficeSuppliesRequest, Integer> ColumnOne;
-  @FXML TableColumn<OfficeSuppliesRequest, Requester> ColumnTwo;
+  @FXML TableColumn<OfficeSuppliesRequest, IUser> ColumnTwo;
   @FXML TableColumn<OfficeSuppliesRequest, String> ColumnThree;
   @FXML TableColumn<OfficeSuppliesRequest, String> ColumnFour;
   @FXML TableColumn<OfficeSuppliesRequest, String> ColumnFive;
@@ -44,7 +45,7 @@ public class OfficeSupplyHistoryController {
     ColumnOne.setCellValueFactory(
         new PropertyValueFactory<OfficeSuppliesRequest, Integer>("requestID"));
     ColumnTwo.setCellValueFactory(
-        new PropertyValueFactory<OfficeSuppliesRequest, Requester>("requester"));
+        new PropertyValueFactory<OfficeSuppliesRequest, IUser>("requester"));
     ColumnThree.setCellValueFactory(
         new PropertyValueFactory<OfficeSuppliesRequest, String>("roomName"));
     ColumnFour.setCellValueFactory(

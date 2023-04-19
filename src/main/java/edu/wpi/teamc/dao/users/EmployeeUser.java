@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EmployeeUser extends AbsUser {
-  private String userName;
   private String department;
   private String position;
 

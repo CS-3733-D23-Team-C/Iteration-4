@@ -9,6 +9,8 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class OfficeSupplyController {
   @FXML private MFXButton goHome;
@@ -40,6 +42,7 @@ public class OfficeSupplyController {
   @FXML private TextField nameBox;
   @FXML private TextArea specialRequest;
   @FXML private MenuButton employeeName;
+  @FXML private ImageView image;
 
   // special for Office Supply
   @FXML private TextField supplyAmount;
@@ -92,21 +95,29 @@ public class OfficeSupplyController {
   @FXML
   void getServicechoice1() {
     serviceMenu.setText(servicechoice1.getText());
+    image.setImage(
+        new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Office_Supply/notebook.png"));
   }
 
   @FXML
   void getServicechoice2() {
     serviceMenu.setText(servicechoice2.getText());
+    image.setImage(
+        new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Office_Supply/pen.png"));
   }
 
   @FXML
   void getServicechoice3() {
     serviceMenu.setText(servicechoice3.getText());
+    image.setImage(
+        new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Office_Supply/pencil.png"));
   }
 
   @FXML
   void getServicechoice4() {
     serviceMenu.setText(servicechoice4.getText());
+    image.setImage(
+        new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Office_Supply/staple.png"));
   }
 
   @FXML

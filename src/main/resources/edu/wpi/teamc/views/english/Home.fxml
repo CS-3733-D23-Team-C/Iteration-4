@@ -85,7 +85,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </MFXButton>
-            <Text fx:id="Home_motto" fill="WHITE" layoutX="10.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 35;" text="Transforming Medicine Through Life-giving Breakthroughs" wrappingWidth="569.2683715820312" AnchorPane.bottomAnchor="164.0" AnchorPane.leftAnchor="52.0" />
+            <Text fx:id="HOME_motto" fill="WHITE" layoutX="10.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 35;" text="Transforming Medicine Through Life-giving Breakthroughs" wrappingWidth="569.2683715820312" AnchorPane.bottomAnchor="164.0" AnchorPane.leftAnchor="52.0" />
             <Group AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="200.0">
                <children>
                   <ImageView fx:id="Spanish_flag1" fitHeight="37.0" fitWidth="70.0" layoutX="82.0" onMouseClicked="#spanish" pickOnBounds="true" preserveRatio="true">

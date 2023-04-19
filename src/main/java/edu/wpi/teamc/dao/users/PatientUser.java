@@ -9,11 +9,10 @@ public class PatientUser extends AbsUser {
   public PatientUser(String name, String username) {
     super(name, username);
   }
+
   public PatientUser(String name) {
     super(name);
   }
 
   public PatientUser() {}
-
-
 }

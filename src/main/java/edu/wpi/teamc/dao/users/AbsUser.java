@@ -26,6 +26,7 @@ abstract class AbsUser implements IOrm, IUser {
   AbsUser(String name) {
     this.name = name;
   }
+
   public AbsUser() {}
 
   public String toString() {

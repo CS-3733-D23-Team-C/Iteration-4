@@ -17,7 +17,7 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
     try {
       Statement stmt = db.getConnection().createStatement();
       // Table Name
-      String table = "\"users\".\"employee\"";
+      String table = "users.employee";
       // Query
       String query = "SELECT * FROM " + table;
 
@@ -77,15 +77,17 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
               + table
               + " SET "
               + "name = ?, "
+              + "username = ?, "
               + "department = ?, "
               + "position = ? "
-              + " WHERE empid = ?";
+              + " WHERE id = ?";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, repl.getName());
-      ps.setString(2, repl.getDepartment());
-      ps.setString(3, repl.getPosition());
-      ps.setInt(4, orm.getId());
+      ps.setString(2, repl.getUsername());
+      ps.setString(3, repl.getDepartment());
+      ps.setString(4, repl.getPosition());
+      ps.setInt(5, orm.getId());
       ps.execute();
       db.closeConnection();
     } catch (Exception e) {
@@ -100,9 +102,9 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
     try {
       Statement stmtNode = db.getConnection().createStatement();
       // table names
-      String table = "\"user\".\"employee\"";
+      String table = "\"users\".\"employee\"";
       // queries
-      String query = "DELETE FROM " + table + " WHERE empID = " + orm.getId();
+      String query = "DELETE FROM " + table + " WHERE id = " + orm.getId();
       stmtNode.executeUpdate(query);
     } catch (Exception e) {
       e.printStackTrace();

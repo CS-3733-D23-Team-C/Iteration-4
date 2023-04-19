@@ -2,6 +2,8 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.users.IUser;
+import edu.wpi.teamc.dao.users.PatientUser;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,16 +23,14 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
       ResultSet rs = db.getConnection().prepareStatement(query).executeQuery();
       while (rs.next()) {
         int requestID = rs.getInt("requestID");
-        Requester req = new Requester(0, rs.getString("Requester"));
+        IUser req = new PatientUser(rs.getString("Requester"));
         String roomName = rs.getString("roomname");
         String supplies = rs.getString("officesupplytype");
         STATUS status = STATUS.valueOf(rs.getString("status"));
         String additionalNotes = rs.getString("additionalnotes");
         String eta = rs.getString("eta");
-        String quantity = rs.getString("quantity");
         OfficeSuppliesRequest request =
-            new OfficeSuppliesRequest(
-                requestID, req, roomName, supplies, additionalNotes, quantity);
+            new OfficeSuppliesRequest(requestID, req, roomName, supplies, additionalNotes);
         request.setStatus(status);
         request.setEta(eta);
         returnList.add(request);
@@ -56,7 +56,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
 
       ps.setString(1, orm.getRequester().toString());
       ps.setString(2, orm.getRoomName());
-      ps.setString(3, orm.getSupplies());
+      ps.setString(3, orm.getOfficesupplytype());
       ps.setString(4, orm.getAdditionalNotes());
       ps.setString(5, orm.getStatus().toString());
       ps.executeUpdate();
@@ -100,16 +100,13 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
       ResultSet rs = db.getConnection().prepareStatement(query).executeQuery();
       while (rs.next()) {
         int requestID = rs.getInt("requestID");
-        Requester req = new Requester(0, rs.getString("Requester"));
+        IUser req = new PatientUser(rs.getString("Requester"));
         String roomName = rs.getString("roomname");
         String supplies = rs.getString("officesupplytype");
         STATUS status = STATUS.valueOf(rs.getString("status"));
         String additionalNotes = rs.getString("additionalnotes");
         String eta = rs.getString("eta");
-        String quantity = rs.getString("quantity");
-        request =
-            new OfficeSuppliesRequest(
-                requestID, req, roomName, supplies, additionalNotes, quantity);
+        request = new OfficeSuppliesRequest(requestID, req, roomName, supplies, additionalNotes);
         request.setStatus(status);
         request.setEta(eta);
       }
@@ -133,7 +130,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, repl.getRequester().toString());
       ps.setString(2, repl.getRoomName());
-      ps.setString(3, repl.getSupplies());
+      ps.setString(3, repl.getOfficesupplytype());
       ps.setString(4, repl.getAdditionalNotes());
       ps.setString(5, repl.getStatus().toString());
       ps.setString(6, repl.getEta());

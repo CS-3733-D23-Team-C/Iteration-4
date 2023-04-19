@@ -3,6 +3,8 @@ package edu.wpi.teamc.dao;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.dao.users.*;
+import edu.wpi.teamc.dao.users.login.Login;
+import edu.wpi.teamc.dao.users.login.LoginDao;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -39,9 +41,11 @@ public class HospitalSystem {
       return moveDao.fetchAllObjects();
     } else if (request instanceof ConferenceRoomRequest) {
       return conferenceRoomRequestDAO.fetchAllObjects();
-    } else if (request instanceof EmployeeUser) {
-      return employeeDao.fetchAllObjects();
-    } else if (request instanceof FlowerDeliveryRequest) {
+    }
+    //    else if (request instanceof EmployeeUser) {
+    //      return employeeDao.fetchAllObjects();
+    //    }
+    else if (request instanceof FlowerDeliveryRequest) {
       return flowerDeliveryRequestDAO.fetchAllObjects();
     } else if (request instanceof FurnitureDeliveryRequest) {
       return furnitureDeliveryRequestDAO.fetchAllObjects();

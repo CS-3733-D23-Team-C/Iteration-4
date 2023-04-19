@@ -2,6 +2,7 @@ package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.requests.*;
+import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -114,9 +115,8 @@ public class OfficeSupplyController {
     String name = nameBox.getText();
     String room = roomMenu.getText();
     String menuSelection = serviceMenu.getText();
-    String quantity = supplyAmount.getText();
     OfficeSuppliesRequest req =
-        new OfficeSuppliesRequest(new Requester(0, name), room, menuSelection, notes, quantity);
+        new OfficeSuppliesRequest(new PatientUser(name), room, menuSelection, notes);
     IDao<OfficeSuppliesRequest, Integer> dao = new OfficeSuppliesRequestDAO();
     dao.addRow(req);
     Navigation.navigate(Screen.CONGRATS_PAGE);

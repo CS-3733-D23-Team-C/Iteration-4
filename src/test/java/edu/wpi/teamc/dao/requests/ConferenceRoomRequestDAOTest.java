@@ -19,7 +19,7 @@ public class ConferenceRoomRequestDAOTest {
     dao.addRow(
         new ConferenceRoomRequest(
             0,
-            new Requester(0, "Bob"),
+            new IUser(0, "Bob"),
             new ConferenceRoom("Office Room", "", false),
             "",
             "now",
@@ -33,7 +33,7 @@ public class ConferenceRoomRequestDAOTest {
     dao.updateRow(
         new ConferenceRoomRequest(
             10,
-            new Requester(0, "Bob"),
+            new IUser(0, "Bob"),
             new ConferenceRoom("Office Room", "", false),
             "",
             "now",
@@ -41,7 +41,7 @@ public class ConferenceRoomRequestDAOTest {
             STATUS.COMPLETE),
         new ConferenceRoomRequest(
             10,
-            new Requester(0, "Abby"),
+            new IUser(0, "Abby"),
             new ConferenceRoom("Office Room B4", "", false),
             "",
             "then",

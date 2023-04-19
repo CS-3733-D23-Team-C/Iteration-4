@@ -1,6 +1,6 @@
 package edu.wpi.teamc.controllers.english.CredentialsHelpers;
 
-import edu.wpi.teamc.dao.users.Login;
+import edu.wpi.teamc.dao.users.login.Login;
 import lombok.Getter;
 import lombok.Setter;
 

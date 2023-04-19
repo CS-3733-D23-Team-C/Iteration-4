@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.requests;
 
+import edu.wpi.teamc.dao.users.IUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +15,7 @@ public class ConferenceRoomRequest extends AbsServiceRequest {
 
   ConferenceRoomRequest(
       int requestID,
-      Requester requester,
+      IUser requester,
       ConferenceRoom conferenceRoom,
       String note,
       String startTime,
@@ -27,7 +28,7 @@ public class ConferenceRoomRequest extends AbsServiceRequest {
 
   ConferenceRoomRequest(
       int requestID,
-      Requester requester,
+      IUser requester,
       ConferenceRoom conferenceRoom,
       String note,
       String startTime,
@@ -41,7 +42,7 @@ public class ConferenceRoomRequest extends AbsServiceRequest {
   }
 
   public ConferenceRoomRequest(
-      Requester requester,
+      IUser requester,
       ConferenceRoom conferenceRoom,
       String note,
       String startTime,
@@ -53,7 +54,7 @@ public class ConferenceRoomRequest extends AbsServiceRequest {
   }
 
   public ConferenceRoomRequest(
-      Requester requester,
+      IUser requester,
       ConferenceRoom conferenceRoom,
       String note,
       String startTime,

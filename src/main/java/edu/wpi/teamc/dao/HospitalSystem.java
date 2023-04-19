@@ -3,6 +3,8 @@ package edu.wpi.teamc.dao;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.dao.users.*;
+import edu.wpi.teamc.dao.users.login.Login;
+import edu.wpi.teamc.dao.users.login.LoginDao;
 import java.sql.SQLException;
 import java.util.List;
 

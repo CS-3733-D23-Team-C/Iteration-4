@@ -2,6 +2,7 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.users.PatientUser;
 import java.sql.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
         FurnitureDeliveryRequest request =
             new FurnitureDeliveryRequest(
                 requestID,
-                new Requester(requestID, requester),
+                new PatientUser(requester),
                 deliveryLocation,
                 additionalNotes,
                 furnitureType,
@@ -133,7 +134,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
       request =
           new FurnitureDeliveryRequest(
               requestID,
-              new Requester(requestID, requester),
+              new PatientUser(requester),
               deliveryLocation,
               additionalNotes,
               furnitureType,

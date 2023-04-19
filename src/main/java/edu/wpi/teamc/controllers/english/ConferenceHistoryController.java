@@ -1,6 +1,7 @@
 package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.dao.requests.*;
+import edu.wpi.teamc.dao.users.IUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -28,7 +29,7 @@ public class ConferenceHistoryController {
   @FXML private TextField inputBox;
   @FXML private FilteredTableView<ConferenceRoomRequest> historyTable;
   @FXML TableColumn<ConferenceRoomRequest, Integer> ColumnOne;
-  @FXML TableColumn<ConferenceRoomRequest, Requester> ColumnTwo;
+  @FXML TableColumn<ConferenceRoomRequest, IUser> ColumnTwo;
   @FXML TableColumn<ConferenceRoomRequest, ConferenceRoom> ColumnThree;
   @FXML TableColumn<ConferenceRoomRequest, STATUS> ColumnFour;
   @FXML TableColumn<ConferenceRoomRequest, String> ColumnFive;
@@ -44,7 +45,7 @@ public class ConferenceHistoryController {
     ColumnOne.setCellValueFactory(
         new PropertyValueFactory<ConferenceRoomRequest, Integer>("requestID"));
     ColumnTwo.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, Requester>("requester"));
+        new PropertyValueFactory<ConferenceRoomRequest, IUser>("requester"));
     ColumnThree.setCellValueFactory(
         new PropertyValueFactory<ConferenceRoomRequest, ConferenceRoom>("conferenceRoom"));
     ColumnFour.setCellValueFactory(

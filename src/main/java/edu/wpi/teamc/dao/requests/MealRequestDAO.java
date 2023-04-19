@@ -2,6 +2,7 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.users.PatientUser;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,7 +32,7 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
         MealRequest request =
             new MealRequest(
                 requestID,
-                new Requester(requestID, requester),
+                new PatientUser(requester),
                 roomName,
                 additionalNotes,
                 new Meal(mealType, ""));
@@ -131,7 +132,7 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
         request =
             new MealRequest(
                 requestID,
-                new Requester(requestID, requester),
+                new PatientUser(requester),
                 roomName,
                 additionalNotes,
                 new Meal(mealType, ""));

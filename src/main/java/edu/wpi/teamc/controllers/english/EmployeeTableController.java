@@ -2,8 +2,8 @@ package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.users.EmployeeUser;
-import edu.wpi.teamc.dao.users.Login;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
+import edu.wpi.teamc.dao.users.login.Login;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;

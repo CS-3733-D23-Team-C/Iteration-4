@@ -2,9 +2,9 @@ package edu.wpi.teamc.controllers.english;
 
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
-import edu.wpi.teamc.dao.users.Login;
-import edu.wpi.teamc.dao.users.LoginDao;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
+import edu.wpi.teamc.dao.users.login.Login;
+import edu.wpi.teamc.dao.users.login.LoginDao;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;

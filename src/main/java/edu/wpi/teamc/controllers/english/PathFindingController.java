@@ -178,23 +178,23 @@ public class PathFindingController {
     group.getChildren().add(pane);
   }
 
-  public void changeFloor(ActionEvent event) {
+  public void changeFloor(ActionEvent event) throws IOException {
     floorButton = (MFXButton) event.getTarget();
 
     if (Objects.equals(floorButton.getId(), "FL1")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/FirstFloor.png");
+      image = new Image(Main.class.getResource("views/Images/FirstFloor.png").openStream());
       floor = "1";
     } else if (Objects.equals(floorButton.getId(), "FL2")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/SecondFloor.png");
+      image = new Image(Main.class.getResource("views/Images/SecondFloor.png").openStream());
       floor = "2";
     } else if (Objects.equals(floorButton.getId(), "FL3")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/ThirdFloor.png");
+      image = new Image(Main.class.getResource("views/Images/ThirdFloor.png").openStream());
       floor = "3";
     } else if (Objects.equals(floorButton.getId(), "FLB1")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/B1.png");
+      image = new Image(Main.class.getResource("views/Images/B1.png").openStream());
       floor = "L1";
     } else if (Objects.equals(floorButton.getId(), "FLB2")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/B2.png");
+      image = new Image(Main.class.getResource("views/Images/B2.png").openStream());
       floor = "L2";
     }
     resetGroupVar();
@@ -207,21 +207,21 @@ public class PathFindingController {
     tempSave = button;
   }
 
-  public void changeFloorFromString(String floor) {
+  public void changeFloorFromString(String floor) throws IOException {
     if (floor.equals("1")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/FirstFloor.png");
+      image = new Image(Main.class.getResource("views/Images/FirstFloor.png").openStream());
       resetAndSetFloorIndicator(FL1);
     } else if (floor.equals("2")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/SecondFloor.png");
+      image = new Image(Main.class.getResource("views/Images/SecondFloor.png").openStream());
       resetAndSetFloorIndicator(FL2);
     } else if (floor.equals("3")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/ThirdFloor.png");
+      image = new Image(Main.class.getResource("views/Images/ThirdFloor.png").openStream());
       resetAndSetFloorIndicator(FL3);
     } else if (floor.equals("L1")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/B1.png");
+      image = new Image(Main.class.getResource("views/Images/B1.png").openStream());
       resetAndSetFloorIndicator(FLB1);
     } else if (floor.equals("L2")) {
-      image = new Image("file:src/main/resources/edu/wpi/teamc/views/Images/B2.png");
+      image = new Image(Main.class.getResource("views/Images/B2.png").openStream());
       resetAndSetFloorIndicator(FLB2);
     }
     resetGroupVar();
@@ -389,7 +389,7 @@ public class PathFindingController {
   }
 
   @FXML
-  void getSubmit(ActionEvent event) {
+  void getSubmit(ActionEvent event) throws IOException {
     nextFloor.setDisable(false);
     prevFloor.setDisable(true);
     edges.getChildren().clear();
@@ -418,7 +418,7 @@ public class PathFindingController {
   }
 
   @FXML
-  void getNextFloor(ActionEvent event) {
+  void getNextFloor(ActionEvent event) throws IOException {
     pathLoc++;
     edges.getChildren().clear();
     changeFloorFromString(splitPath.get(pathLoc).get(1).getFloor());
@@ -433,7 +433,7 @@ public class PathFindingController {
   }
 
   @FXML
-  void getPrevFloor(ActionEvent event) {
+  void getPrevFloor(ActionEvent event) throws IOException {
     nextFloor.setDisable(false);
     pathLoc--;
 

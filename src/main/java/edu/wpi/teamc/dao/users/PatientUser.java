@@ -15,4 +15,8 @@ public class PatientUser extends AbsUser {
   }
 
   public PatientUser() {}
+
+  public String toString() {
+    return super.getName();
+  }
 }

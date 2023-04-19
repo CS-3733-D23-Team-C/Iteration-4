@@ -21,5 +21,13 @@ public class EmployeeUser extends AbsUser {
     this.position = position;
   }
 
+  public EmployeeUser(String username) {
+    super(null, username);
+  }
+
+  public String toString() {
+    return super.getUsername();
+  }
+
   public EmployeeUser() {}
 }

@@ -35,7 +35,7 @@ public class FlowerHistoryController {
   @FXML TableColumn<FlowerDeliveryRequest, String> ColumnFive;
   @FXML TableColumn<FlowerDeliveryRequest, STATUS> ColumnSix;
   @FXML TableColumn<FlowerDeliveryRequest, String> ColumnSeven;
-
+  @FXML TableColumn<FlowerDeliveryRequest, String> ColumnEight;
   ObservableList<FlowerDeliveryRequest> rows = FXCollections.observableArrayList();
 
   @FXML private Button goHome;
@@ -55,6 +55,8 @@ public class FlowerHistoryController {
     ColumnSix.setCellValueFactory(
         new PropertyValueFactory<FlowerDeliveryRequest, STATUS>("status"));
     ColumnSeven.setCellValueFactory(new PropertyValueFactory<FlowerDeliveryRequest, String>("eta"));
+    ColumnEight.setCellValueFactory(
+        new PropertyValueFactory<FlowerDeliveryRequest, String>("assignedto"));
     ColumnOne.setText("requestID");
     ColumnTwo.setText("Requester");
     ColumnThree.setText("Room Name");
@@ -62,6 +64,7 @@ public class FlowerHistoryController {
     ColumnFive.setText("Additional Notes");
     ColumnSix.setText("Status");
     ColumnSeven.setText("ETA");
+    ColumnEight.setText("Assigned To");
     //    ColumnOne.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     //    ColumnTwo.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     //    ColumnThree.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());

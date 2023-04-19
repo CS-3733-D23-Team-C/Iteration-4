@@ -34,6 +34,7 @@ public class MealHistoryController {
   @FXML TableColumn<MealRequest, String> ColumnFour;
   @FXML TableColumn<MealRequest, Meal> ColumnFive;
   @FXML TableColumn<MealRequest, String> ColumnSix;
+  @FXML TableColumn<MealRequest, String> ColumnSeven;
 
   ObservableList<MealRequest> rows = FXCollections.observableArrayList();
 
@@ -48,12 +49,14 @@ public class MealHistoryController {
         new PropertyValueFactory<MealRequest, String>("additionalNotes"));
     ColumnFive.setCellValueFactory(new PropertyValueFactory<MealRequest, Meal>("meal"));
     ColumnSix.setCellValueFactory(new PropertyValueFactory<MealRequest, String>("eta"));
+    ColumnSeven.setCellValueFactory(new PropertyValueFactory<MealRequest, String>("assignedto"));
     ColumnOne.setText("requestID");
     ColumnTwo.setText("Requester");
     ColumnThree.setText("Status");
     ColumnFour.setText("Additional Notes");
     ColumnFive.setText("Meal");
     ColumnSix.setText("ETA");
+    ColumnSeven.setText("Assigned To");
     //    ColumnOne.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     //    ColumnTwo.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     //    ColumnThree.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());

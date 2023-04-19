@@ -29,6 +29,8 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
         String roomName = rs.getString("roomName");
         String additionalNotes = rs.getString("additionalNotes");
         String deliveryTime = rs.getString("ETA");
+        String status = rs.getString("status");
+        String assignedto = rs.getString("assignedto");
         MealRequest request =
             new MealRequest(
                 requestID,
@@ -36,6 +38,10 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
                 roomName,
                 additionalNotes,
                 new Meal(mealType, ""));
+        request.setEta(deliveryTime);
+        request.setStatus(STATUS.valueOf(status));
+        request.setAssignedto(assignedto);
+
         returnList.add(request);
       }
     } catch (SQLException e) {
@@ -49,7 +55,7 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
     try {
       Statement stmtNode = db.getConnection().createStatement();
       String query =
-          "INSERT INTO \"ServiceRequests\".\"mealRequest\" (Requester, meal, additionalNotes, ETA, roomName, status) VALUES (?,?,?,?,?, ?)";
+          "INSERT INTO \"ServiceRequests\".\"mealRequest\" (Requester, meal, additionalNotes, ETA, roomName, status, assignedto) VALUES (?,?,?,?,?, ?, ?)";
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
       ps.setString(1, orm.getRequester().toString());
@@ -58,6 +64,7 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
       ps.setString(4, orm.getEta());
       ps.setString(5, orm.getRoomName());
       ps.setString(6, orm.getStatus().toString());
+      ps.setString(7, orm.getAssignedto());
       ps.executeUpdate();
 
       ResultSet rs = ps.getGeneratedKeys();
@@ -77,14 +84,15 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
     try {
       Statement stmtNode = db.getConnection().createStatement();
       String query =
-          "UPDATE \"ServiceRequests\".\"mealRequest\" SET Requester = ?, meal = ?, additionalNotes = ?, ETA = ?, roomName = ? WHERE requestID = ?";
+          "UPDATE \"ServiceRequests\".\"mealRequest\" SET Requester = ?, meal = ?, additionalNotes = ?, ETA = ?, roomName = ?, assignedto=? WHERE requestID = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, orm2.getRequester().toString());
       ps.setString(2, orm2.getMeal().getMealName());
       ps.setString(3, orm2.getAdditionalNotes());
       ps.setString(4, orm2.getEta());
       ps.setString(5, orm2.getRoomName());
-      ps.setInt(6, orm.getRequestID());
+      ps.setString(6, orm2.getAssignedto());
+      ps.setInt(7, orm.getRequestID());
       ps.executeUpdate();
 
     } catch (SQLException e) {
@@ -136,6 +144,9 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
                 roomName,
                 additionalNotes,
                 new Meal(mealType, ""));
+        request.setEta(deliveryTime);
+        request.setStatus(STATUS.valueOf(rs.getString("status")));
+        request.setAssignedto(rs.getString("assignedto"));
       }
     } catch (SQLException e) {
       e.printStackTrace();

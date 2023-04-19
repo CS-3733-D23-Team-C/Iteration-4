@@ -18,7 +18,4 @@ public class MealRequest extends AbsServiceRequest {
     super(requester, roomName, note);
     this.meal = meal;
   }
-
-  @Override
-  void executeRequest() {}
 }

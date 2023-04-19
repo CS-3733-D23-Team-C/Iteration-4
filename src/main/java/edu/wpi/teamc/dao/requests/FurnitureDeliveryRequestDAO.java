@@ -30,6 +30,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
         String additionalNotes = rs.getString("additionalNotes");
         String deliveryTime = rs.getString("eta");
         String deliveryLocation = rs.getString("roomname");
+        String assignedto = rs.getString("assignedto");
 
         FurnitureDeliveryRequest request =
             new FurnitureDeliveryRequest(
@@ -39,6 +40,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
                 additionalNotes,
                 furnitureType,
                 deliveryTime);
+        request.setAssignedto(assignedto);
         returnList.add(request);
       }
     } catch (SQLException e) {
@@ -51,7 +53,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
     DBConnection db = new DBConnection();
     try {
       String query =
-          "INSERT INTO \"ServiceRequests\".\"furnitureDeliveryRequest\" (Requester, furnitureType, additionalNotes, roomName, status) VALUES (?,?,?,?,?)";
+          "INSERT INTO \"ServiceRequests\".\"furnitureDeliveryRequest\" (Requester, furnitureType, additionalNotes, roomName, status, assignedto) VALUES (?,?,?,?,?,?)";
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
@@ -60,6 +62,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
       ps.setString(3, orm.getAdditionalNotes());
       ps.setString(4, orm.getRoomName());
       ps.setString(5, orm.getStatus().toString());
+      ps.setString(6, orm.getAssignedto());
       ps.executeUpdate();
 
       ResultSet rs = ps.getGeneratedKeys();
@@ -77,7 +80,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
     DBConnection db = new DBConnection();
     try {
       String query =
-          "UPDATE \"ServiceRequests\".\"furnitureDeliveryRequest\" SET Requester = ?, furnitureType = ?, additionalNotes = ?, ETA = ?, roomName = ? WHERE requestID = ?";
+          "UPDATE \"ServiceRequests\".\"furnitureDeliveryRequest\" SET Requester = ?, furnitureType = ?, additionalNotes = ?, ETA = ?, roomName = ?, assignedto = ? WHERE requestID = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
 
       ps.setString(1, orm2.getRequester().toString());
@@ -85,7 +88,8 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
       ps.setString(3, orm2.getAdditionalNotes());
       ps.setString(4, orm2.getEta());
       ps.setString(5, orm2.getEta());
-      ps.setInt(6, orm.getRequestID());
+      ps.setString(6, orm2.getAssignedto());
+      ps.setInt(7, orm.getRequestID());
       ps.executeUpdate();
 
       ResultSet rs = ps.getResultSet();
@@ -130,6 +134,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
       String additionalNotes = rs.getString("additionalNotes");
       String deliveryTime = rs.getString("eta");
       String deliveryLocation = rs.getString("roomname");
+      String assignedto = rs.getString("assignedto");
 
       request =
           new FurnitureDeliveryRequest(
@@ -139,6 +144,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
               additionalNotes,
               furnitureType,
               deliveryTime);
+      request.setAssignedto(assignedto);
     } catch (SQLException e) {
       e.printStackTrace();
     }

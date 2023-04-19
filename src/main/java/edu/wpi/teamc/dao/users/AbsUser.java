@@ -28,8 +28,4 @@ abstract class AbsUser implements IOrm, IUser {
   }
 
   public AbsUser() {}
-
-  public String toString() {
-    return username;
-  }
 }

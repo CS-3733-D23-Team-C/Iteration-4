@@ -34,8 +34,8 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
             new OfficeSuppliesRequest(requestID, req, roomName, supplies, additionalNotes);
         request.setStatus(status);
         request.setEta(eta);
+        request.setAssignedto(assignedto);
         returnList.add(request);
-        request.setEta(assignedto);
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -61,7 +61,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
       ps.setString(3, orm.getOfficesupplytype());
       ps.setString(4, orm.getAdditionalNotes());
       ps.setString(5, orm.getStatus().toString());
-      ps.setString(6, orm.getAssingedto());
+      ps.setString(6, orm.getAssignedto());
       ps.executeUpdate();
 
       ResultSet rs = ps.getGeneratedKeys();
@@ -113,7 +113,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
         request = new OfficeSuppliesRequest(requestID, req, roomName, supplies, additionalNotes);
         request.setStatus(status);
         request.setEta(eta);
-        request.setAssingedto(assignedto);
+        request.setAssignedto(assignedto);
       }
       db.closeConnection();
     } catch (Exception e) {
@@ -139,7 +139,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
       ps.setString(4, repl.getAdditionalNotes());
       ps.setString(5, repl.getStatus().toString());
       ps.setString(6, repl.getEta());
-      ps.setString(7, repl.getAssingedto());
+      ps.setString(7, repl.getAssignedto());
       ps.setInt(8, repl.getRequestID());
       ps.executeQuery();
 

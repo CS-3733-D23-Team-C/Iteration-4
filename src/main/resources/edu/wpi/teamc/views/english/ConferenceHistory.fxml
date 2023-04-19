@@ -24,6 +24,7 @@
                                     <TableColumn fx:id="ColumnFive" prefWidth="171" text="" />
                                     <TableColumn fx:id="ColumnSix" prefWidth="171" text="" />
                                     <TableColumn fx:id="ColumnSeven" prefWidth="171" text="" />
+                                    <TableColumn fx:id="ColumnEight" prefWidth="171" text="" />
                                 </columns>
                             </FilteredTableView>
                      </children>

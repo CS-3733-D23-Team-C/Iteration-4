@@ -38,7 +38,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
             new FlowerDeliveryRequest(requestID, req, roomName, flower, additionalNotes);
         fdr.setStatus(status);
         fdr.setEta(eta);
-        fdr.setAssingedto(assignedto);
+        fdr.setAssignedto(assignedto);
         returnList.add(fdr);
       }
     } catch (Exception e) {
@@ -60,7 +60,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       String query =
           "UPDATE "
               + table
-              + " SET req=?, roomName=?, \"flower\"=?, additionalNotes=?, status =?, eta=?, assingedto=? WHERE requestID=?;";
+              + " SET req=?, roomName=?, \"flower\"=?, additionalNotes=?, status =?, eta=?, assignedto=? WHERE requestID=?;";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
 
@@ -70,7 +70,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       ps.setString(4, repl.getAdditionalNotes());
       ps.setString(5, repl.getStatus().toString());
       ps.setString(6, repl.getEta());
-      ps.setString(7, orm.getAssingedto());
+      ps.setString(7, orm.getAssignedto());
       ps.setInt(8, orm.getRequestID());
 
       ps.execute();
@@ -83,7 +83,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
               repl.getAdditionalNotes());
       fdr.setStatus(repl.getStatus());
       fdr.setEta(repl.getEta());
-      fdr.setAssingedto(repl.getAssingedto());
+      fdr.setAssignedto(repl.getAssignedto());
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -101,7 +101,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       String query =
           "INSERT INTO "
               + table
-              + " (requester, roomName, flower, additionalNotes, status, assingedto) VALUES (?,?,?,?,?,?);";
+              + " (requester, roomName, flower, additionalNotes, status, assignedto) VALUES (?,?,?,?,?,?);";
 
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -111,7 +111,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       ps.setString(3, orm.getFlower());
       ps.setString(4, orm.getAdditionalNotes());
       ps.setString(5, orm.getStatus().toString());
-      ps.setString(6, orm.getAssingedto());
+      ps.setString(6, orm.getAssignedto());
 
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
@@ -174,7 +174,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
         fdr = new FlowerDeliveryRequest(requestID, req, roomName, flower, additionalNotes);
         fdr.setStatus(status);
         fdr.setEta(eta);
-        fdr.setAssingedto(assignedto);
+        fdr.setAssignedto(assignedto);
       }
     } catch (Exception e) {
       e.printStackTrace();

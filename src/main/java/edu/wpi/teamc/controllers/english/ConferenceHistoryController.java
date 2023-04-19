@@ -35,6 +35,7 @@ public class ConferenceHistoryController {
   @FXML TableColumn<ConferenceRoomRequest, String> ColumnFive;
   @FXML TableColumn<ConferenceRoomRequest, String> ColumnSix;
   @FXML TableColumn<ConferenceRoomRequest, String> ColumnSeven;
+  @FXML TableColumn<ConferenceRoomRequest, String> ColumnEight;
 
   ObservableList<ConferenceRoomRequest> rows = FXCollections.observableArrayList();
 
@@ -56,6 +57,8 @@ public class ConferenceHistoryController {
         new PropertyValueFactory<ConferenceRoomRequest, String>("startTime"));
     ColumnSeven.setCellValueFactory(
         new PropertyValueFactory<ConferenceRoomRequest, String>("endTime"));
+    ColumnEight.setCellValueFactory(
+        new PropertyValueFactory<ConferenceRoomRequest, String>("assignedto"));
     ColumnOne.setText("requestID");
     ColumnTwo.setText("Requester");
     ColumnThree.setText("Room Name");
@@ -63,6 +66,7 @@ public class ConferenceHistoryController {
     ColumnFive.setText("Additional Notes");
     ColumnSix.setText("Start time");
     ColumnSeven.setText("End time");
+    ColumnEight.setText("Assigned To");
     //    ColumnOne.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     //    ColumnTwo.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     //    ColumnThree.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());

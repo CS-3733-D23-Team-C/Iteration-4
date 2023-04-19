@@ -35,6 +35,7 @@ public class OfficeSupplyHistoryController {
   @FXML TableColumn<OfficeSuppliesRequest, String> ColumnFive;
   @FXML TableColumn<OfficeSuppliesRequest, STATUS> ColumnSix;
   @FXML TableColumn<OfficeSuppliesRequest, String> ColumnSeven;
+  @FXML TableColumn<OfficeSuppliesRequest, String> ColumnEight;
 
   ObservableList<OfficeSuppliesRequest> rows = FXCollections.observableArrayList();
 
@@ -55,6 +56,8 @@ public class OfficeSupplyHistoryController {
     ColumnSix.setCellValueFactory(
         new PropertyValueFactory<OfficeSuppliesRequest, STATUS>("status"));
     ColumnSeven.setCellValueFactory(new PropertyValueFactory<OfficeSuppliesRequest, String>("eta"));
+    ColumnEight.setCellValueFactory(
+        new PropertyValueFactory<OfficeSuppliesRequest, String>("assignedto"));
     ColumnOne.setText("requestID");
     ColumnTwo.setText("Requester");
     ColumnThree.setText("Room Name");
@@ -62,6 +65,7 @@ public class OfficeSupplyHistoryController {
     ColumnFive.setText("Additional Notes");
     ColumnSix.setText("Status");
     ColumnSeven.setText("ETA");
+    ColumnEight.setText("Assigned To");
     //    ColumnOne.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     //    ColumnTwo.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     //    ColumnThree.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());

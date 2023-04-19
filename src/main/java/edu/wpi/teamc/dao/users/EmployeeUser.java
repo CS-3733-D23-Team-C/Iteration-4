@@ -25,5 +25,9 @@ public class EmployeeUser extends AbsUser {
     super(null, username);
   }
 
+  public String toString() {
+    return super.getUsername();
+  }
+
   public EmployeeUser() {}
 }

@@ -42,6 +42,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
                 startTime,
                 endTime);
         request.setStatus(status);
+        request.setAssignedto(assignedto);
         returnList.add(request);
       }
     } catch (SQLException e) {
@@ -63,7 +64,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
       ps.setString(3, orm.getStatus().toString());
       ps.setString(4, orm.getStartTime());
       ps.setString(5, orm.getEndTime());
-      ps.setString(6, orm.getAssingedto());
+      ps.setString(6, orm.getAssignedto());
       ps.setString(7, orm.getAdditionalNotes());
       ps.executeUpdate();
 
@@ -102,7 +103,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
       ps.setString(3, repl.getAdditionalNotes());
       ps.setString(4, repl.getStartTime());
       ps.setString(5, repl.getEndTime());
-      ps.setString(6, repl.getAssingedto());
+      ps.setString(6, repl.getAssignedto());
       ps.setInt(7, orm.getRequestID());
 
       ps.execute();
@@ -162,7 +163,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
                 startTime,
                 endTime);
         request.setStatus(status);
-        request.setAssingedto(assignedto);
+        request.setAssignedto(assignedto);
       }
     } catch (SQLException e) {
       e.printStackTrace();

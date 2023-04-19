@@ -11,7 +11,7 @@ abstract class AbsServiceRequest implements IOrm {
   @Getter @Setter private String roomName;
   @Getter @Setter private STATUS status;
   @Getter private String additionalNotes;
-  @Getter @Setter private String assingedto;
+  @Getter @Setter private String assignedto;
 
   AbsServiceRequest(IUser requester, String roomName, String additionalNotes) {
     this.requester = requester;
@@ -34,12 +34,12 @@ abstract class AbsServiceRequest implements IOrm {
       String roomName,
       String additionalNotes,
       STATUS status,
-      String assingedto) {
+      String assignedto) {
     this.requestID = requestID;
     this.requester = requester;
     this.roomName = roomName;
     this.additionalNotes = additionalNotes;
     this.status = status;
-    this.assingedto = assingedto;
+    this.assignedto = assignedto;
   }
 }

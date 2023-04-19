@@ -35,6 +35,7 @@ public class FurnitureHistoryController {
   @FXML TableColumn<FurnitureDeliveryRequest, String> ColumnFive;
   @FXML TableColumn<FurnitureDeliveryRequest, STATUS> ColumnSix;
   @FXML TableColumn<FurnitureDeliveryRequest, String> ColumnSeven;
+  @FXML TableColumn<FurnitureDeliveryRequest, String> ColumnEight;
 
   ObservableList<FurnitureDeliveryRequest> rows = FXCollections.observableArrayList();
 
@@ -56,6 +57,8 @@ public class FurnitureHistoryController {
         new PropertyValueFactory<FurnitureDeliveryRequest, STATUS>("status"));
     ColumnSeven.setCellValueFactory(
         new PropertyValueFactory<FurnitureDeliveryRequest, String>("eta"));
+    ColumnEight.setCellValueFactory(
+        new PropertyValueFactory<FurnitureDeliveryRequest, String>("assignedto"));
     ColumnOne.setText("requestID");
     ColumnTwo.setText("Requester");
     ColumnThree.setText("Room Name");
@@ -63,6 +66,7 @@ public class FurnitureHistoryController {
     ColumnFive.setText("Additional Notes");
     ColumnSix.setText("Status");
     ColumnSeven.setText("ETA");
+    ColumnEight.setText("Assigned To");
     //    ColumnOne.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     //    ColumnTwo.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());
     //    ColumnThree.setCellFactory(TextFieldTableCell.<MealRequest>forTableColumn());

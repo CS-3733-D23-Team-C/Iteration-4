@@ -8,4 +8,8 @@ public class AdminUser extends AbsUser {
   public AdminUser(String name, String username) {
     super(name, username);
   }
+
+  public String toString() {
+    return super.getUsername();
+  }
 }

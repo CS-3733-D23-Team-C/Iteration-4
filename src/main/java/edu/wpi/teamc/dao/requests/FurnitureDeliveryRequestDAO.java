@@ -40,7 +40,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
                 additionalNotes,
                 furnitureType,
                 deliveryTime);
-        request.setAssingedto(assignedto);
+        request.setAssignedto(assignedto);
         returnList.add(request);
       }
     } catch (SQLException e) {
@@ -62,7 +62,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
       ps.setString(3, orm.getAdditionalNotes());
       ps.setString(4, orm.getRoomName());
       ps.setString(5, orm.getStatus().toString());
-      ps.setString(6, orm.getAssingedto());
+      ps.setString(6, orm.getAssignedto());
       ps.executeUpdate();
 
       ResultSet rs = ps.getGeneratedKeys();
@@ -88,7 +88,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
       ps.setString(3, orm2.getAdditionalNotes());
       ps.setString(4, orm2.getEta());
       ps.setString(5, orm2.getEta());
-      ps.setString(6, orm2.getAssingedto());
+      ps.setString(6, orm2.getAssignedto());
       ps.setInt(7, orm.getRequestID());
       ps.executeUpdate();
 
@@ -144,7 +144,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
               additionalNotes,
               furnitureType,
               deliveryTime);
-      request.setAssingedto(assignedto);
+      request.setAssignedto(assignedto);
     } catch (SQLException e) {
       e.printStackTrace();
     }

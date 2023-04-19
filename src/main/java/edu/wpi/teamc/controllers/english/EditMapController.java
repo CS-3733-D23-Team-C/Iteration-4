@@ -502,17 +502,17 @@ public class EditMapController {
         resetAndSetModes(modeButton);
         edgeMadeText.setText("");
         edgeMadeText.setVisible(false);
-        System.out.println("Removing");
+        //        System.out.println("Removing");
       } else if (Objects.equals(modeButton.getId(), "Move")) {
         mapMode = HandleMapModes.MOVE;
         resetAndSetModes(modeButton);
         edgeMadeText.setText("");
         edgeMadeText.setVisible(false);
-        System.out.println("Moving");
+        //        System.out.println("Moving");
       } else if (Objects.equals(modeButton.getId(), "Edges")) {
         mapMode = HandleMapModes.MAKE_EDGES;
         resetAndSetModes(modeButton);
-        System.out.println("Making Edges");
+        //        System.out.println("Making Edges");
       }
     }
   }
@@ -2459,21 +2459,6 @@ public class EditMapController {
   void getMapHistory(ActionEvent event) {
     Navigation.navigate(Screen.MAP_HISTORY_PAGE);
   }
-
-  //  @FXML
-  //  void getMapPage(ActionEvent event) {
-  //    Navigation.navigate(Screen.);
-  //  }
-  /////////////////////////////////////////////
-  //  @FXML
-  //  void getMapPage(ActionEvent event) {
-  //    Navigation.navigate(Screen.FLOOR_PLAN);
-  //  }
-  //
-  //  @FXML
-  //  void getPathfindingPage(ActionEvent event) {
-  //    Navigation.navigate(Screen.PATHFINDING_PAGE);
-  //  }
 
   @FXML
   void getHelpage(ActionEvent event) {

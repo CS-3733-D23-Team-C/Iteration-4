@@ -167,7 +167,7 @@
                   </Line>
                   <MFXButton onAction="#getPathfindingPage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
                   <MFXButton onAction="#getEditMap" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Edit Map" />
-                  <MFXButton onAction="#getMoveTable" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Move Table" />
+                  <MFXButton fx:id= "moveButton" onAction="#getMoveTable" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Move Table" />
                   <MFXButton onAction="#getSignagePage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="View Signage" />
                </children>
             </VBox>

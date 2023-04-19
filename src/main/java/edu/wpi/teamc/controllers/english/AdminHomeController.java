@@ -23,6 +23,13 @@ public class AdminHomeController {
   @FXML private MenuButton NavigationButton;
   @FXML private MenuButton Settings;
   @FXML private MenuButton Help;
+  //  Login login;
+
+  // public void initialize() {
+  //  LoginDao loginDao = new LoginDao();
+  //    try {
+  //      login = loginDao.;
+  //    }
 
   @FXML
   public void initialize() {

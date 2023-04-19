@@ -51,7 +51,8 @@ public class Graph {
     }
 
     for (Move move : moves) {
-      nodeIDtoLongName.put(move.getNodeID(), move.getLongName());
+      if (move.getDate().toString().equals("2023-01-01"))
+        nodeIDtoLongName.put(move.getNodeID(), move.getLongName());
     }
 
     for (LocationName loc : locs) {

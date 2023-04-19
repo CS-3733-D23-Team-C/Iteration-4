@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.SearchableComboBox?>
 <?import org.controlsfx.control.tableview2.FilteredTableView?>
 
 <AnchorPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.english.ConferenceHistoryController">
@@ -15,7 +22,31 @@
                <children>
                   <AnchorPane style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
                      <children>
-                            <FilteredTableView fx:id="historyTable" layoutX="15.0" layoutY="15.0" prefHeight="775.0" prefWidth="1200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                        <AnchorPane layoutY="913.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="1231.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                                 <children>
+                                    <Button fx:id="clearButton" mnemonicParsing="false" text="clear" />
+                                    <Label text="id: " />
+                                    <TextField fx:id="idField" editable="false" />
+                                    <Label layoutX="54.0" layoutY="10.0" text="Status: " />
+                                    <MenuButton fx:id="statusField" mnemonicParsing="false" text=" Select the status">
+                                      <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#status1" text="PENDING" />
+                                        <MenuItem mnemonicParsing="false" onAction="#status2" text="IN_PROGRESS" />
+                                          <MenuItem mnemonicParsing="false" onAction="#status3" text="COMPLETE" />
+                                          <MenuItem mnemonicParsing="false" onAction="#status4" text="CANCELLED" />
+                                      </items>
+                                    </MenuButton>
+                                    <Label layoutX="229.0" layoutY="10.0" text="Assigned To: " />
+                                    <SearchableComboBox fx:id="assignedtoField" />
+                                    <Button fx:id="updateButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="update" />
+                                    <Button fx:id="deleteButton" layoutX="853.0" layoutY="10.0" mnemonicParsing="false" text="delete" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                            <FilteredTableView fx:id="historyTable" layoutX="15.0" layoutY="15.0" prefHeight="559.0" prefWidth="1201.0" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                                 <columns>
                                     <TableColumn fx:id="ColumnOne" prefWidth="171" text="" />
                                     <TableColumn fx:id="ColumnTwo" prefWidth="171" text="" />

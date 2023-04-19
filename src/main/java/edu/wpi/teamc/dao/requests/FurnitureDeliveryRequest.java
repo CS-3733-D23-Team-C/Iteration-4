@@ -28,4 +28,6 @@ public class FurnitureDeliveryRequest extends AbsServiceRequest {
     super(requester, roomName, additionalNotes);
     this.furnitureType = furnitureType;
   }
+
+  public FurnitureDeliveryRequest() {}
 }

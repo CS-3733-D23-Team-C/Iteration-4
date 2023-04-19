@@ -94,7 +94,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
               + "additionalNotes = ?, "
               + "startTime = ?, "
               + "endTime = ?, "
-              + "assignedto = ?, "
+              + "assignedto = ? "
               + "WHERE requestID = ?";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);

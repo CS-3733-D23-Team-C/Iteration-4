@@ -24,7 +24,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
 
       while (rs.next()) {
         // Get all the data from the table
-        int requestID = rs.getInt("requestID");
+        int requestID = rs.getInt("requestid");
         String requester = rs.getString("requester");
         String furnitureType = rs.getString("furnituretype");
         String additionalNotes = rs.getString("additionalNotes");
@@ -67,7 +67,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
 
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
-      int requestID = rs.getInt("requestID");
+      int requestID = rs.getInt("requestid");
       orm.requestID = (requestID);
     } catch (SQLException e) {
       e.printStackTrace();
@@ -80,21 +80,22 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
     DBConnection db = new DBConnection();
     try {
       String query =
-          "UPDATE \"ServiceRequests\".\"furnitureDeliveryRequest\" SET Requester = ?, furnitureType = ?, additionalNotes = ?, ETA = ?, roomName = ?, assignedto = ? WHERE requestID = ?";
-      PreparedStatement ps = db.getConnection().prepareStatement(query);
+          "UPDATE \"ServiceRequests\".\"furnitureDeliveryRequest\" SET Requester = ?, furnitureType = ?, additionalNotes = ?, ETA = ?, roomName = ?, assignedto = ? WHERE requestid = ?";
+      PreparedStatement ps =
+          db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
       ps.setString(1, orm2.getRequester().toString());
       ps.setString(2, orm2.getFurnitureType());
       ps.setString(3, orm2.getAdditionalNotes());
       ps.setString(4, orm2.getEta());
-      ps.setString(5, orm2.getEta());
+      ps.setString(5, orm2.getRoomName());
       ps.setString(6, orm2.getAssignedto());
       ps.setInt(7, orm.getRequestID());
       ps.executeUpdate();
 
       ResultSet rs = ps.getResultSet();
       rs.next();
-      int requestID = rs.getInt("requestID");
+      int requestID = rs.getInt("requestid");
       orm2.requestID = (requestID);
     } catch (SQLException e) {
       e.printStackTrace();
@@ -106,7 +107,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
     DBConnection db = new DBConnection();
     try {
       String query =
-          "DELETE FROM \"ServiceRequests\".\"furnitureDeliveryRequest\" WHERE requestID = ?";
+          "DELETE FROM \"ServiceRequests\".\"furnitureDeliveryRequest\" WHERE requestid = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
 
       ps.setInt(1, orm.getRequestID());
@@ -123,12 +124,12 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
     try {
       DBConnection db = new DBConnection();
       String query =
-          "SELECT * FROM \"ServiceRequests\".\"furnitureDeliveryRequest\" WHERE requestID = ?";
+          "SELECT * FROM \"ServiceRequests\".\"furnitureDeliveryRequest\" WHERE requestid = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setInt(1, key);
       ResultSet rs = ps.executeQuery();
       rs.next();
-      int requestID = rs.getInt("requestID");
+      int requestID = rs.getInt("requestid");
       String requester = rs.getString("requester");
       String furnitureType = rs.getString("furnituretype");
       String additionalNotes = rs.getString("additionalNotes");

@@ -25,7 +25,7 @@
                             <children>
                                 <AnchorPane layoutY="913.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="1231.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                     <children>
-                                        <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                                        <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                                             <children>
                                                 <Button fx:id="clearButton" mnemonicParsing="false" text="clear" />
                                                 <Label text="id: " />

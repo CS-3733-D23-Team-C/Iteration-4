@@ -4,6 +4,8 @@ import static edu.wpi.teamc.dao.users.PERMISSIONS.ADMIN;
 import static edu.wpi.teamc.dao.users.PERMISSIONS.STAFF;
 
 import edu.wpi.teamc.dao.HospitalSystem;
+import edu.wpi.teamc.dao.users.login.Login;
+import edu.wpi.teamc.dao.users.login.LoginDao;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,7 @@
-package edu.wpi.teamc.dao.users;
+package edu.wpi.teamc.dao.users.login;
 
 import edu.wpi.teamc.dao.IOrm;
+import edu.wpi.teamc.dao.users.PERMISSIONS;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;

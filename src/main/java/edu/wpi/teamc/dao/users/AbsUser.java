@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-abstract class AbsUser implements IOrm {
+abstract class AbsUser implements IOrm, IUser {
   @Getter private int id;
   @Setter @Getter private String name;
 
@@ -23,5 +23,13 @@ abstract class AbsUser implements IOrm {
     this.username = username;
   }
 
+  AbsUser(String name) {
+    this.name = name;
+  }
+
   public AbsUser() {}
+
+  public String toString() {
+    return username;
+  }
 }

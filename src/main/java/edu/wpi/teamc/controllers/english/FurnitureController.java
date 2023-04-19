@@ -3,6 +3,7 @@ package edu.wpi.teamc.controllers.english;
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.requests.*;
+import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -198,7 +199,7 @@ public class FurnitureController {
     String room = roomMenu.getText();
     String notes = specialRequest.getText();
     Meal meal = new Meal(furnitureMenu.getText(), "");
-    MealRequest req = new MealRequest(new Requester(0, name), room, notes, meal);
+    MealRequest req = new MealRequest(new PatientUser(name), room, notes, meal);
 
     IDao<MealRequest, Integer> dao = new MealRequestDAO();
 

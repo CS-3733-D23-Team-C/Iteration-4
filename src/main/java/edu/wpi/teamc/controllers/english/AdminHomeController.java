@@ -4,6 +4,7 @@ import java.awt.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
 import javafx.scene.text.*;
+import javafx.scene.web.HTMLEditor;
 import javax.swing.text.html.ImageView;
 
 public class AdminHomeController {
@@ -12,6 +13,7 @@ public class AdminHomeController {
   private Desktop desktop = Desktop.getDesktop();
   // @FXML private AdminMenuController adminMenuController;
 
+  @FXML private HTMLEditor guestWeather;
   @FXML private ImageView English_flag;
   @FXML private ImageView Spanish_flag;
   @FXML private Text AdminHome_Title;

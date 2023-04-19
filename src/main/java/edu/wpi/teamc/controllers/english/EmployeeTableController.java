@@ -2,8 +2,8 @@ package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.users.EmployeeUser;
-import edu.wpi.teamc.dao.users.Login;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
+import edu.wpi.teamc.dao.users.login.Login;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -79,7 +79,7 @@ public class EmployeeTableController {
     addButton.setOnMouseClicked(
         event -> {
           hospitalSystem.addRow(
-              new Login(getEmployeeUser().getUserName(), "staff", PERMISSIONS.STAFF));
+              new Login(getEmployeeUser().getUsername(), "staff", PERMISSIONS.STAFF));
           hospitalSystem.addRow(getEmployeeUser());
           loadEmployees();
         });
@@ -91,9 +91,9 @@ public class EmployeeTableController {
     updateButton.setOnMouseClicked(
         event -> {
           hospitalSystem.deleteRow(
-              new Login(getEmployeeUser().getUserName(), "staff", PERMISSIONS.STAFF));
+              new Login(getEmployeeUser().getUsername(), "staff", PERMISSIONS.STAFF));
           hospitalSystem.addRow(
-              new Login(getEmployeeUser().getUserName(), "staff", PERMISSIONS.STAFF));
+              new Login(getEmployeeUser().getUsername(), "staff", PERMISSIONS.STAFF));
           hospitalSystem.updateRow(getEmployeeUser());
           loadEmployees();
         });
@@ -136,7 +136,7 @@ public class EmployeeTableController {
 
   public void setEmployeeView(EmployeeUser selected) {
     idField.setText(Integer.toString(selected.getId()));
-    usernameField.setText(selected.getUserName());
+    usernameField.setText(selected.getUsername());
     nameField.setText(selected.getName());
     departmentField.setText(selected.getDepartment());
     positionField.setText(selected.getPosition());

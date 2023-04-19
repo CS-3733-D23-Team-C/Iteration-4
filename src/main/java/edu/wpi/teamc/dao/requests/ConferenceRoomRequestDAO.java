@@ -2,6 +2,7 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.users.PatientUser;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,7 +35,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
         ConferenceRoomRequest request =
             new ConferenceRoomRequest(
                 requestID,
-                new Requester(requestID, requester),
+                new PatientUser(requester),
                 new ConferenceRoom(conferenceRoom, "", null),
                 additionalNotes,
                 startTime,
@@ -150,7 +151,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
         request =
             new ConferenceRoomRequest(
                 requestID,
-                new Requester(requestID, requester),
+                new PatientUser(requester),
                 new ConferenceRoom(conferenceRoom, "", null),
                 additionalNotes,
                 startTime,

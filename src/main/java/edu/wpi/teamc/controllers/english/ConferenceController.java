@@ -3,6 +3,7 @@ package edu.wpi.teamc.controllers.english;
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.requests.*;
+import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -104,7 +105,7 @@ public class ConferenceController {
     STATUS status = STATUS.COMPLETE;
     ConferenceRoomRequest req =
         new ConferenceRoomRequest(
-            new Requester(0, name),
+            new PatientUser(name),
             new ConferenceRoom(room, room, false),
             notes,
             start.toString(),

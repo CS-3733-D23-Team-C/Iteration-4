@@ -2,6 +2,7 @@ package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.HospitalSystem;
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.map.LocationName;
 import edu.wpi.teamc.dao.requests.*;
@@ -10,12 +11,15 @@ import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.SearchableComboBox;
 

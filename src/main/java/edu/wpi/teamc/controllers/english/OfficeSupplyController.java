@@ -2,6 +2,7 @@ package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.HospitalSystem;
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.map.LocationName;
 import edu.wpi.teamc.dao.requests.*;
@@ -11,9 +12,12 @@ import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.FXCollections;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.SearchableComboBox;
 
@@ -49,6 +53,8 @@ public class OfficeSupplyController {
   @FXML private TextField nameBox;
   @FXML private TextArea specialRequest;
   @FXML private SearchableComboBox employeeName;
+//  @FXML private MenuButton employeeName;
+  @FXML private ImageView image;
 
   // special for Office Supply
   @FXML private TextField supplyAmount;
@@ -100,23 +106,31 @@ public class OfficeSupplyController {
 //  }
 
   @FXML
-  void getServicechoice1() {
+  void getServicechoice1() throws IOException {
     serviceMenu.setText(servicechoice1.getText());
+    image.setImage(
+        new Image(Main.class.getResource("views/Images/Office_Supply/notebook.png").openStream()));
   }
 
   @FXML
-  void getServicechoice2() {
+  void getServicechoice2() throws IOException {
     serviceMenu.setText(servicechoice2.getText());
+    image.setImage(
+        new Image(Main.class.getResource("views/Images/Office_Supply/pen.png").openStream()));
   }
 
   @FXML
-  void getServicechoice3() {
+  void getServicechoice3() throws IOException {
     serviceMenu.setText(servicechoice3.getText());
+    image.setImage(
+        new Image(Main.class.getResource("views/Images/Office_Supply/pencil.png").openStream()));
   }
 
   @FXML
-  void getServicechoice4() {
+  void getServicechoice4() throws IOException {
     serviceMenu.setText(servicechoice4.getText());
+    image.setImage(
+        new Image(Main.class.getResource("views/Images/Office_Supply/staple.png").openStream()));
   }
 
   @FXML

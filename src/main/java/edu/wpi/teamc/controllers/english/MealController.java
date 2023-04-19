@@ -2,6 +2,7 @@ package edu.wpi.teamc.controllers.english;
 
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.HospitalSystem;
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.map.LocationName;
 import edu.wpi.teamc.dao.requests.*;
@@ -11,6 +12,7 @@ import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.FXCollections;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -124,25 +126,41 @@ public class MealController {
   @FXML
   void getServicechoice1() {
     serviceMenu.setText(servicechoice1.getText());
-    getMealInfo(1);
+    try {
+      getMealInfo(1);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getServicechoice2() {
     serviceMenu.setText(servicechoice2.getText());
-    getMealInfo(2);
+    try {
+      getMealInfo(2);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getServicechoice3() {
     serviceMenu.setText(servicechoice3.getText());
-    getMealInfo(3);
+    try {
+      getMealInfo(3);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
   void getServicechoice4() {
     serviceMenu.setText(servicechoice4.getText());
-    getMealInfo(4);
+    try {
+      getMealInfo(4);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   // These 4 choices(1-4) are for the drink menu
@@ -167,29 +185,29 @@ public class MealController {
   }
 
   @FXML
-  void getMealInfo(int mealChoice) {
+  void getMealInfo(int mealChoice) throws IOException {
     switch (mealChoice) {
       case 1:
         mealImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Meal/spaghetti.png"));
+            new Image(Main.class.getResource("views/Images/Meal/spaghetti.png").openStream()));
         ingredients.setText("Ground Beef, Spaghetti, Tomato Sauce, Cheese");
         allergyInfo.setText("Contains: Milk, Wheat");
         break;
       case 2:
         mealImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Meal/garlic_steak.png"));
+            new Image(Main.class.getResource("views/Images/Meal/garlic_steak.png").openStream()));
         ingredients.setText("Beef, Garlic, Butter");
         allergyInfo.setText("Contains: Milk");
         break;
       case 3:
         mealImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Meal/grill_chicken.png"));
+            new Image(Main.class.getResource("views/Images/Meal/grill_chicken.png").openStream()));
         ingredients.setText("Chicken, Broccoli, Honey, Soy Sauce");
         allergyInfo.setText("Contains: Soy, Honey");
         break;
       case 4:
         mealImage.setImage(
-            new Image("file:src/main/resources/edu/wpi/teamc/views/Images/Meal/fried_rice.png"));
+            new Image(Main.class.getResource("views/Images/Meal/fried_rice.png").openStream()));
         ingredients.setText("Chicken, Rice, Egg, Soy Sauce");
         allergyInfo.setText("Contains: Egg, Soy");
         break;

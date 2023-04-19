@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="basePane" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.components.MenuController">
+   <children>
+      <Pane fx:id="homePopOut" layoutX="-110.0" layoutY="11.0" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+         <children>
+            <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+               <children>
+                  <Text fx:id="Admin_menu_home" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Text>
+                  <Line endX="80.0">
+                     <VBox.margin>
+                        <Insets left="35.0" />
+                     </VBox.margin>
+                  </Line>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane fx:id="logoutPopOut" layoutX="-110.0" layoutY="645.0" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+         <children>
+            <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+               <children>
+                  <Text fx:id="Admin_menu_logout" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Logout" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Text>
+                  <Line endX="80.0">
+                     <VBox.margin>
+                        <Insets left="35.0" />
+                     </VBox.margin>
+                  </Line>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane fx:id="exitPopOut" layoutX="-110.0" layoutY="707.0" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+         <children>
+            <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+               <children>
+                  <Text fx:id="Admin_menu_exit" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Exit" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Text>
+                  <Line endX="80.0">
+                     <VBox.margin>
+                        <Insets left="35.0" />
+                     </VBox.margin>
+                  </Line>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane fx:id="helpPopOut" layoutX="-110.0" layoutY="340.0" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+         <children>
+            <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+               <children>
+                  <Text fx:id="Admin_menu_helpmenu" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Help Menu" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Text>
+                  <Line endX="80.0">
+                     <VBox.margin>
+                        <Insets left="35.0" />
+                     </VBox.margin>
+                  </Line>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane fx:id="settingsPopOut" layoutX="-110.0" layoutY="276.0" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+         <children>
+            <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+               <children>
+                  <Text fx:id="Admin_menu_settings" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Text>
+                  <Line endX="80.0">
+                     <VBox.margin>
+                        <Insets left="35.0" />
+                     </VBox.margin>
+                  </Line>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane fx:id="historyPopOut" layoutX="-110.0" layoutY="215.0" prefHeight="249.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+         <children>
+            <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+               <children>
+                  <Text fx:id="Admin_menu_history" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="History" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Text>
+                  <Line endX="80.0">
+                     <VBox.margin>
+                        <Insets left="35.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="Admin_menu_flower_history" onAction="#getFlowerHistory" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Flower History" />
+                  <MFXButton fx:id="Admin_menu_meal_history" onAction="#getMealHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Meal History" />
+                  <MFXButton fx:id="Admin_menu_stationary_history" onAction="#getOfficeSupplyHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Stationary History" />
+                  <MFXButton fx:id="Admin_menu_furniture_history" onAction="#getFurnitureHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Furniture History" />
+                  <MFXButton fx:id="Admin_menu_reservation_history" onAction="#getConferenceHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Reservation History" />
+                  <MFXButton fx:id="Admin_menu_mapchange_history" onAction="#getMapHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Map Change History" />
+<!--                  <MFXButton fx:id="Admin_menu_giftbasket_history" disable="true" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket History" />-->
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane fx:id="navigationPopOut" layoutX="-110.0" layoutY="155.0" prefHeight="188.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+         <children>
+            <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+               <children>
+                  <Text fx:id="Admin_menu_navigation" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Navigation" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Text>
+                  <Line endX="80.0">
+                     <VBox.margin>
+                        <Insets left="35.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="Admin_menu_directions" onAction="#getPathfindingPage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
+                  <MFXButton fx:id="Admin_menu_editmap" onAction="#getEditMap" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Edit Map" />
+                  <MFXButton fx:id="Admin_menu_movetable" onAction="#getMoveTable" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Move Table" />
+                  <MFXButton fx:id="Admin_menu_signage" onAction="#getSignagePage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="View Signage" />
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane fx:id="serviceRequestPopOut" layoutX="-110.0" layoutY="98.0" prefHeight="264.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+         <children>
+            <VBox layoutX="10.0" layoutY="15.0" prefHeight="239.0" prefWidth="156.0" spacing="5.0">
+               <children>
+                  <Text fx:id="Admin_menu_servicerequests" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Text>
+                  <Line endX="80.0">
+                     <VBox.margin>
+                        <Insets left="35.0" />
+                     </VBox.margin>
+                  </Line>
+                  <MFXButton fx:id="Admin_menu_flower_delivery" onAction="#getFlowerDeliveryPage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Flower Delivery" />
+                  <MFXButton fx:id="Admin_menu_meal_delivery" onAction="#getMealDeliveryPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Meal Delivery" />
+                  <MFXButton fx:id="Admin_menu_stationary_delivery" onAction="#getOfficeSuppliesPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Stationary Request" />
+                  <MFXButton fx:id="Admin_menu_furniture_delivery" onAction="#getFurnitureDeliveryPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Furniture Request" />
+                  <MFXButton fx:id="Admin_menu_room_reservation" onAction="#getRoomReservationPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Room Reservation" />
+                  <MFXButton fx:id="Admin_menu_employee_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Employee Table" />
+<!--                  <MFXButton fx:id="Admin_menu_giftbasket_delivery" onAction="#getGiftBasketRequestPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket Delivery" />-->
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane fx:id="settingsPane" layoutX="70.0" layoutY="-768.0" prefHeight="768.0" prefWidth="1297.0" style="-fx-background-color: #02143B;">
+         <children>
+            <BorderPane prefHeight="768.0" prefWidth="1297.0">
+               <top>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" textAlignment="CENTER" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                     <BorderPane.margin>
+                        <Insets top="100.0" />
+                     </BorderPane.margin>
+                  </Text>
+               </top>
+               <bottom>
+                  <MFXButton fx:id="settingsClose" alignment="CENTER" prefHeight="47.0" prefWidth="156.0" styleClass="menuButton" stylesheets="@Menu.css" text="Close" BorderPane.alignment="CENTER_RIGHT">
+                     <BorderPane.margin>
+                        <Insets bottom="100.0" right="150.0" />
+                     </BorderPane.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </MFXButton>
+               </bottom>
+            </BorderPane>
+         </children>
+      </Pane>
+      <Pane fx:id="menuPane" layoutY="-1.0" prefHeight="768.0" prefWidth="70.0" style="-fx-background-color: #02143B;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Line endX="40.0" layoutX="15.0" layoutY="76.0" stroke="WHITE" />
+            <Line endX="40.0" layoutX="15.0" layoutY="631.0" stroke="WHITE" />
+            <ImageView fx:id="serviceRequestButton" fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="106.75" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/serviceRequestButton.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="navigationButton" fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="161.5" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/navigationButton.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="historyButton" fitHeight="36.5" fitWidth="36.5" layoutX="16.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/historyButton.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="settingsButton" fitHeight="36.5" fitWidth="36.5" layoutX="19.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/settingsButton.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="helpButton" fitHeight="36.5" fitWidth="36.5" layoutX="18.0" layoutY="347.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/helpButton.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="homeButton" fitHeight="36.5" fitWidth="36.5" layoutX="23.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/homeButton.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="logoutButton" fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="651.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/logoutButton.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="exitButton" fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="713.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/exitButton.png" />
+               </image>
+            </ImageView>
+            <Pane fx:id="homeTrigger" layoutX="1.0" layoutY="11.0" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+               <children>
+                  <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="22.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/homeSelected.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="serviceRequestTrigger" layoutY="98.0" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+               <children>
+                  <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/serviceRequestSelection.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="navigationTrigger" layoutY="155.0" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+               <children>
+                  <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/navigationSelection.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="historyTrigger" layoutY="215.0" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+               <children>
+                  <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="16.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/historySelection.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="settingsTrigger" layoutY="276.0" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+               <children>
+                  <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="19.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/settingsSelection.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="helpTrigger" layoutY="340.0" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+               <children>
+                  <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="19.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/helpSelection.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="logoutTrigger" layoutY="645.0" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+               <children>
+                  <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logoutSelection.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="exitTrigger" layoutY="707.0" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+               <children>
+                  <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/exitSelection.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

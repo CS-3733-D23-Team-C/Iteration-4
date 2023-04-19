@@ -1,7 +1,6 @@
 package edu.wpi.teamc.controllers.english.components;
 
 import edu.wpi.teamc.CApp;
-import edu.wpi.teamc.dao.users.Login;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -158,7 +157,7 @@ public class MenuController {
     Navigation.navigate(Screen.EMPLOYEETABLE_PAGE);
   }
 
-  Login login = new Login();
+  //  Login login = new Login();
   //  @FXML MFXButton moveButton;
 
   //    @FXML

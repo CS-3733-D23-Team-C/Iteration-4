@@ -92,9 +92,9 @@
                               <TextArea fx:id="specialRequest" prefHeight="200.0" prefWidth="200.0" promptText="(Optional) Additional Notes" style="-fx-font-family: arial; -fx-background-color: white; -fx-border-color: #02143b; -fx-font-size: 12;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="110.0" prefWidth="525.0" style="-fx-border-color: #02143b; -fx-background-color: white;">
+                        <AnchorPane fx:id="assignEmployeeAnchor" prefHeight="110.0" prefWidth="525.0" style="-fx-border-color: #02143b; -fx-background-color: white;">
                            <children>
-                              <TextField fx:id="assignEmployeeAnchor" alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="4. Assign Employee:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TextField alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="4. Assign Employee:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font size="35.0" />
                                  </font>

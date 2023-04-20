@@ -164,3 +164,10 @@ C:\\Users\\nicky\\Documents\\Iteration-1\\src\\main\\resources\\edu\\wpi\\teamc\
 C:\\Users\\nicky\\Documents\\Iteration-1\\src\\main\\resources\\edu\\wpi\\teamc\\NodeExport.csv
 C:\\Users\\nicky\\Documents\\Iteration-1\\src\\main\\resources\\edu\\wpi\\teamc\\locationNameExport.csv
 C:\\Users\\nicky\\Documents\\Iteration-1\\src\\main\\resources\\edu\\wpi\\teamc\\moveExport.csv
+
+*moveExport.csv
+*locationNameExport.csv
+*NodeExport.csv
+*EdgeExport.csv
+
+*.env

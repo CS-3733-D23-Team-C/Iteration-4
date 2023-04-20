@@ -47,7 +47,6 @@ public enum Screen {
   EXIT_PAGE("views/pages/ExitPage.fxml"),
   EMPLOYEETABLE_PAGE("views/pages/EmployeeTable.fxml");
 
-
   private final String filename;
 
   Screen(String filename) {

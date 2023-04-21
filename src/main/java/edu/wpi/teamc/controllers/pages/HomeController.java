@@ -38,6 +38,7 @@ public class HomeController {
   @FXML private Text HOME_motto;
   @FXML private MFXTextField HOME_username;
   @FXML private MFXPasswordField HOME_password;
+  @FXML private MFXPasswordField HOME_otp;
   @FXML private MFXButton HOME_login;
   @FXML private Hyperlink HOME_forgot;
   @FXML private Hyperlink HOME_create;
@@ -54,12 +55,11 @@ public class HomeController {
   @FXML
   void getAdminNext(ActionEvent event) {
     String username = HOME_username.getText();
-    HOME_password.setVisible(true);
+    HOME_password.setVisible(false);
     HOME_login.setVisible(true);
     HOME_next.setVisible(false);
-    HOME_login.setVisible(true);
-    HOME_username.setEditable(false);
-    HOME_username.setOpacity(0.5);
+    HOME_username.setVisible(false);
+    HOME_otp.setVisible(true);
     HOME_back.setVisible(true);
 
     LoginDao loginDao = new LoginDao();
@@ -74,13 +74,14 @@ public class HomeController {
   @FXML
   void editUsername(ActionEvent event) {
     HOME_username.setEditable(true);
-    HOME_password.setVisible(false);
+    HOME_password.setVisible(true);
     HOME_back.setVisible(false);
     HOME_login.setVisible(false);
     HOME_next.setVisible(true);
-    wrongPass.setVisible(false);
+    wrongPass.setVisible(true);
+    HOME_otp.setVisible(false);
     HOME_password.setText("");
-    HOME_username.setOpacity(1);
+    HOME_otp.setText("");
   }
 
   @FXML
@@ -93,6 +94,8 @@ public class HomeController {
               || currentLogin.getPermissions().equals(PERMISSIONS.STAFF)) {
             if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN)) {
               CApp.setAdminLoginCheck(true);
+            } else {
+              CApp.setAdminLoginCheck(false);
             }
             Navigation.navigate(Screen.ADMIN_HOME);
           } else {

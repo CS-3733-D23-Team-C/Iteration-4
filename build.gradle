@@ -29,6 +29,8 @@ javafx {
 
 
 dependencies {
+// https://mvnrepository.com/artifact/com.amdelamar/jotp
+    implementation 'com.amdelamar:jotp:1.3.0'
 
     implementation(
             'io.github.palexdev:materialfx:11.15.0',

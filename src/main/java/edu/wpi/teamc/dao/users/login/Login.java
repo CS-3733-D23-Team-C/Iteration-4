@@ -1,18 +1,21 @@
 package edu.wpi.teamc.dao.users.login;
 
+import com.amdelamar.jotp.OTP;
+import com.amdelamar.jotp.type.Type;
 import edu.wpi.teamc.dao.IOrm;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
+import lombok.Getter;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import lombok.Getter;
-
 @Getter
 public class Login implements IOrm {
   private String username;
   private String salt;
   private String hashedPassword;
   private PERMISSIONS permissions;
+  private String otp;
 
   public Login() {}
 
@@ -21,14 +24,16 @@ public class Login implements IOrm {
     this.permissions = permissions;
     this.salt = saltPassword();
     this.hashedPassword = hashPassword(password + this.salt);
+    this.otp = null;
   }
 
   // only database should use this constructor
-  Login(String username, String password, PERMISSIONS permissions, String salt) {
+  Login(String username, String password, PERMISSIONS permissions, String salt, String otp) {
     this.username = username.toLowerCase();
     this.permissions = permissions;
     this.salt = salt;
     this.hashedPassword = password;
+    this.otp = otp;
   }
 
   public String saltPassword() {
@@ -72,5 +77,35 @@ public class Login implements IOrm {
       return true;
     }
     return false;
+  }
+
+  private String generateOTP() {
+    String secret = OTP.randomBase32(32);
+    return secret;
+  }
+
+  private String removeOTP() {
+    return null;
+  }
+
+  private boolean isOTPEnabled() {
+    if (this.otp == null) {
+      return false;
+    }
+    return true;
+  }
+
+  private boolean checkOTP(String otp) {
+    try {
+        String hexTime = OTP.timeInHex(System.currentTimeMillis(), 30);
+        String code = OTP.create(otp, hexTime, 6, Type.TOTP);
+        if (code.equals(otp)) {
+          return true;
+        }else {
+            return false;
+        }
+        } catch (Exception e) {
+        return false;
+    }
   }
 }

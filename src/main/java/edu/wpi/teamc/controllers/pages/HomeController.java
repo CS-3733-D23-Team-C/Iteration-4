@@ -1,7 +1,5 @@
 package edu.wpi.teamc.controllers.pages;
 
-import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
-
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
 import edu.wpi.teamc.dao.users.login.Login;
@@ -19,6 +17,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 public class HomeController {
 
@@ -55,13 +55,6 @@ public class HomeController {
   void getAdminNext(ActionEvent event) {
     wrongNextLogin = true;
     String username = HOME_username.getText();
-    HOME_username.setVisible(false);
-    HOME_password.setVisible(false);
-    HOME_next.setVisible(false);
-    HOME_back.setVisible(true);
-    HOME_login.setVisible(true);
-    HOME_code.setVisible(true);
-
     LoginDao loginDao = new LoginDao();
     try {
       currentLogin = loginDao.fetchObject(username);
@@ -69,7 +62,14 @@ public class HomeController {
         wrongNextLogin = true;
       } else {
         wrongNextLogin = false;
-        if (!currentLogin.isOTPEnabled()) {
+        if (currentLogin.isOTPEnabled()) {
+          HOME_username.setVisible(false);
+          HOME_password.setVisible(false);
+          HOME_next.setVisible(false);
+          HOME_back.setVisible(true);
+          HOME_login.setVisible(true);
+          HOME_code.setVisible(true);
+        } else {
           getAdmin(event);
         }
       }
@@ -88,6 +88,7 @@ public class HomeController {
     HOME_back.setVisible(false);
     HOME_code.setText("");
     HOME_password.setText("");
+    wrongPass.setVisible(false);
   }
 
   @FXML

@@ -64,7 +64,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </MFXButton>
-                        <Text fx:id="wrongPass" fill="RED" layoutX="205.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Incorrect Password or Username" textAlignment="CENTER" visible="false" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="115.0" />
+                        <Text fx:id="wrongPass" fill="RED" layoutX="234.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Incorrect credentials!" visible="false" AnchorPane.leftAnchor="234.0" AnchorPane.topAnchor="115.431640625" />
                         <MFXButton fx:id="HOME_back" layoutX="121.0" layoutY="239.0" onAction="#backToLogin" prefHeight="26.0" prefWidth="343.0" style="-fx-background-color: EAB334; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: Bold; -fx-font-size: 16;" text="Back" textFill="#02143b" visible="false" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="239.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />

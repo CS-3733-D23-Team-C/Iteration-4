@@ -1,10 +1,9 @@
 package edu.wpi.teamc.dao.displays;
 
 import edu.wpi.teamc.dao.IOrm;
+import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.sql.Timestamp;
 
 public class Alert implements IOrm {
   @Getter private int id;
@@ -14,8 +13,8 @@ public class Alert implements IOrm {
   @Getter @Setter Timestamp startdate;
   @Getter @Setter Timestamp enddate;
 
-  public Alert() {
-  }
+  public Alert() {}
+
   Alert(
       int id,
       String title,

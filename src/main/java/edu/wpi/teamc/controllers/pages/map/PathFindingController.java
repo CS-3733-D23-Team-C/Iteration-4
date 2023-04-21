@@ -10,6 +10,7 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -440,12 +441,17 @@ public class PathFindingController {
 
     String startName = startChoice.getValue();
     String endName = endChoice.getValue();
-    String date = pickDate.getValue().toString();
+    LocalDate date = pickDate.getValue();
 
+    if (date == null) {
+      date = LocalDate.now();
+    }
+
+    String dateString = date.toString();
     Graph graph = new Graph(AlgoSingleton.INSTANCE.getType());
-    graph.syncWithDB(date);
+    graph.syncWithDB(dateString);
 
-    syncMoveWithDate(date);
+    syncMoveWithDate(dateString);
     src = graph.getNode(longNameToNodeID.get(startName));
     dest = graph.getNode(longNameToNodeID.get(endName));
     changeFloorFromString(src.getFloor());

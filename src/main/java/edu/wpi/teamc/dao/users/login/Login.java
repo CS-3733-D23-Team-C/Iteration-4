@@ -5,7 +5,6 @@ import com.amdelamar.jotp.type.Type;
 import edu.wpi.teamc.dao.IOrm;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
 import lombok.Getter;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -14,8 +13,9 @@ public class Login implements IOrm {
   private String username;
   private String salt;
   private String hashedPassword;
-  private PERMISSIONS permissions;
   private String otp;
+  private PERMISSIONS permissions;
+
 
   public Login() {}
 

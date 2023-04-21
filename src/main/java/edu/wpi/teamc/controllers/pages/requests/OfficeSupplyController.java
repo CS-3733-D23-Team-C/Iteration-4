@@ -108,28 +108,28 @@ public class OfficeSupplyController {
   void getServicechoice1() throws IOException {
     serviceMenu.setText(servicechoice1.getText());
     image.setImage(
-        new Image(Main.class.getResource("views/Images/Office_Supply/notebook.png").openStream()));
+        new Image(Main.class.getResource("views/images/Office_Supply/notebook.png").openStream()));
   }
 
   @FXML
   void getServicechoice2() throws IOException {
     serviceMenu.setText(servicechoice2.getText());
     image.setImage(
-        new Image(Main.class.getResource("views/Images/Office_Supply/pen.png").openStream()));
+        new Image(Main.class.getResource("views/images/Office_Supply/pen.png").openStream()));
   }
 
   @FXML
   void getServicechoice3() throws IOException {
     serviceMenu.setText(servicechoice3.getText());
     image.setImage(
-        new Image(Main.class.getResource("views/Images/Office_Supply/pencil.png").openStream()));
+        new Image(Main.class.getResource("views/images/Office_Supply/pencil.png").openStream()));
   }
 
   @FXML
   void getServicechoice4() throws IOException {
     serviceMenu.setText(servicechoice4.getText());
     image.setImage(
-        new Image(Main.class.getResource("views/Images/Office_Supply/staple.png").openStream()));
+        new Image(Main.class.getResource("views/images/Office_Supply/staple.png").openStream()));
   }
 
   @FXML

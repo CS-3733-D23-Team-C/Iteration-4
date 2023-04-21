@@ -186,31 +186,31 @@ public class FurnitureController {
     switch (furnitureChoice) {
       case 1:
         furnitureImage.setImage(
-            new Image(Main.class.getResource("views/Images/Furniture/chair.png").openStream()));
+            new Image(Main.class.getResource("views/images/Furniture/chair.png").openStream()));
         Dimensions.setText("Width: 30 in, Length: 27 in, Height: 60 in");
         weightInfo.setText("25 lbs each");
         break;
       case 2:
         furnitureImage.setImage(
-            new Image(Main.class.getResource("views/Images/Furniture/doradesk.png").openStream()));
+            new Image(Main.class.getResource("views/images/Furniture/doradesk.png").openStream()));
         Dimensions.setText("Width: Backpack, Length: Boots, Height: Dora");
         weightInfo.setText("5 Swipers each");
         break;
       case 3:
         furnitureImage.setImage(
-            new Image(Main.class.getResource("views/Images/Furniture/stool.png").openStream()));
+            new Image(Main.class.getResource("views/images/Furniture/stool.png").openStream()));
         Dimensions.setText("Width: 15 in, Length: 15 in, Height: 30 in");
         weightInfo.setText("10 lbs each");
         break;
       case 4:
         furnitureImage.setImage(
-            new Image(Main.class.getResource("views/Images/Furniture/couch.png").openStream()));
+            new Image(Main.class.getResource("views/images/Furniture/couch.png").openStream()));
         Dimensions.setText("Width: 350 in, Length: 40 in, Height: 15 in");
         weightInfo.setText("500 lbs each");
         break;
       default:
         furnitureImage.setImage(
-            new Image(Main.class.getResource("views/Images/Furniture/kys.png").openStream()));
+            new Image(Main.class.getResource("views/images/Furniture/kys.png").openStream()));
         Dimensions.setText("");
         weightInfo.setText("");
         break;

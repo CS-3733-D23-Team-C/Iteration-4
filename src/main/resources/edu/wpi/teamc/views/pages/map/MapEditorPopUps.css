@@ -41,3 +41,10 @@
     -fx-font-family: Arial;
     -fx-underline: true;
 }
+.toggleButton{
+
+}
+.toggleText {
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+}

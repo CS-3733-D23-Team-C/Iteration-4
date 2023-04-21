@@ -1,10 +1,16 @@
 package edu.wpi.teamc.dao;
 
+import edu.wpi.teamc.dao.displays.Alert;
+import edu.wpi.teamc.dao.displays.AlertDao;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.dao.requests.*;
-import edu.wpi.teamc.dao.users.*;
+import edu.wpi.teamc.dao.users.AdminUser;
+import edu.wpi.teamc.dao.users.AdminUserDao;
+import edu.wpi.teamc.dao.users.EmployeeUser;
+import edu.wpi.teamc.dao.users.EmployeeUserDao;
 import edu.wpi.teamc.dao.users.login.Login;
 import edu.wpi.teamc.dao.users.login.LoginDao;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -29,6 +35,9 @@ public class HospitalSystem {
   private static EmployeeUserDao employeeDao = new EmployeeUserDao();
   private static AdminUserDao adminDao = new AdminUserDao();
   private static LoginDao loginDao = new LoginDao();
+
+  // Display DAOs
+  private static AlertDao alertDao = new AlertDao();
 
   public static List<? extends IOrm> fetchAllObjects(IOrm request) {
     if (request instanceof Node) {
@@ -59,9 +68,12 @@ public class HospitalSystem {
       return employeeDao.fetchAllObjects();
     } else if (request instanceof Login) {
       return loginDao.fetchAllObjects();
+    } else if (request instanceof Alert) {
+      return alertDao.fetchAllObjects();
     } else {
       return null;
     }
+
   }
 
   public static IOrm addRow(IOrm request) {
@@ -91,6 +103,8 @@ public class HospitalSystem {
       return employeeDao.addRow((EmployeeUser) request);
     } else if (request instanceof Login) {
       return loginDao.addRow((Login) request);
+    } else if (request instanceof Alert) {
+        return alertDao.addRow((Alert) request);
     } else {
       return null;
     }
@@ -127,6 +141,8 @@ public class HospitalSystem {
       return employeeDao.deleteRow((EmployeeUser) request);
     } else if (request instanceof Login) {
       return loginDao.deleteRow((Login) request);
+    } else if (request instanceof Alert) {
+        return alertDao.deleteRow((Alert) request);
     } else {
       return null;
     }
@@ -163,6 +179,8 @@ public class HospitalSystem {
       return employeeDao.updateRow((EmployeeUser) request, (EmployeeUser) request);
     } else if (request instanceof Login) {
       return loginDao.updateRow((Login) request, (Login) request);
+    } else if (request instanceof Alert) {
+        return alertDao.updateRow((Alert) request, (Alert) request);
     } else {
       return null;
     }

@@ -20,6 +20,7 @@ public enum Screen {
   HOME("views/pages/Home.fxml"),
   ADMIN_HOME("views/pages/admin/AdminHome.fxml"),
   GUEST_HOME("views/pages/guest/GuestHome.fxml"),
+  PATIENT_HOME("views/pages/patient/PatientHome.fxml"),
   MENU("views/components/Menu.fxml"),
   GUEST_MENU("views/pages/guest/GuestMenu.fxml"),
 

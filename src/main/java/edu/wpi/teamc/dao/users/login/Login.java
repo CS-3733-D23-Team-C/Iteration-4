@@ -1,21 +1,22 @@
 package edu.wpi.teamc.dao.users.login;
 
-import com.amdelamar.jotp.OTP;
-import com.amdelamar.jotp.type.Type;
+import com.warrenstrange.googleauth.GoogleAuthenticator;
+import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
+import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.IOrm;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
 import lombok.Getter;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-@Getter
-public class Login implements IOrm {
-  private String username;
-  private String salt;
-  private String hashedPassword;
-  private String otp;
-  private PERMISSIONS permissions;
 
+public class Login implements IOrm {
+  @Getter private String username;
+  String salt;
+  String hashedPassword;
+  String otp;
+  @Getter private PERMISSIONS permissions;
 
   public Login() {}
 
@@ -79,33 +80,35 @@ public class Login implements IOrm {
     return false;
   }
 
-  private String generateOTP() {
-    String secret = OTP.randomBase32(32);
-    return secret;
+  public String generateOTP() {
+    GoogleAuthenticator gAuth = new GoogleAuthenticator();
+    GoogleAuthenticatorKey secret = gAuth.createCredentials();
+    this.otp = secret.getKey();
+    HospitalSystem.updateRow(this);
+    return otp;
   }
 
-  private String removeOTP() {
+  public String removeOTP() {
+    this.otp = null;
+    HospitalSystem.updateRow(this);
     return null;
   }
 
-  private boolean isOTPEnabled() {
+  public boolean isOTPEnabled() {
     if (this.otp == null) {
       return false;
     }
     return true;
   }
 
-  private boolean checkOTP(String otp) {
+  public boolean checkOTP(String otp) {
+    boolean isCodeValid = false;
     try {
-        String hexTime = OTP.timeInHex(System.currentTimeMillis(), 30);
-        String code = OTP.create(otp, hexTime, 6, Type.TOTP);
-        if (code.equals(otp)) {
-          return true;
-        }else {
-            return false;
-        }
-        } catch (Exception e) {
-        return false;
+      GoogleAuthenticator gAuth = new GoogleAuthenticator();
+      isCodeValid = gAuth.authorize(this.otp, Integer.parseInt(otp));
+    } catch (NumberFormatException e) {
+      isCodeValid = false;
     }
+    return isCodeValid;
   }
 }

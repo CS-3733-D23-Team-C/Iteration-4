@@ -31,9 +31,6 @@ public class LoginDao implements IDao<Login, String> {
         PERMISSIONS permissions = PERMISSIONS.valueOf(rs.getString("permissions"));
         String salt = rs.getString("salt");
         String otp = rs.getString("otp");
-        if (otp == "" || otp == null) {
-          otp = null;
-        }
         Login login = new Login(username, password, permissions, salt, otp);
         returnList.add(login);
       }
@@ -58,18 +55,14 @@ public class LoginDao implements IDao<Login, String> {
               + "password = ?, "
               + "permissions = ?, "
               + "salt = ?,"
-                  + "otp = ?"
+              + "otp = ?"
               + " WHERE username = ?";
-      String otp = repl.getOtp();
-      if (otp == "" || otp == null) {
-        otp = null;
-      }
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, repl.getUsername());
-      ps.setString(2, repl.getHashedPassword());
+      ps.setString(2, repl.hashedPassword);
       ps.setString(3, repl.getPermissions().toString());
-      ps.setString(4, repl.getSalt());
-      ps.setString(5, otp);
+      ps.setString(4, repl.salt);
+      ps.setString(5, repl.otp);
       ps.setString(6, orm.getUsername());
       ps.execute();
       db.closeConnection();
@@ -88,14 +81,16 @@ public class LoginDao implements IDao<Login, String> {
       String table = "\"users\".\"login\"";
       // queries
       String query =
-          "INSERT INTO " + table + " (username, password, permissions, salt, otp) VALUES (?,?,?,?,?)";
+          "INSERT INTO "
+              + table
+              + " (username, password, permissions, salt, otp) VALUES (?,?,?,?,?)";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, type.getUsername());
-      ps.setString(2, type.getHashedPassword());
+      ps.setString(2, type.hashedPassword);
       ps.setString(3, type.getPermissions().toString());
-      ps.setString(4, type.getSalt());
-      ps.setString(5, type.getOtp());
+      ps.setString(4, type.salt);
+      ps.setString(5, type.otp);
       ps.execute();
       db.closeConnection();
     } catch (Exception e) {
@@ -146,9 +141,6 @@ public class LoginDao implements IDao<Login, String> {
       PERMISSIONS permissions = PERMISSIONS.valueOf(rs.getString("permissions"));
       String salt = rs.getString("salt");
       String otp = rs.getString("otp");
-      if (otp == "" || otp == null) {
-            otp = null;
-        }
       login = new Login(username, password, permissions, salt, otp);
     }
 

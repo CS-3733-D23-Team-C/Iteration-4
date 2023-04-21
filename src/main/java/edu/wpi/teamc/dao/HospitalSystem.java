@@ -10,7 +10,6 @@ import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.dao.users.EmployeeUserDao;
 import edu.wpi.teamc.dao.users.login.Login;
 import edu.wpi.teamc.dao.users.login.LoginDao;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -73,7 +72,6 @@ public class HospitalSystem {
     } else {
       return null;
     }
-
   }
 
   public static IOrm addRow(IOrm request) {
@@ -104,7 +102,7 @@ public class HospitalSystem {
     } else if (request instanceof Login) {
       return loginDao.addRow((Login) request);
     } else if (request instanceof Alert) {
-        return alertDao.addRow((Alert) request);
+      return alertDao.addRow((Alert) request);
     } else {
       return null;
     }
@@ -142,7 +140,7 @@ public class HospitalSystem {
     } else if (request instanceof Login) {
       return loginDao.deleteRow((Login) request);
     } else if (request instanceof Alert) {
-        return alertDao.deleteRow((Alert) request);
+      return alertDao.deleteRow((Alert) request);
     } else {
       return null;
     }
@@ -180,7 +178,7 @@ public class HospitalSystem {
     } else if (request instanceof Login) {
       return loginDao.updateRow((Login) request, (Login) request);
     } else if (request instanceof Alert) {
-        return alertDao.updateRow((Alert) request, (Alert) request);
+      return alertDao.updateRow((Alert) request, (Alert) request);
     } else {
       return null;
     }

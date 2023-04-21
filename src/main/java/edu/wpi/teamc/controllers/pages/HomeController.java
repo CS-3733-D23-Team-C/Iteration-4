@@ -11,7 +11,6 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
@@ -38,7 +37,6 @@ public class HomeController {
   @FXML private Text HOME_motto;
   @FXML private MFXTextField HOME_username;
   @FXML private MFXPasswordField HOME_password;
-  @FXML private MFXPasswordField HOME_otp;
   @FXML private MFXButton HOME_login;
   @FXML private Hyperlink HOME_forgot;
   @FXML private Hyperlink HOME_create;
@@ -55,8 +53,8 @@ public class HomeController {
 
   @FXML
   void getAdminNext(ActionEvent event) {
+    wrongNextLogin = true;
     String username = HOME_username.getText();
-
     HOME_username.setVisible(false);
     HOME_password.setVisible(false);
     HOME_next.setVisible(false);
@@ -67,7 +65,14 @@ public class HomeController {
     LoginDao loginDao = new LoginDao();
     try {
       currentLogin = loginDao.fetchObject(username);
-      wrongNextLogin = false; // if the username is correct
+      if (currentLogin == null) {
+        wrongNextLogin = true;
+      } else {
+        wrongNextLogin = false;
+        if (!currentLogin.isOTPEnabled()) {
+          getAdmin(event);
+        }
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -81,6 +86,8 @@ public class HomeController {
     HOME_next.setVisible(true);
     HOME_code.setVisible(false);
     HOME_back.setVisible(false);
+    HOME_code.setText("");
+    HOME_password.setText("");
   }
 
   @FXML
@@ -88,12 +95,16 @@ public class HomeController {
     String password = HOME_password.getText();
     if (wrongNextLogin == false) {
       try {
-        if (currentLogin.checkPassword(password)) {
-          if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN)
-              || currentLogin.getPermissions().equals(PERMISSIONS.STAFF)) {
-            if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN)) {
+        if (currentLogin.checkPassword(password)
+            && (currentLogin.checkOTP(HOME_code.getText())
+                || !currentLogin.isOTPEnabled())) { // if the passwords are correct
+          if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN) // if the user is an admin
+              || currentLogin.getPermissions().equals(PERMISSIONS.STAFF)) { // or staff
+            if (currentLogin
+                .getPermissions()
+                .equals(PERMISSIONS.ADMIN)) { // if the user is an admin
               CApp.setAdminLoginCheck(true);
-            } else {
+            } else { // if the user is staff
               CApp.setAdminLoginCheck(false);
             }
             Navigation.navigate(Screen.ADMIN_HOME);

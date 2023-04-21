@@ -31,7 +31,7 @@ public class Graph {
     }
   }
 
-  public void syncWithDB() {
+  public void syncWithDB(String date) {
     IDao<Node, Integer> nodeDao = new NodeDao();
     IDao<Edge, Edge> edgeDao = new EdgeDao();
     IDao<Move, Move> moveDao = new MoveDao();
@@ -51,8 +51,13 @@ public class Graph {
     }
 
     for (Move move : moves) {
-      if (move.getDate().toString().equals("2023-01-01"))
+      // store the move for the desired date
+      if (move.getDate().toString().equals(date)) {
         nodeIDtoLongName.put(move.getNodeID(), move.getLongName());
+      } else if (move.getDate().toString().equals("2023-01-01")) {
+        // if something doesn't have a move on a specific day, use its default location
+        nodeIDtoLongName.putIfAbsent(move.getNodeID(), move.getLongName());
+      }
     }
 
     for (LocationName loc : locs) {

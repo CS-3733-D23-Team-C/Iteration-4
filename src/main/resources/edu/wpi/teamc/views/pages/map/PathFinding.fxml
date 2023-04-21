@@ -3,6 +3,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -29,7 +30,7 @@
                                     </GesturePane>
                            </children>
                         </AnchorPane>
-                        <VBox alignment="TOP_CENTER" layoutX="888.0" layoutY="265.0" prefHeight="188.0" prefWidth="122.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="359.0">
+                        <VBox alignment="TOP_CENTER" layoutX="1118.0" layoutY="400.0" prefHeight="188.0" prefWidth="122.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="400.0">
                            <children>
                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-weight: Bold; -fx-underline: True; -fx-font-size: 13;" text="Select Floor" textAlignment="CENTER" />
                               <AnchorPane prefHeight="30.0" prefWidth="20.0">
@@ -62,7 +63,7 @@
                               <Insets bottom="20.0" top="20.0" />
                            </padding>
                         </VBox>
-                        <HBox layoutX="999.0" layoutY="507.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="270.0">
+                        <HBox layoutX="995.0" layoutY="304.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="304.0">
                            <children>
                               <MFXButton fx:id="prevFloor" onAction="#getPrevFloor" prefHeight="30.0" prefWidth="127.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Previous Floor" textFill="#02143b" />
                               <MFXButton fx:id="nextFloor" onAction="#getNextFloor" prefHeight="30.0" prefWidth="127.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-background-size: 12;" text="Next Floor" textFill="#02143b" />
@@ -90,6 +91,7 @@
                                     <Font size="11.0" />
                                  </font>
                               </MenuButton>
+                              <DatePicker fx:id="pickDate" prefHeight="26.0" prefWidth="210.0" promptText="Choose Date:" />
                               <MFXButton fx:id="submit" onAction="#getSubmit" prefHeight="50.0" prefWidth="210.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Submit" textFill="#02143b" />
                               <ToggleSwitch fx:id="locToggle" onMouseClicked="#doLocToggle" style="-fx-font-weight: bold; -fx-background-color: WHITE;" text="Location Name Toggle" textFill="#02143b" />
                            </children>

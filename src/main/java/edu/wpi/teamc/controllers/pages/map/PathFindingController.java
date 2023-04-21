@@ -41,6 +41,7 @@ public class PathFindingController {
   @FXML SearchableComboBox<String> startChoice;
   @FXML SearchableComboBox<String> endChoice;
   @FXML ToggleSwitch locToggle;
+  @FXML DatePicker pickDate;
 
   public PathFindingController() throws IOException {}
 
@@ -147,10 +148,28 @@ public class PathFindingController {
       nodeIDtoMove.put(move.getNodeID(), move);
       longNameToNodeID.put(move.getLongName(), move.getNodeID());
     }
+
     for (LocationName locationName : locationNameList) {
       longNametoLocationName.put(locationName.getLongName(), locationName);
     }
     longNametoLocationName.put("ERROR", new LocationName("ERROR", "ERROR", "ERROR"));
+  }
+
+  public void syncMoveWithDate(String date) {
+    for (Move move : moveList) {
+      try {
+        move.getLongName();
+      } catch (NullPointerException e) {
+        move.setLongName("ERROR");
+      }
+      if (move.getDate().toString().equals(date)) {
+        nodeIDtoMove.put(move.getNodeID(), move);
+        longNameToNodeID.put(move.getLongName(), move.getNodeID());
+      } else if (move.getDate().toString().equals("2023-01-01")) {
+        nodeIDtoMove.putIfAbsent(move.getNodeID(), move);
+        longNameToNodeID.putIfAbsent(move.getLongName(), move.getNodeID());
+      }
+    }
   }
 
   public void addLocationsToSelect() {
@@ -421,10 +440,12 @@ public class PathFindingController {
 
     String startName = startChoice.getValue();
     String endName = endChoice.getValue();
+    String date = pickDate.getValue().toString();
 
     Graph graph = new Graph(AlgoSingleton.INSTANCE.getType());
-    graph.syncWithDB();
+    graph.syncWithDB(date);
 
+    syncMoveWithDate(date);
     src = graph.getNode(longNameToNodeID.get(startName));
     dest = graph.getNode(longNameToNodeID.get(endName));
     changeFloorFromString(src.getFloor());
@@ -498,6 +519,7 @@ public class PathFindingController {
     toggleStatus = !toggleStatus;
 
     if (toggleStatus) {
+      group.getChildren().remove(mapText);
       group.getChildren().add(mapText);
       placeText(floor);
     } else {

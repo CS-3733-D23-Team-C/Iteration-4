@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.web.HTMLEditor?>
 
-
-<AnchorPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.views.pages.ScreenSaver">
-
+<AnchorPane prefHeight="768.0" prefWidth="1366.0" styleClass="background" stylesheets="@../Linear-Gradient.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.ScreenSaverController">
+   <children>
+      <HTMLEditor fx:id="screenWeather" disable="true" htmlText="&lt;a class=&quot;weatherwidget-io&quot; href=&quot;https://forecast7.com/en/42d36n71d06/boston/?unit=us&quot; data-label_1=&quot;BOSTON&quot; data-label_2=&quot;WEATHER&quot; data-mode=&quot;Current&quot; data-theme=&quot;original&quot; &gt;BOSTON WEATHER&lt;/a&gt;&lt;script&gt;!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');&lt;/script&gt;" layoutX="883.0" layoutY="554.0" prefHeight="200.0" prefWidth="468.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="883.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="554.0" />
+      <AnchorPane layoutX="883.0" layoutY="554.0" prefHeight="84.0" prefWidth="468.0" style="-fx-background-color: #1F567C; -fx-border-color: #1F567C;" />
+      <AnchorPane layoutX="883.0" layoutY="633.0" prefHeight="101.0" prefWidth="12.0" style="-fx-background-color: #1F567C; -fx-border-color: #1F567C;" />
+      <AnchorPane layoutX="1308.0" layoutY="638.0" prefHeight="90.0" prefWidth="44.0" style="-fx-background-color: #1F567C; -fx-border-color: #1F567C;" />
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+      <AnchorPane layoutX="895.0" layoutY="713.0" prefHeight="15.0" prefWidth="414.0" style="-fx-background-color: #1F567C; -fx-border-color: #1F567C;" />
+   </children>
 </AnchorPane>

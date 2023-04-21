@@ -10,6 +10,8 @@ public enum Screen {
   SIGNAGE("views/pages/map/ElevatorSignage.fxml"),
   GUEST_SIGNAGE("views/pages/guest/GuestElevatorSignage.fxml"),
 
+  SCREENSAVER("views/pages/ScreenSaver.fxml"),
+
   MAP_HISTORY_PAGE("views/pages/history/MapHistory.fxml"),
   PATHFINDING_PAGE("views/pages/map/PathFinding.fxml"),
   GUEST_PATHFINDING_PAGE("views/pages/guest/GuestPathFinding.fxml"),

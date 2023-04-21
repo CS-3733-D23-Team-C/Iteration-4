@@ -11,15 +11,13 @@ public class Sign implements IOrm {
   Date date;
   String direction;
   String screenlocation;
-  String location;
 
   public Sign(
-      String locationname, Date date, String direction, String screenlocation, String location) {
+      String locationname, Date date, String direction, String screenlocation) {
     this.locationname = locationname;
     this.date = date;
     this.direction = direction;
     this.screenlocation = screenlocation;
-    this.location = location;
   }
 
   public Sign() {}

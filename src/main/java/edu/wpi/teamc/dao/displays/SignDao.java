@@ -31,8 +31,7 @@ public class SignDao implements IDao<Sign, Sign> {
         Date date = java.sql.Date.valueOf(String.valueOf(rs.getTimestamp("date")));
         String direction = rs.getString("direction");
         String screenlocation = rs.getString("screenlocation");
-        String location = rs.getString("location");
-        Sign s = new Sign(locationname, (java.sql.Date) date, direction, screenlocation, location);
+        Sign s = new Sign(locationname, (java.sql.Date) date, direction, screenlocation);
         returnList.add(s);
       }
     } catch (SQLException e) {
@@ -48,15 +47,16 @@ public class SignDao implements IDao<Sign, Sign> {
     DBConnection db = new DBConnection();
     try {
       String query =
-          "UPDATE \"displays\".\"Signage\" SET locationname = ?, date = ?, direction = ?, screenlocation = ? WHERE locationname = ? AND date = ?";
+          "UPDATE \"displays\".\"Signage\" SET locationname = ?, date = ?, direction = ?, screenlocation = ? WHERE locationname = ? AND date = ? AND screenlocation = ?";
       PreparedStatement ps =
           db.getConnection().prepareStatement(query);
-      ps.setString(1, repl.getLocation());
+      ps.setString(1, repl.getLocationname());
       ps.setDate(2, repl.getDate());
       ps.setString(3, repl.getDirection());
       ps.setString(4, repl.getScreenlocation());
-      ps.setString(5, orm.getLocation());
+      ps.setString(5, orm.getLocationname());
       ps.setDate(6, orm.getDate());
+      ps.setString(7, orm.getScreenlocation());
       ps.executeUpdate();
       sign = repl;
     } catch (SQLException e) {
@@ -71,13 +71,12 @@ public class SignDao implements IDao<Sign, Sign> {
     DBConnection db = new DBConnection();
     try {
       String query =
-          "INSERT INTO \"displays\".\"Signage\" (locationname, date, direction, screenlocation, location) VALUES (?, ?, ?, ?, ?)";
+          "INSERT INTO \"displays\".\"Signage\" (locationname, date, direction, screenlocation) VALUES (?, ?, ?, ?)";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, type.getLocationname());
       ps.setDate(2, type.getDate());
       ps.setString(3, type.getDirection());
       ps.setString(4, type.getScreenlocation());
-      ps.setString(5, type.getLocation());
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
@@ -90,10 +89,11 @@ public class SignDao implements IDao<Sign, Sign> {
   public Sign deleteRow(Sign type) throws SQLException {
     DBConnection db = new DBConnection();
     try {
-      String q = "DELETE FROM \"displays\".\"Signage\" WHERE locationname = ? AND date = ?";
+      String q = "DELETE FROM \"displays\".\"Signage\" WHERE locationname = ? AND date = ? AND screenlocation = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(q);
       ps.setString(1, type.getLocationname());
       ps.setDate(2, type.getDate());
+        ps.setString(3, type.getScreenlocation());
       ps.executeUpdate();
     } catch (SQLException e) {
       throw new RuntimeException(e);
@@ -107,18 +107,18 @@ public class SignDao implements IDao<Sign, Sign> {
   public Sign fetchObject(Sign key) throws SQLException {
     DBConnection db = new DBConnection();
     try {
-      String query = "SELECT * FROM \"displays\".\"Signage\" WHERE locationname = ? AND date = ?";
+      String query = "SELECT * FROM \"displays\".\"Signage\" WHERE locationname = ? AND date = ? AND screenlocation = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, key.getLocationname());
       ps.setDate(2, key.getDate());
+      ps.setString(3, key.getScreenlocation());
       ResultSet rs = ps.executeQuery();
       if (rs.next()) {
         String locationname = rs.getString("locationname");
         Date date = java.sql.Date.valueOf(String.valueOf(rs.getTimestamp("date")));
         String direction = rs.getString("direction");
         String screenlocation = rs.getString("screenlocation");
-        String location = rs.getString("location");
-        Sign s = new Sign(locationname, (java.sql.Date) date, direction, screenlocation, location);
+        Sign s = new Sign(locationname, (java.sql.Date) date, direction, screenlocation);
         return s;
       }
     } catch (SQLException e) {

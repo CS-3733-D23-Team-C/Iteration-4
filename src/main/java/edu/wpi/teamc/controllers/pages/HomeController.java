@@ -48,6 +48,7 @@ public class HomeController {
   @FXML private MFXButton HOME_exit;
   @FXML private MFXButton HOME_next;
   @FXML private MFXButton HOME_back;
+  @FXML private MFXTextField HOME_code;
 
   boolean wrongNextLogin = true;
   Login currentLogin;
@@ -55,12 +56,13 @@ public class HomeController {
   @FXML
   void getAdminNext(ActionEvent event) {
     String username = HOME_username.getText();
-    HOME_password.setVisible(false);
-    HOME_login.setVisible(true);
-    HOME_next.setVisible(false);
+
     HOME_username.setVisible(false);
-    HOME_otp.setVisible(true);
+    HOME_password.setVisible(false);
+    HOME_next.setVisible(false);
     HOME_back.setVisible(true);
+    HOME_login.setVisible(true);
+    HOME_code.setVisible(true);
 
     LoginDao loginDao = new LoginDao();
     try {
@@ -72,16 +74,13 @@ public class HomeController {
   }
 
   @FXML
-  void editUsername(ActionEvent event) {
-    HOME_username.setEditable(true);
+  void backToLogin(ActionEvent event) {
+    HOME_login.setVisible(true);
+    HOME_username.setVisible(true);
     HOME_password.setVisible(true);
-    HOME_back.setVisible(false);
-    HOME_login.setVisible(false);
     HOME_next.setVisible(true);
-    wrongPass.setVisible(true);
-    HOME_otp.setVisible(false);
-    HOME_password.setText("");
-    HOME_otp.setText("");
+    HOME_code.setVisible(false);
+    HOME_back.setVisible(false);
   }
 
   @FXML

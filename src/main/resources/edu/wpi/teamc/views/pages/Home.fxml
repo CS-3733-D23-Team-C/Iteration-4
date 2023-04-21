@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: E3DFDF;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.HomeController">
@@ -64,7 +65,7 @@
                            </cursor>
                         </MFXButton>
                         <Text fx:id="wrongPass" fill="RED" layoutX="205.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Incorrect Password or Username" textAlignment="CENTER" visible="false" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="115.0" />
-                        <MFXButton fx:id="HOME_back" layoutX="121.0" layoutY="239.0" onAction="#editUsername" prefHeight="26.0" prefWidth="343.0" style="-fx-background-color: EAB334; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: Bold; -fx-font-size: 16;" text="Back" textFill="#02143b" visible="false" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="239.0">
+                        <MFXButton fx:id="HOME_back" layoutX="121.0" layoutY="239.0" onAction="#backToLogin" prefHeight="26.0" prefWidth="343.0" style="-fx-background-color: EAB334; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: Bold; -fx-font-size: 16;" text="Back" textFill="#02143b" visible="false" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="239.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></MFXButton>
@@ -73,6 +74,14 @@
                               <Color red="0.529411792755127" green="0.545098066329956" blue="0.5607843399047852" opacity="0.8700000047683716" />
                            </textFill>
                         </MFXPasswordField>
+                        <MFXTextField fx:id="HOME_code" alignment="CENTER" floatMode="DISABLED" floatingTextGap="1.5" layoutX="172.0" layoutY="140.0" prefHeight="91.0" prefWidth="248.0" promptText="CODE" style="-fx-font-family: Arial; -fx-font-size: 36; -fx-background-radius: 7; -fx-background-color: white; -fx-border-image-width: 2; -fx-border-color: #D9D9D9; -fx-border-radius: 7; -fx-text-box-border: transparent; -fx-focus-color: transparent;" visible="false" AnchorPane.leftAnchor="172.0" AnchorPane.topAnchor="140.0">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <textFill>
+                              <Color red="0.529411792755127" green="0.545098066329956" blue="0.5607843399047852" opacity="0.8700000047683716" />
+                           </textFill>
+                        </MFXTextField>
                      </children>
                   </AnchorPane>
                </children>

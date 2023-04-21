@@ -23,6 +23,8 @@ public class ConferenceController {
   @FXML private MFXButton goHome;
   @FXML private MFXButton submit;
 
+  //  @FXML public Image image = new Image("edu/wpi/teamc/resources/images/ConferenceRoom.png");
+
   @FXML private MFXButton clear;
 
   @FXML private MenuItem choice1;
@@ -129,6 +131,12 @@ public class ConferenceController {
 
     Navigation.navigate(Screen.CONGRATS_PAGE);
   }
+
+  //  @FXML
+  //  void getImage(ActionEvent event) throws IOException {
+  //    image = new
+  // Image(Main.class.getResource("views/Images/ConferenceRoom/conference_room_1.png").openStream());
+  //  }
 
   @FXML
   void getClear(ActionEvent event) {

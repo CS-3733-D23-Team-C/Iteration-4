@@ -8,9 +8,10 @@ import edu.wpi.teamc.graph.GraphNode;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,6 +26,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
+import org.controlsfx.control.SearchableComboBox;
 
 public class PathFindingController {
   public Group group;
@@ -34,8 +36,8 @@ public class PathFindingController {
   @FXML MFXButton nextFloor;
   @FXML MFXButton prevFloor;
   @FXML MenuButton algChoice;
-  @FXML MFXFilterComboBox<String> startChoice;
-  @FXML MFXFilterComboBox<String> endChoice;
+  @FXML SearchableComboBox<String> startChoice;
+  @FXML SearchableComboBox<String> endChoice;
 
   public PathFindingController() throws IOException {}
 
@@ -148,9 +150,15 @@ public class PathFindingController {
 
   public void addLocationsToSelect() {
     ObservableList<String> locNames = FXCollections.observableArrayList();
+    Pattern pattern = Pattern.compile("\\bhallway\\b|\\bhall\\b", Pattern.CASE_INSENSITIVE);
+    Matcher matcher;
 
     for (Move move : moveList) {
-      locNames.add(move.getLongName());
+      matcher = pattern.matcher(move.getLongName());
+
+      if (!matcher.find()) {
+        locNames.add(move.getLongName());
+      }
     }
 
     Collections.sort(locNames);
@@ -226,86 +234,6 @@ public class PathFindingController {
     }
     resetGroupVar();
     // placeNodes(floor);
-  }
-
-  public void placeNodes(String floor) {
-    switch (floor) {
-      case "1":
-        for (int i = 0; i < Floor1.size(); i++) {
-          int nodeID = Floor1.get(i).getNodeID();
-          String longName;
-          try {
-            longName = nodeIDtoMove.get(nodeID).getLongName();
-          } catch (NullPointerException e) {
-            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
-          }
-          longName = nodeIDtoMove.get(nodeID).getLongName();
-          String shortName = longNametoLocationName.get(longName).getShortName();
-          String nodeType = longNametoLocationName.get(longName).getNodeType();
-          createMapNodes(Floor1.get(i), shortName, nodeType);
-        }
-        break;
-      case "2":
-        for (int i = 0; i < Floor2.size(); i++) {
-          int nodeID = Floor2.get(i).getNodeID();
-          String longName;
-          try {
-            longName = nodeIDtoMove.get(nodeID).getLongName();
-          } catch (NullPointerException e) {
-            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
-          }
-          longName = nodeIDtoMove.get(nodeID).getLongName();
-          String shortName = longNametoLocationName.get(longName).getShortName();
-          String nodeType = longNametoLocationName.get(longName).getNodeType();
-          createMapNodes(Floor2.get(i), shortName, nodeType);
-        }
-        break;
-      case "3":
-        for (int i = 0; i < Floor3.size(); i++) {
-          int nodeID = Floor3.get(i).getNodeID();
-          String longName;
-          try {
-            longName = nodeIDtoMove.get(nodeID).getLongName();
-          } catch (NullPointerException e) {
-            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
-          }
-          longName = nodeIDtoMove.get(nodeID).getLongName();
-          String shortName = longNametoLocationName.get(longName).getShortName();
-          String nodeType = longNametoLocationName.get(longName).getNodeType();
-          createMapNodes(Floor3.get(i), shortName, nodeType);
-        }
-        break;
-      case "L1":
-        for (int i = 0; i < FloorL1.size(); i++) {
-          int nodeID = FloorL1.get(i).getNodeID();
-          String longName;
-          try {
-            longName = nodeIDtoMove.get(nodeID).getLongName();
-          } catch (NullPointerException e) {
-            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
-          }
-          longName = nodeIDtoMove.get(nodeID).getLongName();
-          String shortName = longNametoLocationName.get(longName).getShortName();
-          String nodeType = longNametoLocationName.get(longName).getNodeType();
-          createMapNodes(FloorL1.get(i), shortName, nodeType);
-        }
-        break;
-      case "L2":
-        for (int i = 0; i < FloorL2.size(); i++) {
-          int nodeID = FloorL2.get(i).getNodeID();
-          String longName;
-          try {
-            longName = nodeIDtoMove.get(nodeID).getLongName();
-          } catch (NullPointerException e) {
-            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
-          }
-          longName = nodeIDtoMove.get(nodeID).getLongName();
-          String shortName = longNametoLocationName.get(longName).getShortName();
-          String nodeType = longNametoLocationName.get(longName).getNodeType();
-          createMapNodes(FloorL2.get(i), shortName, nodeType);
-        }
-    }
-    mapNodes.toFront();
   }
 
   public void createMapNodes(Node node, String shortname, String nodeType) {
@@ -395,8 +323,8 @@ public class PathFindingController {
     edges.getChildren().clear();
     mapNodes.getChildren().clear();
 
-    String startName = startChoice.getText();
-    String endName = endChoice.getText();
+    String startName = startChoice.getValue();
+    String endName = endChoice.getValue();
 
     Graph graph = new Graph(AlgoSingleton.INSTANCE.getType());
     graph.syncWithDB();

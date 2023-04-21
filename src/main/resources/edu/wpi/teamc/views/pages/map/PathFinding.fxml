@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.MenuButton?>
@@ -9,10 +8,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
+<?import org.controlsfx.control.SearchableComboBox?>
 
 <AnchorPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.map.PathFindingController">
     <children>
@@ -78,17 +77,9 @@
                                     <Insets />
                                  </VBox.margin>
                               </Text>
-                              <MFXFilterComboBox fx:id="startChoice" floatMode="ABOVE" onAction="#getStartChoice" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold;" text="Start Location:">
-                                 <textFill>
-                                    <Color red="0.007843137718737125" green="0.0784313753247261" blue="0.23137255012989044" opacity="0.8700000047683716" />
-                                 </textFill>
-                              </MFXFilterComboBox>
-                              <MFXFilterComboBox fx:id="endChoice" floatMode="ABOVE" onAction="#getEndChoice" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold;" text="End Location:">
-                                 <textFill>
-                                    <Color red="0.007843137718737125" green="0.0784313753247261" blue="0.23137255012989044" opacity="0.8700000047683716" />
-                                 </textFill>
-                              </MFXFilterComboBox>
-                              <MenuButton fx:id="algChoice" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-size: 13; -fx-font-weight: bold;" text="Choose Algorithm:" textFill="#02143b">
+                              <SearchableComboBox fx:id="startChoice" onAction="#getStartChoice" prefHeight="25.0" prefWidth="190.0" promptText="Start Location:" style="-fx-background-color: white;" />
+                              <SearchableComboBox fx:id="endChoice" onAction="#getEndChoice" prefHeight="25.0" prefWidth="200.0" promptText="End Location:" style="-fx-background-color: white;" />
+                              <MenuButton fx:id="algChoice" mnemonicParsing="false" prefHeight="32.0" prefWidth="210.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-size: 13; -fx-font-weight: bold;" text="Choose Algorithm:" textFill="#02143b">
                                 <items>
                                     <MenuItem mnemonicParsing="false" onAction="#getChoiceAStar" text="A*" />
                                   <MenuItem mnemonicParsing="false" onAction="#getChoiceBFS" text="BFS" />
@@ -98,10 +89,7 @@
                                     <Font size="11.0" />
                                  </font>
                               </MenuButton>
-                              <MFXButton fx:id="submit" onAction="#getSubmit" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Submit" textFill="#02143b">
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin></MFXButton>
+                              <MFXButton fx:id="submit" onAction="#getSubmit" prefHeight="50.0" prefWidth="210.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Submit" textFill="#02143b" />
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

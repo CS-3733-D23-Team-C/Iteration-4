@@ -1738,23 +1738,23 @@ public class EditMapController {
           borderPane.getStyleClass().add("scenePane");
 
           // set object locations
-          int lay_x = 40;
+          int lay_x = 35;
           int lay_y = 40;
           headerText.setLayoutX(lay_x);
           headerText.setLayoutY(lay_y);
           headerText2.setLayoutX(lay_x);
           headerText2.setLayoutY(lay_y + 26);
-          vertical.setLayoutX(lay_x);
-          vertical.setLayoutY(lay_y + 45);
-          horizontal.setLayoutX(lay_x + 100);
-          horizontal.setLayoutY(lay_y + 45);
+          vertical.setLayoutX(lay_x + 50);
+          vertical.setLayoutY(lay_y + 55);
+          horizontal.setLayoutX(lay_x + 350);
+          horizontal.setLayoutY(lay_y + 55);
 
           // Set and show screen
           AnchorPane aPane = new AnchorPane();
           aPane.getChildren().addAll(headerText, headerText2, vertical, horizontal);
 
           borderPane.getChildren().add(aPane);
-          Scene scene = new Scene(borderPane, 600, 260);
+          Scene scene = new Scene(borderPane, 680, 260);
           scene
               .getStylesheets()
               .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
@@ -1813,8 +1813,10 @@ public class EditMapController {
   }
 
   public void alignVertically() {
+    NodeDao nodeDao = new NodeDao();
     for (Node node : alignModeHelper.getToAlign()) {
       node.setXCoord(alignModeHelper.getAlignX());
+      nodeDao.updateRow(node.getNodeID(), node);
     }
     alignModeHelper.getToAlign().clear();
     group.getChildren().removeAll(mapNodes, mapText);
@@ -1825,8 +1827,8 @@ public class EditMapController {
     loadNodeIDToNode();
     sortNodes();
     sortEdges();
-    placeNodes(floor);
     placeEdges(floor);
+    placeNodes(floor);
   }
 
   public void alignHorizontally() {
@@ -1843,8 +1845,8 @@ public class EditMapController {
     loadNodeIDToNode();
     sortNodes();
     sortEdges();
-    placeNodes(floor);
     placeEdges(floor);
+    placeNodes(floor);
   }
 
   public void modifyByDrag() { // make this a pop up window instead of a whole new scene?

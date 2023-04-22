@@ -219,7 +219,11 @@ public class EditMapController {
   @FXML Text elevToggleText;
   @FXML MFXToggleButton elevToggle;
   @FXML VBox toggleBox;
+  @FXML MFXToggleButton edgeToggle;
+
+  @FXML Text edgeToggleText;
   Boolean shortShown = true;
+  Boolean edgeShown = true;
   Boolean alignVert = false;
   Boolean alignHoriz = false;
   Boolean confShown = true;
@@ -239,7 +243,7 @@ public class EditMapController {
     mapGPane.centreOn(centrePoint);
     mapGPane.zoomTo(0.5, mapGPane.targetPointAtViewportCentre());
 
-    // Make and display toggle buttons
+    // Make and display toggle buttons ************
     MFXToggleButton shortnameToggle = new MFXToggleButton();
     MFXToggleButton confToggle = new MFXToggleButton();
     MFXToggleButton hallToggle = new MFXToggleButton();
@@ -252,16 +256,19 @@ public class EditMapController {
     toggleButtons.add(elevToggle);
 
     filterBox.setItems(FXCollections.observableArrayList(toggleButtons));
+    // Does not work *********
 
     shortToggleText.getStyleClass().add("toggleText");
     confToggleText.getStyleClass().add("toggleText");
     elevToggleText.getStyleClass().add("toggleText");
     hallToggleText.getStyleClass().add("toggleText");
+    edgeToggleText.getStyleClass().add("toggleText");
 
     shortToggle.getStyleClass().add("toggleButton");
     confToggle.getStyleClass().add("toggleButton");
     elevToggle.getStyleClass().add("toggleButton");
     hallToggle.getStyleClass().add("toggleButton");
+    edgeToggle.getStyleClass().add("toggleButton");
 
     toggleBox
         .getStylesheets()
@@ -283,6 +290,20 @@ public class EditMapController {
     modeResetterHelper.setButton(selectButton);
     FL1.setBackground(Background.fill(Paint.valueOf("#EAB334")));
     floorResetterHelper.setButton(FL1);
+
+    edgeToggle.setOnMouseClicked(
+        e -> {
+          if (edgeShown) {
+            //        group.getChildren().remove(mapEdges);
+            mapEdges.setVisible(false);
+            edgeShown = false;
+          } else {
+            edgeShown = true;
+            mapEdges.setVisible(true);
+            //            mapEdges.toFront();
+            //            mapNodes.toFront();
+          }
+        });
 
     shortToggle.setOnMouseClicked(
         e -> {
@@ -755,6 +776,12 @@ public class EditMapController {
     group.getChildren().add(pane);
     placeEdges(floor);
     placeNodes(floor);
+    if (!edgeShown) {
+      mapEdges.setVisible(false);
+    }
+    if (!shortShown) {
+      mapText.setVisible(false);
+    }
   }
 
   public void sortNodes() {

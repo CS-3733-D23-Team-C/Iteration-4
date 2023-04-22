@@ -207,7 +207,7 @@
                               <ComboBox fx:id="filterBox" layoutX="1108.0" layoutY="248.0" prefHeight="25.0" prefWidth="74.0" promptText="Filters" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="248.0" />
                               <VBox fx:id="toggleBox" layoutX="1122.0" layoutY="303.0" prefHeight="232.0" prefWidth="84.0">
                                  <children>
-                                    <Text fx:id="EdgesToggleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Edges" />
+                                    <Text fx:id="edgeToggleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Edges" />
                                     <MFXToggleButton fx:id="edgeToggle" style="-fx-background-color: #FFFFFF;" />
                                     <Text fx:id="shortToggleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Shortnames" />
                                     <MFXToggleButton fx:id="shortToggle" style="-fx-background-color: #FFFFFF;" />

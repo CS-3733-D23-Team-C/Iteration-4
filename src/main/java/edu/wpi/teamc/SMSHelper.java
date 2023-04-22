@@ -1,8 +1,6 @@
 package edu.wpi.teamc;
-
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,9 +10,6 @@ public class SMSHelper {
   public static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
   public static final String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
 
-  // if there is an error in this method this should not just end; print out that something has been
-  // sent
-  // add logs here bc we need to find errors easily -> apache log or logback library
   public static void sendSMS(String phoneNum, String text) {
     if (ACCOUNT_SID == null
             || ACCOUNT_SID.length() == 0

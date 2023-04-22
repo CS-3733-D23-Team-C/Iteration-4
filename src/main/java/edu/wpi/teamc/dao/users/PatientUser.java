@@ -1,20 +1,22 @@
 package edu.wpi.teamc.dao.users;
 
 public class PatientUser extends AbsUser {
+  private int id;
+  private String name;
+  private String notes;
+  private String in;
+  private String out;
+  private String phone;
+  private String room;
 
-  PatientUser(int id, String name, String username) {
-    super(id, name, username);
+  public PatientUser(int id, String name, String notes, String in, String out, String phone, String room) {
+    super(id, name, in);
+    this.notes = notes;
+    this.out = out;
+    this.phone = phone;
+    this.room = room;
   }
 
-  public PatientUser(String name, String username) {
-    super(name, username);
-  }
-
-  public PatientUser(String name) {
-    super(name);
-  }
-
-  public PatientUser() {}
 
   public String toString() {
     return super.getName();

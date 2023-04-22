@@ -22,7 +22,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import org.controlsfx.control.SearchableComboBox;
@@ -224,46 +223,6 @@ public class FlowerController {
     Navigation.navigate(Screen.FLOWER);
   }
 
-  @FXML
-  void getFlowerDeliveryPage(KeyEvent event) {
-    Navigation.navigate(Screen.FLOWER);
-  }
-
-  @FXML
-  void getFurnitureDeliveryPage(KeyEvent event) {
-    Navigation.navigate(Screen.FURNITURE);
-  }
-
-  @FXML
-  void getHelpPage(KeyEvent event) {
-    Navigation.navigate(Screen.HELP);
-  }
-
-  @FXML
-  void getMealDeliveryPage(KeyEvent event) {
-    Navigation.navigate(Screen.MEAL);
-  }
-
-  @FXML
-  void getOfficeSuppliesPage(KeyEvent event) {
-    Navigation.navigate(Screen.OFFICE_SUPPLY);
-  }
-
-  @FXML
-  void getRoomReservationPage(KeyEvent event) {
-    Navigation.navigate(Screen.CONFERENCE);
-  }
-
-  @FXML
-  void getSignagePage(KeyEvent event) {
-    Navigation.navigate(Screen.SIGNAGE);
-  }
-
-  @FXML
-  void getGiftBasketRequestPage(KeyEvent event) {
-    Navigation.navigate(Screen.GIFT_BASKET);
-  }
-
   /** Method run when controller is initialized */
   @FXML
   public void initialize() {
@@ -279,45 +238,5 @@ public class FlowerController {
     List<EmployeeUser> employeeUsers =
         (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
     employeeName.setItems(FXCollections.observableArrayList(employeeUsers));
-  }
-
-  @FXML
-  void getEditMap(KeyEvent event) {
-    Navigation.navigate(Screen.EDIT_MAP);
-  }
-
-  @FXML
-  void getLogOut(KeyEvent event) {
-    Navigation.navigate(Screen.HOME);
-  }
-
-  @FXML
-  void getExit(KeyEvent event) {
-    Navigation.navigate(Screen.EXIT_PAGE);
-  }
-
-  @FXML
-  void getMapHistory(ActionEvent event) {
-    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
-  }
-
-  //  @FXML
-  //  void getMapPage(ActionEvent event) {
-  //    Navigation.navigate(Screen.FLOOR_PLAN);
-  //  }
-
-  @FXML
-  void getPathfindingPage(ActionEvent event) {
-    Navigation.navigate(Screen.PATHFINDING_PAGE);
-  }
-
-  @FXML
-  public void getHistory(ActionEvent event) {
-    Navigation.navigate(Screen.FLOWER_HISTORY);
-  }
-
-  @FXML
-  void getHelpage(KeyEvent event) {
-    Navigation.navigate(Screen.HELP);
   }
 }

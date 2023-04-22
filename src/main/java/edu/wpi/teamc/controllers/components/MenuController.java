@@ -203,27 +203,27 @@ public class MenuController {
 
   @FXML
   void getMealHistory(ActionEvent event) {
-    Navigation.navigate(Screen.MEAL_HISTORY);
+    //      Navigation.navigate(Screen.MEAL_HISTORY);
   }
 
   @FXML
   void getFlowerHistory(ActionEvent event) {
-    Navigation.navigate(Screen.FLOWER_HISTORY);
+    //      Navigation.navigate(Screen.FLOWER_HISTORY);
   }
 
   @FXML
   void getFurnitureHistory(ActionEvent event) {
-    Navigation.navigate(Screen.FURNITURE_HISTORY);
+    //      Navigation.navigate(Screen.FURNITURE_HISTORY);
   }
 
   @FXML
   void getConferenceHistory(ActionEvent event) {
-    Navigation.navigate(Screen.CONFERENCE_HISTORY);
+    Navigation.navigate(Screen.REQUEST_HISTORY);
   }
 
   @FXML
   void getOfficeSupplyHistory(ActionEvent event) {
-    Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
+    //      Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
   }
 
   public void getEmployeeTablePage(ActionEvent actionEvent) {

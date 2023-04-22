@@ -64,8 +64,8 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
       ps.setString(3, orm.getStatus().toString());
       ps.setString(4, orm.getStartTime());
       ps.setString(5, orm.getEndTime());
-      ps.setString(6, orm.getAssignedto());
-      ps.setString(7, orm.getAdditionalNotes());
+      ps.setString(6, orm.getAdditionalNotes());
+      ps.setString(7, orm.getAssignedto());
       ps.executeUpdate();
 
       ResultSet rs = ps.getGeneratedKeys();

@@ -176,6 +176,9 @@ public class EditMapController {
   String nodeIDinput_temp;
   StackPane stackPane = new StackPane();
   Boolean nodeClicked = false;
+  Boolean edgeClicked = false;
+  Edge clickedEdge;
+  Line lineClicked;
   Boolean alignMode = true;
   Node currNodeClicked;
   Circle currCircleClicked;
@@ -338,6 +341,12 @@ public class EditMapController {
             lockMap = true;
             alignNodes();
           }
+          if (edgeClicked) {
+            if (Objects.equals(mapMode.getMapMode(), "Make_edges")) {
+              lineClicked.setFill(Paint.valueOf("#EAB334"));
+              removeEdges();
+            }
+          }
 
           if (nodeClicked && !lockMap) {
             if (Objects.equals(mapMode.getMapMode(), "Add")) { // to add a location name to a node
@@ -411,6 +420,64 @@ public class EditMapController {
       return true;
     }
     return false;
+  }
+
+  public void removeEdges() {
+    BorderPane borderPane = new BorderPane();
+
+    // Stuff to show on pop up
+    Text headerText = new Text("Remove Edge?");
+    MFXButton confirm = new MFXButton("Confirm");
+    MFXButton cancel = new MFXButton("Cancel");
+
+    // set styles
+    headerText.getStyleClass().add("Header2");
+    confirm.getStyleClass().add("MFXbutton");
+    cancel.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // set object locations
+    int lay_x = 45;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    confirm.setLayoutX(lay_x);
+    confirm.setLayoutY(lay_y + 35);
+    cancel.setLayoutX(lay_x + 100);
+    cancel.setLayoutY(lay_y + 35);
+
+    // Set and show screen
+    AnchorPane aPane = new AnchorPane();
+    aPane.getChildren().addAll(headerText, confirm, cancel);
+    //    Insets insets = new Insets(0, 0, 0, 200);
+    //    aPane.setPadding(insets);
+    borderPane.getChildren().add(aPane);
+    Scene scene = new Scene(borderPane, 500, 330);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
+    borderPane.relocate(0, 0);
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.setTitle("Remove Node Window");
+    stage.setAlwaysOnTop(true);
+    stage.show();
+    EdgeDao edgeDao = new EdgeDao();
+    confirm.setOnMouseClicked(
+        e -> {
+          edgeDao.deleteRow(clickedEdge);
+          loadNodeIDToNode();
+          sortEdges();
+          placeEdges(floor);
+          edgeClicked = false;
+          stage.close();
+        });
+
+    cancel.setOnMouseClicked(
+        e -> {
+          edgeClicked = false;
+          stage.close();
+        });
   }
 
   public void createEdgesForNodes() {
@@ -493,6 +560,12 @@ public class EditMapController {
     line.setStrokeWidth(5);
     line.setStroke(Paint.valueOf("021335"));
     mapEdges.getChildren().add(line);
+    line.setOnMouseClicked(
+        e -> {
+          clickedEdge = edge;
+          lineClicked = line;
+          edgeClicked = true;
+        });
   }
 
   private void sortEdges() {

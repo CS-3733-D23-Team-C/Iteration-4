@@ -122,8 +122,13 @@ public class ConferenceController {
             start.toString(),
             end.toString(),
             status);
-    if (!(employeeName.getValue().toString() == null)) {
-      req.setAssignedto(employeeName.getValue().toString());
+    if (!(employeeName == null)) {
+      try {
+        req.setAssignedto(employeeName.getValue().toString());
+      } catch (Exception e) {
+        System.out.println("No employee selected");
+        req.setAssignedto(null);
+      }
     }
 
     IDao<ConferenceRoomRequest, Integer> dao = new ConferenceRoomRequestDAO();
@@ -157,40 +162,5 @@ public class ConferenceController {
     List<EmployeeUser> employeeUsers =
         (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
     employeeName.setItems(FXCollections.observableArrayList(employeeUsers));
-  }
-
-  @FXML
-  void getEditMap(ActionEvent event) {
-    Navigation.navigate(Screen.EDIT_MAP);
-  }
-
-  @FXML
-  void getLogOut(ActionEvent event) {
-    Navigation.navigate(Screen.HOME);
-  }
-
-  @FXML
-  void getExit(ActionEvent event) {
-    Navigation.navigate(Screen.EXIT_PAGE);
-  }
-
-  @FXML
-  void getMapHistory(ActionEvent event) {
-    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
-  }
-
-  //  @FXML
-  //  void getMapPage(ActionEvent event) {
-  //    Navigation.navigate(Screen.FLOOR_PLAN);
-  //  }
-
-  @FXML
-  void getPathfindingPage(ActionEvent event) {
-    Navigation.navigate(Screen.PATHFINDING_PAGE);
-  }
-
-  @FXML
-  void getHelpage(ActionEvent event) {
-    Navigation.navigate(Screen.HELP);
   }
 }

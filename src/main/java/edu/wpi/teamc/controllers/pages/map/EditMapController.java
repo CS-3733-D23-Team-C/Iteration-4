@@ -141,6 +141,7 @@ public class EditMapController {
   NodeResetterHelper nodeResetterHelper = new NodeResetterHelper();
   ModeResetterHelper modeResetterHelper = new ModeResetterHelper();
   FloorResetterHelper floorResetterHelper = new FloorResetterHelper();
+  AlignModeHelper alignModeHelper = new AlignModeHelper();
 
   // ORM lists
   List<Node> nodeList = new ArrayList<Node>();
@@ -173,6 +174,7 @@ public class EditMapController {
   String nodeIDinput_temp;
   StackPane stackPane = new StackPane();
   Boolean nodeClicked = false;
+  Boolean alignMode = true;
   Node currNodeClicked;
   Circle currCircleClicked;
   Circle tempSave;
@@ -212,6 +214,8 @@ public class EditMapController {
   @FXML MFXToggleButton elevToggle;
   @FXML VBox toggleBox;
   Boolean shortShown = true;
+  Boolean alignVert = false;
+  Boolean alignHoriz = false;
   Boolean confShown = true;
   Boolean elevShown = true;
   Boolean hallShown = true;
@@ -296,7 +300,7 @@ public class EditMapController {
               group.getChildren().remove(movingText);
               movingText.setVisible(shortShown);
               group.getChildren().add(movingText);
-//              createMovingMapNode()
+              //              createMovingMapNode()
             }
           }
         });
@@ -324,6 +328,10 @@ public class EditMapController {
           } // bring up node add popup
           if (Objects.equals(mapMode.getMapMode(), "Select")) {
             // do Nothing
+          }
+          if (Objects.equals(mapMode.getMapMode(), "Align")) {
+            lockMap = true;
+            alignNodes();
           }
 
           if (nodeClicked && !lockMap) {
@@ -359,6 +367,10 @@ public class EditMapController {
               createEdgesForNodes();
               edgeMadeText.setVisible(true);
             }
+            //            } else if (Objects.equals(mapMode.getMapMode(), "Align")) {
+            //              lockMap = true;
+            //              alignNodes();
+            //            }
           }
           //          if (Objects.equals((MFXToggleButton) e.getTarget(), shortnameToggle)) {
           //            if (shortShown) {
@@ -602,7 +614,14 @@ public class EditMapController {
       } else if (Objects.equals(modeButton.getId(), "Edges")) {
         mapMode = HandleMapModes.MAKE_EDGES;
         resetAndSetModes(modeButton);
+        edgeMadeText.setText("");
+        edgeMadeText.setVisible(false);
         //        System.out.println("Making Edges");
+      } else if (Objects.equals(modeButton.getId(), "Align")) {
+        mapMode = HandleMapModes.ALIGN;
+        resetAndSetModes(modeButton);
+        edgeMadeText.setText("");
+        edgeMadeText.setVisible(false);
       }
     }
   }
@@ -821,7 +840,8 @@ public class EditMapController {
           currNodeShortname = shortname;
           currNodeType = nodeType;
 
-          if (!(Objects.equals(mapMode.getMapMode(), "Modify_drag"))) {
+          if (!(Objects.equals(mapMode.getMapMode(), "Modify_drag"))
+              && !(Objects.equals(mapMode.getMapMode(), "Align"))) {
             resetAndSetCircle(newCircle);
 
             //            newCircle.setFill(Paint.valueOf("#45a37f"));
@@ -1675,6 +1695,156 @@ public class EditMapController {
           nodeClicked = false;
           lockMap = false;
         });
+  }
+
+  public void alignNodes() {
+    //    checkAndX_HBox.setVisible(true);
+    //    checkAndX_HBox1.setVisible(true);
+    //    checkAndX_HBox.setMouseTransparent(false);
+    //    checkAndX_HBox1.setMouseTransparent(false);
+    nodeClicked = false;
+    alignMode = true;
+    group.setOnMouseClicked(
+        e -> {
+          if (nodeClicked) {
+            checkAndX_HBox.setVisible(true);
+            checkAndX_HBox1.setVisible(true);
+            checkAndX_HBox.setMouseTransparent(false);
+            checkAndX_HBox1.setMouseTransparent(false);
+            alignModeHelper.addToList(currNodeClicked, currCircleClicked);
+            currCircleClicked.setFill(Paint.valueOf("#EAB334"));
+            nodeClicked = false;
+          }
+        });
+    check_button.setOnMouseClicked(
+        e -> {
+          BorderPane borderPane = new BorderPane();
+
+          // Stuff to show on pop up
+          Text headerText = new Text("Choose a method of aligning the nodes selected. Then, click");
+          Text headerText2 = new Text("anywhere on the map to align the nodes about that point.");
+          //      Text remove_1 = new Text("Remove Node?");
+          //      Text remove_2 = new Text("Remove Node Location Name?");
+          MFXButton vertical = new MFXButton("Align Vertically");
+          MFXButton horizontal = new MFXButton("Align Horizontally");
+
+          // set styles
+          headerText.getStyleClass().add("Header2");
+          headerText2.getStyleClass().add("Header2");
+          //      remove_1.getStyleClass().add("Text");
+          //      remove_2.getStyleClass().add("Text");
+          vertical.getStyleClass().add("MFXbutton");
+          horizontal.getStyleClass().add("MFXbutton");
+          borderPane.getStyleClass().add("scenePane");
+
+          // set object locations
+          int lay_x = 40;
+          int lay_y = 40;
+          headerText.setLayoutX(lay_x);
+          headerText.setLayoutY(lay_y);
+          headerText2.setLayoutX(lay_x);
+          headerText2.setLayoutY(lay_y + 26);
+          vertical.setLayoutX(lay_x);
+          vertical.setLayoutY(lay_y + 45);
+          horizontal.setLayoutX(lay_x + 100);
+          horizontal.setLayoutY(lay_y + 45);
+
+          // Set and show screen
+          AnchorPane aPane = new AnchorPane();
+          aPane.getChildren().addAll(headerText, headerText2, vertical, horizontal);
+
+          borderPane.getChildren().add(aPane);
+          Scene scene = new Scene(borderPane, 600, 260);
+          scene
+              .getStylesheets()
+              .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
+          borderPane.relocate(0, 0);
+          Stage stage = new Stage();
+          stage.setScene(scene);
+          stage.setTitle("Align Window");
+          stage.show();
+          vertical.setOnMouseClicked(
+              vEvent -> {
+                alignVert = true;
+                stage.close();
+                checkAndX_HBox.setVisible(false);
+                checkAndX_HBox1.setVisible(false);
+                checkAndX_HBox.setMouseTransparent(true);
+                checkAndX_HBox1.setMouseTransparent(true);
+                findAlignCenter();
+              });
+          horizontal.setOnMouseClicked(
+              hEvent -> {
+                alignHoriz = true;
+                stage.close();
+                checkAndX_HBox.setVisible(false);
+                checkAndX_HBox1.setVisible(false);
+                checkAndX_HBox.setMouseTransparent(true);
+                checkAndX_HBox1.setMouseTransparent(true);
+                findAlignCenter();
+              });
+        });
+    x_button.setOnMouseClicked(
+        xEvent -> {
+          for (Circle circle : alignModeHelper.getCircToAlign()) {
+            circle.setFill(Paint.valueOf("#13DAF7"));
+          }
+          checkAndX_HBox.setVisible(false);
+          checkAndX_HBox1.setVisible(false);
+          checkAndX_HBox.setMouseTransparent(true);
+          checkAndX_HBox1.setMouseTransparent(true);
+        });
+  }
+
+  public void findAlignCenter() {
+    //    int alignX = 0;
+    //    int alignY = 0;
+    group.setOnMouseClicked(
+        e -> {
+          if (alignVert) {
+            alignModeHelper.setAlignX((int) e.getX());
+            alignVertically();
+          }
+          if (alignHoriz) {
+            alignModeHelper.setAlignY((int) e.getY());
+            alignHorizontally();
+          }
+        });
+  }
+
+  public void alignVertically() {
+    for (Node node : alignModeHelper.getToAlign()) {
+      node.setXCoord(alignModeHelper.getAlignX());
+    }
+    alignModeHelper.getToAlign().clear();
+    group.getChildren().removeAll(mapNodes, mapText);
+    mapNodes = new Group();
+    mapText = new Group();
+    group.getChildren().addAll(mapNodes, mapText);
+    loadDatabase();
+    loadNodeIDToNode();
+    sortNodes();
+    sortEdges();
+    placeNodes(floor);
+    placeEdges(floor);
+  }
+
+  public void alignHorizontally() {
+    NodeDao nodeDao = new NodeDao();
+    for (Node node : alignModeHelper.getToAlign()) {
+      node.setYCoord(alignModeHelper.getAlignY());
+      nodeDao.updateRow(node.getNodeID(), node);
+    }
+    group.getChildren().removeAll(mapNodes, mapText);
+    mapNodes = new Group();
+    mapText = new Group();
+    group.getChildren().addAll(mapNodes, mapText);
+    loadDatabase();
+    loadNodeIDToNode();
+    sortNodes();
+    sortEdges();
+    placeNodes(floor);
+    placeEdges(floor);
   }
 
   public void modifyByDrag() { // make this a pop up window instead of a whole new scene?

@@ -1,5 +1,7 @@
 package edu.wpi.teamc.controllers.pages.patient;
 
+import static edu.wpi.teamc.alertHelpers.alertHelper.firstTime;
+
 import java.awt.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -33,40 +35,106 @@ public class PatientHomeController {
   @FXML private Pane warningPopOut;
   @FXML private Text warning_words;
 
+  private boolean WarningOut;
+
+  @FXML
+  void initialize() {
+    //      setLanguage(language_choice);
+    if (firstTime == false) {
+      FirstWarning();
+      firstTime = true;
+    } else if (firstTime == true) {
+      // moveWarning();
+    }
+  }
+
   @FXML
   void getWarning(MouseEvent event) {
-    // PatientHome_Title.setText("Warning");
-    moveWarning();
-    // PatientHome_Title.setText("Warning");
+    if (WarningOut == false) {
+      moveWarning();
+      WarningOut = true;
+    } else if (WarningOut == true) {
+      killWarning();
+      WarningOut = false;
+    }
   }
 
   @FXML
   public void moveWarning() {
-    TranslateTransition tran = new TranslateTransition();
-    tran.setNode(warningPopOut);
-    Timeline t1 =
+    TranslateTransition tranOut = new TranslateTransition();
+    tranOut.setNode(warningPopOut);
+    //    Timeline tOut =
+    //        new Timeline(
+    //            new KeyFrame(
+    //                Duration.millis(10),
+    //                ae -> {
+    // warningPopOut.toFront();
+    tranOut.setByY(250);
+    tranOut.play();
+    //                }),
+    //            new KeyFrame(
+    //                Duration.millis(2010),
+    //                ae -> {
+    //                  // WarningOut = true;
+    //                }));
+    //    tOut.setCycleCount(1);
+    //    tOut.play();
+    // WarningOut = true;
+  }
+
+  @FXML
+  public void killWarning() {
+    TranslateTransition tranBack = new TranslateTransition();
+    tranBack.setNode(warningPopOut);
+    //    Timeline tBack =
+    //        new Timeline(
+    //            new KeyFrame(
+    //                Duration.millis(10),
+    //                ae -> {
+    tranBack.setByY(-250);
+    tranBack.play();
+    //                }),
+    //            new KeyFrame(
+    //                Duration.millis(2010),
+    //                ae -> {
+    // warningPopOut.toBack();
+    //                  // WarningOut = false;
+    //                }));
+    //
+    //    tBack.setCycleCount(1);
+    //    tBack.play();
+    // WarningOut = false;
+  }
+
+  @FXML
+  public void FirstWarning() {
+    TranslateTransition tranFirst = new TranslateTransition();
+    tranFirst.setNode(warningPopOut);
+    Timeline T1st =
         new Timeline(
             new KeyFrame(
                 Duration.millis(10),
                 ae -> {
-                  warningPopOut.toFront();
-                  tran.setByY(250);
-                  tran.play();
+                  // warningPopOut.toFront();
+                  tranFirst.setByY(250);
+                  tranFirst.play();
+                  // WarningOut = true;
                 }),
             new KeyFrame(
                 Duration.millis(3000),
                 ae -> {
-                  tran.setByY(-250);
-                  tran.play();
+                  tranFirst.setByY(-250);
+                  tranFirst.play();
                 }),
             new KeyFrame(
                 Duration.millis(3800),
                 ae -> {
-                  warningPopOut.toBack();
+                  // warningPopOut.toBack();
+                  // WarningOut = false;
                 }));
 
-    t1.setCycleCount(1);
-    t1.play();
+    T1st.setCycleCount(1);
+    T1st.play();
   }
 
   @FXML

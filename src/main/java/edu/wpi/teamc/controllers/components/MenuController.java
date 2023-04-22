@@ -410,6 +410,7 @@ public class MenuController {
     logoutTrigger1.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
+          CApp.setAdminLoginCheck(false);
           Navigation.navigate(Screen.HOME);
         });
     exitTrigger1.addEventFilter(

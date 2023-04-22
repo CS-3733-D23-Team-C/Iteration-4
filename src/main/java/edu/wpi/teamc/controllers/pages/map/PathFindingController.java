@@ -536,6 +536,13 @@ public class PathFindingController {
   }
 
   @FXML
+  void getChoiceDijkstra(ActionEvent event) {
+    algChoice.setText("Dijkstra");
+    AlgoSingleton.INSTANCE.setType(algChoice.getText());
+    activateSubmit();
+  }
+
+  @FXML
   void doLocToggle() {
     toggleStatus = !toggleStatus;
 

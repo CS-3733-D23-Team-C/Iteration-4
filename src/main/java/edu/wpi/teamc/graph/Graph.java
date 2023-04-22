@@ -26,8 +26,10 @@ public class Graph {
       algo = new AStar();
     } else if (algoChoice.equals("BFS")) {
       algo = new BFS();
-    } else {
+    } else if (algoChoice.equals("DFS")) {
       algo = new DFS();
+    } else {
+      algo = new Dijkstra();
     }
   }
 

@@ -86,6 +86,7 @@
                                     <MenuItem mnemonicParsing="false" onAction="#getChoiceAStar" text="A*" />
                                   <MenuItem mnemonicParsing="false" onAction="#getChoiceBFS" text="BFS" />
                                   <MenuItem mnemonicParsing="false" onAction="#getChoiceDFS" text="DFS" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getChoiceDijkstra" text="Dijkstra" />
                                 </items>
                                  <font>
                                     <Font size="11.0" />

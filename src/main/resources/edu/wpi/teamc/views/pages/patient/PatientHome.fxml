@@ -49,7 +49,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <Pane fx:id="warningPopOut" layoutX="1030.0" layoutY="-192.0" prefHeight="190.0" prefWidth="252.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;">
+      <Pane fx:id="warningPopOut" layoutX="1029.0" layoutY="-252.0" prefHeight="250.0" prefWidth="252.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;">
          <children>
             <Text layoutX="52.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Warning">
                <font>
@@ -60,7 +60,7 @@
       </Pane>
       <AnchorPane layoutX="100.0" layoutY="30.0" prefHeight="76.0" prefWidth="1366.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),10,0.75,0,0);" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fx:id="guest_warning" fitHeight="57.0" fitWidth="53.0" layoutX="1210.0" layoutY="18.0" onMouseClicked="#getWarning" onMousePressed="#killWarning" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="guest_warning" fitHeight="57.0" fitWidth="53.0" layoutX="1210.0" layoutY="18.0" onMouseClicked="#getWarning" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/warning.png" />
                </image>

@@ -36,6 +36,7 @@ public class PatientHomeController {
   @FXML private Text warning_words;
 
   private boolean WarningOut;
+  private boolean FirstOut;
 
   @FXML
   void initialize() {
@@ -43,8 +44,9 @@ public class PatientHomeController {
     if (firstTime == false) {
       FirstWarning();
       firstTime = true;
-    } else if (firstTime == true) {
-      // moveWarning();
+    }
+    else if (firstTime == true) {
+
     }
   }
 
@@ -69,17 +71,19 @@ public class PatientHomeController {
     //                Duration.millis(10),
     //                ae -> {
     // warningPopOut.toFront();
-    tranOut.setByY(250);
+    tranOut.setByY(326);
     tranOut.play();
     //                }),
     //            new KeyFrame(
     //                Duration.millis(2010),
     //                ae -> {
-    //                  // WarningOut = true;
+    //    if (warningPopOut.getLayoutY() != 76) {
+    // warningPopOut.setLayoutY(76);
+    //    }
     //                }));
     //    tOut.setCycleCount(1);
     //    tOut.play();
-    // WarningOut = true;
+    //    WarningOut = true;
   }
 
   @FXML
@@ -91,14 +95,18 @@ public class PatientHomeController {
     //            new KeyFrame(
     //                Duration.millis(10),
     //                ae -> {
-    tranBack.setByY(-250);
+    tranBack.setByY(-326);
+    // tranBack.setDuration(Duration.millis(2000));
+    //    tranBack.setToY(-252);
     tranBack.play();
     //                }),
     //            new KeyFrame(
     //                Duration.millis(2010),
     //                ae -> {
     // warningPopOut.toBack();
-    //                  // WarningOut = false;
+    //    if (warningPopOut.getLayoutY() != -252) {
+    // warningPopOut.setLayoutY(-252);
+    //    }
     //                }));
     //
     //    tBack.setCycleCount(1);
@@ -115,22 +123,24 @@ public class PatientHomeController {
             new KeyFrame(
                 Duration.millis(10),
                 ae -> {
-                  // warningPopOut.toFront();
-                  tranFirst.setByY(250);
-                  tranFirst.play();
-                  // WarningOut = true;
+                  // warningPopOut.setVisible(true);
+                  //                  tranFirst.setByY(326);
+                  //                  tranFirst.play();
+                  moveWarning();
+                  FirstOut = true;
                 }),
             new KeyFrame(
                 Duration.millis(3000),
                 ae -> {
-                  tranFirst.setByY(-250);
-                  tranFirst.play();
+                  //                  tranFirst.setByY(-326);
+                  //                  tranFirst.play();
                 }),
             new KeyFrame(
                 Duration.millis(3800),
                 ae -> {
-                  // warningPopOut.toBack();
-                  // WarningOut = false;
+                  // warningPopOut.setVisible(false);
+                  killWarning();
+                  FirstOut = false;
                 }));
 
     T1st.setCycleCount(1);

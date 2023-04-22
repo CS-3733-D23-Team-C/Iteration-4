@@ -185,19 +185,19 @@ public class FlowerController {
     switch (choice) {
       case 1:
         image.setImage(
-            new Image(Main.class.getResource("views/Images/Flower/roses.png").openStream()));
+            new Image(Main.class.getResource("views/images/Flower/roses.png").openStream()));
         break;
       case 2:
         image.setImage(
-            new Image(Main.class.getResource("views/Images/Flower/lilies.png").openStream()));
+            new Image(Main.class.getResource("views/images/Flower/lilies.png").openStream()));
         break;
       case 3:
         image.setImage(
-            new Image(Main.class.getResource("views/Images/Flower/daisies.png").openStream()));
+            new Image(Main.class.getResource("views/images/Flower/daisies.png").openStream()));
         break;
       case 4:
         image.setImage(
-            new Image(Main.class.getResource("views/Images/Flower/sunflowers.png").openStream()));
+            new Image(Main.class.getResource("views/images/Flower/sunflowers.png").openStream()));
         break;
     }
   }

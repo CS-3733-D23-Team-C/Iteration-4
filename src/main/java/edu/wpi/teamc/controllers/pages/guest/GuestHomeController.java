@@ -16,7 +16,7 @@ public class GuestHomeController {
   @FXML private HTMLEditor guestWeather;
   @FXML private ImageView English_flag;
   @FXML private ImageView Spanish_flag;
-  @FXML private Text AdminHome_Title;
+  @FXML private Text GuestHome_Title;
   @FXML private javafx.scene.control.Button logoutButton;
   @FXML private Button exitButton;
   @FXML private MenuButton ServiceRequest;

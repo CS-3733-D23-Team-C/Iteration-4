@@ -188,25 +188,25 @@ public class MealController {
     switch (mealChoice) {
       case 1:
         mealImage.setImage(
-            new Image(Main.class.getResource("views/Images/Meal/spaghetti.png").openStream()));
+            new Image(Main.class.getResource("views/images/Meal/spaghetti.png").openStream()));
         ingredients.setText("Ground Beef, Spaghetti, Tomato Sauce, Cheese");
         allergyInfo.setText("Contains: Milk, Wheat");
         break;
       case 2:
         mealImage.setImage(
-            new Image(Main.class.getResource("views/Images/Meal/garlic_steak.png").openStream()));
+            new Image(Main.class.getResource("views/images/Meal/garlic_steak.png").openStream()));
         ingredients.setText("Beef, Garlic, Butter");
         allergyInfo.setText("Contains: Milk");
         break;
       case 3:
         mealImage.setImage(
-            new Image(Main.class.getResource("views/Images/Meal/grill_chicken.png").openStream()));
+            new Image(Main.class.getResource("views/images/Meal/grill_chicken.png").openStream()));
         ingredients.setText("Chicken, Broccoli, Honey, Soy Sauce");
         allergyInfo.setText("Contains: Soy, Honey");
         break;
       case 4:
         mealImage.setImage(
-            new Image(Main.class.getResource("views/Images/Meal/fried_rice.png").openStream()));
+            new Image(Main.class.getResource("views/images/Meal/fried_rice.png").openStream()));
         ingredients.setText("Chicken, Rice, Egg, Soy Sauce");
         allergyInfo.setText("Contains: Egg, Soy");
         break;

@@ -29,7 +29,7 @@ import net.kurobako.gesturefx.GesturePane;
 public class PathFindingController {
   public Group group;
   public Image image =
-      new Image(Main.class.getResource("views/Images/FirstFloor.png").openStream());
+      new Image(Main.class.getResource("views/images/FirstFloor.png").openStream());
   @FXML MFXButton backButton;
   @FXML MFXButton nextFloor;
   @FXML MFXButton prevFloor;
@@ -182,19 +182,19 @@ public class PathFindingController {
     floorButton = (MFXButton) event.getTarget();
 
     if (Objects.equals(floorButton.getId(), "FL1")) {
-      image = new Image(Main.class.getResource("views/Images/FirstFloor.png").openStream());
+      image = new Image(Main.class.getResource("views/images/FirstFloor.png").openStream());
       floor = "1";
     } else if (Objects.equals(floorButton.getId(), "FL2")) {
-      image = new Image(Main.class.getResource("views/Images/SecondFloor.png").openStream());
+      image = new Image(Main.class.getResource("views/images/SecondFloor.png").openStream());
       floor = "2";
     } else if (Objects.equals(floorButton.getId(), "FL3")) {
-      image = new Image(Main.class.getResource("views/Images/ThirdFloor.png").openStream());
+      image = new Image(Main.class.getResource("views/images/ThirdFloor.png").openStream());
       floor = "3";
     } else if (Objects.equals(floorButton.getId(), "FLB1")) {
-      image = new Image(Main.class.getResource("views/Images/B1.png").openStream());
+      image = new Image(Main.class.getResource("views/images/B1.png").openStream());
       floor = "L1";
     } else if (Objects.equals(floorButton.getId(), "FLB2")) {
-      image = new Image(Main.class.getResource("views/Images/B2.png").openStream());
+      image = new Image(Main.class.getResource("views/images/B2.png").openStream());
       floor = "L2";
     }
     resetGroupVar();
@@ -209,19 +209,19 @@ public class PathFindingController {
 
   public void changeFloorFromString(String floor) throws IOException {
     if (floor.equals("1")) {
-      image = new Image(Main.class.getResource("views/Images/FirstFloor.png").openStream());
+      image = new Image(Main.class.getResource("views/images/FirstFloor.png").openStream());
       resetAndSetFloorIndicator(FL1);
     } else if (floor.equals("2")) {
-      image = new Image(Main.class.getResource("views/Images/SecondFloor.png").openStream());
+      image = new Image(Main.class.getResource("views/images/SecondFloor.png").openStream());
       resetAndSetFloorIndicator(FL2);
     } else if (floor.equals("3")) {
-      image = new Image(Main.class.getResource("views/Images/ThirdFloor.png").openStream());
+      image = new Image(Main.class.getResource("views/images/ThirdFloor.png").openStream());
       resetAndSetFloorIndicator(FL3);
     } else if (floor.equals("L1")) {
-      image = new Image(Main.class.getResource("views/Images/B1.png").openStream());
+      image = new Image(Main.class.getResource("views/images/B1.png").openStream());
       resetAndSetFloorIndicator(FLB1);
     } else if (floor.equals("L2")) {
-      image = new Image(Main.class.getResource("views/Images/B2.png").openStream());
+      image = new Image(Main.class.getResource("views/images/B2.png").openStream());
       resetAndSetFloorIndicator(FLB2);
     }
     resetGroupVar();

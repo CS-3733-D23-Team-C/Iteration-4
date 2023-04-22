@@ -1,7 +1,5 @@
 package edu.wpi.teamc.controllers.pages;
 
-import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
-
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
 import edu.wpi.teamc.dao.users.login.Login;
@@ -19,6 +17,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 public class HomeController {
 
@@ -52,7 +52,7 @@ public class HomeController {
   Login currentLogin;
 
   @FXML
-  void getAdminNext(ActionEvent event) {
+  void getLoginNext(ActionEvent event) {
     wrongNextLogin = true;
     String username = HOME_username.getText();
     LoginDao loginDao = new LoginDao();
@@ -60,17 +60,24 @@ public class HomeController {
       currentLogin = loginDao.fetchObject(username);
       if (currentLogin == null) {
         wrongNextLogin = true;
+        wrongPass.setVisible(true);
       } else {
         wrongNextLogin = false;
-        if (currentLogin.isOTPEnabled()) {
-          HOME_username.setVisible(false);
-          HOME_password.setVisible(false);
-          HOME_next.setVisible(false);
-          HOME_back.setVisible(true);
-          HOME_login.setVisible(true);
-          HOME_code.setVisible(true);
+        wrongPass.setVisible(false);
+        if (currentLogin.checkPassword(HOME_password.getText())) {
+          if (currentLogin.isOTPEnabled()) {
+            HOME_username.setVisible(false);
+            HOME_password.setVisible(false);
+            HOME_next.setVisible(false);
+            HOME_back.setVisible(true);
+            HOME_login.setVisible(true);
+            HOME_code.setVisible(true);
+          } else {
+            getLogin(event);
+          }
         } else {
-          getAdmin(event);
+          wrongPass.setVisible(true);
+          wrongNextLogin = true;
         }
       }
     } catch (Exception e) {
@@ -92,13 +99,11 @@ public class HomeController {
   }
 
   @FXML
-  void getAdmin(ActionEvent event) {
-    String password = HOME_password.getText();
+  void getLogin(ActionEvent event) {
     if (wrongNextLogin == false) {
       try {
-        if (currentLogin.checkPassword(password)
-            && (currentLogin.checkOTP(HOME_code.getText())
-                || !currentLogin.isOTPEnabled())) { // if the passwords are correct
+        if ((currentLogin.checkOTP(HOME_code.getText())
+            || !currentLogin.isOTPEnabled())) { // if the passwords are correct
           if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN) // if the user is an admin
               || currentLogin.getPermissions().equals(PERMISSIONS.STAFF)) { // or staff
             if (currentLogin

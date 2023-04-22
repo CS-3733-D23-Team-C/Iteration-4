@@ -39,7 +39,7 @@
                   <AnchorPane fx:id="signinAnchor1" prefHeight="618.0" prefWidth="583.0" style="-fx-background-color: #ECEDE8; -fx-background-radius: 26;">
                      <children>
                         <Text fx:id="HOME_SignInText" fill="#02143b" layoutX="113.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 48; -fx-font-weight: bold;" text="Sign In" textAlignment="CENTER" wrappingWidth="360.58984375" AnchorPane.leftAnchor="113.0" AnchorPane.topAnchor="43.0" />
-                        <MFXButton fx:id="HOME_login" layoutX="121.0" layoutY="280.0" onAction="#getAdmin" prefHeight="58.0" prefWidth="343.0" style="-fx-background-color: #02143B; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="LOGIN" textFill="WHITE" visible="false" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="280.0">
+                        <MFXButton fx:id="HOME_login" layoutX="121.0" layoutY="280.0" onAction="#getLogin" prefHeight="58.0" prefWidth="343.0" style="-fx-background-color: #02143B; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="LOGIN" textFill="WHITE" visible="false" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="284.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -59,7 +59,7 @@
                         <Line endX="18.0" startX="-100.0" stroke="#02143b" strokeWidth="2.0" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="456.0" />
                         <Text fx:id="HOME_or" fill="#02143b" layoutX="147.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 24;" text="OR" textAlignment="CENTER" wrappingWidth="291.5" AnchorPane.leftAnchor="147.0" AnchorPane.topAnchor="442.2734375" />
                         <Line endX="18.0" layoutX="440.0" layoutY="458.0" startX="-100.0" stroke="#02143b" strokeWidth="2.0" AnchorPane.leftAnchor="346.0" AnchorPane.topAnchor="456.0" />
-                        <MFXButton fx:id="HOME_next" layoutX="121.0" layoutY="284.0" onAction="#getAdminNext" prefHeight="58.0" prefWidth="343.0" style="-fx-background-color: #02143B; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="CONTINUE" textFill="WHITE" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="284.0">
+                        <MFXButton fx:id="HOME_next" layoutX="121.0" layoutY="284.0" onAction="#getLoginNext" prefHeight="58.0" prefWidth="343.0" style="-fx-background-color: #02143B; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="CONTINUE" textFill="WHITE" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="284.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

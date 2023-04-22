@@ -128,11 +128,25 @@ public class MenuController {
   // @FXML private MFXButton Admin_menu_giftbasket_delivery;
   @FXML private MFXButton Admin_menu_employee_table;
 
+  @FXML private MFXButton Admin_menu_home_button;
+  @FXML private MFXButton Admin_menu_about;
+  @FXML private MFXButton Admin_menu_credits;
+
   // LANGUAGE TEXT//
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {
     Navigation.navigate(Screen.FLOWER);
+  }
+
+  @FXML
+  void getAdminHome(ActionEvent event) {
+    Navigation.navigate(Screen.ADMIN_HOME);
+  }
+
+  @FXML
+  void getAdminAbout(ActionEvent event) {
+    Navigation.navigate(Screen.ABOUT);
   }
 
   @FXML
@@ -252,6 +266,10 @@ public class MenuController {
   public void setlanguage(int language_choice) {
     if (language_choice == 0) {
       Admin_menu_home.setText("Home");
+      Admin_menu_about.setText("About");
+      Admin_menu_credits.setText("Credits");
+      Admin_menu_home_button.setText("Home");
+
       Admin_menu_logout.setText("Logout");
       Admin_menu_exit.setText("Exit");
       Admin_menu_helpmenu.setText("Help Menu");
@@ -282,6 +300,10 @@ public class MenuController {
       Admin_menu_employee_table.setText("Employee Table");
     } else if (language_choice == 1) {
       Admin_menu_home.setText("Accueil");
+      Admin_menu_about.setText("Acerca");
+      Admin_menu_credits.setText("Creditos");
+      Admin_menu_home_button.setText("Accueil");
+
       Admin_menu_logout.setText("Se d" + "\u00e9" + "connecter");
       Admin_menu_exit.setText("Sortie");
       Admin_menu_helpmenu.setText("Menu d'aide");

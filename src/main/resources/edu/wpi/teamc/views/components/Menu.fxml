@@ -17,7 +17,7 @@
    <children>
       <AnchorPane fx:id="homePopOut1" layoutX="-110.0" layoutY="11.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0">
          <children>
-            <Pane fx:id="homePopOut" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+            <Pane fx:id="homePopOut" prefHeight="163.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
                      <children>
@@ -34,6 +34,9 @@
                               <Insets left="35.0" />
                            </VBox.margin>
                         </Line>
+                        <MFXButton fx:id="Admin_menu_home_button" onAction="#getAdminHome" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
+                        <MFXButton fx:id="Admin_menu_about" onAction="#getAdminAbout" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
+                        <MFXButton fx:id="Admin_menu_credits" onAction="#getPathfindingPage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
                      </children>
                   </VBox>
                </children>

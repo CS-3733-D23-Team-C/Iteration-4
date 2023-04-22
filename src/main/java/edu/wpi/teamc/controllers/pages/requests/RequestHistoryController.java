@@ -8,7 +8,6 @@ import edu.wpi.teamc.dao.users.IUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +16,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.tableview2.FilteredTableView;
+
+import java.util.List;
 
 public class RequestHistoryController {
 
@@ -80,7 +81,7 @@ public class RequestHistoryController {
 
   /** Method run when controller is initialized */
   public void initialize() {
-    this.getConference(new ActionEvent());
+    this.getConference();
 
     List<EmployeeUser> employeeList =
         (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
@@ -104,19 +105,34 @@ public class RequestHistoryController {
           selected.setAssignedto(assignedtoField.getSelectionModel().getSelectedItem().toString());
           selected.setStatus(STATUS.valueOf(statusField.getText()));
           HospitalSystem.updateRow((IOrm) selected);
-          getConference(new ActionEvent());
+          getSwitch(selected);
         });
 
     deleteButton.setOnMouseClicked(
         event -> {
           IRequest selected = (IRequest) historyTable.getSelectionModel().getSelectedItem();
           HospitalSystem.deleteRow((IOrm) selected);
-          getConference(new ActionEvent());
+          getSwitch(selected);
         });
   }
 
   @FXML
-  private void getConference(ActionEvent event) {
+  private void getSwitch(IRequest selected) {
+    if (selected instanceof ConferenceRoomRequest) {
+      this.getConference();
+    } else if (selected instanceof FlowerDeliveryRequest) {
+      this.getFlower();
+    } else if (selected instanceof MealRequest) {
+      this.getMeal();
+    } else if (selected instanceof FurnitureDeliveryRequest) {
+      this.getFurniture();
+    } else if (selected instanceof OfficeSuppliesRequest) {
+      this.getOfficeSupply();
+    }
+  }
+
+  @FXML
+  private void getConference() {
     this.resetColor();
     this.clearCurrentSelection();
     conference.setStyle(selectedButtonColor);
@@ -154,7 +170,7 @@ public class RequestHistoryController {
   }
 
   @FXML
-  private void getFlower(ActionEvent event) {
+  private void getFlower() {
     this.resetColor();
     this.clearCurrentSelection();
     flower.setStyle(selectedButtonColor);
@@ -191,7 +207,7 @@ public class RequestHistoryController {
   }
 
   @FXML
-  private void getMeal(ActionEvent event) {
+  private void getMeal() {
     this.resetColor();
     this.clearCurrentSelection();
     meal.setStyle(selectedButtonColor);
@@ -222,7 +238,7 @@ public class RequestHistoryController {
   }
 
   @FXML
-  private void getFurniture(ActionEvent event) {
+  private void getFurniture() {
     this.resetColor();
     this.clearCurrentSelection();
     furniture.setStyle(selectedButtonColor);
@@ -262,7 +278,7 @@ public class RequestHistoryController {
   }
 
   @FXML
-  public void getOfficeSupply(ActionEvent e) {
+  public void getOfficeSupply() {
     this.resetColor();
     this.clearCurrentSelection();
     officeSupply.setStyle(selectedButtonColor);

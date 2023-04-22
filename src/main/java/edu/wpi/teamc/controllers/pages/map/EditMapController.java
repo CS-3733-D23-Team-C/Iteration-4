@@ -141,6 +141,7 @@ public class EditMapController {
   List<Move> moveNamesToRemove = new ArrayList<Move>();
   List<Node> listNodeToRemove = new ArrayList<Node>();
   NodeResetterHelper nodeResetterHelper = new NodeResetterHelper();
+  LineResetterHelper lineResetterHelper = new LineResetterHelper();
   ModeResetterHelper modeResetterHelper = new ModeResetterHelper();
   FloorResetterHelper floorResetterHelper = new FloorResetterHelper();
   AlignModeHelper alignModeHelper = new AlignModeHelper();
@@ -176,6 +177,9 @@ public class EditMapController {
   String nodeIDinput_temp;
   StackPane stackPane = new StackPane();
   Boolean nodeClicked = false;
+  Boolean edgeClicked = false;
+  Edge clickedEdge;
+  Line lineClicked;
   Boolean alignMode = true;
   Node currNodeClicked;
   Circle currCircleClicked;
@@ -215,7 +219,11 @@ public class EditMapController {
   @FXML Text elevToggleText;
   @FXML MFXToggleButton elevToggle;
   @FXML VBox toggleBox;
+  @FXML MFXToggleButton edgeToggle;
+
+  @FXML Text edgeToggleText;
   Boolean shortShown = true;
+  Boolean edgeShown = true;
   Boolean alignVert = false;
   Boolean alignHoriz = false;
   Boolean confShown = true;
@@ -235,7 +243,7 @@ public class EditMapController {
     mapGPane.centreOn(centrePoint);
     mapGPane.zoomTo(0.5, mapGPane.targetPointAtViewportCentre());
 
-    // Make and display toggle buttons
+    // Make and display toggle buttons ************
     MFXToggleButton shortnameToggle = new MFXToggleButton();
     MFXToggleButton confToggle = new MFXToggleButton();
     MFXToggleButton hallToggle = new MFXToggleButton();
@@ -248,16 +256,19 @@ public class EditMapController {
     toggleButtons.add(elevToggle);
 
     filterBox.setItems(FXCollections.observableArrayList(toggleButtons));
+    // Does not work *********
 
     shortToggleText.getStyleClass().add("toggleText");
     confToggleText.getStyleClass().add("toggleText");
     elevToggleText.getStyleClass().add("toggleText");
     hallToggleText.getStyleClass().add("toggleText");
+    edgeToggleText.getStyleClass().add("toggleText");
 
     shortToggle.getStyleClass().add("toggleButton");
     confToggle.getStyleClass().add("toggleButton");
     elevToggle.getStyleClass().add("toggleButton");
     hallToggle.getStyleClass().add("toggleButton");
+    edgeToggle.getStyleClass().add("toggleButton");
 
     toggleBox
         .getStylesheets()
@@ -279,6 +290,20 @@ public class EditMapController {
     modeResetterHelper.setButton(selectButton);
     FL1.setBackground(Background.fill(Paint.valueOf("#EAB334")));
     floorResetterHelper.setButton(FL1);
+
+    edgeToggle.setOnMouseClicked(
+        e -> {
+          if (edgeShown) {
+            //        group.getChildren().remove(mapEdges);
+            mapEdges.setVisible(false);
+            edgeShown = false;
+          } else {
+            edgeShown = true;
+            mapEdges.setVisible(true);
+            //            mapEdges.toFront();
+            //            mapNodes.toFront();
+          }
+        });
 
     shortToggle.setOnMouseClicked(
         e -> {
@@ -337,6 +362,12 @@ public class EditMapController {
           if (Objects.equals(mapMode.getMapMode(), "Align")) {
             lockMap = true;
             alignNodes();
+          }
+          if (edgeClicked) {
+            if (Objects.equals(mapMode.getMapMode(), "Remove")) {
+              lineClicked.setFill(Paint.valueOf("#EAB334"));
+              removeEdges();
+            }
           }
 
           if (nodeClicked && !lockMap) {
@@ -411,6 +442,67 @@ public class EditMapController {
       return true;
     }
     return false;
+  }
+
+  public void removeEdges() {
+    BorderPane borderPane = new BorderPane();
+
+    // Stuff to show on pop up
+    Text headerText = new Text("Remove Edge?");
+    MFXButton confirm = new MFXButton("Confirm");
+    MFXButton cancel = new MFXButton("Cancel");
+
+    // set styles
+    headerText.getStyleClass().add("Header");
+    confirm.getStyleClass().add("MFXbutton");
+    cancel.getStyleClass().add("MFXbutton");
+    borderPane.getStyleClass().add("scenePane");
+
+    // set object locations
+    int lay_x = 45;
+    int lay_y = 40;
+    headerText.setLayoutX(lay_x);
+    headerText.setLayoutY(lay_y);
+    confirm.setLayoutX(lay_x);
+    confirm.setLayoutY(lay_y + 30);
+    cancel.setLayoutX(lay_x);
+    cancel.setLayoutY(lay_y + 90);
+
+    // Set and show screen
+    AnchorPane aPane = new AnchorPane();
+    aPane.getChildren().addAll(headerText, confirm, cancel);
+    //    Insets insets = new Insets(0, 0, 0, 200);
+    //    aPane.setPadding(insets);
+    borderPane.getChildren().add(aPane);
+    Scene scene = new Scene(borderPane, 290, 220);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
+    borderPane.relocate(0, 0);
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.setTitle("Remove Node Window");
+    stage.setAlwaysOnTop(true);
+    stage.show();
+    EdgeDao edgeDao = new EdgeDao();
+    confirm.setOnMouseClicked(
+        e -> {
+          edgeDao.deleteRow(clickedEdge);
+          loadDatabase();
+          loadNodeIDToNode();
+          sortEdges();
+          placeEdges(floor);
+          mapNodes.toFront();
+          edgeClicked = false;
+          stage.close();
+        });
+
+    cancel.setOnMouseClicked(
+        e -> {
+          lineClicked.setStroke(Paint.valueOf("#021335"));
+          edgeClicked = false;
+          stage.close();
+        });
   }
 
   public void createEdgesForNodes() {
@@ -491,7 +583,15 @@ public class EditMapController {
     line.setEndX(nodeIDToNode.get(edge.getEndNode()).getXCoord());
     line.setEndY(nodeIDToNode.get(edge.getEndNode()).getYCoord());
     line.setStrokeWidth(5);
-    line.setStroke(Paint.valueOf("021335"));
+    line.setStroke(Paint.valueOf("#021335"));
+    line.setOnMouseClicked(
+        e -> {
+          System.out.println("edge clicked");
+          clickedEdge = edge;
+          lineClicked = line;
+          edgeClicked = true;
+          resetAndSetLine(line);
+        });
     mapEdges.getChildren().add(line);
   }
 
@@ -676,6 +776,12 @@ public class EditMapController {
     group.getChildren().add(pane);
     placeEdges(floor);
     placeNodes(floor);
+    if (!edgeShown) {
+      mapEdges.setVisible(false);
+    }
+    if (!shortShown) {
+      mapText.setVisible(false);
+    }
   }
 
   public void sortNodes() {
@@ -947,6 +1053,12 @@ public class EditMapController {
     nodeResetterHelper.setCircle(circle);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;
+  }
+
+  public void resetAndSetLine(Line line) {
+    line.setStroke(Paint.valueOf("#EAB334"));
+    lineResetterHelper.getLine().setStroke(Paint.valueOf("#021335"));
+    lineResetterHelper.setLine(line);
   }
 
   public void resetAndSetModes(MFXButton button) {

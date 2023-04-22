@@ -241,59 +241,6 @@ public class MealController {
     Navigation.navigate(Screen.CONFERENCE);
   }
 
-  @FXML
-  void getMenuButton() {}
-
-  @FXML
-  void getHistory(ActionEvent event) {
-    Navigation.navigate(Screen.CONFERENCE_HISTORY);
-  }
-
-  @FXML
-  void getFlowerDeliveryPage(ActionEvent event) {
-    Navigation.navigate(Screen.FLOWER);
-  }
-
-  @FXML
-  void getFurnitureDeliveryPage(ActionEvent event) {
-    Navigation.navigate(Screen.FURNITURE);
-  }
-
-  @FXML
-  void getHelpPage(ActionEvent event) {
-    Navigation.navigate(Screen.HELP);
-  }
-
-  @FXML
-  void getMealDeliveryPage(ActionEvent event) {
-    Navigation.navigate(Screen.MEAL);
-  }
-
-  @FXML
-  void getOfficeSuppliesPage(ActionEvent event) {
-    Navigation.navigate(Screen.OFFICE_SUPPLY);
-  }
-
-  @FXML
-  void getRoomReservationPage(ActionEvent event) {
-    Navigation.navigate(Screen.CONFERENCE);
-  }
-
-  @FXML
-  void getSignagePage(ActionEvent event) {
-    Navigation.navigate(Screen.SIGNAGE);
-  }
-
-  @FXML
-  void getConferenceHistory(ActionEvent event) {
-    Navigation.navigate(Screen.CONFERENCE_HISTORY);
-  }
-
-  @FXML
-  void getGiftBasketRequestPage(ActionEvent event) {
-    Navigation.navigate(Screen.GIFT_BASKET);
-  }
-
   /** Method run when controller is initialized */
   @FXML
   public void initialize() {

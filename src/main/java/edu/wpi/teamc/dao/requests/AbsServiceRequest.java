@@ -5,7 +5,7 @@ import edu.wpi.teamc.dao.users.IUser;
 import lombok.Getter;
 import lombok.Setter;
 
-abstract class AbsServiceRequest implements IOrm {
+abstract class AbsServiceRequest implements IOrm, IRequest {
   @Getter int requestID;
   @Getter private IUser requester;
   @Getter @Setter private String roomName;

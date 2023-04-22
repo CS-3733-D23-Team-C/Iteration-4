@@ -209,43 +209,4 @@ public class OfficeSupplyController {
       assignEmployeeAnchor.setOpacity(0);
     }
   }
-
-  @FXML
-  void getEditMap(ActionEvent event) {
-    Navigation.navigate(Screen.EDIT_MAP);
-  }
-
-  @FXML
-  void getLogOut(ActionEvent event) {
-    Navigation.navigate(Screen.HOME);
-  }
-
-  @FXML
-  void getExit(ActionEvent event) {
-    Navigation.navigate(Screen.EXIT_PAGE);
-  }
-
-  @FXML
-  void getMapHistory(ActionEvent event) {
-    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
-  }
-
-  //  @FXML
-  //  void getMapPage(ActionEvent event) {
-  //    Navigation.navigate(Screen.FLOOR_PLAN);
-  //  }
-
-  @FXML
-  void getPathfindingPage(ActionEvent event) {
-    Navigation.navigate(Screen.PATHFINDING_PAGE);
-  }
-
-  public void getHistory(ActionEvent event) {
-    Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
-  }
-
-  @FXML
-  void getHelpage(ActionEvent event) {
-    Navigation.navigate(Screen.HELP);
-  }
 }

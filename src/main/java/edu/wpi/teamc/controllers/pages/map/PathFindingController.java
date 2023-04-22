@@ -167,7 +167,8 @@ public class PathFindingController {
         move.setLongName("ERROR");
       }
 
-      // TODO : choose latest move in case where there is no move for the selected date, default to orig if there isn't anything else
+      // TODO : choose latest move in case where there is no move for the selected date, default to
+      // orig if there isn't anything else
       if (move.getDate().toString().equals(date)) {
         nodeIDtoMove.put(move.getNodeID(), move);
         longNameToNodeID.put(move.getLongName(), move.getNodeID());
@@ -459,8 +460,8 @@ public class PathFindingController {
     graph.syncWithDB(dateString);
 
     syncMoveWithDate(dateString);
-    int srcN = longNameToNodeID.get(startName);
-    int destN = longNameToNodeID.get(endName);
+    int srcN = graph.getNodeIDfromLongName(startName);
+    int destN = graph.getNodeIDfromLongName(endName);
 
     src = graph.getNode(srcN);
     dest = graph.getNode(destN);

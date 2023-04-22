@@ -31,6 +31,9 @@ public class LoginDao implements IDao<Login, String> {
         PERMISSIONS permissions = PERMISSIONS.valueOf(rs.getString("permissions"));
         String salt = rs.getString("salt");
         String otp = rs.getString("otp");
+        if (otp == null || otp.equalsIgnoreCase("null")) {
+          otp = null;
+        }
         Login login = new Login(username, password, permissions, salt, otp);
         returnList.add(login);
       }
@@ -141,6 +144,9 @@ public class LoginDao implements IDao<Login, String> {
       PERMISSIONS permissions = PERMISSIONS.valueOf(rs.getString("permissions"));
       String salt = rs.getString("salt");
       String otp = rs.getString("otp");
+      if (otp == null || otp.equalsIgnoreCase("null")) {
+        otp = null;
+      }
       login = new Login(username, password, permissions, salt, otp);
     }
 

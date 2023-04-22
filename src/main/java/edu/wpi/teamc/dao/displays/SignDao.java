@@ -48,8 +48,7 @@ public class SignDao implements IDao<Sign, Sign> {
     try {
       String query =
           "UPDATE \"displays\".\"Signage\" SET locationname = ?, date = ?, direction = ?, screenlocation = ? WHERE locationname = ? AND date = ? AND screenlocation = ?";
-      PreparedStatement ps =
-          db.getConnection().prepareStatement(query);
+      PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, repl.getLocationname());
       ps.setDate(2, repl.getDate());
       ps.setString(3, repl.getDirection());
@@ -89,11 +88,12 @@ public class SignDao implements IDao<Sign, Sign> {
   public Sign deleteRow(Sign type) throws SQLException {
     DBConnection db = new DBConnection();
     try {
-      String q = "DELETE FROM \"displays\".\"Signage\" WHERE locationname = ? AND date = ? AND screenlocation = ?";
+      String q =
+          "DELETE FROM \"displays\".\"Signage\" WHERE locationname = ? AND date = ? AND screenlocation = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(q);
       ps.setString(1, type.getLocationname());
       ps.setDate(2, type.getDate());
-        ps.setString(3, type.getScreenlocation());
+      ps.setString(3, type.getScreenlocation());
       ps.executeUpdate();
     } catch (SQLException e) {
       throw new RuntimeException(e);
@@ -107,7 +107,8 @@ public class SignDao implements IDao<Sign, Sign> {
   public Sign fetchObject(Sign key) throws SQLException {
     DBConnection db = new DBConnection();
     try {
-      String query = "SELECT * FROM \"displays\".\"Signage\" WHERE locationname = ? AND date = ? AND screenlocation = ?";
+      String query =
+          "SELECT * FROM \"displays\".\"Signage\" WHERE locationname = ? AND date = ? AND screenlocation = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, key.getLocationname());
       ps.setDate(2, key.getDate());

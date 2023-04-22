@@ -22,7 +22,20 @@
                <children>
                   <AnchorPane style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
                      <children>
-                        <FilteredTableView fx:id="historyTable" layoutX="15.0" layoutY="15.0" prefHeight="561.0" prefWidth="1204.0" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="15.0">
+                        <AnchorPane prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Button fx:id="conference" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Conference" textFill="#02143b" />
+                                    <Button fx:id="flower" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Flower" textFill="#02143b" />
+                                    <Button fx:id="furniture" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Furniture" textFill="#02143b" />
+                                    <Button fx:id="meal" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Meal" textFill="#02143b" />
+                                    <Button fx:id="officeSupply" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Office Supply" textFill="#02143b" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                        <FilteredTableView fx:id="historyTable" layoutX="15.0" layoutY="15.0" prefHeight="561.0" prefWidth="1204.0" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="70.0">
                            <columns>
                               <TableColumn fx:id="Column1" prefWidth="240" text="" />
                               <TableColumn fx:id="Column2" prefWidth="240" text="" />

@@ -28,15 +28,15 @@ public class RequestHistoryController {
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }
 
-  @FXML private FilteredTableView<ConferenceRoomRequest> historyTable;
-  @FXML TableColumn<ConferenceRoomRequest, Integer> Column1;
-  @FXML TableColumn<ConferenceRoomRequest, IUser> Column2;
-  @FXML TableColumn<ConferenceRoomRequest, ConferenceRoom> Column3;
-  @FXML TableColumn<ConferenceRoomRequest, STATUS> Column4;
-  @FXML TableColumn<ConferenceRoomRequest, String> Column5;
-  @FXML TableColumn<ConferenceRoomRequest, String> Column6;
-  @FXML TableColumn<ConferenceRoomRequest, String> Column7;
-  @FXML TableColumn<ConferenceRoomRequest, String> Column8;
+  @FXML private FilteredTableView historyTable;
+  @FXML TableColumn Column1;
+  @FXML TableColumn Column2;
+  @FXML TableColumn Column3;
+  @FXML TableColumn Column4;
+  @FXML TableColumn Column5;
+  @FXML TableColumn Column6;
+  @FXML TableColumn Column7;
+  @FXML TableColumn Column8;
 
   @FXML Button clearButton;
   @FXML TextField idField;
@@ -112,7 +112,6 @@ public class RequestHistoryController {
     List<EmployeeUser> employeeList =
         (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
     assignedtoField.getItems().addAll(FXCollections.observableArrayList(employeeList));
-
     //  System.out.println("did it");
 
     historyTable.setOnMouseClicked(
@@ -129,8 +128,8 @@ public class RequestHistoryController {
 
     updateButton.setOnMouseClicked(
         event -> {
-          //   ConferenceRoomRequestDAO dao2 = new ConferenceRoomRequestDAO();
-          ConferenceRoomRequest selected = historyTable.getSelectionModel().getSelectedItem();
+          ConferenceRoomRequest selected =
+              (ConferenceRoomRequest) historyTable.getSelectionModel().getSelectedItem();
           selected.setAssignedto(assignedtoField.getSelectionModel().getSelectedItem().toString());
           selected.setStatus(STATUS.valueOf(statusField.getText()));
           HospitalSystem.updateRow(selected);
@@ -139,7 +138,8 @@ public class RequestHistoryController {
 
     deleteButton.setOnMouseClicked(
         event -> {
-          ConferenceRoomRequest selected = historyTable.getSelectionModel().getSelectedItem();
+          ConferenceRoomRequest selected =
+              (ConferenceRoomRequest) historyTable.getSelectionModel().getSelectedItem();
           HospitalSystem.deleteRow(selected);
           rows.remove(selected);
           loadRequests();
@@ -154,7 +154,8 @@ public class RequestHistoryController {
   }
 
   private void updateCurrentSelection() {
-    ConferenceRoomRequest selected = historyTable.getSelectionModel().getSelectedItem();
+    ConferenceRoomRequest selected =
+        (ConferenceRoomRequest) historyTable.getSelectionModel().getSelectedItem();
     if (selected != null) {
       idField.setText(Integer.toString(selected.getRequestID()));
       statusField.setText(selected.getStatus().toString());
@@ -165,12 +166,4 @@ public class RequestHistoryController {
   public void getGoHome(ActionEvent event) {
     Navigation.navigate(Screen.HOME);
   }
-
-  //  public String getText(javafx.event.ActionEvent actionEvent) {
-  //    String inputtedText;
-  //    inputtedText = inputBox.getText();
-  //    inputBox.clear();
-  //    return inputtedText;
-  //  }
-
 }

@@ -218,7 +218,7 @@ public class MenuController {
 
   @FXML
   void getConferenceHistory(ActionEvent event) {
-    //      Navigation.navigate(Screen.CONFERENCE_HISTORY);
+    Navigation.navigate(Screen.REQUEST_HISTORY);
   }
 
   @FXML

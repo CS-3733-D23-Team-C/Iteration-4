@@ -1,5 +1,7 @@
 package edu.wpi.teamc.controllers.pages;
 
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
 import edu.wpi.teamc.dao.users.login.Login;
@@ -17,8 +19,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 public class HomeController {
 

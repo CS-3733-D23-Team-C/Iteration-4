@@ -31,6 +31,8 @@ public enum Screen {
   OFFICE_SUPPLY("views/pages/requests/OfficeSupplyRequest.fxml"),
   GIFT_BASKET("views/pages/requests/GiftBasketRequest.fxml"),
 
+  REQUEST_HISTORY("views/pages/requests/RequestHistory.fxml"),
+
   // -------OTHER-------//
   CONGRATS_PAGE("views/pages/Congrats.fxml"),
   HELP("views/pages/Help.fxml"),

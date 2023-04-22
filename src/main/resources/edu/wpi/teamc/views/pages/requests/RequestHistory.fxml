@@ -14,7 +14,7 @@
 <?import org.controlsfx.control.SearchableComboBox?>
 <?import org.controlsfx.control.tableview2.FilteredTableView?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.EmployeeTableController">
+<AnchorPane prefHeight="768.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.requests.RequestHistoryController">
    <children>
       <AnchorPane layoutX="400.0" layoutY="153.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
          <children>
@@ -22,16 +22,19 @@
                <children>
                   <AnchorPane style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
                      <children>
-                        <FilteredTableView fx:id="employeeTable" layoutX="15.0" layoutY="15.0" prefHeight="561.0" prefWidth="1204.0" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="15.0">
+                        <FilteredTableView fx:id="historyTable" layoutX="15.0" layoutY="15.0" prefHeight="561.0" prefWidth="1204.0" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="15.0">
                            <columns>
-                              <TableColumn fx:id="id" prefWidth="240" text="" />
-                              <TableColumn fx:id="username" prefWidth="240" text="" />
-                              <TableColumn fx:id="name" prefWidth="240" text="" />
-                              <TableColumn fx:id="department" prefWidth="240" text="" />
-                              <TableColumn fx:id="position" prefWidth="240" text="" />
+                              <TableColumn fx:id="Column1" prefWidth="240" text="" />
+                              <TableColumn fx:id="Column2" prefWidth="240" text="" />
+                              <TableColumn fx:id="Column3" prefWidth="240" text="" />
+                              <TableColumn fx:id="Column4" prefWidth="240" text="" />
+                              <TableColumn fx:id="Column5" prefWidth="240" text="" />
+                              <TableColumn fx:id="Column6" prefWidth="240" text="" />
+                              <TableColumn fx:id="Column7" prefWidth="240" text="" />
+                              <TableColumn fx:id="Column8" prefWidth="240" text="" />
                            </columns>
                         </FilteredTableView>
-                        <AnchorPane layoutX="16.0" layoutY="587.0" prefHeight="48.0" prefWidth="1202.0" style="-fx-background-color: white;">
+                        <AnchorPane layoutX="16.0" layoutY="587.0" prefHeight="48.0" prefWidth="1202.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="15.0">
                            <children>
                               <HBox fx:id="bottomPane" alignment="CENTER" layoutY="13.0" prefHeight="35.0" prefWidth="1198.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
@@ -52,10 +55,10 @@
                                     </Label>
                                     <MenuButton fx:id="statusField" mnemonicParsing="false" prefHeight="26.0" prefWidth="128.0" style="-fx-background-color: white; -fx-border-color: #02143b; -fx-border-width: 2; -fx-border-radius: 2; -fx-background-radius: 2; -fx-font-family: arial; -fx-font-size: 12;" text=" Select the status" textFill="#02143b">
                                        <items>
-                                          <MenuItem mnemonicParsing="false" onAction="#status1" text="PENDING" />
-                                          <MenuItem mnemonicParsing="false" onAction="#status2" text="IN_PROGRESS" />
-                                          <MenuItem mnemonicParsing="false" onAction="#status3" text="COMPLETE" />
-                                          <MenuItem mnemonicParsing="false" onAction="#status4" text="CANCELLED" />
+                                          <MenuItem mnemonicParsing="false" onAction="#statusPending" text="PENDING" />
+                                          <MenuItem mnemonicParsing="false" onAction="#statusInProgress" text="IN_PROGRESS" />
+                                          <MenuItem mnemonicParsing="false" onAction="#statusComplete" text="COMPLETE" />
+                                          <MenuItem mnemonicParsing="false" onAction="#statusCancelled" text="CANCELLED" />
                                        </items>
                                        <HBox.margin>
                                           <Insets left="10.0" right="10.0" />

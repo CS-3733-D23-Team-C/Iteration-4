@@ -7,6 +7,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.shape.SVGPath;
 import javafx.scene.web.HTMLEditor;
 import javafx.util.Duration;
 
@@ -18,8 +19,11 @@ public class ScreenSaverController {
 
   @FXML private Label timeDisplay;
 
+  @FXML private SVGPath logo;
+
   @FXML
   public void initialize() {
+
     Timeline clock =
         new Timeline(
             new KeyFrame(

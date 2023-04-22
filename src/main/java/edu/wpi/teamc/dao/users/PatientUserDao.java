@@ -6,12 +6,12 @@ import java.util.List;
 
 public class PatientUserDao implements IDao<PatientUser, Integer> {
   @Override
-  public List<PatientUser> fetchAllObjects() throws SQLException {
+  public List<PatientUser> fetchAllObjects() {
     return null;
   }
 
   @Override
-  public PatientUser updateRow(PatientUser type, PatientUser type2) throws SQLException {
+  public PatientUser updateRow(PatientUser type, PatientUser type2)  {
     return null;
   }
 
@@ -21,12 +21,12 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
   }
 
   @Override
-  public PatientUser deleteRow(PatientUser type) throws SQLException {
+  public PatientUser deleteRow(PatientUser type)  {
     return null;
   }
 
   @Override
-  public PatientUser fetchObject(Integer key) throws SQLException {
+  public PatientUser fetchObject(Integer key)  {
     return null;
   }
 }

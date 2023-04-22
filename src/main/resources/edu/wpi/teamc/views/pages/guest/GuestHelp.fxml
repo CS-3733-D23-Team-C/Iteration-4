@@ -9,9 +9,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.guest.GuestHelpController">
+<AnchorPane prefHeight="768.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.guest.GuestHelpController">
     <children>
-        <AnchorPane layoutX="410.0" layoutY="163.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
+        <AnchorPane layoutX="410.0" layoutY="163.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
             <children>
                 <AnchorPane prefWidth="625.0" style="-fx-background-color: #D0C8C8; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
@@ -41,7 +41,7 @@
                 </AnchorPane>
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="90.0" layoutY="20.0" prefHeight="76.0" prefWidth="1366.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),10,0.75,0,0);" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane layoutX="90.0" layoutY="20.0" prefHeight="76.0" prefWidth="1366.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),10,0.75,0,0);" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="1147.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
@@ -57,11 +57,5 @@
                 </VBox>
             </children>
         </AnchorPane>
-        <VBox prefHeight="200.0" prefWidth="70.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <fx:include fx:id="guestMenu" source="GuestMenu.fxml" />
-            </children>
-
-        </VBox>
     </children>
 </AnchorPane>

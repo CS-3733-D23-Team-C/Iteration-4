@@ -12,8 +12,12 @@ public class Navigation {
     try {
       final var resource = CApp.class.getResource(filename);
       final FXMLLoader loader = new FXMLLoader(resource);
+      final FXMLLoader menuBarLoader =
+          new FXMLLoader(CApp.class.getResource("views/components/Menu.fxml"));
 
       CApp.getRootPane().setCenter(loader.load());
+      CApp.getRootPane().setLeft(menuBarLoader.load());
+
     } catch (IOException | NullPointerException e) {
       e.printStackTrace();
     }

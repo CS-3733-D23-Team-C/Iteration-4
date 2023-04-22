@@ -152,7 +152,7 @@ public class RequestHistoryController {
     Column7.setCellValueFactory(new PropertyValueFactory<ConferenceRoomRequest, String>("endTime"));
     Column8.setCellValueFactory(
         new PropertyValueFactory<ConferenceRoomRequest, String>("assignedto"));
-    Column1.setText("requestID");
+    Column1.setText("ID");
     Column2.setText("Requester");
     Column3.setText("Room Name");
     Column4.setText("Status");
@@ -189,7 +189,7 @@ public class RequestHistoryController {
     Column7.setCellValueFactory(new PropertyValueFactory<FlowerDeliveryRequest, String>("eta"));
     Column8.setCellValueFactory(
         new PropertyValueFactory<FlowerDeliveryRequest, String>("assignedto"));
-    Column1.setText("requestID");
+    Column1.setText("ID");
     Column2.setText("Requester");
     Column3.setText("Room Name");
     Column4.setText("Flower");
@@ -221,7 +221,7 @@ public class RequestHistoryController {
     Column6.setCellValueFactory(new PropertyValueFactory<MealRequest, STATUS>("status"));
     Column7.setCellValueFactory(new PropertyValueFactory<MealRequest, String>("eta"));
     Column8.setCellValueFactory(new PropertyValueFactory<MealRequest, String>("assignedto"));
-    Column1.setText("requestID");
+    Column1.setText("ID");
     Column2.setText("Requester");
     Column3.setText("Room Name");
     Column4.setText("Meal");
@@ -259,7 +259,7 @@ public class RequestHistoryController {
     Column7.setCellValueFactory(new PropertyValueFactory<FurnitureDeliveryRequest, String>("eta"));
     Column8.setCellValueFactory(
         new PropertyValueFactory<FurnitureDeliveryRequest, String>("assignedto"));
-    Column1.setText("requestID");
+    Column1.setText("ID");
     Column2.setText("Requester");
     Column3.setText("Room Name");
     Column4.setText("Furniture");
@@ -298,7 +298,7 @@ public class RequestHistoryController {
     Column7.setCellValueFactory(new PropertyValueFactory<OfficeSuppliesRequest, String>("eta"));
     Column8.setCellValueFactory(
         new PropertyValueFactory<OfficeSuppliesRequest, String>("assignedto"));
-    Column1.setText("requestID");
+    Column1.setText("ID");
     Column2.setText("Requester");
     Column3.setText("Room Name");
     Column4.setText("Supply");

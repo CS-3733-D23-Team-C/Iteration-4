@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
 import javafx.util.Duration;
+import edu.wpi.teamc.dao.users.PatientUser;
 
 public class PatientHomeController {
 
@@ -68,6 +69,17 @@ public class PatientHomeController {
     t1.setCycleCount(1);
     t1.play();
   }
+
+//  @FXML
+//  void recieveTextMessages(){
+//    String name = HOME_username.getText();
+//    String number = HOME_phonenumber.getText();
+//    if(validPatient(name, number)){
+//      //send text message
+//    }
+//  }
+
+
 
   @FXML
   void english() {

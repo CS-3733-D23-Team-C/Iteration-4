@@ -15,24 +15,33 @@ public class PatientUser extends AbsUser {
     this.room = room;
   }
 
+  public boolean validPatient(String name, String phone) {
+    if (this.name == name && this.phone == phone) {
+      return true;
+    } else
+      return false;
+  }
 
   public String toString() {
     return super.getName();
   }
 
   public String getTimeIn() {
-    return in;
+    return this.in;
   }
 
   public String getTimeOut() {
-    return out;
+    return this.out;
   }
 
   public String getRoom(){
-    return room;
+    return this.room;
   }
 
-  public String getPhone() {
-    return phone;
+  public String getPhone(){
+    return this.phone;
   }
+
 }
+
+

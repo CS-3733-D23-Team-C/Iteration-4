@@ -24,6 +24,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -229,6 +230,9 @@ public class EditMapController {
     imageView = new ImageView(image); // was ImageView imageView
     imageView.relocate(0, 0);
     group.getChildren().add(imageView);
+    Point2D centrePoint = new Point2D(1100, 400);
+    mapGPane.centreOn(centrePoint);
+    mapGPane.zoomTo(0.5, mapGPane.targetPointAtViewportCentre());
 
     // Make and display toggle buttons
     MFXToggleButton shortnameToggle = new MFXToggleButton();
@@ -312,7 +316,7 @@ public class EditMapController {
           //          System.out.print(lockMap);
           mouseX = e.getX();
           mouseY = e.getY();
-          //          System.out.println(mouseX + "  " + mouseY);
+          System.out.println(mouseX + "  " + mouseY);
           //          if(addClicked) //dont need this bc when add is clicked will update mapMode
           // to
           // Add, need to set that up
@@ -1718,6 +1722,8 @@ public class EditMapController {
         });
     check_button.setOnMouseClicked(
         e -> {
+          alignVert = false;
+          alignHoriz = false;
           BorderPane borderPane = new BorderPane();
 
           // Stuff to show on pop up
@@ -1803,19 +1809,20 @@ public class EditMapController {
         e -> {
           if (alignVert) {
             alignModeHelper.setAlignX((int) e.getX());
-            alignVertically();
+            alignVertically((int) e.getX());
           }
           if (alignHoriz) {
             alignModeHelper.setAlignY((int) e.getY());
-            alignHorizontally();
+            alignHorizontally((int) e.getY());
           }
         });
   }
 
-  public void alignVertically() {
+  public void alignVertically(int x) {
     NodeDao nodeDao = new NodeDao();
     for (Node node : alignModeHelper.getToAlign()) {
-      node.setXCoord(alignModeHelper.getAlignX());
+      //      node.setXCoord(alignModeHelper.getAlignX());
+      node.setXCoord(x);
       nodeDao.updateRow(node.getNodeID(), node);
     }
     alignModeHelper.getToAlign().clear();
@@ -1829,14 +1836,17 @@ public class EditMapController {
     sortEdges();
     placeEdges(floor);
     placeNodes(floor);
+    alignNodes();
   }
 
-  public void alignHorizontally() {
+  public void alignHorizontally(int y) {
     NodeDao nodeDao = new NodeDao();
     for (Node node : alignModeHelper.getToAlign()) {
-      node.setYCoord(alignModeHelper.getAlignY());
+      //      node.setYCoord(alignModeHelper.getAlignY());
+      node.setYCoord(y);
       nodeDao.updateRow(node.getNodeID(), node);
     }
+    alignModeHelper.getToAlign().clear();
     group.getChildren().removeAll(mapNodes, mapText);
     mapNodes = new Group();
     mapText = new Group();
@@ -1847,6 +1857,7 @@ public class EditMapController {
     sortEdges();
     placeEdges(floor);
     placeNodes(floor);
+    alignNodes();
   }
 
   public void modifyByDrag() { // make this a pop up window instead of a whole new scene?

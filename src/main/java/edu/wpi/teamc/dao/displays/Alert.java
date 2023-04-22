@@ -13,6 +13,8 @@ public class Alert implements IOrm {
   @Getter @Setter Timestamp startdate;
   @Getter @Setter Timestamp enddate;
 
+  public Alert() {}
+
   Alert(
       int id,
       String title,

@@ -141,6 +141,7 @@ public class EditMapController {
   List<Move> moveNamesToRemove = new ArrayList<Move>();
   List<Node> listNodeToRemove = new ArrayList<Node>();
   NodeResetterHelper nodeResetterHelper = new NodeResetterHelper();
+  LineResetterHelper lineResetterHelper = new LineResetterHelper();
   ModeResetterHelper modeResetterHelper = new ModeResetterHelper();
   FloorResetterHelper floorResetterHelper = new FloorResetterHelper();
   AlignModeHelper alignModeHelper = new AlignModeHelper();
@@ -342,7 +343,7 @@ public class EditMapController {
             alignNodes();
           }
           if (edgeClicked) {
-            if (Objects.equals(mapMode.getMapMode(), "Make_edges")) {
+            if (Objects.equals(mapMode.getMapMode(), "Remove")) {
               lineClicked.setFill(Paint.valueOf("#EAB334"));
               removeEdges();
             }
@@ -431,7 +432,7 @@ public class EditMapController {
     MFXButton cancel = new MFXButton("Cancel");
 
     // set styles
-    headerText.getStyleClass().add("Header2");
+    headerText.getStyleClass().add("Header");
     confirm.getStyleClass().add("MFXbutton");
     cancel.getStyleClass().add("MFXbutton");
     borderPane.getStyleClass().add("scenePane");
@@ -442,9 +443,9 @@ public class EditMapController {
     headerText.setLayoutX(lay_x);
     headerText.setLayoutY(lay_y);
     confirm.setLayoutX(lay_x);
-    confirm.setLayoutY(lay_y + 35);
-    cancel.setLayoutX(lay_x + 100);
-    cancel.setLayoutY(lay_y + 35);
+    confirm.setLayoutY(lay_y + 30);
+    cancel.setLayoutX(lay_x);
+    cancel.setLayoutY(lay_y + 90);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
@@ -452,7 +453,7 @@ public class EditMapController {
     //    Insets insets = new Insets(0, 0, 0, 200);
     //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 500, 330);
+    Scene scene = new Scene(borderPane, 290, 220);
     scene
         .getStylesheets()
         .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
@@ -466,15 +467,18 @@ public class EditMapController {
     confirm.setOnMouseClicked(
         e -> {
           edgeDao.deleteRow(clickedEdge);
+          loadDatabase();
           loadNodeIDToNode();
           sortEdges();
           placeEdges(floor);
+          mapNodes.toFront();
           edgeClicked = false;
           stage.close();
         });
 
     cancel.setOnMouseClicked(
         e -> {
+          lineClicked.setStroke(Paint.valueOf("#021335"));
           edgeClicked = false;
           stage.close();
         });
@@ -558,14 +562,16 @@ public class EditMapController {
     line.setEndX(nodeIDToNode.get(edge.getEndNode()).getXCoord());
     line.setEndY(nodeIDToNode.get(edge.getEndNode()).getYCoord());
     line.setStrokeWidth(5);
-    line.setStroke(Paint.valueOf("021335"));
-    mapEdges.getChildren().add(line);
+    line.setStroke(Paint.valueOf("#021335"));
     line.setOnMouseClicked(
         e -> {
+          System.out.println("edge clicked");
           clickedEdge = edge;
           lineClicked = line;
           edgeClicked = true;
+          resetAndSetLine(line);
         });
+    mapEdges.getChildren().add(line);
   }
 
   private void sortEdges() {
@@ -1020,6 +1026,12 @@ public class EditMapController {
     nodeResetterHelper.setCircle(circle);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;
+  }
+
+  public void resetAndSetLine(Line line) {
+    line.setStroke(Paint.valueOf("#EAB334"));
+    lineResetterHelper.getLine().setStroke(Paint.valueOf("#021335"));
+    lineResetterHelper.setLine(line);
   }
 
   public void resetAndSetModes(MFXButton button) {

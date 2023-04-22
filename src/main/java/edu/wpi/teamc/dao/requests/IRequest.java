@@ -6,4 +6,8 @@ public interface IRequest {
   STATUS getStatus();
 
   String getAssignedto();
+
+  void setAssignedto(String s);
+
+  void setStatus(STATUS s);
 }

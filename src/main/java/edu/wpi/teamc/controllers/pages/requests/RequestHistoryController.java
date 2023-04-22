@@ -1,6 +1,7 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
 import edu.wpi.teamc.dao.HospitalSystem;
+import edu.wpi.teamc.dao.IOrm;
 import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.dao.users.IUser;
@@ -99,25 +100,26 @@ public class RequestHistoryController {
 
     updateButton.setOnMouseClicked(
         event -> {
-          ConferenceRoomRequest selected =
-              (ConferenceRoomRequest) historyTable.getSelectionModel().getSelectedItem();
+          IRequest selected = (IRequest) historyTable.getSelectionModel().getSelectedItem();
           selected.setAssignedto(assignedtoField.getSelectionModel().getSelectedItem().toString());
           selected.setStatus(STATUS.valueOf(statusField.getText()));
-          HospitalSystem.updateRow(selected);
+          HospitalSystem.updateRow((IOrm) selected);
           getConference(new ActionEvent());
         });
 
     deleteButton.setOnMouseClicked(
         event -> {
-          ConferenceRoomRequest selected =
-              (ConferenceRoomRequest) historyTable.getSelectionModel().getSelectedItem();
-          HospitalSystem.deleteRow(selected);
+          IRequest selected = (IRequest) historyTable.getSelectionModel().getSelectedItem();
+          HospitalSystem.deleteRow((IOrm) selected);
           getConference(new ActionEvent());
         });
   }
 
   @FXML
   private void getConference(ActionEvent event) {
+    this.resetColor();
+    this.clearCurrentSelection();
+    conference.setStyle(selectedButtonColor);
     selectedRequest = new ConferenceRoomRequest();
     ObservableList<ConferenceRoomRequest> rows = FXCollections.observableArrayList();
     Column1.setCellValueFactory(
@@ -153,6 +155,9 @@ public class RequestHistoryController {
 
   @FXML
   private void getFlower(ActionEvent event) {
+    this.resetColor();
+    this.clearCurrentSelection();
+    flower.setStyle(selectedButtonColor);
     selectedRequest = new FlowerDeliveryRequest();
     ObservableList<FlowerDeliveryRequest> rows = FXCollections.observableArrayList();
     Column1.setCellValueFactory(
@@ -185,12 +190,128 @@ public class RequestHistoryController {
     historyTable.setItems(rows);
   }
 
+  @FXML
+  private void getMeal(ActionEvent event) {
+    this.resetColor();
+    this.clearCurrentSelection();
+    meal.setStyle(selectedButtonColor);
+    selectedRequest = new MealRequest();
+    ObservableList<MealRequest> rows = FXCollections.observableArrayList();
+    Column1.setCellValueFactory(new PropertyValueFactory<MealRequest, Integer>("requestID"));
+    Column2.setCellValueFactory(new PropertyValueFactory<MealRequest, IUser>("requester"));
+    Column3.setCellValueFactory(new PropertyValueFactory<MealRequest, String>("roomName"));
+    Column4.setCellValueFactory(new PropertyValueFactory<MealRequest, Meal>("meal"));
+    Column5.setCellValueFactory(new PropertyValueFactory<MealRequest, String>("additionalNotes"));
+    Column6.setCellValueFactory(new PropertyValueFactory<MealRequest, STATUS>("status"));
+    Column7.setCellValueFactory(new PropertyValueFactory<MealRequest, String>("eta"));
+    Column8.setCellValueFactory(new PropertyValueFactory<MealRequest, String>("assignedto"));
+    Column1.setText("requestID");
+    Column2.setText("Requester");
+    Column3.setText("Room Name");
+    Column4.setText("Meal");
+    Column5.setText("Additional Notes");
+    Column6.setText("Status");
+    Column7.setText("ETA");
+    Column8.setText("Assigned To");
+    List<MealRequest> list = (List<MealRequest>) HospitalSystem.fetchAllObjects(new MealRequest());
+    for (MealRequest r : list) {
+      rows.add(r);
+    }
+    historyTable.getItems().removeAll();
+    historyTable.setItems(rows);
+  }
+
+  @FXML
+  private void getFurniture(ActionEvent event) {
+    this.resetColor();
+    this.clearCurrentSelection();
+    furniture.setStyle(selectedButtonColor);
+    selectedRequest = new FurnitureDeliveryRequest();
+    ObservableList<FurnitureDeliveryRequest> rows = FXCollections.observableArrayList();
+    Column1.setCellValueFactory(
+        new PropertyValueFactory<FurnitureDeliveryRequest, Integer>("requestID"));
+    Column2.setCellValueFactory(
+        new PropertyValueFactory<FurnitureDeliveryRequest, IUser>("requester"));
+    Column3.setCellValueFactory(
+        new PropertyValueFactory<FurnitureDeliveryRequest, String>("roomName"));
+    Column4.setCellValueFactory(
+        new PropertyValueFactory<FurnitureDeliveryRequest, String>("furnituretype"));
+    Column5.setCellValueFactory(
+        new PropertyValueFactory<FurnitureDeliveryRequest, String>("additionalNotes"));
+    Column6.setCellValueFactory(
+        new PropertyValueFactory<FurnitureDeliveryRequest, STATUS>("status"));
+    Column7.setCellValueFactory(new PropertyValueFactory<FurnitureDeliveryRequest, String>("eta"));
+    Column8.setCellValueFactory(
+        new PropertyValueFactory<FurnitureDeliveryRequest, String>("assignedto"));
+    Column1.setText("requestID");
+    Column2.setText("Requester");
+    Column3.setText("Room Name");
+    Column4.setText("Furniture");
+    Column5.setText("Additional Notes");
+    Column6.setText("Status");
+    Column7.setText("ETA");
+    Column8.setText("Assigned To");
+    List<FurnitureDeliveryRequest> list =
+        (List<FurnitureDeliveryRequest>)
+            HospitalSystem.fetchAllObjects(new FurnitureDeliveryRequest());
+    for (FurnitureDeliveryRequest r : list) {
+      rows.add(r);
+    }
+    historyTable.getItems().removeAll();
+    historyTable.setItems(rows);
+  }
+
+  @FXML
+  public void getOfficeSupply(ActionEvent e) {
+    this.resetColor();
+    this.clearCurrentSelection();
+    officeSupply.setStyle(selectedButtonColor);
+    selectedRequest = new OfficeSuppliesRequest();
+    ObservableList<OfficeSuppliesRequest> rows = FXCollections.observableArrayList();
+    Column1.setCellValueFactory(
+        new PropertyValueFactory<OfficeSuppliesRequest, Integer>("requestID"));
+    Column2.setCellValueFactory(
+        new PropertyValueFactory<OfficeSuppliesRequest, IUser>("requester"));
+    Column3.setCellValueFactory(
+        new PropertyValueFactory<OfficeSuppliesRequest, String>("roomName"));
+    Column4.setCellValueFactory(
+        new PropertyValueFactory<OfficeSuppliesRequest, String>("officesupplytype"));
+    Column5.setCellValueFactory(
+        new PropertyValueFactory<OfficeSuppliesRequest, String>("additionalNotes"));
+    Column6.setCellValueFactory(new PropertyValueFactory<OfficeSuppliesRequest, STATUS>("status"));
+    Column7.setCellValueFactory(new PropertyValueFactory<OfficeSuppliesRequest, String>("eta"));
+    Column8.setCellValueFactory(
+        new PropertyValueFactory<OfficeSuppliesRequest, String>("assignedto"));
+    Column1.setText("requestID");
+    Column2.setText("Requester");
+    Column3.setText("Room Name");
+    Column4.setText("Supply");
+    Column5.setText("Additional Notes");
+    Column6.setText("Status");
+    Column7.setText("ETA");
+    Column8.setText("Assigned To");
+    OfficeSuppliesRequestDAO dao = new OfficeSuppliesRequestDAO();
+    List<OfficeSuppliesRequest> list = dao.fetchAllObjects();
+    for (OfficeSuppliesRequest r : list) {
+      rows.add(r);
+    }
+    historyTable.setItems(rows);
+  }
+
   private void resetColor() {
     conference.setStyle(buttonColor);
     flower.setStyle(buttonColor);
     meal.setStyle(buttonColor);
     furniture.setStyle(buttonColor);
     officeSupply.setStyle(buttonColor);
+  }
+
+  @FXML
+  private void getExportMenu() {}
+  // TODO
+  @FXML
+  private void getImportMenu() {
+    // TODO
   }
 
   private void updateCurrentSelection() {
@@ -200,6 +321,12 @@ public class RequestHistoryController {
       statusField.setText(selected.getStatus().toString());
       assignedtoField.getSelectionModel().select(selected.getAssignedto());
     }
+  }
+
+  private void clearCurrentSelection() {
+    idField.setText(null);
+    statusField.setText(null);
+    assignedtoField.getSelectionModel().select(null);
   }
 
   public void getGoHome(ActionEvent event) {

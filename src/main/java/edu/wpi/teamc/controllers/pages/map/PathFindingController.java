@@ -157,6 +157,9 @@ public class PathFindingController {
   }
 
   public void syncMoveWithDate(String date) {
+    nodeIDtoMove.clear();
+    longNameToNodeID.clear();
+
     for (Move move : moveList) {
       try {
         move.getLongName();
@@ -451,9 +454,12 @@ public class PathFindingController {
     Graph graph = new Graph(AlgoSingleton.INSTANCE.getType());
     graph.syncWithDB(dateString);
 
+    int srcN = longNameToNodeID.get(startName);
+    int destN = longNameToNodeID.get(endName);
+
     syncMoveWithDate(dateString);
-    src = graph.getNode(longNameToNodeID.get(startName));
-    dest = graph.getNode(longNameToNodeID.get(endName));
+    src = graph.getNode(srcN);
+    dest = graph.getNode(destN);
     changeFloorFromString(src.getFloor());
 
     List<GraphNode> path = graph.getPathway(src, dest);

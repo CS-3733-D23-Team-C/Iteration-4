@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -46,7 +46,7 @@
                                     <Insets bottom="10.0" left="10.0" top="10.0" />
                                  </padding>
                               </TextField>
-                              <SearchableComboBox fx:id="roomMenu"  prefHeight="40.0" promptText="Select Conference Room:" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0" />
+                              <SearchableComboBox fx:id="roomMenu" prefHeight="40.0" promptText="Select Conference Room:" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="160.0" prefWidth="525.0" style="-fx-border-color: #02143b; -fx-background-color: white;">
@@ -122,7 +122,10 @@
                         </TextField>
                         <VBox alignment="CENTER" layoutX="51.0" layoutY="96.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="75.0">
                            <children>
-                              <ImageView fx:id="image" fitHeight="373.0" fitWidth="423.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="image" fitHeight="373.0" fitWidth="423.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/ConferenceRoom/conference_room_1.png" />
+                                 </image></ImageView>
                            </children>
                         </VBox>
                      </children>

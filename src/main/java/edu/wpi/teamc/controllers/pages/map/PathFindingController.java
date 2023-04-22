@@ -454,10 +454,10 @@ public class PathFindingController {
     Graph graph = new Graph(AlgoSingleton.INSTANCE.getType());
     graph.syncWithDB(dateString);
 
+    syncMoveWithDate(dateString);
     int srcN = longNameToNodeID.get(startName);
     int destN = longNameToNodeID.get(endName);
 
-    syncMoveWithDate(dateString);
     src = graph.getNode(srcN);
     dest = graph.getNode(destN);
     changeFloorFromString(src.getFloor());

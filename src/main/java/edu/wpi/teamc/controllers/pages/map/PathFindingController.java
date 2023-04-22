@@ -478,7 +478,12 @@ public class PathFindingController {
   void getNextFloor(ActionEvent event) throws IOException {
     pathLoc++;
     edges.getChildren().clear();
-    changeFloorFromString(splitPath.get(pathLoc).get(1).getFloor());
+
+    if (splitPath.get(pathLoc).size() > 1) {
+      changeFloorFromString(splitPath.get(pathLoc).get(1).getFloor());
+    } else {
+      changeFloorFromString(splitPath.get(pathLoc).get(0).getFloor());
+    }
     prevFloor.setDisable(false);
 
     if (pathLoc == splitPath.size() - 1) {
@@ -493,9 +498,13 @@ public class PathFindingController {
   void getPrevFloor(ActionEvent event) throws IOException {
     nextFloor.setDisable(false);
     pathLoc--;
-
     edges.getChildren().clear();
-    changeFloorFromString(splitPath.get(pathLoc).get(1).getFloor());
+
+    if (splitPath.get(pathLoc).size() > 1) {
+      changeFloorFromString(splitPath.get(pathLoc).get(1).getFloor());
+    } else {
+      changeFloorFromString(splitPath.get(pathLoc).get(0).getFloor());
+    }
 
     if (pathLoc == 0) {
       prevFloor.setDisable(true);

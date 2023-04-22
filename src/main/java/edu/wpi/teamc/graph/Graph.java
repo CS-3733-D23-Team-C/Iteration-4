@@ -38,6 +38,12 @@ public class Graph {
     }
   }
 
+  public void massPutMove(Move move) {
+    nodeIDtoLastDate.put(move.getNodeID(), move.getDate());
+    nodeIDtoLongName.put(move.getNodeID(), move.getLongName());
+    longNameToNodeID.put(move.getLongName(), move.getNodeID());
+  }
+
   public void syncWithDB(String date) {
     IDao<Node, Integer> nodeDao = new NodeDao();
     IDao<Edge, Edge> edgeDao = new EdgeDao();
@@ -70,18 +76,15 @@ public class Graph {
     for (Move move : moves) {
       // store the move for the desired date
       if (move.getDate().equals(dateObj)) {
-        nodeIDtoLastDate.put(move.getNodeID(), move.getDate());
-        nodeIDtoLongName.put(move.getNodeID(), move.getLongName());
-        longNameToNodeID.put(move.getLongName(), move.getNodeID());
+        massPutMove(move);
       } else if (move.getDate().compareTo(dateObj) < 0) {
         nodeIDtoLastDate.putIfAbsent(move.getNodeID(), move.getDate());
         nodeIDtoLongName.putIfAbsent(move.getNodeID(), move.getLongName());
         longNameToNodeID.putIfAbsent(move.getLongName(), move.getNodeID());
 
+        // if date is more recent than the one currently stored
         if (nodeIDtoLastDate.get(move.getNodeID()).compareTo(move.getDate()) < 0) {
-          nodeIDtoLastDate.put(move.getNodeID(), move.getDate());
-          nodeIDtoLongName.put(move.getNodeID(), move.getLongName());
-          longNameToNodeID.put(move.getLongName(), move.getNodeID());
+          massPutMove(move);
         }
       }
     }

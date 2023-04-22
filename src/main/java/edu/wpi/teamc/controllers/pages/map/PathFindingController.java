@@ -77,7 +77,6 @@ public class PathFindingController {
   List<Edge> edgeList = new ArrayList<Edge>();
   List<LocationName> locationNameList = new ArrayList<LocationName>();
   HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
-  HashMap<String, Integer> longNameToNodeID = new HashMap<>();
   HashMap<String, LocationName> longNametoLocationName = new HashMap<String, LocationName>();
   private LinkedList<List<GraphNode>> splitPath = new LinkedList<>();
   private int pathLoc = 0;
@@ -147,36 +146,12 @@ public class PathFindingController {
         move.setLongName("ERROR");
       }
       nodeIDtoMove.put(move.getNodeID(), move);
-      longNameToNodeID.put(move.getLongName(), move.getNodeID());
     }
 
     for (LocationName locationName : locationNameList) {
       longNametoLocationName.put(locationName.getLongName(), locationName);
     }
     longNametoLocationName.put("ERROR", new LocationName("ERROR", "ERROR", "ERROR"));
-  }
-
-  public void syncMoveWithDate(String date) {
-    nodeIDtoMove.clear();
-    longNameToNodeID.clear();
-
-    for (Move move : moveList) {
-      try {
-        move.getLongName();
-      } catch (NullPointerException e) {
-        move.setLongName("ERROR");
-      }
-
-      // TODO : choose latest move in case where there is no move for the selected date, default to
-      // orig if there isn't anything else
-      if (move.getDate().toString().equals(date)) {
-        nodeIDtoMove.put(move.getNodeID(), move);
-        longNameToNodeID.put(move.getLongName(), move.getNodeID());
-      } else if (move.getDate().toString().equals("2023-01-01")) {
-        nodeIDtoMove.putIfAbsent(move.getNodeID(), move);
-        longNameToNodeID.putIfAbsent(move.getLongName(), move.getNodeID());
-      }
-    }
   }
 
   public void addLocationsToSelect() {
@@ -459,7 +434,6 @@ public class PathFindingController {
     Graph graph = new Graph(AlgoSingleton.INSTANCE.getType());
     graph.syncWithDB(dateString);
 
-    syncMoveWithDate(dateString);
     int srcN = graph.getNodeIDfromLongName(startName);
     int destN = graph.getNodeIDfromLongName(endName);
 

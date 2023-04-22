@@ -166,6 +166,8 @@ public class PathFindingController {
       } catch (NullPointerException e) {
         move.setLongName("ERROR");
       }
+
+      // TODO : choose latest move in case where there is no move for the selected date, default to orig if there isn't anything else
       if (move.getDate().toString().equals(date)) {
         nodeIDtoMove.put(move.getNodeID(), move);
         longNameToNodeID.put(move.getLongName(), move.getNodeID());

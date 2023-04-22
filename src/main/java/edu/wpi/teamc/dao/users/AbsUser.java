@@ -9,7 +9,6 @@ import lombok.Setter;
 abstract class AbsUser implements IOrm, IUser {
   @Getter private int id;
   @Setter @Getter private String name;
-
   @Setter @Getter private String username;
 
   AbsUser(int id, String name, String username) {

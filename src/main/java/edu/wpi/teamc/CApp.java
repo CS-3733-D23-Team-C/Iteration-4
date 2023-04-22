@@ -17,6 +17,7 @@ public class CApp extends Application {
 
   @Setter @Getter private static Stage primaryStage;
   @Setter @Getter private static BorderPane rootPane;
+
   @Getter @Setter private static Boolean adminLoginCheck = false;
   //  List<Node> Floor1 = new ArrayList<Node>();
   //  List<Node> Floor2 = new ArrayList<Node>();
@@ -43,8 +44,7 @@ public class CApp extends Application {
     final Scene scene = new Scene(root);
     primaryStage.setScene(scene);
     primaryStage.show();
-
-    Navigation.navigate(Screen.PATIENT_HOME);
+    Navigation.navigate(Screen.HOME);
   }
 
   @Override

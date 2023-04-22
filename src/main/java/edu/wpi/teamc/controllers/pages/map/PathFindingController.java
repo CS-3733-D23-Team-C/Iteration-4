@@ -185,7 +185,9 @@ public class PathFindingController {
       matcher = pattern.matcher(move.getLongName());
 
       if (!matcher.find()) {
-        locNames.add(move.getLongName());
+        if (!locNames.contains(move.getLongName())) {
+          locNames.add(move.getLongName());
+        }
       }
     }
 

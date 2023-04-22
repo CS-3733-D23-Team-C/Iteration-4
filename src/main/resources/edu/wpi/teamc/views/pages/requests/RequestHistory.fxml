@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
@@ -26,16 +28,16 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Button fx:id="conference" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Conference" textFill="#02143b" />
-                                    <Button fx:id="flower" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Flower" textFill="#02143b" />
-                                    <Button fx:id="furniture" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Furniture" textFill="#02143b" />
-                                    <Button fx:id="meal" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Meal" textFill="#02143b" />
-                                    <Button fx:id="officeSupply" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Office Supply" textFill="#02143b" />
+                                    <Button fx:id="conference" mnemonicParsing="false" onAction="#getConference" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Conference" textFill="#02143b" />
+                                    <Button fx:id="flower" mnemonicParsing="false" onAction="#getFlower" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Flower" textFill="#02143b" />
+                                    <Button fx:id="furniture" mnemonicParsing="false" onAction="#getFurniture" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Furniture" textFill="#02143b" />
+                                    <Button fx:id="meal" mnemonicParsing="false" onAction="#getMeal" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Meal" textFill="#02143b" />
+                                    <Button fx:id="officeSupply" mnemonicParsing="false" onAction="#getOfficeSupply" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Office Supply" textFill="#02143b" />
                                  </children>
                               </HBox>
                            </children>
                         </AnchorPane>
-                        <FilteredTableView fx:id="historyTable" layoutX="15.0" layoutY="15.0" prefHeight="561.0" prefWidth="1204.0" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="70.0">
+                        <FilteredTableView fx:id="historyTable" layoutX="15.0" layoutY="15.0" prefHeight="561.0" prefWidth="1204.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="70.0">
                            <columns>
                               <TableColumn fx:id="Column1" prefWidth="240" text="" />
                               <TableColumn fx:id="Column2" prefWidth="240" text="" />
@@ -87,21 +89,37 @@
                                           <Insets left="10.0" right="10.0" />
                                        </HBox.margin>
                                     </SearchableComboBox>
-                                    <Button fx:id="deleteButton" layoutX="815.0" layoutY="10.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2; -fx-border-radius: 2; -fx-border-color: #02143b; -fx-border-width: 2;" text="delete" textFill="#02143b">
+                                    <Button fx:id="updateButton" layoutX="885.0" layoutY="10.0" mnemonicParsing="false" prefWidth="61.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-border-color: #02143b; -fx-border-width: 2; -fx-border-radius: 2; -fx-background-radius: 2;" text="Update" textFill="#02143b">
                                        <HBox.margin>
                                           <Insets left="20.0" right="10.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button fx:id="updateButton" layoutX="885.0" layoutY="10.0" mnemonicParsing="false" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-border-color: #02143b; -fx-border-width: 2; -fx-border-radius: 2; -fx-background-radius: 2;" text="update" textFill="#02143b">
+                                    <Button fx:id="deleteButton" layoutX="815.0" layoutY="10.0" mnemonicParsing="false" prefWidth="61.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2; -fx-border-radius: 2; -fx-border-color: #02143b; -fx-border-width: 2;" text="Delete" textFill="#02143b">
                                        <HBox.margin>
                                           <Insets left="20.0" right="10.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button fx:id="clearButton" mnemonicParsing="false" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-border-color: #02143b; -fx-border-width: 2; -fx-background-radius: 2; -fx-border-radius: 2;" text="clear" textFill="#02143b">
+                                    <Button fx:id="clearButton" mnemonicParsing="false" prefWidth="61.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-border-color: #02143b; -fx-border-width: 2; -fx-background-radius: 2; -fx-border-radius: 2;" text="Clear" textFill="#02143b">
                                        <HBox.margin>
                                           <Insets left="20.0" right="10.0" />
                                        </HBox.margin>
                                     </Button>
+                                    <MFXButton onAction="#getExportMenu" prefWidth="61.0" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-background-color: white; -fx-background-radius: 2; -fx-border-color: #02143b; -fx-border-radius: 2; -fx-border-width: 2;" text="Export" textFill="#02143b">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                    </MFXButton>
+                                    <MFXButton onAction="#getImportMenu" prefWidth="61.0" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-background-color: white; -fx-background-radius: 2; -fx-border-color: #02143b; -fx-border-width: 2; -fx-border-radius: 2;" text="Import" textFill="#02143b">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                    </MFXButton>
                                  </children>
                               </HBox>
                            </children>

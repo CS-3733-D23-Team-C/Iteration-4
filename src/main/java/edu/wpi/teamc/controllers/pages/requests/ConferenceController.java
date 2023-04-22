@@ -4,7 +4,10 @@ import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.map.LocationName;
-import edu.wpi.teamc.dao.requests.*;
+import edu.wpi.teamc.dao.requests.ConferenceRoom;
+import edu.wpi.teamc.dao.requests.ConferenceRoomRequest;
+import edu.wpi.teamc.dao.requests.ConferenceRoomRequestDAO;
+import edu.wpi.teamc.dao.requests.STATUS;
 import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
@@ -15,7 +18,10 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.SearchableComboBox;
 
@@ -55,53 +61,6 @@ public class ConferenceController {
   void getGoHome(ActionEvent event) {
     Navigation.navigate(Screen.ADMIN_HOME);
   }
-
-  //  @FXML
-  //  void getChoice0() {
-  //    roomMenu.setText("--Please Conference Room--");
-  //  }
-
-  // These 4 choices(1-4) are for the conference room
-  //  @FXML
-  //  void getChoice1() {
-  //    roomMenu.setText("Conference A1");
-  //  }
-  //
-  //  @FXML
-  //  void getChoice2() {
-  //    roomMenu.setText("Conference A2");
-  //  }
-  //
-  //  @FXML
-  //  void getChoice3() {
-  //    roomMenu.setText("Conference A3");
-  //  }
-  //
-  //  @FXML
-  //  void getChoice4() {
-  //    roomMenu.setText("Conference A4");
-  //  }
-
-  // These 4 choices(5-8) are for the employee name
-  //  @FXML
-  //  void getChoice5() {
-  //    employeeName.setText(choice5.getText());
-  //  }
-  //
-  //  @FXML
-  //  void getChoice6() {
-  //    employeeName.setText(choice6.getText());
-  //  }
-  //
-  //  @FXML
-  //  void getChoice7() {
-  //    employeeName.setText(choice7.getText());
-  //  }
-  //
-  //  @FXML
-  //  void getChoice8() {
-  //    employeeName.setText(choice8.getText());
-  //  }
 
   @FXML
   void getSubmit(ActionEvent event) {

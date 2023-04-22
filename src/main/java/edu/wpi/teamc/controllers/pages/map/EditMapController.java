@@ -2,6 +2,7 @@ package edu.wpi.teamc.controllers.pages.map;
 
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.controllers.pages.map.MapHelpers.*;
+import edu.wpi.teamc.dao.ImportCSV;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
@@ -2333,7 +2334,7 @@ public class EditMapController {
     String edgesFilePath = selectedFilePaths[1];
     String moveFilePath = selectedFilePaths[2];
     String locationNamesFilePath = selectedFilePaths[3];
-    ImportCSV.importAllCSV(nodesFilePath, edgesFilePath, moveFilePath, locationNamesFilePath);
+    ImportCSV.importMapCSV(nodesFilePath, edgesFilePath, moveFilePath, locationNamesFilePath);
     selectedFilePaths[0] = null;
     selectedFilePaths[1] = null;
     selectedFilePaths[2] = null;

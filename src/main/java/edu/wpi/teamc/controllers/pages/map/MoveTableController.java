@@ -1,4 +1,4 @@
-package edu.wpi.teamc.controllers.pages.history;
+package edu.wpi.teamc.controllers.pages.map;
 
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.map.LocationName;

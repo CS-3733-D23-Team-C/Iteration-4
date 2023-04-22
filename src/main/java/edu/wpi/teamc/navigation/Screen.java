@@ -9,8 +9,8 @@ public enum Screen {
   // -------MAP & SIGNAGE-------//
   SIGNAGE("views/pages/map/ElevatorSignage.fxml"),
   GUEST_SIGNAGE("views/pages/guest/GuestElevatorSignage.fxml"),
-
-  MAP_HISTORY_PAGE("views/pages/history/MapHistory.fxml"),
+  MOVE_TABLE("views/pages/map/MoveTable.fxml"),
+  MAP_HISTORY_PAGE("views/pages/map/MapHistory.fxml"),
   PATHFINDING_PAGE("views/pages/map/PathFinding.fxml"),
   GUEST_PATHFINDING_PAGE("views/pages/guest/GuestPathFinding.fxml"),
   EDIT_MAP("views/pages/map/EditMap.fxml"),
@@ -25,19 +25,12 @@ public enum Screen {
 
   // -------SERVICE REQUEST-------//
   MEAL("views/pages/requests/MealRequest.fxml"),
-  MEAL_HISTORY("views/pages/history/MealHistory.fxml"),
-
   CONFERENCE("views/pages/requests/Conference.fxml"),
-  CONFERENCE_HISTORY("views/pages/history/ConferenceHistory.fxml"),
-  MOVE_TABLE("views/pages/history/MoveTable.fxml"),
   FLOWER("views/pages/requests/FlowerRequest.fxml"),
-  FLOWER_HISTORY("views/pages/history/FlowerHistory.fxml"),
   FURNITURE("views/pages/requests/FurnitureRequest.fxml"),
-  FURNITURE_HISTORY("views/pages/history/FurnitureHistory.fxml"),
   OFFICE_SUPPLY("views/pages/requests/OfficeSupplyRequest.fxml"),
-  OFFICE_SUPPLY_HISTORY("views/pages/history/OfficeSupplyHistory.fxml"),
-
   GIFT_BASKET("views/pages/requests/GiftBasketRequest.fxml"),
+
   // -------OTHER-------//
   CONGRATS_PAGE("views/pages/Congrats.fxml"),
   HELP("views/pages/Help.fxml"),

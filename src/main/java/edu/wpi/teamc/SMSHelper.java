@@ -5,6 +5,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SMSHelper {
+
+
+
   public static final Logger logger =
       Logger.getLogger("SMS Helper"); // need to copy this and then just use logger. commands
   public static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");

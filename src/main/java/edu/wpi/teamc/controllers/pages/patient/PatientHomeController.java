@@ -44,20 +44,25 @@ public class PatientHomeController {
     if (firstTime == false) {
       FirstWarning();
       firstTime = true;
-    }
-    else if (firstTime == true) {
+    } else if (firstTime == true) {
 
     }
   }
 
   @FXML
   void getWarning(MouseEvent event) {
-    if (WarningOut == false) {
-      moveWarning();
-      WarningOut = true;
-    } else if (WarningOut == true) {
+    if (FirstOut == true) {
       killWarning();
-      WarningOut = false;
+      FirstOut = false;
+    } else if (FirstOut == false) {
+
+      if (WarningOut == false) {
+        moveWarning();
+        WarningOut = true;
+      } else if (WarningOut == true) {
+        killWarning();
+        WarningOut = false;
+      }
     }
   }
 
@@ -65,53 +70,16 @@ public class PatientHomeController {
   public void moveWarning() {
     TranslateTransition tranOut = new TranslateTransition();
     tranOut.setNode(warningPopOut);
-    //    Timeline tOut =
-    //        new Timeline(
-    //            new KeyFrame(
-    //                Duration.millis(10),
-    //                ae -> {
-    // warningPopOut.toFront();
     tranOut.setByY(326);
     tranOut.play();
-    //                }),
-    //            new KeyFrame(
-    //                Duration.millis(2010),
-    //                ae -> {
-    //    if (warningPopOut.getLayoutY() != 76) {
-    // warningPopOut.setLayoutY(76);
-    //    }
-    //                }));
-    //    tOut.setCycleCount(1);
-    //    tOut.play();
-    //    WarningOut = true;
   }
 
   @FXML
   public void killWarning() {
     TranslateTransition tranBack = new TranslateTransition();
     tranBack.setNode(warningPopOut);
-    //    Timeline tBack =
-    //        new Timeline(
-    //            new KeyFrame(
-    //                Duration.millis(10),
-    //                ae -> {
     tranBack.setByY(-326);
-    // tranBack.setDuration(Duration.millis(2000));
-    //    tranBack.setToY(-252);
     tranBack.play();
-    //                }),
-    //            new KeyFrame(
-    //                Duration.millis(2010),
-    //                ae -> {
-    // warningPopOut.toBack();
-    //    if (warningPopOut.getLayoutY() != -252) {
-    // warningPopOut.setLayoutY(-252);
-    //    }
-    //                }));
-    //
-    //    tBack.setCycleCount(1);
-    //    tBack.play();
-    // WarningOut = false;
   }
 
   @FXML
@@ -121,26 +89,18 @@ public class PatientHomeController {
     Timeline T1st =
         new Timeline(
             new KeyFrame(
-                Duration.millis(10),
+                Duration.millis(0),
                 ae -> {
-                  // warningPopOut.setVisible(true);
-                  //                  tranFirst.setByY(326);
-                  //                  tranFirst.play();
                   moveWarning();
                   FirstOut = true;
                 }),
             new KeyFrame(
                 Duration.millis(3000),
                 ae -> {
-                  //                  tranFirst.setByY(-326);
-                  //                  tranFirst.play();
-                }),
-            new KeyFrame(
-                Duration.millis(3800),
-                ae -> {
-                  // warningPopOut.setVisible(false);
-                  killWarning();
-                  FirstOut = false;
+                  if (FirstOut == true) {
+                    killWarning();
+                    FirstOut = false;
+                  }
                 }));
 
     T1st.setCycleCount(1);

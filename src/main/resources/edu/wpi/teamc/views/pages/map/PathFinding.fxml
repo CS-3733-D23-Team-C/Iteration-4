@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXFilterComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
+<?import org.controlsfx.control.SearchableComboBox?>
+<?import org.controlsfx.control.ToggleSwitch?>
 
 <AnchorPane prefHeight="768.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.map.PathFindingController">
     <children>
@@ -20,7 +21,7 @@
             <children>
                 <AnchorPane layoutX="410.0" layoutY="163.0" prefHeight="730.0" prefWidth="1182.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
                     <children>
-                  <AnchorPane layoutX="15.0" layoutY="17.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane layoutX="15.0" layoutY="17.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <AnchorPane layoutX="30.0" layoutY="30.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="30.0">
                            <children>
@@ -29,7 +30,7 @@
                                     </GesturePane>
                            </children>
                         </AnchorPane>
-                        <VBox alignment="TOP_CENTER" layoutX="888.0" layoutY="265.0" prefHeight="188.0" prefWidth="122.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="359.0">
+                        <VBox alignment="TOP_CENTER" layoutX="1118.0" layoutY="400.0" prefHeight="188.0" prefWidth="122.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="400.0">
                            <children>
                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-weight: Bold; -fx-underline: True; -fx-font-size: 13;" text="Select Floor" textAlignment="CENTER" />
                               <AnchorPane prefHeight="30.0" prefWidth="20.0">
@@ -62,7 +63,7 @@
                               <Insets bottom="20.0" top="20.0" />
                            </padding>
                         </VBox>
-                        <HBox layoutX="999.0" layoutY="507.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="270.0">
+                        <HBox layoutX="995.0" layoutY="304.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="304.0">
                            <children>
                               <MFXButton fx:id="prevFloor" onAction="#getPrevFloor" prefHeight="30.0" prefWidth="127.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Previous Floor" textFill="#02143b" />
                               <MFXButton fx:id="nextFloor" onAction="#getNextFloor" prefHeight="30.0" prefWidth="127.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-background-size: 12;" text="Next Floor" textFill="#02143b" />
@@ -78,30 +79,22 @@
                                     <Insets />
                                  </VBox.margin>
                               </Text>
-                              <MFXFilterComboBox fx:id="startChoice" floatMode="ABOVE" onAction="#getStartChoice" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold;" text="Start Location:">
-                                 <textFill>
-                                    <Color red="0.007843137718737125" green="0.0784313753247261" blue="0.23137255012989044" opacity="0.8700000047683716" />
-                                 </textFill>
-                              </MFXFilterComboBox>
-                              <MFXFilterComboBox fx:id="endChoice" floatMode="ABOVE" onAction="#getEndChoice" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold;" text="End Location:">
-                                 <textFill>
-                                    <Color red="0.007843137718737125" green="0.0784313753247261" blue="0.23137255012989044" opacity="0.8700000047683716" />
-                                 </textFill>
-                              </MFXFilterComboBox>
-                              <MenuButton fx:id="algChoice" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-size: 13; -fx-font-weight: bold;" text="Choose Algorithm:" textFill="#02143b">
+                              <SearchableComboBox fx:id="startChoice" onAction="#getStartChoice" prefHeight="25.0" prefWidth="190.0" promptText="Start Location:" style="-fx-background-color: white;" />
+                              <SearchableComboBox fx:id="endChoice" onAction="#getEndChoice" prefHeight="25.0" prefWidth="200.0" promptText="End Location:" style="-fx-background-color: white;" />
+                              <MenuButton fx:id="algChoice" mnemonicParsing="false" prefHeight="32.0" prefWidth="210.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-size: 13; -fx-font-weight: bold;" text="Choose Algorithm:" textFill="#02143b">
                                 <items>
                                     <MenuItem mnemonicParsing="false" onAction="#getChoiceAStar" text="A*" />
                                   <MenuItem mnemonicParsing="false" onAction="#getChoiceBFS" text="BFS" />
                                   <MenuItem mnemonicParsing="false" onAction="#getChoiceDFS" text="DFS" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getChoiceDijkstra" text="Dijkstra" />
                                 </items>
                                  <font>
                                     <Font size="11.0" />
                                  </font>
                               </MenuButton>
-                              <MFXButton fx:id="submit" onAction="#getSubmit" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Submit" textFill="#02143b">
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin></MFXButton>
+                              <DatePicker fx:id="pickDate" prefHeight="26.0" prefWidth="210.0" promptText="Choose Date:" />
+                              <MFXButton fx:id="submit" onAction="#getSubmit" prefHeight="50.0" prefWidth="210.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Submit" textFill="#02143b" />
+                              <ToggleSwitch fx:id="locToggle" onMouseClicked="#doLocToggle" style="-fx-font-weight: bold; -fx-background-color: WHITE;" text="Location Name Toggle" textFill="#02143b" />
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

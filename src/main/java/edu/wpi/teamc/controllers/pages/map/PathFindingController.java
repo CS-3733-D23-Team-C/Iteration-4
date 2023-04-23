@@ -8,9 +8,12 @@ import edu.wpi.teamc.graph.GraphNode;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,8 +26,10 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.util.Duration;
+import javafx.scene.text.Text;
 import net.kurobako.gesturefx.GesturePane;
+import org.controlsfx.control.SearchableComboBox;
+import org.controlsfx.control.ToggleSwitch;
 
 public class PathFindingController {
   public Group group;
@@ -34,8 +39,10 @@ public class PathFindingController {
   @FXML MFXButton nextFloor;
   @FXML MFXButton prevFloor;
   @FXML MenuButton algChoice;
-  @FXML MFXFilterComboBox<String> startChoice;
-  @FXML MFXFilterComboBox<String> endChoice;
+  @FXML SearchableComboBox<String> startChoice;
+  @FXML SearchableComboBox<String> endChoice;
+  @FXML ToggleSwitch locToggle;
+  @FXML DatePicker pickDate;
 
   public PathFindingController() throws IOException {}
 
@@ -49,7 +56,6 @@ public class PathFindingController {
   @FXML MFXButton FL1;
   @FXML MFXButton FL2;
   @FXML MFXButton FL3;
-  @FXML MFXButton FLG;
   @FXML MFXButton FLB1;
   @FXML MFXButton FLB2;
   private MFXButton tempSave;
@@ -57,6 +63,7 @@ public class PathFindingController {
   @FXML MFXButton floorButton;
   Group mapNodes = new Group();
   Group edges = new Group();
+  Group mapText = new Group();
   @FXML MFXButton submit;
   @FXML private Button goHome;
   String floor = "1";
@@ -70,29 +77,29 @@ public class PathFindingController {
   List<Edge> edgeList = new ArrayList<Edge>();
   List<LocationName> locationNameList = new ArrayList<LocationName>();
   HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
-  HashMap<String, Integer> longNameToNodeID = new HashMap<>();
   HashMap<String, LocationName> longNametoLocationName = new HashMap<String, LocationName>();
   private LinkedList<List<GraphNode>> splitPath = new LinkedList<>();
   private int pathLoc = 0;
   private GraphNode src;
   private GraphNode dest;
+  private boolean toggleStatus;
 
   /** Method run when controller is initialized */
   public void initialize() {
     submit.setDisable(true);
     tempSave = FL1;
-    //    File file = new File();
     Image image = this.image;
     ImageView imageView = new ImageView(image);
     imageView.relocate(0, 0);
     group.getChildren().add(imageView);
     group.getChildren().add(mapNodes);
-    Pane pane = new Pane();
+    StackPane pane = new StackPane();
     pane.setMinWidth(image.getWidth());
     pane.setMaxWidth(image.getWidth());
     pane.setMinHeight(image.getHeight());
     pane.setMaxHeight(image.getHeight());
     pane.relocate(0, 0);
+
     group.getChildren().add(pane);
 
     loadDatabase();
@@ -101,6 +108,7 @@ public class PathFindingController {
 
     nextFloor.setDisable(true);
     prevFloor.setDisable(true);
+    toggleStatus = false;
   }
 
   public void sortNodes() {
@@ -138,8 +146,8 @@ public class PathFindingController {
         move.setLongName("ERROR");
       }
       nodeIDtoMove.put(move.getNodeID(), move);
-      longNameToNodeID.put(move.getLongName(), move.getNodeID());
     }
+
     for (LocationName locationName : locationNameList) {
       longNametoLocationName.put(locationName.getLongName(), locationName);
     }
@@ -148,9 +156,17 @@ public class PathFindingController {
 
   public void addLocationsToSelect() {
     ObservableList<String> locNames = FXCollections.observableArrayList();
+    Pattern pattern = Pattern.compile("\\bhallway\\b|\\bhall\\b", Pattern.CASE_INSENSITIVE);
+    Matcher matcher;
 
     for (Move move : moveList) {
-      locNames.add(move.getLongName());
+      matcher = pattern.matcher(move.getLongName());
+
+      if (!matcher.find()) {
+        if (!locNames.contains(move.getLongName())) {
+          locNames.add(move.getLongName());
+        }
+      }
     }
 
     Collections.sort(locNames);
@@ -162,13 +178,16 @@ public class PathFindingController {
     group.getChildren().clear();
     group.getChildren().remove(mapNodes);
     group.getChildren().remove(edges);
+    group.getChildren().remove(mapText);
     ImageView imageView = new ImageView(image);
     imageView.relocate(0, 0);
     mapNodes = new Group();
     edges = new Group();
+    mapText = new Group();
     group.getChildren().add(imageView);
     group.getChildren().add(edges);
     group.getChildren().add(mapNodes);
+    group.getChildren().add(mapText);
     Pane pane = new Pane();
     pane.setMinWidth(image.getWidth());
     pane.setMaxWidth(image.getWidth());
@@ -178,57 +197,7 @@ public class PathFindingController {
     group.getChildren().add(pane);
   }
 
-  public void changeFloor(ActionEvent event) throws IOException {
-    floorButton = (MFXButton) event.getTarget();
-
-    if (Objects.equals(floorButton.getId(), "FL1")) {
-      image = new Image(Main.class.getResource("views/images/FirstFloor.png").openStream());
-      floor = "1";
-    } else if (Objects.equals(floorButton.getId(), "FL2")) {
-      image = new Image(Main.class.getResource("views/images/SecondFloor.png").openStream());
-      floor = "2";
-    } else if (Objects.equals(floorButton.getId(), "FL3")) {
-      image = new Image(Main.class.getResource("views/images/ThirdFloor.png").openStream());
-      floor = "3";
-    } else if (Objects.equals(floorButton.getId(), "FLB1")) {
-      image = new Image(Main.class.getResource("views/images/B1.png").openStream());
-      floor = "L1";
-    } else if (Objects.equals(floorButton.getId(), "FLB2")) {
-      image = new Image(Main.class.getResource("views/images/B2.png").openStream());
-      floor = "L2";
-    }
-    resetGroupVar();
-    // placeNodes(floor);
-  }
-
-  public void resetAndSetFloorIndicator(MFXButton button) {
-    button.setBackground(Background.fill(Paint.valueOf("#32CD32")));
-    tempSave.setBackground(Background.fill(DEFAULT_BG));
-    tempSave = button;
-  }
-
-  public void changeFloorFromString(String floor) throws IOException {
-    if (floor.equals("1")) {
-      image = new Image(Main.class.getResource("views/images/FirstFloor.png").openStream());
-      resetAndSetFloorIndicator(FL1);
-    } else if (floor.equals("2")) {
-      image = new Image(Main.class.getResource("views/images/SecondFloor.png").openStream());
-      resetAndSetFloorIndicator(FL2);
-    } else if (floor.equals("3")) {
-      image = new Image(Main.class.getResource("views/images/ThirdFloor.png").openStream());
-      resetAndSetFloorIndicator(FL3);
-    } else if (floor.equals("L1")) {
-      image = new Image(Main.class.getResource("views/images/B1.png").openStream());
-      resetAndSetFloorIndicator(FLB1);
-    } else if (floor.equals("L2")) {
-      image = new Image(Main.class.getResource("views/images/B2.png").openStream());
-      resetAndSetFloorIndicator(FLB2);
-    }
-    resetGroupVar();
-    // placeNodes(floor);
-  }
-
-  public void placeNodes(String floor) {
+  public void placeText(String floor) {
     switch (floor) {
       case "1":
         for (int i = 0; i < Floor1.size(); i++) {
@@ -297,7 +266,7 @@ public class PathFindingController {
           try {
             longName = nodeIDtoMove.get(nodeID).getLongName();
           } catch (NullPointerException e) {
-            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
+            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new Date(100)));
           }
           longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
@@ -306,24 +275,82 @@ public class PathFindingController {
         }
     }
     mapNodes.toFront();
+    mapText.toFront();
+  }
+
+  public void changeFloor(ActionEvent event) throws IOException {
+    floorButton = (MFXButton) event.getTarget();
+
+    if (Objects.equals(floorButton.getId(), "FL1")) {
+      image = new Image(Main.class.getResource("views/images/FirstFloor.png").openStream());
+      floor = "1";
+    } else if (Objects.equals(floorButton.getId(), "FL2")) {
+      image = new Image(Main.class.getResource("views/images/SecondFloor.png").openStream());
+      floor = "2";
+    } else if (Objects.equals(floorButton.getId(), "FL3")) {
+      image = new Image(Main.class.getResource("views/images/ThirdFloor.png").openStream());
+      floor = "3";
+    } else if (Objects.equals(floorButton.getId(), "FLB1")) {
+      image = new Image(Main.class.getResource("views/images/B1.png").openStream());
+      floor = "L1";
+    } else if (Objects.equals(floorButton.getId(), "FLB2")) {
+      image = new Image(Main.class.getResource("views/images/B2.png").openStream());
+      floor = "L2";
+    }
+    resetGroupVar();
+
+    if (toggleStatus) {
+      placeText(floor);
+    }
+  }
+
+  public void resetAndSetFloorIndicator(MFXButton button) {
+    button.setBackground(Background.fill(Paint.valueOf("#32CD32")));
+    tempSave.setBackground(Background.fill(DEFAULT_BG));
+    tempSave = button;
+  }
+
+  public void changeFloorFromString(String floor) throws IOException {
+    // TODO : check to see if location names should be placed or not, based off toggle status
+
+    if (floor.equals("1")) {
+      image = new Image(Main.class.getResource("views/images/FirstFloor.png").openStream());
+      this.floor = "1";
+      resetAndSetFloorIndicator(FL1);
+    } else if (floor.equals("2")) {
+      image = new Image(Main.class.getResource("views/images/SecondFloor.png").openStream());
+      this.floor = "2";
+      resetAndSetFloorIndicator(FL2);
+    } else if (floor.equals("3")) {
+      image = new Image(Main.class.getResource("views/images/ThirdFloor.png").openStream());
+      this.floor = "3";
+      resetAndSetFloorIndicator(FL3);
+    } else if (floor.equals("L1")) {
+      image = new Image(Main.class.getResource("views/images/B1.png").openStream());
+      this.floor = "L1";
+      resetAndSetFloorIndicator(FLB1);
+    } else if (floor.equals("L2")) {
+      image = new Image(Main.class.getResource("views/images/B2.png").openStream());
+      this.floor = "L2";
+      resetAndSetFloorIndicator(FLB2);
+    }
+    resetGroupVar();
+
+    if (toggleStatus) {
+      placeText(floor);
+    }
   }
 
   public void createMapNodes(Node node, String shortname, String nodeType) {
-    Circle newCircle = new Circle();
+    Text text = new Text();
+
     if (!nodeType.equals("HALL") && !nodeType.equals("ERROR")) {
-      Tooltip nodeName = new Tooltip(shortname);
-      nodeName.setShowDelay(Duration.ZERO);
-      nodeName.setShowDuration(Duration.hours(2));
-      Tooltip.install(newCircle, nodeName);
+      text = new Text(shortname);
+      text.setX(node.getXCoord() + 5);
+      text.setY(node.getYCoord() - 5);
+      text.setVisible(true);
+      mapText.getChildren().add(text);
     }
-    newCircle.setRadius(10);
-    newCircle.setCenterX(node.getXCoord());
-    newCircle.setCenterY(node.getYCoord());
-    newCircle.setId(String.valueOf(node.getNodeID()));
-    newCircle.setStroke(Paint.valueOf("#000000"));
-    newCircle.setFill(Paint.valueOf("#000000"));
-    newCircle.setVisible(true);
-    mapNodes.getChildren().add(newCircle);
   }
 
   public void breakPathIntoFloors(List<GraphNode> path) {
@@ -395,14 +422,23 @@ public class PathFindingController {
     edges.getChildren().clear();
     mapNodes.getChildren().clear();
 
-    String startName = startChoice.getText();
-    String endName = endChoice.getText();
+    String startName = startChoice.getValue();
+    String endName = endChoice.getValue();
+    LocalDate date = pickDate.getValue();
 
+    if (date == null) {
+      date = LocalDate.now();
+    }
+
+    String dateString = date.toString();
     Graph graph = new Graph(AlgoSingleton.INSTANCE.getType());
-    graph.syncWithDB();
+    graph.syncWithDB(dateString);
 
-    src = graph.getNode(longNameToNodeID.get(startName));
-    dest = graph.getNode(longNameToNodeID.get(endName));
+    int srcN = graph.getNodeIDfromLongName(startName);
+    int destN = graph.getNodeIDfromLongName(endName);
+
+    src = graph.getNode(srcN);
+    dest = graph.getNode(destN);
     changeFloorFromString(src.getFloor());
 
     List<GraphNode> path = graph.getPathway(src, dest);
@@ -421,7 +457,12 @@ public class PathFindingController {
   void getNextFloor(ActionEvent event) throws IOException {
     pathLoc++;
     edges.getChildren().clear();
-    changeFloorFromString(splitPath.get(pathLoc).get(1).getFloor());
+
+    if (splitPath.get(pathLoc).size() > 1) {
+      changeFloorFromString(splitPath.get(pathLoc).get(1).getFloor());
+    } else {
+      changeFloorFromString(splitPath.get(pathLoc).get(0).getFloor());
+    }
     prevFloor.setDisable(false);
 
     if (pathLoc == splitPath.size() - 1) {
@@ -436,9 +477,13 @@ public class PathFindingController {
   void getPrevFloor(ActionEvent event) throws IOException {
     nextFloor.setDisable(false);
     pathLoc--;
-
     edges.getChildren().clear();
-    changeFloorFromString(splitPath.get(pathLoc).get(1).getFloor());
+
+    if (splitPath.get(pathLoc).size() > 1) {
+      changeFloorFromString(splitPath.get(pathLoc).get(1).getFloor());
+    } else {
+      changeFloorFromString(splitPath.get(pathLoc).get(0).getFloor());
+    }
 
     if (pathLoc == 0) {
       prevFloor.setDisable(true);
@@ -467,6 +512,27 @@ public class PathFindingController {
     algChoice.setText("DFS");
     AlgoSingleton.INSTANCE.setType(algChoice.getText());
     activateSubmit();
+  }
+
+  @FXML
+  void getChoiceDijkstra(ActionEvent event) {
+    algChoice.setText("Dijkstra");
+    AlgoSingleton.INSTANCE.setType(algChoice.getText());
+    activateSubmit();
+  }
+
+  @FXML
+  void doLocToggle() {
+    toggleStatus = !toggleStatus;
+
+    if (toggleStatus) {
+      group.getChildren().remove(mapText);
+      group.getChildren().add(mapText);
+      placeText(floor);
+    } else {
+      group.getChildren().remove(mapText);
+      mapText = new Group();
+    }
   }
 
   @FXML

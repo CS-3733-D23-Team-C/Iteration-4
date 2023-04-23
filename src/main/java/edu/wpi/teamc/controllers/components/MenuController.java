@@ -24,7 +24,7 @@ public class MenuController {
 
   @FXML public MFXButton Admin_menu_movetable;
 
-  @FXML private Pane menuPane;
+  @FXML private Pane menuPane1;
   @FXML private ImageView homeButton;
   @FXML private ImageView serviceRequestButton;
 
@@ -59,7 +59,7 @@ public class MenuController {
 
   // _______________________________________________________________________________________//
 
-  @FXML private AnchorPane menuPane1;
+  @FXML private AnchorPane menuPane;
   @FXML private AnchorPane homeButton1;
   @FXML private AnchorPane serviceRequestButton1;
 
@@ -412,6 +412,7 @@ public class MenuController {
         event -> {
           CApp.setAdminLoginCheck(false);
           Navigation.navigate(Screen.HOME);
+          Navigation.setMenuType(Navigation.MenuType.DISABLED);
         });
     exitTrigger1.addEventFilter(
         MouseEvent.MOUSE_CLICKED,

@@ -135,6 +135,11 @@ public class HomeController {
   }
 
   @FXML
+  void getSignUp(ActionEvent event) {
+    Navigation.navigate(Screen.SIGNUP_PAGE);
+  }
+
+  @FXML
   public void getExit(ActionEvent actionEvent) {
     Navigation.navigate(Screen.EXIT_PAGE);
   }

@@ -8,7 +8,6 @@ import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import io.github.palexdev.materialfx.enums.ButtonType;
 import java.awt.*;
 import java.io.BufferedReader;
@@ -21,7 +20,6 @@ import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -42,6 +40,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import net.kurobako.gesturefx.GesturePane;
+import org.controlsfx.control.ToggleSwitch;
 
 public class EditMapController {
   public Group group;
@@ -211,15 +210,15 @@ public class EditMapController {
    */
   @FXML ComboBox filterBox;
   @FXML Text shortToggleText;
-  @FXML MFXToggleButton shortToggle;
+  @FXML ToggleSwitch shortToggle;
   @FXML Text confToggleText;
-  @FXML MFXToggleButton confToggle;
+  @FXML ToggleSwitch confToggle;
   @FXML Text hallToggleText;
-  @FXML MFXToggleButton hallToggle;
+  @FXML ToggleSwitch hallToggle;
   @FXML Text elevToggleText;
-  @FXML MFXToggleButton elevToggle;
+  @FXML ToggleSwitch elevToggle;
   @FXML VBox toggleBox;
-  @FXML MFXToggleButton edgeToggle;
+  @FXML ToggleSwitch edgeToggle;
 
   @FXML Text edgeToggleText;
   Boolean shortShown = true;
@@ -244,18 +243,18 @@ public class EditMapController {
     mapGPane.zoomTo(0.5, mapGPane.targetPointAtViewportCentre());
 
     // Make and display toggle buttons ************
-    MFXToggleButton shortnameToggle = new MFXToggleButton();
-    MFXToggleButton confToggle = new MFXToggleButton();
-    MFXToggleButton hallToggle = new MFXToggleButton();
-    MFXToggleButton elevToggle = new MFXToggleButton();
-    List<MFXToggleButton> toggleButtons = new ArrayList<MFXToggleButton>();
+    //    MFXToggleButton shortnameToggle = new MFXToggleButton();
+    //    MFXToggleButton confToggle = new MFXToggleButton();
+    //    MFXToggleButton hallToggle = new MFXToggleButton();
+    //    MFXToggleButton elevToggle = new MFXToggleButton();
+    //    List<MFXToggleButton> toggleButtons = new ArrayList<MFXToggleButton>();
+    //
+    //    toggleButtons.add(shortnameToggle);
+    //    toggleButtons.add(confToggle);
+    //    toggleButtons.add(hallToggle);
+    //    toggleButtons.add(elevToggle);
 
-    toggleButtons.add(shortnameToggle);
-    toggleButtons.add(confToggle);
-    toggleButtons.add(hallToggle);
-    toggleButtons.add(elevToggle);
-
-    filterBox.setItems(FXCollections.observableArrayList(toggleButtons));
+    //    filterBox.setItems(FXCollections.observableArrayList(toggleButtons));
     // Does not work *********
 
     shortToggleText.getStyleClass().add("toggleText");
@@ -274,7 +273,7 @@ public class EditMapController {
         .getStylesheets()
         .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
 
-    group.getChildren().addAll(mapNodes, mapText, movingNode, movingText, filterBox); // nodes
+    group.getChildren().addAll(mapNodes, mapText, movingNode, movingText); // nodes
     //    group.getChildren().add(mapText); // shortnames of nodes
     Pane pane = new Pane();
     pane.setMinWidth(image.getWidth());

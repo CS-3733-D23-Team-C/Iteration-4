@@ -114,6 +114,7 @@ public class HomeController {
               CApp.setAdminLoginCheck(false);
             }
             Navigation.navigate(Screen.ADMIN_HOME);
+            Navigation.setMenuType(Navigation.MenuType.ADMIN);
           } else {
             // Show Error Message
             wrongPass.setVisible(true);
@@ -132,6 +133,7 @@ public class HomeController {
   @FXML
   void getGuest(ActionEvent event) {
     Navigation.navigate(Screen.GUEST_HOME);
+    Navigation.setMenuType(Navigation.MenuType.GUEST);
   }
 
   @FXML

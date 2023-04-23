@@ -19,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -100,6 +101,10 @@ public class PathFindingController {
     pane.setMinHeight(image.getHeight());
     pane.setMaxHeight(image.getHeight());
     pane.relocate(0, 0);
+
+    Point2D centrePoint = new Point2D(1100, 400);
+    mapGPane.centreOn(centrePoint);
+    mapGPane.zoomTo(0.3, mapGPane.targetPointAtViewportCentre());
 
     group.getChildren().add(pane);
 

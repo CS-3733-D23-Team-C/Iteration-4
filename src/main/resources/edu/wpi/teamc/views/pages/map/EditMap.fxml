@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -83,6 +85,7 @@
                                     <MFXButton fx:id="Remove" onAction="#changeMapMode" prefWidth="70.0" style=" -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Remove" textFill="#02143b" />
                                     <MFXButton fx:id="Move" layoutX="23.0" layoutY="154.0" onAction="#changeMapMode" prefWidth="70.0" style=" -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Move" textFill="#02143b" />
                                     <MFXButton fx:id="Edges" onAction="#changeMapMode" prefWidth="70.0" style=" -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Edges" textFill="#02143b" />
+                                    <MFXButton fx:id="Align" onAction="#changeMapMode" prefWidth="70.0" style=" -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Align" textFill="#02143b" />
                                  </children>
                                  <padding>
                                     <Insets bottom="20.0" top="20.0" />
@@ -201,6 +204,21 @@
                                  </padding>
                               </VBox>
                               <Text fx:id="edgeMadeText" layoutX="191.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 30; -fx-font-family: arial;" wrappingWidth="202.5367431640625" />
+                              <ComboBox fx:id="filterBox" layoutX="1108.0" layoutY="248.0" prefHeight="25.0" prefWidth="74.0" promptText="Filters" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="248.0" />
+                              <VBox fx:id="toggleBox" layoutX="1122.0" layoutY="303.0" prefHeight="232.0" prefWidth="84.0">
+                                 <children>
+                                    <Text fx:id="edgeToggleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Edges" />
+                                    <MFXToggleButton fx:id="edgeToggle" style="-fx-background-color: #FFFFFF;" />
+                                    <Text fx:id="shortToggleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Shortnames" />
+                                    <MFXToggleButton fx:id="shortToggle" style="-fx-background-color: #FFFFFF;" />
+                                    <Text fx:id="confToggleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Conf Rooms" />
+                                    <MFXToggleButton fx:id="confToggle" style="-fx-background-color: #FFFFFF;" />
+                                    <Text fx:id="elevToggleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Elevators" />
+                                    <MFXToggleButton fx:id="elevToggle" style="-fx-background-color: #FFFFFF;" />
+                                    <Text fx:id="hallToggleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Hallways" />
+                                    <MFXToggleButton fx:id="hallToggle" style="-fx-background-color: #FFFFFF;" />
+                                 </children>
+                              </VBox>
                            </children>
                         </AnchorPane>
                           </children>

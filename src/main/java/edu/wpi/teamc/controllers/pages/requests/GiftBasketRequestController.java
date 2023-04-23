@@ -6,23 +6,12 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 
 public class GiftBasketRequestController {
   @FXML private MFXButton goHome;
   @FXML private MFXButton submit;
 
   @FXML private MFXButton clear;
-
-  @FXML private MenuItem choice0;
-
-  @FXML private MenuItem chocie1;
-
-  @FXML private MenuItem chocie2;
-
-  @FXML private MenuItem chocie3;
-
-  @FXML private MenuItem choice4;
 
   @FXML private MenuButton menuButton;
   @FXML private MenuButton roomID;

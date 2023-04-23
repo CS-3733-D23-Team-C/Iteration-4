@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class FurnitureDeliveryRequest extends AbsServiceRequest {
 
-  private String furnitureType;
+  private String furnituretype;
   private String eta;
 
   FurnitureDeliveryRequest(
@@ -16,17 +16,17 @@ public class FurnitureDeliveryRequest extends AbsServiceRequest {
       IUser requester,
       String roomName,
       String additionalNotes,
-      String furnitureType,
+      String furnituretype,
       String eta) {
     super(requestID, requester, roomName, additionalNotes);
-    this.furnitureType = furnitureType;
+    this.furnituretype = furnituretype;
     this.eta = eta;
   }
 
   public FurnitureDeliveryRequest(
-      IUser requester, String roomName, String additionalNotes, String furnitureType) {
+      IUser requester, String roomName, String additionalNotes, String furnituretype) {
     super(requester, roomName, additionalNotes);
-    this.furnitureType = furnitureType;
+    this.furnituretype = furnituretype;
   }
 
   public FurnitureDeliveryRequest() {}

@@ -1,7 +1,6 @@
 package edu.wpi.teamc.dao.users;
 
 import edu.wpi.teamc.dao.IDao;
-import java.sql.SQLException;
 import java.util.List;
 
 public class PatientUserDao implements IDao<PatientUser, Integer> {
@@ -11,7 +10,7 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
   }
 
   @Override
-  public PatientUser updateRow(PatientUser type, PatientUser type2)  {
+  public PatientUser updateRow(PatientUser type, PatientUser type2) {
     return null;
   }
 
@@ -21,12 +20,12 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
   }
 
   @Override
-  public PatientUser deleteRow(PatientUser type)  {
+  public PatientUser deleteRow(PatientUser type) {
     return null;
   }
 
   @Override
-  public PatientUser fetchObject(Integer key)  {
+  public PatientUser fetchObject(Integer key) {
     return null;
   }
 }

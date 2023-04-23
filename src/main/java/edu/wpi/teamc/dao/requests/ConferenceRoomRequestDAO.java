@@ -64,8 +64,8 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
       ps.setString(3, orm.getStatus().toString());
       ps.setString(4, orm.getStartTime());
       ps.setString(5, orm.getEndTime());
-      ps.setString(6, orm.getAssignedto());
-      ps.setString(7, orm.getAdditionalNotes());
+      ps.setString(6, orm.getAdditionalNotes());
+      ps.setString(7, orm.getAssignedto());
       ps.executeUpdate();
 
       ResultSet rs = ps.getGeneratedKeys();
@@ -114,7 +114,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
     return repl;
   }
 
-  public ConferenceRoomRequest deleteRow(ConferenceRoomRequest orm) throws SQLException {
+  public ConferenceRoomRequest deleteRow(ConferenceRoomRequest orm) {
     DBConnection db = new DBConnection();
     try {
       Statement stmtNode = db.getConnection().createStatement();
@@ -132,7 +132,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
   }
 
   @Override
-  public ConferenceRoomRequest fetchObject(Integer key) throws SQLException {
+  public ConferenceRoomRequest fetchObject(Integer key) {
     ConferenceRoomRequest request = null;
     try {
       DBConnection db = new DBConnection();

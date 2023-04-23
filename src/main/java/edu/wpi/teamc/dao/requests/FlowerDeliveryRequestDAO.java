@@ -6,7 +6,6 @@ import edu.wpi.teamc.dao.users.IUser;
 import edu.wpi.teamc.dao.users.PatientUser;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -148,7 +147,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
   }
 
   @Override
-  public FlowerDeliveryRequest fetchObject(Integer key) throws SQLException {
+  public FlowerDeliveryRequest fetchObject(Integer key) {
     FlowerDeliveryRequest fdr = null;
     try {
       DBConnection db = new DBConnection();

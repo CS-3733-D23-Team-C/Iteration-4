@@ -6,7 +6,6 @@ import edu.wpi.teamc.dao.users.IUser;
 import edu.wpi.teamc.dao.users.PatientUser;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +92,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
   }
 
   @Override
-  public OfficeSuppliesRequest fetchObject(Integer key) throws SQLException {
+  public OfficeSuppliesRequest fetchObject(Integer key) {
     OfficeSuppliesRequest request = null;
     try {
       DBConnection db = new DBConnection();

@@ -114,7 +114,7 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
   }
 
   @Override
-  public EmployeeUser fetchObject(Integer key) throws SQLException {
+  public EmployeeUser fetchObject(Integer key) {
     return null;
   }
 }

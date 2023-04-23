@@ -119,7 +119,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
   }
 
   @Override
-  public FurnitureDeliveryRequest fetchObject(Integer key) throws SQLException {
+  public FurnitureDeliveryRequest fetchObject(Integer key) {
     FurnitureDeliveryRequest request = null;
     try {
       DBConnection db = new DBConnection();

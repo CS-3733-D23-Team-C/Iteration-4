@@ -5,7 +5,6 @@ import edu.wpi.teamc.dao.IDao;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -153,7 +152,7 @@ public class NodeDao implements IDao<Node, Integer> {
   }
 
   @Override
-  public Node fetchObject(Integer key) throws SQLException {
+  public Node fetchObject(Integer key) {
     Node node = null;
     DBConnection db = new DBConnection();
 

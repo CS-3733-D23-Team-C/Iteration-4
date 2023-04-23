@@ -1,16 +1,15 @@
 package edu.wpi.teamc.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface IDao<T, S> {
-  List<T> fetchAllObjects() throws SQLException;
+  List<T> fetchAllObjects();
 
-  T updateRow(T type, T type2) throws SQLException;
+  T updateRow(T type, T type2);
 
   T addRow(T type);
 
-  T deleteRow(T type) throws SQLException;
+  T deleteRow(T type);
 
-  T fetchObject(S key) throws SQLException;
+  T fetchObject(S key);
 }

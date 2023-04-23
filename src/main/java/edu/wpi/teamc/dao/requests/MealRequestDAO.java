@@ -119,7 +119,7 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
   }
 
   @Override
-  public MealRequest fetchObject(Integer key) throws SQLException {
+  public MealRequest fetchObject(Integer key) {
     MealRequest request = null;
     try {
       DBConnection db = new DBConnection();

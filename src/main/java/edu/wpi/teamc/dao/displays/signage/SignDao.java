@@ -1,8 +1,7 @@
-package edu.wpi.teamc.dao.displays;
+package edu.wpi.teamc.dao.displays.signage;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +12,7 @@ import java.util.List;
 public class SignDao implements IDao<Sign, Integer> {
 
   @Override
-  public List<Sign> fetchAllObjects() throws SQLException {
+  public List<Sign> fetchAllObjects() {
     List<Sign> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
     try {
@@ -41,16 +40,15 @@ public class SignDao implements IDao<Sign, Integer> {
   }
 
   @Override
-  public Sign updateRow(Sign orm, Sign repl) throws SQLException {
+  public Sign updateRow(Sign orm, Sign repl) {
     Sign sign = null;
     DBConnection db = new DBConnection();
     try {
-      String query =
-          "UPDATE \"displays\".\"Signage\" SET id = ?, name = ? WHERE id = ?;";
+      String query = "UPDATE \"displays\".\"Signage\" SET id = ?, name = ? WHERE id = ?;";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
-        ps.setInt(1, repl.id);
-        ps.setString(2, repl.name);
-        ps.setInt(3, orm.id);
+      ps.setInt(1, repl.id);
+      ps.setString(2, repl.name);
+      ps.setInt(3, orm.id);
       ps.executeUpdate();
       sign = repl;
     } catch (SQLException e) {
@@ -64,15 +62,15 @@ public class SignDao implements IDao<Sign, Integer> {
   public Sign addRow(Sign type) {
     DBConnection db = new DBConnection();
     try {
-      String query =
-          "INSERT INTO \"displays\".\"Signage\" (name) VALUES (?)";
-      PreparedStatement ps = db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+      String query = "INSERT INTO \"displays\".\"Signage\" (name) VALUES (?)";
+      PreparedStatement ps =
+          db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
       ps.setString(1, type.getName());
       ps.executeUpdate();
-        ResultSet rs = ps.getGeneratedKeys();
-        if (rs.next()) {
-            type.id = rs.getInt(1);
-        }
+      ResultSet rs = ps.getGeneratedKeys();
+      if (rs.next()) {
+        type.id = rs.getInt(1);
+      }
 
     } catch (SQLException e) {
       throw new RuntimeException(e);
@@ -83,13 +81,12 @@ public class SignDao implements IDao<Sign, Integer> {
   }
 
   @Override
-  public Sign deleteRow(Sign type) throws SQLException {
+  public Sign deleteRow(Sign type) {
     DBConnection db = new DBConnection();
     try {
-      String q =
-          "DELETE FROM \"displays\".\"Signage\" WHERE id = ?";
+      String q = "DELETE FROM \"displays\".\"Signage\" WHERE id = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(q);
-        ps.setInt(1, type.id);
+      ps.setInt(1, type.id);
       ps.executeUpdate();
     } catch (SQLException e) {
       throw new RuntimeException(e);
@@ -100,13 +97,12 @@ public class SignDao implements IDao<Sign, Integer> {
   }
 
   @Override
-  public Sign fetchObject(Integer key) throws SQLException {
+  public Sign fetchObject(Integer key) {
     DBConnection db = new DBConnection();
     try {
-      String query =
-          "SELECT * FROM \"displays\".\"Signage\" WHERE id = ?";
+      String query = "SELECT * FROM \"displays\".\"Signage\" WHERE id = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
-        ps.setInt(1, key);
+      ps.setInt(1, key);
       ResultSet rs = ps.executeQuery();
       if (rs.next()) {
         int id = rs.getInt("id");

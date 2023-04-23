@@ -114,7 +114,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
     return repl;
   }
 
-  public ConferenceRoomRequest deleteRow(ConferenceRoomRequest orm) throws SQLException {
+  public ConferenceRoomRequest deleteRow(ConferenceRoomRequest orm) {
     DBConnection db = new DBConnection();
     try {
       Statement stmtNode = db.getConnection().createStatement();
@@ -132,7 +132,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
   }
 
   @Override
-  public ConferenceRoomRequest fetchObject(Integer key) throws SQLException {
+  public ConferenceRoomRequest fetchObject(Integer key) {
     ConferenceRoomRequest request = null;
     try {
       DBConnection db = new DBConnection();

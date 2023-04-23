@@ -3,11 +3,9 @@ package edu.wpi.teamc.navigation;
 public enum Screen {
   // -------NON USING PAGES-------//
   ROOT("views/Root.fxml"),
-  //  PATHFINDING("views/english/PathfindingIt1.fxml"),
-  // ELEVATOR_SIGNAGE("views/english/ElevatorSignage.fxml"),
 
   // -------MAP & SIGNAGE-------//
-  SIGNAGE("views/pages/map/ElevatorSignage.fxml"),
+  SIGNAGE("views/pages/displays/Signage.fxml"),
   GUEST_SIGNAGE("views/pages/guest/GuestElevatorSignage.fxml"),
   MOVE_TABLE("views/pages/map/MoveTable.fxml"),
   MAP_HISTORY_PAGE("views/pages/map/MapHistory.fxml"),

@@ -53,8 +53,8 @@ public class Navigation {
       final FXMLLoader guestMenuBarLoader =
           new FXMLLoader(CApp.class.getResource("views/pages/guest/GuestMenu.fxml"));
 
-      updateMenu();
       CApp.getRootPane().setCenter(loader.load());
+      updateMenu();
 
     } catch (IOException | NullPointerException e) {
       e.printStackTrace();

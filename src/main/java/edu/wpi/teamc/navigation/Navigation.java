@@ -18,7 +18,7 @@ public class Navigation {
   public static void setMenuType(MenuType menuType) {
     Navigation.menuType = menuType;
 
-    System.out.println("changed");
+    // System.out.println("changed");
 
     updateMenu();
   }

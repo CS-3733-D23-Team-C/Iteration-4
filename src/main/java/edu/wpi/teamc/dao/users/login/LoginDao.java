@@ -31,9 +31,6 @@ public class LoginDao implements IDao<Login, String> {
         PERMISSIONS permissions = PERMISSIONS.valueOf(rs.getString("permissions"));
         String salt = rs.getString("salt");
         String otp = rs.getString("otp");
-        if (otp == null || otp.equalsIgnoreCase("null")) {
-          otp = null;
-        }
         Login login = new Login(username, password, permissions, salt, otp);
         returnList.add(login);
       }
@@ -65,7 +62,7 @@ public class LoginDao implements IDao<Login, String> {
       ps.setString(2, repl.hashedPassword);
       ps.setString(3, repl.getPermissions().toString());
       ps.setString(4, repl.salt);
-      ps.setString(5, repl.otp);
+      ps.setString(5, repl.getOtp());
       ps.setString(6, orm.getUsername());
       ps.execute();
       db.closeConnection();
@@ -93,7 +90,7 @@ public class LoginDao implements IDao<Login, String> {
       ps.setString(2, type.hashedPassword);
       ps.setString(3, type.getPermissions().toString());
       ps.setString(4, type.salt);
-      ps.setString(5, type.otp);
+      ps.setString(5, type.getOtp());
       ps.execute();
       db.closeConnection();
     } catch (Exception e) {
@@ -124,30 +121,31 @@ public class LoginDao implements IDao<Login, String> {
   }
 
   @Override
-  public Login fetchObject(String key) throws SQLException {
+  public Login fetchObject(String key) {
     DBConnection db = new DBConnection();
     Login login = null;
-    key = key.toLowerCase();
-    // table names
-    String table = "\"users\".\"login\"";
-    // queries
-    String query = "SELECT * FROM " + table + " WHERE username = ?";
+    try {
+      key = key.toLowerCase();
+      // table names
+      String table = "\"users\".\"login\"";
+      // queries
+      String query = "SELECT * FROM " + table + " WHERE username = ?";
 
-    PreparedStatement ps = db.getConnection().prepareStatement(query);
-    ps.setString(1, key);
-    ResultSet rs = ps.executeQuery();
+      PreparedStatement ps = db.getConnection().prepareStatement(query);
+      ps.setString(1, key);
+      ResultSet rs = ps.executeQuery();
 
-    while (rs.next()) {
-      // Get all the data from the table
-      String username = rs.getString("username");
-      String password = rs.getString("password");
-      PERMISSIONS permissions = PERMISSIONS.valueOf(rs.getString("permissions"));
-      String salt = rs.getString("salt");
-      String otp = rs.getString("otp");
-      if (otp == null || otp.equalsIgnoreCase("null")) {
-        otp = null;
+      while (rs.next()) {
+        // Get all the data from the table
+        String username = rs.getString("username");
+        String password = rs.getString("password");
+        PERMISSIONS permissions = PERMISSIONS.valueOf(rs.getString("permissions"));
+        String salt = rs.getString("salt");
+        String otp = rs.getString("otp");
+        login = new Login(username, password, permissions, salt, otp);
       }
-      login = new Login(username, password, permissions, salt, otp);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
 
     return login;

@@ -10,7 +10,6 @@ import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.dao.users.EmployeeUserDao;
 import edu.wpi.teamc.dao.users.login.Login;
 import edu.wpi.teamc.dao.users.login.LoginDao;
-import java.sql.SQLException;
 import java.util.List;
 
 // facade pattern
@@ -118,11 +117,7 @@ public class HospitalSystem {
     } else if (request instanceof Move) {
       return moveDao.deleteRow((Move) request);
     } else if (request instanceof ConferenceRoomRequest) {
-      try {
-        return conferenceRoomRequestDAO.deleteRow((ConferenceRoomRequest) request);
-      } catch (SQLException e) {
-        throw new RuntimeException(e);
-      }
+      return conferenceRoomRequestDAO.deleteRow((ConferenceRoomRequest) request);
     } else if (request instanceof EmployeeUser) {
       return employeeDao.deleteRow((EmployeeUser) request);
     } else if (request instanceof FlowerDeliveryRequest) {

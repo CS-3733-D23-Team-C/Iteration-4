@@ -3,6 +3,9 @@ package edu.wpi.teamc.graph;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.map.*;
 import java.sql.*;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Graph {
@@ -13,6 +16,8 @@ public class Graph {
   protected Map<GraphNode, Double> distance = new HashMap<>();
   protected Map<GraphNode, String> nodeType = new HashMap<>();
   protected Map<Integer, String> nodeIDtoLongName = new HashMap<>();
+  protected HashMap<String, Integer> longNameToNodeID = new HashMap<>();
+  protected Map<Integer, Date> nodeIDtoLastDate = new HashMap<>();
   protected Map<String, String> longNameToNodeType = new HashMap<>();
   protected PriorityQueue<GraphNode> pq;
   protected final double DIST_DEFAULT = Double.POSITIVE_INFINITY;
@@ -26,12 +31,20 @@ public class Graph {
       algo = new AStar();
     } else if (algoChoice.equals("BFS")) {
       algo = new BFS();
-    } else {
+    } else if (algoChoice.equals("DFS")) {
       algo = new DFS();
+    } else {
+      algo = new Dijkstra();
     }
   }
 
-  public void syncWithDB() {
+  public void massPutMove(Move move) {
+    nodeIDtoLastDate.put(move.getNodeID(), move.getDate());
+    nodeIDtoLongName.put(move.getNodeID(), move.getLongName());
+    longNameToNodeID.put(move.getLongName(), move.getNodeID());
+  }
+
+  public void syncWithDB(String date) {
     IDao<Node, Integer> nodeDao = new NodeDao();
     IDao<Edge, Edge> edgeDao = new EdgeDao();
     IDao<Move, Move> moveDao = new MoveDao();
@@ -50,9 +63,30 @@ public class Graph {
       // error
     }
 
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    java.util.Date locDate;
+    try {
+      locDate = format.parse(date);
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+    }
+
+    Date dateObj = new Date(locDate.getTime());
+
     for (Move move : moves) {
-      if (move.getDate().toString().equals("2023-01-01"))
-        nodeIDtoLongName.put(move.getNodeID(), move.getLongName());
+      // store the move for the desired date
+      if (move.getDate().equals(dateObj)) {
+        massPutMove(move);
+      } else if (move.getDate().compareTo(dateObj) < 0) {
+        nodeIDtoLastDate.putIfAbsent(move.getNodeID(), move.getDate());
+        nodeIDtoLongName.putIfAbsent(move.getNodeID(), move.getLongName());
+        longNameToNodeID.putIfAbsent(move.getLongName(), move.getNodeID());
+
+        // if date is more recent than the one currently stored
+        if (nodeIDtoLastDate.get(move.getNodeID()).compareTo(move.getDate()) < 0) {
+          massPutMove(move);
+        }
+      }
     }
 
     for (LocationName loc : locs) {
@@ -168,5 +202,9 @@ public class Graph {
 
   public GraphNode getNode(int nodeID) {
     return nodes.get(nodeID);
+  }
+
+  public int getNodeIDfromLongName(String longName) {
+    return longNameToNodeID.get(longName);
   }
 }

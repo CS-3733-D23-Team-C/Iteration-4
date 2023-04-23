@@ -117,7 +117,7 @@ public class MoveDao implements IDao<Move, Move> {
   }
 
   @Override
-  public Move fetchObject(Move key) throws SQLException {
+  public Move fetchObject(Move key) {
     DBConnection db = new DBConnection();
     Move move = null;
     try {

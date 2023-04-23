@@ -39,7 +39,7 @@
                         </AnchorPane>
                         <FilteredTableView fx:id="historyTable" layoutX="15.0" layoutY="15.0" prefHeight="561.0" prefWidth="1204.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="70.0">
                            <columns>
-                              <TableColumn fx:id="Column1" prefWidth="240" text="" />
+                              <TableColumn fx:id="Column1" prefWidth="40" text="" />
                               <TableColumn fx:id="Column2" prefWidth="240" text="" />
                               <TableColumn fx:id="Column3" prefWidth="240" text="" />
                               <TableColumn fx:id="Column4" prefWidth="240" text="" />

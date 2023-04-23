@@ -15,11 +15,16 @@ public class PatientUser extends AbsUser {
     this.room = room;
   }
 
+  public PatientUser(String name) {
+    this.name = name;
+  }
+
   public boolean validPatient(String name, String phone) {
     if (this.name == name && this.phone == phone) {
       return true;
-    } else
+    } else {
       return false;
+    }
   }
 
   public String toString() {
@@ -34,14 +39,11 @@ public class PatientUser extends AbsUser {
     return this.out;
   }
 
-  public String getRoom(){
+  public String getRoom() {
     return this.room;
   }
 
-  public String getPhone(){
+  public String getPhone() {
     return this.phone;
   }
-
 }
-
-

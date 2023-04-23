@@ -2,7 +2,6 @@ package edu.wpi.teamc.dao.users;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,17 +12,15 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
     List<PatientUser> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
 
-    try(Connection con = db.getConnection();
-        PreparedStatement ps =
-                con.prepareStatement(" SELECT * FROM \"users\".\"patient\" ");
-        ResultSet rs = ps.executeQuery()
-    ) {
+    try (Connection con = db.getConnection();
+        PreparedStatement ps = con.prepareStatement(" SELECT * FROM \"users\".\"patient\" ");
+        ResultSet rs = ps.executeQuery()) {
 
       while (rs.next()) {
         // Get all the data from the table
         int id = rs.getInt("patientID");
         String name = rs.getString("name");
-       // String notes = rs.getString("additionalNotes");
+        // String notes = rs.getString("additionalNotes");
         String timeIn = rs.getString("timeIn");
         String timeOut = rs.getString("timeOut");
         String phoneNumber = rs.getString("phoneNumber");
@@ -46,7 +43,7 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
       String table = "\"users\".\"patient\"";
       // queries
       String query =
-              "UPDATE patient SET name = ?, checkin = ?, checkout = ?, phone = ?, room = ? WHERE id = ?";
+          "UPDATE patient SET name = ?, checkin = ?, checkout = ?, phone = ?, room = ? WHERE id = ?";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, repl.getName());
@@ -68,9 +65,9 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
     DBConnection db = new DBConnection();
     try {
       String query =
-              "INSERT INTO \"users\".\"patient\" (id, name, checkin, checkout, phone, room) VALUES (?,?,?,?,?,?)";
+          "INSERT INTO \"users\".\"patient\" (id, name, checkin, checkout, phone, room) VALUES (?,?,?,?,?,?)";
       PreparedStatement ps =
-              db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+          db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
       ps.setInt(1, orm.getId());
       ps.setString(2, orm.getName());
@@ -84,8 +81,8 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
       rs.next();
       int id = rs.getInt("id");
       orm =
-              new PatientUser(
-                      id, orm.getName(), orm.getTimeIn(), orm.getTimeOut(), orm.getPhone(), orm.getRoom());
+          new PatientUser(
+              id, orm.getName(), orm.getTimeIn(), orm.getTimeOut(), orm.getPhone(), orm.getRoom());
     } catch (SQLException e) {
       e.printStackTrace();
     }

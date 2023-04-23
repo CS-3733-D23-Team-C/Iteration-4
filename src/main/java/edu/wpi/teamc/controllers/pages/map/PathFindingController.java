@@ -1,6 +1,7 @@
 package edu.wpi.teamc.controllers.pages.map;
 
 import edu.wpi.teamc.Main;
+import edu.wpi.teamc.controllers.pages.map.MapHelpers.TextDirectionsHelper;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.graph.AlgoSingleton;
 import edu.wpi.teamc.graph.Graph;
@@ -451,6 +452,13 @@ public class PathFindingController {
     }
 
     edges.toFront();
+
+    TextDirectionsHelper textHelper = new TextDirectionsHelper();
+    LinkedList<String> textDirections = textHelper.textDirections(path);
+
+    for (String s : textDirections) {
+      System.out.println(s);
+    }
   }
 
   @FXML

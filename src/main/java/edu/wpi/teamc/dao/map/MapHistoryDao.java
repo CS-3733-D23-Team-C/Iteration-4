@@ -35,8 +35,8 @@ public class MapHistoryDao implements IDao<MapHistory, Integer> {
     return returnList;
   }
 
-  public MapHistory updateRow(MapHistory type, MapHistory type2) throws SQLException {
-    System.out.println("Cannot update from MapHistory, can only add baby");
+  public MapHistory updateRow(MapHistory type, MapHistory type2) {
+    System.out.println("Cannot update from MapHistory, can only add ");
     return null;
   }
 
@@ -80,13 +80,13 @@ public class MapHistoryDao implements IDao<MapHistory, Integer> {
     return returnMapHistory;
   }
 
-  public MapHistory deleteRow(MapHistory type) throws SQLException {
-    System.out.println("Cannot delete from MapHistory, can only add baby");
+  public MapHistory deleteRow(MapHistory type) {
+    System.out.println("Cannot delete from MapHistory, can only add");
     return null;
   }
 
   @Override
-  public MapHistory fetchObject(Integer key) throws SQLException {
+  public MapHistory fetchObject(Integer key) {
     DBConnection db = new DBConnection();
     MapHistory returnMapHistory = null;
     try {

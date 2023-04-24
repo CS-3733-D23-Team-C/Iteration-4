@@ -17,14 +17,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.*;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class MenuController {
 
   @FXML public MFXButton Admin_menu_movetable;
 
-  @FXML private Pane menuPane;
+  @FXML private Pane menuPane1;
   @FXML private ImageView homeButton;
   @FXML private ImageView serviceRequestButton;
 
@@ -59,7 +59,7 @@ public class MenuController {
 
   // _______________________________________________________________________________________//
 
-  @FXML private AnchorPane menuPane1;
+  @FXML private AnchorPane menuPane;
   @FXML private AnchorPane homeButton1;
   @FXML private AnchorPane serviceRequestButton1;
 
@@ -212,12 +212,12 @@ public class MenuController {
   }
 
   @FXML
-  void getFurnitureHistory(ActionEvent event) {
-    //      Navigation.navigate(Screen.FURNITURE_HISTORY);
+  void getSignageEdit(ActionEvent event) {
+    Navigation.navigate(Screen.SIGNAGE_EDIT);
   }
 
   @FXML
-  void getConferenceHistory(ActionEvent event) {
+  void getRequestHistory(ActionEvent event) {
     Navigation.navigate(Screen.REQUEST_HISTORY);
   }
 
@@ -258,12 +258,12 @@ public class MenuController {
       Admin_menu_settings.setText("Settings");
       // HISTORY TEXT//
       Admin_menu_history.setText("History");
-      Admin_menu_flower_history.setText("Flower Delivery");
-      Admin_menu_furniture_history.setText("Furniture Delivery");
-      Admin_menu_meal_history.setText("Meal Delivery");
-      Admin_menu_stationary_history.setText("Office Supplies");
+      //      Admin_menu_flower_history.setText("Flower Delivery");
+      //      Admin_menu_furniture_history.setText("Furniture Delivery");
+      //      Admin_menu_meal_history.setText("Meal Delivery");
+      //      Admin_menu_stationary_history.setText("Office Supplies");
       Admin_menu_mapchange_history.setText("Map Changes");
-      Admin_menu_reservation_history.setText("Room Reservations");
+      //      Admin_menu_reservation_history.setText("Room Reservations");
       // Admin_menu_giftbasket_history.setText("Gift Basket Delivery");
       // NAVIGATION TEXT//
       Admin_menu_navigation.setText("Navigation");
@@ -410,7 +410,9 @@ public class MenuController {
     logoutTrigger1.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
+          CApp.setAdminLoginCheck(false);
           Navigation.navigate(Screen.HOME);
+          Navigation.setMenuType(Navigation.MenuType.DISABLED);
         });
     exitTrigger1.addEventFilter(
         MouseEvent.MOUSE_CLICKED,

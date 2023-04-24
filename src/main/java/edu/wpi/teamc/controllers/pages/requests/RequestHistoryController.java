@@ -8,6 +8,8 @@ import edu.wpi.teamc.dao.users.IUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,9 +19,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
-import java.util.List;
+public class RequestHistoryController extends AbsServiceRequest {
 
-public class RequestHistoryController {
+  public RequestHistoryController() {
+    super();
+  }
 
   /** */
   @FXML MFXButton backButton;
@@ -56,8 +60,12 @@ public class RequestHistoryController {
 
   @FXML Button updateButton;
   @FXML Button deleteButton;
+  @FXML SearchableComboBox filterButton;
+  int incrTest = 0;
+  String currTable;
 
   IRequest selectedRequest = null;
+  STATUS status2;
 
   @FXML
   void statusPending(ActionEvent event) {
@@ -114,6 +122,68 @@ public class RequestHistoryController {
           HospitalSystem.deleteRow((IOrm) selected);
           getSwitch(selected);
         });
+    ;
+
+    List<STATUS> statusList = new ArrayList<STATUS>();
+    statusList.add(STATUS.COMPLETE);
+    statusList.add(STATUS.CANCELLED);
+    statusList.add(STATUS.IN_PROGRESS);
+    statusList.add(STATUS.PENDING);
+    filterButton.setItems(FXCollections.observableArrayList(statusList));
+
+    filterButton.setOnAction(
+        event -> {
+          //          STATUS selected = STATUS.PENDING;
+          if (incrTest == 2) {
+            status2 = (STATUS) filterButton.getValue();
+            filterView(status2);
+            incrTest = -1;
+          }
+          incrTest++;
+        });
+  }
+
+  @FXML
+  public void filterView(STATUS selected) {
+
+    //    historyTable.getItems().stream().filter((IRequest)item -> item.getStatus)
+    if (selectedRequest instanceof ConferenceRoomRequest) {
+      List<ConferenceRoomRequest> currentView =
+          (List<ConferenceRoomRequest>) HospitalSystem.fetchAllObjects(new ConferenceRoomRequest());
+      List<ConferenceRoomRequest> filteredList = filterRequestConference(currentView, selected);
+      ObservableList<IRequest> rows = FXCollections.observableArrayList();
+      rows.addAll(filteredList);
+      historyTable.setItems(rows);
+    } else if (selectedRequest instanceof FlowerDeliveryRequest) {
+      List<FlowerDeliveryRequest> currentView =
+          (List<FlowerDeliveryRequest>) HospitalSystem.fetchAllObjects(new FlowerDeliveryRequest());
+      List<FlowerDeliveryRequest> filteredList = filterRequestFlower(currentView, selected);
+      ObservableList<IRequest> rows = FXCollections.observableArrayList();
+      rows.addAll(filteredList);
+      historyTable.setItems(rows);
+    } else if (selectedRequest instanceof MealRequest) {
+      List<MealRequest> currentView =
+          (List<MealRequest>) HospitalSystem.fetchAllObjects(new MealRequest());
+      List<MealRequest> filteredList = filterRequestMeal(currentView, selected);
+      ObservableList<IRequest> rows = FXCollections.observableArrayList();
+      rows.addAll(filteredList);
+      historyTable.setItems(rows);
+    } else if (selectedRequest instanceof FurnitureDeliveryRequest) {
+      List<FurnitureDeliveryRequest> currentView =
+          (List<FurnitureDeliveryRequest>)
+              HospitalSystem.fetchAllObjects(new FurnitureDeliveryRequest());
+      List<FurnitureDeliveryRequest> filteredList = filterRequestFurniture(currentView, selected);
+      ObservableList<IRequest> rows = FXCollections.observableArrayList();
+      rows.addAll(filteredList);
+      historyTable.setItems(rows);
+    } else if (selectedRequest instanceof OfficeSuppliesRequest) {
+      List<OfficeSuppliesRequest> currentView =
+          (List<OfficeSuppliesRequest>) HospitalSystem.fetchAllObjects(new OfficeSuppliesRequest());
+      List<OfficeSuppliesRequest> filteredList = filterRequestOfficeSupplies(currentView, selected);
+      ObservableList<IRequest> rows = FXCollections.observableArrayList();
+      rows.addAll(filteredList);
+      historyTable.setItems(rows);
+    }
   }
 
   @FXML
@@ -133,6 +203,7 @@ public class RequestHistoryController {
 
   @FXML
   private void getConference() {
+    currTable = "Conf";
     this.resetColor();
     this.clearCurrentSelection();
     conference.setStyle(selectedButtonColor);
@@ -152,7 +223,7 @@ public class RequestHistoryController {
     Column7.setCellValueFactory(new PropertyValueFactory<ConferenceRoomRequest, String>("endTime"));
     Column8.setCellValueFactory(
         new PropertyValueFactory<ConferenceRoomRequest, String>("assignedto"));
-    Column1.setText("requestID");
+    Column1.setText("ID");
     Column2.setText("Requester");
     Column3.setText("Room Name");
     Column4.setText("Status");
@@ -189,7 +260,7 @@ public class RequestHistoryController {
     Column7.setCellValueFactory(new PropertyValueFactory<FlowerDeliveryRequest, String>("eta"));
     Column8.setCellValueFactory(
         new PropertyValueFactory<FlowerDeliveryRequest, String>("assignedto"));
-    Column1.setText("requestID");
+    Column1.setText("ID");
     Column2.setText("Requester");
     Column3.setText("Room Name");
     Column4.setText("Flower");
@@ -221,7 +292,7 @@ public class RequestHistoryController {
     Column6.setCellValueFactory(new PropertyValueFactory<MealRequest, STATUS>("status"));
     Column7.setCellValueFactory(new PropertyValueFactory<MealRequest, String>("eta"));
     Column8.setCellValueFactory(new PropertyValueFactory<MealRequest, String>("assignedto"));
-    Column1.setText("requestID");
+    Column1.setText("ID");
     Column2.setText("Requester");
     Column3.setText("Room Name");
     Column4.setText("Meal");
@@ -259,7 +330,7 @@ public class RequestHistoryController {
     Column7.setCellValueFactory(new PropertyValueFactory<FurnitureDeliveryRequest, String>("eta"));
     Column8.setCellValueFactory(
         new PropertyValueFactory<FurnitureDeliveryRequest, String>("assignedto"));
-    Column1.setText("requestID");
+    Column1.setText("ID");
     Column2.setText("Requester");
     Column3.setText("Room Name");
     Column4.setText("Furniture");
@@ -298,7 +369,7 @@ public class RequestHistoryController {
     Column7.setCellValueFactory(new PropertyValueFactory<OfficeSuppliesRequest, String>("eta"));
     Column8.setCellValueFactory(
         new PropertyValueFactory<OfficeSuppliesRequest, String>("assignedto"));
-    Column1.setText("requestID");
+    Column1.setText("ID");
     Column2.setText("Requester");
     Column3.setText("Room Name");
     Column4.setText("Supply");
@@ -332,6 +403,7 @@ public class RequestHistoryController {
 
   private void updateCurrentSelection() {
     IRequest selected = (IRequest) historyTable.getSelectionModel().getSelectedItem();
+    // currTable = selected;
     if (selected != null) {
       idField.setText(Integer.toString(selected.getRequestID()));
       statusField.setText(selected.getStatus().toString());

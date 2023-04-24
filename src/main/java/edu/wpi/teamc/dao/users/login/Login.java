@@ -14,7 +14,7 @@ public class Login implements IOrm {
   @Getter private String username;
   @Getter String salt;
   @Getter String hashedPassword;
-  @Getter String otp;
+  private String otp;
   @Getter private PERMISSIONS permissions;
 
   public Login() {}
@@ -33,7 +33,11 @@ public class Login implements IOrm {
     this.permissions = permissions;
     this.salt = salt;
     this.hashedPassword = password;
-    this.otp = otp;
+    if (otp == null || otp.equalsIgnoreCase("null")) {
+      this.otp = null;
+    } else {
+      this.otp = otp;
+    }
   }
 
   public String saltPassword() {
@@ -109,5 +113,9 @@ public class Login implements IOrm {
       isCodeValid = false;
     }
     return isCodeValid;
+  }
+
+  String getOtp() {
+    return otp;
   }
 }

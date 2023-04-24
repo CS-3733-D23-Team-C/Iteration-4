@@ -15,7 +15,30 @@ import javafx.util.Duration;
 
 public class GuestMenuController {
 
-  @FXML private Pane menuPane;
+  @FXML private AnchorPane menuPane;
+  @FXML private AnchorPane homeButton1;
+  @FXML private AnchorPane navigationButton1;
+  @FXML private AnchorPane settingsButton1;
+  @FXML private AnchorPane helpButton1;
+  @FXML private AnchorPane exitButton1;
+  @FXML private AnchorPane logoutButton1;
+
+  @FXML private AnchorPane homeTrigger1;
+  @FXML private AnchorPane navigationTrigger1;
+  @FXML private AnchorPane settingsTrigger1;
+  @FXML private AnchorPane helpTrigger1;
+
+  @FXML private AnchorPane exitTrigger1;
+  @FXML private AnchorPane logoutTrigger1;
+  @FXML private AnchorPane navigationPopOut1;
+  @FXML private AnchorPane settingsPopOut1;
+  @FXML private AnchorPane helpPopOut1;
+
+  @FXML private AnchorPane exitPopOut1;
+  @FXML private AnchorPane logoutPopOut1;
+  @FXML private AnchorPane homePopOut1;
+  // _______________________________________________________________________________________________//
+  @FXML private Pane menuPane1;
   @FXML private ImageView homeButton;
   @FXML private ImageView navigationButton;
   @FXML private ImageView settingsButton;
@@ -41,12 +64,12 @@ public class GuestMenuController {
 
   @FXML
   void getSignagePage(ActionEvent event) {
-    Navigation.navigate(Screen.GUEST_SIGNAGE);
+    Navigation.navigate(Screen.SIGNAGE);
   }
 
   @FXML
   void getPathfindingPage(ActionEvent event) {
-    Navigation.navigate(Screen.GUEST_PATHFINDING_PAGE);
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
   }
 
   @FXML
@@ -72,22 +95,24 @@ public class GuestMenuController {
 
   @FXML
   public void initialize() {
-    homeTrigger.setVisible(false);
-    navigationTrigger.setVisible(false);
-    settingsTrigger.setVisible(false);
-    helpTrigger.setVisible(false);
+    homeTrigger1.setVisible(false);
+    navigationTrigger1.setVisible(false);
+    settingsTrigger1.setVisible(false);
+    helpTrigger1.setVisible(false);
 
-    exitTrigger.setVisible(false);
-    logoutTrigger.setVisible(false);
-    navigationPopOut.setVisible(false);
-    settingsPopOut.setVisible(false);
-    helpPopOut.setVisible(false);
+    exitTrigger1.setVisible(false);
+    logoutTrigger1.setVisible(false);
+    navigationPopOut1.setVisible(false);
+    settingsPopOut1.setVisible(false);
+    helpPopOut1.setVisible(false);
 
-    exitPopOut.setVisible(false);
-    logoutPopOut.setVisible(false);
-    homePopOut.setVisible(false);
+    exitPopOut1.setVisible(false);
+    logoutPopOut1.setVisible(false);
+    homePopOut1.setVisible(false);
     // basePane.setVisible(false);
     menuPane.setVisible(true);
+    menuPane.toFront();
+    basePane.toFront();
     TranslateTransition navigationPopOutTransition = new TranslateTransition();
     PauseTransition pause = new PauseTransition(Duration.millis(200));
     TranslateTransition serviceRequestPopOutTransition = new TranslateTransition();
@@ -121,6 +146,7 @@ public class GuestMenuController {
         MouseEvent.MOUSE_CLICKED,
         event -> {
           Navigation.navigate(Screen.HOME);
+          Navigation.setMenuType(Navigation.MenuType.DISABLED);
         });
     exitTrigger.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
@@ -128,7 +154,7 @@ public class GuestMenuController {
           Navigation.navigate(Screen.EXIT_PAGE);
         });
 
-    homeButton
+    homeButton1
         .hoverProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
@@ -139,9 +165,9 @@ public class GuestMenuController {
                       homePopOutTransition.setNode(homePopOut);
                       homePopOutTransition.setToX(180);
                       homePopOutTransition.play();
-                      homePopOut.setVisible(true);
-                      homeTrigger.setVisible(true);
-                      homeButton.setVisible(false);
+                      homePopOut1.setVisible(true);
+                      homeTrigger1.setVisible(true);
+                      homeButton1.setVisible(false);
                     });
                 delay.play();
               } else {
@@ -152,9 +178,9 @@ public class GuestMenuController {
                 homePopOutTransition.setOnFinished(
                     e -> {
                       if (!homePopOut.isHover() && !homeTrigger.isHover()) {
-                        homePopOut.setVisible(false);
-                        homeTrigger.setVisible(false);
-                        homeButton.setVisible(true);
+                        homePopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        homeButton1.setVisible(true);
                       }
                     });
                 homePopOutTransition.play();
@@ -173,9 +199,9 @@ public class GuestMenuController {
                 homePopOutTransition.setOnFinished(
                     e -> {
                       if (!homePopOut.isHover() && !homeTrigger.isHover()) {
-                        homePopOut.setVisible(false);
-                        homeTrigger.setVisible(false);
-                        homeButton.setVisible(true);
+                        homePopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        homeButton1.setVisible(true);
                       }
                     });
                 homePopOutTransition.play();
@@ -185,7 +211,7 @@ public class GuestMenuController {
               }
             });
 
-    homeTrigger
+    homeTrigger1
         .hoverProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
@@ -197,9 +223,9 @@ public class GuestMenuController {
                 homePopOutTransition.setOnFinished(
                     e -> {
                       if (!homePopOut.isHover() && !homeTrigger.isHover()) {
-                        homePopOut.setVisible(false);
-                        homeTrigger.setVisible(false);
-                        homeButton.setVisible(true);
+                        homePopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        homeButton1.setVisible(true);
                       }
                     });
                 homePopOutTransition.play();
@@ -211,7 +237,7 @@ public class GuestMenuController {
               }
             });
 
-    navigationButton
+    navigationButton1
         .hoverProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
@@ -222,9 +248,9 @@ public class GuestMenuController {
                       navigationPopOutTransition.setNode(navigationPopOut);
                       navigationPopOutTransition.setToX(180);
                       navigationPopOutTransition.play();
-                      navigationPopOut.setVisible(true);
-                      navigationTrigger.setVisible(true);
-                      navigationButton.setVisible(false);
+                      navigationPopOut1.setVisible(true);
+                      navigationTrigger1.setVisible(true);
+                      navigationButton1.setVisible(false);
                     });
                 delay.play();
               } else {
@@ -235,14 +261,15 @@ public class GuestMenuController {
                 navigationPopOutTransition.setOnFinished(
                     e -> {
                       if (!navigationPopOut.isHover() && !navigationTrigger.isHover()) {
-                        navigationPopOut.setVisible(false);
-                        navigationTrigger.setVisible(false);
-                        navigationButton.setVisible(true);
+                        navigationPopOut1.setVisible(false);
+                        navigationTrigger1.setVisible(false);
+                        navigationButton1.setVisible(true);
                       }
                     });
                 navigationPopOutTransition.play();
               }
             });
+
     navigationPopOut
         .hoverProperty()
         .addListener(
@@ -255,9 +282,9 @@ public class GuestMenuController {
                 navigationPopOutTransition.setOnFinished(
                     e -> {
                       if (!navigationPopOut.isHover() && !navigationTrigger.isHover()) {
-                        navigationPopOut.setVisible(false);
-                        navigationTrigger.setVisible(false);
-                        navigationButton.setVisible(true);
+                        navigationPopOut1.setVisible(false);
+                        navigationTrigger1.setVisible(false);
+                        navigationButton1.setVisible(true);
                       }
                     });
                 navigationPopOutTransition.play();
@@ -266,7 +293,8 @@ public class GuestMenuController {
                 navigationPopOut.setTranslateX(180);
               }
             });
-    navigationTrigger
+
+    navigationTrigger1
         .hoverProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
@@ -278,9 +306,9 @@ public class GuestMenuController {
                 navigationPopOutTransition.setOnFinished(
                     e -> {
                       if (!navigationPopOut.isHover() && !navigationTrigger.isHover()) {
-                        navigationPopOut.setVisible(false);
-                        navigationTrigger.setVisible(false);
-                        navigationButton.setVisible(true);
+                        navigationPopOut1.setVisible(false);
+                        navigationTrigger1.setVisible(false);
+                        navigationButton1.setVisible(true);
                       }
                     });
                 navigationPopOutTransition.play();
@@ -291,7 +319,8 @@ public class GuestMenuController {
                 navigationPopOutTransition.play();
               }
             });
-    settingsButton
+
+    settingsButton1
         .hoverProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
@@ -302,9 +331,9 @@ public class GuestMenuController {
                       settingsPopOutTransition.setNode(settingsPopOut);
                       settingsPopOutTransition.setToX(180);
                       settingsPopOutTransition.play();
-                      settingsPopOut.setVisible(true);
-                      settingsTrigger.setVisible(true);
-                      settingsButton.setVisible(false);
+                      settingsPopOut1.setVisible(true);
+                      settingsTrigger1.setVisible(true);
+                      settingsButton1.setVisible(false);
                     });
                 delay.play();
               } else {
@@ -315,14 +344,15 @@ public class GuestMenuController {
                 settingsPopOutTransition.setOnFinished(
                     e -> {
                       if (!settingsPopOut.isHover() && !settingsTrigger.isHover()) {
-                        settingsPopOut.setVisible(false);
-                        settingsTrigger.setVisible(false);
-                        settingsButton.setVisible(true);
+                        settingsPopOut1.setVisible(false);
+                        settingsTrigger1.setVisible(false);
+                        settingsButton1.setVisible(true);
                       }
                     });
                 settingsPopOutTransition.play();
               }
             });
+
     settingsPopOut
         .hoverProperty()
         .addListener(
@@ -335,9 +365,9 @@ public class GuestMenuController {
                 settingsPopOutTransition.setOnFinished(
                     e -> {
                       if (!settingsPopOut.isHover() && !settingsTrigger.isHover()) {
-                        settingsPopOut.setVisible(false);
-                        settingsTrigger.setVisible(false);
-                        settingsButton.setVisible(true);
+                        settingsPopOut1.setVisible(false);
+                        settingsTrigger1.setVisible(false);
+                        settingsButton1.setVisible(true);
                       }
                     });
                 settingsPopOutTransition.play();
@@ -346,7 +376,8 @@ public class GuestMenuController {
                 settingsPopOut.setTranslateX(180);
               }
             });
-    settingsTrigger
+
+    settingsTrigger1
         .hoverProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
@@ -358,9 +389,9 @@ public class GuestMenuController {
                 settingsPopOutTransition.setOnFinished(
                     e -> {
                       if (!settingsPopOut.isHover() && !settingsTrigger.isHover()) {
-                        settingsPopOut.setVisible(false);
-                        settingsTrigger.setVisible(false);
-                        settingsButton.setVisible(true);
+                        settingsPopOut1.setVisible(false);
+                        settingsTrigger1.setVisible(false);
+                        settingsButton1.setVisible(true);
                       }
                     });
                 settingsPopOutTransition.play();
@@ -371,7 +402,8 @@ public class GuestMenuController {
                 settingsPopOutTransition.play();
               }
             });
-    helpButton
+
+    helpButton1
         .hoverProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
@@ -382,9 +414,9 @@ public class GuestMenuController {
                       helpPopOutTransition.setNode(helpPopOut);
                       helpPopOutTransition.setToX(180);
                       helpPopOutTransition.play();
-                      helpPopOut.setVisible(true);
-                      helpTrigger.setVisible(true);
-                      helpButton.setVisible(false);
+                      helpPopOut1.setVisible(true);
+                      helpTrigger1.setVisible(true);
+                      helpButton1.setVisible(false);
                     });
                 delay.play();
               } else {
@@ -395,14 +427,15 @@ public class GuestMenuController {
                 helpPopOutTransition.setOnFinished(
                     e -> {
                       if (!helpPopOut.isHover() && !helpTrigger.isHover()) {
-                        helpPopOut.setVisible(false);
-                        helpTrigger.setVisible(false);
-                        helpButton.setVisible(true);
+                        helpPopOut1.setVisible(false);
+                        helpTrigger1.setVisible(false);
+                        helpButton1.setVisible(true);
                       }
                     });
                 helpPopOutTransition.play();
               }
             });
+
     helpPopOut
         .hoverProperty()
         .addListener(
@@ -415,9 +448,9 @@ public class GuestMenuController {
                 helpPopOutTransition.setOnFinished(
                     e -> {
                       if (!helpPopOut.isHover() && !helpTrigger.isHover()) {
-                        helpPopOut.setVisible(false);
-                        helpTrigger.setVisible(false);
-                        helpButton.setVisible(true);
+                        helpPopOut1.setVisible(false);
+                        helpTrigger1.setVisible(false);
+                        helpButton1.setVisible(true);
                       }
                     });
                 helpPopOutTransition.play();
@@ -426,7 +459,8 @@ public class GuestMenuController {
                 helpPopOut.setTranslateX(180);
               }
             });
-    helpTrigger
+
+    helpTrigger1
         .hoverProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
@@ -438,9 +472,9 @@ public class GuestMenuController {
                 helpPopOutTransition.setOnFinished(
                     e -> {
                       if (!helpPopOut.isHover() && !helpTrigger.isHover()) {
-                        helpPopOut.setVisible(false);
-                        helpTrigger.setVisible(false);
-                        helpButton.setVisible(true);
+                        helpPopOut1.setVisible(false);
+                        helpTrigger1.setVisible(false);
+                        helpButton1.setVisible(true);
                       }
                     });
                 helpPopOutTransition.play();
@@ -451,7 +485,8 @@ public class GuestMenuController {
                 helpPopOutTransition.play();
               }
             });
-    logoutButton
+
+    logoutButton1
         .hoverProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
@@ -462,9 +497,9 @@ public class GuestMenuController {
                       logoutPopOutTransition.setNode(logoutPopOut);
                       logoutPopOutTransition.setToX(180);
                       logoutPopOutTransition.play();
-                      logoutPopOut.setVisible(true);
-                      logoutTrigger.setVisible(true);
-                      logoutButton.setVisible(false);
+                      logoutPopOut1.setVisible(true);
+                      logoutTrigger1.setVisible(true);
+                      logoutButton1.setVisible(false);
                     });
                 delay.play();
               } else {
@@ -475,14 +510,15 @@ public class GuestMenuController {
                 logoutPopOutTransition.setOnFinished(
                     e -> {
                       if (!logoutPopOut.isHover() && !logoutTrigger.isHover()) {
-                        logoutPopOut.setVisible(false);
-                        logoutTrigger.setVisible(false);
-                        logoutButton.setVisible(true);
+                        logoutPopOut1.setVisible(false);
+                        logoutTrigger1.setVisible(false);
+                        logoutButton1.setVisible(true);
                       }
                     });
                 logoutPopOutTransition.play();
               }
             });
+
     logoutPopOut
         .hoverProperty()
         .addListener(
@@ -495,9 +531,9 @@ public class GuestMenuController {
                 logoutPopOutTransition.setOnFinished(
                     e -> {
                       if (!logoutPopOut.isHover() && !logoutTrigger.isHover()) {
-                        logoutPopOut.setVisible(false);
-                        logoutTrigger.setVisible(false);
-                        logoutButton.setVisible(true);
+                        logoutPopOut1.setVisible(false);
+                        logoutTrigger1.setVisible(false);
+                        logoutButton1.setVisible(true);
                       }
                     });
                 logoutPopOutTransition.play();
@@ -506,7 +542,8 @@ public class GuestMenuController {
                 logoutPopOut.setTranslateX(180);
               }
             });
-    logoutTrigger
+
+    logoutTrigger1
         .hoverProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
@@ -518,9 +555,9 @@ public class GuestMenuController {
                 logoutPopOutTransition.setOnFinished(
                     e -> {
                       if (!logoutPopOut.isHover() && !logoutTrigger.isHover()) {
-                        logoutPopOut.setVisible(false);
-                        logoutTrigger.setVisible(false);
-                        logoutButton.setVisible(true);
+                        logoutPopOut1.setVisible(false);
+                        logoutTrigger1.setVisible(false);
+                        logoutButton1.setVisible(true);
                       }
                     });
                 logoutPopOutTransition.play();
@@ -531,7 +568,8 @@ public class GuestMenuController {
                 logoutPopOutTransition.play();
               }
             });
-    exitButton
+
+    exitButton1
         .hoverProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
@@ -542,9 +580,9 @@ public class GuestMenuController {
                       exitPopOutTransition.setNode(exitPopOut);
                       exitPopOutTransition.setToX(180);
                       exitPopOutTransition.play();
-                      exitPopOut.setVisible(true);
-                      exitTrigger.setVisible(true);
-                      exitButton.setVisible(false);
+                      exitPopOut1.setVisible(true);
+                      exitTrigger1.setVisible(true);
+                      exitButton1.setVisible(false);
                     });
                 delay.play();
               } else {
@@ -555,14 +593,15 @@ public class GuestMenuController {
                 exitPopOutTransition.setOnFinished(
                     e -> {
                       if (!exitPopOut.isHover() && !exitTrigger.isHover()) {
-                        exitPopOut.setVisible(false);
-                        exitTrigger.setVisible(false);
-                        exitButton.setVisible(true);
+                        exitPopOut1.setVisible(false);
+                        exitTrigger1.setVisible(false);
+                        exitButton1.setVisible(true);
                       }
                     });
                 exitPopOutTransition.play();
               }
             });
+
     exitPopOut
         .hoverProperty()
         .addListener(
@@ -575,9 +614,9 @@ public class GuestMenuController {
                 exitPopOutTransition.setOnFinished(
                     e -> {
                       if (!exitPopOut.isHover() && !exitTrigger.isHover()) {
-                        exitPopOut.setVisible(false);
-                        exitTrigger.setVisible(false);
-                        exitButton.setVisible(true);
+                        exitPopOut1.setVisible(false);
+                        exitTrigger1.setVisible(false);
+                        exitButton1.setVisible(true);
                       }
                     });
                 exitPopOutTransition.play();
@@ -586,7 +625,8 @@ public class GuestMenuController {
                 exitPopOut.setTranslateX(180);
               }
             });
-    exitTrigger
+
+    exitTrigger1
         .hoverProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
@@ -598,9 +638,9 @@ public class GuestMenuController {
                 exitPopOutTransition.setOnFinished(
                     e -> {
                       if (!exitPopOut.isHover() && !exitTrigger.isHover()) {
-                        exitPopOut.setVisible(false);
-                        exitTrigger.setVisible(false);
-                        exitButton.setVisible(true);
+                        exitPopOut1.setVisible(false);
+                        exitTrigger1.setVisible(false);
+                        exitButton1.setVisible(true);
                       }
                     });
                 exitPopOutTransition.play();

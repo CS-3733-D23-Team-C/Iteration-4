@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
+<?import org.controlsfx.control.ToggleSwitch?>
 
 <AnchorPane prefHeight="768.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.map.EditMapController">
     <children>
@@ -26,32 +25,32 @@
                                     <GesturePane fx:id="mapGPane" fitHeight="false" fitMode="COVER" fitWidth="false" minScale="0.1" prefHeight="698.0" prefWidth="1155.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                         <Group fx:id="group" />
                                     </GesturePane>
-                                    <VBox alignment="TOP_CENTER" layoutX="1114.0" layoutY="2.0" prefHeight="188.0" prefWidth="122.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="20.0">
+                                    <VBox alignment="TOP_CENTER" layoutX="1114.0" layoutY="2.0" prefHeight="188.0" prefWidth="96.8" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="20.0">
                                         <children>
                                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-weight: Bold; -fx-underline: True; -fx-font-size: 13;" text="Select Floor" textAlignment="CENTER" />
                                             <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                                 <children>
-                                                    <MFXButton fx:id="FL3" layoutX="-44.0" onAction="#changeFloor" prefHeight="30.0" prefWidth="77.0" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="F3" textFill="#02143b" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0" />
+                                                    <MFXButton fx:id="FL3" layoutX="-44.0" onAction="#changeFloor" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="F3" textFill="#02143b" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0" />
                                                 </children>
                                             </AnchorPane>
                                             <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                                 <children>
-                                                    <MFXButton fx:id="FL2" onAction="#changeFloor" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="F2" textFill="#02143b" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0" />
+                                                    <MFXButton fx:id="FL2" onAction="#changeFloor" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="F2" textFill="#02143b" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0" />
                                                 </children>
                                             </AnchorPane>
                                             <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                                 <children>
-                                                    <MFXButton fx:id="FL1" onAction="#changeFloor" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="F1" textFill="#02143b" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0" />
+                                                    <MFXButton fx:id="FL1" onAction="#changeFloor" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="F1" textFill="#02143b" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0" />
                                                 </children>
                                             </AnchorPane>
                                             <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                                 <children>
-                                                    <MFXButton fx:id="FLB1" onAction="#changeFloor" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="B1" textFill="#02143b" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0" />
+                                                    <MFXButton fx:id="FLB1" onAction="#changeFloor" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="B1" textFill="#02143b" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0" />
                                                 </children>
                                             </AnchorPane>
                                             <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                                 <children>
-                                                    <MFXButton fx:id="FLB2" onAction="#changeFloor" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="B2" textFill="#02143b" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0" />
+                                                    <MFXButton fx:id="FLB2" onAction="#changeFloor" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="B2" textFill="#02143b" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0" />
                                                 </children>
                                             </AnchorPane>
                                         </children>
@@ -204,18 +203,67 @@
                                  </padding>
                               </VBox>
                               <Text fx:id="edgeMadeText" layoutX="191.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 30; -fx-font-family: arial;" wrappingWidth="202.5367431640625" />
-                              <ComboBox fx:id="filterBox" layoutX="1108.0" layoutY="248.0" prefHeight="25.0" prefWidth="74.0" promptText="Filters" AnchorPane.rightAnchor="49.0" AnchorPane.topAnchor="248.0" />
-                              <VBox fx:id="toggleBox" layoutX="1122.0" layoutY="303.0" prefHeight="232.0" prefWidth="84.0">
+                              <VBox fx:id="toggleBox" layoutX="1122.0" layoutY="307.0" prefHeight="178.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="25.0">
                                  <children>
-                                    <Text fx:id="shortToggleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Shortnames" />
-                                    <MFXToggleButton fx:id="shortToggle" />
-                                    <Text fx:id="confToggleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Conf Rooms" />
-                                    <MFXToggleButton fx:id="confToggle" />
-                                    <Text fx:id="elevToggleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Elevators" />
-                                    <MFXToggleButton fx:id="elevToggle" />
-                                    <Text fx:id="hallToggleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Hallways" />
-                                    <MFXToggleButton fx:id="hallToggle" />
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-underline: true; -fx-font-size: 13;" text="Map Filters" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Text fx:id="edgeToggleText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Edge" wrappingWidth="42.0">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Text>
+                                          <ToggleSwitch fx:id="edgeToggle" prefHeight="30.0" prefWidth="32.0" style="-fx-background-radius: 10; -fx-text-fill: #FFFFFF;" textFill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Text fx:id="shortToggleText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Short" wrappingWidth="42.0">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Text>
+                                          <ToggleSwitch fx:id="shortToggle" prefHeight="30.0" prefWidth="32.0" style="-fx-background-radius: 10;" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Text fx:id="confToggleText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Conf" wrappingWidth="42.0">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Text>
+                                          <ToggleSwitch fx:id="confToggle" prefHeight="30.0" prefWidth="32.0" style="-fx-background-radius: 10;" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Text fx:id="elevToggleText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Elev" wrappingWidth="42.0">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Text>
+                                          <ToggleSwitch fx:id="elevToggle" prefHeight="30.0" prefWidth="32.0" style="-fx-background-radius: 10;" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Text fx:id="hallToggleText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Hall" wrappingWidth="42.0">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Text>
+                                          <ToggleSwitch fx:id="hallToggle" prefHeight="30.0" prefWidth="32.0" style="-fx-background-radius: 10;" />
+                                       </children>
+                                    </HBox>
                                  </children>
+                                 <padding>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </padding>
                               </VBox>
                            </children>
                         </AnchorPane>

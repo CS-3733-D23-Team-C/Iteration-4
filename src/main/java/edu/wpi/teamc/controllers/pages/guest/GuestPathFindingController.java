@@ -396,7 +396,7 @@ public class GuestPathFindingController {
     String endName = endChoice.getText();
 
     Graph graph = new Graph(AlgoSingleton.INSTANCE.getType());
-    graph.syncWithDB();
+    graph.syncWithDB("2023-1-1");
 
     src = graph.getNode(longNameToNodeID.get(startName));
     dest = graph.getNode(longNameToNodeID.get(endName));

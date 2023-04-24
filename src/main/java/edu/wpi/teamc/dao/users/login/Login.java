@@ -12,8 +12,8 @@ import lombok.Getter;
 
 public class Login implements IOrm {
   @Getter private String username;
-  String salt;
-  String hashedPassword;
+  @Getter String salt;
+  @Getter String hashedPassword;
   private String otp;
   @Getter private PERMISSIONS permissions;
 

@@ -34,7 +34,7 @@ public class ImportCSV {
 
   private void importSignageCSV(String CSVfilepath) throws SQLException, FileNotFoundException {
     String query =
-        "INSERT INTO displays.\"Signage\" (locationname,date,screenlocation,direction) VALUES (?, ?, ?, ?)";
+        "INSERT INTO displays.\"Signage\" (macadd,devicename,date,locationname, direction) VALUES (?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
       String line;
       br.readLine(); // skip the first line
@@ -43,9 +43,10 @@ public class ImportCSV {
 
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setString(1, values[0]);
-        stmt.setDate(2, Date.valueOf(values[1]));
-        stmt.setString(3, values[2]);
+        stmt.setString(2, values[1]);
+        stmt.setDate(3, Date.valueOf(values[2]));
         stmt.setString(4, values[3]);
+        stmt.setString(5, values[4]);
         stmt.executeUpdate();
         stmt.close();
       }

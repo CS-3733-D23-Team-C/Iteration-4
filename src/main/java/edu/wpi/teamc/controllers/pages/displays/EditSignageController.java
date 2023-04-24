@@ -1,6 +1,7 @@
 package edu.wpi.teamc.controllers.pages.displays;
 
 import edu.wpi.teamc.dao.HospitalSystem;
+import edu.wpi.teamc.dao.displays.signage.SignEntry;
 import edu.wpi.teamc.dao.users.IUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,13 +46,13 @@ public class EditSignageController {
 
   @FXML private SearchableComboBox location5;
 
-  @FXML private FilteredTableView<Sign> moveTable;
+  @FXML private FilteredTableView<SignEntry> moveTable;
 
   @FXML private TextField selectedSignID;
 
   @FXML private TextField signNameField;
 
-  @FXML private FilteredTableView<Sign> signTable;
+  @FXML private FilteredTableView<SignEntry> signTable;
   @FXML TableColumn Column1;
   @FXML TableColumn Column2;
 
@@ -64,13 +65,17 @@ public class EditSignageController {
   @FXML
   void initailize() {
     this.getAdd(null);
-    ObservableList<Sign> rows = FXCollections.observableArrayList();
-    Column1.setCellValueFactory(new PropertyValueFactory<Sign, Integer>("id"));
-    Column2.setCellValueFactory(new PropertyValueFactory<Sign, IUser>("requester"));
+    ObservableList<SignEntry> rows = FXCollections.observableArrayList();
+    Column1.setCellValueFactory(new PropertyValueFactory<SignEntry, Integer>("id"));
+    Column2.setCellValueFactory(new PropertyValueFactory<SignEntry, IUser>("requester"));
     Column1.setText("ID");
     Column2.setText("Sign Name");
-    List<Sign> signs = (List<Sign>) HospitalSystem.fetchAllObjects(new Sign());
-    rows.addAll(signs);
+    List<SignEntry> signs =
+        (List<SignEntry>) HospitalSystem.fetchAllObjects( new SignEntry());
+   for (SignEntry sign : signs) {
+      rows.add(sign);
+    }
+
     signTable.setItems(rows);
   }
 

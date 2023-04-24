@@ -2,6 +2,7 @@ package edu.wpi.teamc.dao;
 
 import edu.wpi.teamc.dao.displays.Alert;
 import edu.wpi.teamc.dao.displays.AlertDao;
+import edu.wpi.teamc.dao.displays.signage.SignEntry;
 import edu.wpi.teamc.dao.displays.signage.SignEntryDao;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.dao.requests.*;
@@ -11,7 +12,6 @@ import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.dao.users.EmployeeUserDao;
 import edu.wpi.teamc.dao.users.login.Login;
 import edu.wpi.teamc.dao.users.login.LoginDao;
-
 import java.util.List;
 
 // facade pattern
@@ -69,7 +69,7 @@ public class HospitalSystem {
       return loginDao.fetchAllObjects();
     } else if (request instanceof Alert) {
       return alertDao.fetchAllObjects();
-    } else if (request instanceof Sign) {
+    } else if (request instanceof SignEntry) {
       return signDao.fetchAllObjects();
     } else {
       return null;
@@ -105,9 +105,9 @@ public class HospitalSystem {
       return loginDao.addRow((Login) request);
     } else if (request instanceof Alert) {
       return alertDao.addRow((Alert) request);
-    } else if (request instanceof Sign) {
-      return signDao.addRow((Sign) request);
-    }  else {
+    } else if (request instanceof SignEntry) {
+      return signDao.addRow((SignEntry) request);
+    } else {
       return null;
     }
   }
@@ -141,8 +141,8 @@ public class HospitalSystem {
       return loginDao.deleteRow((Login) request);
     } else if (request instanceof Alert) {
       return alertDao.deleteRow((Alert) request);
-    } else if (request instanceof Sign) {
-      return signDao.deleteRow((Sign) request);
+    } else if (request instanceof SignEntry) {
+      return signDao.deleteRow((SignEntry) request);
     } else {
       return null;
     }
@@ -181,9 +181,9 @@ public class HospitalSystem {
       return loginDao.updateRow((Login) request, (Login) request);
     } else if (request instanceof Alert) {
       return alertDao.updateRow((Alert) request, (Alert) request);
-    } else if (request instanceof Sign) {
-      return signDao.updateRow((Sign) request, (Sign) request);
-    }  else {
+    } else if (request instanceof SignEntry) {
+      return signDao.updateRow((SignEntry) request, (SignEntry) request);
+    } else {
       return null;
     }
   }

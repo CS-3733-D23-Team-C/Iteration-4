@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.displays.signage;
 
+import edu.wpi.teamc.dao.IOrm;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,19 +12,19 @@ import java.sql.Date;
 
 @Getter
 @Setter
-public class SignEntry {
+public class SignEntry implements IOrm {
   String macadd;
   String devicename;
   Date date;
   String locationname;
   DIRECTION direction;
 
-
-  public SignEntry(String macadd, String devicename, Date date, String locaiton, DIRECTION direction) {
-   this.macadd = macadd;
-   this.devicename = devicename;
+  public SignEntry(
+      String macadd, String devicename, Date date, String locationname, DIRECTION direction) {
+    this.macadd = macadd;
+    this.devicename = devicename;
     this.date = date;
-    this.location = locaiton;
+    this.locationname = locationname;
     this.direction = direction;
   }
 
@@ -40,13 +41,12 @@ public class SignEntry {
       for (int i = 0; i < hardwareAddress.length; i++) {
         hexadecimal[i] = String.format("%02X", hardwareAddress[i]);
       }
-       macAddress = String.join("-", hexadecimal);
+      macAddress = String.join("-", hexadecimal);
     } catch (UnknownHostException e) {
       throw new RuntimeException(e);
     } catch (SocketException e) {
       throw new RuntimeException(e);
     }
     return macAddress;
-
   }
 }

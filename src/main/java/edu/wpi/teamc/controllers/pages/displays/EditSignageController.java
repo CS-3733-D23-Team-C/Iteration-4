@@ -1,18 +1,27 @@
 package edu.wpi.teamc.controllers.pages.displays;
 
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.displays.signage.*;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.tableview2.FilteredTableView;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class EditSignageController {
   String buttonColor = "-fx-background-color: white; -fx-text-fill: #02143B;";
@@ -63,6 +72,8 @@ public class EditSignageController {
   @FXML private TableColumn signIDCol;
   @FXML private TableColumn signNameCol;
   @FXML private TableColumn signDateCol;
+  @FXML private Hyperlink editMac;
+  @FXML private Hyperlink editDeviceName;
 
   @FXML Hyperlink autofillMac;
 
@@ -208,6 +219,9 @@ public class EditSignageController {
     signID.setEditable(true);
     signName.setEditable(true);
     autofillMac.setVisible(true);
+    autofillMac.setText("Autofill Current Device Mac Address");
+    editMac.setVisible(false);
+    editDeviceName.setVisible(false);
   }
 
   @FXML
@@ -221,9 +235,14 @@ public class EditSignageController {
   @FXML
   void getDelete(ActionEvent event) {
     SignVersion selected = table2.getSelectionModel().getSelectedItem();
+    String macadd = selected.getSignEntries().get(0).getMacadd();
     if (selected != null) {
       signSystem.removeSignVersion(selected);
-      this.loadSignTable();
+      if (signSystem.getSigns().containsKey(macadd)) {
+        this.updateCurrentSelectionSign();
+      } else {
+        this.loadSignTable();
+      }
     }
   }
 
@@ -231,13 +250,144 @@ public class EditSignageController {
   void getEditSelect(ActionEvent event) {
     add.setStyle(buttonColor);
     editSelect.setStyle(selectedButtonColor);
-    table1.getSelectionModel().clearSelection();
     table2.getSelectionModel().clearSelection();
+    autofillMac.setText("");
     edit = true;
     this.setAllNull();
     signID.setEditable(false);
     signName.setEditable(false);
     autofillMac.setVisible(false);
+    editMac.setVisible(true);
+    editDeviceName.setVisible(true);
+  }
+
+  @FXML
+  void getEditMac(ActionEvent event) {
+    BorderPane borderPane = new BorderPane();
+
+    Text prompt = new Text("Enter New Mac Address");
+    TextField newMac = new TextField(signID.getText());
+    MFXButton confirmButton = new MFXButton("Submit");
+    MFXButton cancelButton = new MFXButton("Cancel");
+    Hyperlink hyperlink = new Hyperlink("Autofill Current Device Mac Address");
+    HBox newMachbox = new HBox();
+    VBox vbox = new VBox();
+
+    //    confirmButton.getStyleClass().add("MFXbutton");
+    //    newMac.getStyleClass().add("DatePicker");
+    //    oldMac.getStyleClass().add("DatePicker");
+    //    cancelButton.getStyleClass().add("MFXbutton");
+    //    prompt.getStyleClass().add("Header");
+    //    borderPane.getStyleClass().add("scenePane");
+    hyperlink.setStyle(" -fx-font-size: 10px; -fx-padding-left: 10px;");
+    hyperlink.setOnAction(
+        e -> {
+          newMac.setText(SignEntry.getCurrentDeviceMacAddress());
+        });
+
+    cancelButton.setOnAction(
+        e -> {
+          Stage stage = (Stage) cancelButton.getScene().getWindow();
+          stage.close();
+        });
+    confirmButton.setOnAction(
+        e -> {
+          if (newMac.getText() != null && !newMac.getText().equals("")) {
+            signSystem.updateMacAddress(signID.getText(), newMac.getText());
+            Stage stage = (Stage) confirmButton.getScene().getWindow();
+            stage.close();
+            this.loadSignTable();
+          }
+        });
+
+    // set object locations
+    int lay_x = 45;
+    int lay_y = 40;
+    vbox.setLayoutX(lay_x);
+    vbox.setLayoutY(lay_y);
+    newMachbox.getChildren().addAll(newMac, hyperlink);
+
+    vbox.getChildren().addAll(prompt, newMachbox, confirmButton, cancelButton);
+
+    // Set and show screen
+
+    if (signID.getText() != null && !signID.getText().equals("")) {
+      AnchorPane aPane = new AnchorPane();
+      aPane.getChildren().addAll(vbox);
+      borderPane.getChildren().add(aPane);
+      Scene scene = new Scene(borderPane, 450, 225);
+      scene
+          .getStylesheets()
+          .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
+      borderPane.relocate(0, 0);
+      Stage stage = new Stage();
+      stage.setScene(scene);
+      stage.setTitle("Edit Mac Address");
+      stage.show();
+      stage.setAlwaysOnTop(true);
+    }
+  }
+
+  @FXML
+  void getEditDeviceName(ActionEvent event) {
+    BorderPane borderPane = new BorderPane();
+
+    Text prompt = new Text("Enter New Device Name");
+    TextField newName = new TextField(signName.getText());
+    Text oldMac = new Text("Mac Address Selected: " + signID.getText());
+    MFXButton confirmButton = new MFXButton("Submit");
+    MFXButton cancelButton = new MFXButton("Cancel");
+    HBox newNamehbox = new HBox();
+    VBox vbox = new VBox();
+
+    //    confirmButton.getStyleClass().add("MFXbutton");
+    //    newMac.getStyleClass().add("DatePicker");
+    //    oldMac.getStyleClass().add("DatePicker");
+    //    cancelButton.getStyleClass().add("MFXbutton");
+    //    prompt.getStyleClass().add("Header");
+    //    borderPane.getStyleClass().add("scenePane");
+
+    cancelButton.setOnAction(
+        e -> {
+          Stage stage = (Stage) cancelButton.getScene().getWindow();
+          stage.close();
+        });
+    confirmButton.setOnAction(
+        e -> {
+          if (newName.getText() != null && !newName.getText().equals("")) {
+            signSystem.updateDeviceName(signID.getText(), newName.getText());
+            Stage stage = (Stage) confirmButton.getScene().getWindow();
+            stage.close();
+            this.loadSignTable();
+          }
+        });
+
+    // set object locations
+    int lay_x = 45;
+    int lay_y = 40;
+    vbox.setLayoutX(lay_x);
+    vbox.setLayoutY(lay_y);
+    newNamehbox.getChildren().addAll(newName);
+
+    vbox.getChildren().addAll(prompt, oldMac, newNamehbox, confirmButton, cancelButton);
+
+    // Set and show screen
+
+    if (signID.getText() != null && !signID.getText().equals("")) {
+      AnchorPane aPane = new AnchorPane();
+      aPane.getChildren().addAll(vbox);
+      borderPane.getChildren().add(aPane);
+      Scene scene = new Scene(borderPane, 450, 225);
+      scene
+          .getStylesheets()
+          .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
+      borderPane.relocate(0, 0);
+      Stage stage = new Stage();
+      stage.setScene(scene);
+      stage.setTitle("Edit Device Name");
+      stage.show();
+      stage.setAlwaysOnTop(true);
+    }
   }
 
   @FXML
@@ -340,13 +490,20 @@ public class EditSignageController {
             signSystem.removeSignVersion(selected);
           }
           signSystem.addSignVersion(newVersion);
+          int selectedIndex = table1.getSelectionModel().getSelectedIndex();
+          this.getEditSelect(event);
           this.loadSignTable();
+          table1.getSelectionModel().select(selectedIndex);
+          this.updateCurrentSelectionSign();
         }
       }
     } else {
       Sign newSign = new Sign();
       newSign.setMacadd(signID.getText());
       newSign.setDevicename(signName.getText());
+      if (signSystem.getSigns().containsKey(signID.getText())) {
+        newSign = signSystem.getSigns().get(signID.getText());
+      }
       SignVersion newVersion = new SignVersion();
       newVersion.setDate(Date.valueOf(date.getValue()));
       try {

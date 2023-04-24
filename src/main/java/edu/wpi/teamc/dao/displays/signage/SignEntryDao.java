@@ -125,4 +125,18 @@ public class SignEntryDao implements IDao<SignEntry, SignEntry> {
     }
     db.closeConnection();
   }
+
+  public void updateMacAddress(String oldmac, String newmac) {
+    DBConnection db = new DBConnection();
+    try {
+      String query = "UPDATE \"displays\".\"Signage\" SET macadd = ? WHERE macadd = ?";
+      PreparedStatement ps = db.getConnection().prepareStatement(query);
+      ps.setString(1, newmac);
+      ps.setString(2, oldmac);
+      ps.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    db.closeConnection();
+  }
 }

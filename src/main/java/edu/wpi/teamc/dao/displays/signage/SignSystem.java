@@ -36,6 +36,9 @@ public class SignSystem {
     signs
         .get(selected.getSignEntries().get(0).macadd)
         .removeSignEntryVersion(selected.getSignEntries().get(0));
+    if (signs.get(selected.getSignEntries().get(0).macadd).getSignVersions().isEmpty()) {
+      signs.remove(selected.getSignEntries().get(0).macadd);
+    }
   }
 
   public void addSignVersion(SignVersion newVersion) {
@@ -43,5 +46,19 @@ public class SignSystem {
     for (SignEntry signEntry : newVersion.getSignEntries()) {
       signEntryDao.addRow(signEntry);
     }
+  }
+
+  public void updateMacAddress(String oldmac, String newmac) {
+    if (!signs.containsKey(newmac)) {
+      SignEntryDao signEntryDao = new SignEntryDao();
+      signEntryDao.updateMacAddress(oldmac, newmac);
+    } else {
+      throw new IllegalArgumentException("Mac Address already exists");
+    }
+  }
+
+  public void updateDeviceName(String mac, String newname) {
+    SignEntryDao signEntryDao = new SignEntryDao();
+    signEntryDao.updateDeviceName(mac, newname);
   }
 }

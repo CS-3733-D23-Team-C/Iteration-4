@@ -47,4 +47,18 @@ public class SignSystem {
       signEntryDao.addRow(signEntry);
     }
   }
+
+  public void updateMacAddress(String oldmac, String newmac) {
+    if (!signs.containsKey(newmac)) {
+      SignEntryDao signEntryDao = new SignEntryDao();
+      signEntryDao.updateMacAddress(oldmac, newmac);
+    } else {
+      throw new IllegalArgumentException("Mac Address already exists");
+    }
+  }
+
+  public void updateDeviceName(String mac, String newname) {
+    SignEntryDao signEntryDao = new SignEntryDao();
+    signEntryDao.updateDeviceName(mac, newname);
+  }
 }

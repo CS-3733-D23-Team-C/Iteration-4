@@ -6,17 +6,14 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
-
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.SearchableComboBox?>
 <?import org.controlsfx.control.tableview2.FilteredTableView?>
-
 
 <AnchorPane prefHeight="787.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.displays.EditSignageController">
    <children>
@@ -60,7 +57,12 @@
                                                 <Insets left="40.0" right="10.0" />
                                              </HBox.margin>
                                           </TextField>
-                                          <Hyperlink fx:id="autofillMac" onAction="#getAutofillMac" style="-fx-font-family: arial; -fx-font-size: 10; -fx-underline: true;" text="Autofill Current Device Mac Address" textFill="WHITE">
+                                          <Hyperlink fx:id="autofillMac" onAction="#getAutofillMac" style="-fx-font-family: arial; -fx-font-size: 10; -fx-underline: true;" textFill="WHITE">
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                          </Hyperlink>
+                                          <Hyperlink fx:id="editMac" onAction="#getEditMac" style="-fx-font-family: arial; -fx-font-size: 10; -fx-underline: true;" text="Edit Mac Address" textFill="WHITE">
                                              <HBox.margin>
                                                 <Insets />
                                              </HBox.margin>
@@ -82,6 +84,14 @@
                                                 <Insets left="40.0" right="10.0" />
                                              </HBox.margin>
                                           </TextField>
+                                          <Hyperlink fx:id="editDeviceName" onAction="#getEditDeviceName" style="-fx-font-family: arial; -fx-font-size: 10; -fx-underline: true;" text="Edit Device Name" textFill="WHITE">
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="9.0" />
+                                             </padding>
+                                          </Hyperlink>
                                        </children>
                                        <VBox.margin>
                                           <Insets />

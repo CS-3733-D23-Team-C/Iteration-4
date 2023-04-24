@@ -297,7 +297,7 @@ public class PathFindingController {
   }
 
   public void resetAndSetFloorIndicator(MFXButton button) {
-    button.setBackground(Background.fill(Paint.valueOf("#32CD32")));
+    button.setBackground(Background.fill(Paint.valueOf("#EAB334")));
     if (tempSave != null) {
       tempSave.setBackground(Background.fill(DEFAULT_BG));
     }

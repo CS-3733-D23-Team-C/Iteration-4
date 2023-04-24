@@ -17,7 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.*;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class MenuController {
@@ -213,7 +213,7 @@ public class MenuController {
 
   @FXML
   void getFurnitureHistory(ActionEvent event) {
-    //      Navigation.navigate(Screen.FURNITURE_HISTORY);
+    Navigation.navigate(Screen.SIGNAGE_EDIT);
   }
 
   @FXML

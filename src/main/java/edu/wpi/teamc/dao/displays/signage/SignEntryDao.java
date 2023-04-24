@@ -2,18 +2,16 @@ package edu.wpi.teamc.dao.displays.signage;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SignDao implements IDao<Sign, Integer> {
+public class SignEntryDao implements IDao<SignEntry, SignEntry> {
 
   @Override
-  public List<Sign> fetchAllObjects() {
-    List<Sign> returnList = new ArrayList<>();
+  public List<SignEntry> fetchAllObjects() {
+    List<SignEntry> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
     try {
       Statement stmt = db.getConnection().createStatement();
@@ -26,11 +24,13 @@ public class SignDao implements IDao<Sign, Integer> {
 
       while (rs.next()) {
         // Get all the data from the table
-        int id = rs.getInt("id");
-        String name = rs.getString("name");
-        Sign s = new Sign(name);
-        s.id = id;
-        returnList.add(s);
+        String macadd = rs.getString("macadd");
+        String devicename = rs.getString("devicename");
+        Date date = Date.valueOf(rs.getString("date"));
+        String locationname = rs.getString("locationname");
+        DIRECTION direction = DIRECTION.valueOf(rs.getString("direction"));
+        SignEntry sign = new SignEntry(macadd, devicename, date, locationname, direction);
+        returnList.add(sign);
       }
     } catch (SQLException e) {
       e.printStackTrace();

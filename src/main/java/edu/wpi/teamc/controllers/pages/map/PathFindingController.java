@@ -1,12 +1,11 @@
 package edu.wpi.teamc.controllers.pages.map;
 
 import edu.wpi.teamc.Main;
+import edu.wpi.teamc.controllers.pages.map.MapHelpers.TextDirectionsHelper;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.graph.AlgoSingleton;
 import edu.wpi.teamc.graph.Graph;
 import edu.wpi.teamc.graph.GraphNode;
-import edu.wpi.teamc.navigation.Navigation;
-import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.sql.Date;
@@ -18,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -32,10 +32,6 @@ import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.ToggleSwitch;
 
 public class PathFindingController {
-  public Group group;
-  public Image image =
-      new Image(Main.class.getResource("views/images/FirstFloor.png").openStream());
-  @FXML MFXButton backButton;
   @FXML MFXButton nextFloor;
   @FXML MFXButton prevFloor;
   @FXML MenuButton algChoice;
@@ -43,51 +39,44 @@ public class PathFindingController {
   @FXML SearchableComboBox<String> endChoice;
   @FXML ToggleSwitch locToggle;
   @FXML DatePicker pickDate;
-
-  public PathFindingController() throws IOException {}
-
-  /** Method run when controller is initialized */
-  @FXML
-  public void goHome() {
-    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-  }
-
   @FXML GesturePane mapGPane;
   @FXML MFXButton FL1;
   @FXML MFXButton FL2;
   @FXML MFXButton FL3;
   @FXML MFXButton FLB1;
   @FXML MFXButton FLB2;
+  @FXML MFXButton submit;
+  @FXML MFXButton floorButton;
   private MFXButton tempSave;
   private final Paint DEFAULT_BG = Paint.valueOf("#bebebe");
-  @FXML MFXButton floorButton;
-  Group mapNodes = new Group();
-  Group edges = new Group();
-  Group mapText = new Group();
-  @FXML MFXButton submit;
-  @FXML private Button goHome;
-  String floor = "1";
-  List<Move> moveList = new ArrayList<Move>();
-  List<Node> Floor1 = new ArrayList<Node>();
-  List<Node> Floor2 = new ArrayList<Node>();
-  List<Node> Floor3 = new ArrayList<Node>();
-  List<Node> FloorL1 = new ArrayList<Node>();
-  List<Node> FloorL2 = new ArrayList<Node>();
-  List<Node> nodeList = new ArrayList<Node>();
-  List<Edge> edgeList = new ArrayList<Edge>();
-  List<LocationName> locationNameList = new ArrayList<LocationName>();
-  HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
-  HashMap<String, LocationName> longNametoLocationName = new HashMap<String, LocationName>();
+  private Group mapNodes = new Group();
+  private Group edges = new Group();
+  private Group mapText = new Group();
+  private String floor = "1";
+  private List<Move> moveList = new ArrayList<Move>();
+  private List<Node> Floor1 = new ArrayList<Node>();
+  private List<Node> Floor2 = new ArrayList<Node>();
+  private List<Node> Floor3 = new ArrayList<Node>();
+  private List<Node> FloorL1 = new ArrayList<Node>();
+  private List<Node> FloorL2 = new ArrayList<Node>();
+  private List<Node> nodeList = new ArrayList<Node>();
+  private List<LocationName> locationNameList = new ArrayList<LocationName>();
+  private HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
+  private HashMap<String, LocationName> longNameToLocationName = new HashMap<>();
   private LinkedList<List<GraphNode>> splitPath = new LinkedList<>();
   private int pathLoc = 0;
   private GraphNode src;
   private GraphNode dest;
   private boolean toggleStatus;
+  public Group group;
+  public Image image =
+      new Image(Main.class.getResource("views/images/FirstFloor.png").openStream());
+
+  public PathFindingController() throws IOException {}
 
   /** Method run when controller is initialized */
   public void initialize() {
     submit.setDisable(true);
-    tempSave = FL1;
     Image image = this.image;
     ImageView imageView = new ImageView(image);
     imageView.relocate(0, 0);
@@ -99,6 +88,10 @@ public class PathFindingController {
     pane.setMinHeight(image.getHeight());
     pane.setMaxHeight(image.getHeight());
     pane.relocate(0, 0);
+
+    Point2D centrePoint = new Point2D(1100, 400);
+    mapGPane.centreOn(centrePoint);
+    mapGPane.zoomTo(0.4, mapGPane.targetPointAtViewportCentre());
 
     group.getChildren().add(pane);
 
@@ -135,7 +128,6 @@ public class PathFindingController {
   // load database
   public void loadDatabase() {
     nodeList = new NodeDao().fetchAllObjects();
-    edgeList = new EdgeDao().fetchAllObjects();
     locationNameList = new LocationNameDao().fetchAllObjects();
     moveList = new MoveDao().fetchAllObjects();
 
@@ -149,9 +141,9 @@ public class PathFindingController {
     }
 
     for (LocationName locationName : locationNameList) {
-      longNametoLocationName.put(locationName.getLongName(), locationName);
+      longNameToLocationName.put(locationName.getLongName(), locationName);
     }
-    longNametoLocationName.put("ERROR", new LocationName("ERROR", "ERROR", "ERROR"));
+    longNameToLocationName.put("ERROR", new LocationName("ERROR", "ERROR", "ERROR"));
   }
 
   public void addLocationsToSelect() {
@@ -209,8 +201,8 @@ public class PathFindingController {
             nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
           }
           longName = nodeIDtoMove.get(nodeID).getLongName();
-          String shortName = longNametoLocationName.get(longName).getShortName();
-          String nodeType = longNametoLocationName.get(longName).getNodeType();
+          String shortName = longNameToLocationName.get(longName).getShortName();
+          String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(Floor1.get(i), shortName, nodeType);
         }
         break;
@@ -224,8 +216,8 @@ public class PathFindingController {
             nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
           }
           longName = nodeIDtoMove.get(nodeID).getLongName();
-          String shortName = longNametoLocationName.get(longName).getShortName();
-          String nodeType = longNametoLocationName.get(longName).getNodeType();
+          String shortName = longNameToLocationName.get(longName).getShortName();
+          String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(Floor2.get(i), shortName, nodeType);
         }
         break;
@@ -239,8 +231,8 @@ public class PathFindingController {
             nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
           }
           longName = nodeIDtoMove.get(nodeID).getLongName();
-          String shortName = longNametoLocationName.get(longName).getShortName();
-          String nodeType = longNametoLocationName.get(longName).getNodeType();
+          String shortName = longNameToLocationName.get(longName).getShortName();
+          String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(Floor3.get(i), shortName, nodeType);
         }
         break;
@@ -254,8 +246,8 @@ public class PathFindingController {
             nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
           }
           longName = nodeIDtoMove.get(nodeID).getLongName();
-          String shortName = longNametoLocationName.get(longName).getShortName();
-          String nodeType = longNametoLocationName.get(longName).getNodeType();
+          String shortName = longNameToLocationName.get(longName).getShortName();
+          String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(FloorL1.get(i), shortName, nodeType);
         }
         break;
@@ -269,8 +261,8 @@ public class PathFindingController {
             nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new Date(100)));
           }
           longName = nodeIDtoMove.get(nodeID).getLongName();
-          String shortName = longNametoLocationName.get(longName).getShortName();
-          String nodeType = longNametoLocationName.get(longName).getNodeType();
+          String shortName = longNameToLocationName.get(longName).getShortName();
+          String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(FloorL2.get(i), shortName, nodeType);
         }
     }
@@ -305,14 +297,14 @@ public class PathFindingController {
   }
 
   public void resetAndSetFloorIndicator(MFXButton button) {
-    button.setBackground(Background.fill(Paint.valueOf("#32CD32")));
-    tempSave.setBackground(Background.fill(DEFAULT_BG));
+    button.setBackground(Background.fill(Paint.valueOf("#EAB334")));
+    if (tempSave != null) {
+      tempSave.setBackground(Background.fill(DEFAULT_BG));
+    }
     tempSave = button;
   }
 
   public void changeFloorFromString(String floor) throws IOException {
-    // TODO : check to see if location names should be placed or not, based off toggle status
-
     if (floor.equals("1")) {
       image = new Image(Main.class.getResource("views/images/FirstFloor.png").openStream());
       this.floor = "1";
@@ -395,6 +387,10 @@ public class PathFindingController {
     circ2.setStroke(Paint.valueOf("#021335"));
     circ2.setVisible(true);
     mapNodes.getChildren().add(circ2);
+
+    Point2D centrePoint = new Point2D(node.getXCoord(), node.getYCoord());
+    mapGPane.centreOn(centrePoint);
+    mapGPane.zoomTo(0.4, mapGPane.targetPointAtViewportCentre());
   }
 
   public void drawEdges() {
@@ -451,6 +447,13 @@ public class PathFindingController {
     }
 
     edges.toFront();
+
+    TextDirectionsHelper textHelper = new TextDirectionsHelper();
+    LinkedList<String> textDirections = textHelper.textDirections(path);
+
+    for (String s : textDirections) {
+      System.out.println(s);
+    }
   }
 
   @FXML

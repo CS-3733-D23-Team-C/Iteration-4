@@ -1,6 +1,6 @@
 package edu.wpi.teamc.graph;
 
-import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.map.*;
 import java.sql.*;
 import java.sql.Date;
@@ -38,27 +38,32 @@ public class Graph {
     }
   }
 
+  /**
+   * A helper method to populate the HashMaps with move information
+   *
+   * @param move
+   */
   public void massPutMove(Move move) {
     nodeIDtoLastDate.put(move.getNodeID(), move.getDate());
     nodeIDtoLongName.put(move.getNodeID(), move.getLongName());
     longNameToNodeID.put(move.getLongName(), move.getNodeID());
   }
 
+  /**
+   * A method to sync the graph with stored DB data
+   *
+   * @param date Date to sync with (specifically for move component)
+   */
   public void syncWithDB(String date) {
-    IDao<Node, Integer> nodeDao = new NodeDao();
-    IDao<Edge, Edge> edgeDao = new EdgeDao();
-    IDao<Move, Move> moveDao = new MoveDao();
-    IDao<LocationName, String> locDao = new LocationNameDao();
-
     List<Node> nodes = new LinkedList<>();
     List<Edge> edges = new LinkedList<>();
     List<Move> moves = new LinkedList<>();
     List<LocationName> locs = new LinkedList<>();
     try {
-      nodes = nodeDao.fetchAllObjects();
-      edges = edgeDao.fetchAllObjects();
-      moves = moveDao.fetchAllObjects();
-      locs = locDao.fetchAllObjects();
+      nodes = (List<Node>) HospitalSystem.fetchAllObjects(new Node());
+      edges = (List<Edge>) HospitalSystem.fetchAllObjects(new Edge(1, 1));
+      moves = (List<Move>) HospitalSystem.fetchAllObjects(new Move());
+      locs = (List<LocationName>) HospitalSystem.fetchAllObjects(new LocationName());
     } catch (Exception e) {
       // error
     }

@@ -20,7 +20,7 @@ public class KioskDao implements IDao<Kiosk, String> {
         String id = rs.getString("id");
         int signid = rs.getInt("signid");
         String kioskname = rs.getString("kioskname");
-        kiosks.add(new Kiosk(id,kioskname, signid));
+        kiosks.add(new Kiosk(id, kioskname, signid));
       }
 
     } catch (Exception e) {
@@ -40,7 +40,7 @@ public class KioskDao implements IDao<Kiosk, String> {
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, type2.id);
       ps.setInt(2, type2.signid);
-        ps.setString(3, type2.kioskname);
+      ps.setString(3, type2.kioskname);
       ps.setString(4, type.id);
       kiosk = type2;
     } catch (SQLException e) {
@@ -59,7 +59,7 @@ public class KioskDao implements IDao<Kiosk, String> {
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, type.id);
       ps.setInt(2, type.signid);
-        ps.setString(3, type.kioskname);
+      ps.setString(3, type.kioskname);
       kiosk = type;
     } catch (SQLException e) {
       e.printStackTrace();

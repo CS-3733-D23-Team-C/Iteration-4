@@ -333,6 +333,36 @@ public class EditMapController {
             }
           }
         });
+    confToggle.setOnMouseClicked(e -> {
+      if (confShown) {
+        confShown = false;
+        placeNodes(floor);
+      }
+      else {
+        confShown = true;
+        placeNodes(floor);
+      }
+    });
+    hallToggle.setOnMouseClicked(e -> {
+      if (hallShown) {
+        hallShown = false;
+        placeNodes(floor);
+      }
+      else {
+        hallShown = true;
+        placeNodes(floor);
+      }
+    });
+    elevToggle.setOnMouseClicked(e -> {
+      if (elevShown) {
+        elevShown = false;
+        placeNodes(floor);
+      }
+      else {
+        elevShown = true;
+        placeNodes(floor);
+      }
+    });
 
     //    group.getChildren().add(stackPane);
 
@@ -984,9 +1014,39 @@ public class EditMapController {
       movingText.getChildren().add(text);
       //      }
     } else {
-      mapNodes.getChildren().add(newCircle);
-      //      if (shortShown) {
-      mapText.getChildren().add(text);
+      if (confShown && hallShown && elevShown) {
+        mapNodes.getChildren().add(newCircle);
+        //      if (shortShown) {
+        mapText.getChildren().add(text);
+      }
+      else if (!confShown && hallShown && elevShown && !(Objects.equals(nodeType, "CONF"))) {
+        mapNodes.getChildren().add(newCircle);
+        mapText.getChildren().add(text);
+      }
+      else if (!hallShown && confShown && elevShown && !(Objects.equals(nodeType, "HALL"))) {
+        mapNodes.getChildren().add(newCircle);
+        mapText.getChildren().add(text);
+      }
+      else if (!elevShown && hallShown && confShown && !(Objects.equals(nodeType, "ELEV"))) {
+        mapNodes.getChildren().add(newCircle);
+        mapText.getChildren().add(text);
+      }
+      else if (!confShown && !hallShown && elevShown && !(Objects.equals(nodeType, "CONF")) && !(Objects.equals(nodeType, "HALL"))) {
+        mapNodes.getChildren().add(newCircle);
+        mapText.getChildren().add(text);
+      }
+      else if (!confShown && !elevShown && hallShown && !(Objects.equals(nodeType, "CONF")) && !(Objects.equals(nodeType, "ELEV"))) {
+        mapNodes.getChildren().add(newCircle);
+        mapText.getChildren().add(text);
+      }
+      else if (!elevShown && !hallShown && confShown && !(Objects.equals(nodeType, "ELEV")) && !(Objects.equals(nodeType, "HALL"))) {
+        mapNodes.getChildren().add(newCircle);
+        mapText.getChildren().add(text);
+      }
+      else if (!(Objects.equals(nodeType, "CONF")) && !(Objects.equals(nodeType, "ELEV")) && !(Objects.equals(nodeType, "HALL"))) {
+        mapNodes.getChildren().add(newCircle);
+        mapText.getChildren().add(text);
+      }
       //      }
     }
   }
@@ -2152,422 +2212,6 @@ public class EditMapController {
           currNodeClicked = helperNode1;
         });
   }
-
-  //  public void resetAndSetFloorIndicator(MFXButton button) {
-  //    button.setBackground(Background.fill(Paint.valueOf("#32CD32")));
-  //    tempSave.setBackground(Background.fill(DEFAULT_BG));
-  //    tempSave = button;
-  //  }
-
-  //    })
-
-  //  public void showNodeMenu(ActionEvent event) {
-  //    BorderPane borderPane = new BorderPane();
-  //    HBox hBox = new HBox();
-  //
-  //    // modify
-  //    VBox modifyBox = new VBox(); // modify
-  //    Text nodeID_M = new Text("Input ID of Node to Be Modified");
-  //    Text xCoord_t = new Text("Input new Xcoord");
-  //    Text yCoord_t = new Text("Input new YCoord");
-  //    MFXTextField nodeIDText = new MFXTextField();
-  //    MFXTextField xCoord_text = new MFXTextField();
-  //    MFXTextField yCoord_text = new MFXTextField();
-  //    MFXButton submitModify = new MFXButton("Modify");
-  //    submitModify.setPrefSize(100, 35);
-  //    submitModify.setMinSize(100, 35);
-  //    modifyBox
-  //        .getChildren()
-  //        .addAll(nodeID_M, nodeIDText, xCoord_t, xCoord_text, yCoord_t, yCoord_text,
-  // submitModify);
-  //    modifyBox.setSpacing(20);
-  //
-  //    // remove
-  //    VBox removeBox = new VBox();
-  //    Text nodeID_R = new Text("Input ID of Node to be Removed");
-  //    MFXTextField nodeID_RText = new MFXTextField();
-  //    MFXButton submitRemove = new MFXButton("Remove");
-  //    submitRemove.setPrefSize(100, 35);
-  //    submitRemove.setMinSize(100, 35);
-  //    removeBox.getChildren().addAll(nodeID_R, nodeID_RText, submitRemove);
-  //    removeBox.setSpacing(20);
-  //
-  //    // add
-  //    VBox addBox = new VBox();
-  //    Text XCoordText = new Text("Input X Coordinate of Node to be Added");
-  //    Text YCoordText = new Text("Input Y Coordinate of Node to be Added");
-  //    Text BuildingText = new Text("Input Building Name of Node to be Added");
-  //    MFXTextField inputXCoord = new MFXTextField();
-  //    MFXTextField inputYCoord = new MFXTextField();
-  //    MFXTextField inputBuilding = new MFXTextField(); // need floor as well
-  //    MFXButton submitNode = new MFXButton("Add");
-  //    submitNode.setId("submitNode");
-  //    submitNode.setPrefSize(100, 35);
-  //    submitNode.setMinSize(100, 35);
-  //    addBox
-  //        .getChildren()
-  //        .addAll(
-  //            XCoordText,
-  //            inputXCoord,
-  //            YCoordText,
-  //            inputYCoord,
-  //            BuildingText,
-  //            inputBuilding,
-  //            submitNode);
-  //    addBox.setSpacing(20);
-  //    hBox.getChildren().addAll(addBox, modifyBox, removeBox);
-  //    hBox.setSpacing(20);
-  //
-  //    MFXButton submitNodeEdits = new MFXButton("Update Map");
-  //    submitNodeEdits.setPrefSize(150, 40);
-  //
-  //    VBox masterBox = new VBox();
-  //    masterBox.getChildren().addAll(hBox, submitNodeEdits);
-  //    masterBox.setSpacing(20);
-  //    masterBox.setAlignment(Pos.CENTER);
-  //
-  //    AnchorPane aPane = new AnchorPane();
-  //    aPane.getChildren().add(masterBox);
-  //    Insets insets = new Insets(0, 0, 0, 200);
-  //    aPane.setPadding(insets);
-  //    borderPane.getChildren().add(aPane);
-  //
-  //    //    borderPane.setPadding(insets);
-  //    //    addBox.relocate(0, 0);
-  //    Scene scene = new Scene(borderPane, 650, 500);
-  //    borderPane.relocate(0, 0);
-  //    Stage stage = new Stage();
-  //    stage.setScene(scene);
-  //    stage.setTitle("Add Node Window");
-  //
-  //    stage.show();
-  //    // Add
-  //    submitNode.setOnMouseClicked(
-  //        buttonEvent -> {
-  //          xCoord_temp = inputXCoord.getText();
-  //          inputXCoord.clear();
-  //          yCoord_temp = inputYCoord.getText();
-  //          inputYCoord.clear();
-  //          //          iD = inputID.getText();
-  //          building = inputBuilding.getText(); // maybe set automatically later
-  //          inputBuilding.clear();
-  //          Node newNode =
-  //              new Node(Integer.valueOf(xCoord_temp), Integer.valueOf(yCoord_temp), floor,
-  // building);
-  //          //          NodeDao nodeDao = new NodeDao();
-  //          n_toAdd.add(newNode);
-  //          //          nodeDao.addRow(newNode); to iterate over in submit method
-  //          //          placeNodes(
-  //          //              floor); // later implement an update map button that updates all
-  // changes
-  //          // made at once
-  //          // so user can submit multiple at a time
-  //          //          System.out.println("printed the new node");
-  //        });
-  //    // Modify
-  //    submitModify.setOnMouseClicked(
-  //        buttonEvent -> {
-  //          nodeID_temp = nodeIDText.getText();
-  //          nodeIDText.clear();
-  //          xCoord_temp = xCoord_text.getText();
-  //          xCoord_text.clear();
-  //          yCoord_temp = yCoord_text.getText();
-  //          yCoord_text.clear();
-  //          //          iD = inputID.getText();
-  //          //              building = inputBuilding.getText(); // maybe set automatically later
-  //          Node newNode =
-  //              new Node(
-  //                  Integer.valueOf(nodeID_temp),
-  //                  Integer.valueOf(xCoord_temp),
-  //                  Integer.valueOf(yCoord_temp),
-  //                  floor,
-  //                  building);
-  //
-  //          n_toModify_newNode.add(newNode);
-  //          n_toModify_oldID.add(nodeID_temp);
-  //
-  //          //          System.out.println("modified the node");
-  //        });
-  //    // Remove
-  //    submitRemove.setOnMouseClicked(
-  //        buttonEvent -> {
-  //          iD = nodeID_RText.getText();
-  //          nodeID_RText.clear();
-  //          n_toRemove.add(iD);
-  //          //              placeNodes(
-  //          //                      floor); // later implement an update map button that updates
-  // all
-  //          // changes made at once
-  //          // so
-  //          // user can submit multiple at a tim
-  //
-  //          //          System.out.println("removed the node");
-  //        });
-  //    // Submit
-  //    submitNodeEdits.setOnMouseClicked(
-  //        buttonEvent -> {
-  //          NodeDao nodeDao = new NodeDao();
-  //          MoveDao moveDao = new MoveDao();
-  //
-  //          MapHistoryDao mapHistory = new MapHistoryDao();
-  //          // Add loop
-  //          for (Node currNode : n_toAdd) {
-  //            nodeDao.addRow(currNode);
-  //            mapHistory.addRow(
-  //                new MapHistory(
-  //                    "ADD",
-  //                    String.valueOf(currNode.getNodeID()),
-  //                    "node",
-  //                    new Timestamp(System.currentTimeMillis())));
-  //          }
-  //          // Modify loop
-  //          for (int i = 0; i < n_toModify_oldID.size(); i++) {
-  //            //            NodeDao nodeDao = new NodeDao();
-  //            Node currNode = n_toModify_newNode.get(i);
-  //            String oldID = n_toModify_oldID.get(i);
-  //            int oldId_int = Integer.valueOf(oldID);
-  //            nodeDao.updateRow(Integer.valueOf(oldID), currNode);
-  //            mapHistory.addRow(
-  //                new MapHistory(
-  //                    "UPDATE",
-  //                    String.valueOf(currNode.getNodeID()),
-  //                    "node",
-  //                    new Timestamp(System.currentTimeMillis())));
-  //          }
-  //          // Remove loop
-  //          for (String currID : n_toRemove) {
-  //            moveDao.deleteRow(Integer.valueOf(currID));
-  //            nodeDao.deleteRow(Integer.valueOf(currID));
-  //            // mapHistory.addRow(new MapHistory("UPDATE", String.valueOf(currNode.getNodeID()),
-  //            // "node", new Timestamp(System.currentTimeMillis())));
-  //          }
-  //          // a new floor assignment relating to the currently viewed floor
-  //          group.getChildren().remove(mapNodes);
-  //          mapNodes = new Group();
-  //          group.getChildren().add(mapNodes);
-  //          loadDatabase();
-  //          sortNodes();
-  //          placeNodes(floor);
-  //          // Delete node
-  //          stage
-  //              .close(); // no need to close when switching floors bc any new one submitted with
-  // have
-  //        });
-  //  }
-
-  //  public void showNameMenu(ActionEvent event) {
-  //    BorderPane borderPane = new BorderPane();
-  //    HBox hBox = new HBox();
-  //
-  //    // modify
-  //    VBox modifyBox = new VBox(); // modify
-  //    Text nodeType = new Text("Input new Node Type");
-  //    Text longName = new Text("Input new Longname");
-  //    Text shortName = new Text("Input new Shortname");
-  //    Text oldName = new Text("Input Longname of Name to be Modified");
-  //    MFXTextField nodeTypeText = new MFXTextField();
-  //    MFXTextField shortName_t = new MFXTextField();
-  //    MFXTextField longName_t = new MFXTextField();
-  //    MFXTextField oldName_t = new MFXTextField();
-  //
-  //    MFXButton submitModify = new MFXButton("Modify");
-  //    submitModify.setPrefSize(100, 35);
-  //    submitModify.setMinSize(100, 35);
-  //    modifyBox
-  //        .getChildren()
-  //        .addAll(
-  //            oldName,
-  //            oldName_t,
-  //            nodeType,
-  //            nodeTypeText,
-  //            shortName,
-  //            shortName_t,
-  //            longName,
-  //            longName_t,
-  //            submitModify);
-  //    modifyBox.setSpacing(20);
-  //
-  //    // remove
-  //    VBox removeBox = new VBox();
-  //    Text nodeID_R = new Text("Input Longname of name to be Removed");
-  //    Text nodeID_N = new Text("Input NodeID of node with longname to remove");
-  //    MFXTextField nameToBeRemoved = new MFXTextField();
-  //    MFXTextField iDToBeRemoved = new MFXTextField();
-  //    MFXButton submitRemove = new MFXButton("Remove");
-  //    submitRemove.setPrefSize(100, 35);
-  //    submitRemove.setMinSize(100, 35);
-  //    removeBox
-  //        .getChildren()
-  //        .addAll(nodeID_R, nameToBeRemoved, nodeID_N, iDToBeRemoved, submitRemove);
-  //    removeBox.setSpacing(20);
-  //
-  //    // add
-  //    VBox addBox = new VBox();
-  //    //      Text XCoordText = new Text("Input X Coordinate");
-  //    //      Text YCoordText = new Text("Input Y Coordinate");
-  //    Text nodeType_t = new Text("Input Node Type");
-  //    Text SName = new Text("Input New Shortname");
-  //    Text LName = new Text("Input New Longname");
-  //    Text nodeID = new Text("Input NodeID of node to add name to");
-  //
-  //    //      Text BuildingText = new Text("Input Building Name");
-  //    MFXTextField nodeTypeInput = new MFXTextField();
-  //    MFXTextField sNameInput = new MFXTextField();
-  //    MFXTextField lNameInput = new MFXTextField();
-  //    MFXTextField nodeIDinput = new MFXTextField();
-  //    MFXButton submitNode = new MFXButton("Add");
-  //    submitNode.setId("submitNode");
-  //    //    submitNode.setText("Submit Node");
-  //    submitNode.setPrefSize(100, 35);
-  //    submitNode.setMinSize(100, 35);
-  //    //    inputXCoord.setPrefSize(30, 30);
-  //    //    inputXCoord.setBorderGap(20);
-  //    addBox
-  //        .getChildren()
-  //        .addAll(
-  //            nodeID,
-  //            nodeIDinput,
-  //            nodeType_t,
-  //            nodeTypeInput,
-  //            SName,
-  //            sNameInput,
-  //            LName,
-  //            lNameInput,
-  //            submitNode);
-  //    addBox.setSpacing(20);
-  //
-  //    hBox.getChildren().addAll(addBox, modifyBox, removeBox);
-  //    hBox.setSpacing(20);
-  //
-  //    MFXButton submitNodeEdits = new MFXButton("Update Table");
-  //    submitNodeEdits.setPrefSize(150, 40);
-  //
-  //    VBox masterBox = new VBox();
-  //    masterBox.getChildren().addAll(hBox, submitNodeEdits);
-  //    masterBox.setSpacing(20);
-  //    masterBox.setAlignment(Pos.CENTER);
-  //
-  //    AnchorPane aPane = new AnchorPane();
-  //    aPane.getChildren().add(masterBox);
-  //    Insets insets = new Insets(0, 0, 0, 200);
-  //    aPane.setPadding(insets);
-  //    borderPane.getChildren().add(aPane);
-  //    //    borderPane.setAlignment(aPane, Pos.CENTER);
-  //
-  //    addBox.relocate(0, 0);
-  //    Scene scene = new Scene(borderPane, 600, 600);
-  //    borderPane.relocate(0, 0);
-  //    Stage stage = new Stage();
-  //    stage.setScene(scene);
-  //    stage.setTitle("Add Node Window");
-  //
-  //    stage.show();
-  //    //    MoveDao moveDao1 = new MoveDao(); //////////were replaced in remove below
-  //    //    LocationDao locationDao1 = new LocationDao();
-  //
-  //    // Add
-  //    submitNode.setOnMouseClicked(
-  //        buttonEvent -> {
-  //          nodeType_temp = nodeTypeInput.getText();
-  //          sNameInput_temp = sNameInput.getText();
-  //          lNameInput_temp = lNameInput.getText();
-  //          nodeIDinput_temp = nodeIDinput.getText();
-  //
-  //          LocationName locationName =
-  //              new LocationName(lNameInput_temp, sNameInput_temp, nodeType_temp);
-  //
-  //          long currentTime = System.currentTimeMillis();
-  //          Date currentDate = new Date(currentTime);
-  //          Move move = new Move(Integer.valueOf(nodeIDinput_temp), lNameInput_temp, currentDate);
-  //
-  //          moveNamesToAdd.add(move);
-  //          newNameToAdd.add(locationName);
-  //          nodeTypeInput.clear();
-  //          sNameInput.clear();
-  //          lNameInput.clear();
-  //          nodeIDinput.clear();
-  //
-  //          //          System.out.println("printed the new node");
-  //        });
-  //
-  //    // Modify
-  //    submitModify.setOnMouseClicked(
-  //        buttonEvent -> {
-  //          nodeType_temp = nodeTypeText.getText();
-  //          sNameInput_temp = shortName_t.getText();
-  //          lNameInput_temp = longName_t.getText();
-  //          oldName_temp = oldName_t.getText();
-  //          //          System.out.println(nodeType_temp + "   " + nodeType_temp.length());
-  //          if (!(nodeType_temp.length() == 4)) { // Fix later
-  //            nodeType_temp = "HALL";
-  //          }
-  //          LocationName locationName =
-  //              new LocationName(lNameInput_temp, sNameInput_temp, nodeType_temp);
-  //
-  //          newNameToModify.add(locationName);
-  //          oldNameToModify.add(oldName_temp);
-  //          nodeTypeText.clear();
-  //          shortName_t.clear();
-  //          longName_t.clear();
-  //          oldName_t.clear();
-  //          //          System.out.println("modified the name");
-  //        });
-  //    // remove
-  //    submitRemove.setOnMouseClicked(
-  //        buttonEvent -> {
-  //          removeName = nameToBeRemoved.getText();
-  //          nameToRemove.add(removeName);
-  //          iD_r = iDToBeRemoved.getText();
-  //          idList_r.add(iD_r);
-  //
-  //          nameToBeRemoved.clear();
-  //          //          System.out.println("removed the node");
-  //        });
-  //
-  //    submitNodeEdits.setOnMouseClicked(
-  //        buttonEvent -> {
-  //          LocationNameDao locationNameDao = new LocationNameDao();
-  //          MoveDao moveDao = new MoveDao();
-  //
-  //          // Add
-  //          for (int i = 0; i < newNameToAdd.size(); i++) {
-  //
-  //            LocationName currName = newNameToAdd.get(i);
-  //            Move currMove = moveNamesToAdd.get(i);
-  //            locationNameDao.addRow(currName);
-  //            moveDao.addRow(currMove);
-  //          }
-  //          // Modify
-  //          for (int i = 0; i < oldNameToModify.size(); i++) {
-  //            String currOldName = oldNameToModify.get(i);
-  //            LocationName currNewName = newNameToModify.get(i);
-  //            locationNameDao.updateRow(currOldName, currNewName);
-  //
-  //            ///// METHOD TO REPLACE NAME OF NODE AND INPUT TO TABLE
-  //          }
-  //          // Remove
-  //          for (int i = 0; i < nameToRemove.size(); i++) {
-  //
-  //            long currentTime = System.currentTimeMillis();
-  //            Date currentDate = new Date(currentTime);
-  //            String currName = nameToRemove.get(i);
-  //            String iD = idList_r.get(i);
-  //            Move move = new Move(Integer.valueOf(iD), currName, currentDate);
-  //            moveDao.deleteRow(move);
-  //            locationNameDao.deleteRow(currName);
-  //            //// METHOD TO FIND NODE IN DAO AND REMOVE IT BASED ON ID
-  //            //                nodeDao.deleteRow(currID); ////NEED TO MAKE WORK WITH NODE ID ONLY
-  // AS
-  //            // SUPPLIED
-  //          }
-  //          group.getChildren().remove(mapNodes);
-  //          mapNodes = new Group();
-  //          group.getChildren().add(mapNodes);
-  //          sortNodes();
-  //          placeNodes(floor);
-  //          stage.close();
-  //        });
-  //  }
 
   private String[] selectedFilePaths = new String[4];
 

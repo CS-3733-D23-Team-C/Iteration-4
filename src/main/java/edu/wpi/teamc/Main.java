@@ -1,15 +1,13 @@
 package edu.wpi.teamc;
 
 import edu.wpi.teamc.dao.requests.*;
-import edu.wpi.teamc.dao.users.EmployeeUserDao;
-import edu.wpi.teamc.dao.users.login.LoginDao;
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class Main {
 
   public static void main(String[] args) throws SQLException, IOException {
-        CApp.launch(CApp.class, args);
+    CApp.launch(CApp.class, args);
 
     //    ImportCSV importCSV = new ImportCSV();
     //    importCSV.importAllDisplaysCSV(

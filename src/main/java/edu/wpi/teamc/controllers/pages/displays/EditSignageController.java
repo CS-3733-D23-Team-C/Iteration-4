@@ -1,6 +1,9 @@
 package edu.wpi.teamc.controllers.pages.displays;
 
 import edu.wpi.teamc.dao.displays.signage.*;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,10 +13,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.tableview2.FilteredTableView;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class EditSignageController {
   String buttonColor = "-fx-background-color: white; -fx-text-fill: #02143B;";

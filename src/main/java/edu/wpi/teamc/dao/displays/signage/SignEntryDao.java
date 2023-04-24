@@ -39,17 +39,35 @@ public class SignEntryDao implements IDao<SignEntry, SignEntry> {
   }
 
   @Override
-  public Sign updateRow(Sign orm, Sign repl) {
-    Sign sign = null;
+  public SignEntry updateRow(SignEntry type, SignEntry type2) {
+    return null;
+  }
+
+  @Override
+  public SignEntry addRow(SignEntry type) {
+    SignEntry sign = null;
     DBConnection db = new DBConnection();
     try {
-      String query = "UPDATE \"displays\".\"Signage\" SET id = ?, name = ? WHERE id = ?;";
-      PreparedStatement ps = db.getConnection().prepareStatement(query);
-      ps.setInt(1, repl.id);
-      ps.setString(2, repl.name);
-      ps.setInt(3, orm.id);
+      String query =
+          "INSERT INTO \"displays\".\"Signage\" (macadd, devicename, date, locationname, direction) VALUES (?,?,?,?,?)";
+      PreparedStatement ps =
+          db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+      ps.setString(1, type.getMacadd());
+      ps.setString(2, type.getDevicename());
+      ps.setDate(3, type.getDate());
+      ps.setString(4, type.getLocationname());
+      ps.setString(5, type.getDirection().toString());
       ps.executeUpdate();
-      sign = repl;
+
+      ResultSet rs = ps.getGeneratedKeys();
+      rs.next();
+      String macadd = rs.getString("macadd");
+      String devicename = rs.getString("devicename");
+      Date date = Date.valueOf(rs.getString("date"));
+      String locationname = rs.getString("locationname");
+      DIRECTION direction = DIRECTION.valueOf(rs.getString("direction"));
+      sign = new SignEntry(macadd, devicename, date, locationname, direction);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -58,62 +76,55 @@ public class SignEntryDao implements IDao<SignEntry, SignEntry> {
   }
 
   @Override
-  public Sign addRow(Sign type) {
-    DBConnection db = new DBConnection();
-    try {
-      String query = "INSERT INTO \"displays\".\"Signage\" (name) VALUES (?)";
-      PreparedStatement ps =
-          db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-      ps.setString(1, type.getName());
-      ps.executeUpdate();
-      ResultSet rs = ps.getGeneratedKeys();
-      if (rs.next()) {
-        type.id = rs.getInt(1);
-      }
-
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
-    db.closeConnection();
-
-    return type;
-  }
-
-  @Override
-  public Sign deleteRow(Sign type) {
-    DBConnection db = new DBConnection();
-    try {
-      String q = "DELETE FROM \"displays\".\"Signage\" WHERE id = ?";
-      PreparedStatement ps = db.getConnection().prepareStatement(q);
-      ps.setInt(1, type.id);
-      ps.executeUpdate();
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
-
-    db.closeConnection();
-    return type;
-  }
-
-  @Override
-  public Sign fetchObject(Integer key) {
-    DBConnection db = new DBConnection();
-    try {
-      String query = "SELECT * FROM \"displays\".\"Signage\" WHERE id = ?";
-      PreparedStatement ps = db.getConnection().prepareStatement(query);
-      ps.setInt(1, key);
-      ResultSet rs = ps.executeQuery();
-      if (rs.next()) {
-        int id = rs.getInt("id");
-        String name = rs.getString("name");
-        Sign s = new Sign(name);
-        s.id = id;
-        return s;
-      }
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
-    db.closeConnection();
+  public SignEntry deleteRow(SignEntry type) {
     return null;
   }
+
+  @Override
+  public SignEntry fetchObject(SignEntry key) {
+    return null;
+  }
+
+  public void deleteVersion(String macadd, Date date) {
+    DBConnection db = new DBConnection();
+    try {
+      String query = "DELETE FROM \"displays\".\"Signage\" WHERE macadd = ? AND date = ?";
+      PreparedStatement ps = db.getConnection().prepareStatement(query);
+      ps.setString(1, macadd);
+      ps.setDate(2, date);
+      ps.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    db.closeConnection();
+  }
+
+    public void deleteAllVersions(String macadd) {
+        DBConnection db = new DBConnection();
+        try {
+        String query = "DELETE FROM \"displays\".\"Signage\" WHERE macadd = ?";
+        PreparedStatement ps = db.getConnection().prepareStatement(query);
+        ps.setString(1, macadd);
+        ps.executeUpdate();
+        } catch (SQLException e) {
+        e.printStackTrace();
+        }
+        db.closeConnection();
+    }
+
+
+    public void updateDeviceName(String macadd, String newDeviceName) {
+      DBConnection db = new DBConnection();
+      try {
+        String query = "UPDATE \"displays\".\"Signage\" SET devicename = ? WHERE macadd = ?";
+        PreparedStatement ps = db.getConnection().prepareStatement(query);
+        ps.setString(1, newDeviceName);
+        ps.setString(2, macadd);
+        ps.executeUpdate();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    db.closeConnection();
+    }
+
 }

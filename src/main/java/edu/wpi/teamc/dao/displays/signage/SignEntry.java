@@ -1,5 +1,9 @@
 package edu.wpi.teamc.dao.displays.signage;
 
+
+import edu.wpi.teamc.dao.IOrm;
+import lombok.Getter;
+import lombok.Setter;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -10,7 +14,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SignEntry {
+public class SignEntry implements IOrm {
   String macadd;
   String devicename;
   Date date;
@@ -18,11 +22,11 @@ public class SignEntry {
   DIRECTION direction;
 
   public SignEntry(
-      String macadd, String devicename, Date date, String locaiton, DIRECTION direction) {
+      String macadd, String devicename, Date date, String locationname, DIRECTION direction) {
     this.macadd = macadd;
     this.devicename = devicename;
     this.date = date;
-    this.location = locaiton;
+    this.locationname = locationname;
     this.direction = direction;
   }
 

@@ -212,12 +212,12 @@ public class MenuController {
   }
 
   @FXML
-  void getFurnitureHistory(ActionEvent event) {
+  void getSignageEdit(ActionEvent event) {
     Navigation.navigate(Screen.SIGNAGE_EDIT);
   }
 
   @FXML
-  void getConferenceHistory(ActionEvent event) {
+  void getRequestHistory(ActionEvent event) {
     Navigation.navigate(Screen.REQUEST_HISTORY);
   }
 
@@ -258,12 +258,12 @@ public class MenuController {
       Admin_menu_settings.setText("Settings");
       // HISTORY TEXT//
       Admin_menu_history.setText("History");
-      Admin_menu_flower_history.setText("Flower Delivery");
-      Admin_menu_furniture_history.setText("Furniture Delivery");
-      Admin_menu_meal_history.setText("Meal Delivery");
-      Admin_menu_stationary_history.setText("Office Supplies");
+      //      Admin_menu_flower_history.setText("Flower Delivery");
+      //      Admin_menu_furniture_history.setText("Furniture Delivery");
+      //      Admin_menu_meal_history.setText("Meal Delivery");
+      //      Admin_menu_stationary_history.setText("Office Supplies");
       Admin_menu_mapchange_history.setText("Map Changes");
-      Admin_menu_reservation_history.setText("Room Reservations");
+      //      Admin_menu_reservation_history.setText("Room Reservations");
       // Admin_menu_giftbasket_history.setText("Gift Basket Delivery");
       // NAVIGATION TEXT//
       Admin_menu_navigation.setText("Navigation");

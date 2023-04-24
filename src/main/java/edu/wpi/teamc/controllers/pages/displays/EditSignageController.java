@@ -3,6 +3,9 @@ package edu.wpi.teamc.controllers.pages.displays;
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.displays.signage.*;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,10 +21,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.tableview2.FilteredTableView;
-
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class EditSignageController {
   String buttonColor = "-fx-background-color: white; -fx-text-fill: #02143B;";

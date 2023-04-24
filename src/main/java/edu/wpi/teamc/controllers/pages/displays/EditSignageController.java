@@ -266,8 +266,7 @@ public class EditSignageController {
     BorderPane borderPane = new BorderPane();
 
     Text prompt = new Text("Enter New Mac Address");
-    TextField newMac = new TextField();
-    Text oldMac = new Text("Change From: " + signID.getText());
+    TextField newMac = new TextField(signID.getText());
     MFXButton confirmButton = new MFXButton("Submit");
     MFXButton cancelButton = new MFXButton("Cancel");
     Hyperlink hyperlink = new Hyperlink("Autofill Current Device Mac Address");
@@ -281,7 +280,6 @@ public class EditSignageController {
     //    prompt.getStyleClass().add("Header");
     //    borderPane.getStyleClass().add("scenePane");
     hyperlink.setStyle(" -fx-font-size: 10px; -fx-padding-left: 10px;");
-    oldMac.setStyle("-fx-font-size: 12px;");
     hyperlink.setOnAction(
         e -> {
           newMac.setText(SignEntry.getCurrentDeviceMacAddress());
@@ -309,7 +307,7 @@ public class EditSignageController {
     vbox.setLayoutY(lay_y);
     newMachbox.getChildren().addAll(newMac, hyperlink);
 
-    vbox.getChildren().addAll(prompt, oldMac, newMachbox, confirmButton, cancelButton);
+    vbox.getChildren().addAll(prompt, newMachbox, confirmButton, cancelButton);
 
     // Set and show screen
 
@@ -335,9 +333,8 @@ public class EditSignageController {
     BorderPane borderPane = new BorderPane();
 
     Text prompt = new Text("Enter New Device Name");
-    TextField newName = new TextField();
+    TextField newName = new TextField(signName.getText());
     Text oldMac = new Text("Mac Address Selected: " + signID.getText());
-    Text oldName = new Text("Change From: " + signName.getText());
     MFXButton confirmButton = new MFXButton("Submit");
     MFXButton cancelButton = new MFXButton("Cancel");
     HBox newNamehbox = new HBox();
@@ -372,7 +369,7 @@ public class EditSignageController {
     vbox.setLayoutY(lay_y);
     newNamehbox.getChildren().addAll(newName);
 
-    vbox.getChildren().addAll(prompt, oldMac, oldName, newNamehbox, confirmButton, cancelButton);
+    vbox.getChildren().addAll(prompt, oldMac, newNamehbox, confirmButton, cancelButton);
 
     // Set and show screen
 

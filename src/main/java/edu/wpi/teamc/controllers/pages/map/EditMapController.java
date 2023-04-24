@@ -235,7 +235,8 @@ public class EditMapController {
   //  Boolean
 
   // Notes: Fix bug that you can click on an edge and exit and its still highlighted
-  // click bug that you can click on a node during move and then click anywhere on the map to bring up the move menu
+  // click bug that you can click on a node during move and then click anywhere on the map to bring
+  // up the move menu
 
   /** Method run when controller is initialized */
   public void initialize() {

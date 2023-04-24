@@ -30,7 +30,7 @@ public class ScreenSaverController {
                 Duration.ZERO,
                 e ->
                     timeDisplay.setText(
-                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss a")))),
+                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss a")))),
             new KeyFrame(Duration.seconds(1)));
     clock.setCycleCount(Animation.INDEFINITE);
     clock.play();

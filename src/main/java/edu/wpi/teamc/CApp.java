@@ -3,6 +3,8 @@ package edu.wpi.teamc;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -45,10 +47,28 @@ public class CApp extends Application {
     primaryStage.show();
 
     Navigation.navigate(Screen.HOME);
+
+    /*Timer timer = new Timer();
+
+    //    timer.schedule(new ScreenTask(), 10000);
+    timer.schedule(
+        new TimerTask() {
+          @Override
+          public void run() {
+            //            exit(0);
+            navigateAway();
+            System.out.println("ScreenTask");
+          }
+        },
+        100);*/
   }
 
   @Override
   public void stop() {
     log.info("Shutting Down");
+  }
+
+  public void navigateAway() {
+    Navigation.navigate(Screen.ADMIN_HOME);
   }
 }

@@ -99,32 +99,30 @@ public class SignEntryDao implements IDao<SignEntry, SignEntry> {
     db.closeConnection();
   }
 
-    public void deleteAllVersions(String macadd) {
-        DBConnection db = new DBConnection();
-        try {
-        String query = "DELETE FROM \"displays\".\"Signage\" WHERE macadd = ?";
-        PreparedStatement ps = db.getConnection().prepareStatement(query);
-        ps.setString(1, macadd);
-        ps.executeUpdate();
-        } catch (SQLException e) {
-        e.printStackTrace();
-        }
-        db.closeConnection();
+  public void deleteAllVersions(String macadd) {
+    DBConnection db = new DBConnection();
+    try {
+      String query = "DELETE FROM \"displays\".\"Signage\" WHERE macadd = ?";
+      PreparedStatement ps = db.getConnection().prepareStatement(query);
+      ps.setString(1, macadd);
+      ps.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
-
-
-    public void updateDeviceName(String macadd, String newDeviceName) {
-      DBConnection db = new DBConnection();
-      try {
-        String query = "UPDATE \"displays\".\"Signage\" SET devicename = ? WHERE macadd = ?";
-        PreparedStatement ps = db.getConnection().prepareStatement(query);
-        ps.setString(1, newDeviceName);
-        ps.setString(2, macadd);
-        ps.executeUpdate();
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
     db.closeConnection();
-    }
+  }
 
+  public void updateDeviceName(String macadd, String newDeviceName) {
+    DBConnection db = new DBConnection();
+    try {
+      String query = "UPDATE \"displays\".\"Signage\" SET devicename = ? WHERE macadd = ?";
+      PreparedStatement ps = db.getConnection().prepareStatement(query);
+      ps.setString(1, newDeviceName);
+      ps.setString(2, macadd);
+      ps.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    db.closeConnection();
+  }
 }

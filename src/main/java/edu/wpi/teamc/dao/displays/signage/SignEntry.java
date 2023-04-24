@@ -1,14 +1,13 @@
 package edu.wpi.teamc.dao.displays.signage;
 
 import edu.wpi.teamc.dao.IOrm;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.sql.Date;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -41,7 +40,7 @@ public class SignEntry implements IOrm {
       for (int i = 0; i < hardwareAddress.length; i++) {
         hexadecimal[i] = String.format("%02X", hardwareAddress[i]);
       }
-      macAddress = String.join("-", hexadecimal);
+      macAddress = String.join(":", hexadecimal);
     } catch (UnknownHostException e) {
       throw new RuntimeException(e);
     } catch (SocketException e) {

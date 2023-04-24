@@ -8,8 +8,7 @@ public class Kiosk implements IOrm {
   String kioskname;
   int signid;
 
-
-  public Kiosk(String id,  String kioskname, int signid) {
+  public Kiosk(String id, String kioskname, int signid) {
     this.id = id;
     this.signid = signid;
   }

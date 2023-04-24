@@ -2,6 +2,8 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.IOrm;
 import edu.wpi.teamc.dao.users.IUser;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,5 +45,71 @@ public abstract class AbsServiceRequest implements IOrm, IRequest {
     this.assignedto = assignedto;
   }
 
-  AbsServiceRequest() {}
+  public AbsServiceRequest() {}
+
+  public List<FlowerDeliveryRequest> filterRequestFlower(
+      List<FlowerDeliveryRequest> requests, STATUS status) {
+    List<FlowerDeliveryRequest> filteredRequests = new ArrayList<>();
+    for (FlowerDeliveryRequest request : requests) {
+      if (request.getStatus().equals(status)) {
+        filteredRequests.add(request);
+      }
+    }
+    return filteredRequests;
+  }
+
+  public List<ConferenceRoomRequest> filterRequestConference(
+      List<ConferenceRoomRequest> requests, STATUS status) {
+    List<ConferenceRoomRequest> filteredRequests = new ArrayList<>();
+    for (ConferenceRoomRequest request : requests) {
+      if (request.getStatus().equals(status)) {
+        filteredRequests.add(request);
+      }
+    }
+    return filteredRequests;
+  }
+
+  public List<FurnitureDeliveryRequest> filterRequestFurniture(
+      List<FurnitureDeliveryRequest> requests, STATUS status) {
+    List<FurnitureDeliveryRequest> filteredRequests = new ArrayList<>();
+    for (FurnitureDeliveryRequest request : requests) {
+      if (request.getStatus().equals(status)) {
+        filteredRequests.add(request);
+      }
+    }
+    return filteredRequests;
+  }
+
+  public List<MealRequest> filterRequestMeal(List<MealRequest> requests, STATUS status) {
+    List<MealRequest> filteredRequests = new ArrayList<>();
+    for (MealRequest request : requests) {
+      if (request.getStatus().equals(status)) {
+        filteredRequests.add(request);
+      }
+    }
+    return filteredRequests;
+  }
+
+  public List<OfficeSuppliesRequest> filterRequestOfficeSupplies(
+      List<OfficeSuppliesRequest> requests, STATUS status) {
+    List<OfficeSuppliesRequest> filteredRequests = new ArrayList<>();
+    for (OfficeSuppliesRequest request : requests) {
+      if (request.getStatus().equals(status)) {
+        filteredRequests.add(request);
+      }
+    }
+    return filteredRequests;
+  }
+
+  //    public List<InterpretationRequest> filterRequest(List<InterpretationRequest> requests,
+  // STATUS status) {
+  //        List<InterpretationRequest> filteredRequests = new ArrayList<>();
+  //        for (InterpretationRequest request : requests) {
+  //        if (request.getStatus().equals(status)) {
+  //            filteredRequests.add(request);
+  //        }
+  //        }
+  //        return filteredRequests;
+  //    }
+
 }

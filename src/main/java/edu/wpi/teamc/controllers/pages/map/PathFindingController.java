@@ -317,8 +317,6 @@ public class PathFindingController {
   }
 
   public void changeFloorFromString(String floor) throws IOException {
-    // TODO : check to see if location names should be placed or not, based off toggle status
-
     if (floor.equals("1")) {
       image = new Image(Main.class.getResource("views/images/FirstFloor.png").openStream());
       this.floor = "1";

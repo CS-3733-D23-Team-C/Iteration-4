@@ -28,7 +28,7 @@ public class TextDirectionsHelper {
       direction = "";
 
       if (!src.getFloor().equals(dest.getFloor())) {
-        direction = "Floor change";
+        direction = "go to floor " + dest.getFloor();
         textDirections.add(direction);
       } else {
         if (!tempOrientation.equals(orientation)) {
@@ -100,7 +100,7 @@ public class TextDirectionsHelper {
   private LinkedList<String> clean(LinkedList<String> textDirections) {
     LinkedList<String> clean = new LinkedList<>();
     int totalLength = 0;
-    Pattern pattern = Pattern.compile("^go", Pattern.CASE_INSENSITIVE);
+    Pattern pattern = Pattern.compile("^go straight", Pattern.CASE_INSENSITIVE);
     Matcher matcher;
 
     for (String textDirection : textDirections) {

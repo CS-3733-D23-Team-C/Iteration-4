@@ -10,6 +10,7 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.tableview2.FilteredTableView?>
 
+<?import org.controlsfx.control.SearchableComboBox?>
 <AnchorPane prefHeight="768.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.map.MoveTableController">
    <children>
       <AnchorPane layoutX="400.0" layoutY="153.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
@@ -27,8 +28,8 @@
                         </FilteredTableView>
                         <AnchorPane layoutX="870.0" layoutY="60.0" prefHeight="290.0" prefWidth="341.0" AnchorPane.bottomAnchor="282.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
                            <children>
-                              <MFXFilterComboBox fx:id="locationName" layoutX="156.0" layoutY="70.0" prefHeight="42.0" prefWidth="188.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0" />
-                              <MFXFilterComboBox fx:id="nodeID" layoutX="187.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0" />
+                              <SearchableComboBox fx:id="locationName" layoutX="156.0" layoutY="70.0" prefHeight="42.0" prefWidth="188.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0" />
+                              <SearchableComboBox fx:id="nodeID" layoutX="187.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="8.0" />
                               <Text fill="WHITE" layoutX="28.0" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-size: 20; -fx-font-weight: bold;" text="Node ID:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="20.0" />
                               <Text fill="WHITE" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-size: 20; -fx-font-weight: bold;" text="Location Name:" wrappingWidth="116.862548828125" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="69.0" />
                               <Text fill="WHITE" layoutX="60.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-size: 20; -fx-font-weight: bold;" text="Date:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="145.0" />

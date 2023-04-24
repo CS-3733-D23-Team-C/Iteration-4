@@ -234,6 +234,9 @@ public class EditMapController {
 
   //  Boolean
 
+  // Notes: Fix bug that you can click on an edge and exit and its still highlighted
+  // click bug that you can click on a node during move and then click anywhere on the map to bring up the move menu
+
   /** Method run when controller is initialized */
   public void initialize() {
 
@@ -435,6 +438,7 @@ public class EditMapController {
                 moveHelper.setCircle(currCircleClicked);
                 moveHelper.setNode(currNodeClicked);
                 currCircleClicked.setFill(Paint.valueOf("#02D755"));
+                nodeClicked = false;
               }
             } else if (Objects.equals(mapMode.getMapMode(), "Make_edges")) {
               lockMap = true;

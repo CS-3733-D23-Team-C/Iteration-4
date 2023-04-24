@@ -60,3 +60,8 @@
     -fx-font-family: Arial;
     -fx-font-weight: bold;
 }
+.DatePicker{
+    -fx-prompt-text-fill: "Select Move Date";
+    -fx-pref-height: 30px;
+    -fx-pref-width: 210px;
+}

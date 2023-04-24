@@ -401,6 +401,10 @@ public class PathFindingController {
     circ2.setStroke(Paint.valueOf("#021335"));
     circ2.setVisible(true);
     mapNodes.getChildren().add(circ2);
+
+    Point2D centrePoint = new Point2D(node.getXCoord(), node.getYCoord());
+    mapGPane.centreOn(centrePoint);
+    mapGPane.zoomTo(0.5, mapGPane.targetPointAtViewportCentre());
   }
 
   public void drawEdges() {

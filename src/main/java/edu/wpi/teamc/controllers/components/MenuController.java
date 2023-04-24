@@ -3,9 +3,12 @@ package edu.wpi.teamc.controllers.components;
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 import edu.wpi.teamc.CApp;
+import edu.wpi.teamc.dao.HospitalSystem;
+import edu.wpi.teamc.dao.displays.Alert;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.animation.PauseTransition;
 import javafx.animation.TranslateTransition;
@@ -36,7 +39,7 @@ public class MenuController {
   @FXML private ImageView exitButton;
   @FXML private ImageView logoutButton;
   @FXML private ImageView historyButton;
-
+  @FXML private ImageView warningButton;
   @FXML private Pane homeTrigger;
   @FXML private Pane serviceRequestTrigger;
   @FXML private Pane navigationTrigger;
@@ -46,6 +49,7 @@ public class MenuController {
 
   @FXML private Pane exitTrigger;
   @FXML private Pane logoutTrigger;
+  @FXML private Pane warningTrigger;
   @FXML private Pane serviceRequestPopOut;
   @FXML private Pane navigationPopOut;
   @FXML private Pane settingsPopOut;
@@ -53,6 +57,7 @@ public class MenuController {
   @FXML private Pane historyPopOut;
   @FXML private Pane exitPopOut;
   @FXML private Pane logoutPopOut;
+  @FXML private Pane warningPopOut;
   @FXML private Pane homePopOut;
   @FXML private AnchorPane basePane;
   @FXML private Pane settingsPane;
@@ -71,6 +76,7 @@ public class MenuController {
   @FXML private AnchorPane exitButton1;
   @FXML private AnchorPane logoutButton1;
   @FXML private AnchorPane historyButton1;
+  @FXML private AnchorPane warningButton1;
 
   @FXML private AnchorPane homeTrigger1;
   @FXML private AnchorPane serviceRequestTrigger1;
@@ -78,7 +84,7 @@ public class MenuController {
   @FXML private AnchorPane settingsTrigger1;
   @FXML private AnchorPane helpTrigger1;
   @FXML private AnchorPane historyTrigger1;
-
+  @FXML private AnchorPane warningTrigger1;
   @FXML private AnchorPane exitTrigger1;
   @FXML private AnchorPane logoutTrigger1;
   @FXML private AnchorPane serviceRequestPopOut1;
@@ -86,6 +92,7 @@ public class MenuController {
   @FXML private AnchorPane settingsPopOut1;
   @FXML private AnchorPane helpPopOut1;
   @FXML private AnchorPane historyPopOut1;
+  @FXML private AnchorPane warningPopOut1;
   @FXML private AnchorPane exitPopOut1;
   @FXML private AnchorPane logoutPopOut1;
   @FXML private AnchorPane homePopOut1;
@@ -129,6 +136,11 @@ public class MenuController {
   @FXML private MFXButton Admin_menu_employee_table;
 
   // LANGUAGE TEXT//
+
+  // ALERT TEXT//
+  @FXML private Text alert1;
+  @FXML private Text alert2;
+  @FXML private Text alert3;
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {
@@ -249,6 +261,9 @@ public class MenuController {
   }
 
   @FXML
+  void receiveWarning() {}
+
+  @FXML
   public void setlanguage(int language_choice) {
     if (language_choice == 0) {
       Admin_menu_home.setText("Home");
@@ -320,6 +335,10 @@ public class MenuController {
 
   @FXML
   public void initialize() {
+
+    List<Alert> alertList = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
+    alert1.setText(alertList.get(0).getType() + ": " + alertList.get(0).getTitle());
+
     setlanguage(language_choice);
     homeTrigger1.setVisible(false);
     serviceRequestTrigger1.setVisible(false);
@@ -329,6 +348,7 @@ public class MenuController {
     historyTrigger1.setVisible(false);
     exitTrigger1.setVisible(false);
     logoutTrigger1.setVisible(false);
+    warningTrigger1.setVisible(false);
     serviceRequestPopOut1.setVisible(false);
     navigationPopOut1.setVisible(false);
     settingsPopOut1.setVisible(false);
@@ -336,6 +356,7 @@ public class MenuController {
     exitPopOut1.setVisible(false);
     logoutPopOut1.setVisible(false);
     homePopOut1.setVisible(false);
+    warningPopOut1.setVisible(false);
 
     if (!CApp.getAdminLoginCheck()) {
       Admin_menu_movetable.setMouseTransparent(true);
@@ -366,6 +387,7 @@ public class MenuController {
     TranslateTransition logoutPopOutTransition = new TranslateTransition();
     TranslateTransition homePopOutTransition = new TranslateTransition();
     TranslateTransition settingsPaneTransition = new TranslateTransition();
+    TranslateTransition warningPopOutTransition = new TranslateTransition();
 
     AtomicBoolean isHovering = new AtomicBoolean(false);
 
@@ -1083,6 +1105,87 @@ public class MenuController {
                 exitPopOutTransition.setNode(exitPopOut);
                 exitPopOut.setTranslateX(180);
                 exitPopOutTransition.play();
+              }
+            });
+
+    warningTrigger1
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !warningButton.isHover() && !warningPopOut.isHover()) {
+                warningPopOutTransition.setDuration(Duration.millis(200));
+                warningPopOutTransition.setNode(warningPopOut);
+                warningPopOutTransition.setToX(0);
+                warningPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!warningPopOut.isHover() && !warningTrigger.isHover()) {
+                        warningPopOut1.setVisible(false);
+                        warningTrigger1.setVisible(false);
+                        warningButton1.setVisible(true);
+                      }
+                    });
+                warningPopOutTransition.play();
+              } else if (newValue) {
+                warningPopOutTransition.setDuration(Duration.millis(200));
+                warningPopOutTransition.setNode(warningPopOut);
+                warningPopOut.setTranslateX(250);
+                warningPopOutTransition.play();
+              }
+            });
+    warningPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !warningButton.isHover() && !warningTrigger.isHover()) {
+                warningPopOutTransition.setDuration(Duration.millis(200));
+                warningPopOutTransition.setNode(warningPopOut);
+                warningPopOutTransition.setToX(0);
+                warningPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!warningPopOut.isHover() && !warningTrigger.isHover()) {
+                        warningPopOut1.setVisible(false);
+                        warningTrigger1.setVisible(false);
+                        warningButton1.setVisible(true);
+                      }
+                    });
+                warningPopOutTransition.play();
+              } else if (newValue) {
+                warningPopOutTransition.stop();
+                warningPopOut.setTranslateX(250);
+              }
+            });
+    warningButton1
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue || isHovering.get()) {
+                delay.setOnFinished(
+                    event -> {
+                      warningPopOutTransition.setDuration(Duration.millis(200));
+                      warningPopOutTransition.setNode(warningPopOut);
+                      warningPopOutTransition.setToX(250);
+                      warningPopOutTransition.play();
+                      warningPopOut1.setVisible(true);
+                      warningTrigger1.setVisible(true);
+                      warningButton1.setVisible(false);
+                    });
+                delay.play();
+              } else {
+                delay.setOnFinished(null); // Clear the delay's onFinished event
+                warningPopOutTransition.setDuration(Duration.millis(200));
+                warningPopOutTransition.setNode(warningPopOut);
+                warningPopOutTransition.setToX(0);
+                warningPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!warningPopOut.isHover() && !warningTrigger.isHover()) {
+                        warningPopOut1.setVisible(false);
+                        warningTrigger1.setVisible(false);
+                        warningButton1.setVisible(true);
+                      }
+                    });
+                warningPopOutTransition.play();
               }
             });
   }

@@ -63,18 +63,18 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       String query =
           "UPDATE "
               + table
-              + " SET req=?, roomName=?, \"flower\"=?, additionalNotes=?, status =?, eta=?, assignedto=? WHERE requestID=?;";
+              + " SET requestid = ?, requester = ?, roomname = ?, status = ?, additionalnotes =? , eta = ?, flower = ?, assignedto = ? WHERE requestid=?;";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
-
-      ps.setString(1, repl.getRequester().toString());
-      ps.setString(2, repl.getRoomName());
-      ps.setString(3, repl.getFlower());
-      ps.setString(4, repl.getAdditionalNotes());
-      ps.setString(5, repl.getStatus().toString());
+      ps.setInt(1, repl.getID());
+      ps.setString(2, repl.getRequester().toString());
+      ps.setString(3, repl.getRoomName());
+      ps.setString(4, repl.getStatus().toString());
+      ps.setString(5, repl.getAdditionalNotes());
       ps.setString(6, repl.getEta());
-      ps.setString(7, orm.getAssignedto());
-      ps.setInt(8, orm.getRequestID());
+      ps.setString(7, repl.getFlower());
+      ps.setString(8, orm.getAssignedto());
+      ps.setInt(9, orm.getRequestID());
 
       ps.execute();
       fdr =

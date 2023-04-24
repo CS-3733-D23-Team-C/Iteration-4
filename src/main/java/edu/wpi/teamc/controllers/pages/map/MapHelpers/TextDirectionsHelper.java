@@ -5,6 +5,8 @@ import static java.lang.Math.abs;
 import edu.wpi.teamc.graph.GraphNode;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TextDirectionsHelper {
   private String orientation;
@@ -30,7 +32,7 @@ public class TextDirectionsHelper {
         textDirections.add(direction);
       } else {
         if (!tempOrientation.equals(orientation)) {
-          direction += leftOrRight(tempOrientation);
+          textDirections.add(leftOrRight(tempOrientation));
           orientation = tempOrientation;
         }
 
@@ -39,7 +41,7 @@ public class TextDirectionsHelper {
       }
     }
 
-    return textDirections;
+    return clean(textDirections);
   }
 
   private String findOrientation(GraphNode one, GraphNode two) {
@@ -73,23 +75,54 @@ public class TextDirectionsHelper {
     String retVal = "";
 
     if (orientation.equals("N") && tempOrientation.equals("E")) {
-      retVal = "Turn right, then ";
+      retVal = "Turn right";
     } else if (orientation.equals("N") && tempOrientation.equals("W")) {
-      retVal = "Turn left, then ";
+      retVal = "Turn left";
     } else if (orientation.equals("S") && tempOrientation.equals("E")) {
-      retVal = "Turn left, then ";
+      retVal = "Turn left";
     } else if (orientation.equals("S") && tempOrientation.equals("W")) {
-      retVal = "Turn right, then ";
+      retVal = "Turn right";
     } else if (orientation.equals("W") && tempOrientation.equals("S")) {
-      retVal = "Turn left, then ";
+      retVal = "Turn left";
     } else if (orientation.equals("E") && tempOrientation.equals("S")) {
-      retVal = "Turn right, then ";
+      retVal = "Turn right";
     } else if (orientation.equals("W") && tempOrientation.equals("N")) {
-      retVal = "Turn right, then ";
+      retVal = "Turn right";
     } else if (orientation.equals("E") && tempOrientation.equals("N")) {
-      retVal = "Turn left, then ";
+      retVal = "Turn left";
+    } else {
+      retVal = "go 0";
     }
 
     return retVal;
+  }
+
+  private LinkedList<String> clean(LinkedList<String> textDirections) {
+    LinkedList<String> clean = new LinkedList<>();
+    int totalLength = 0;
+    Pattern pattern = Pattern.compile("^go", Pattern.CASE_INSENSITIVE);
+    Matcher matcher;
+
+    for (String textDirection : textDirections) {
+      matcher = pattern.matcher(textDirection);
+
+      if (matcher.find()) {
+        totalLength += Integer.parseInt(textDirection.replaceAll("[^0-9]", ""));
+      } else {
+        if (totalLength != 0) {
+          String combined = "go straight for " + totalLength;
+          clean.add(combined);
+          totalLength = 0;
+        }
+        clean.add(textDirection);
+      }
+    }
+
+    if (totalLength != 0) {
+      String combined = "go straight for " + totalLength;
+      clean.add(combined);
+    }
+
+    return clean;
   }
 }

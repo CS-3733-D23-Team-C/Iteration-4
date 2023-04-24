@@ -46,7 +46,7 @@ public class PathFindingController {
   @FXML MFXButton FLB1;
   @FXML MFXButton FLB2;
   @FXML MFXButton submit;
-  //  @FXML MFXButton textDir;
+  @FXML MFXButton textDir;
   @FXML MFXButton floorButton;
   private MFXButton tempSave;
   private final Paint DEFAULT_BG = Paint.valueOf("#bebebe");
@@ -542,10 +542,10 @@ public class PathFindingController {
   @FXML
   void getEndChoice(ActionEvent event) {}
 
-  //  @FXML
-  //  void getTextDirections(ActionEvent event) {
-  //    System.out.println(url);
-  //  }
+  @FXML
+  void getTextDirections(ActionEvent event) {
+    System.out.println(url);
+  }
 
   void activateSubmit() {
     submit.setDisable(false);

@@ -77,7 +77,6 @@ public class PathFindingController {
   /** Method run when controller is initialized */
   public void initialize() {
     submit.setDisable(true);
-    tempSave = FL1;
     Image image = this.image;
     ImageView imageView = new ImageView(image);
     imageView.relocate(0, 0);
@@ -299,7 +298,9 @@ public class PathFindingController {
 
   public void resetAndSetFloorIndicator(MFXButton button) {
     button.setBackground(Background.fill(Paint.valueOf("#32CD32")));
-    tempSave.setBackground(Background.fill(DEFAULT_BG));
+    if (tempSave != null) {
+      tempSave.setBackground(Background.fill(DEFAULT_BG));
+    }
     tempSave = button;
   }
 

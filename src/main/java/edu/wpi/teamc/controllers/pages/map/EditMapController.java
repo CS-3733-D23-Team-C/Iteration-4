@@ -310,59 +310,57 @@ public class EditMapController {
           if (shortShown) {
             shortShown = false;
             //            mapText = new Group();
-            placeNodes(floor);
-            group.getChildren().remove(mapText);
+            //            placeNodes(floor);
             mapText.setVisible(false);
-            group.getChildren().add(mapText);
             if (dragModeOn) {
-              group.getChildren().remove(movingText);
               movingText.setVisible(shortShown);
-              group.getChildren().add(movingText);
             }
           } else {
             shortShown = true;
-            group.getChildren().remove(mapText);
             mapText.setVisible(true);
-            group.getChildren().add(mapText);
-            placeNodes(floor);
+            //            placeNodes(floor); /////Not sure if this is necessary
             if (dragModeOn) {
-              group.getChildren().remove(movingText);
               movingText.setVisible(shortShown);
-              group.getChildren().add(movingText);
               //              createMovingMapNode()
             }
           }
         });
-    confToggle.setOnMouseClicked(e -> {
-      if (confShown) {
-        confShown = false;
-        placeNodes(floor);
-      }
-      else {
-        confShown = true;
-        placeNodes(floor);
-      }
-    });
-    hallToggle.setOnMouseClicked(e -> {
-      if (hallShown) {
-        hallShown = false;
-        placeNodes(floor);
-      }
-      else {
-        hallShown = true;
-        placeNodes(floor);
-      }
-    });
-    elevToggle.setOnMouseClicked(e -> {
-      if (elevShown) {
-        elevShown = false;
-        placeNodes(floor);
-      }
-      else {
-        elevShown = true;
-        placeNodes(floor);
-      }
-    });
+    confToggle.setOnMouseClicked(
+        e -> {
+          if (confShown) {
+            confShown = false;
+            mapNodes.getChildren().clear();
+            mapText.getChildren().clear();
+            placeNodes(floor);
+          } else {
+            confShown = true;
+            placeNodes(floor);
+          }
+        });
+    hallToggle.setOnMouseClicked(
+        e -> {
+          if (hallShown) {
+            hallShown = false;
+            mapNodes.getChildren().clear();
+            mapText.getChildren().clear();
+            placeNodes(floor);
+          } else {
+            hallShown = true;
+            placeNodes(floor);
+          }
+        });
+    elevToggle.setOnMouseClicked(
+        e -> {
+          if (elevShown) {
+            elevShown = false;
+            mapNodes.getChildren().clear();
+            mapText.getChildren().clear();
+            placeNodes(floor);
+          } else {
+            elevShown = true;
+            placeNodes(floor);
+          }
+        });
 
     //    group.getChildren().add(stackPane);
 
@@ -959,9 +957,9 @@ public class EditMapController {
     newCircle.setId(String.valueOf(node.getNodeID()));
     newCircle.setStroke(Paint.valueOf("#13DAF7"));
     newCircle.setFill(Paint.valueOf("#13DAF7"));
-    newCircle.setVisible(true);
+    newCircle.setVisible(false);
     //    if (shortShown) {
-    text.setVisible(true);
+    text.setVisible(false);
     //    } else {
     //      text.setVisible(false);
     //    }
@@ -1010,42 +1008,65 @@ public class EditMapController {
 
       System.out.println("GOT HERE");
       movingNode.getChildren().add(newCircle);
-      //      if (shortShown) {
       movingText.getChildren().add(text);
       //      }
     } else {
       if (confShown && hallShown && elevShown) {
         mapNodes.getChildren().add(newCircle);
-        //      if (shortShown) {
         mapText.getChildren().add(text);
-      }
-      else if (!confShown && hallShown && elevShown && !(Objects.equals(nodeType, "CONF"))) {
+        newCircle.setVisible(true);
+        text.setVisible(true);
+      } else if (!confShown && hallShown && elevShown && !(Objects.equals(nodeType, "CONF"))) {
         mapNodes.getChildren().add(newCircle);
         mapText.getChildren().add(text);
-      }
-      else if (!hallShown && confShown && elevShown && !(Objects.equals(nodeType, "HALL"))) {
+        newCircle.setVisible(true);
+        text.setVisible(true);
+        System.out.println("HEEEEERRREEEE");
+      } else if (!hallShown && confShown && elevShown && !(Objects.equals(nodeType, "HALL"))) {
         mapNodes.getChildren().add(newCircle);
         mapText.getChildren().add(text);
-      }
-      else if (!elevShown && hallShown && confShown && !(Objects.equals(nodeType, "ELEV"))) {
+        newCircle.setVisible(true);
+        text.setVisible(true);
+        //        System.out.println("Halls should be toggled");
+      } else if (!elevShown && hallShown && confShown && !(Objects.equals(nodeType, "ELEV"))) {
         mapNodes.getChildren().add(newCircle);
         mapText.getChildren().add(text);
-      }
-      else if (!confShown && !hallShown && elevShown && !(Objects.equals(nodeType, "CONF")) && !(Objects.equals(nodeType, "HALL"))) {
+        newCircle.setVisible(true);
+        text.setVisible(true);
+      } else if (!confShown
+          && !hallShown
+          && elevShown
+          && !(Objects.equals(nodeType, "CONF"))
+          && !(Objects.equals(nodeType, "HALL"))) {
         mapNodes.getChildren().add(newCircle);
         mapText.getChildren().add(text);
-      }
-      else if (!confShown && !elevShown && hallShown && !(Objects.equals(nodeType, "CONF")) && !(Objects.equals(nodeType, "ELEV"))) {
+        newCircle.setVisible(true);
+        text.setVisible(true);
+      } else if (!confShown
+          && !elevShown
+          && hallShown
+          && !(Objects.equals(nodeType, "CONF"))
+          && !(Objects.equals(nodeType, "ELEV"))) {
         mapNodes.getChildren().add(newCircle);
         mapText.getChildren().add(text);
-      }
-      else if (!elevShown && !hallShown && confShown && !(Objects.equals(nodeType, "ELEV")) && !(Objects.equals(nodeType, "HALL"))) {
+        newCircle.setVisible(true);
+        text.setVisible(true);
+      } else if (!elevShown
+          && !hallShown
+          && confShown
+          && !(Objects.equals(nodeType, "ELEV"))
+          && !(Objects.equals(nodeType, "HALL"))) {
         mapNodes.getChildren().add(newCircle);
         mapText.getChildren().add(text);
-      }
-      else if (!(Objects.equals(nodeType, "CONF")) && !(Objects.equals(nodeType, "ELEV")) && !(Objects.equals(nodeType, "HALL"))) {
+        newCircle.setVisible(true);
+        text.setVisible(true);
+      } else if (!(Objects.equals(nodeType, "CONF"))
+          && !(Objects.equals(nodeType, "ELEV"))
+          && !(Objects.equals(nodeType, "HALL"))) {
         mapNodes.getChildren().add(newCircle);
         mapText.getChildren().add(text);
+        newCircle.setVisible(true);
+        text.setVisible(true);
       }
       //      }
     }

@@ -2,6 +2,7 @@ package edu.wpi.teamc.controllers.pages.map;
 
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.controllers.pages.map.MapHelpers.*;
+import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.ImportCSV;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.navigation.Navigation;
@@ -228,6 +229,8 @@ public class EditMapController {
   Boolean confShown = true;
   Boolean elevShown = true;
   Boolean hallShown = true;
+  MoveHelper moveHelper = new MoveHelper();
+  Boolean secondNodeClicked = false;
 
   //  Boolean
 
@@ -423,8 +426,16 @@ public class EditMapController {
               }
             } // bring up remove popup
             else if (Objects.equals(mapMode.getMapMode(), "Move")) {
-              lockMap = true;
-              moveMenu();
+              if (moveHelper.getNodesClicked() == 1) {
+                lockMap = true;
+                currCircleClicked.setFill(Paint.valueOf("#CB02D7"));
+                moveMenu();
+              } else if (moveHelper.getNodesClicked() == 0) {
+                moveHelper.setNodesClicked(1);
+                moveHelper.setCircle(currCircleClicked);
+                moveHelper.setNode(currNodeClicked);
+                currCircleClicked.setFill(Paint.valueOf("#02D755"));
+              }
             } else if (Objects.equals(mapMode.getMapMode(), "Make_edges")) {
               lockMap = true;
               createEdgesForNodes();
@@ -958,11 +969,7 @@ public class EditMapController {
     newCircle.setStroke(Paint.valueOf("#13DAF7"));
     newCircle.setFill(Paint.valueOf("#13DAF7"));
     newCircle.setVisible(false);
-    //    if (shortShown) {
     text.setVisible(false);
-    //    } else {
-    //      text.setVisible(false);
-    //    }
 
     newCircle.setOnMouseEntered(
         e -> {
@@ -979,11 +986,13 @@ public class EditMapController {
           currNodeType = nodeType;
 
           if (!(Objects.equals(mapMode.getMapMode(), "Modify_drag"))
-              && !(Objects.equals(mapMode.getMapMode(), "Align"))) {
+              && !(Objects.equals(mapMode.getMapMode(), "Align"))
+              && !(Objects.equals(mapMode.getMapMode(), "Move"))) {
             resetAndSetCircle(newCircle);
 
             //            newCircle.setFill(Paint.valueOf("#45a37f"));
-          } else if (Objects.equals(node.getNodeID(), mapModeSaver.getNodeID())) {
+          } else if (Objects.equals(node.getNodeID(), mapModeSaver.getNodeID())
+              && !(Objects.equals(mapMode.getMapMode(), "Move"))) {
             newCircle.setFill(Paint.valueOf("#45a37f"));
           }
 
@@ -995,13 +1004,9 @@ public class EditMapController {
 
     newCircle.setOnMouseExited(
         e -> {
-          //          if (!(Objects.equals(mapMode.getMapMode(), "Modify_drag"))) {
           if (!nodeClicked) {
             newCircle.setStroke(Paint.valueOf("#13DAF7"));
           }
-          //          } else if (!(Objects.equals(node.getNodeID(), mapModeSaver.getNodeID()))) {
-          //            newCircle.setStroke(Paint.valueOf("13DAF7"));
-          //          }
         });
 
     if (Objects.equals(mapMode.getMapMode(), "Modify_drag")) {
@@ -1584,73 +1589,137 @@ public class EditMapController {
     Text moveByLocationName = new Text("Name of location to move to");
     MFXButton byNode = new MFXButton("By node ID");
     MFXButton byLocationName = new MFXButton("By location name");
-    //    MFXButton editName = new MFXButton("Edit Name");
 
-    //    vBox.getChildren().addAll(remove_1, moveNode, remove_2, moveName);
+    Text dateText = new Text("Select a Date for the Move to Occur");
+    DatePicker datePicker = new DatePicker();
+    MFXButton confirmButton = new MFXButton("Submit");
+    MFXButton cancelButton = new MFXButton("Cancel");
+
+    confirmButton.getStyleClass().add("MFXbutton");
+    datePicker.getStyleClass().add("DatePicker");
+    cancelButton.getStyleClass().add("MFXbutton");
+    dateText.getStyleClass().add("Header");
+    borderPane.getStyleClass().add("scenePane");
+
+    // set object locations
+    int lay_x = 45;
+    int lay_y = 40;
+    dateText.setLayoutX(lay_x);
+    dateText.setLayoutY(lay_y);
+    datePicker.setLayoutX(lay_x);
+    datePicker.setLayoutY(lay_y + 25);
+    confirmButton.setLayoutX(lay_x);
+    confirmButton.setLayoutY(lay_y + 70);
+    cancelButton.setLayoutX(lay_x);
+    cancelButton.setLayoutY(lay_y + 120);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    //    aPane.getChildren().add(vBox);
+    aPane.getChildren().addAll(dateText, datePicker, confirmButton, cancelButton);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 450, 225);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
-    stage.setTitle("move Window");
+    stage.setTitle("Move Window");
     stage.show();
+    stage.setAlwaysOnTop(true);
 
     // When stage closed with inherit x, will unlock map and understand a node is no longer selected
     stage.setOnCloseRequest(
         event -> {
           lockMap = false;
           nodeClicked = false;
+          //          secondNodeClicked = false;
+          moveHelper.setNodesClicked(0);
+          currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
+          currCircleClicked.setStroke(Paint.valueOf("#13DAF7"));
+          moveHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
+          moveHelper.getCircle().setStroke(Paint.valueOf("#13DAF7"));
         });
-    // TODO fix
-    byNode.setOnMouseClicked(
+
+    MoveDao moveDao = new MoveDao();
+
+    confirmButton.setOnMouseClicked(
         event -> {
-          MoveDao moveDao = new MoveDao();
-          NodeDao nodeDao = new NodeDao();
-          moveDao.deleteRow(currNodeClicked.getNodeID());
-          nodeDao.deleteRow(currNodeClicked.getNodeID());
+          Move move = new Move();
+          move.setNodeID(moveHelper.getNode().getNodeID());
+          move.setLongName(currNodeLongname);
+          move.setDate(Date.valueOf(datePicker.getValue()));
+          HospitalSystem.addRow(move);
 
-          group.getChildren().removeAll(mapNodes, mapText);
-          mapNodes = new Group();
-          mapText = new Group();
-          group.getChildren().addAll(mapNodes, mapText);
-          loadDatabase();
-          loadNodeIDToNode();
-          sortNodes();
-          sortEdges();
-          placeEdges(floor);
-          placeNodes(floor);
-
-          stage.close();
-          nodeClicked = false;
+          //        secondNodeClicked = false;
+          moveHelper.setNodesClicked(0);
           lockMap = false;
+          nodeClicked = false;
+          currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
+          currCircleClicked.setStroke(Paint.valueOf("#13DAF7"));
+          moveHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
+          moveHelper.getCircle().setStroke(Paint.valueOf("#13DAF7"));
+          stage.close();
         });
-    // TODO fix
-    byLocationName.setOnMouseClicked(
+
+    cancelButton.setOnMouseClicked(
         event -> {
-          MoveDao moveDao = new MoveDao();
-          LocationNameDao locationDao = new LocationNameDao();
-          long currentTime = System.currentTimeMillis();
-          Date currentDate = new Date(currentTime);
-          Move move = new Move(currNodeClicked.getNodeID(), currNodeLongname, currentDate);
-          moveDao.deleteRow(move);
-          locationDao.deleteRow(currNodeLongname);
-
-          group.getChildren().removeAll(mapNodes, mapText);
-          mapNodes = new Group();
-          mapText = new Group();
-          group.getChildren().addAll(mapNodes, mapText);
-          loadDatabase();
-          sortNodes();
-          placeNodes(floor);
-
-          stage.close();
-          nodeClicked = false;
           lockMap = false;
+          nodeClicked = false;
+          moveHelper.setNodesClicked(0);
+          currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
+          currCircleClicked.setStroke(Paint.valueOf("#13DAF7"));
+          moveHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
+          moveHelper.getCircle().setStroke(Paint.valueOf("#13DAF7"));
+          stage.close();
         });
+
+    // TODO fix
+    //    byNode.setOnMouseClicked(
+    //        event -> {
+    //          //          MoveDao moveDao = new MoveDao();
+    //          NodeDao nodeDao = new NodeDao();
+    //          moveDao.deleteRow(currNodeClicked.getNodeID());
+    //          nodeDao.deleteRow(currNodeClicked.getNodeID());
+    //
+    //          group.getChildren().removeAll(mapNodes, mapText);
+    //          mapNodes = new Group();
+    //          mapText = new Group();
+    //          group.getChildren().addAll(mapNodes, mapText);
+    //          loadDatabase();
+    //          loadNodeIDToNode();
+    //          sortNodes();
+    //          sortEdges();
+    //          placeEdges(floor);
+    //          placeNodes(floor);
+    //
+    //          stage.close();
+    //          nodeClicked = false;
+    //          lockMap = false;
+    //        });
+    //    // TODO fix
+    //    byLocationName.setOnMouseClicked(
+    //        event -> {
+    //          //          MoveDao moveDao = new MoveDao();
+    //          LocationNameDao locationDao = new LocationNameDao();
+    //          long currentTime = System.currentTimeMillis();
+    //          Date currentDate = new Date(currentTime);
+    //          Move move = new Move(currNodeClicked.getNodeID(), currNodeLongname, currentDate);
+    //          moveDao.deleteRow(move);
+    //          locationDao.deleteRow(currNodeLongname);
+    //
+    //          group.getChildren().removeAll(mapNodes, mapText);
+    //          mapNodes = new Group();
+    //          mapText = new Group();
+    //          group.getChildren().addAll(mapNodes, mapText);
+    //          loadDatabase();
+    //          sortNodes();
+    //          placeNodes(floor);
+    //
+    //          stage.close();
+    //          nodeClicked = false;
+    //          lockMap = false;
+    //        });
   }
 
   public void addMenu()

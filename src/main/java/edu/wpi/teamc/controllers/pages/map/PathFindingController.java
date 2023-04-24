@@ -92,7 +92,7 @@ public class PathFindingController {
 
     Point2D centrePoint = new Point2D(1100, 400);
     mapGPane.centreOn(centrePoint);
-    mapGPane.zoomTo(0.3, mapGPane.targetPointAtViewportCentre());
+    mapGPane.zoomTo(0.4, mapGPane.targetPointAtViewportCentre());
 
     group.getChildren().add(pane);
 
@@ -389,7 +389,7 @@ public class PathFindingController {
 
     Point2D centrePoint = new Point2D(node.getXCoord(), node.getYCoord());
     mapGPane.centreOn(centrePoint);
-    mapGPane.zoomTo(0.5, mapGPane.targetPointAtViewportCentre());
+    mapGPane.zoomTo(0.4, mapGPane.targetPointAtViewportCentre());
   }
 
   public void drawEdges() {

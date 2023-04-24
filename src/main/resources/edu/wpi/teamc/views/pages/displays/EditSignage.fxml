@@ -29,6 +29,7 @@
                                  <children>
                                     <Button fx:id="add" mnemonicParsing="false" onAction="#getAdd" prefWidth="130.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="ADD" textFill="#02143b" />
                                     <Button fx:id="editSelect" mnemonicParsing="false" onAction="#getEditSelect" prefHeight="23.0" prefWidth="130.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="EDIT SELECTED" textFill="#02143b" />
+                                    <Button fx:id="delete" mnemonicParsing="false" onAction="#getdelete" prefHeight="23.0" prefWidth="130.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="DELETE" textFill="#02143b" />
                                  </children>
                               </HBox>
                               <VBox spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">

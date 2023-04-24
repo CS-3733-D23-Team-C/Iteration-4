@@ -11,7 +11,6 @@ import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.dao.users.EmployeeUserDao;
 import edu.wpi.teamc.dao.users.login.Login;
 import edu.wpi.teamc.dao.users.login.LoginDao;
-
 import java.util.List;
 
 // facade pattern
@@ -107,7 +106,7 @@ public class HospitalSystem {
       return alertDao.addRow((Alert) request);
     } else if (request instanceof Sign) {
       return signDao.addRow((Sign) request);
-    }  else {
+    } else {
       return null;
     }
   }
@@ -183,7 +182,7 @@ public class HospitalSystem {
       return alertDao.updateRow((Alert) request, (Alert) request);
     } else if (request instanceof Sign) {
       return signDao.updateRow((Sign) request, (Sign) request);
-    }  else {
+    } else {
       return null;
     }
   }

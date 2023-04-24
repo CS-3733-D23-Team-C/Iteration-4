@@ -5,6 +5,6 @@ public class SignageController {
   // @FXML Text first;
 
   public void initialize() {
-    //first.setText(Kiosk.getCurrentDeviceMacAddress());
+    // first.setText(Kiosk.getCurrentDeviceMacAddress());
   }
 }

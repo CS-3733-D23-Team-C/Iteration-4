@@ -2,7 +2,6 @@ package edu.wpi.teamc.dao.displays.signage;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

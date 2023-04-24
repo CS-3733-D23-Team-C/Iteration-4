@@ -64,12 +64,12 @@ public class GuestMenuController {
 
   @FXML
   void getSignagePage(ActionEvent event) {
-    Navigation.navigate(Screen.GUEST_SIGNAGE);
+    Navigation.navigate(Screen.SIGNAGE);
   }
 
   @FXML
   void getPathfindingPage(ActionEvent event) {
-    Navigation.navigate(Screen.GUEST_PATHFINDING_PAGE);
+    Navigation.navigate(Screen.PATHFINDING_PAGE);
   }
 
   @FXML

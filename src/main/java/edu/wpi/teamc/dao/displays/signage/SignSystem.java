@@ -36,6 +36,9 @@ public class SignSystem {
     signs
         .get(selected.getSignEntries().get(0).macadd)
         .removeSignEntryVersion(selected.getSignEntries().get(0));
+    if (signs.get(selected.getSignEntries().get(0).macadd).getSignVersions().isEmpty()) {
+      signs.remove(selected.getSignEntries().get(0).macadd);
+    }
   }
 
   public void addSignVersion(SignVersion newVersion) {

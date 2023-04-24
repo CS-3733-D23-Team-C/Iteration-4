@@ -26,14 +26,14 @@
                <children>
                   <FilteredTableView fx:id="table1" layoutX="138.0" layoutY="123.0" prefHeight="350.0" prefWidth="480.0" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="761.0" AnchorPane.topAnchor="50.0">
                           <columns>
-                        <TableColumn fx:id="signIDCol" prefWidth="100.0" text="Sign ID" />
-                        <TableColumn fx:id="signNameCol" prefWidth="100.0" text="Sign Name" />
+                        <TableColumn fx:id="signIDCol" prefWidth="200.0" text="" />
+                        <TableColumn fx:id="signNameCol" prefWidth="250.0" text="" />
                      </columns>
                     </FilteredTableView>
                   <AnchorPane layoutX="564.0" layoutY="34.0" prefHeight="40.0" prefWidth="647.0" AnchorPane.leftAnchor="545.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0" />
                   <FilteredTableView fx:id="table2" layoutX="711.0" layoutY="491.0" prefHeight="200.0" prefWidth="480.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="761.0">
                      <columns>
-                        <TableColumn fx:id="signDateCol" prefWidth="100.0" text="Sign ID" />
+                        <TableColumn fx:id="signDateCol" prefWidth="450.0" text="" />
                      </columns>
                   </FilteredTableView>
                   <VBox alignment="CENTER" layoutX="545.0" layoutY="30.0" prefHeight="626.0" prefWidth="700.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">

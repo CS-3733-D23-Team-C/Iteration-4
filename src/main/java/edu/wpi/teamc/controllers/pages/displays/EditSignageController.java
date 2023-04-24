@@ -221,9 +221,14 @@ public class EditSignageController {
   @FXML
   void getDelete(ActionEvent event) {
     SignVersion selected = table2.getSelectionModel().getSelectedItem();
+    String macadd = selected.getSignEntries().get(0).getMacadd();
     if (selected != null) {
       signSystem.removeSignVersion(selected);
-      this.loadSignTable();
+      if (signSystem.getSigns().containsKey(macadd)) {
+        this.updateCurrentSelectionSign();
+      } else {
+        this.loadSignTable();
+      }
     }
   }
 
@@ -231,7 +236,6 @@ public class EditSignageController {
   void getEditSelect(ActionEvent event) {
     add.setStyle(buttonColor);
     editSelect.setStyle(selectedButtonColor);
-    table1.getSelectionModel().clearSelection();
     table2.getSelectionModel().clearSelection();
     edit = true;
     this.setAllNull();
@@ -340,13 +344,20 @@ public class EditSignageController {
             signSystem.removeSignVersion(selected);
           }
           signSystem.addSignVersion(newVersion);
+          int selectedIndex = table1.getSelectionModel().getSelectedIndex();
+          this.getEditSelect(event);
           this.loadSignTable();
+          table1.getSelectionModel().select(selectedIndex);
+          this.updateCurrentSelectionSign();
         }
       }
     } else {
       Sign newSign = new Sign();
       newSign.setMacadd(signID.getText());
       newSign.setDevicename(signName.getText());
+      if (signSystem.getSigns().containsKey(signID.getText())) {
+        newSign = signSystem.getSigns().get(signID.getText());
+      }
       SignVersion newVersion = new SignVersion();
       newVersion.setDate(Date.valueOf(date.getValue()));
       try {

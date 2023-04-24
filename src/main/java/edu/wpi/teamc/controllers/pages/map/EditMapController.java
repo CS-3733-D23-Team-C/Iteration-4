@@ -2,13 +2,13 @@ package edu.wpi.teamc.controllers.pages.map;
 
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.controllers.pages.map.MapHelpers.*;
+import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.ImportCSV;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import io.github.palexdev.materialfx.enums.ButtonType;
 import java.awt.*;
 import java.io.BufferedReader;
@@ -21,7 +21,6 @@ import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -42,6 +41,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import net.kurobako.gesturefx.GesturePane;
+import org.controlsfx.control.ToggleSwitch;
 
 public class EditMapController {
   public Group group;
@@ -211,15 +211,15 @@ public class EditMapController {
    */
   @FXML ComboBox filterBox;
   @FXML Text shortToggleText;
-  @FXML MFXToggleButton shortToggle;
+  @FXML ToggleSwitch shortToggle;
   @FXML Text confToggleText;
-  @FXML MFXToggleButton confToggle;
+  @FXML ToggleSwitch confToggle;
   @FXML Text hallToggleText;
-  @FXML MFXToggleButton hallToggle;
+  @FXML ToggleSwitch hallToggle;
   @FXML Text elevToggleText;
-  @FXML MFXToggleButton elevToggle;
+  @FXML ToggleSwitch elevToggle;
   @FXML VBox toggleBox;
-  @FXML MFXToggleButton edgeToggle;
+  @FXML ToggleSwitch edgeToggle;
 
   @FXML Text edgeToggleText;
   Boolean shortShown = true;
@@ -229,6 +229,8 @@ public class EditMapController {
   Boolean confShown = true;
   Boolean elevShown = true;
   Boolean hallShown = true;
+  MoveHelper moveHelper = new MoveHelper();
+  Boolean secondNodeClicked = false;
 
   //  Boolean
 
@@ -244,18 +246,18 @@ public class EditMapController {
     mapGPane.zoomTo(0.5, mapGPane.targetPointAtViewportCentre());
 
     // Make and display toggle buttons ************
-    MFXToggleButton shortnameToggle = new MFXToggleButton();
-    MFXToggleButton confToggle = new MFXToggleButton();
-    MFXToggleButton hallToggle = new MFXToggleButton();
-    MFXToggleButton elevToggle = new MFXToggleButton();
-    List<MFXToggleButton> toggleButtons = new ArrayList<MFXToggleButton>();
+    //    MFXToggleButton shortnameToggle = new MFXToggleButton();
+    //    MFXToggleButton confToggle = new MFXToggleButton();
+    //    MFXToggleButton hallToggle = new MFXToggleButton();
+    //    MFXToggleButton elevToggle = new MFXToggleButton();
+    //    List<MFXToggleButton> toggleButtons = new ArrayList<MFXToggleButton>();
+    //
+    //    toggleButtons.add(shortnameToggle);
+    //    toggleButtons.add(confToggle);
+    //    toggleButtons.add(hallToggle);
+    //    toggleButtons.add(elevToggle);
 
-    toggleButtons.add(shortnameToggle);
-    toggleButtons.add(confToggle);
-    toggleButtons.add(hallToggle);
-    toggleButtons.add(elevToggle);
-
-    filterBox.setItems(FXCollections.observableArrayList(toggleButtons));
+    //    filterBox.setItems(FXCollections.observableArrayList(toggleButtons));
     // Does not work *********
 
     shortToggleText.getStyleClass().add("toggleText");
@@ -274,7 +276,7 @@ public class EditMapController {
         .getStylesheets()
         .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
 
-    group.getChildren().addAll(mapNodes, mapText, movingNode, movingText, filterBox); // nodes
+    group.getChildren().addAll(mapNodes, mapText, movingNode, movingText); // nodes
     //    group.getChildren().add(mapText); // shortnames of nodes
     Pane pane = new Pane();
     pane.setMinWidth(image.getWidth());
@@ -311,27 +313,55 @@ public class EditMapController {
           if (shortShown) {
             shortShown = false;
             //            mapText = new Group();
-            placeNodes(floor);
-            group.getChildren().remove(mapText);
+            //            placeNodes(floor);
             mapText.setVisible(false);
-            group.getChildren().add(mapText);
             if (dragModeOn) {
-              group.getChildren().remove(movingText);
               movingText.setVisible(shortShown);
-              group.getChildren().add(movingText);
             }
           } else {
             shortShown = true;
-            group.getChildren().remove(mapText);
             mapText.setVisible(true);
-            group.getChildren().add(mapText);
-            placeNodes(floor);
+            //            placeNodes(floor); /////Not sure if this is necessary
             if (dragModeOn) {
-              group.getChildren().remove(movingText);
               movingText.setVisible(shortShown);
-              group.getChildren().add(movingText);
               //              createMovingMapNode()
             }
+          }
+        });
+    confToggle.setOnMouseClicked(
+        e -> {
+          if (confShown) {
+            confShown = false;
+            mapNodes.getChildren().clear();
+            mapText.getChildren().clear();
+            placeNodes(floor);
+          } else {
+            confShown = true;
+            placeNodes(floor);
+          }
+        });
+    hallToggle.setOnMouseClicked(
+        e -> {
+          if (hallShown) {
+            hallShown = false;
+            mapNodes.getChildren().clear();
+            mapText.getChildren().clear();
+            placeNodes(floor);
+          } else {
+            hallShown = true;
+            placeNodes(floor);
+          }
+        });
+    elevToggle.setOnMouseClicked(
+        e -> {
+          if (elevShown) {
+            elevShown = false;
+            mapNodes.getChildren().clear();
+            mapText.getChildren().clear();
+            placeNodes(floor);
+          } else {
+            elevShown = true;
+            placeNodes(floor);
           }
         });
 
@@ -396,8 +426,16 @@ public class EditMapController {
               }
             } // bring up remove popup
             else if (Objects.equals(mapMode.getMapMode(), "Move")) {
-              lockMap = true;
-              moveMenu();
+              if (moveHelper.getNodesClicked() == 1) {
+                lockMap = true;
+                currCircleClicked.setFill(Paint.valueOf("#CB02D7"));
+                moveMenu();
+              } else if (moveHelper.getNodesClicked() == 0) {
+                moveHelper.setNodesClicked(1);
+                moveHelper.setCircle(currCircleClicked);
+                moveHelper.setNode(currNodeClicked);
+                currCircleClicked.setFill(Paint.valueOf("#02D755"));
+              }
             } else if (Objects.equals(mapMode.getMapMode(), "Make_edges")) {
               lockMap = true;
               createEdgesForNodes();
@@ -930,12 +968,8 @@ public class EditMapController {
     newCircle.setId(String.valueOf(node.getNodeID()));
     newCircle.setStroke(Paint.valueOf("#13DAF7"));
     newCircle.setFill(Paint.valueOf("#13DAF7"));
-    newCircle.setVisible(true);
-    //    if (shortShown) {
-    text.setVisible(true);
-    //    } else {
-    //      text.setVisible(false);
-    //    }
+    newCircle.setVisible(false);
+    text.setVisible(false);
 
     newCircle.setOnMouseEntered(
         e -> {
@@ -952,11 +986,13 @@ public class EditMapController {
           currNodeType = nodeType;
 
           if (!(Objects.equals(mapMode.getMapMode(), "Modify_drag"))
-              && !(Objects.equals(mapMode.getMapMode(), "Align"))) {
+              && !(Objects.equals(mapMode.getMapMode(), "Align"))
+              && !(Objects.equals(mapMode.getMapMode(), "Move"))) {
             resetAndSetCircle(newCircle);
 
             //            newCircle.setFill(Paint.valueOf("#45a37f"));
-          } else if (Objects.equals(node.getNodeID(), mapModeSaver.getNodeID())) {
+          } else if (Objects.equals(node.getNodeID(), mapModeSaver.getNodeID())
+              && !(Objects.equals(mapMode.getMapMode(), "Move"))) {
             newCircle.setFill(Paint.valueOf("#45a37f"));
           }
 
@@ -968,26 +1004,75 @@ public class EditMapController {
 
     newCircle.setOnMouseExited(
         e -> {
-          //          if (!(Objects.equals(mapMode.getMapMode(), "Modify_drag"))) {
           if (!nodeClicked) {
             newCircle.setStroke(Paint.valueOf("#13DAF7"));
           }
-          //          } else if (!(Objects.equals(node.getNodeID(), mapModeSaver.getNodeID()))) {
-          //            newCircle.setStroke(Paint.valueOf("13DAF7"));
-          //          }
         });
 
     if (Objects.equals(mapMode.getMapMode(), "Modify_drag")) {
 
       System.out.println("GOT HERE");
       movingNode.getChildren().add(newCircle);
-      //      if (shortShown) {
       movingText.getChildren().add(text);
       //      }
     } else {
-      mapNodes.getChildren().add(newCircle);
-      //      if (shortShown) {
-      mapText.getChildren().add(text);
+      if (confShown && hallShown && elevShown) {
+        mapNodes.getChildren().add(newCircle);
+        mapText.getChildren().add(text);
+        newCircle.setVisible(true);
+        text.setVisible(true);
+      } else if (!confShown && hallShown && elevShown && !(Objects.equals(nodeType, "CONF"))) {
+        mapNodes.getChildren().add(newCircle);
+        mapText.getChildren().add(text);
+        newCircle.setVisible(true);
+        text.setVisible(true);
+        System.out.println("HEEEEERRREEEE");
+      } else if (!hallShown && confShown && elevShown && !(Objects.equals(nodeType, "HALL"))) {
+        mapNodes.getChildren().add(newCircle);
+        mapText.getChildren().add(text);
+        newCircle.setVisible(true);
+        text.setVisible(true);
+        //        System.out.println("Halls should be toggled");
+      } else if (!elevShown && hallShown && confShown && !(Objects.equals(nodeType, "ELEV"))) {
+        mapNodes.getChildren().add(newCircle);
+        mapText.getChildren().add(text);
+        newCircle.setVisible(true);
+        text.setVisible(true);
+      } else if (!confShown
+          && !hallShown
+          && elevShown
+          && !(Objects.equals(nodeType, "CONF"))
+          && !(Objects.equals(nodeType, "HALL"))) {
+        mapNodes.getChildren().add(newCircle);
+        mapText.getChildren().add(text);
+        newCircle.setVisible(true);
+        text.setVisible(true);
+      } else if (!confShown
+          && !elevShown
+          && hallShown
+          && !(Objects.equals(nodeType, "CONF"))
+          && !(Objects.equals(nodeType, "ELEV"))) {
+        mapNodes.getChildren().add(newCircle);
+        mapText.getChildren().add(text);
+        newCircle.setVisible(true);
+        text.setVisible(true);
+      } else if (!elevShown
+          && !hallShown
+          && confShown
+          && !(Objects.equals(nodeType, "ELEV"))
+          && !(Objects.equals(nodeType, "HALL"))) {
+        mapNodes.getChildren().add(newCircle);
+        mapText.getChildren().add(text);
+        newCircle.setVisible(true);
+        text.setVisible(true);
+      } else if (!(Objects.equals(nodeType, "CONF"))
+          && !(Objects.equals(nodeType, "ELEV"))
+          && !(Objects.equals(nodeType, "HALL"))) {
+        mapNodes.getChildren().add(newCircle);
+        mapText.getChildren().add(text);
+        newCircle.setVisible(true);
+        text.setVisible(true);
+      }
       //      }
     }
   }
@@ -1504,73 +1589,137 @@ public class EditMapController {
     Text moveByLocationName = new Text("Name of location to move to");
     MFXButton byNode = new MFXButton("By node ID");
     MFXButton byLocationName = new MFXButton("By location name");
-    //    MFXButton editName = new MFXButton("Edit Name");
 
-    //    vBox.getChildren().addAll(remove_1, moveNode, remove_2, moveName);
+    Text dateText = new Text("Select a Date for the Move to Occur");
+    DatePicker datePicker = new DatePicker();
+    MFXButton confirmButton = new MFXButton("Submit");
+    MFXButton cancelButton = new MFXButton("Cancel");
+
+    confirmButton.getStyleClass().add("MFXbutton");
+    datePicker.getStyleClass().add("DatePicker");
+    cancelButton.getStyleClass().add("MFXbutton");
+    dateText.getStyleClass().add("Header");
+    borderPane.getStyleClass().add("scenePane");
+
+    // set object locations
+    int lay_x = 45;
+    int lay_y = 40;
+    dateText.setLayoutX(lay_x);
+    dateText.setLayoutY(lay_y);
+    datePicker.setLayoutX(lay_x);
+    datePicker.setLayoutY(lay_y + 25);
+    confirmButton.setLayoutX(lay_x);
+    confirmButton.setLayoutY(lay_y + 70);
+    cancelButton.setLayoutX(lay_x);
+    cancelButton.setLayoutY(lay_y + 120);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    //    aPane.getChildren().add(vBox);
+    aPane.getChildren().addAll(dateText, datePicker, confirmButton, cancelButton);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 650, 500);
+    Scene scene = new Scene(borderPane, 450, 225);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
-    stage.setTitle("move Window");
+    stage.setTitle("Move Window");
     stage.show();
+    stage.setAlwaysOnTop(true);
 
     // When stage closed with inherit x, will unlock map and understand a node is no longer selected
     stage.setOnCloseRequest(
         event -> {
           lockMap = false;
           nodeClicked = false;
+          //          secondNodeClicked = false;
+          moveHelper.setNodesClicked(0);
+          currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
+          currCircleClicked.setStroke(Paint.valueOf("#13DAF7"));
+          moveHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
+          moveHelper.getCircle().setStroke(Paint.valueOf("#13DAF7"));
         });
-    // TODO fix
-    byNode.setOnMouseClicked(
+
+    MoveDao moveDao = new MoveDao();
+
+    confirmButton.setOnMouseClicked(
         event -> {
-          MoveDao moveDao = new MoveDao();
-          NodeDao nodeDao = new NodeDao();
-          moveDao.deleteRow(currNodeClicked.getNodeID());
-          nodeDao.deleteRow(currNodeClicked.getNodeID());
+          Move move = new Move();
+          move.setNodeID(moveHelper.getNode().getNodeID());
+          move.setLongName(currNodeLongname);
+          move.setDate(Date.valueOf(datePicker.getValue()));
+          HospitalSystem.addRow(move);
 
-          group.getChildren().removeAll(mapNodes, mapText);
-          mapNodes = new Group();
-          mapText = new Group();
-          group.getChildren().addAll(mapNodes, mapText);
-          loadDatabase();
-          loadNodeIDToNode();
-          sortNodes();
-          sortEdges();
-          placeEdges(floor);
-          placeNodes(floor);
-
-          stage.close();
-          nodeClicked = false;
+          //        secondNodeClicked = false;
+          moveHelper.setNodesClicked(0);
           lockMap = false;
+          nodeClicked = false;
+          currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
+          currCircleClicked.setStroke(Paint.valueOf("#13DAF7"));
+          moveHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
+          moveHelper.getCircle().setStroke(Paint.valueOf("#13DAF7"));
+          stage.close();
         });
-    // TODO fix
-    byLocationName.setOnMouseClicked(
+
+    cancelButton.setOnMouseClicked(
         event -> {
-          MoveDao moveDao = new MoveDao();
-          LocationNameDao locationDao = new LocationNameDao();
-          long currentTime = System.currentTimeMillis();
-          Date currentDate = new Date(currentTime);
-          Move move = new Move(currNodeClicked.getNodeID(), currNodeLongname, currentDate);
-          moveDao.deleteRow(move);
-          locationDao.deleteRow(currNodeLongname);
-
-          group.getChildren().removeAll(mapNodes, mapText);
-          mapNodes = new Group();
-          mapText = new Group();
-          group.getChildren().addAll(mapNodes, mapText);
-          loadDatabase();
-          sortNodes();
-          placeNodes(floor);
-
-          stage.close();
-          nodeClicked = false;
           lockMap = false;
+          nodeClicked = false;
+          moveHelper.setNodesClicked(0);
+          currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
+          currCircleClicked.setStroke(Paint.valueOf("#13DAF7"));
+          moveHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
+          moveHelper.getCircle().setStroke(Paint.valueOf("#13DAF7"));
+          stage.close();
         });
+
+    // TODO fix
+    //    byNode.setOnMouseClicked(
+    //        event -> {
+    //          //          MoveDao moveDao = new MoveDao();
+    //          NodeDao nodeDao = new NodeDao();
+    //          moveDao.deleteRow(currNodeClicked.getNodeID());
+    //          nodeDao.deleteRow(currNodeClicked.getNodeID());
+    //
+    //          group.getChildren().removeAll(mapNodes, mapText);
+    //          mapNodes = new Group();
+    //          mapText = new Group();
+    //          group.getChildren().addAll(mapNodes, mapText);
+    //          loadDatabase();
+    //          loadNodeIDToNode();
+    //          sortNodes();
+    //          sortEdges();
+    //          placeEdges(floor);
+    //          placeNodes(floor);
+    //
+    //          stage.close();
+    //          nodeClicked = false;
+    //          lockMap = false;
+    //        });
+    //    // TODO fix
+    //    byLocationName.setOnMouseClicked(
+    //        event -> {
+    //          //          MoveDao moveDao = new MoveDao();
+    //          LocationNameDao locationDao = new LocationNameDao();
+    //          long currentTime = System.currentTimeMillis();
+    //          Date currentDate = new Date(currentTime);
+    //          Move move = new Move(currNodeClicked.getNodeID(), currNodeLongname, currentDate);
+    //          moveDao.deleteRow(move);
+    //          locationDao.deleteRow(currNodeLongname);
+    //
+    //          group.getChildren().removeAll(mapNodes, mapText);
+    //          mapNodes = new Group();
+    //          mapText = new Group();
+    //          group.getChildren().addAll(mapNodes, mapText);
+    //          loadDatabase();
+    //          sortNodes();
+    //          placeNodes(floor);
+    //
+    //          stage.close();
+    //          nodeClicked = false;
+    //          lockMap = false;
+    //        });
   }
 
   public void addMenu()
@@ -2153,422 +2302,6 @@ public class EditMapController {
           currNodeClicked = helperNode1;
         });
   }
-
-  //  public void resetAndSetFloorIndicator(MFXButton button) {
-  //    button.setBackground(Background.fill(Paint.valueOf("#32CD32")));
-  //    tempSave.setBackground(Background.fill(DEFAULT_BG));
-  //    tempSave = button;
-  //  }
-
-  //    })
-
-  //  public void showNodeMenu(ActionEvent event) {
-  //    BorderPane borderPane = new BorderPane();
-  //    HBox hBox = new HBox();
-  //
-  //    // modify
-  //    VBox modifyBox = new VBox(); // modify
-  //    Text nodeID_M = new Text("Input ID of Node to Be Modified");
-  //    Text xCoord_t = new Text("Input new Xcoord");
-  //    Text yCoord_t = new Text("Input new YCoord");
-  //    MFXTextField nodeIDText = new MFXTextField();
-  //    MFXTextField xCoord_text = new MFXTextField();
-  //    MFXTextField yCoord_text = new MFXTextField();
-  //    MFXButton submitModify = new MFXButton("Modify");
-  //    submitModify.setPrefSize(100, 35);
-  //    submitModify.setMinSize(100, 35);
-  //    modifyBox
-  //        .getChildren()
-  //        .addAll(nodeID_M, nodeIDText, xCoord_t, xCoord_text, yCoord_t, yCoord_text,
-  // submitModify);
-  //    modifyBox.setSpacing(20);
-  //
-  //    // remove
-  //    VBox removeBox = new VBox();
-  //    Text nodeID_R = new Text("Input ID of Node to be Removed");
-  //    MFXTextField nodeID_RText = new MFXTextField();
-  //    MFXButton submitRemove = new MFXButton("Remove");
-  //    submitRemove.setPrefSize(100, 35);
-  //    submitRemove.setMinSize(100, 35);
-  //    removeBox.getChildren().addAll(nodeID_R, nodeID_RText, submitRemove);
-  //    removeBox.setSpacing(20);
-  //
-  //    // add
-  //    VBox addBox = new VBox();
-  //    Text XCoordText = new Text("Input X Coordinate of Node to be Added");
-  //    Text YCoordText = new Text("Input Y Coordinate of Node to be Added");
-  //    Text BuildingText = new Text("Input Building Name of Node to be Added");
-  //    MFXTextField inputXCoord = new MFXTextField();
-  //    MFXTextField inputYCoord = new MFXTextField();
-  //    MFXTextField inputBuilding = new MFXTextField(); // need floor as well
-  //    MFXButton submitNode = new MFXButton("Add");
-  //    submitNode.setId("submitNode");
-  //    submitNode.setPrefSize(100, 35);
-  //    submitNode.setMinSize(100, 35);
-  //    addBox
-  //        .getChildren()
-  //        .addAll(
-  //            XCoordText,
-  //            inputXCoord,
-  //            YCoordText,
-  //            inputYCoord,
-  //            BuildingText,
-  //            inputBuilding,
-  //            submitNode);
-  //    addBox.setSpacing(20);
-  //    hBox.getChildren().addAll(addBox, modifyBox, removeBox);
-  //    hBox.setSpacing(20);
-  //
-  //    MFXButton submitNodeEdits = new MFXButton("Update Map");
-  //    submitNodeEdits.setPrefSize(150, 40);
-  //
-  //    VBox masterBox = new VBox();
-  //    masterBox.getChildren().addAll(hBox, submitNodeEdits);
-  //    masterBox.setSpacing(20);
-  //    masterBox.setAlignment(Pos.CENTER);
-  //
-  //    AnchorPane aPane = new AnchorPane();
-  //    aPane.getChildren().add(masterBox);
-  //    Insets insets = new Insets(0, 0, 0, 200);
-  //    aPane.setPadding(insets);
-  //    borderPane.getChildren().add(aPane);
-  //
-  //    //    borderPane.setPadding(insets);
-  //    //    addBox.relocate(0, 0);
-  //    Scene scene = new Scene(borderPane, 650, 500);
-  //    borderPane.relocate(0, 0);
-  //    Stage stage = new Stage();
-  //    stage.setScene(scene);
-  //    stage.setTitle("Add Node Window");
-  //
-  //    stage.show();
-  //    // Add
-  //    submitNode.setOnMouseClicked(
-  //        buttonEvent -> {
-  //          xCoord_temp = inputXCoord.getText();
-  //          inputXCoord.clear();
-  //          yCoord_temp = inputYCoord.getText();
-  //          inputYCoord.clear();
-  //          //          iD = inputID.getText();
-  //          building = inputBuilding.getText(); // maybe set automatically later
-  //          inputBuilding.clear();
-  //          Node newNode =
-  //              new Node(Integer.valueOf(xCoord_temp), Integer.valueOf(yCoord_temp), floor,
-  // building);
-  //          //          NodeDao nodeDao = new NodeDao();
-  //          n_toAdd.add(newNode);
-  //          //          nodeDao.addRow(newNode); to iterate over in submit method
-  //          //          placeNodes(
-  //          //              floor); // later implement an update map button that updates all
-  // changes
-  //          // made at once
-  //          // so user can submit multiple at a time
-  //          //          System.out.println("printed the new node");
-  //        });
-  //    // Modify
-  //    submitModify.setOnMouseClicked(
-  //        buttonEvent -> {
-  //          nodeID_temp = nodeIDText.getText();
-  //          nodeIDText.clear();
-  //          xCoord_temp = xCoord_text.getText();
-  //          xCoord_text.clear();
-  //          yCoord_temp = yCoord_text.getText();
-  //          yCoord_text.clear();
-  //          //          iD = inputID.getText();
-  //          //              building = inputBuilding.getText(); // maybe set automatically later
-  //          Node newNode =
-  //              new Node(
-  //                  Integer.valueOf(nodeID_temp),
-  //                  Integer.valueOf(xCoord_temp),
-  //                  Integer.valueOf(yCoord_temp),
-  //                  floor,
-  //                  building);
-  //
-  //          n_toModify_newNode.add(newNode);
-  //          n_toModify_oldID.add(nodeID_temp);
-  //
-  //          //          System.out.println("modified the node");
-  //        });
-  //    // Remove
-  //    submitRemove.setOnMouseClicked(
-  //        buttonEvent -> {
-  //          iD = nodeID_RText.getText();
-  //          nodeID_RText.clear();
-  //          n_toRemove.add(iD);
-  //          //              placeNodes(
-  //          //                      floor); // later implement an update map button that updates
-  // all
-  //          // changes made at once
-  //          // so
-  //          // user can submit multiple at a tim
-  //
-  //          //          System.out.println("removed the node");
-  //        });
-  //    // Submit
-  //    submitNodeEdits.setOnMouseClicked(
-  //        buttonEvent -> {
-  //          NodeDao nodeDao = new NodeDao();
-  //          MoveDao moveDao = new MoveDao();
-  //
-  //          MapHistoryDao mapHistory = new MapHistoryDao();
-  //          // Add loop
-  //          for (Node currNode : n_toAdd) {
-  //            nodeDao.addRow(currNode);
-  //            mapHistory.addRow(
-  //                new MapHistory(
-  //                    "ADD",
-  //                    String.valueOf(currNode.getNodeID()),
-  //                    "node",
-  //                    new Timestamp(System.currentTimeMillis())));
-  //          }
-  //          // Modify loop
-  //          for (int i = 0; i < n_toModify_oldID.size(); i++) {
-  //            //            NodeDao nodeDao = new NodeDao();
-  //            Node currNode = n_toModify_newNode.get(i);
-  //            String oldID = n_toModify_oldID.get(i);
-  //            int oldId_int = Integer.valueOf(oldID);
-  //            nodeDao.updateRow(Integer.valueOf(oldID), currNode);
-  //            mapHistory.addRow(
-  //                new MapHistory(
-  //                    "UPDATE",
-  //                    String.valueOf(currNode.getNodeID()),
-  //                    "node",
-  //                    new Timestamp(System.currentTimeMillis())));
-  //          }
-  //          // Remove loop
-  //          for (String currID : n_toRemove) {
-  //            moveDao.deleteRow(Integer.valueOf(currID));
-  //            nodeDao.deleteRow(Integer.valueOf(currID));
-  //            // mapHistory.addRow(new MapHistory("UPDATE", String.valueOf(currNode.getNodeID()),
-  //            // "node", new Timestamp(System.currentTimeMillis())));
-  //          }
-  //          // a new floor assignment relating to the currently viewed floor
-  //          group.getChildren().remove(mapNodes);
-  //          mapNodes = new Group();
-  //          group.getChildren().add(mapNodes);
-  //          loadDatabase();
-  //          sortNodes();
-  //          placeNodes(floor);
-  //          // Delete node
-  //          stage
-  //              .close(); // no need to close when switching floors bc any new one submitted with
-  // have
-  //        });
-  //  }
-
-  //  public void showNameMenu(ActionEvent event) {
-  //    BorderPane borderPane = new BorderPane();
-  //    HBox hBox = new HBox();
-  //
-  //    // modify
-  //    VBox modifyBox = new VBox(); // modify
-  //    Text nodeType = new Text("Input new Node Type");
-  //    Text longName = new Text("Input new Longname");
-  //    Text shortName = new Text("Input new Shortname");
-  //    Text oldName = new Text("Input Longname of Name to be Modified");
-  //    MFXTextField nodeTypeText = new MFXTextField();
-  //    MFXTextField shortName_t = new MFXTextField();
-  //    MFXTextField longName_t = new MFXTextField();
-  //    MFXTextField oldName_t = new MFXTextField();
-  //
-  //    MFXButton submitModify = new MFXButton("Modify");
-  //    submitModify.setPrefSize(100, 35);
-  //    submitModify.setMinSize(100, 35);
-  //    modifyBox
-  //        .getChildren()
-  //        .addAll(
-  //            oldName,
-  //            oldName_t,
-  //            nodeType,
-  //            nodeTypeText,
-  //            shortName,
-  //            shortName_t,
-  //            longName,
-  //            longName_t,
-  //            submitModify);
-  //    modifyBox.setSpacing(20);
-  //
-  //    // remove
-  //    VBox removeBox = new VBox();
-  //    Text nodeID_R = new Text("Input Longname of name to be Removed");
-  //    Text nodeID_N = new Text("Input NodeID of node with longname to remove");
-  //    MFXTextField nameToBeRemoved = new MFXTextField();
-  //    MFXTextField iDToBeRemoved = new MFXTextField();
-  //    MFXButton submitRemove = new MFXButton("Remove");
-  //    submitRemove.setPrefSize(100, 35);
-  //    submitRemove.setMinSize(100, 35);
-  //    removeBox
-  //        .getChildren()
-  //        .addAll(nodeID_R, nameToBeRemoved, nodeID_N, iDToBeRemoved, submitRemove);
-  //    removeBox.setSpacing(20);
-  //
-  //    // add
-  //    VBox addBox = new VBox();
-  //    //      Text XCoordText = new Text("Input X Coordinate");
-  //    //      Text YCoordText = new Text("Input Y Coordinate");
-  //    Text nodeType_t = new Text("Input Node Type");
-  //    Text SName = new Text("Input New Shortname");
-  //    Text LName = new Text("Input New Longname");
-  //    Text nodeID = new Text("Input NodeID of node to add name to");
-  //
-  //    //      Text BuildingText = new Text("Input Building Name");
-  //    MFXTextField nodeTypeInput = new MFXTextField();
-  //    MFXTextField sNameInput = new MFXTextField();
-  //    MFXTextField lNameInput = new MFXTextField();
-  //    MFXTextField nodeIDinput = new MFXTextField();
-  //    MFXButton submitNode = new MFXButton("Add");
-  //    submitNode.setId("submitNode");
-  //    //    submitNode.setText("Submit Node");
-  //    submitNode.setPrefSize(100, 35);
-  //    submitNode.setMinSize(100, 35);
-  //    //    inputXCoord.setPrefSize(30, 30);
-  //    //    inputXCoord.setBorderGap(20);
-  //    addBox
-  //        .getChildren()
-  //        .addAll(
-  //            nodeID,
-  //            nodeIDinput,
-  //            nodeType_t,
-  //            nodeTypeInput,
-  //            SName,
-  //            sNameInput,
-  //            LName,
-  //            lNameInput,
-  //            submitNode);
-  //    addBox.setSpacing(20);
-  //
-  //    hBox.getChildren().addAll(addBox, modifyBox, removeBox);
-  //    hBox.setSpacing(20);
-  //
-  //    MFXButton submitNodeEdits = new MFXButton("Update Table");
-  //    submitNodeEdits.setPrefSize(150, 40);
-  //
-  //    VBox masterBox = new VBox();
-  //    masterBox.getChildren().addAll(hBox, submitNodeEdits);
-  //    masterBox.setSpacing(20);
-  //    masterBox.setAlignment(Pos.CENTER);
-  //
-  //    AnchorPane aPane = new AnchorPane();
-  //    aPane.getChildren().add(masterBox);
-  //    Insets insets = new Insets(0, 0, 0, 200);
-  //    aPane.setPadding(insets);
-  //    borderPane.getChildren().add(aPane);
-  //    //    borderPane.setAlignment(aPane, Pos.CENTER);
-  //
-  //    addBox.relocate(0, 0);
-  //    Scene scene = new Scene(borderPane, 600, 600);
-  //    borderPane.relocate(0, 0);
-  //    Stage stage = new Stage();
-  //    stage.setScene(scene);
-  //    stage.setTitle("Add Node Window");
-  //
-  //    stage.show();
-  //    //    MoveDao moveDao1 = new MoveDao(); //////////were replaced in remove below
-  //    //    LocationDao locationDao1 = new LocationDao();
-  //
-  //    // Add
-  //    submitNode.setOnMouseClicked(
-  //        buttonEvent -> {
-  //          nodeType_temp = nodeTypeInput.getText();
-  //          sNameInput_temp = sNameInput.getText();
-  //          lNameInput_temp = lNameInput.getText();
-  //          nodeIDinput_temp = nodeIDinput.getText();
-  //
-  //          LocationName locationName =
-  //              new LocationName(lNameInput_temp, sNameInput_temp, nodeType_temp);
-  //
-  //          long currentTime = System.currentTimeMillis();
-  //          Date currentDate = new Date(currentTime);
-  //          Move move = new Move(Integer.valueOf(nodeIDinput_temp), lNameInput_temp, currentDate);
-  //
-  //          moveNamesToAdd.add(move);
-  //          newNameToAdd.add(locationName);
-  //          nodeTypeInput.clear();
-  //          sNameInput.clear();
-  //          lNameInput.clear();
-  //          nodeIDinput.clear();
-  //
-  //          //          System.out.println("printed the new node");
-  //        });
-  //
-  //    // Modify
-  //    submitModify.setOnMouseClicked(
-  //        buttonEvent -> {
-  //          nodeType_temp = nodeTypeText.getText();
-  //          sNameInput_temp = shortName_t.getText();
-  //          lNameInput_temp = longName_t.getText();
-  //          oldName_temp = oldName_t.getText();
-  //          //          System.out.println(nodeType_temp + "   " + nodeType_temp.length());
-  //          if (!(nodeType_temp.length() == 4)) { // Fix later
-  //            nodeType_temp = "HALL";
-  //          }
-  //          LocationName locationName =
-  //              new LocationName(lNameInput_temp, sNameInput_temp, nodeType_temp);
-  //
-  //          newNameToModify.add(locationName);
-  //          oldNameToModify.add(oldName_temp);
-  //          nodeTypeText.clear();
-  //          shortName_t.clear();
-  //          longName_t.clear();
-  //          oldName_t.clear();
-  //          //          System.out.println("modified the name");
-  //        });
-  //    // remove
-  //    submitRemove.setOnMouseClicked(
-  //        buttonEvent -> {
-  //          removeName = nameToBeRemoved.getText();
-  //          nameToRemove.add(removeName);
-  //          iD_r = iDToBeRemoved.getText();
-  //          idList_r.add(iD_r);
-  //
-  //          nameToBeRemoved.clear();
-  //          //          System.out.println("removed the node");
-  //        });
-  //
-  //    submitNodeEdits.setOnMouseClicked(
-  //        buttonEvent -> {
-  //          LocationNameDao locationNameDao = new LocationNameDao();
-  //          MoveDao moveDao = new MoveDao();
-  //
-  //          // Add
-  //          for (int i = 0; i < newNameToAdd.size(); i++) {
-  //
-  //            LocationName currName = newNameToAdd.get(i);
-  //            Move currMove = moveNamesToAdd.get(i);
-  //            locationNameDao.addRow(currName);
-  //            moveDao.addRow(currMove);
-  //          }
-  //          // Modify
-  //          for (int i = 0; i < oldNameToModify.size(); i++) {
-  //            String currOldName = oldNameToModify.get(i);
-  //            LocationName currNewName = newNameToModify.get(i);
-  //            locationNameDao.updateRow(currOldName, currNewName);
-  //
-  //            ///// METHOD TO REPLACE NAME OF NODE AND INPUT TO TABLE
-  //          }
-  //          // Remove
-  //          for (int i = 0; i < nameToRemove.size(); i++) {
-  //
-  //            long currentTime = System.currentTimeMillis();
-  //            Date currentDate = new Date(currentTime);
-  //            String currName = nameToRemove.get(i);
-  //            String iD = idList_r.get(i);
-  //            Move move = new Move(Integer.valueOf(iD), currName, currentDate);
-  //            moveDao.deleteRow(move);
-  //            locationNameDao.deleteRow(currName);
-  //            //// METHOD TO FIND NODE IN DAO AND REMOVE IT BASED ON ID
-  //            //                nodeDao.deleteRow(currID); ////NEED TO MAKE WORK WITH NODE ID ONLY
-  // AS
-  //            // SUPPLIED
-  //          }
-  //          group.getChildren().remove(mapNodes);
-  //          mapNodes = new Group();
-  //          group.getChildren().add(mapNodes);
-  //          sortNodes();
-  //          placeNodes(floor);
-  //          stage.close();
-  //        });
-  //  }
 
   private String[] selectedFilePaths = new String[4];
 

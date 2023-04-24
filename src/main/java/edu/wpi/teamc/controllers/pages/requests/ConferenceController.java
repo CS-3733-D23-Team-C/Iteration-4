@@ -29,8 +29,6 @@ public class ConferenceController {
   @FXML private MFXButton goHome;
   @FXML private MFXButton submit;
 
-  //  @FXML public Image image = new Image("edu/wpi/teamc/resources/images/ConferenceRoom.png");
-
   @FXML private MFXButton clear;
 
   @FXML private MenuItem choice1;
@@ -56,6 +54,8 @@ public class ConferenceController {
 
   @FXML private SearchableComboBox employeeName;
   @FXML AnchorPane assignEmployeeAnchor;
+
+  //  @FXML private ImageView image;
 
   @FXML
   void getGoHome(ActionEvent event) {
@@ -96,10 +96,15 @@ public class ConferenceController {
     Navigation.navigate(Screen.CONGRATS_PAGE);
   }
 
-  //  @FXML
-  //  void getImage(ActionEvent event) throws IOException {
-  //    image = new
-  // Image(Main.class.getResource("views/Images/ConferenceRoom/conference_room_1.png").openStream());
+  //  void getImage() {
+  //    serviceMenu.setText(servicechoice1.getText());
+  //    try {
+  //      image.setImage(
+  //
+  // Main.class.getResource("views/Images/ConferenceRoom/conference_room_1.png").openStream());
+  //    } catch (IOException e) {
+  //      throw new RuntimeException(e);
+  //    }
   //  }
 
   @FXML

@@ -3,6 +3,10 @@ package edu.wpi.teamc.dao.users.login;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -149,5 +153,36 @@ public class LoginDao implements IDao<Login, String> {
     }
 
     return login;
+  }
+
+  public boolean exportCSV(String CSVfilepath) throws IOException {
+    createFile(CSVfilepath);
+    BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
+    // Write the header row to the CSV file
+    writer.write("username,password,permissions,salt,otp\n");
+    for (Login login : fetchAllObjects()) {
+      writer.write(
+          login.getUsername()
+              + ","
+              + login.getHashedPassword()
+              + ","
+              + login.getPermissions()
+              + ","
+              + login.getSalt()
+              + ","
+              + login.getOtp()
+              + "\n");
+    }
+    writer.close();
+    return true;
+  }
+
+  static void createFile(String fileName) throws IOException {
+    File file = new File(fileName);
+    if (file.createNewFile()) {
+      System.out.println("File created: " + file.getName());
+    } else {
+      System.out.println("File already exists.");
+    }
   }
 }

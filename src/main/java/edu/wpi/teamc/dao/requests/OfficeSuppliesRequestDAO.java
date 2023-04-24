@@ -4,6 +4,10 @@ import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.users.IUser;
 import edu.wpi.teamc.dao.users.PatientUser;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -148,5 +152,43 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
     }
     db.closeConnection();
     return request;
+  }
+
+  public boolean exportCSV(String CSVfilepath) throws IOException {
+    createFile(CSVfilepath);
+    BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
+    // Write the header row to the CSV file
+    writer.write(
+        "requestid,requester,roomname,status,additionalnotes,eta,officesupplytype,assignedto\n");
+    for (OfficeSuppliesRequest officeSuppliesRequest : fetchAllObjects()) {
+      writer.write(
+          officeSuppliesRequest.getRequestID()
+              + ","
+              + officeSuppliesRequest.getRequester()
+              + ","
+              + officeSuppliesRequest.getRoomName()
+              + ","
+              + officeSuppliesRequest.getStatus()
+              + ","
+              + officeSuppliesRequest.getAdditionalNotes()
+              + ","
+              + officeSuppliesRequest.getEta()
+              + ","
+              + officeSuppliesRequest.getOfficesupplytype()
+              + ","
+              + officeSuppliesRequest.getAssignedto()
+              + "\n");
+    }
+    writer.close();
+    return true;
+  }
+
+  static void createFile(String fileName) throws IOException {
+    File file = new File(fileName);
+    if (file.createNewFile()) {
+      System.out.println("File created: " + file.getName());
+    } else {
+      System.out.println("File already exists.");
+    }
   }
 }

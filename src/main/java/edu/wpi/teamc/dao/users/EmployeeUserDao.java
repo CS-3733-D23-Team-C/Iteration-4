@@ -2,6 +2,10 @@ package edu.wpi.teamc.dao.users;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -116,5 +120,36 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
   @Override
   public EmployeeUser fetchObject(Integer key) {
     return null;
+  }
+
+  public boolean exportCSV(String CSVfilepath) throws IOException {
+    createFile(CSVfilepath);
+    BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
+    // Write the header row to the CSV file
+    writer.write("id,username,name,department,position\n");
+    for (EmployeeUser employee : fetchAllObjects()) {
+      writer.write(
+          employee.getId()
+              + ","
+              + employee.getUsername()
+              + ","
+              + employee.getName()
+              + ","
+              + employee.getDepartment()
+              + ","
+              + employee.getPosition()
+              + "\n");
+    }
+    writer.close();
+    return true;
+  }
+
+  static void createFile(String fileName) throws IOException {
+    File file = new File(fileName);
+    if (file.createNewFile()) {
+      System.out.println("File created: " + file.getName());
+    } else {
+      System.out.println("File already exists.");
+    }
   }
 }

@@ -7,7 +7,6 @@ import edu.wpi.teamc.dao.map.Node;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXFilterComboBox;
 import java.sql.Date;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -16,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class MoveTableController {
@@ -36,8 +36,8 @@ public class MoveTableController {
   @FXML TableColumn<Move, Integer> ColumnOne;
   @FXML TableColumn<Move, String> ColumnTwo;
   @FXML TableColumn<Move, Date> ColumnThree;
-  @FXML MFXFilterComboBox<Node> nodeID;
-  @FXML MFXFilterComboBox<LocationName> locationName;
+  @FXML SearchableComboBox<Node> nodeID;
+  @FXML SearchableComboBox<LocationName> locationName;
   @FXML DatePicker date;
 
   ObservableList<Move> rows = FXCollections.observableArrayList();

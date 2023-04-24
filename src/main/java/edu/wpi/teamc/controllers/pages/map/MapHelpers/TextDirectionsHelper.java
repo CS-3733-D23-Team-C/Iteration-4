@@ -2,7 +2,10 @@ package edu.wpi.teamc.controllers.pages.map.MapHelpers;
 
 import static java.lang.Math.abs;
 
+import edu.wpi.teamc.graph.Graph;
 import edu.wpi.teamc.graph.GraphNode;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -13,12 +16,33 @@ public class TextDirectionsHelper {
 
   public TextDirectionsHelper() {}
 
-  public LinkedList<String> textDirections(List<GraphNode> path) {
+  public String buildURL(List<GraphNode> path, Graph currGraph) {
+    String start = currGraph.getLongNameFromNodeID(path.get(0).getNodeID());
+    String end = currGraph.getLongNameFromNodeID(path.get(path.size() - 1).getNodeID());
+    String url =
+        "https://teamc.blui.co/directions?start="
+            + URLEncoder.encode(start, StandardCharsets.UTF_8)
+            + "&end="
+            + URLEncoder.encode(end, StandardCharsets.UTF_8)
+            + "&directions=";
+
+    for (String s : textDirections(path, currGraph)) {
+      url += URLEncoder.encode(s, StandardCharsets.UTF_8) + ";";
+    }
+
+    return url;
+  }
+
+  public LinkedList<String> textDirections(List<GraphNode> path, Graph currGraph) {
     LinkedList<String> textDirections = new LinkedList<>();
     String direction = "";
 
     orientation = findOrientation(path.get(0), path.get(1));
-    direction = "Go straight for " + distance(path.get(0), path.get(1));
+    direction =
+        distance(path.get(0), path.get(1))
+            + "~Go straight~"
+            + currGraph.getLongNameFromNodeID(path.get(1).getNodeID());
+    ;
     textDirections.add(direction);
 
     for (int i = 1; i < path.size() - 1; i++) {
@@ -28,15 +52,20 @@ public class TextDirectionsHelper {
       direction = "";
 
       if (!src.getFloor().equals(dest.getFloor())) {
-        direction = "go to floor " + dest.getFloor();
+        direction =
+            "0~Go to floor "
+                + dest.getFloor()
+                + "~"
+                + currGraph.getLongNameFromNodeID(src.getNodeID());
         textDirections.add(direction);
       } else {
         if (!tempOrientation.equals(orientation)) {
-          textDirections.add(leftOrRight(tempOrientation));
+          direction += distance(src, dest) + "~" + leftOrRight(tempOrientation);
           orientation = tempOrientation;
+        } else {
+          direction += distance(src, dest) + "~Go straight";
         }
-
-        direction += "go straight for " + distance(src, dest);
+        direction += "~" + currGraph.getLongNameFromNodeID(dest.getNodeID());
         textDirections.add(direction);
       }
     }
@@ -91,7 +120,7 @@ public class TextDirectionsHelper {
     } else if (orientation.equals("E") && tempOrientation.equals("N")) {
       retVal = "Turn left";
     } else {
-      retVal = "go 0";
+      retVal = "Continue Straight";
     }
 
     return retVal;
@@ -100,17 +129,19 @@ public class TextDirectionsHelper {
   private LinkedList<String> clean(LinkedList<String> textDirections) {
     LinkedList<String> clean = new LinkedList<>();
     int totalLength = 0;
-    Pattern pattern = Pattern.compile("^go straight", Pattern.CASE_INSENSITIVE);
+    Pattern pattern = Pattern.compile("Go straight", Pattern.CASE_INSENSITIVE);
     Matcher matcher;
 
     for (String textDirection : textDirections) {
       matcher = pattern.matcher(textDirection);
 
       if (matcher.find()) {
-        totalLength += Integer.parseInt(textDirection.replaceAll("[^0-9]", ""));
+        String[] split = textDirection.split("~");
+        totalLength += Integer.parseInt(split[0]);
       } else {
         if (totalLength != 0) {
-          String combined = "go straight for " + totalLength;
+          String[] split = textDirection.split("~");
+          String combined = totalLength + "~Go straight~" + split[2];
           clean.add(combined);
           totalLength = 0;
         }
@@ -119,7 +150,8 @@ public class TextDirectionsHelper {
     }
 
     if (totalLength != 0) {
-      String combined = "go straight for " + totalLength;
+      String[] split = textDirections.get(textDirections.size() - 1).split("~");
+      String combined = totalLength + "~Go straight~" + split[2];
       clean.add(combined);
     }
 

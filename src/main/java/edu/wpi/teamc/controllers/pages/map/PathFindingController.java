@@ -449,11 +449,9 @@ public class PathFindingController {
     edges.toFront();
 
     TextDirectionsHelper textHelper = new TextDirectionsHelper();
-    LinkedList<String> textDirections = textHelper.textDirections(path);
+    String url = textHelper.buildURL(path, graph);
 
-    for (String s : textDirections) {
-      System.out.println(s);
-    }
+    System.out.println(url);
   }
 
   @FXML

@@ -557,7 +557,7 @@
       </AnchorPane>
       <AnchorPane fx:id="settingsPopOut1" layoutX="-110.0" layoutY="276.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="276.0">
          <children>
-            <Pane fx:id="settingsPopOut" prefHeight="90.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+            <Pane fx:id="settingsPopOut" prefHeight="125.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="80.0" prefWidth="150.0" spacing="5.0">
                      <children>
@@ -575,6 +575,7 @@
                            </VBox.margin>
                         </Line>
                         <MFXButton fx:id="Admin_menu_employee_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Employee Table" />
+                        <MFXButton fx:id="Admin_menu_login_table" onAction="#getLoginTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Login Table" />
                      </children>
                   </VBox>
                </children>

@@ -3,10 +3,19 @@ package edu.wpi.teamc.controllers.pages.admin;
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 import edu.wpi.teamc.CApp;
+import edu.wpi.teamc.dao.HospitalSystem;
+import edu.wpi.teamc.dao.displays.Alert;
+import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import java.awt.*;
+import java.util.List;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
+import javafx.scene.text.Font;
 import javafx.scene.web.HTMLEditor;
 import javax.swing.text.html.ImageView;
 
@@ -21,6 +30,8 @@ public class AdminHomeController {
   @FXML private ImageView Spanish_flag;
   // ALL TEXT//
   @FXML private Text AdminHome_Title;
+  @FXML private VBox notificationVBox;
+  @FXML private MFXScrollPane notificationBox;
 
   @FXML private TextField weather_title;
   @FXML private TextField notifications_title;
@@ -33,9 +44,54 @@ public class AdminHomeController {
   //      login = loginDao.;
   //    }
 
+  public int shiftlines(String s) {
+    int count = s.length();
+    int lines = count / 56;
+    return lines;
+  }
+
+  public void addNotification(String notification) {
+    //    HBox hBox = new HBox();
+    //    hBox.setMinHeight(0);
+    //    hBox.setMinWidth(notificationBox.getWidth());
+    //    hBox.setAlignment(Pos.TOP_CENTER);
+    //    TextArea text = new TextArea(notification);
+    //    //    text.minWidth(notificationVBox.getWidth());
+    //    text.setEditable(false);
+    //    text.setWrapText(true);
+    //    text.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+    //    text.setMinWidth(notificationBox.getWidth());
+    //    text.setText("• " + notification);
+    //    hBox.getChildren().add(text);
+    //    notificationVBox.getChildren().add(hBox);
+    HBox hBox = new HBox();
+    TextArea text = new TextArea(notification);
+    hBox.setMaxHeight(shiftlines(text.getText()) * 45);
+    hBox.setAlignment(Pos.TOP_CENTER);
+    // hBox.prefHeightProperty().bind(text.heightProperty());
+
+    // text.maxHeight(shiftlines(text.getText()) * 60);
+    text.setEditable(false);
+    text.setWrapText(true);
+    text.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+    //    text.setMinWidth(notificationBox.getWidth());
+    text.setText("• " + notification);
+    hBox.getChildren().add(text);
+    notificationVBox.getChildren().add(hBox);
+  }
+
   @FXML
   public void initialize() {
     setLanguage(language_choice);
+    notificationVBox.setAlignment(Pos.TOP_CENTER);
+    notificationVBox.setSpacing(20);
+    notificationVBox.setMinWidth(notificationBox.getWidth());
+
+    java.util.List<Alert> alertList = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
+    for (Alert alert : alertList) {
+      addNotification(
+          alert.getTitle() + " || " + alert.getType() + " || " + alert.getDescription());
+    }
     if (!CApp.getAdminLoginCheck()) {
       AdminHome_Title.setText("Staff Home Page");
     }

@@ -212,4 +212,8 @@ public class Graph {
   public int getNodeIDfromLongName(String longName) {
     return longNameToNodeID.get(longName);
   }
+
+  public String getLongNameFromNodeID(int nodeID) {
+    return nodeIDtoLongName.get(nodeID);
+  }
 }

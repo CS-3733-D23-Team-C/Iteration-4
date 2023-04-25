@@ -508,9 +508,9 @@ public class EditMapController {
   }
   // load hashmap of nodeID to nodeStatus
   private void loadNodeIDToNodeStatus() {
-    for (NodeStatus nodeStatus : nodeStatusList) {
-      nodeIDtoNodeStatus.put(nodeStatus.getNodeID(), nodeStatus.getStatus());
-    }
+    //    for (NodeStatus nodeStatus : nodeStatusList) {
+    //      nodeIDtoNodeStatus.put(nodeStatus.getNodeID(), nodeStatus.getStatus());
+    //    }
   }
 
   // see if both nodes are on the same floor
@@ -710,7 +710,7 @@ public class EditMapController {
   // load database
   public void loadDatabase() {
     nodeList = new NodeDao().fetchAllObjects();
-    nodeStatusList = new NodeStatusDao().fetchAllObjects();
+    // nodeStatusList = new NodeStatusDao().fetchAllObjects();
     edgeList = new EdgeDao().fetchAllObjects();
     locationNameList = new LocationNameDao().fetchAllObjects();
     moveList = new MoveDao().fetchAllObjects();
@@ -1010,7 +1010,7 @@ public class EditMapController {
     newCircle.setId(String.valueOf(node.getNodeID()));
 
     // load hashmap of status versus nodeID
-    NODE_STATUS status = nodeIDtoNodeStatus.get(node.getNodeID());
+    NODE_STATUS status = node.getStatus();
 
     // set color of nodes based on if they are closed or open
     if (status.equals(NODE_STATUS.OPEN)) {
@@ -1485,8 +1485,7 @@ public class EditMapController {
             checkAndX_HBox.setMouseTransparent(false);
             checkAndX_HBox1.setMouseTransparent(false);
             closeModeHelper.addToList(currNodeClicked, currCircleClicked);
-            if (Objects.equals(
-                nodeIDtoNodeStatus.get(currNodeClicked.getNodeID()), NODE_STATUS.CLOSED)) {
+            if (Objects.equals(currNodeClicked.getStatus(), NODE_STATUS.CLOSED)) {
               currCircleClicked.setFill(Paint.valueOf("#14FF03"));
               currCircleClicked.setStroke(Paint.valueOf("#14FF03"));
             } else {
@@ -1499,12 +1498,12 @@ public class EditMapController {
     check_button.setOnMouseClicked(
         e -> {
           for (Node node : closeModeHelper.getToClose()) {
-            if (Objects.equals(nodeIDtoNodeStatus.get(node.getNodeID()), NODE_STATUS.OPEN)) {
-              nodeStatusDao.updateRow(
-                  node.getNodeID(), new NodeStatus(node.getNodeID(), NODE_STATUS.CLOSED));
+            if (Objects.equals(node.getStatus(), NODE_STATUS.OPEN)) {
+              node.setStatus(NODE_STATUS.CLOSED);
+              HospitalSystem.updateRow(node);
             } else {
-              nodeStatusDao.updateRow(
-                  node.getNodeID(), new NodeStatus(node.getNodeID(), NODE_STATUS.OPEN));
+              node.setStatus(NODE_STATUS.OPEN);
+              HospitalSystem.updateRow(node);
             }
           }
           loadNodeIDToNode();

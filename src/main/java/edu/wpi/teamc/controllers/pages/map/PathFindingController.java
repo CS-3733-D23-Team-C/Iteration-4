@@ -460,7 +460,7 @@ public class PathFindingController {
     edges.toFront();
 
     TextDirectionsHelper textHelper = new TextDirectionsHelper();
-    tempImage = SwingFXUtils.toFXImage(textHelper.buildURL(path, graph), null);
+    tempImage = SwingFXUtils.toFXImage(textHelper.buildImage(path, graph), null);
   }
 
   @FXML

@@ -1,7 +1,19 @@
 package edu.wpi.teamc.controllers.pages.map.MapHelpers;
 
+import static java.lang.Math.abs;
+
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import edu.wpi.teamc.graph.Graph;
 import edu.wpi.teamc.graph.GraphNode;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -10,22 +22,14 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static java.lang.Math.abs;
+import org.json.JSONObject;
 
 public class TextDirectionsHelper {
   private String orientation;
 
   public TextDirectionsHelper() {}
 
-  public String buildURL(List<GraphNode> path, Graph currGraph) {
+  public BufferedImage buildURL(List<GraphNode> path, Graph currGraph) {
     String start = currGraph.getLongNameFromNodeID(path.get(0).getNodeID());
     String end = currGraph.getLongNameFromNodeID(path.get(path.size() - 1).getNodeID());
     String directions = "";
@@ -58,7 +62,37 @@ public class TextDirectionsHelper {
       System.err.println("Invalid URI: " + e.getMessage());
     }
 
-    return responseBody;
+    JSONObject obj = new JSONObject(responseBody);
+    String url = "https://teamc.blui.co/directions?id=" + obj.getString("link");
+    return genQR(url);
+  }
+
+  public BufferedImage genQR(String url) {
+    int width = 300;
+    int height = 300;
+    String fileType = "png";
+    File qrFile = new File("qr_code.png");
+    BufferedImage qrImage = null;
+
+    try {
+      QRCodeWriter qrCodeWriter = new QRCodeWriter();
+      BitMatrix bitMatrix =
+          qrCodeWriter.encode(url, com.google.zxing.BarcodeFormat.QR_CODE, width, height);
+
+      qrImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+      qrImage.createGraphics();
+
+      for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+          qrImage.setRGB(x, y, bitMatrix.get(x, y) ? 0xFF000000 : 0xFFFFFFFF);
+        }
+      }
+
+      //      ImageIO.write(qrImage, fileType, qrFile);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return qrImage;
   }
 
   public LinkedList<String> textDirections(List<GraphNode> path, Graph currGraph) {

@@ -7,6 +7,7 @@ import edu.wpi.teamc.graph.AlgoSingleton;
 import edu.wpi.teamc.graph.Graph;
 import edu.wpi.teamc.graph.GraphNode;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.utils.SwingFXUtils;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,6 +29,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.ToggleSwitch;
@@ -73,6 +76,7 @@ public class PathFindingController {
   public Group group;
   public Image image =
       new Image(Main.class.getResource("views/images/FirstFloor.png").openStream());
+  private Image tempImage;
 
   public PathFindingController() throws IOException {}
 
@@ -453,7 +457,7 @@ public class PathFindingController {
     edges.toFront();
 
     TextDirectionsHelper textHelper = new TextDirectionsHelper();
-    url = textHelper.buildURL(path, graph);
+    tempImage = SwingFXUtils.toFXImage(textHelper.buildURL(path, graph), null);
   }
 
   @FXML
@@ -546,7 +550,35 @@ public class PathFindingController {
 
   @FXML
   void getTextDirections(ActionEvent event) {
-    System.out.println(url);
+    BorderPane borderPane = new BorderPane();
+    VBox vbox = new VBox();
+    ImageView view = new ImageView();
+    view.setImage(tempImage);
+
+    // set object locations
+    int lay_x = 45;
+    int lay_y = 40;
+    vbox.setLayoutX(lay_x);
+    vbox.setLayoutY(lay_y);
+
+    vbox.getChildren().add(view);
+
+    // Set and show screen
+
+    AnchorPane aPane = new AnchorPane();
+    aPane.getChildren().addAll(vbox);
+    borderPane.getChildren().add(aPane);
+    Scene scene = new Scene(borderPane, 390, 390);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
+    borderPane.relocate(0, 0);
+    borderPane.getStyleClass().add("scenePane");
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.setTitle("Scan to View Text Directions");
+    stage.show();
+    stage.setAlwaysOnTop(true);
   }
 
   void activateSubmit() {

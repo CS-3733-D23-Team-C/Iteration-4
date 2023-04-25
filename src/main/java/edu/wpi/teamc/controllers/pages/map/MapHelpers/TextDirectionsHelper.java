@@ -35,14 +35,13 @@ public class TextDirectionsHelper {
 
   public LinkedList<String> textDirections(List<GraphNode> path, Graph currGraph) {
     LinkedList<String> textDirections = new LinkedList<>();
-    String direction = "";
+    String direction;
 
     orientation = findOrientation(path.get(0), path.get(1));
     direction =
         distance(path.get(0), path.get(1))
             + "~Go straight~"
             + currGraph.getLongNameFromNodeID(path.get(1).getNodeID());
-    ;
     textDirections.add(direction);
 
     for (int i = 1; i < path.size() - 1; i++) {
@@ -101,7 +100,7 @@ public class TextDirectionsHelper {
   }
 
   private String leftOrRight(String tempOrientation) {
-    String retVal = "";
+    String retVal;
 
     if (orientation.equals("N") && tempOrientation.equals("E")) {
       retVal = "Turn right";

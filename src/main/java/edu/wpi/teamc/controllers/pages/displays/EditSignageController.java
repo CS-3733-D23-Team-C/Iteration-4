@@ -272,13 +272,13 @@ public class EditSignageController {
     HBox newMachbox = new HBox();
     VBox vbox = new VBox();
 
-    //    confirmButton.getStyleClass().add("MFXbutton");
-    //    newMac.getStyleClass().add("DatePicker");
-    //    oldMac.getStyleClass().add("DatePicker");
-    //    cancelButton.getStyleClass().add("MFXbutton");
-    //    prompt.getStyleClass().add("Header");
-    //    borderPane.getStyleClass().add("scenePane");
-    hyperlink.setStyle(" -fx-font-size: 10px; -fx-padding-left: 10px;");
+    vbox.setSpacing(10);
+    confirmButton.getStyleClass().add("MFXbutton");
+    cancelButton.getStyleClass().add("MFXbutton");
+    prompt.getStyleClass().add("Header");
+    borderPane.getStyleClass().add("scenePane");
+
+    hyperlink.setStyle(" -fx-font-size: 10px; -fx-padding-left: 10px; -fx-text-fill: FFFFFF");
     hyperlink.setOnAction(
         e -> {
           newMac.setText(SignEntry.getCurrentDeviceMacAddress());
@@ -338,14 +338,12 @@ public class EditSignageController {
     MFXButton cancelButton = new MFXButton("Cancel");
     HBox newNamehbox = new HBox();
     VBox vbox = new VBox();
-
-    //    confirmButton.getStyleClass().add("MFXbutton");
-    //    newMac.getStyleClass().add("DatePicker");
-    //    oldMac.getStyleClass().add("DatePicker");
-    //    cancelButton.getStyleClass().add("MFXbutton");
-    //    prompt.getStyleClass().add("Header");
-    //    borderPane.getStyleClass().add("scenePane");
-
+    vbox.setSpacing(10);
+    confirmButton.getStyleClass().add("MFXbutton");
+    cancelButton.getStyleClass().add("MFXbutton");
+    prompt.getStyleClass().add("Header");
+    borderPane.getStyleClass().add("scenePane");
+    oldMac.setStyle(" -fx-font-size: 11px; -fx-padding-left: 10px;  -fx-fill: FFFFFF;");
     cancelButton.setOnAction(
         e -> {
           Stage stage = (Stage) cancelButton.getScene().getWindow();
@@ -376,7 +374,7 @@ public class EditSignageController {
       AnchorPane aPane = new AnchorPane();
       aPane.getChildren().addAll(vbox);
       borderPane.getChildren().add(aPane);
-      Scene scene = new Scene(borderPane, 450, 225);
+      Scene scene = new Scene(borderPane, 400, 250);
       scene
           .getStylesheets()
           .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());

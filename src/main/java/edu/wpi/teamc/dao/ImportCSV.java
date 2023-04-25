@@ -1,10 +1,6 @@
 package edu.wpi.teamc.dao;
 
-import edu.wpi.teamc.dao.map.Edge;
-import edu.wpi.teamc.dao.map.LocationName;
-import edu.wpi.teamc.dao.map.Move;
-import edu.wpi.teamc.dao.map.Node;
-import edu.wpi.teamc.dao.users.login.Login;
+import edu.wpi.teamc.dao.map.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -317,7 +313,7 @@ public class ImportCSV {
 
   public static void importNodeCSV(String CSVfilepath) {
     // Regular expression to match each row
-    String regex = "(\\d+),(\\d+),(\\d+),(.*),(.*)";
+    String regex = "(\\d+),(\\d+),(\\d+),(.*),(.*),(.*)";
     // Compile regular expression pattern
     Pattern pattern = Pattern.compile(regex);
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
@@ -332,7 +328,9 @@ public class ImportCSV {
           int yCoord = Integer.parseInt(matcher.group(3));
           String floor = matcher.group(4);
           String building = matcher.group(5);
-          Node node = new Node(nodeID, xCoord, yCoord, floor, building);
+          String nodeStatus = matcher.group(6);
+          Node node =
+              new Node(nodeID, xCoord, yCoord, floor, building, NODE_STATUS.valueOf(nodeStatus));
           importNodeRow(node);
         }
       }
@@ -346,7 +344,7 @@ public class ImportCSV {
       // table names
       String NODE = "\"hospitalNode\".node";
       // queries
-      String queryInsertNodesDB = "INSERT INTO " + NODE + " VALUES (?,?,?,?,?);";
+      String queryInsertNodesDB = "INSERT INTO " + NODE + " VALUES (?,?,?,?,?,?);";
 
       PreparedStatement ps = connection.prepareStatement(queryInsertNodesDB);
 
@@ -355,6 +353,7 @@ public class ImportCSV {
       ps.setInt(3, orm.getYCoord());
       ps.setString(4, orm.getFloor());
       ps.setString(5, orm.getBuilding());
+      ps.setString(6, orm.getStatus().toString());
 
       ps.executeUpdate();
     } catch (Exception e) {

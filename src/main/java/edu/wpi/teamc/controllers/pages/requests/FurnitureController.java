@@ -14,10 +14,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -26,6 +23,7 @@ import org.controlsfx.control.SearchableComboBox;
 public class FurnitureController {
 
   @FXML private SearchableComboBox roomMenu;
+  @FXML DatePicker startTime;
   // Meal Menu
   @FXML private MenuButton furnitureMenu;
   @FXML private MenuItem furniturechoice1;
@@ -157,8 +155,9 @@ public class FurnitureController {
     String room = roomMenu.getValue().toString();
     String notes = specialRequest.getText();
     String furnituretype = furnitureMenu.getText();
+    String eta = startTime.getValue().toString();
     FurnitureDeliveryRequest req =
-        new FurnitureDeliveryRequest(new PatientUser(name), room, notes, furnituretype);
+        new FurnitureDeliveryRequest(new PatientUser(name), room, notes, furnituretype, eta);
 
     if (!(employeeName == null)) {
       try {

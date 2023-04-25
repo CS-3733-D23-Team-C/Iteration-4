@@ -1,9 +1,19 @@
 package edu.wpi.teamc.controllers.pages.map.MapHelpers;
 
+import static java.lang.Math.abs;
+
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import edu.wpi.teamc.graph.Graph;
 import edu.wpi.teamc.graph.GraphNode;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -13,17 +23,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
-
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static java.lang.Math.abs;
 
 public class TextDirectionsHelper {
   private String orientation;
@@ -57,6 +56,7 @@ public class TextDirectionsHelper {
       HttpEntity responseEntity = response.getEntity();
       if (responseEntity != null) {
         responseBody = EntityUtils.toString(responseEntity, StandardCharsets.UTF_8);
+        System.out.println(responseBody);
       }
     } catch (Exception e) {
       System.err.println("Invalid URI: " + e.getMessage());

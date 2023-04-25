@@ -2,10 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="787.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.displays.SignageController">
+<AnchorPane prefHeight="768.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.displays.SignageController">
    <children>
       <AnchorPane layoutX="71.0" layoutY="153.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
          <children>
@@ -13,39 +15,45 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Text fx:id="location1" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 40;" text="Watkins Clinics A&amp;B (this floor)" wrappingWidth="863.7741088867188">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Text>
-                        <Text fx:id="location2" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 40;" text="Watkins Clinics C (EP &amp; Echo) (up to 3rd FL.)" wrappingWidth="887.2052001953125">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Text>
-                        <Text fx:id="location3" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 40;" text="Brigham Circle Medical Accociates (up to 3rd FL.)" wrappingWidth="879.697265625">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Text>
-                        <Text fx:id="location4" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 40;" text="L2PRU (down to Lower Level &quot;L2&quot;)" wrappingWidth="842.2928466796875">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Text>
-                        <Text fx:id="location5" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 40;" text="Watkins Clinics A&amp;B (this floor)" wrappingWidth="888.8007202148438">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Text>
-                        <Text fx:id="location6" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 40;" text="Watkins Clinics A&amp;B (this floor)" wrappingWidth="856.26611328125">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+                           <children>
+                              <SVGPath fx:id="icon1" content="M38.23 12.49 21.56 23.89 21.56 17.15 10.37 17.15 10.37 37.51 1.09 37.51 1.09 17.15 1.09 7.89 1.09 7.83 21.56 7.83 21.56 1.09 38.23 12.49" />
+                              <Text fx:id="location1" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 40;" text="Watkins Clinics A&amp;B (this floor)" wrappingWidth="863.7741088867188" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+                           <children>
+                              <SVGPath fx:id="icon2" content="M23.89 17.75 12.49 1.09 1.09 17.75 7.83 17.75 7.83 38.23 17.15 38.23 17.15 17.75 23.89 17.75" />
+                              <Text fx:id="location2" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 40;" text="Watkins Clinics C (EP &amp; Echo) (up to 3rd FL.)" wrappingWidth="887.2052001953125" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+                           <children>
+                              <SVGPath fx:id="icon3" content="M17.75 7.83 17.75 1.09 1.09 12.49 17.75 23.89 17.75 17.15 28.94 17.15 28.94 37.51 38.23 37.51 38.23 17.15 38.23 7.89 38.23 7.83 17.75 7.83" />
+                              <Text fx:id="location3" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 40;" text="Brigham Circle Medical Accociates " wrappingWidth="879.697265625" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+                           <children>
+                              <SVGPath fx:id="icon4" content="M26.64,13.86A12.78,12.78,0,1,0,3,20.52H3L13.86,38.74l10.9-18.22h0A12.68,12.68,0,0,0,26.64,13.86ZM13.86,20.51a6.67,6.67,0,1,1,6.67-6.67A6.67,6.67,0,0,1,13.86,20.51Z" />
+                              <Text fx:id="location4" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 40;" text="L2PRU (down to Lower Level &quot;L2&quot;)" wrappingWidth="842.2928466796875" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+                           <children>
+                              <SVGPath fx:id="icon5" content="M1.09 21.56 12.49 38.23 23.89 21.56 17.15 21.56 17.15 1.09 7.83 1.09 7.83 21.56 1.09 21.56" />
+                              <Text fx:id="location5" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 40;" text="Watkins Clinics A&amp;B (this floor)" wrappingWidth="888.8007202148438" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+                           <children>
+                              <SVGPath fx:id="icon6" content="M40,60 C42,48 44,30 25,32" />
+                              <Text fx:id="location6" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 40;" text="Watkins Clinics A&amp;B (this floor)" wrappingWidth="856.26611328125" />
+                           </children>
+                        </HBox>
                      </children>
                      <padding>
-                        <Insets left="300.0" top="60.0" />
+                        <Insets left="150.0" top="60.0" />
                      </padding>
                   </VBox>
                </children>

@@ -42,6 +42,8 @@ public enum Screen {
 
   EXIT_PAGE("views/pages/ExitPage.fxml"),
 
+  ALERT_REQUEST("views/pages/requests/Alert.fxml"),
+
   SIGNUP_PAGE("views/pages/SignUp.fxml"),
 
   LOGIN_TABLE("views/pages/LoginTable.fxml"),

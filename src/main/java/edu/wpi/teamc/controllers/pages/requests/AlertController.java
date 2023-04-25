@@ -23,8 +23,18 @@ public class AlertController {
 
   @FXML private MenuItem choice1;
   @FXML private MenuItem choice2;
+  @FXML private MenuItem choice3;
+  @FXML private MenuItem choice4;
+  @FXML private MenuItem choice5;
+  @FXML private MenuItem choice6;
+
+  @FXML private MenuItem severityLow;
+  @FXML private MenuItem severityMed;
+  @FXML private MenuItem severityHigh;
 
   @FXML private MenuButton alertType;
+
+  @FXML private MenuButton severityType;
   @FXML private TextField alertTitle;
   @FXML private TextArea alertDescription;
   @FXML private DatePicker startTime;
@@ -60,6 +70,41 @@ public class AlertController {
   @FXML
   void setChoice2(ActionEvent event) {
     alertType.setText(choice2.getText());
+  }
+
+  @FXML
+  void setChoice3(ActionEvent event) {
+    alertType.setText(choice3.getText());
+  }
+
+  @FXML
+  void setChoice4(ActionEvent event) {
+    alertType.setText(choice4.getText());
+  }
+
+  @FXML
+  void setChoice5(ActionEvent event) {
+    alertType.setText(choice5.getText());
+  }
+
+  @FXML
+  void setChoice6(ActionEvent event) {
+    alertType.setText(choice6.getText());
+  }
+
+  @FXML
+  void setSeverityLow(ActionEvent event) {
+    severityType.setText(severityLow.getText());
+  }
+
+  @FXML
+  void setSeverityMed(ActionEvent event) {
+    severityType.setText(severityMed.getText());
+  }
+
+  @FXML
+  void setSeverityHigh(ActionEvent event) {
+    severityType.setText(severityHigh.getText());
   }
 
   @FXML

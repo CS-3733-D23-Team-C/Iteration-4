@@ -260,6 +260,11 @@ public class MenuController {
     //      Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
   }
 
+  @FXML
+  void getAlertRequest(ActionEvent event) {
+    Navigation.navigate(Screen.ALERT_REQUEST);
+  }
+
   public void getEmployeeTablePage(ActionEvent actionEvent) {
     Navigation.navigate(Screen.EMPLOYEETABLE_PAGE);
   }

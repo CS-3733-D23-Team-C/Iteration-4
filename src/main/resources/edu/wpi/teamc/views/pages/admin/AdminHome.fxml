@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.TextField?>
@@ -28,6 +29,13 @@
                         <Insets bottom="10.0" left="10.0" top="10.0" />
                      </padding>
                   </TextField>
+                  <MFXScrollPane fx:id="notificationBox" fitToWidth="true" hbarPolicy="NEVER" hmax="0.0" layoutX="147.0" layoutY="136.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
+                     <content>
+                        <VBox fx:id="notificationVBox" alignment="TOP_CENTER" prefWidth="1230.0" spacing="20.0">
+                           <padding>
+                              <Insets top="20.0" />
+                           </padding></VBox>
+                     </content></MFXScrollPane>
                </children>
             </AnchorPane>
             <AnchorPane layoutX="-400.0" layoutY="95.0" prefHeight="190.0" prefWidth="1101.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">

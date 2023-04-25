@@ -3,10 +3,16 @@ package edu.wpi.teamc.controllers.pages.admin;
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 import edu.wpi.teamc.CApp;
+import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import java.awt.*;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
+import javafx.scene.text.Font;
 import javafx.scene.web.HTMLEditor;
 import javax.swing.text.html.ImageView;
 
@@ -21,6 +27,8 @@ public class AdminHomeController {
   @FXML private ImageView Spanish_flag;
   // ALL TEXT//
   @FXML private Text AdminHome_Title;
+  @FXML private VBox notificationVBox;
+  @FXML private MFXScrollPane notificationBox;
 
   @FXML private TextField weather_title;
   @FXML private TextField notifications_title;
@@ -33,9 +41,55 @@ public class AdminHomeController {
   //      login = loginDao.;
   //    }
 
+  // public int shiftlines(String s) {}
+
+  public void addNotification(String notification) {
+    //    HBox hBox = new HBox();
+    //    hBox.setMinHeight(0);
+    //    hBox.setMinWidth(notificationBox.getWidth());
+    //    hBox.setAlignment(Pos.TOP_CENTER);
+    //    TextArea text = new TextArea(notification);
+    //    //    text.minWidth(notificationVBox.getWidth());
+    //    text.setEditable(false);
+    //    text.setWrapText(true);
+    //    text.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+    //    text.setMinWidth(notificationBox.getWidth());
+    //    text.setText("• " + notification);
+    //    hBox.getChildren().add(text);
+    //    notificationVBox.getChildren().add(hBox);
+    HBox hBox = new HBox();
+    //    hBox.setMinWidth(notificationBox.getWidth());
+    hBox.setAlignment(Pos.TOP_CENTER);
+    TextArea text = new TextArea(notification);
+    hBox.prefHeightProperty().bind(text.heightProperty());
+
+    //    text.minWidth(notificationVBox.getWidth());
+    text.setEditable(false);
+    text.setWrapText(true);
+    text.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+    //    text.setMinWidth(notificationBox.getWidth());
+    text.setText("• " + notification);
+    hBox.getChildren().add(text);
+    notificationVBox.getChildren().add(hBox);
+  }
+
   @FXML
   public void initialize() {
     setLanguage(language_choice);
+    notificationVBox.setAlignment(Pos.TOP_CENTER);
+    notificationVBox.setSpacing(20);
+    notificationVBox.setMinWidth(notificationBox.getWidth());
+    addNotification(
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+    addNotification("Please use the menu to navigate");
+    addNotification("Please use the menu to navigate");
+    addNotification("Please use the menu to navigate");
+    addNotification("Please use the menu to navigate");
+    addNotification("Please use the menu to navigate");
+    addNotification("Please use the menu to navigate");
+    addNotification("Please use the menu to navigate");
+    addNotification("Please use the menu to navigate");
+    addNotification("Please use the menu to navigate");
     if (!CApp.getAdminLoginCheck()) {
       AdminHome_Title.setText("Staff Home Page");
     }

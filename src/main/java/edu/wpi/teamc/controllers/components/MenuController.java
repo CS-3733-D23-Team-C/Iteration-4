@@ -264,6 +264,10 @@ public class MenuController {
     Navigation.navigate(Screen.EMPLOYEETABLE_PAGE);
   }
 
+  public void getLoginTablePage(ActionEvent actionEvent) {
+    Navigation.navigate(Screen.LOGIN_TABLE);
+  }
+
   @FXML ImageView appIcon;
   @FXML ImageView bellIcon;
   @FXML ImageView navIcon;

@@ -39,7 +39,7 @@ public class TextDirectionsHelper {
       directions += s + ";";
     }
 
-    directions = directions.substring(0, directions.length() - 2);
+    directions = directions.substring(0, directions.length() - 1);
 
     try (CloseableHttpClient client = HttpClients.createDefault()) {
       HttpPost httpPost = new HttpPost(new URI("https://teamc.blui.co/api/directions"));

@@ -53,7 +53,7 @@
                         </HBox>
                      </children>
                      <padding>
-                        <Insets left="150.0" top="60.0" />
+                        <Insets bottom="60.0" left="150.0" top="60.0" />
                      </padding>
                   </VBox>
                </children>

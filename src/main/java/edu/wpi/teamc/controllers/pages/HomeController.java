@@ -21,6 +21,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
 
 public class HomeController {
 
@@ -293,6 +304,30 @@ public class HomeController {
       HOME_guest.setText("Continuar como invitado");
       HOME_exit.setText("Salir");
       HOME_motto.setText("Transformando la medicina a trav" + "\u00E9" + "s de descubrimientos");
+    }
+  }
+
+  @FXML
+  void resetPassword(ActionEvent event) {
+    try (CloseableHttpClient client = HttpClients.createDefault()) {
+      // define website
+      HttpPost httpPost = new HttpPost(new URI("http://localhost3000/api/resetpassword"));
+
+      // format and set json
+      String json =
+              String.format(
+                      "{\"username\":\"%s\"}", HOME_username.getText());
+      StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
+      httpPost.setEntity(entity);
+
+      HttpResponse response = client.execute(httpPost);
+      HttpEntity responseEntity = response.getEntity();
+      if (responseEntity != null) {
+        String responseBody = EntityUtils.toString(responseEntity, StandardCharsets.UTF_8);
+        System.out.println(responseBody);
+      }
+    } catch (Exception e) {
+      System.err.println(e.getMessage());
     }
   }
 

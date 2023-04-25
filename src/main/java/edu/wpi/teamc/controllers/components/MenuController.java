@@ -3,6 +3,7 @@ package edu.wpi.teamc.controllers.components;
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 import edu.wpi.teamc.CApp;
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -17,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -230,6 +232,17 @@ public class MenuController {
     Navigation.navigate(Screen.EMPLOYEETABLE_PAGE);
   }
 
+  @FXML ImageView appIcon;
+  @FXML ImageView bellIcon;
+  @FXML ImageView navIcon;
+  @FXML ImageView histIcon;
+  @FXML ImageView settingsIcon;
+  @FXML ImageView questionIcon;
+  @FXML ImageView logoutIcon;
+  @FXML ImageView cancelIcon;
+  @FXML Line menuLine1;
+  @FXML Line menuLine2;
+
   //  Login login = new Login();
   //  @FXML MFXButton moveButton;
 
@@ -336,6 +349,24 @@ public class MenuController {
     exitPopOut1.setVisible(false);
     logoutPopOut1.setVisible(false);
     homePopOut1.setVisible(false);
+
+    // Set styleClasses
+    menuPane.getStyleClass().add("menuBackground");
+    appIcon.getStyleClass().add("menuIcon");
+    bellIcon.getStyleClass().add("menuIcon");
+    navIcon.getStyleClass().add("menuIcon");
+    histIcon.getStyleClass().add("menuIcon");
+    settingsIcon.getStyleClass().add("menuIcon");
+    questionIcon.getStyleClass().add("menuIcon");
+    logoutIcon.getStyleClass().add("menuIcon");
+    cancelIcon.getStyleClass().add("menuIcon");
+    menuLine1.getStyleClass().add("menuLine");
+    menuLine2.getStyleClass().add("menuLine");
+    Admin_menu_movetable.getStyleClass().add("hiddenButton");
+
+    basePane
+        .getStylesheets()
+        .add(Main.class.getResource("views/components/Menu_Dark.css").toString());
 
     if (!CApp.getAdminLoginCheck()) {
       Admin_menu_movetable.setMouseTransparent(true);

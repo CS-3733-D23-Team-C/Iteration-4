@@ -43,6 +43,8 @@ public enum Screen {
   EXIT_PAGE("views/pages/ExitPage.fxml"),
 
   SIGNUP_PAGE("views/pages/SignUp.fxml"),
+
+  LOGIN_TABLE("views/pages/LoginTable.fxml"),
   EMPLOYEETABLE_PAGE("views/pages/EmployeeTable.fxml");
 
   private final String filename;

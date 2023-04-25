@@ -35,6 +35,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
         String deliveryTime = rs.getString("eta");
         String deliveryLocation = rs.getString("roomname");
         String assignedto = rs.getString("assignedto");
+        STATUS status = STATUS.valueOf(rs.getString("status"));
 
         FurnitureDeliveryRequest request =
             new FurnitureDeliveryRequest(
@@ -45,6 +46,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
                 furnitureType,
                 deliveryTime);
         request.setAssignedto(assignedto);
+        request.setStatus(status);
         returnList.add(request);
       }
     } catch (SQLException e) {
@@ -84,23 +86,24 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
     DBConnection db = new DBConnection();
     try {
       String query =
-          "UPDATE \"ServiceRequests\".\"furnitureDeliveryRequest\" SET Requester = ?, furnitureType = ?, additionalNotes = ?, ETA = ?, roomName = ?, assignedto = ? WHERE requestid = ?";
-      PreparedStatement ps =
-          db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+          "UPDATE \"ServiceRequests\".\"furnitureDeliveryRequest\" SET requestid = ?, requester = ?, roomname = ?, status = ?, additionalnotes = ?, furnituretype = ?, eta = ?, assignedto = ? WHERE requestid = ?";
+      PreparedStatement ps = db.getConnection().prepareStatement(query);
 
-      ps.setString(1, orm2.getRequester().toString());
-      ps.setString(2, orm2.getFurnituretype());
-      ps.setString(3, orm2.getAdditionalNotes());
-      ps.setString(4, orm2.getEta());
-      ps.setString(5, orm2.getRoomName());
-      ps.setString(6, orm2.getAssignedto());
-      ps.setInt(7, orm.getRequestID());
+      ps.setInt(1, orm2.getRequestID());
+      ps.setString(2, orm2.getRequester().toString());
+      ps.setString(3, orm2.getRoomName());
+      ps.setString(4, orm2.getStatus().toString());
+      ps.setString(5, orm2.getAdditionalNotes());
+      ps.setString(6, orm2.getFurnituretype());
+      ps.setString(7, orm2.getEta());
+      ps.setString(8, orm2.getAssignedto());
+      ps.setInt(9, orm.getRequestID());
       ps.executeUpdate();
 
-      ResultSet rs = ps.getResultSet();
-      rs.next();
-      int requestID = rs.getInt("requestid");
-      orm2.requestID = (requestID);
+      //      ResultSet rs = ps.getResultSet();
+      //      rs.next();
+      //      int requestID = rs.getInt("requestid");
+      //      orm2.requestID = (requestID);
     } catch (SQLException e) {
       e.printStackTrace();
     }

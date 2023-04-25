@@ -2,6 +2,10 @@ package edu.wpi.teamc.dao.displays.signage;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -138,5 +142,36 @@ public class SignEntryDao implements IDao<SignEntry, SignEntry> {
       e.printStackTrace();
     }
     db.closeConnection();
+  }
+
+  public boolean exportCSV(String CSVfilepath) throws IOException {
+    createFile(CSVfilepath);
+    BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
+    // Write the header row to the CSV file
+    writer.write("macadd,devicename,date,locationname,direction\n");
+    for (SignEntry signEntry : fetchAllObjects()) {
+      writer.write(
+          signEntry.getMacadd()
+              + ","
+              + signEntry.getDevicename()
+              + ","
+              + signEntry.getDate()
+              + ","
+              + signEntry.getLocationname()
+              + ","
+              + signEntry.getDirection()
+              + "\n");
+    }
+    writer.close();
+    return true;
+  }
+
+  static void createFile(String fileName) throws IOException {
+    File file = new File(fileName);
+    if (file.createNewFile()) {
+      System.out.println("File created: " + file.getName());
+    } else {
+      System.out.println("File already exists.");
+    }
   }
 }

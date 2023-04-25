@@ -42,3 +42,12 @@
     -fx-border-radius: 2px;
     -fx-border-style: none;
 }
+
+.image-clip {
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-border-width: 20px 20px 20px 20px;
+    -fx-border-style: none;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+}

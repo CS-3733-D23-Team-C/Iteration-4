@@ -59,7 +59,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
     DBConnection db = new DBConnection();
     try {
       String query =
-          "INSERT INTO \"ServiceRequests\".\"furnitureDeliveryRequest\" (Requester, furnitureType, additionalNotes, roomName, status, assignedto) VALUES (?,?,?,?,?,?)";
+          "INSERT INTO \"ServiceRequests\".\"furnitureDeliveryRequest\" (Requester, furnitureType, additionalNotes, roomName, status, assignedto, eta) VALUES (?,?,?,?,?,?,?)";
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
@@ -69,6 +69,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
       ps.setString(4, orm.getRoomName());
       ps.setString(5, orm.getStatus().toString());
       ps.setString(6, orm.getAssignedto());
+      ps.setString(7, orm.getEta());
       ps.executeUpdate();
 
       ResultSet rs = ps.getGeneratedKeys();

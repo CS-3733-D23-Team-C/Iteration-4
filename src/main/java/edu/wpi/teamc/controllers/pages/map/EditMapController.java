@@ -9,6 +9,7 @@ import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.effects.DepthLevel;
 import io.github.palexdev.materialfx.enums.ButtonType;
 import java.awt.*;
 import java.io.BufferedReader;
@@ -232,6 +233,15 @@ public class EditMapController {
   MoveHelper moveHelper = new MoveHelper();
   Boolean secondNodeClicked = false;
 
+  @FXML AnchorPane basePane;
+  @FXML AnchorPane backgroundPane;
+  @FXML AnchorPane headerPane;
+  @FXML VBox floorBox;
+  @FXML VBox importBox;
+  @FXML VBox modeBox;
+  @FXML AnchorPane mapBackgroundPane;
+  @FXML MFXButton importButton;
+  @FXML MFXButton exportButton;
   //  Boolean
 
   // Notes: Fix bug that you can click on an edge and exit and its still highlighted
@@ -240,6 +250,13 @@ public class EditMapController {
 
   /** Method run when controller is initialized */
   public void initialize() {
+
+    backgroundPane.getStyleClass().add("backgroundPane");
+    headerPane.getStyleClass().add("headerPane");
+    floorBox.getStyleClass().add("mapBox");
+    importBox.getStyleClass().add("mapBox");
+    modeBox.getStyleClass().add("mapBox");
+    mapBackgroundPane.getStyleClass().add("mapBackgroundPane");
 
     Image image = this.image;
     imageView = new ImageView(image); // was ImageView imageView
@@ -264,6 +281,13 @@ public class EditMapController {
     //    filterBox.setItems(FXCollections.observableArrayList(toggleButtons));
     // Does not work *********
 
+    backgroundPane.getStyleClass().add("backgroundPane");
+    headerPane.getStyleClass().add("headerPane");
+    floorBox.getStyleClass().add("mapBox");
+    importBox.getStyleClass().add("mapBox");
+    modeBox.getStyleClass().add("mapBox");
+    mapBackgroundPane.getStyleClass().add("mapBackgroundPane");
+
     shortToggleText.getStyleClass().add("toggleText");
     confToggleText.getStyleClass().add("toggleText");
     elevToggleText.getStyleClass().add("toggleText");
@@ -275,8 +299,12 @@ public class EditMapController {
     elevToggle.getStyleClass().add("toggleButton");
     hallToggle.getStyleClass().add("toggleButton");
     edgeToggle.getStyleClass().add("toggleButton");
+    toggleBox.getStyleClass().add("mapBox");
 
-    toggleBox
+    //    toggleBox
+    //        .getStylesheets()
+    //        .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
+    basePane
         .getStylesheets()
         .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
 
@@ -293,8 +321,15 @@ public class EditMapController {
     checkAndX_HBox.setMouseTransparent(true);
     checkAndX_HBox1.setMouseTransparent(true);
     selectButton.setBackground(Background.fill(Paint.valueOf("#EAB334")));
+    selectButton.setStyle(
+        "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12; -fx-background-color: #EAB334");
     modeResetterHelper.setButton(selectButton);
+    String defaultButtonStyle = FL1.getStyle();
+    importButton.setStyle(defaultButtonStyle);
+    exportButton.setStyle(defaultButtonStyle);
     FL1.setBackground(Background.fill(Paint.valueOf("#EAB334")));
+    FL1.setStyle(
+        "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12; -fx-background-color: #EAB334");
     floorResetterHelper.setButton(FL1);
 
     edgeToggle.setOnMouseClicked(
@@ -1152,11 +1187,22 @@ public class EditMapController {
   }
 
   public void resetAndSetModes(MFXButton button) {
-    button.setBackground(Background.fill(Paint.valueOf("#EAB334")));
+    button.setButtonType(ButtonType.FLAT);
+    button.setDepthLevel(DepthLevel.LEVEL2);
+    button.setRippleAnimateBackground(true);
+    button.setStyle(
+        "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12; -fx-background-color: #EAB334");
+    //    button.setBackground(Background.fill(Paint.valueOf("#EAB334")));
+
     modeResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
     modeResetterHelper.getButton().setRippleAnimateBackground(true);
     //    modeResetterHelper.getButton().setDepthLevel(DepthLevel.LEVEL4);
-    modeResetterHelper.getButton().setButtonType(ButtonType.RAISED);
+    modeResetterHelper.getButton().setButtonType(ButtonType.FLAT);
+    modeResetterHelper.getButton().setDepthLevel(DepthLevel.LEVEL2);
+    modeResetterHelper
+        .getButton()
+        .setStyle(
+            "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12");
     modeResetterHelper.setButton(button);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;
@@ -1164,9 +1210,18 @@ public class EditMapController {
 
   public void resetAndSetFloorIndicators(MFXButton button) {
     button.setBackground(Background.fill(Paint.valueOf("#EAB334")));
+    button.setRippleAnimateBackground(true);
+    button.setButtonType(ButtonType.FLAT);
+    button.setDepthLevel(DepthLevel.LEVEL2);
+    button.setStyle(
+        "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12; -fx-background-color: #EAB334");
     floorResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
     floorResetterHelper.getButton().setRippleAnimateBackground(true);
-    floorResetterHelper.getButton().setButtonType(ButtonType.RAISED);
+    floorResetterHelper.getButton().setButtonType(ButtonType.FLAT);
+    floorResetterHelper
+        .getButton()
+        .setStyle(
+            "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12");
     floorResetterHelper.setButton(button);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;

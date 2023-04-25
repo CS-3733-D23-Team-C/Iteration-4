@@ -15,6 +15,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -47,12 +49,47 @@ public class HomeController {
   @FXML private MFXButton HOME_next;
   @FXML private MFXButton HOME_back;
   @FXML private MFXTextField HOME_code;
+  @FXML private AnchorPane aPane;
 
   boolean wrongNextLogin = true;
   Login currentLogin;
 
   @FXML
   void getLoginNext(ActionEvent event) {
+    wrongNextLogin = true;
+    String username = HOME_username.getText();
+    LoginDao loginDao = new LoginDao();
+    try {
+      currentLogin = loginDao.fetchObject(username);
+      if (currentLogin == null) {
+        wrongNextLogin = true;
+        wrongPass.setVisible(true);
+      } else {
+        wrongNextLogin = false;
+        wrongPass.setVisible(false);
+        if (currentLogin.checkPassword(HOME_password.getText())) {
+          if (currentLogin.isOTPEnabled()) {
+            HOME_username.setVisible(false);
+            HOME_password.setVisible(false);
+            HOME_next.setVisible(false);
+            HOME_back.setVisible(true);
+            HOME_login.setVisible(true);
+            HOME_code.setVisible(true);
+          } else {
+            getLogin(event);
+          }
+        } else {
+          wrongPass.setVisible(true);
+          wrongNextLogin = true;
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  @FXML
+  void getLoginNext2(ActionEvent event) {
     wrongNextLogin = true;
     String username = HOME_username.getText();
     LoginDao loginDao = new LoginDao();
@@ -150,6 +187,56 @@ public class HomeController {
   public void initialize(Stage primaryStage) throws Exception {
     //    try {
     setLanguage(language_choice);
+    //    aPane.setOnKeyPressed(event -> {
+    //      event.ent
+    //              aPane.setOnKeyPressed(EventHandler.create())
+    //    HOME_next.setOnAction( ///////////////////
+    //        event -> {
+    //          getLoginNext(event);
+    //        });
+    //    ActionEvent event = new ActionEvent();
+    //    HOME_next.setOnAction(getLoginNext2(event));
+
+    //    HOME_next.setOnKeyPressed(
+    //        e -> {
+    //          if (e.getCode().equals(KeyCode.ENTER)) {
+    //            System.out.println("firing continue button");
+    //            //            ActionEvent event = (ActionEvent) HOME_next.getOnAction();
+    //            //            HOME_next.fireEvent(event);
+    //            HOME_next.fire();
+    //          }
+    //        });
+    //    HOME_next.addKeyListener(new java.awt.event.KeyAdapter() {
+    //      public void keyPressed(java.awt.event.KeyEvent evt) {
+    //        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+    //          System.out.print("Your function call or code can go here");
+    //        }
+    //      }
+    //    });
+    //        aPane.addEventHandler(KeyEvent.KEY_PRESSED, [ev |
+    //          if (ev.getSource() == KeyCode.ENTER) {
+    //            ActionEvent actionEvent = new ActionEvent();
+    //            actionEvent = (ActionEvent) ev;
+    //            getLogin(actionEvent);
+    //          }
+    //        });
+    aPane.addEventFilter(
+        KeyEvent.ANY,
+        keyEvent -> {
+          System.out.println(keyEvent);
+          if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+            HOME_next.fire();
+          }
+        });
+    //    aPane.setOnKeyPressed(
+    //        event -> {
+    //          System.out.println("supposed to fire button");
+    //          if (event.getCode().equals(KeyCode.ENTER)) {
+    //            HOME_next.fire();
+    //          }
+    //        });
+
+    //    })
     //      AnchorPane root = mainSignin;
     //      Scene scene = new Scene(root, mainSignin.getPrefWidth(), mainSignin.getPrefHeight());
     //      primaryStage.setScene(scene);
@@ -158,6 +245,7 @@ public class HomeController {
     //    } catch (Exception e) {
     //      e.printStackTrace();
     //    }
+
   }
 
   @FXML

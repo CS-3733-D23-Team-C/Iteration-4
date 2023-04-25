@@ -1,13 +1,12 @@
 package edu.wpi.teamc.controllers.pages.displays;
 
 import edu.wpi.teamc.dao.displays.signage.*;
-import javafx.fxml.FXML;
-import javafx.scene.shape.SVGPath;
-import javafx.scene.text.Text;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
+import javafx.fxml.FXML;
+import javafx.scene.shape.SVGPath;
+import javafx.scene.text.Text;
 
 public class SignageController {
 

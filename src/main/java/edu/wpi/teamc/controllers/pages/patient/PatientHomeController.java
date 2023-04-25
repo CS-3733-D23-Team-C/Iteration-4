@@ -1,5 +1,7 @@
 package edu.wpi.teamc.controllers.pages.patient;
 
+import static edu.wpi.teamc.alertHelpers.alertHelper.firstTime;
+
 import java.awt.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -33,40 +35,76 @@ public class PatientHomeController {
   @FXML private Pane warningPopOut;
   @FXML private Text warning_words;
 
+  private boolean WarningOut;
+  private boolean FirstOut;
+
+  @FXML
+  void initialize() {
+    //      setLanguage(language_choice);
+    if (firstTime == false) {
+      FirstWarning();
+      firstTime = true;
+    } else if (firstTime == true) {
+
+    }
+  }
+
   @FXML
   void getWarning(MouseEvent event) {
-    // PatientHome_Title.setText("Warning");
-    moveWarning();
-    // PatientHome_Title.setText("Warning");
+    if (FirstOut == true) {
+      killWarning();
+      FirstOut = false;
+    } else if (FirstOut == false) {
+
+      if (WarningOut == false) {
+        moveWarning();
+        WarningOut = true;
+      } else if (WarningOut == true) {
+        killWarning();
+        WarningOut = false;
+      }
+    }
   }
 
   @FXML
   public void moveWarning() {
-    TranslateTransition tran = new TranslateTransition();
-    tran.setNode(warningPopOut);
-    Timeline t1 =
+    TranslateTransition tranOut = new TranslateTransition();
+    tranOut.setNode(warningPopOut);
+    tranOut.setByY(326);
+    tranOut.play();
+  }
+
+  @FXML
+  public void killWarning() {
+    TranslateTransition tranBack = new TranslateTransition();
+    tranBack.setNode(warningPopOut);
+    tranBack.setByY(-326);
+    tranBack.play();
+  }
+
+  @FXML
+  public void FirstWarning() {
+    TranslateTransition tranFirst = new TranslateTransition();
+    tranFirst.setNode(warningPopOut);
+    Timeline T1st =
         new Timeline(
             new KeyFrame(
-                Duration.millis(10),
+                Duration.millis(0),
                 ae -> {
-                  warningPopOut.toFront();
-                  tran.setByY(250);
-                  tran.play();
+                  moveWarning();
+                  FirstOut = true;
                 }),
             new KeyFrame(
                 Duration.millis(3000),
                 ae -> {
-                  tran.setByY(-250);
-                  tran.play();
-                }),
-            new KeyFrame(
-                Duration.millis(3800),
-                ae -> {
-                  warningPopOut.toBack();
+                  if (FirstOut == true) {
+                    killWarning();
+                    FirstOut = false;
+                  }
                 }));
 
-    t1.setCycleCount(1);
-    t1.play();
+    T1st.setCycleCount(1);
+    T1st.play();
   }
 
   // @FXML

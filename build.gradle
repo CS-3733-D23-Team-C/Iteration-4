@@ -2,7 +2,7 @@ plugins {
     id 'application'
     id 'java'
     id 'jacoco'
-    id 'com.diffplug.gradle.spotless' version '3.27.1'
+    id 'com.diffplug.spotless' version '6.18.0'
     id "io.freefair.lombok" version "6.6.1"
     id 'org.openjfx.javafxplugin' version '0.0.13'
 }
@@ -29,6 +29,8 @@ javafx {
 
 
 dependencies {
+// https://mvnrepository.com/artifact/com.amdelamar/jotp
+    implementation 'com.warrenstrange:googleauth:1.4.0'
 
     implementation(
             'com.twilio.sdk:twilio:9.5.0',

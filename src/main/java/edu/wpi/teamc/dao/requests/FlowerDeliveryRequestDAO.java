@@ -4,9 +4,12 @@ import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.users.IUser;
 import edu.wpi.teamc.dao.users.PatientUser;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -148,7 +151,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
   }
 
   @Override
-  public FlowerDeliveryRequest fetchObject(Integer key) throws SQLException {
+  public FlowerDeliveryRequest fetchObject(Integer key) {
     FlowerDeliveryRequest fdr = null;
     try {
       DBConnection db = new DBConnection();
@@ -180,5 +183,42 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       e.printStackTrace();
     }
     return fdr;
+  }
+
+  public boolean exportCSV(String CSVfilepath) throws IOException {
+    createFile(CSVfilepath);
+    BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
+    // Write the header row to the CSV file
+    writer.write("requestid,requester,roomname,status,additionalnotes,eta,flower,assignedto\n");
+    for (FlowerDeliveryRequest flowerDeliveryRequest : fetchAllObjects()) {
+      writer.write(
+          flowerDeliveryRequest.getRequestID()
+              + ","
+              + flowerDeliveryRequest.getRequester()
+              + ","
+              + flowerDeliveryRequest.getRoomName()
+              + ","
+              + flowerDeliveryRequest.getStatus()
+              + ","
+              + flowerDeliveryRequest.getAdditionalNotes()
+              + ","
+              + flowerDeliveryRequest.getEta()
+              + ","
+              + flowerDeliveryRequest.getFlower()
+              + ","
+              + flowerDeliveryRequest.getAssignedto()
+              + "\n");
+    }
+    writer.close();
+    return true;
+  }
+
+  static void createFile(String fileName) throws IOException {
+    File file = new File(fileName);
+    if (file.createNewFile()) {
+      System.out.println("File created: " + file.getName());
+    } else {
+      System.out.println("File already exists.");
+    }
   }
 }

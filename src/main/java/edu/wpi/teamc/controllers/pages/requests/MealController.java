@@ -5,43 +5,28 @@ import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.map.LocationName;
-import edu.wpi.teamc.dao.requests.*;
+import edu.wpi.teamc.dao.requests.Meal;
+import edu.wpi.teamc.dao.requests.MealRequest;
+import edu.wpi.teamc.dao.requests.MealRequestDAO;
 import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
-import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.SearchableComboBox;
 
 public class MealController {
-  @FXML private MFXButton goHome;
-  @FXML private MFXButton submit;
-
-  @FXML private MFXButton clear;
-
-  @FXML private MenuItem choice1;
-
-  @FXML private MenuItem choice2;
-
-  @FXML private MenuItem choice3;
-
-  @FXML private MenuItem choice4;
-  @FXML private MenuItem choice5;
-
-  @FXML private MenuItem choice6;
-
-  @FXML private MenuItem choice7;
-
-  @FXML private MenuItem choice8;
 
   @FXML private SearchableComboBox roomMenu;
   // Meal Menu
@@ -73,54 +58,6 @@ public class MealController {
   void getGoHome(ActionEvent event) {
     Navigation.navigate(Screen.ADMIN_HOME);
   }
-
-  //  @FXML
-  //  void getChoice0() {
-  //    roomMenu.setText("--Please Conference Room--");
-  //  }
-
-  // These 4 choices(1-4) are for the conference room
-  //  @FXML
-  //  void getChoice1() {
-  //    roomMenu.setText("Conference A1");
-  //  }
-  //
-  //  @FXML
-  //  void getChoice2() {
-  //    roomMenu.setText("Conference A2");
-  //  }
-  //
-  //  @FXML
-  //  void getChoice3() {
-  //    roomMenu.setText("Conference A3");
-  //  }
-  //
-  //  @FXML
-  //  void getChoice4() {
-  //    roomMenu.setText("Conference A4");
-  //  }
-  //
-  //  // These 4 choices(5-8) are for the employee name
-  //  @FXML
-  //  void getChoice5() {
-  //    employeeName.setText(choice5.getText());
-  //  }
-  //
-  //  @FXML
-  //  void getChoice6() {
-  //    employeeName.setText(choice6.getText());
-  //  }
-  //
-  //  @FXML
-  //  void getChoice7() {
-  //    employeeName.setText(choice7.getText());
-  //  }
-  //
-  //  @FXML
-  //  void getChoice8() {
-  //    employeeName.setText(choice8.getText());
-  //  }
-
   // These 4 choices(1-4) are for the meal menu
   @FXML
   void getServicechoice1() {
@@ -228,8 +165,13 @@ public class MealController {
 
     IDao<MealRequest, Integer> dao = new MealRequestDAO();
 
-    if (!(employeeName.getValue().toString() == null)) {
-      req.setAssignedto(employeeName.getValue().toString());
+    if (!(employeeName == null)) {
+      try {
+        req.setAssignedto(employeeName.getValue().toString());
+      } catch (Exception e) {
+        System.out.println("No employee selected");
+        req.setAssignedto(null);
+      }
     }
     dao.addRow(req);
 
@@ -239,59 +181,6 @@ public class MealController {
   @FXML
   void getClear(ActionEvent event) {
     Navigation.navigate(Screen.CONFERENCE);
-  }
-
-  @FXML
-  void getMenuButton() {}
-
-  @FXML
-  void getHistory(ActionEvent event) {
-    Navigation.navigate(Screen.CONFERENCE_HISTORY);
-  }
-
-  @FXML
-  void getFlowerDeliveryPage(ActionEvent event) {
-    Navigation.navigate(Screen.FLOWER);
-  }
-
-  @FXML
-  void getFurnitureDeliveryPage(ActionEvent event) {
-    Navigation.navigate(Screen.FURNITURE);
-  }
-
-  @FXML
-  void getHelpPage(ActionEvent event) {
-    Navigation.navigate(Screen.HELP);
-  }
-
-  @FXML
-  void getMealDeliveryPage(ActionEvent event) {
-    Navigation.navigate(Screen.MEAL);
-  }
-
-  @FXML
-  void getOfficeSuppliesPage(ActionEvent event) {
-    Navigation.navigate(Screen.OFFICE_SUPPLY);
-  }
-
-  @FXML
-  void getRoomReservationPage(ActionEvent event) {
-    Navigation.navigate(Screen.CONFERENCE);
-  }
-
-  @FXML
-  void getSignagePage(ActionEvent event) {
-    Navigation.navigate(Screen.SIGNAGE);
-  }
-
-  @FXML
-  void getConferenceHistory(ActionEvent event) {
-    Navigation.navigate(Screen.CONFERENCE_HISTORY);
-  }
-
-  @FXML
-  void getGiftBasketRequestPage(ActionEvent event) {
-    Navigation.navigate(Screen.GIFT_BASKET);
   }
 
   /** Method run when controller is initialized */

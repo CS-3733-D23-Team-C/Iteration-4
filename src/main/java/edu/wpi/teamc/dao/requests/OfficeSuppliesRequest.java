@@ -24,4 +24,6 @@ public class OfficeSuppliesRequest extends AbsServiceRequest {
     super(requestID, requester, roomname, additionalnotes);
     this.officesupplytype = officesupplytype;
   }
+
+  public OfficeSuppliesRequest() {}
 }

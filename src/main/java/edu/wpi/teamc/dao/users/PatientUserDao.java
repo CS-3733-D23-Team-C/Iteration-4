@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PatientUserDao implements IDao<PatientUser, Integer> {
   @Override
-  public List<PatientUser> fetchAllObjects() throws SQLException {
+  public List<PatientUser> fetchAllObjects(){
     List<PatientUser> returnList = new ArrayList<>();
     DBConnection db = new DBConnection();
 
@@ -18,15 +18,16 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
 
       while (rs.next()) {
         // Get all the data from the table
-        int id = rs.getInt("patientID");
+        int id = rs.getInt("id");
         String name = rs.getString("name");
         // String notes = rs.getString("additionalNotes");
-        String timeIn = rs.getString("timeIn");
-        String timeOut = rs.getString("timeOut");
-        String phoneNumber = rs.getString("phoneNumber");
-        String roomID = rs.getString("roomID");
+        String timeIn = rs.getString("checkin");
+        String timeOut = rs.getString("checkout");
+        String phoneNumber = rs.getString("phone");
+        String roomID = rs.getString("room");
+        Boolean activeText = rs.getBoolean("activetext");
 
-        PatientUser patient = new PatientUser(id, name, timeIn, timeOut, phoneNumber, roomID);
+        PatientUser patient = new PatientUser(id, name, timeIn, timeOut, phoneNumber, roomID, activeText);
         returnList.add(patient);
       }
     } catch (SQLException e) {
@@ -36,21 +37,23 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
   }
 
   @Override
-  public PatientUser updateRow(PatientUser orm, PatientUser repl) throws SQLException {
+  public PatientUser updateRow(PatientUser orm, PatientUser repl){
     DBConnection db = new DBConnection();
     try {
       // table names
       String table = "\"users\".\"patient\"";
       // queries
       String query =
-          "UPDATE patient SET name = ?, checkin = ?, checkout = ?, phone = ?, room = ? WHERE id = ?";
+          "UPDATE patient SET name = ?, checkin = ?, checkout = ?, phone = ?, room = ?, activetext = ? WHERE id = ?";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, repl.getName());
-      ps.setString(2, repl.getTimeIn());
-      ps.setString(3, repl.getTimeOut());
+      ps.setString(2, repl.getIn());
+      ps.setString(3, repl.getOut());
       ps.setString(4, repl.getPhone());
-      ps.setInt(5, orm.getId());
+      ps.setString(5, repl.getRoom());
+      ps.setBoolean(6, repl.isActiveText());
+      ps.setInt(7, orm.getId());
       ps.execute();
       db.closeConnection();
     } catch (Exception e) {
@@ -65,16 +68,17 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
     DBConnection db = new DBConnection();
     try {
       String query =
-          "INSERT INTO \"users\".\"patient\" (id, name, checkin, checkout, phone, room) VALUES (?,?,?,?,?,?)";
+          "INSERT INTO \"users\".\"patient\" (id, name, checkin, checkout, phone, room, activetext) VALUES (?,?,?,?,?,?,?)";
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
       ps.setInt(1, orm.getId());
       ps.setString(2, orm.getName());
-      ps.setString(3, orm.getTimeIn());
-      ps.setString(4, orm.getTimeOut());
+      ps.setString(3, orm.getIn());
+      ps.setString(4, orm.getOut());
       ps.setString(5, orm.getPhone());
       ps.setString(6, orm.getRoom());
+      ps.setBoolean(7, orm.isActiveText());
       ps.executeUpdate();
 
       ResultSet rs = ps.getGeneratedKeys();
@@ -82,7 +86,7 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
       int id = rs.getInt("id");
       orm =
           new PatientUser(
-              id, orm.getName(), orm.getTimeIn(), orm.getTimeOut(), orm.getPhone(), orm.getRoom());
+              id, orm.getName(), orm.getIn(), orm.getOut(), orm.getPhone(), orm.getRoom(), orm.isActiveText());
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -90,7 +94,7 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
   }
 
   @Override
-  public PatientUser deleteRow(PatientUser orm) throws SQLException {
+  public PatientUser deleteRow(PatientUser orm) {
     DBConnection db = new DBConnection();
     try {
       Statement stmtNode = db.getConnection().createStatement();
@@ -107,7 +111,7 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
   }
 
   @Override
-  public PatientUser fetchObject(Integer key) throws SQLException {
+  public PatientUser fetchObject(Integer key) {
     return null;
   }
 }

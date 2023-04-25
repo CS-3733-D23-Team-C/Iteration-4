@@ -79,6 +79,7 @@ public class PathFindingController {
   /** Method run when controller is initialized */
   public void initialize() {
     submit.setDisable(true);
+    textDir.setDisable(true);
     Image image = this.image;
     ImageView imageView = new ImageView(image);
     imageView.relocate(0, 0);
@@ -416,6 +417,7 @@ public class PathFindingController {
   @FXML
   void getSubmit(ActionEvent event) throws IOException {
     nextFloor.setDisable(false);
+    textDir.setDisable(false);
     prevFloor.setDisable(true);
     edges.getChildren().clear();
     mapNodes.getChildren().clear();

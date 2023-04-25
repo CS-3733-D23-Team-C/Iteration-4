@@ -4,12 +4,20 @@ import static java.lang.Math.abs;
 
 import edu.wpi.teamc.graph.Graph;
 import edu.wpi.teamc.graph.GraphNode;
-import java.net.URLEncoder;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 
 public class TextDirectionsHelper {
   private String orientation;
@@ -19,18 +27,36 @@ public class TextDirectionsHelper {
   public String buildURL(List<GraphNode> path, Graph currGraph) {
     String start = currGraph.getLongNameFromNodeID(path.get(0).getNodeID());
     String end = currGraph.getLongNameFromNodeID(path.get(path.size() - 1).getNodeID());
-    String url =
-        "https://teamc.blui.co/directions?start="
-            + URLEncoder.encode(start, StandardCharsets.UTF_8)
-            + "&end="
-            + URLEncoder.encode(end, StandardCharsets.UTF_8)
-            + "&directions=";
+    String directions = "";
+    String responseBody = "";
 
     for (String s : textDirections(path, currGraph)) {
-      url += URLEncoder.encode(s, StandardCharsets.UTF_8) + ";";
+      directions += s + ";";
     }
 
-    return url;
+    try (CloseableHttpClient client = HttpClients.createDefault()) {
+      HttpPost httpPost =
+          new HttpPost(new URI("https://cs3733-hospital-nextjs-ii0pqmpem-brandonlui.vercel.app/"));
+
+      // set request body
+      String json =
+          String.format(
+              "{\"start\":\"%s\",\"end\":\"%s\",\"directions\":\"%s\"}", start, end, directions);
+      StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
+      httpPost.setEntity(entity);
+
+      // execute request
+      HttpResponse response = client.execute(httpPost);
+      HttpEntity responseEntity = response.getEntity();
+      if (responseEntity != null) {
+        responseBody = EntityUtils.toString(responseEntity, StandardCharsets.UTF_8);
+        System.out.println(responseBody);
+      }
+    } catch (Exception e) {
+      System.err.println("Invalid URI: " + e.getMessage());
+    }
+
+    return responseBody;
   }
 
   public LinkedList<String> textDirections(List<GraphNode> path, Graph currGraph) {

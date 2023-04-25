@@ -16,10 +16,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -41,6 +38,8 @@ public class OfficeSupplyController {
   // special for Office Supply
   @FXML private TextField supplyAmount;
   @FXML AnchorPane assignEmployeeAnchor;
+
+  @FXML DatePicker startTime;
 
   public void getGoHome() {
     Navigation.navigate(Screen.ADMIN_HOME);
@@ -80,8 +79,9 @@ public class OfficeSupplyController {
     String name = nameBox.getText();
     String room = roomMenu.getValue().toString();
     String menuSelection = serviceMenu.getText();
+    String startTime = this.startTime.getValue().toString();
     OfficeSuppliesRequest req =
-        new OfficeSuppliesRequest(new PatientUser(name), room, menuSelection, notes);
+        new OfficeSuppliesRequest(new PatientUser(name), room, menuSelection, notes, startTime);
     IDao<OfficeSuppliesRequest, Integer> dao = new OfficeSuppliesRequestDAO();
     if (!(employeeName == null)) {
       try {

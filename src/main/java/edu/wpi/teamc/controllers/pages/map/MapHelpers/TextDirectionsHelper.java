@@ -56,6 +56,7 @@ public class TextDirectionsHelper {
       HttpEntity responseEntity = response.getEntity();
       if (responseEntity != null) {
         responseBody = EntityUtils.toString(responseEntity, StandardCharsets.UTF_8);
+        System.out.println(responseBody);
       }
     } catch (Exception e) {
       System.err.println("Invalid URI: " + e.getMessage());
@@ -83,7 +84,7 @@ public class TextDirectionsHelper {
 
       for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
-          qrImage.setRGB(x, y, bitMatrix.get(x, y) ? 0xFF000000 : 0xFFFFFFFF);
+          qrImage.setRGB(x, y, bitMatrix.get(x, y) ? 0xFFFFFFFF : 0xFF02143b);
         }
       }
 

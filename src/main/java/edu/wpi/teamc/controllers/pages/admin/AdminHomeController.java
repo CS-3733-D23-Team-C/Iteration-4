@@ -3,8 +3,11 @@ package edu.wpi.teamc.controllers.pages.admin;
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 import edu.wpi.teamc.CApp;
+import edu.wpi.teamc.dao.HospitalSystem;
+import edu.wpi.teamc.dao.displays.Alert;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import java.awt.*;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextArea;
@@ -83,17 +86,15 @@ public class AdminHomeController {
     notificationVBox.setAlignment(Pos.TOP_CENTER);
     notificationVBox.setSpacing(20);
     notificationVBox.setMinWidth(notificationBox.getWidth());
-    addNotification(
-        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-    addNotification("Please use the menu to navigate");
-    addNotification("Please use the menu to navigate");
-    addNotification("Please use the menu to navigate");
-    addNotification("Please use the menu to navigate");
-    addNotification("Please use the menu to navigate");
-    addNotification("Please use the menu to navigate");
-    addNotification("Please use the menu to navigate");
-    addNotification("Please use the menu to navigate");
-    addNotification("Please use the menu to navigate");
+
+    java.util.List<Alert> alertList = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
+    for (Alert alert : alertList) {
+      addNotification(
+          alert.getTitle() + " || " + alert.getType() + " || " + alert.getDescription());
+    }
+
+    //    addNotification("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+    //    addNotification("Please use the menu to navigate");
     if (!CApp.getAdminLoginCheck()) {
       AdminHome_Title.setText("Staff Home Page");
     }

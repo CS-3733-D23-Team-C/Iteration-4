@@ -4,14 +4,16 @@ import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.displays.Alert;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
+import java.awt.*;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.*;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
 
 import javax.swing.text.html.ImageView;
@@ -66,6 +68,7 @@ public class AdminHomeController {
     //    hBox.getChildren().add(text);
     //    notificationVBox.getChildren().add(hBox);
     HBox hBox = new HBox();
+
     Text text = new Text(notification);
     hBox.setMaxHeight(shiftlines(text.getText()) * 45);
     hBox.setAlignment(Pos.TOP_LEFT);
@@ -78,6 +81,7 @@ public class AdminHomeController {
     text.setFont(Font.font("Arial", FontWeight.BOLD, 25));
     //    text.setMinWidth(notificationBox.getWidth());
     text.setText(notification);
+
     hBox.getChildren().add(text);
     notificationVBox.getChildren().add(hBox);
   }

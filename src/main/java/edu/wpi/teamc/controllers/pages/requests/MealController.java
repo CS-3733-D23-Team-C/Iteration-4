@@ -17,10 +17,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -39,6 +36,7 @@ public class MealController {
   @FXML private TextField nameBox;
   @FXML private TextArea specialRequest;
   @FXML private SearchableComboBox employeeName;
+  @FXML DatePicker startTime;
 
   // Special for Meal
   // Drink Menu
@@ -161,7 +159,8 @@ public class MealController {
     String room = roomMenu.getValue().toString();
     String notes = specialRequest.getText();
     Meal meal = new Meal(serviceMenu.getText(), "");
-    MealRequest req = new MealRequest(new PatientUser(name), room, notes, meal);
+    String eta = startTime.getValue().toString();
+    MealRequest req = new MealRequest(new PatientUser(name), room, notes, meal, eta);
 
     IDao<MealRequest, Integer> dao = new MealRequestDAO();
 

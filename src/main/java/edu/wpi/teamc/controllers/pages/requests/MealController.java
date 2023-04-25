@@ -188,6 +188,12 @@ public class MealController {
   public void initialize() {
     List<LocationName> locationNames =
         (List<LocationName>) HospitalSystem.fetchAllObjects(new LocationName());
+    // remove halls, elevators, stairs and bathrooms from list
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("HALL"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("ELEV"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("BATH"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("STAI"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("REST"));
     roomMenu.setItems(FXCollections.observableArrayList(locationNames));
 
     List<EmployeeUser> employeeUsers =

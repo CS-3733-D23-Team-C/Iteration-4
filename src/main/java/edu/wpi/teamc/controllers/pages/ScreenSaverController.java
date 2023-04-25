@@ -1,10 +1,14 @@
 package edu.wpi.teamc.controllers.pages;
 
+import edu.wpi.teamc.navigation.Navigation;
+import edu.wpi.teamc.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.shape.SVGPath;
@@ -19,7 +23,13 @@ public class ScreenSaverController {
 
   @FXML private Label timeDisplay;
 
+  @FXML private MFXButton home;
   @FXML private SVGPath logo;
+
+  @FXML
+  void getHome(ActionEvent event) {
+    Navigation.navigate(Screen.HOME);
+  }
 
   @FXML
   public void initialize() {

@@ -3,13 +3,13 @@ package edu.wpi.teamc;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -48,19 +48,12 @@ public class CApp extends Application {
 
     Navigation.navigate(Screen.HOME);
 
-    /*Timer timer = new Timer();
-
-    //    timer.schedule(new ScreenTask(), 10000);
-    timer.schedule(
-        new TimerTask() {
-          @Override
-          public void run() {
-            //            exit(0);
-            navigateAway();
-            System.out.println("ScreenTask");
-          }
-        },
-        100);*/
+    PauseTransition startPause = new PauseTransition(Duration.millis(6000));
+    startPause.setOnFinished(
+        (event -> {
+          Navigation.navigate(Screen.SCREENSAVER);
+        }));
+    startPause.play();
   }
 
   @Override

@@ -1,15 +1,7 @@
 package edu.wpi.teamc.controllers.pages.map.MapHelpers;
 
-import static java.lang.Math.abs;
-
 import edu.wpi.teamc.graph.Graph;
 import edu.wpi.teamc.graph.GraphNode;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -18,6 +10,15 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static java.lang.Math.abs;
 
 public class TextDirectionsHelper {
   private String orientation;
@@ -34,9 +35,10 @@ public class TextDirectionsHelper {
       directions += s + ";";
     }
 
+    directions = directions.substring(0, directions.length() - 2);
+
     try (CloseableHttpClient client = HttpClients.createDefault()) {
-      HttpPost httpPost =
-          new HttpPost(new URI("https://cs3733-hospital-nextjs-ii0pqmpem-brandonlui.vercel.app/"));
+      HttpPost httpPost = new HttpPost(new URI("https://teamc.blui.co/api/directions"));
 
       // set request body
       String json =

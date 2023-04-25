@@ -129,7 +129,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
       // table names
       String table = "\"ServiceRequests\".\"conferenceRoomRequest\"";
       // queries
-      String query = "DELETE FROM " + table + " WHERE requestID = " + orm.getRequestID();
+      String query = "DELETE FROM " + table + " WHERE requestid = " + orm.getRequestID();
 
       stmtNode.executeUpdate(query);
     } catch (Exception e) {
@@ -148,7 +148,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
       // Table Name
       String table = "\"ServiceRequests\".\"conferenceRoomRequest\"";
       // Query
-      String query = "SELECT * FROM " + table + " WHERE requestID = " + key;
+      String query = "SELECT * FROM " + table + " WHERE requestid = " + key;
 
       ResultSet rs = stmt.executeQuery(query);
 

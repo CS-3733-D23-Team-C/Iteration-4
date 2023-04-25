@@ -34,16 +34,18 @@ public class TextDirectionsHelper {
     String directions = "";
     String responseBody = "";
 
-    //format the directions for HttpPost
+    // format the directions for HttpPost
     for (String s : textDirections(path, currGraph)) {
       directions += s + ";";
     }
 
+    directions = directions.substring(0, directions.length() - 1);
+
     try (CloseableHttpClient client = HttpClients.createDefault()) {
-      //define website
+      // define website
       HttpPost httpPost = new HttpPost(new URI("https://teamc.blui.co/api/directions"));
 
-      //format and set json
+      // format and set json
       String json =
           String.format(
               "{\"start\":\"%s\",\"end\":\"%s\",\"directions\":\"%s\"}", start, end, directions);
@@ -71,7 +73,7 @@ public class TextDirectionsHelper {
     int height = 300;
 
     try {
-      //setup writer and then encode into a bitMatrix
+      // setup writer and then encode into a bitMatrix
       QRCodeWriter qrCodeWriter = new QRCodeWriter();
       BitMatrix bitMatrix =
           qrCodeWriter.encode(url, com.google.zxing.BarcodeFormat.QR_CODE, width, height);
@@ -79,7 +81,7 @@ public class TextDirectionsHelper {
       qrImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
       qrImage.createGraphics();
 
-      //using the bitMatrix to "paint" the qrCode
+      // using the bitMatrix to "paint" the qrCode
       for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
           qrImage.setRGB(x, y, bitMatrix.get(x, y) ? 0xFFFFFFFF : 0xFF02143b);

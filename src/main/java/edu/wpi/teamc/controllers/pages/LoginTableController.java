@@ -11,52 +11,34 @@ import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class LoginTableController {
 
-    @FXML
-    private Button addButton;
+  @FXML private Button addButton;
 
-    @FXML
-    private HBox bottomPane;
+  @FXML private HBox bottomPane;
 
-    @FXML
-    private Button clearButton;
+  @FXML private Button clearButton;
 
-    @FXML
-    private Button deleteButton;
+  @FXML private Button deleteButton;
 
-    @FXML
-    private TableColumn<?, ?> department;
+  @FXML private TableColumn<?, ?> department;
 
-    @FXML
-    private FilteredTableView<?> employeeTable;
+  @FXML private FilteredTableView<?> employeeTable;
 
-    @FXML
-    private TableColumn<?, ?> id;
+  @FXML private TableColumn<?, ?> id;
 
-    @FXML
-    private TableColumn<?, ?> name;
+  @FXML private TableColumn<?, ?> name;
 
-    @FXML
-    private TextField passwordField;
+  @FXML private TextField passwordField;
 
-    @FXML
-    private MenuButton permission;
+  @FXML private MenuButton permission;
 
-    @FXML
-    private TableColumn<?, ?> position;
+  @FXML private TableColumn<?, ?> position;
 
-    @FXML
-    private Button updateButton;
+  @FXML private Button updateButton;
 
-    @FXML
-    private TableColumn<?, ?> username;
+  @FXML private TableColumn<?, ?> username;
 
-    @FXML
-    private TextField usernameField;
+  @FXML private TextField usernameField;
 
-    @FXML
-    void getPermission(ActionEvent event) {
-
-    }
-
+  @FXML
+  void getPermission(ActionEvent event) {}
 }
-

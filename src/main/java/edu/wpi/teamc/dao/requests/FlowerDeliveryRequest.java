@@ -19,4 +19,10 @@ public class FlowerDeliveryRequest extends AbsServiceRequest {
     super(requester, roomName, additionalNotes);
     this.flower = flower;
   }
+
+  public int getID() {
+    return super.getRequestID();
+  }
+
+  public FlowerDeliveryRequest() {}
 }

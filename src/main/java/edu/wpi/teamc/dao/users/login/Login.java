@@ -12,9 +12,9 @@ import lombok.Getter;
 
 public class Login implements IOrm {
   @Getter private String username;
-  String salt;
-  String hashedPassword;
-  String otp;
+  @Getter String salt;
+  @Getter String hashedPassword;
+  private String otp;
   @Getter private PERMISSIONS permissions;
 
   public Login() {}
@@ -28,12 +28,16 @@ public class Login implements IOrm {
   }
 
   // only database should use this constructor
-  Login(String username, String password, PERMISSIONS permissions, String salt, String otp) {
+  public Login(String username, String password, PERMISSIONS permissions, String salt, String otp) {
     this.username = username.toLowerCase();
     this.permissions = permissions;
     this.salt = salt;
     this.hashedPassword = password;
-    this.otp = otp;
+    if (otp == null || otp.equalsIgnoreCase("null")) {
+      this.otp = null;
+    } else {
+      this.otp = otp;
+    }
   }
 
   public String saltPassword() {
@@ -109,5 +113,9 @@ public class Login implements IOrm {
       isCodeValid = false;
     }
     return isCodeValid;
+  }
+
+  String getOtp() {
+    return otp;
   }
 }

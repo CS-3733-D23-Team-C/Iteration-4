@@ -50,13 +50,19 @@ public class ConferenceRoomDAO implements IDao<ConferenceRoom, String> {
   }
 
   @Override
-  public ConferenceRoom fetchObject(String key) throws SQLException {
-    String CONFREQ = "SELECT * FROM ConferenceRoomRequest WHERE longName = ?";
-    PreparedStatement ps = db.getConnection().prepareStatement(CONFREQ);
-    ps.setString(1, key);
-    ps.executeQuery();
-    db.closeConnection();
-    return null;
+  public ConferenceRoom fetchObject(String key) {
+    try {
+      String CONFREQ = "SELECT * FROM ConferenceRoomRequest WHERE longName = ?";
+      PreparedStatement ps = db.getConnection().prepareStatement(CONFREQ);
+      ps.setString(1, key);
+      ps.executeQuery();
+      db.closeConnection();
+      return null;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      db.closeConnection();
+      return null;
+    }
   }
 
   @Override
@@ -82,7 +88,7 @@ public class ConferenceRoomDAO implements IDao<ConferenceRoom, String> {
   }
 
   @Override
-  public List<ConferenceRoom> fetchAllObjects() throws SQLException {
+  public List<ConferenceRoom> fetchAllObjects() {
     return null;
   }
 }

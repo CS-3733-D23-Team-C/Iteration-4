@@ -557,9 +557,9 @@
       </AnchorPane>
       <AnchorPane fx:id="settingsPopOut1" layoutX="-110.0" layoutY="276.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="276.0">
          <children>
-            <Pane fx:id="settingsPopOut" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+            <Pane fx:id="settingsPopOut" prefHeight="90.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
-                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="80.0" prefWidth="150.0" spacing="5.0">
                      <children>
                         <Text fx:id="Admin_menu_settings" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" textAlignment="CENTER" wrappingWidth="155.40002518892288">
                            <font>
@@ -574,6 +574,7 @@
                               <Insets left="35.0" />
                            </VBox.margin>
                         </Line>
+                        <MFXButton fx:id="Admin_menu_employee_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Employee Table" />
                      </children>
                   </VBox>
                </children>
@@ -582,7 +583,7 @@
       </AnchorPane>
       <AnchorPane fx:id="historyPopOut1" layoutX="-110.0" layoutY="215.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="215.0">
          <children>
-            <Pane fx:id="historyPopOut" prefHeight="249.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+            <Pane fx:id="historyPopOut" prefHeight="120.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
                      <children>
@@ -599,11 +600,7 @@
                               <Insets left="35.0" />
                            </VBox.margin>
                         </Line>
-                        <MFXButton fx:id="Admin_menu_flower_history" onAction="#getFlowerHistory" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Flower History" />
-                        <MFXButton fx:id="Admin_menu_meal_history" onAction="#getMealHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Meal History" />
-                        <MFXButton fx:id="Admin_menu_stationary_history" onAction="#getOfficeSupplyHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Stationary History" />
-                        <MFXButton fx:id="Admin_menu_furniture_history" onAction="#getFurnitureHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Furniture History" />
-                        <MFXButton fx:id="Admin_menu_reservation_history" onAction="#getConferenceHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Reservation History" />
+                        <MFXButton fx:id="Admin_menu_reservation_history" onAction="#getRequestHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Requests History" />
                         <MFXButton fx:id="Admin_menu_mapchange_history" onAction="#getMapHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Map Change History" />
       <!--                  <MFXButton fx:id="Admin_menu_giftbasket_history" disable="true" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket History" />-->
                      </children>
@@ -614,7 +611,7 @@
       </AnchorPane>
       <AnchorPane fx:id="navigationPopOut1" layoutX="-110.0" layoutY="155.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="155.0">
          <children>
-            <Pane fx:id="navigationPopOut" prefHeight="188.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+            <Pane fx:id="navigationPopOut" prefHeight="220.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
                      <children>
@@ -635,6 +632,7 @@
                         <MFXButton fx:id="Admin_menu_editmap" onAction="#getEditMap" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Edit Map" />
                         <MFXButton fx:id="Admin_menu_movetable" onAction="#getMoveTable" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Move Table" />
                         <MFXButton fx:id="Admin_menu_signage" onAction="#getSignagePage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="View Signage" />
+                        <MFXButton fx:id="Admin_menu_furniture_history" onAction="#getSignageEdit" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Edit Signage" />
                      </children>
                   </VBox>
                </children>
@@ -643,9 +641,9 @@
       </AnchorPane>
       <AnchorPane fx:id="serviceRequestPopOut1" layoutX="-110.0" layoutY="98.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
          <children>
-            <Pane fx:id="serviceRequestPopOut" prefHeight="264.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+            <Pane fx:id="serviceRequestPopOut" prefHeight="210.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
-                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="239.0" prefWidth="156.0" spacing="5.0">
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="156.0" spacing="5.0">
                      <children>
                         <Text fx:id="Admin_menu_servicerequests" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests" textAlignment="CENTER" wrappingWidth="155.40002518892288">
                            <font>
@@ -665,7 +663,6 @@
                         <MFXButton fx:id="Admin_menu_stationary_delivery" onAction="#getOfficeSuppliesPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Stationary Request" />
                         <MFXButton fx:id="Admin_menu_furniture_delivery" onAction="#getFurnitureDeliveryPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Furniture Request" />
                         <MFXButton fx:id="Admin_menu_room_reservation" onAction="#getRoomReservationPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Room Reservation" />
-                        <MFXButton fx:id="Admin_menu_employee_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Employee Table" />
       <!--                  <MFXButton fx:id="Admin_menu_giftbasket_delivery" onAction="#getGiftBasketRequestPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket Delivery" />-->
                      </children>
                   </VBox>

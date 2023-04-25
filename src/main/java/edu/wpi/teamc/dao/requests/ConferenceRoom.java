@@ -16,6 +16,10 @@ public class ConferenceRoom {
     this.availability = availability;
   }
 
+  public ConferenceRoom(String longName) {
+    this.longName = longName;
+  }
+
   @Override
   public String toString() {
     return this.longName;

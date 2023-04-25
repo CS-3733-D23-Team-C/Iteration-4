@@ -18,4 +18,6 @@ public class MealRequest extends AbsServiceRequest {
     super(requester, roomName, note);
     this.meal = meal;
   }
+
+  public MealRequest() {}
 }

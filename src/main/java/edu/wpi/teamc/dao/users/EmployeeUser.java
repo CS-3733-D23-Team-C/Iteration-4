@@ -9,6 +9,10 @@ public class EmployeeUser extends AbsUser {
   private String department;
   private String position;
 
+  public EmployeeUser(String name) {
+    super(name);
+  }
+
   public EmployeeUser(int id, String name, String username, String department, String position) {
     super(id, name, username);
     this.department = department;
@@ -19,10 +23,6 @@ public class EmployeeUser extends AbsUser {
     super(name, username);
     this.department = department;
     this.position = position;
-  }
-
-  public EmployeeUser(String username) {
-    super(null, username);
   }
 
   public String toString() {

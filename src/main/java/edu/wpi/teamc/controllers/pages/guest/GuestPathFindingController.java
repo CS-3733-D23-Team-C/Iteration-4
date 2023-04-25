@@ -28,7 +28,7 @@ import net.kurobako.gesturefx.GesturePane;
 public class GuestPathFindingController {
   public Group group;
   public Image image =
-      new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
+      new Image(Main.class.getResource("./views/images/FirstFloor.png").toString());
   @FXML MFXButton backButton;
   @FXML MFXButton nextFloor;
   @FXML MFXButton prevFloor;
@@ -79,7 +79,7 @@ public class GuestPathFindingController {
     submit.setDisable(true);
     tempSave = FL1;
     //    File file = new File();
-    Image image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
+    Image image = new Image(Main.class.getResource("./views/images/FirstFloor.png").toString());
     ImageView imageView = new ImageView(image);
     imageView.relocate(0, 0);
     group.getChildren().add(imageView);
@@ -179,19 +179,19 @@ public class GuestPathFindingController {
     floorButton = (MFXButton) event.getTarget();
 
     if (Objects.equals(floorButton.getId(), "FL1")) {
-      image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
+      image = new Image(Main.class.getResource("./views/images/FirstFloor.png").toString());
       floor = "1";
     } else if (Objects.equals(floorButton.getId(), "FL2")) {
-      image = new Image(Main.class.getResource("./views/Images/SecondFloor.png").toString());
+      image = new Image(Main.class.getResource("./views/images/SecondFloor.png").toString());
       floor = "2";
     } else if (Objects.equals(floorButton.getId(), "FL3")) {
-      image = new Image(Main.class.getResource("./views/Images/ThirdFloor.png").toString());
+      image = new Image(Main.class.getResource("./views/images/ThirdFloor.png").toString());
       floor = "3";
     } else if (Objects.equals(floorButton.getId(), "FLB1")) {
-      image = new Image(Main.class.getResource("./views/Images/B1.png").toString());
+      image = new Image(Main.class.getResource("./views/images/B1.png").toString());
       floor = "L1";
     } else if (Objects.equals(floorButton.getId(), "FLB2")) {
-      image = new Image(Main.class.getResource("./views/Images/B2.png").toString());
+      image = new Image(Main.class.getResource("./views/images/B2.png").toString());
       floor = "L2";
     }
     resetGroupVar();
@@ -206,19 +206,19 @@ public class GuestPathFindingController {
 
   public void changeFloorFromString(String floor) {
     if (floor.equals("1")) {
-      image = new Image(Main.class.getResource("./views/Images/FirstFloor.png").toString());
+      image = new Image(Main.class.getResource("./views/images/FirstFloor.png").toString());
       resetAndSetFloorIndicator(FL1);
     } else if (floor.equals("2")) {
-      image = new Image(Main.class.getResource("./views/Images/SecondFloor.png").toString());
+      image = new Image(Main.class.getResource("./views/images/SecondFloor.png").toString());
       resetAndSetFloorIndicator(FL2);
     } else if (floor.equals("3")) {
-      image = new Image(Main.class.getResource("./views/Images/ThirdFloor.png").toString());
+      image = new Image(Main.class.getResource("./views/images/ThirdFloor.png").toString());
       resetAndSetFloorIndicator(FL3);
     } else if (floor.equals("L1")) {
-      image = new Image(Main.class.getResource("./views/Images/B1.png").toString());
+      image = new Image(Main.class.getResource("./views/images/B1.png").toString());
       resetAndSetFloorIndicator(FLB1);
     } else if (floor.equals("L2")) {
-      image = new Image(Main.class.getResource("./views/Images/B2.png").toString());
+      image = new Image(Main.class.getResource("./views/images/B2.png").toString());
       resetAndSetFloorIndicator(FLB2);
     }
     resetGroupVar();
@@ -396,7 +396,7 @@ public class GuestPathFindingController {
     String endName = endChoice.getText();
 
     Graph graph = new Graph(AlgoSingleton.INSTANCE.getType());
-    graph.syncWithDB();
+    graph.syncWithDB("2023-1-1");
 
     src = graph.getNode(longNameToNodeID.get(startName));
     dest = graph.getNode(longNameToNodeID.get(endName));

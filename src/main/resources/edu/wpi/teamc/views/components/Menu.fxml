@@ -7,7 +7,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
@@ -15,192 +17,659 @@
 
 <AnchorPane fx:id="basePane" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.components.MenuController">
    <children>
-      <Pane fx:id="homePopOut" layoutX="-110.0" layoutY="11.0" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+      <AnchorPane fx:id="homePopOut1" layoutX="-110.0" layoutY="11.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0">
          <children>
-            <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+            <Pane fx:id="homePopOut" prefHeight="163.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
-                  <Text fx:id="Admin_menu_home" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" textAlignment="CENTER" wrappingWidth="155.40002518892288">
-                     <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Text>
-                  <Line endX="80.0">
-                     <VBox.margin>
-                        <Insets left="35.0" />
-                     </VBox.margin>
-                  </Line>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+                     <children>
+                        <Text fx:id="Admin_menu_home" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="80.0">
+                           <VBox.margin>
+                              <Insets left="35.0" />
+                           </VBox.margin>
+                        </Line>
+                        <MFXButton fx:id="Admin_menu_home_button" onAction="#getAdminHome" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
+                        <MFXButton fx:id="Admin_menu_about_button" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
+                        <MFXButton fx:id="Admin_menu_credits" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
+            </Pane>
          </children>
-      </Pane>
-      <Pane fx:id="logoutPopOut" layoutX="-110.0" layoutY="645.0" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+      </AnchorPane>
+      <AnchorPane fx:id="aboutPopOut3" layoutX="-230.0" layoutY="10.0">
          <children>
-            <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+            <Pane fx:id="aboutPopOut1" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
-                  <Text fx:id="Admin_menu_logout" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Logout" textAlignment="CENTER" wrappingWidth="155.40002518892288">
-                     <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Text>
-                  <Line endX="80.0">
-                     <VBox.margin>
-                        <Insets left="35.0" />
-                     </VBox.margin>
-                  </Line>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fx:id="Admin_menu_about1" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Charismatic Cerberus!" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="This Website Was Created By:" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane fx:id="randy" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/RandyCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
+                                    <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Co-Lead Engineer Developer: Randy Dyer" textAlignment="CENTER" wrappingWidth="119.00012284517288">
+                                       <font>
+                                          <Font name="Arial" size="10.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="110.0" />
+                                       </StackPane.margin>
+                                    </Text>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="50.0" top="50.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                              <StackPane fx:id="eddie" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/EddieCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
+                                    <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Co-Lead Engineer Developer: Edward Dang" textAlignment="CENTER" wrappingWidth="119.00012284517288">
+                                       <font>
+                                          <Font name="Arial" size="10.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="110.0" />
+                                       </StackPane.margin>
+                                    </Text>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="155.0" top="50.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane fx:id="Nick" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/NickCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
+                                    <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Engineer: Nick Ishigami" textAlignment="CENTER" wrappingWidth="119.00012284517288">
+                                       <font>
+                                          <Font name="Arial" size="10.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="110.0" />
+                                       </StackPane.margin>
+                                    </Text>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="50.0" top="50.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                              <StackPane fx:id="Aaron" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/AaronCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
+                                    <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Front End Lead Developer: Aaron Zhang" textAlignment="CENTER" wrappingWidth="119.00012284517288">
+                                       <font>
+                                          <Font name="Arial" size="10.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="110.0" />
+                                       </StackPane.margin>
+                                    </Text>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="155.0" top="50.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane fx:id="Sebastian" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/sebastianCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
+                                    <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Owner and Developer: Sebastian Valle" textAlignment="CENTER" wrappingWidth="119.00012284517288">
+                                       <font>
+                                          <Font name="Arial" size="9.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="110.0" />
+                                       </StackPane.margin>
+                                    </Text>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="50.0" top="50.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                              <StackPane fx:id="Brandon" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/BrandonCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
+                                    <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Manager and Developer: Brandon Liu" textAlignment="CENTER" wrappingWidth="119.00012284517288">
+                                       <font>
+                                          <Font name="Arial" size="10.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="110.0" />
+                                       </StackPane.margin>
+                                    </Text>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="155.0" top="50.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane fx:id="taya" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/tayaCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
+                                    <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Scrum Master and Developer: Taya Yakovenko" textAlignment="CENTER" wrappingWidth="119.00012284517288">
+                                       <font>
+                                          <Font name="Arial" size="9.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="110.0" />
+                                       </StackPane.margin>
+                                    </Text>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="50.0" top="50.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                              <StackPane fx:id="Chase" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/ChaseCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
+                                    <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Developer: Chase Beausoleil" textAlignment="CENTER" wrappingWidth="119.00012284517288">
+                                       <font>
+                                          <Font name="Arial" size="10.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="110.0" />
+                                       </StackPane.margin>
+                                    </Text>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="155.0" top="50.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane fx:id="Joey" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/JoeyCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
+                                    <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Developer: Joseph Caproni" textAlignment="CENTER" wrappingWidth="119.00012284517288">
+                                       <font>
+                                          <Font name="Arial" size="10.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="110.0" />
+                                       </StackPane.margin>
+                                    </Text>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="50.0" top="50.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                              <StackPane fx:id="Chao" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/ChaoCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
+                                    <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Document Analyst and Developer: Chao An" textAlignment="CENTER" wrappingWidth="119.00012284517288">
+                                       <font>
+                                          <Font name="Arial" size="10.0" />
+                                       </font>
+                                       <StackPane.margin>
+                                          <Insets bottom="110.0" />
+                                       </StackPane.margin>
+                                    </Text>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="155.0" top="50.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
+            </Pane>
          </children>
-      </Pane>
-      <Pane fx:id="exitPopOut" layoutX="-110.0" layoutY="707.0" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+      </AnchorPane>
+      <AnchorPane fx:id="aboutPopOut2" layoutX="-230.0" layoutY="10.0">
          <children>
-            <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+            <Pane fx:id="aboutPopOut" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
-                  <Text fx:id="Admin_menu_exit" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Exit" textAlignment="CENTER" wrappingWidth="155.40002518892288">
-                     <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Text>
-                  <Line endX="80.0">
-                     <VBox.margin>
-                        <Insets left="35.0" />
-                     </VBox.margin>
-                  </Line>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fx:id="Admin_menu_about_text" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="About" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="This Website Was Created By:" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="WPI Computer Science Department" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="CS3733-D23 Software Engineering" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Charismatic Cerberus" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/cerberus.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets left="70.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <MFXButton fx:id="meetTheTeam" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Meet the Team! ">
+                           <VBox.margin>
+                              <Insets left="70.0" />
+                           </VBox.margin>
+                        </MFXButton>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Special Thanks To:" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial Bold" size="14.0" />
+                           </font>
+                        </Text>
+                        <StackPane fx:id="Wong" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
+                           <children>
+                              <ImageView id="Wong" fx:id="Wong2" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/wilsonWong.png" />
+                                 </image>
+                              </ImageView>
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
+                              <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Prof. Wilson Wong" textAlignment="CENTER" wrappingWidth="119.00012284517288">
+                                 <font>
+                                    <Font name="Arial" size="14.0" />
+                                 </font>
+                                 <StackPane.margin>
+                                    <Insets bottom="100.0" />
+                                 </StackPane.margin>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="130.0" top="60.0" />
+                           </VBox.margin>
+                        </StackPane>
+                        <StackPane fx:id="ian" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
+                           <children>
+                              <ImageView id="Wong" fx:id="Wong1" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/ianWright.png" />
+                                 </image>
+                              </ImageView>
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
+                              <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Ian Wright" textAlignment="CENTER" wrappingWidth="119.00012284517288">
+                                 <font>
+                                    <Font name="Arial" size="14.0" />
+                                 </font>
+                                 <StackPane.margin>
+                                    <Insets bottom="100.0" />
+                                 </StackPane.margin>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="40.0" top="60.0" />
+                           </VBox.margin>
+                        </StackPane>
+                        <StackPane fx:id="Qui" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
+                           <children>
+                              <ImageView id="Wong" fx:id="quiNguyen" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/quiNguyen.png" />
+                                 </image>
+                              </ImageView>
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
+                              <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Qui Nquyen" textAlignment="CENTER" wrappingWidth="119.00012284517288">
+                                 <font>
+                                    <Font name="Arial" size="14.0" />
+                                 </font>
+                                 <StackPane.margin>
+                                    <Insets bottom="100.0" />
+                                 </StackPane.margin>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="220.0" top="-14.0" />
+                           </VBox.margin>
+                        </StackPane>
+                        <StackPane fx:id="Andrew" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
+                           <children>
+                              <ImageView id="Wong" fx:id="quiNguyen1" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/Andrew Shinn.png" />
+                                 </image>
+                              </ImageView>
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
+                              <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Andrew Shinn" textAlignment="CENTER" wrappingWidth="119.00012284517288">
+                                 <font>
+                                    <Font name="Arial" size="14.0" />
+                                 </font>
+                                 <StackPane.margin>
+                                    <Insets bottom="100.0" />
+                                 </StackPane.margin>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="130.0" top="70.0" />
+                           </VBox.margin>
+                        </StackPane>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="And thanks to Brigham and Women’s Hospital for their time and input!" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin>
+                        </Text>
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
+            </Pane>
          </children>
-      </Pane>
-      <Pane fx:id="helpPopOut" layoutX="-110.0" layoutY="340.0" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+      </AnchorPane>
+      <AnchorPane fx:id="logoutPopOut1" layoutX="-110.0" layoutY="645.0" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+            <Pane fx:id="logoutPopOut" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
-                  <Text fx:id="Admin_menu_helpmenu" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Help Menu" textAlignment="CENTER" wrappingWidth="155.40002518892288">
-                     <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Text>
-                  <Line endX="80.0">
-                     <VBox.margin>
-                        <Insets left="35.0" />
-                     </VBox.margin>
-                  </Line>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+                     <children>
+                        <Text fx:id="Admin_menu_logout" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Logout" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="80.0">
+                           <VBox.margin>
+                              <Insets left="35.0" />
+                           </VBox.margin>
+                        </Line>
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
+            </Pane>
          </children>
-      </Pane>
-      <Pane fx:id="settingsPopOut" layoutX="-110.0" layoutY="276.0" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+      </AnchorPane>
+      <AnchorPane fx:id="exitPopOut1" layoutX="-110.0" layoutY="707.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+            <Pane fx:id="exitPopOut" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
-                  <Text fx:id="Admin_menu_settings" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" textAlignment="CENTER" wrappingWidth="155.40002518892288">
-                     <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Text>
-                  <Line endX="80.0">
-                     <VBox.margin>
-                        <Insets left="35.0" />
-                     </VBox.margin>
-                  </Line>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+                     <children>
+                        <Text fx:id="Admin_menu_exit" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Exit" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="80.0">
+                           <VBox.margin>
+                              <Insets left="35.0" />
+                           </VBox.margin>
+                        </Line>
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
+            </Pane>
          </children>
-      </Pane>
-      <Pane fx:id="historyPopOut" layoutX="-110.0" layoutY="215.0" prefHeight="249.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+      </AnchorPane>
+      <AnchorPane fx:id="helpPopOut1" layoutX="-110.0" layoutY="340.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="340.0">
          <children>
-            <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+            <Pane fx:id="helpPopOut" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
-                  <Text fx:id="Admin_menu_history" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="History" textAlignment="CENTER" wrappingWidth="155.40002518892288">
-                     <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Text>
-                  <Line endX="80.0">
-                     <VBox.margin>
-                        <Insets left="35.0" />
-                     </VBox.margin>
-                  </Line>
-                  <MFXButton fx:id="Admin_menu_flower_history" onAction="#getFlowerHistory" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Flower History" />
-                  <MFXButton fx:id="Admin_menu_meal_history" onAction="#getMealHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Meal History" />
-                  <MFXButton fx:id="Admin_menu_stationary_history" onAction="#getOfficeSupplyHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Stationary History" />
-                  <MFXButton fx:id="Admin_menu_furniture_history" onAction="#getFurnitureHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Furniture History" />
-                  <MFXButton fx:id="Admin_menu_reservation_history" onAction="#getConferenceHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Reservation History" />
-                  <MFXButton fx:id="Admin_menu_mapchange_history" onAction="#getMapHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Map Change History" />
-<!--                  <MFXButton fx:id="Admin_menu_giftbasket_history" disable="true" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket History" />-->
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+                     <children>
+                        <Text fx:id="Admin_menu_helpmenu" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Help Menu" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="80.0">
+                           <VBox.margin>
+                              <Insets left="35.0" />
+                           </VBox.margin>
+                        </Line>
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
+            </Pane>
          </children>
-      </Pane>
-      <Pane fx:id="navigationPopOut" layoutX="-110.0" layoutY="155.0" prefHeight="188.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+      </AnchorPane>
+      <AnchorPane fx:id="settingsPopOut1" layoutX="-110.0" layoutY="276.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="276.0">
          <children>
-            <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+            <Pane fx:id="settingsPopOut" prefHeight="90.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
-                  <Text fx:id="Admin_menu_navigation" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Navigation" textAlignment="CENTER" wrappingWidth="155.40002518892288">
-                     <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Text>
-                  <Line endX="80.0">
-                     <VBox.margin>
-                        <Insets left="35.0" />
-                     </VBox.margin>
-                  </Line>
-                  <MFXButton fx:id="Admin_menu_directions" onAction="#getPathfindingPage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
-                  <MFXButton fx:id="Admin_menu_editmap" onAction="#getEditMap" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Edit Map" />
-                  <MFXButton fx:id="Admin_menu_movetable" onAction="#getMoveTable" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Move Table" />
-                  <MFXButton fx:id="Admin_menu_signage" onAction="#getSignagePage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="View Signage" />
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="80.0" prefWidth="150.0" spacing="5.0">
+                     <children>
+                        <Text fx:id="Admin_menu_settings" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="80.0">
+                           <VBox.margin>
+                              <Insets left="35.0" />
+                           </VBox.margin>
+                        </Line>
+                        <MFXButton fx:id="Admin_menu_employee_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Employee Table" />
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
+            </Pane>
          </children>
-      </Pane>
-      <Pane fx:id="serviceRequestPopOut" layoutX="-110.0" layoutY="98.0" prefHeight="264.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+      </AnchorPane>
+      <AnchorPane fx:id="historyPopOut1" layoutX="-110.0" layoutY="215.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="215.0">
          <children>
-            <VBox layoutX="10.0" layoutY="15.0" prefHeight="239.0" prefWidth="156.0" spacing="5.0">
+            <Pane fx:id="historyPopOut" prefHeight="120.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
-                  <Text fx:id="Admin_menu_servicerequests" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests" textAlignment="CENTER" wrappingWidth="155.40002518892288">
-                     <font>
-                        <Font name="Arial" size="18.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Text>
-                  <Line endX="80.0">
-                     <VBox.margin>
-                        <Insets left="35.0" />
-                     </VBox.margin>
-                  </Line>
-                  <MFXButton fx:id="Admin_menu_flower_delivery" onAction="#getFlowerDeliveryPage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Flower Delivery" />
-                  <MFXButton fx:id="Admin_menu_meal_delivery" onAction="#getMealDeliveryPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Meal Delivery" />
-                  <MFXButton fx:id="Admin_menu_stationary_delivery" onAction="#getOfficeSuppliesPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Stationary Request" />
-                  <MFXButton fx:id="Admin_menu_furniture_delivery" onAction="#getFurnitureDeliveryPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Furniture Request" />
-                  <MFXButton fx:id="Admin_menu_room_reservation" onAction="#getRoomReservationPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Room Reservation" />
-                  <MFXButton fx:id="Admin_menu_employee_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Employee Table" />
-<!--                  <MFXButton fx:id="Admin_menu_giftbasket_delivery" onAction="#getGiftBasketRequestPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket Delivery" />-->
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+                     <children>
+                        <Text fx:id="Admin_menu_history" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="History" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="80.0">
+                           <VBox.margin>
+                              <Insets left="35.0" />
+                           </VBox.margin>
+                        </Line>
+                        <MFXButton fx:id="Admin_menu_reservation_history" onAction="#getRequestHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Requests History" />
+                        <MFXButton fx:id="Admin_menu_mapchange_history" onAction="#getMapHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Map Change History" />
+      <!--                  <MFXButton fx:id="Admin_menu_giftbasket_history" disable="true" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket History" />-->
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
+            </Pane>
          </children>
-      </Pane>
+      </AnchorPane>
+      <AnchorPane fx:id="navigationPopOut1" layoutX="-110.0" layoutY="155.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="155.0">
+         <children>
+            <Pane fx:id="navigationPopOut" prefHeight="220.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+                     <children>
+                        <Text fx:id="Admin_menu_navigation" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Navigation" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="80.0">
+                           <VBox.margin>
+                              <Insets left="35.0" />
+                           </VBox.margin>
+                        </Line>
+                        <MFXButton fx:id="Admin_menu_directions" onAction="#getPathfindingPage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
+                        <MFXButton fx:id="Admin_menu_editmap" onAction="#getEditMap" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Edit Map" />
+                        <MFXButton fx:id="Admin_menu_movetable" onAction="#getMoveTable" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Move Table" />
+                        <MFXButton fx:id="Admin_menu_signage" onAction="#getSignagePage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="View Signage" />
+                        <MFXButton fx:id="Admin_menu_furniture_history" onAction="#getSignageEdit" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Edit Signage" />
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="serviceRequestPopOut1" layoutX="-110.0" layoutY="98.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
+         <children>
+            <Pane fx:id="serviceRequestPopOut" prefHeight="210.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="156.0" spacing="5.0">
+                     <children>
+                        <Text fx:id="Admin_menu_servicerequests" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="80.0">
+                           <VBox.margin>
+                              <Insets left="35.0" />
+                           </VBox.margin>
+                        </Line>
+                        <MFXButton fx:id="Admin_menu_flower_delivery" onAction="#getFlowerDeliveryPage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Flower Delivery" />
+                        <MFXButton fx:id="Admin_menu_meal_delivery" onAction="#getMealDeliveryPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Meal Delivery" />
+                        <MFXButton fx:id="Admin_menu_stationary_delivery" onAction="#getOfficeSuppliesPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Stationary Request" />
+                        <MFXButton fx:id="Admin_menu_furniture_delivery" onAction="#getFurnitureDeliveryPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Furniture Request" />
+                        <MFXButton fx:id="Admin_menu_room_reservation" onAction="#getRoomReservationPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Room Reservation" />
+      <!--                  <MFXButton fx:id="Admin_menu_giftbasket_delivery" onAction="#getGiftBasketRequestPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket Delivery" />-->
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
       <Pane fx:id="settingsPane" layoutX="70.0" layoutY="-768.0" prefHeight="768.0" prefWidth="1297.0" style="-fx-background-color: #02143B;">
          <children>
             <BorderPane prefHeight="768.0" prefWidth="1297.0">
@@ -227,153 +696,225 @@
             </BorderPane>
          </children>
       </Pane>
-      <Pane fx:id="menuPane" layoutY="-1.0" prefHeight="768.0" prefWidth="70.0" style="-fx-background-color: #02143B;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="menuPane" prefHeight="768.0" style="-fx-background-color: #02143B;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Line endX="40.0" layoutX="15.0" layoutY="76.0" stroke="WHITE" />
-            <Line endX="40.0" layoutX="15.0" layoutY="631.0" stroke="WHITE" />
-            <ImageView fx:id="serviceRequestButton" fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="106.75" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/serviceRequestButton.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="navigationButton" fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="161.5" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/navigationButton.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="historyButton" fitHeight="36.5" fitWidth="36.5" layoutX="16.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/historyButton.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="settingsButton" fitHeight="36.5" fitWidth="36.5" layoutX="19.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/settingsButton.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="helpButton" fitHeight="36.5" fitWidth="36.5" layoutX="18.0" layoutY="347.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/helpButton.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="homeButton" fitHeight="36.5" fitWidth="36.5" layoutX="23.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/homeButton.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="logoutButton" fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="651.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/logoutButton.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fx:id="exitButton" fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="713.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/exitButton.png" />
-               </image>
-            </ImageView>
-            <Pane fx:id="homeTrigger" layoutX="1.0" layoutY="11.0" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+            <AnchorPane layoutX="14.5" layoutY="75.5">
                <children>
-                  <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="22.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                  <Line endX="40.0" stroke="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="14.5" layoutY="630.5" AnchorPane.bottomAnchor="137.0" AnchorPane.leftAnchor="14.5" AnchorPane.rightAnchor="16.0">
+               <children>
+                  <Line endX="40.0" stroke="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="serviceRequestButton1" layoutX="17.0" layoutY="106.75" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.5" AnchorPane.topAnchor="106.75">
+               <children>
+                  <ImageView fx:id="serviceRequestButton" fitHeight="36.5" fitWidth="36.5" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/homeSelected.png" />
+                        <Image url="@../images/serviceRequestButton.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="navigationButton1" layoutX="17.0" layoutY="161.5" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.5" AnchorPane.topAnchor="161.5">
+               <children>
+                  <ImageView fx:id="navigationButton" fitHeight="36.5" fitWidth="36.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/navigationButton.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="historyButton1" layoutX="16.0" layoutY="223.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="18.5" AnchorPane.topAnchor="223.0">
+               <children>
+                  <ImageView fx:id="historyButton" fitHeight="36.5" fitWidth="36.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/historyButton.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="settingsButton1" layoutX="19.0" layoutY="282.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="16.5" AnchorPane.topAnchor="282.0">
+               <children>
+                  <ImageView fx:id="settingsButton" fitHeight="36.5" fitWidth="36.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/settingsButton.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="helpButton1" layoutX="18.0" layoutY="347.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="16.5" AnchorPane.topAnchor="347.0">
+               <children>
+                  <ImageView fx:id="helpButton" fitHeight="36.5" fitWidth="36.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/helpButton.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="homeButton1" layoutX="23.0" layoutY="17.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="17.0">
+               <children>
+                  <ImageView fx:id="homeButton" fitHeight="36.5" fitWidth="36.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/homeButton.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
                   </ImageView>
                </children>
-            </Pane>
-            <Pane fx:id="serviceRequestTrigger" layoutY="98.0" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+            </AnchorPane>
+            <AnchorPane fx:id="logoutButton1" layoutX="17.0" layoutY="651.0" AnchorPane.bottomAnchor="80.5" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="19.0">
                <children>
-                  <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="logoutButton" fitHeight="36.5" fitWidth="36.5" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/serviceRequestSelection.png" />
+                        <Image url="@../images/logoutButton.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
                   </ImageView>
                </children>
-            </Pane>
-            <Pane fx:id="navigationTrigger" layoutY="155.0" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+            </AnchorPane>
+            <AnchorPane fx:id="exitButton1" layoutX="17.0" layoutY="713.0" AnchorPane.bottomAnchor="18.5" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.5">
                <children>
-                  <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="exitButton" fitHeight="36.5" fitWidth="36.5" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/navigationSelection.png" />
+                        <Image url="@../images/exitButton.png" />
                      </image>
-                     <cursor>
-                        <Cursor fx:constant="OPEN_HAND" />
-                     </cursor>
                   </ImageView>
                </children>
-            </Pane>
-            <Pane fx:id="historyTrigger" layoutY="215.0" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+            </AnchorPane>
+            <AnchorPane fx:id="homeTrigger1" layoutX="1.0" layoutY="11.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0">
                <children>
-                  <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="16.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/historySelection.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="OPEN_HAND" />
-                     </cursor>
-                  </ImageView>
+                  <Pane fx:id="homeTrigger" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+                     <children>
+                        <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="22.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/homeSelected.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </Pane>
                </children>
-            </Pane>
-            <Pane fx:id="settingsTrigger" layoutY="276.0" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+            </AnchorPane>
+            <AnchorPane fx:id="serviceRequestTrigger1" layoutY="98.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="98.0">
                <children>
-                  <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="19.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/settingsSelection.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="OPEN_HAND" />
-                     </cursor>
-                  </ImageView>
+                  <Pane fx:id="serviceRequestTrigger" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+                     <children>
+                        <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/serviceRequestSelection.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </Pane>
                </children>
-            </Pane>
-            <Pane fx:id="helpTrigger" layoutY="340.0" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+            </AnchorPane>
+            <AnchorPane fx:id="navigationTrigger1" layoutY="155.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="155.0">
                <children>
-                  <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="19.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/helpSelection.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="OPEN_HAND" />
-                     </cursor>
-                  </ImageView>
+                  <Pane fx:id="navigationTrigger" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+                     <children>
+                        <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/navigationSelection.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </Pane>
                </children>
-            </Pane>
-            <Pane fx:id="logoutTrigger" layoutY="645.0" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+            </AnchorPane>
+            <AnchorPane fx:id="historyTrigger1" layoutY="215.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="215.0">
                <children>
-                  <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/logoutSelection.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="OPEN_HAND" />
-                     </cursor>
-                  </ImageView>
+                  <Pane fx:id="historyTrigger" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+                     <children>
+                        <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="16.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/historySelection.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </Pane>
                </children>
-            </Pane>
-            <Pane fx:id="exitTrigger" layoutY="707.0" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+            </AnchorPane>
+            <AnchorPane fx:id="settingsTrigger1" layoutY="276.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="276.0">
                <children>
-                  <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/exitSelection.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="OPEN_HAND" />
-                     </cursor>
-                  </ImageView>
+                  <Pane fx:id="settingsTrigger" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+                     <children>
+                        <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="19.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/settingsSelection.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </Pane>
                </children>
-            </Pane>
+            </AnchorPane>
+            <AnchorPane fx:id="helpTrigger1" layoutY="340.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="340.0">
+               <children>
+                  <Pane fx:id="helpTrigger" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+                     <children>
+                        <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="19.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/helpSelection.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="logoutTrigger1" layoutY="645.0" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0">
+               <children>
+                  <Pane fx:id="logoutTrigger" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+                     <children>
+                        <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/logoutSelection.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="exitTrigger1" layoutY="707.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0">
+               <children>
+                  <Pane fx:id="exitTrigger" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
+                     <children>
+                        <ImageView fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/exitSelection.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
          </children>
-      </Pane>
+      </AnchorPane>
    </children>
 </AnchorPane>

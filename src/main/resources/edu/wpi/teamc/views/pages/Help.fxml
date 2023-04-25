@@ -8,13 +8,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.HelpController">
+<AnchorPane prefHeight="768.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.HelpController">
    <children>
-      <AnchorPane layoutX="410.0" layoutY="163.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
+      <AnchorPane layoutX="410.0" layoutY="163.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
          <children>
             <AnchorPane prefWidth="625.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="671.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <TextArea fx:id="basicFunctions" layoutX="11.0" layoutY="84.0" prefHeight="557.0" prefWidth="535.0" text="1.  Click into the section on table you wish to edit&#10;&#10;2. Change the room information you want in place of the current room&#10;&#10;3. Once you are satisfied with your changes, click submit&#10;&#10;4. Once submited, changes you made will be updated. These changes will be reflected on the map and in the map history" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="113.0">
+                  <TextArea fx:id="basicFunctions" editable="false" layoutX="11.0" layoutY="84.0" prefHeight="557.0" prefWidth="535.0" text="1.  Click into the section on table you wish to edit&#10;&#10;2. Change the room information you want in place of the current room&#10;&#10;3. Once you are satisfied with your changes, click submit&#10;&#10;4. Once submited, changes you made will be updated. These changes will be reflected on the map and in the map history" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="113.0">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -34,7 +34,7 @@
             </AnchorPane>
             <AnchorPane layoutX="10.0" layoutY="10.0" prefWidth="625.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <TextArea fx:id="otherFunctions" prefHeight="557.0" prefWidth="535.0" text="Export: Click Export button to export a CSV file&#10;&#10;Import: Click Import button to import a CSV file to the table&#10;&#10;Map History: Click Map Hisotry to view the edit history for the map" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="113.0">
+                  <TextArea fx:id="otherFunctions" editable="false" prefHeight="557.0" prefWidth="535.0" text="Export: Click Export button to export a CSV file&#10;&#10;Import: Click Import button to import a CSV file to the table&#10;&#10;Map History: Click Map Hisotry to view the edit history for the map" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="113.0">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -54,7 +54,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="90.0" layoutY="20.0" prefHeight="76.0" prefWidth="1366.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),10,0.75,0,0);" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="90.0" layoutY="20.0" prefHeight="76.0" prefWidth="1366.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),10,0.75,0,0);" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="1147.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -70,11 +70,5 @@
             </VBox>
          </children>
       </AnchorPane>
-      <VBox prefHeight="200.0" prefWidth="70.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <fx:include fx:id="adminMenu" source="../components/Menu.fxml" />
-         </children>
-
-      </VBox>
    </children>
 </AnchorPane>

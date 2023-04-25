@@ -3,6 +3,10 @@ package edu.wpi.teamc.dao.requests;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.users.PatientUser;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -84,15 +88,17 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
     try {
       Statement stmtNode = db.getConnection().createStatement();
       String query =
-          "UPDATE \"ServiceRequests\".\"mealRequest\" SET Requester = ?, meal = ?, additionalNotes = ?, ETA = ?, roomName = ?, assignedto=? WHERE requestID = ?";
+          "UPDATE \"ServiceRequests\".\"mealRequest\" SET requestid = ?, requester = ?, status = ?, additionalnotes = ?, meal = ?, eta= ?, roomname = ?, assignedto = ? WHERE requestid = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
-      ps.setString(1, orm2.getRequester().toString());
-      ps.setString(2, orm2.getMeal().getMealName());
-      ps.setString(3, orm2.getAdditionalNotes());
-      ps.setString(4, orm2.getEta());
-      ps.setString(5, orm2.getRoomName());
-      ps.setString(6, orm2.getAssignedto());
-      ps.setInt(7, orm.getRequestID());
+      ps.setInt(1, orm2.getRequestID());
+      ps.setString(2, orm2.getRequester().toString());
+      ps.setString(3, orm2.getStatus().toString());
+      ps.setString(4, orm2.getAdditionalNotes());
+      ps.setString(5, orm2.getMeal().toString());
+      ps.setString(6, orm2.getEta());
+      ps.setString(7, orm2.getRoomName());
+      ps.setString(8, orm2.getAssignedto());
+      ps.setInt(9, orm.getRequestID());
       ps.executeUpdate();
 
     } catch (SQLException e) {
@@ -107,7 +113,7 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
     MealRequest request = null;
     try {
       Statement stmtNode = db.getConnection().createStatement();
-      String query = "DELETE FROM \"ServiceRequests\".\"mealRequest\" WHERE requestID = ?";
+      String query = "DELETE FROM \"ServiceRequests\".\"mealRequest\" WHERE requestid = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setInt(1, orm.getRequestID());
       ps.executeUpdate();
@@ -119,7 +125,7 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
   }
 
   @Override
-  public MealRequest fetchObject(Integer key) throws SQLException {
+  public MealRequest fetchObject(Integer key) {
     MealRequest request = null;
     try {
       DBConnection db = new DBConnection();
@@ -127,7 +133,7 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
       // Table Name
       String table = "\"ServiceRequests\".\"mealRequest\"";
       // Query
-      String query = "SELECT * FROM " + table + " WHERE requestID = " + key;
+      String query = "SELECT * FROM " + table + " WHERE requestid = " + key;
       ResultSet rs = stmt.executeQuery(query);
       while (rs.next()) {
         // Get all the data from the table
@@ -152,5 +158,42 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
       e.printStackTrace();
     }
     return request;
+  }
+
+  public boolean exportCSV(String CSVfilepath) throws IOException {
+    createFile(CSVfilepath);
+    BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
+    // Write the header row to the CSV file
+    writer.write("requestid,requester,roomname,status,additionalnotes,eta,meal,assignedto\n");
+    for (MealRequest mealRequest : fetchAllObjects()) {
+      writer.write(
+          mealRequest.getRequestID()
+              + ","
+              + mealRequest.getRequester()
+              + ","
+              + mealRequest.getRoomName()
+              + ","
+              + mealRequest.getStatus()
+              + ","
+              + mealRequest.getAdditionalNotes()
+              + ","
+              + mealRequest.getEta()
+              + ","
+              + mealRequest.getMeal()
+              + ","
+              + mealRequest.getAssignedto()
+              + "\n");
+    }
+    writer.close();
+    return true;
+  }
+
+  static void createFile(String fileName) throws IOException {
+    File file = new File(fileName);
+    if (file.createNewFile()) {
+      System.out.println("File created: " + file.getName());
+    } else {
+      System.out.println("File already exists.");
+    }
   }
 }

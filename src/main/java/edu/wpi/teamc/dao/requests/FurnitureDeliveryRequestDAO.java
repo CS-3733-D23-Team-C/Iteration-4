@@ -3,6 +3,10 @@ package edu.wpi.teamc.dao.requests;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.users.PatientUser;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,6 +35,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
         String deliveryTime = rs.getString("eta");
         String deliveryLocation = rs.getString("roomname");
         String assignedto = rs.getString("assignedto");
+        STATUS status = STATUS.valueOf(rs.getString("status"));
 
         FurnitureDeliveryRequest request =
             new FurnitureDeliveryRequest(
@@ -41,6 +46,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
                 furnitureType,
                 deliveryTime);
         request.setAssignedto(assignedto);
+        request.setStatus(status);
         returnList.add(request);
       }
     } catch (SQLException e) {
@@ -58,7 +64,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
       ps.setString(1, orm.getRequester().toString());
-      ps.setString(2, orm.getFurnitureType());
+      ps.setString(2, orm.getFurnituretype());
       ps.setString(3, orm.getAdditionalNotes());
       ps.setString(4, orm.getRoomName());
       ps.setString(5, orm.getStatus().toString());
@@ -80,23 +86,24 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
     DBConnection db = new DBConnection();
     try {
       String query =
-          "UPDATE \"ServiceRequests\".\"furnitureDeliveryRequest\" SET Requester = ?, furnitureType = ?, additionalNotes = ?, ETA = ?, roomName = ?, assignedto = ? WHERE requestid = ?";
-      PreparedStatement ps =
-          db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+          "UPDATE \"ServiceRequests\".\"furnitureDeliveryRequest\" SET requestid = ?, requester = ?, roomname = ?, status = ?, additionalnotes = ?, furnituretype = ?, eta = ?, assignedto = ? WHERE requestid = ?";
+      PreparedStatement ps = db.getConnection().prepareStatement(query);
 
-      ps.setString(1, orm2.getRequester().toString());
-      ps.setString(2, orm2.getFurnitureType());
-      ps.setString(3, orm2.getAdditionalNotes());
-      ps.setString(4, orm2.getEta());
-      ps.setString(5, orm2.getRoomName());
-      ps.setString(6, orm2.getAssignedto());
-      ps.setInt(7, orm.getRequestID());
+      ps.setInt(1, orm2.getRequestID());
+      ps.setString(2, orm2.getRequester().toString());
+      ps.setString(3, orm2.getRoomName());
+      ps.setString(4, orm2.getStatus().toString());
+      ps.setString(5, orm2.getAdditionalNotes());
+      ps.setString(6, orm2.getFurnituretype());
+      ps.setString(7, orm2.getEta());
+      ps.setString(8, orm2.getAssignedto());
+      ps.setInt(9, orm.getRequestID());
       ps.executeUpdate();
 
-      ResultSet rs = ps.getResultSet();
-      rs.next();
-      int requestID = rs.getInt("requestid");
-      orm2.requestID = (requestID);
+      //      ResultSet rs = ps.getResultSet();
+      //      rs.next();
+      //      int requestID = rs.getInt("requestid");
+      //      orm2.requestID = (requestID);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -119,7 +126,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
   }
 
   @Override
-  public FurnitureDeliveryRequest fetchObject(Integer key) throws SQLException {
+  public FurnitureDeliveryRequest fetchObject(Integer key) {
     FurnitureDeliveryRequest request = null;
     try {
       DBConnection db = new DBConnection();
@@ -150,5 +157,43 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
       e.printStackTrace();
     }
     return request;
+  }
+
+  public boolean exportCSV(String CSVfilepath) throws IOException {
+    createFile(CSVfilepath);
+    BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
+    // Write the header row to the CSV file
+    writer.write(
+        "requestid,requester,roomname,status,additionalnotes,eta,furnituretype,assignedto\n");
+    for (FurnitureDeliveryRequest furnitureDeliveryRequest : fetchAllObjects()) {
+      writer.write(
+          furnitureDeliveryRequest.getRequestID()
+              + ","
+              + furnitureDeliveryRequest.getRequester()
+              + ","
+              + furnitureDeliveryRequest.getRoomName()
+              + ","
+              + furnitureDeliveryRequest.getStatus()
+              + ","
+              + furnitureDeliveryRequest.getAdditionalNotes()
+              + ","
+              + furnitureDeliveryRequest.getEta()
+              + ","
+              + furnitureDeliveryRequest.getFurnituretype()
+              + ","
+              + furnitureDeliveryRequest.getAssignedto()
+              + "\n");
+    }
+    writer.close();
+    return true;
+  }
+
+  static void createFile(String fileName) throws IOException {
+    File file = new File(fileName);
+    if (file.createNewFile()) {
+      System.out.println("File created: " + file.getName());
+    } else {
+      System.out.println("File already exists.");
+    }
   }
 }

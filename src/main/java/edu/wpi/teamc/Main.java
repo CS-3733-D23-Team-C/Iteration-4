@@ -1,6 +1,5 @@
 package edu.wpi.teamc;
 
-import edu.wpi.teamc.dao.map.NodeStatusDao;
 import edu.wpi.teamc.dao.requests.*;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -8,10 +7,7 @@ import java.sql.SQLException;
 public class Main {
 
   public static void main(String[] args) throws SQLException, IOException {
-    //    CApp.launch(CApp.class, args);
-    NodeStatusDao nodeStatusDao = new NodeStatusDao();
-    nodeStatusDao.exportCSV(
-        "C:\\Users\\chase\\OneDrive\\Documents\\D Term 2023\\Soft Eng\\Iteration 3\\Iteration-3\\src\\main\\resources\\edu\\wpi\\teamc\\NodeStatusExport.csv");
+    CApp.launch(CApp.class, args);
 
     //    ImportCSV importCSV = new ImportCSV();
     //    importCSV.importAllDisplaysCSV(

@@ -135,7 +135,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       // table names
       String table = "\"ServiceRequests\".\"flowerRequest\"";
       // queries
-      String query = "DELETE FROM " + table + " WHERE requestID=?; ";
+      String query = "DELETE FROM " + table + " WHERE requestid=?; ";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
 
@@ -159,7 +159,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       // table names
       String table = "\"ServiceRequests\".\"flowerRequest\"";
       // queries
-      String query = "SELECT * FROM " + table + " WHERE requestID = ?";
+      String query = "SELECT * FROM " + table + " WHERE requestid = ?";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setInt(1, key);

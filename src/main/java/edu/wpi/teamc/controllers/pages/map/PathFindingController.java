@@ -46,6 +46,7 @@ public class PathFindingController {
   @FXML MFXButton FLB1;
   @FXML MFXButton FLB2;
   @FXML MFXButton submit;
+  @FXML MFXButton textDir;
   @FXML MFXButton floorButton;
   private MFXButton tempSave;
   private final Paint DEFAULT_BG = Paint.valueOf("#bebebe");
@@ -68,6 +69,7 @@ public class PathFindingController {
   private GraphNode src;
   private GraphNode dest;
   private boolean toggleStatus;
+  private String url;
   public Group group;
   public Image image =
       new Image(Main.class.getResource("views/images/FirstFloor.png").openStream());
@@ -77,6 +79,7 @@ public class PathFindingController {
   /** Method run when controller is initialized */
   public void initialize() {
     submit.setDisable(true);
+    textDir.setDisable(true);
     Image image = this.image;
     ImageView imageView = new ImageView(image);
     imageView.relocate(0, 0);
@@ -414,6 +417,7 @@ public class PathFindingController {
   @FXML
   void getSubmit(ActionEvent event) throws IOException {
     nextFloor.setDisable(false);
+    textDir.setDisable(false);
     prevFloor.setDisable(true);
     edges.getChildren().clear();
     mapNodes.getChildren().clear();
@@ -449,11 +453,7 @@ public class PathFindingController {
     edges.toFront();
 
     TextDirectionsHelper textHelper = new TextDirectionsHelper();
-    LinkedList<String> textDirections = textHelper.textDirections(path);
-
-    for (String s : textDirections) {
-      System.out.println(s);
-    }
+    url = textHelper.buildURL(path, graph);
   }
 
   @FXML
@@ -543,6 +543,11 @@ public class PathFindingController {
 
   @FXML
   void getEndChoice(ActionEvent event) {}
+
+  @FXML
+  void getTextDirections(ActionEvent event) {
+    System.out.println(url);
+  }
 
   void activateSubmit() {
     submit.setDisable(false);

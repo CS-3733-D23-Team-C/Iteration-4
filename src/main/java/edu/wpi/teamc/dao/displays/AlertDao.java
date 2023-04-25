@@ -2,6 +2,10 @@ package edu.wpi.teamc.dao.displays;
 
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -135,5 +139,38 @@ public class AlertDao implements IDao<Alert, Integer> {
     }
     db.closeConnection();
     return alert;
+  }
+
+  public boolean exportCSV(String CSVfilepath) throws IOException {
+    createFile(CSVfilepath);
+    BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
+    // Write the header row to the CSV file
+    writer.write("id,title,description,type,startdate,enddate\n");
+    for (Alert alert : fetchAllObjects()) {
+      writer.write(
+          alert.getId()
+              + ","
+              + alert.getTitle()
+              + ","
+              + alert.getDescription()
+              + ","
+              + alert.getType()
+              + ","
+              + alert.getStartdate()
+              + ","
+              + alert.getEnddate()
+              + "\n");
+    }
+    writer.close();
+    return true;
+  }
+
+  static void createFile(String fileName) throws IOException {
+    File file = new File(fileName);
+    if (file.createNewFile()) {
+      System.out.println("File created: " + file.getName());
+    } else {
+      System.out.println("File already exists.");
+    }
   }
 }

@@ -240,6 +240,8 @@ public class EditMapController {
   @FXML VBox importBox;
   @FXML VBox modeBox;
   @FXML AnchorPane mapBackgroundPane;
+  @FXML MFXButton importButton;
+  @FXML MFXButton exportButton;
   //  Boolean
 
   // Notes: Fix bug that you can click on an edge and exit and its still highlighted
@@ -322,6 +324,9 @@ public class EditMapController {
     selectButton.setStyle(
         "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12; -fx-background-color: #EAB334");
     modeResetterHelper.setButton(selectButton);
+    String defaultButtonStyle = FL1.getStyle();
+    importButton.setStyle(defaultButtonStyle);
+    exportButton.setStyle(defaultButtonStyle);
     FL1.setBackground(Background.fill(Paint.valueOf("#EAB334")));
     FL1.setStyle(
         "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12; -fx-background-color: #EAB334");

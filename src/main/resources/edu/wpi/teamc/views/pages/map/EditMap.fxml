@@ -60,12 +60,12 @@
                                     </VBox>
                               <VBox fx:id="importBox" alignment="CENTER" layoutY="526.0" spacing="20.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="15.0">
                                  <children>
-                                    <MFXButton onAction="#getExportMenu" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-background-color: white;" text="Export" textFill="#02143b">
+                                    <MFXButton fx:id="exportButton" onAction="#getExportMenu" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-background-color: white;" text="Export" textFill="#02143b">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </MFXButton>
-                                    <MFXButton onAction="#getImportMenu" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-background-color: white;" text="Import" textFill="#02143b">
+                                    <MFXButton fx:id="importButton" onAction="#getImportMenu" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-background-color: white;" text="Import" textFill="#02143b">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>

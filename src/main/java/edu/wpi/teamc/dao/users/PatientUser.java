@@ -1,41 +1,35 @@
 package edu.wpi.teamc.dao.users;
 
-import lombok.Getter;
-import lombok.Setter;
+import io.jsonwebtoken.lang.Objects;
+import java.sql.Timestamp;
 
 public class PatientUser extends AbsUser {
 
-  private int id;
-  private String name;
-  private String in;
-  private String out;
+  private Timestamp in;
+  private Timestamp out;
   private String phone;
   private String room;
 
-
-
   private boolean activeText;
 
-  public PatientUser(int id, String name, String in, String out, String phone, String room, boolean activeText) {
-    super(id, name, in);
+  public PatientUser(
+      int id,
+      String name,
+      Timestamp in,
+      Timestamp out,
+      String phone,
+      String room,
+      boolean activeText) {
+    setName(name);
+    setId(id);
+    this.in = in;
     this.out = out;
     this.phone = phone;
     this.room = room;
     this.activeText = activeText;
   }
 
-  @Override
-  public void setId(int id) {
-    this.id = id;
-  }
-
-
-  @Override
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public void setIn(String in) {
+  public void setIn(Timestamp in) {
     this.in = in;
   }
 
@@ -46,7 +40,8 @@ public class PatientUser extends AbsUser {
   public String getRoom() {
     return room;
   }
-  public void setOut(String out) {
+
+  public void setOut(Timestamp out) {
     this.out = out;
   }
 
@@ -62,21 +57,11 @@ public class PatientUser extends AbsUser {
     this.activeText = activeText;
   }
 
-  @Override
-  public int getId() {
-    return id;
-  }
-
-  @Override
-  public String getName() {
-    return name;
-  }
-
-  public String getIn() {
+  public Timestamp getIn() {
     return in;
   }
 
-  public String getOut() {
+  public Timestamp getOut() {
     return out;
   }
 
@@ -84,20 +69,37 @@ public class PatientUser extends AbsUser {
     return activeText;
   }
 
+  public PatientUser() {}
+
   public PatientUser(String name) {
-    this.name = name;
+    setName(name);
   }
 
-  public boolean validPatient(String name, String phone) {
+  /*public boolean validPatient(String name, String phone) {
     if (this.name == name && this.phone == phone) {
       return true;
+    } else {
+      return false;
+    }
+  }*/
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof PatientUser pat) {
+      return Objects.nullSafeEquals(this.getName(), pat.getName())
+          && this.getId() == pat.getId()
+          && Objects.nullSafeEquals(this.in, pat.in)
+          && Objects.nullSafeEquals(this.out, pat.out)
+          && Objects.nullSafeEquals(this.room, pat.room)
+          && Objects.nullSafeEquals(this.phone, pat.phone)
+          && this.activeText == pat.activeText;
+
     } else {
       return false;
     }
   }
 
   public String toString() {
-    return super.getName();
+    return getName();
   }
-
 }

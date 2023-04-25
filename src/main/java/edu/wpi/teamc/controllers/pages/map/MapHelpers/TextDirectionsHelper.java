@@ -7,7 +7,6 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import edu.wpi.teamc.graph.Graph;
 import edu.wpi.teamc.graph.GraphNode;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
@@ -29,12 +28,13 @@ public class TextDirectionsHelper {
 
   public TextDirectionsHelper() {}
 
-  public BufferedImage buildURL(List<GraphNode> path, Graph currGraph) {
+  public BufferedImage buildImage(List<GraphNode> path, Graph currGraph) {
     String start = currGraph.getLongNameFromNodeID(path.get(0).getNodeID());
     String end = currGraph.getLongNameFromNodeID(path.get(path.size() - 1).getNodeID());
     String directions = "";
     String responseBody = "";
 
+    // format the directions for HttpPost
     for (String s : textDirections(path, currGraph)) {
       directions += s + ";";
     }
@@ -42,16 +42,16 @@ public class TextDirectionsHelper {
     directions = directions.substring(0, directions.length() - 1);
 
     try (CloseableHttpClient client = HttpClients.createDefault()) {
+      // define website
       HttpPost httpPost = new HttpPost(new URI("https://teamc.blui.co/api/directions"));
 
-      // set request body
+      // format and set json
       String json =
           String.format(
               "{\"start\":\"%s\",\"end\":\"%s\",\"directions\":\"%s\"}", start, end, directions);
       StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
       httpPost.setEntity(entity);
 
-      // execute request
       HttpResponse response = client.execute(httpPost);
       HttpEntity responseEntity = response.getEntity();
       if (responseEntity != null) {
@@ -59,22 +59,21 @@ public class TextDirectionsHelper {
         System.out.println(responseBody);
       }
     } catch (Exception e) {
-      System.err.println("Invalid URI: " + e.getMessage());
+      System.err.println(e.getMessage());
     }
 
-    JSONObject obj = new JSONObject(responseBody);
-    String url = "https://teamc.blui.co/directions?id=" + obj.getString("link");
+    JSONObject json = new JSONObject(responseBody);
+    String url = "https://teamc.blui.co/directions?id=" + json.getString("link");
     return genQR(url);
   }
 
   public BufferedImage genQR(String url) {
+    BufferedImage qrImage = null;
     int width = 300;
     int height = 300;
-    String fileType = "png";
-    File qrFile = new File("qr_code.png");
-    BufferedImage qrImage = null;
 
     try {
+      // setup writer and then encode into a bitMatrix
       QRCodeWriter qrCodeWriter = new QRCodeWriter();
       BitMatrix bitMatrix =
           qrCodeWriter.encode(url, com.google.zxing.BarcodeFormat.QR_CODE, width, height);
@@ -82,13 +81,12 @@ public class TextDirectionsHelper {
       qrImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
       qrImage.createGraphics();
 
+      // using the bitMatrix to "paint" the qrCode
       for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
           qrImage.setRGB(x, y, bitMatrix.get(x, y) ? 0xFFFFFFFF : 0xFF02143b);
         }
       }
-
-      //      ImageIO.write(qrImage, fileType, qrFile);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -135,9 +133,6 @@ public class TextDirectionsHelper {
   }
 
   private String findOrientation(GraphNode one, GraphNode two) {
-    // 1748 1321, 75 Francis exit
-    // 2091, 796, Bathroom Lobby
-
     // x increases eastward
     // y decreases northward
 

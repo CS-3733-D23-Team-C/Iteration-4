@@ -4,7 +4,6 @@ import edu.wpi.teamc.dao.map.Edge;
 import edu.wpi.teamc.dao.map.LocationName;
 import edu.wpi.teamc.dao.map.Move;
 import edu.wpi.teamc.dao.map.Node;
-import edu.wpi.teamc.dao.users.login.Login;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

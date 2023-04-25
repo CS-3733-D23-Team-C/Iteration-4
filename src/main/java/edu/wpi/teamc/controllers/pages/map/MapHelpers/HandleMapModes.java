@@ -8,7 +8,8 @@ public enum HandleMapModes {
   REMOVE("Remove"),
   MOVE("Move"),
   MAKE_EDGES("Make_edges"),
-  ALIGN("Align");
+  ALIGN("Align"),
+  CLOSE("Close");
 
   private final String mode;
 

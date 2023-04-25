@@ -92,9 +92,6 @@ public class AdminHomeController {
       addNotification(
           alert.getTitle() + " || " + alert.getType() + " || " + alert.getDescription());
     }
-
-    //    addNotification("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-    //    addNotification("Please use the menu to navigate");
     if (!CApp.getAdminLoginCheck()) {
       AdminHome_Title.setText("Staff Home Page");
     }

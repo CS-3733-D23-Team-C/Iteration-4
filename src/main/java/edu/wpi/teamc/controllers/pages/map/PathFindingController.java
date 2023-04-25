@@ -7,6 +7,7 @@ import edu.wpi.teamc.graph.AlgoSingleton;
 import edu.wpi.teamc.graph.Graph;
 import edu.wpi.teamc.graph.GraphNode;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.utils.SwingFXUtils;
 import java.io.IOException;
 import java.sql.Date;
@@ -51,6 +52,7 @@ public class PathFindingController {
   @FXML MFXButton submit;
   @FXML MFXButton textDir;
   @FXML MFXButton floorButton;
+  @FXML MFXTextField message;
   private MFXButton tempSave;
   private final Paint DEFAULT_BG = Paint.valueOf("#bebebe");
   private Group mapNodes = new Group();
@@ -84,6 +86,7 @@ public class PathFindingController {
   public void initialize() {
     submit.setDisable(true);
     textDir.setDisable(true);
+    message.setEditable(true);
     Image image = this.image;
     ImageView imageView = new ImageView(image);
     imageView.relocate(0, 0);

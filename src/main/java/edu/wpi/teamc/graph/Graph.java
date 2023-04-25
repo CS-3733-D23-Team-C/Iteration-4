@@ -18,6 +18,7 @@ public class Graph {
   protected HashMap<String, Integer> longNameToNodeID = new HashMap<>();
   protected Map<Integer, Date> nodeIDtoLastDate = new HashMap<>();
   protected Map<String, String> longNameToNodeType = new HashMap<>();
+  protected Map<Integer, NODE_STATUS> nodeIDtoStatus = new HashMap<>();
   protected PriorityQueue<GraphNode> pq;
   protected final double DIST_DEFAULT = Double.POSITIVE_INFINITY;
   private IAlgorithm algo;
@@ -58,11 +59,14 @@ public class Graph {
     List<Edge> edges = new LinkedList<>();
     List<Move> moves = new LinkedList<>();
     List<LocationName> locs = new LinkedList<>();
+    List<NodeStatus> statuses = new LinkedList<>();
+
     try {
       nodes = (List<Node>) HospitalSystem.fetchAllObjects(new Node());
       edges = (List<Edge>) HospitalSystem.fetchAllObjects(new Edge(1, 1));
       moves = (List<Move>) HospitalSystem.fetchAllObjects(new Move());
       locs = (List<LocationName>) HospitalSystem.fetchAllObjects(new LocationName());
+      statuses = (List<NodeStatus>) HospitalSystem.fetchAllObjects(new NodeStatus());
     } catch (Exception e) {
       // error
     }
@@ -97,6 +101,10 @@ public class Graph {
       longNameToNodeType.put(loc.getLongName(), loc.getNodeType());
     }
 
+    for (NodeStatus stat : statuses) {
+      nodeIDtoStatus.put(stat.getNodeID(), stat.getStatus());
+    }
+
     for (Node node : nodes) {
       String longName = nodeIDtoLongName.get(node.getNodeID());
       String nodeType = longNameToNodeType.get(longName);
@@ -117,8 +125,10 @@ public class Graph {
       String origID = src.getNodeID() + "_" + dest.getNodeID();
       String reverseID = dest.getNodeID() + "_" + src.getNodeID();
 
-      src.getGraphEdges().add(new GraphEdge(origID, src, dest));
-      dest.getGraphEdges().add(new GraphEdge(reverseID, dest, src));
+      if (nodeIDtoStatus.get(dest.getNodeID()).equals(NODE_STATUS.OPEN)) {
+        src.getGraphEdges().add(new GraphEdge(origID, src, dest));
+        dest.getGraphEdges().add(new GraphEdge(reverseID, dest, src));
+      }
     }
   }
 

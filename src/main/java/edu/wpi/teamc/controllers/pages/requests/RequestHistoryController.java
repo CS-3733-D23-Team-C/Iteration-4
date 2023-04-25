@@ -61,10 +61,17 @@ public class RequestHistoryController extends AbsServiceRequest {
   @FXML Button updateButton;
   @FXML Button deleteButton;
   @FXML SearchableComboBox filterButton;
+  @FXML SearchableComboBox filterEmployeeButton;
+
   int incrTest = 0;
   String currTable;
 
+  int incrTest2 = 0;
+  EmployeeUser currEmployee;
+  ;
+
   IRequest selectedRequest = null;
+  EmployeeUser selectedEmployee = null;
   STATUS status2;
 
   @FXML
@@ -141,6 +148,59 @@ public class RequestHistoryController extends AbsServiceRequest {
           }
           incrTest++;
         });
+
+    filterEmployeeButton.getItems().addAll(FXCollections.observableArrayList(employeeList));
+    filterEmployeeButton.setOnAction(
+        event -> {
+          if (incrTest2 == 2) {
+            currEmployee = (EmployeeUser) filterEmployeeButton.getValue();
+            assignedToFilterView(currEmployee);
+            incrTest2 = -1;
+          }
+          incrTest2++;
+        });
+  }
+
+  public void assignedToFilterView(EmployeeUser employee) {
+    if (selectedRequest instanceof ConferenceRoomRequest) {
+      List<ConferenceRoomRequest> currentView =
+          (List<ConferenceRoomRequest>) HospitalSystem.fetchAllObjects(new ConferenceRoomRequest());
+      List<ConferenceRoomRequest> filteredList = filterRequestConferenceEmp(currentView, employee);
+      ObservableList<IRequest> rows = FXCollections.observableArrayList();
+      rows.addAll(filteredList);
+      historyTable.setItems(rows);
+    } else if (selectedRequest instanceof FlowerDeliveryRequest) {
+      List<FlowerDeliveryRequest> currentView =
+          (List<FlowerDeliveryRequest>) HospitalSystem.fetchAllObjects(new FlowerDeliveryRequest());
+      List<FlowerDeliveryRequest> filteredList = filterRequestFlowerEmp(currentView, employee);
+      ObservableList<IRequest> rows = FXCollections.observableArrayList();
+      rows.addAll(filteredList);
+      historyTable.setItems(rows);
+    } else if (selectedRequest instanceof MealRequest) {
+      List<MealRequest> currentView =
+          (List<MealRequest>) HospitalSystem.fetchAllObjects(new MealRequest());
+      List<MealRequest> filteredList = filterRequestMealEmp(currentView, employee);
+      ObservableList<IRequest> rows = FXCollections.observableArrayList();
+      rows.addAll(filteredList);
+      historyTable.setItems(rows);
+    } else if (selectedRequest instanceof FurnitureDeliveryRequest) {
+      List<FurnitureDeliveryRequest> currentView =
+          (List<FurnitureDeliveryRequest>)
+              HospitalSystem.fetchAllObjects(new FurnitureDeliveryRequest());
+      List<FurnitureDeliveryRequest> filteredList =
+          filterRequestFurnitureEmp(currentView, employee);
+      ObservableList<IRequest> rows = FXCollections.observableArrayList();
+      rows.addAll(filteredList);
+      historyTable.setItems(rows);
+    } else if (selectedRequest instanceof OfficeSuppliesRequest) {
+      List<OfficeSuppliesRequest> currentView =
+          (List<OfficeSuppliesRequest>) HospitalSystem.fetchAllObjects(new OfficeSuppliesRequest());
+      List<OfficeSuppliesRequest> filteredList =
+          filterRequestOfficeSuppliesEmp(currentView, employee);
+      ObservableList<IRequest> rows = FXCollections.observableArrayList();
+      rows.addAll(filteredList);
+      historyTable.setItems(rows);
+    }
   }
 
   @FXML

@@ -1,5 +1,7 @@
 package edu.wpi.teamc.controllers.pages.admin;
 
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.displays.Alert;
@@ -8,19 +10,13 @@ import java.awt.*;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.*;
 import javafx.scene.text.Font;
 import javafx.scene.web.HTMLEditor;
-
 import javax.swing.text.html.ImageView;
-import java.awt.*;
-import java.util.List;
-
-import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 public class AdminHomeController {
 

@@ -135,6 +135,8 @@ public class MenuController {
   @FXML private Pane aboutPopOut;
   @FXML private Pane creditsPopOut;
   @FXML private Pane aboutPopOut1;
+  @FXML private AnchorPane aboutPopOut2;
+  @FXML private AnchorPane aboutPopOut3;
 
   // LANGUAGE TEXT//
 
@@ -364,6 +366,8 @@ public class MenuController {
     homePopOut1.setVisible(false);
     aboutPopOut1.setVisible(false);
     aboutPopOut.setVisible(false);
+    aboutPopOut2.setVisible(false);
+    aboutPopOut3.setVisible(false);
 
     if (!CApp.getAdminLoginCheck()) {
       Admin_menu_movetable.setMouseTransparent(true);
@@ -472,7 +476,7 @@ public class MenuController {
                 homePopOutTransition.setOnFinished(
                     e -> {
                       if (!homePopOut.isHover() && !homeTrigger.isHover()) {
-                        homePopOut1.setVisible(false);
+                        // homePopOut1.setVisible(false);
                         homeTrigger1.setVisible(false);
                         homeButton1.setVisible(true);
                       }
@@ -493,7 +497,7 @@ public class MenuController {
                 homePopOutTransition.setOnFinished(
                     e -> {
                       if (!homePopOut.isHover() && !homeTrigger.isHover()) {
-                        homePopOut1.setVisible(false);
+                        // homePopOut1.setVisible(false);
                         homeTrigger1.setVisible(false);
                         homeButton1.setVisible(true);
                       }
@@ -533,64 +537,123 @@ public class MenuController {
     Admin_menu_about_button.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
-          aboutPopOutTransition.setDuration(Duration.millis(200));
-          aboutPopOutTransition.setNode(aboutPopOut);
+          aboutPopOut2.setVisible(true);
+          aboutPopOut.setVisible(true);
+          aboutPopOutTransition.setDuration(Duration.millis(300));
+          aboutPopOutTransition.setNode(aboutPopOut2);
           aboutPopOutTransition.setToX(290);
           aboutPopOutTransition.play();
-          aboutPopOut.setVisible(true);
-          homePopOutTransition.setDuration(Duration.millis(200));
-          homePopOutTransition.setNode(homePopOut);
-          homePopOutTransition.setToX(0);
-          homePopOutTransition.play();
         });
-    //    aboutPopOut
+    aboutPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !aboutPopOut.isHover() && !homePopOut.isHover()) {
+                aboutPopOutTransition.setDuration(Duration.millis(300));
+                aboutPopOutTransition.setNode(aboutPopOut2);
+                aboutPopOutTransition.setToX(0);
+                aboutPopOutTransition1.setDuration(Duration.millis(300));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!aboutPopOut.isHover() && !homePopOut.isHover()) {
+                        aboutPopOut.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+                aboutPopOutTransition1.setOnFinished(
+                    e -> {
+                      if (!meetTheTeam.isHover()) {
+                        aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+                aboutPopOutTransition.play();
+                aboutPopOutTransition1.play();
+              } else if (newValue) {
+                aboutPopOutTransition.setDuration(Duration.millis(300));
+                aboutPopOutTransition.setNode(aboutPopOut2);
+                aboutPopOutTransition.setToX(290);
+                aboutPopOutTransition.play();
+                aboutPopOutTransition1.setDuration(Duration.millis(300));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(290);
+                aboutPopOutTransition1.play();
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+              }
+            });
+
+    // Add a flag to track if the mouse is hovering over the aboutPopOut node
+
+    // Set up the event filter for the Admin_menu_about_button
+    //    meetTheTeam.setOnMouseClicked(
+    //        event -> {
+    //          aboutPopOut1.setVisible(true);
+    //          aboutPopOut3.setVisible(true);
+    //          aboutPopOutTransition1.setDuration(Duration.millis(300));
+    //          aboutPopOutTransition1.setNode(aboutPopOut3);
+    //          aboutPopOutTransition1.setToX(585);
+    //          aboutPopOutTransition1.play();
+    //        });
+    //
+    //    aboutPopOut1
     //        .hoverProperty()
     //        .addListener(
     //            (observable, oldValue, newValue) -> {
     //              isHovering.set(newValue);
-    //              if (!newValue && !aboutPopOut1.isHover() && !aboutPopOut.isHover()) {
-    //                aboutPopOutTransition.setDuration(Duration.millis(200));
-    //                aboutPopOutTransition.setNode(aboutPopOut);
-    //                aboutPopOutTransition.setToX(0);
+    //              if (!newValue && !meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
+    //                aboutPopOutTransition1.setDuration(Duration.millis(300));
+    //                aboutPopOutTransition1.setNode(aboutPopOut3);
+    //                aboutPopOutTransition1.setToX(0);
     //                delay.setOnFinished(
     //                    event -> {
-    //                      if (!aboutPopOut.isHover() && !aboutPopOut1.isHover()) {
-    //                        aboutPopOut.setVisible(false);
+    //                      if (!meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
+    //                        aboutPopOut1.setVisible(false);
     //                        homeTrigger1.setVisible(false);
     //                        homeButton1.setVisible(true);
     //                      }
     //                    });
     //                delay.play();
     //              } else if (newValue) {
-    //                aboutPopOutTransition.setDuration(Duration.millis(200));
-    //                aboutPopOutTransition.setNode(aboutPopOut);
-    //                aboutPopOut.setTranslateX(290);
-    //                aboutPopOutTransition.play();
+    //                aboutPopOutTransition1.setDuration(Duration.millis(300));
+    //                aboutPopOutTransition1.setNode(aboutPopOut3);
+    //                aboutPopOutTransition1.setToX(585);
+    //                aboutPopOutTransition1.play();
+    //                aboutPopOut3.setVisible(true);
+    //                aboutPopOut1.setVisible(true);
     //              }
     //            });
-    aboutPopOut1
+
+    meetTheTeam
         .hoverProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
-              if (!newValue && !meetTheTeam.isHover() && !aboutPopOut1.isHover()) {
+              if (!newValue && !meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
                 aboutPopOutTransition1.setDuration(Duration.millis(200));
-                aboutPopOutTransition1.setNode(aboutPopOut1);
-                aboutPopOutTransition1.setToX(0);
-                delay.setOnFinished(
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(290);
+                aboutPopOutTransition1.setOnFinished(
                     event -> {
-                      if (!aboutPopOut1.isHover()) {
+                      if (!meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
                         aboutPopOut1.setVisible(false);
                         homeTrigger1.setVisible(false);
                         homeButton1.setVisible(true);
                       }
                     });
-                delay.play();
+                aboutPopOutTransition1.play();
               } else if (newValue) {
                 aboutPopOutTransition1.setDuration(Duration.millis(200));
-                aboutPopOutTransition1.setNode(aboutPopOut1);
-                aboutPopOut1.setTranslateX(600);
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
                 aboutPopOutTransition1.play();
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
               }
             });
 

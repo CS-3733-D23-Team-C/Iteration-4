@@ -43,7 +43,11 @@
                   </VBox>
                </children>
             </Pane>
-            <Pane fx:id="aboutPopOut1" layoutX="-120.0" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutPopOut3" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutPopOut1" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
                      <children>
@@ -71,7 +75,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/Andrew Shinn.png" />
+                                          <Image url="@../images/RandyCrop.png" />
                                        </image>
                                     </ImageView>
                                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
@@ -92,7 +96,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/Andrew Shinn.png" />
+                                          <Image url="@../images/EddieCrop.png" />
                                        </image>
                                     </ImageView>
                                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
@@ -120,7 +124,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/Andrew Shinn.png" />
+                                          <Image url="@../images/NickCrop.png" />
                                        </image>
                                     </ImageView>
                                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
@@ -141,7 +145,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/Andrew Shinn.png" />
+                                          <Image url="@../images/AaronCrop.png" />
                                        </image>
                                     </ImageView>
                                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
@@ -169,7 +173,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/Andrew Shinn.png" />
+                                          <Image url="@../images/sebastianCrop.png" />
                                        </image>
                                     </ImageView>
                                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
@@ -190,7 +194,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/Andrew Shinn.png" />
+                                          <Image url="@../images/BrandonCrop.png" />
                                        </image>
                                     </ImageView>
                                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
@@ -218,7 +222,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/Andrew Shinn.png" />
+                                          <Image url="@../images/tayaCrop.png" />
                                        </image>
                                     </ImageView>
                                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
@@ -239,7 +243,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/Andrew Shinn.png" />
+                                          <Image url="@../images/ChaseCrop.png" />
                                        </image>
                                     </ImageView>
                                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
@@ -267,7 +271,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/Andrew Shinn.png" />
+                                          <Image url="@../images/JoeyCrop.png" />
                                        </image>
                                     </ImageView>
                                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
@@ -288,7 +292,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/Andrew Shinn.png" />
+                                          <Image url="@../images/ChaoCrop.png" />
                                        </image>
                                     </ImageView>
                                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" styleClass="image-clip" stylesheets="@Menu.css" />
@@ -314,7 +318,11 @@
                   </VBox>
                </children>
             </Pane>
-            <Pane fx:id="aboutPopOut" layoutX="-120.0" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutPopOut2" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutPopOut" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
                      <children>
@@ -359,7 +367,7 @@
                               <Insets left="70.0" />
                            </VBox.margin>
                         </ImageView>
-                        <MFXButton fx:id="meetTheTeam" onAction="#getFlowerDeliveryPage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Meet the Team! ">
+                        <MFXButton fx:id="meetTheTeam" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Meet the Team! ">
                            <VBox.margin>
                               <Insets left="70.0" />
                            </VBox.margin>

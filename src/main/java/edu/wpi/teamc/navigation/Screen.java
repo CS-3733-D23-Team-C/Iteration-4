@@ -22,6 +22,7 @@ public enum Screen {
   PATIENT_HOME("views/pages/patient/PatientHome.fxml"),
   MENU("views/components/Menu.fxml"),
   GUEST_MENU("views/pages/guest/GuestMenu.fxml"),
+  ABOUT("views/pages/About.fxml"),
 
   // -------SERVICE REQUEST-------//
   MEAL("views/pages/requests/MealRequest.fxml"),

@@ -20,5 +20,9 @@ public class FlowerDeliveryRequest extends AbsServiceRequest {
     this.flower = flower;
   }
 
+  public int getID() {
+    return super.getRequestID();
+  }
+
   public FlowerDeliveryRequest() {}
 }

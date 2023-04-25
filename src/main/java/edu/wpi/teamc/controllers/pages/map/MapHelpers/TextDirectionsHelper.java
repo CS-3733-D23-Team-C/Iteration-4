@@ -56,7 +56,6 @@ public class TextDirectionsHelper {
       HttpEntity responseEntity = response.getEntity();
       if (responseEntity != null) {
         responseBody = EntityUtils.toString(responseEntity, StandardCharsets.UTF_8);
-        System.out.println(responseBody);
       }
     } catch (Exception e) {
       System.err.println("Invalid URI: " + e.getMessage());

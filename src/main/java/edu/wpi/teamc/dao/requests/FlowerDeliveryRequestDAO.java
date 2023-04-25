@@ -63,18 +63,18 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       String query =
           "UPDATE "
               + table
-              + " SET req=?, roomName=?, \"flower\"=?, additionalNotes=?, status =?, eta=?, assignedto=? WHERE requestID=?;";
+              + " SET requestid = ?, requester = ?, roomname = ?, status = ?, additionalnotes =? , eta = ?, flower = ?, assignedto = ? WHERE requestid=?;";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
-
-      ps.setString(1, repl.getRequester().toString());
-      ps.setString(2, repl.getRoomName());
-      ps.setString(3, repl.getFlower());
-      ps.setString(4, repl.getAdditionalNotes());
-      ps.setString(5, repl.getStatus().toString());
+      ps.setInt(1, repl.getID());
+      ps.setString(2, repl.getRequester().toString());
+      ps.setString(3, repl.getRoomName());
+      ps.setString(4, repl.getStatus().toString());
+      ps.setString(5, repl.getAdditionalNotes());
       ps.setString(6, repl.getEta());
-      ps.setString(7, orm.getAssignedto());
-      ps.setInt(8, orm.getRequestID());
+      ps.setString(7, repl.getFlower());
+      ps.setString(8, orm.getAssignedto());
+      ps.setInt(9, orm.getRequestID());
 
       ps.execute();
       fdr =
@@ -104,7 +104,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       String query =
           "INSERT INTO "
               + table
-              + " (requester, roomName, flower, additionalNotes, status, assignedto) VALUES (?,?,?,?,?,?);";
+              + " (requester, roomName, flower, additionalNotes, status, assignedto,eta) VALUES (?,?,?,?,?,?,?);";
 
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -115,6 +115,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       ps.setString(4, orm.getAdditionalNotes());
       ps.setString(5, orm.getStatus().toString());
       ps.setString(6, orm.getAssignedto());
+      ps.setString(7, orm.getEta());
 
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
@@ -135,7 +136,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       // table names
       String table = "\"ServiceRequests\".\"flowerRequest\"";
       // queries
-      String query = "DELETE FROM " + table + " WHERE requestID=?; ";
+      String query = "DELETE FROM " + table + " WHERE requestid=?; ";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
 
@@ -159,7 +160,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       // table names
       String table = "\"ServiceRequests\".\"flowerRequest\"";
       // queries
-      String query = "SELECT * FROM " + table + " WHERE requestID = ?";
+      String query = "SELECT * FROM " + table + " WHERE requestid = ?";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setInt(1, key);

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -23,11 +22,7 @@
                      <children>
                         <FilteredTableView fx:id="employeeTable" layoutX="15.0" layoutY="15.0" prefHeight="561.0" prefWidth="1204.0" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="15.0">
                            <columns>
-                              <TableColumn fx:id="id" prefWidth="240" text="" />
-                              <TableColumn fx:id="username" prefWidth="240" text="" />
-                              <TableColumn fx:id="name" prefWidth="240" text="" />
-                              <TableColumn fx:id="department" prefWidth="240" text="" />
-                              <TableColumn fx:id="position" prefWidth="240" text="" />
+
                            </columns>
                         </FilteredTableView>
                         <AnchorPane layoutX="16.0" layoutY="587.0" prefHeight="48.0" prefWidth="1202.0" style="-fx-background-color: white;">
@@ -102,7 +97,7 @@
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="1147.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Employee Table" wrappingWidth="456.42291259765625" />
+                  <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Login Table" wrappingWidth="456.42291259765625" />
                </children>
                <opaqueInsets>
                   <Insets />

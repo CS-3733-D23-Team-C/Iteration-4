@@ -199,7 +199,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="warningPopOut1" layoutX="-180.0" layoutY="585.0" prefHeight="97.0" prefWidth="250.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="-180.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="warningPopOut1" layoutX="-180.0" layoutY="585.0" prefHeight="97.0" prefWidth="250.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="-180.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Pane fx:id="warningPopOut" prefHeight="140.0" prefWidth="250.0" styleClass="menuSidebar" stylesheets="@Menu.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -304,11 +304,11 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="warningButton1" prefHeight="45.0" prefWidth="66.0" AnchorPane.bottomAnchor="153.0">
+            <AnchorPane fx:id="warningButton1" AnchorPane.bottomAnchor="157.5" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="19.0">
                <children>
-                  <ImageView fx:id="warningButton" fitHeight="57.0" fitWidth="53.0" layoutX="9.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                  <ImageView fx:id="warningButton" fitHeight="36.5" fitWidth="36.5" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/Notification.png" />
+                        <Image url="@../images/Notification_White.png" />
                      </image>
                   </ImageView>
                </children>
@@ -480,11 +480,11 @@
             </AnchorPane>
             <AnchorPane fx:id="warningTrigger1" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0">
                <children>
-                  <Pane fx:id="warningTrigger" prefHeight="50.0" prefWidth="70.0" stylesheets="@Menu.css">
+                  <Pane fx:id="warningTrigger" prefHeight="50.0" prefWidth="70.0" styleClass="menuButtonTrigger" stylesheets="@Menu.css">
                      <children>
-                        <ImageView fx:id="menu_warning" fitHeight="30.0" fitWidth="35.0" layoutX="22.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="menu_warning" fitHeight="36.5" fitWidth="36.5" layoutX="17.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/Notification.png" />
+                              <Image url="@../images/Notification_Blue.png" />
                            </image>
                         </ImageView>
                      </children>

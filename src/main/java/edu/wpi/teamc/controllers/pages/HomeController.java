@@ -11,7 +11,6 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
@@ -47,54 +46,75 @@ public class HomeController {
   @FXML private MFXButton HOME_exit;
   @FXML private MFXButton HOME_next;
   @FXML private MFXButton HOME_back;
+  @FXML private MFXTextField HOME_code;
 
   boolean wrongNextLogin = true;
   Login currentLogin;
 
   @FXML
-  void getAdminNext(ActionEvent event) {
+  void getLoginNext(ActionEvent event) {
+    wrongNextLogin = true;
     String username = HOME_username.getText();
-    HOME_password.setVisible(true);
-    HOME_login.setVisible(true);
-    HOME_next.setVisible(false);
-    HOME_login.setVisible(true);
-    HOME_username.setEditable(false);
-    HOME_username.setOpacity(0.5);
-    HOME_back.setVisible(true);
-
     LoginDao loginDao = new LoginDao();
     try {
       currentLogin = loginDao.fetchObject(username);
-      wrongNextLogin = false; // if the username is correct
+      if (currentLogin == null) {
+        wrongNextLogin = true;
+        wrongPass.setVisible(true);
+      } else {
+        wrongNextLogin = false;
+        wrongPass.setVisible(false);
+        if (currentLogin.checkPassword(HOME_password.getText())) {
+          if (currentLogin.isOTPEnabled()) {
+            HOME_username.setVisible(false);
+            HOME_password.setVisible(false);
+            HOME_next.setVisible(false);
+            HOME_back.setVisible(true);
+            HOME_login.setVisible(true);
+            HOME_code.setVisible(true);
+          } else {
+            getLogin(event);
+          }
+        } else {
+          wrongPass.setVisible(true);
+          wrongNextLogin = true;
+        }
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
   @FXML
-  void editUsername(ActionEvent event) {
-    HOME_username.setEditable(true);
-    HOME_password.setVisible(false);
-    HOME_back.setVisible(false);
-    HOME_login.setVisible(false);
+  void backToLogin(ActionEvent event) {
+    HOME_login.setVisible(true);
+    HOME_username.setVisible(true);
+    HOME_password.setVisible(true);
     HOME_next.setVisible(true);
-    wrongPass.setVisible(false);
+    HOME_code.setVisible(false);
+    HOME_back.setVisible(false);
+    HOME_code.setText("");
     HOME_password.setText("");
-    HOME_username.setOpacity(1);
+    wrongPass.setVisible(false);
   }
 
   @FXML
-  void getAdmin(ActionEvent event) {
-    String password = HOME_password.getText();
+  void getLogin(ActionEvent event) {
     if (wrongNextLogin == false) {
       try {
-        if (currentLogin.checkPassword(password)) {
-          if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN)
-              || currentLogin.getPermissions().equals(PERMISSIONS.STAFF)) {
-            if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN)) {
+        if ((currentLogin.checkOTP(HOME_code.getText())
+            || !currentLogin.isOTPEnabled())) { // if the passwords are correct
+          if (currentLogin.getPermissions().equals(PERMISSIONS.ADMIN) // if the user is an admin
+              || currentLogin.getPermissions().equals(PERMISSIONS.STAFF)) { // or staff
+            if (currentLogin
+                .getPermissions()
+                .equals(PERMISSIONS.ADMIN)) { // if the user is an admin
               CApp.setAdminLoginCheck(true);
+            } else { // if the user is staff
+              CApp.setAdminLoginCheck(false);
             }
             Navigation.navigate(Screen.ADMIN_HOME);
+            Navigation.setMenuType(Navigation.MenuType.ADMIN);
           } else {
             // Show Error Message
             wrongPass.setVisible(true);
@@ -113,6 +133,12 @@ public class HomeController {
   @FXML
   void getGuest(ActionEvent event) {
     Navigation.navigate(Screen.GUEST_HOME);
+    Navigation.setMenuType(Navigation.MenuType.GUEST);
+  }
+
+  @FXML
+  void getSignUp(ActionEvent event) {
+    Navigation.navigate(Screen.SIGNUP_PAGE);
   }
 
   @FXML

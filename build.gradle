@@ -2,7 +2,7 @@ plugins {
     id 'application'
     id 'java'
     id 'jacoco'
-    id 'com.diffplug.gradle.spotless' version '3.27.1'
+    id 'com.diffplug.spotless' version '6.18.0'
     id "io.freefair.lombok" version "6.6.1"
     id 'org.openjfx.javafxplugin' version '0.0.13'
 }
@@ -29,6 +29,10 @@ javafx {
 
 
 dependencies {
+// https://mvnrepository.com/artifact/com.amdelamar/jotp
+    implementation 'com.warrenstrange:googleauth:1.4.0'
+    implementation 'org.json:json:20171018'
+    implementation 'com.google.zxing:core:3.3.3'
 
     implementation(
             'io.github.palexdev:materialfx:11.15.0',

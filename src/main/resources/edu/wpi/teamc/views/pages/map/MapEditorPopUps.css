@@ -41,3 +41,27 @@
     -fx-font-family: Arial;
     -fx-underline: true;
 }
+.Header2 {
+    -fx-font-size: 20px;
+    -fx-start-margin: 0px 0px;
+    -fx-end-margin: 100px 100px;
+    -fx-padding: 0px 0px;
+    -fx-fill: "FFFFFF";
+    -fx-font-weight: bold;
+    -fx-font-family: Arial;
+}
+.toggleButton{
+    -fx-text-fill: "FFFFFF";
+    -fx-background-color:  "#02143b";
+}
+.toggleText {
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-font-family: Arial;
+    -fx-font-weight: bold;
+}
+.DatePicker{
+    -fx-prompt-text-fill: "Select Move Date";
+    -fx-pref-height: 30px;
+    -fx-pref-width: 210px;
+}

@@ -11,9 +11,9 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.HTMLEditor?>
 
-<AnchorPane prefHeight="787.0" prefWidth="1368.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.admin.AdminHomeController">
+<AnchorPane prefHeight="787.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.admin.AdminHomeController">
    <children>
-      <AnchorPane layoutX="71.0" layoutY="153.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
+      <AnchorPane layoutX="71.0" layoutY="153.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
          <children>
             <AnchorPane layoutX="-274.0" layoutY="58.0" prefHeight="289.0" prefWidth="1101.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="250.0">
                <children>
@@ -48,10 +48,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <VBox layoutX="-3.0" layoutY="-3.0" prefHeight="900.0" prefWidth="53.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <fx:include fx:id="adminMenu" source="../../components/Menu.fxml" />
-      </VBox>
-      <AnchorPane layoutX="100.0" layoutY="30.0" prefHeight="76.0" prefWidth="1366.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),10,0.75,0,0);" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="100.0" layoutY="30.0" prefHeight="76.0" prefWidth="1366.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),10,0.75,0,0);" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox alignment="CENTER_LEFT" layoutX="-28.0" layoutY="-24.0" prefHeight="76.0" prefWidth="721.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="577.0" AnchorPane.topAnchor="0.0">
                <children>

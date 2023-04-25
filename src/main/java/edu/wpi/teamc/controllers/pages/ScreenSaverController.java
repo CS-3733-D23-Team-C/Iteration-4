@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.pages;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -29,6 +30,7 @@ public class ScreenSaverController {
   @FXML
   void getHome(ActionEvent event) {
     Navigation.navigate(Screen.HOME);
+    CApp.timeOut();
   }
 
   @FXML

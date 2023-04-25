@@ -26,7 +26,7 @@ public class ConferenceRoomRequest extends AbsServiceRequest {
     this.endTime = endTime;
   }
 
-  ConferenceRoomRequest(
+  public ConferenceRoomRequest(
       int requestID,
       IUser requester,
       ConferenceRoom conferenceRoom,

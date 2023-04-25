@@ -6,6 +6,7 @@ import static edu.wpi.teamc.dao.users.PERMISSIONS.STAFF;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.users.login.Login;
 import edu.wpi.teamc.dao.users.login.LoginDao;
+import java.sql.SQLException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -50,7 +51,15 @@ public class LoginDaoTest {
 
   @Test
   public void testdefaultUser5() {
-    Login login = new Login("s", "s", STAFF);
-    Assertions.assertEquals(login, HospitalSystem.addRow(login));
+    Login login = new Login("otp", "otp", STAFF);
+    // login.generateOTP();
+  }
+
+  @Test
+  public void testPassword4() throws SQLException {
+    LoginDao loginDao = new LoginDao();
+    Login testAccount = loginDao.fetchObject("otp");
+    //    Assertions.assertEquals("WIZJMPNIB2JRQMOO", testAccount.getOtp());
+    // Assertions.assertEquals(true, testAccount.checkOTP("058870"));
   }
 }

@@ -4,9 +4,12 @@ import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.users.IUser;
 import edu.wpi.teamc.dao.users.PatientUser;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,18 +63,18 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       String query =
           "UPDATE "
               + table
-              + " SET req=?, roomName=?, \"flower\"=?, additionalNotes=?, status =?, eta=?, assignedto=? WHERE requestID=?;";
+              + " SET requestid = ?, requester = ?, roomname = ?, status = ?, additionalnotes =? , eta = ?, flower = ?, assignedto = ? WHERE requestid=?;";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
-
-      ps.setString(1, repl.getRequester().toString());
-      ps.setString(2, repl.getRoomName());
-      ps.setString(3, repl.getFlower());
-      ps.setString(4, repl.getAdditionalNotes());
-      ps.setString(5, repl.getStatus().toString());
+      ps.setInt(1, repl.getID());
+      ps.setString(2, repl.getRequester().toString());
+      ps.setString(3, repl.getRoomName());
+      ps.setString(4, repl.getStatus().toString());
+      ps.setString(5, repl.getAdditionalNotes());
       ps.setString(6, repl.getEta());
-      ps.setString(7, orm.getAssignedto());
-      ps.setInt(8, orm.getRequestID());
+      ps.setString(7, repl.getFlower());
+      ps.setString(8, orm.getAssignedto());
+      ps.setInt(9, orm.getRequestID());
 
       ps.execute();
       fdr =
@@ -132,7 +135,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       // table names
       String table = "\"ServiceRequests\".\"flowerRequest\"";
       // queries
-      String query = "DELETE FROM " + table + " WHERE requestID=?; ";
+      String query = "DELETE FROM " + table + " WHERE requestid=?; ";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
 
@@ -148,7 +151,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
   }
 
   @Override
-  public FlowerDeliveryRequest fetchObject(Integer key) throws SQLException {
+  public FlowerDeliveryRequest fetchObject(Integer key) {
     FlowerDeliveryRequest fdr = null;
     try {
       DBConnection db = new DBConnection();
@@ -156,7 +159,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       // table names
       String table = "\"ServiceRequests\".\"flowerRequest\"";
       // queries
-      String query = "SELECT * FROM " + table + " WHERE requestID = ?";
+      String query = "SELECT * FROM " + table + " WHERE requestid = ?";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setInt(1, key);
@@ -180,5 +183,42 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       e.printStackTrace();
     }
     return fdr;
+  }
+
+  public boolean exportCSV(String CSVfilepath) throws IOException {
+    createFile(CSVfilepath);
+    BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
+    // Write the header row to the CSV file
+    writer.write("requestid,requester,roomname,status,additionalnotes,eta,flower,assignedto\n");
+    for (FlowerDeliveryRequest flowerDeliveryRequest : fetchAllObjects()) {
+      writer.write(
+          flowerDeliveryRequest.getRequestID()
+              + ","
+              + flowerDeliveryRequest.getRequester()
+              + ","
+              + flowerDeliveryRequest.getRoomName()
+              + ","
+              + flowerDeliveryRequest.getStatus()
+              + ","
+              + flowerDeliveryRequest.getAdditionalNotes()
+              + ","
+              + flowerDeliveryRequest.getEta()
+              + ","
+              + flowerDeliveryRequest.getFlower()
+              + ","
+              + flowerDeliveryRequest.getAssignedto()
+              + "\n");
+    }
+    writer.close();
+    return true;
+  }
+
+  static void createFile(String fileName) throws IOException {
+    File file = new File(fileName);
+    if (file.createNewFile()) {
+      System.out.println("File created: " + file.getName());
+    } else {
+      System.out.println("File already exists.");
+    }
   }
 }

@@ -5,7 +5,6 @@ import edu.wpi.teamc.dao.IDao;
 import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -138,7 +137,7 @@ public class LocationNameDao implements IDao<LocationName, String> {
   }
 
   @Override
-  public LocationName fetchObject(String key) throws SQLException {
+  public LocationName fetchObject(String key) {
     DBConnection db = new DBConnection();
     LocationName locationName = null;
     try {

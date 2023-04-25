@@ -1,0 +1,111 @@
+// this is my version of the group assignment
+
+#include <Arduino.h>
+#include <Speed_controller.h>
+#include <Position_estimation.h>
+#include <Encoders.h>
+
+SpeedController robot;
+Encoder encodr;
+Romi32U4ButtonA buttonA;
+Romi32U4ButtonB buttonB;
+Romi32U4ButtonC buttonC;
+Position pose;
+
+enum ROBOT_STATE
+{
+  IDLE,
+  DRIVE_TO_POINT,
+  TURN
+};
+ROBOT_STATE robot_state = IDLE;
+
+void setup()
+{
+  robot.Init();
+}
+
+
+void loop()
+{
+
+  switch (robot_state)
+  {
+  case IDLE:
+    if (buttonA.getSingleDebouncedRelease())
+    {
+      robot_state = DRIVE_TO_POINT;
+      robot.Stop();
+    }
+    else if(buttonB.getSingleDebouncedRelease())
+    {
+      robot_state = IDLE;
+      robot.Stop();
+    }
+    else if(buttonC.getSingleDebouncedRelease()){
+      Serial.print("going to turn");
+      pose.setDesiredTheta(90);
+      robot_state = TURN;
+    }
+    robot.Stop();
+    encodr.UpdateEncoderCounts(); //update encoder counts to prevent pose from changing while in idle state
+
+    break;
+
+  case DRIVE_TO_POINT:
+    if (buttonA.getSingleDebouncedRelease())
+    {
+      //keeps the romi in this if statement until the exit case is reached
+      while (robot_state != IDLE)
+      {
+        pose.UpdatePose();
+        if (pose.DriveTo(30, 30)) //go to point a
+        {
+          Serial.println("A");
+          robot_state = IDLE; //go back to idle
+        }
+      }
+    }
+    else if (buttonB.getSingleDebouncedRelease())
+    {
+      //keeps the romi in this if statement until the exit case is reached
+      while (robot_state != IDLE)
+      {
+        pose.UpdatePose();
+
+        if (pose.DriveTo(60, 0)) //go to b
+        {
+          Serial.println("B");
+          robot_state = IDLE; //go back to idle
+        }
+      }
+    }
+    else if (buttonC.getSingleDebouncedRelease())
+    {
+      //keeps the romi in this if statement until the exit case is reached
+      while (robot_state != IDLE)
+      {
+        pose.UpdatePose();
+
+        if (pose.DriveTo(30, -30)) //go to c
+        {
+          Serial.println("C");
+          robot_state = IDLE; //go back to idle
+        }
+      }
+    }
+
+    break;
+
+    case TURN:
+      pose.UpdatePose();
+      //pose.PrintPose();
+
+      if(pose.TurnTo()){
+        Serial.println("sent to idle");
+        robot_state = IDLE;
+      }
+    break;
+  }
+}
+

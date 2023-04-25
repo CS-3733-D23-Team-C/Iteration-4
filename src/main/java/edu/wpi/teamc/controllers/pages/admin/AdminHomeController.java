@@ -41,7 +41,11 @@ public class AdminHomeController {
   //      login = loginDao.;
   //    }
 
-  // public int shiftlines(String s) {}
+  public int shiftlines(String s) {
+    int count = s.length();
+    int lines = count / 56;
+    return lines;
+  }
 
   public void addNotification(String notification) {
     //    HBox hBox = new HBox();
@@ -58,12 +62,12 @@ public class AdminHomeController {
     //    hBox.getChildren().add(text);
     //    notificationVBox.getChildren().add(hBox);
     HBox hBox = new HBox();
-    //    hBox.setMinWidth(notificationBox.getWidth());
-    hBox.setAlignment(Pos.TOP_CENTER);
     TextArea text = new TextArea(notification);
-    hBox.prefHeightProperty().bind(text.heightProperty());
+    hBox.setMaxHeight(shiftlines(text.getText()) * 45);
+    hBox.setAlignment(Pos.TOP_CENTER);
+    // hBox.prefHeightProperty().bind(text.heightProperty());
 
-    //    text.minWidth(notificationVBox.getWidth());
+    // text.maxHeight(shiftlines(text.getText()) * 60);
     text.setEditable(false);
     text.setWrapText(true);
     text.setFont(Font.font("Arial", FontWeight.BOLD, 25));
@@ -80,7 +84,7 @@ public class AdminHomeController {
     notificationVBox.setSpacing(20);
     notificationVBox.setMinWidth(notificationBox.getWidth());
     addNotification(
-        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
     addNotification("Please use the menu to navigate");
     addNotification("Please use the menu to navigate");
     addNotification("Please use the menu to navigate");

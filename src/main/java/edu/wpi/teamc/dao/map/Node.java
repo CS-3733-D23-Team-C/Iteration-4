@@ -12,6 +12,7 @@ public class Node implements IOrm {
   private int yCoord;
   private String floor;
   private String building;
+  private NODE_STATUS status;
 
   /**
    * Constructor for Node
@@ -28,6 +29,16 @@ public class Node implements IOrm {
     this.yCoord = yCoord;
     this.floor = floor;
     this.building = building;
+  }
+
+  public Node(
+      int nodeID, int xCoord, int yCoord, String floor, String building, NODE_STATUS status) {
+    this.nodeID = nodeID;
+    this.xCoord = xCoord;
+    this.yCoord = yCoord;
+    this.floor = floor;
+    this.building = building;
+    this.status = status;
   }
 
   public Node(int xCoord, int yCoord, String floor, String building) {

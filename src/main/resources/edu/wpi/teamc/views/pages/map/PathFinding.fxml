@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.DatePicker?>
@@ -28,6 +29,11 @@
                                     <GesturePane fx:id="mapGPane" fitHeight="false" fitMode="COVER" fitWidth="false" minScale="0.1" prefHeight="698.0" prefWidth="1155.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                         <Group fx:id="group" />
                                     </GesturePane>
+                              <MFXTextField fx:id="message" alignment="CENTER" floatMode="ABOVE" layoutX="5.0" layoutY="-8.0" prefHeight="59.0" prefWidth="936.0" style="-fx-border-radius: 0;" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-8.0">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </MFXTextField>
                            </children>
                         </AnchorPane>
                         <VBox alignment="TOP_CENTER" layoutX="1120.0" layoutY="427.0" prefHeight="188.0" prefWidth="122.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="29.0" AnchorPane.topAnchor="427.0">

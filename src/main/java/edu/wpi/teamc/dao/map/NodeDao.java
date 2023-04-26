@@ -62,7 +62,7 @@ public class NodeDao implements IDao<Node, Integer> {
       ps.setString(4, repl.getFloor());
       ps.setString(5, repl.getBuilding());
       ps.setString(6, repl.getStatus().toString());
-      ps.setInt(6, oldNodeID);
+      ps.setInt(7, oldNodeID);
 
       ps.executeUpdate();
     } catch (Exception e) {

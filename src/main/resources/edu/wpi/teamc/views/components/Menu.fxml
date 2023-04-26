@@ -644,19 +644,29 @@
          <children>
             <Pane fx:id="warningPopOut" prefHeight="140.0" prefWidth="250.0" styleClass="menuSidebar" stylesheets="@Menu.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="120.0" prefWidth="190.0">
+                  <VBox alignment="CENTER" layoutX="10.0" layoutY="15.0" prefHeight="120.0" prefWidth="220.0" spacing="5.0">
                      <children>
-                        <Text fx:id="alert1" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <Text fx:id="Admin_menu_navigation1" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Recent Alerts" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                        </Text>
+                        <Line endX="160.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Line>
+                        <Text fx:id="alert1" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Text fx:id="alert2" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <Text fx:id="alert2" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Text fx:id="alert3" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <Text fx:id="alert3" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font>

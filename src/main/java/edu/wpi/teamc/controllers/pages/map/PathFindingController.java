@@ -613,6 +613,7 @@ public class PathFindingController {
     TextArea textField = new TextArea();
     textField.setMinHeight(300);
     textField.setMinWidth(150);
+    textField.setEditable(false);
     textField.setFont(new Font(18));
     textField.setText(fullPath);
 

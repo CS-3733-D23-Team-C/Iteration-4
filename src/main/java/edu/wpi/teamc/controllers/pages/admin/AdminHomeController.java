@@ -53,10 +53,10 @@ public class AdminHomeController {
   public void addNotification(String notification) {
 
     HBox hBox = new HBox();
-    SVGPath svgPath = new SVGPath();
     Text text = new Text(notification);
     hBox.setMaxHeight(shiftlines(text.getText()) * 45);
-    hBox.setAlignment(Pos.TOP_LEFT);
+    hBox.setAlignment(Pos.CENTER_LEFT);
+    hBox.setSpacing(50);
     hBox.setStyle(
         "-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 1; -fx-max-width:1000; -fx-padding: 10;"
             + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");

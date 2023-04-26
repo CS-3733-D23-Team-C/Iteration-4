@@ -13,6 +13,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.SVGPath;
 import javafx.scene.text.*;
 import javafx.scene.text.Font;
 import javafx.scene.web.HTMLEditor;
@@ -50,21 +51,9 @@ public class AdminHomeController {
   }
 
   public void addNotification(String notification) {
-    //    HBox hBox = new HBox();
-    //    hBox.setMinHeight(0);
-    //    hBox.setMinWidth(notificationBox.getWidth());
-    //    hBox.setAlignment(Pos.TOP_CENTER);
-    //    TextArea text = new TextArea(notification);
-    //    //    text.minWidth(notificationVBox.getWidth());
-    //    text.setEditable(false);
-    //    text.setWrapText(true);
-    //    text.setFont(Font.font("Arial", FontWeight.BOLD, 25));
-    //    text.setMinWidth(notificationBox.getWidth());
-    //    text.setText("• " + notification);
-    //    hBox.getChildren().add(text);
-    //    notificationVBox.getChildren().add(hBox);
-    HBox hBox = new HBox();
 
+    HBox hBox = new HBox();
+    SVGPath svgPath = new SVGPath();
     Text text = new Text(notification);
     hBox.setMaxHeight(shiftlines(text.getText()) * 45);
     hBox.setAlignment(Pos.TOP_LEFT);
@@ -77,7 +66,6 @@ public class AdminHomeController {
     text.setFont(Font.font("Arial", FontWeight.BOLD, 25));
     //    text.setMinWidth(notificationBox.getWidth());
     text.setText(notification);
-
     hBox.getChildren().add(text);
     notificationVBox.getChildren().add(hBox);
   }

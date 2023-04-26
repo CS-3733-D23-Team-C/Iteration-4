@@ -34,6 +34,7 @@
                                     <Button fx:id="meal" mnemonicParsing="false" onAction="#getMeal" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Meal" textFill="#02143b" />
                                     <Button fx:id="officeSupply" mnemonicParsing="false" onAction="#getOfficeSupply" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Office Supply" textFill="#02143b" />
                                     <SearchableComboBox fx:id="filterButton" />
+                                    <SearchableComboBox fx:id="filterEmployeeButton" />
                                  </children>
                               </HBox>
                            </children>
@@ -105,7 +106,7 @@
                                           <Insets left="20.0" right="10.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <MFXButton onAction="#getExportMenu" prefWidth="61.0" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-background-color: white; -fx-background-radius: 2;" text="Export" textFill="#02143b">
+                                    <MFXButton fx:id="exportButton" onAction="#getExportMenu" prefWidth="61.0" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-background-color: white; -fx-background-radius: 2;" text="Export" textFill="#02143b">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
@@ -113,7 +114,7 @@
                                           <Insets left="20.0" right="10.0" />
                                        </HBox.margin>
                                     </MFXButton>
-                                    <MFXButton onAction="#getImportMenu" prefWidth="61.0" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-background-color: white; -fx-background-radius: 2;" text="Import" textFill="#02143b">
+                                    <MFXButton fx:id="importButton" onAction="#getImportMenu" prefWidth="61.0" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-background-color: white; -fx-background-radius: 2;" text="Import" textFill="#02143b">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>

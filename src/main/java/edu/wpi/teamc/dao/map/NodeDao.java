@@ -31,8 +31,9 @@ public class NodeDao implements IDao<Node, Integer> {
         int yCoord = rsNodes.getInt("ycoord");
         String floor = rsNodes.getString("floorNum");
         String building = rsNodes.getString("building");
+        NODE_STATUS status = NODE_STATUS.valueOf(rsNodes.getString("status"));
 
-        databaseNodeList.add(new Node(nodeID, xCoord, yCoord, floor, building));
+        databaseNodeList.add(new Node(nodeID, xCoord, yCoord, floor, building, status));
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -51,7 +52,7 @@ public class NodeDao implements IDao<Node, Integer> {
       String queryUpdateNodesDB =
           "UPDATE  "
               + NODE
-              + " SET \"nodeID\"=?, xcoord=?, ycoord=?, \"floorNum\"=?, building=? WHERE \"nodeID\"=?; ";
+              + " SET \"nodeID\"=?, xcoord=?, ycoord=?, \"floorNum\"=?, building=?, status = ? WHERE \"nodeID\"=?; ";
 
       PreparedStatement ps = dbConnection.getConnection().prepareStatement(queryUpdateNodesDB);
 
@@ -60,7 +61,8 @@ public class NodeDao implements IDao<Node, Integer> {
       ps.setInt(3, repl.getYCoord());
       ps.setString(4, repl.getFloor());
       ps.setString(5, repl.getBuilding());
-      ps.setInt(6, oldNodeID);
+      ps.setString(6, repl.getStatus().toString());
+      ps.setInt(7, oldNodeID);
 
       ps.executeUpdate();
     } catch (Exception e) {
@@ -80,7 +82,7 @@ public class NodeDao implements IDao<Node, Integer> {
       String queryUpdateNodesDB =
           "UPDATE  "
               + NODE
-              + " SET \"nodeID\"=?, xcoord=?, ycoord=?, \"floorNum\"=?, building=? WHERE \"nodeID\"=?; ";
+              + " SET \"nodeID\"=?, xcoord=?, ycoord=?, \"floorNum\"=?, building=?, status = ? WHERE \"nodeID\"=?; ";
 
       PreparedStatement ps = dbConnection.getConnection().prepareStatement(queryUpdateNodesDB);
 
@@ -89,7 +91,8 @@ public class NodeDao implements IDao<Node, Integer> {
       ps.setInt(3, repl.getYCoord());
       ps.setString(4, repl.getFloor());
       ps.setString(5, repl.getBuilding());
-      ps.setInt(6, orm.getNodeID());
+      ps.setString(6, repl.getStatus().toString());
+      ps.setInt(7, orm.getNodeID());
 
       ps.executeUpdate();
     } catch (Exception e) {
@@ -107,7 +110,9 @@ public class NodeDao implements IDao<Node, Integer> {
       String NODE = "\"hospitalNode\".node";
       // queries
       String queryInsertNodesDB =
-          "INSERT INTO " + NODE + " (xcoord, ycoord, \"floorNum\", building) VALUES (?,?,?,?);";
+          "INSERT INTO "
+              + NODE
+              + " (xcoord, ycoord, \"floorNum\", building, status) VALUES (?,?,?,?,?);";
 
       PreparedStatement ps =
           dbConnection
@@ -118,6 +123,7 @@ public class NodeDao implements IDao<Node, Integer> {
       ps.setInt(2, orm.getYCoord());
       ps.setString(3, orm.getFloor());
       ps.setString(4, orm.getBuilding());
+      ps.setString(5, orm.getStatus().toString());
 
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
@@ -171,8 +177,9 @@ public class NodeDao implements IDao<Node, Integer> {
         int yCoord = rsNodes.getInt("ycoord");
         String floor = rsNodes.getString("floorNum");
         String building = rsNodes.getString("building");
+        NODE_STATUS status = NODE_STATUS.valueOf(rsNodes.getString("status"));
 
-        node = new Node(nodeID, xCoord, yCoord, floor, building);
+        node = new Node(nodeID, xCoord, yCoord, floor, building, status);
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -208,7 +215,7 @@ public class NodeDao implements IDao<Node, Integer> {
       // table names
       String NODE = "\"hospitalNode\".node";
       // queries
-      String queryInsertNodesDB = "INSERT INTO " + NODE + " VALUES (?,?,?,?,?);";
+      String queryInsertNodesDB = "INSERT INTO " + NODE + " VALUES (?,?,?,?,?,?);";
 
       PreparedStatement ps = dbConnection.getConnection().prepareStatement(queryInsertNodesDB);
 
@@ -217,6 +224,7 @@ public class NodeDao implements IDao<Node, Integer> {
       ps.setInt(3, orm.getYCoord());
       ps.setString(4, orm.getFloor());
       ps.setString(5, orm.getBuilding());
+      ps.setString(6, orm.getStatus().toString());
 
       ps.executeUpdate();
     } catch (Exception e) {
@@ -257,7 +265,7 @@ public class NodeDao implements IDao<Node, Integer> {
     createFile(CSVfilepath);
     BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
     // Write the header row to the CSV file
-    writer.write("nodeID,xCoord,yCoord,floor,building\n");
+    writer.write("nodeID,xCoord,yCoord,floor,building,status\n");
     // Write each Node into the CSV file
     for (Node node : fetchAllObjects()) {
       writer.write(
@@ -270,6 +278,8 @@ public class NodeDao implements IDao<Node, Integer> {
               + node.getFloor()
               + ","
               + node.getBuilding()
+              + ","
+              + node.getStatus()
               + "\n");
     }
     writer.close();

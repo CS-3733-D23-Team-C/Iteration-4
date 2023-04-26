@@ -2,7 +2,6 @@ package edu.wpi.teamc.graph;
 
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.map.*;
-import java.sql.*;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,6 +18,7 @@ public class Graph {
   protected HashMap<String, Integer> longNameToNodeID = new HashMap<>();
   protected Map<Integer, Date> nodeIDtoLastDate = new HashMap<>();
   protected Map<String, String> longNameToNodeType = new HashMap<>();
+  protected Map<Integer, NODE_STATUS> nodeIDtoStatus = new HashMap<>();
   protected PriorityQueue<GraphNode> pq;
   protected final double DIST_DEFAULT = Double.POSITIVE_INFINITY;
   private IAlgorithm algo;
@@ -59,6 +59,7 @@ public class Graph {
     List<Edge> edges = new LinkedList<>();
     List<Move> moves = new LinkedList<>();
     List<LocationName> locs = new LinkedList<>();
+
     try {
       nodes = (List<Node>) HospitalSystem.fetchAllObjects(new Node());
       edges = (List<Edge>) HospitalSystem.fetchAllObjects(new Edge(1, 1));
@@ -109,7 +110,8 @@ public class Graph {
               node.getYCoord(),
               node.getFloor(),
               node.getBuilding(),
-              nodeType));
+              nodeType,
+              node.getStatus()));
     }
 
     for (Edge edge : edges) {
@@ -118,8 +120,10 @@ public class Graph {
       String origID = src.getNodeID() + "_" + dest.getNodeID();
       String reverseID = dest.getNodeID() + "_" + src.getNodeID();
 
-      src.getGraphEdges().add(new GraphEdge(origID, src, dest));
-      dest.getGraphEdges().add(new GraphEdge(reverseID, dest, src));
+      if (dest.getStatus().equals(NODE_STATUS.OPEN)) {
+        src.getGraphEdges().add(new GraphEdge(origID, src, dest));
+        dest.getGraphEdges().add(new GraphEdge(reverseID, dest, src));
+      }
     }
   }
 
@@ -211,5 +215,9 @@ public class Graph {
 
   public int getNodeIDfromLongName(String longName) {
     return longNameToNodeID.get(longName);
+  }
+
+  public String getLongNameFromNodeID(int nodeID) {
+    return nodeIDtoLongName.get(nodeID);
   }
 }

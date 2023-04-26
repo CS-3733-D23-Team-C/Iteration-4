@@ -2,6 +2,7 @@ package edu.wpi.teamc.graph;
 
 import static java.lang.Math.abs;
 
+import edu.wpi.teamc.dao.map.NODE_STATUS;
 import edu.wpi.teamc.dao.map.Node;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,8 +24,14 @@ public class GraphNode extends Node {
    * @param building - building of the node ex: CCONF
    */
   public GraphNode(
-      int nodeID, int xCoord, int yCoord, String floor, String building, String nodeType) {
-    super(nodeID, xCoord, yCoord, floor, building);
+      int nodeID,
+      int xCoord,
+      int yCoord,
+      String floor,
+      String building,
+      String nodeType,
+      NODE_STATUS status) {
+    super(nodeID, xCoord, yCoord, floor, building, status);
     this.graphEdges = new LinkedList<>();
     this.nodeType = nodeType;
   }

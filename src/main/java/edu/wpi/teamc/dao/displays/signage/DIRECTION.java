@@ -3,19 +3,19 @@ package edu.wpi.teamc.dao.displays.signage;
 import java.util.List;
 
 public enum DIRECTION {
-  NORTH,
-  SOUTH,
-  EAST,
-  WEST,
+  UP,
+  DOWN,
+  LEFT,
+  RIGHT,
   HERE,
   NONE;
 
   public static List<DIRECTION> getDirections() {
-    return List.of(NORTH, SOUTH, EAST, WEST, HERE, NONE);
+    return List.of(UP, DOWN, LEFT, RIGHT, HERE, NONE);
   }
 
   public static List<String> getDirectionStrings() {
-    return List.of("NORTH", "SOUTH", "EAST", "WEST", "HERE", "NONE");
+    return List.of("UP", "DOWN", "LEFT", "RIGHT", "HERE", "NONE");
   }
 
   @Override

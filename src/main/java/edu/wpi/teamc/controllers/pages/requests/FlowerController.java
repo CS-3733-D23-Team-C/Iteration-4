@@ -12,14 +12,12 @@ import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -37,6 +35,7 @@ public class FlowerController {
   @FXML private TextArea specialRequest;
   @FXML private SearchableComboBox employeeName;
   @FXML private ImageView image;
+  @FXML private DatePicker deliveryTime;
 
   // Special for Flower
   @FXML private TextArea giftCard;
@@ -115,8 +114,9 @@ public class FlowerController {
     String name = nameBox.getText();
     String room = roomMenu.getValue().toString();
     String menuSelection = serviceMenu.getText();
+    java.sql.Date deliveryDate = Date.valueOf(deliveryTime.getValue());
     FlowerDeliveryRequest req =
-        new FlowerDeliveryRequest(new PatientUser(name), room, menuSelection, notes);
+        new FlowerDeliveryRequest(new PatientUser(name), room, menuSelection, notes, deliveryDate);
     IDao<FlowerDeliveryRequest, Integer> dao = new FlowerDeliveryRequestDAO();
     if (!(employeeName == null)) {
       try {
@@ -145,6 +145,13 @@ public class FlowerController {
 
     List<LocationName> locationNames =
         (List<LocationName>) HospitalSystem.fetchAllObjects(new LocationName());
+    // remove halls, elevators, stairs and bathrooms from list
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("HALL"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("ELEV"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("BATH"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("STAI"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("REST"));
+
     roomMenu.setItems(FXCollections.observableArrayList(locationNames));
 
     List<EmployeeUser> employeeUsers =

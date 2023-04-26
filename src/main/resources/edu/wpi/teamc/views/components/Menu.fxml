@@ -482,7 +482,7 @@
       </AnchorPane>
       <AnchorPane fx:id="creditsPopOut1" layoutX="-230.0" layoutY="10.0">
          <children>
-            <Pane fx:id="creditsPopOut" prefHeight="173.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+            <Pane fx:id="creditsPopOut" prefHeight="200.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
                      <children>

@@ -51,6 +51,7 @@ public class PathFindingController {
   @FXML MFXButton FLB2;
   @FXML MFXButton submit;
   @FXML MFXButton textDir;
+  @FXML MFXButton qrCode;
   @FXML MFXButton floorButton;
   @FXML MFXTextField message;
   private MFXButton tempSave;
@@ -78,7 +79,8 @@ public class PathFindingController {
   public Group group;
   public Image image =
       new Image(Main.class.getResource("views/images/FirstFloor.png").openStream());
-  private Image tempImage;
+  private Graph graph;
+  private List<GraphNode> path;
 
   public PathFindingController() throws IOException {}
 
@@ -86,6 +88,7 @@ public class PathFindingController {
   public void initialize() {
     submit.setDisable(true);
     textDir.setDisable(true);
+    qrCode.setDisable(true);
     message.setEditable(true);
     Image image = this.image;
     ImageView imageView = new ImageView(image);
@@ -425,6 +428,7 @@ public class PathFindingController {
   void getSubmit(ActionEvent event) throws IOException {
     nextFloor.setDisable(false);
     textDir.setDisable(false);
+    qrCode.setDisable(false);
     prevFloor.setDisable(true);
     edges.getChildren().clear();
     mapNodes.getChildren().clear();
@@ -438,7 +442,7 @@ public class PathFindingController {
     }
 
     String dateString = date.toString();
-    Graph graph = new Graph(AlgoSingleton.INSTANCE.getType());
+    graph = new Graph(AlgoSingleton.INSTANCE.getType());
     graph.syncWithDB(dateString);
 
     int srcN = graph.getNodeIDfromLongName(startName);
@@ -448,7 +452,7 @@ public class PathFindingController {
     dest = graph.getNode(destN);
     changeFloorFromString(src.getFloor());
 
-    List<GraphNode> path = graph.getPathway(src, dest);
+    path = graph.getPathway(src, dest);
     breakPathIntoFloors(path);
     drawEdges();
 
@@ -458,9 +462,6 @@ public class PathFindingController {
     }
 
     edges.toFront();
-
-    TextDirectionsHelper textHelper = new TextDirectionsHelper();
-    tempImage = SwingFXUtils.toFXImage(textHelper.buildImage(path, graph), null);
   }
 
   @FXML
@@ -552,7 +553,10 @@ public class PathFindingController {
   void getEndChoice(ActionEvent event) {}
 
   @FXML
-  void getTextDirections(ActionEvent event) {
+  void getQR(ActionEvent event) {
+    TextDirectionsHelper textHelper = new TextDirectionsHelper();
+    Image tempImage = SwingFXUtils.toFXImage(textHelper.buildImage(path, graph), null);
+
     BorderPane borderPane = new BorderPane();
     VBox vbox = new VBox();
     ImageView view = new ImageView();
@@ -580,6 +584,58 @@ public class PathFindingController {
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.setTitle("Scan to View Text Directions");
+    stage.show();
+    stage.setAlwaysOnTop(true);
+  }
+
+  @FXML
+  void getTextDirections(ActionEvent event) {
+    String fullPath = "";
+    BorderPane borderPane = new BorderPane();
+    VBox vbox = new VBox();
+
+    TextDirectionsHelper textHelper = new TextDirectionsHelper();
+    LinkedList<String> directions = textHelper.textDirections(path, graph);
+
+    for (String s : directions) {
+      String[] split = s.split("~");
+
+      if (split[1].startsWith("Go s")) {
+        fullPath += split[1] + ": To ";
+      } else {
+        fullPath += split[1] + ": At ";
+      }
+
+      fullPath += split[2] + "; Distance: " + split[0] + "ft\n";
+    }
+
+    TextArea textField = new TextArea();
+    textField.setMinHeight(300);
+    textField.setMinWidth(150);
+    textField.setText(fullPath);
+
+    // set object locations
+    int lay_x = 45;
+    int lay_y = 40;
+    vbox.setLayoutX(lay_x);
+    vbox.setLayoutY(lay_y);
+
+    vbox.getChildren().add(textField);
+
+    // Set and show screen
+
+    AnchorPane aPane = new AnchorPane();
+    aPane.getChildren().addAll(vbox);
+    borderPane.getChildren().add(aPane);
+    Scene scene = new Scene(borderPane, 600, 390);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
+    borderPane.relocate(0, 0);
+    borderPane.getStyleClass().add("scenePane");
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.setTitle("Text Directions");
     stage.show();
     stage.setAlwaysOnTop(true);
   }

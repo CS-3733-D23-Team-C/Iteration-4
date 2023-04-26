@@ -1,8 +1,10 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
 import edu.wpi.teamc.CApp;
+import edu.wpi.teamc.SMSHelper;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.displays.Alert;
+import edu.wpi.teamc.dao.users.PatientUserDao;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -10,6 +12,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -93,6 +96,11 @@ public class AlertController {
     //    IDao<Alert, Integer> dao = new AlertDao();
     //    dao.addRow(alert);
 
+    PatientUserDao pddao = new PatientUserDao();
+    List<String> phones = pddao.listActivePhone();
+    for (int i = 0; i < phones.size(); i++) {
+      SMSHelper.sendSMS(phones.get(i), description);
+    }
     Navigation.navigate(Screen.CONGRATS_PAGE);
   }
 

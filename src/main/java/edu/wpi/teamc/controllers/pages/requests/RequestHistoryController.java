@@ -177,7 +177,6 @@ public class RequestHistoryController extends AbsServiceRequest {
           }
         });
 
-
     filterEmployeeButton.getItems().addAll(FXCollections.observableArrayList(employeeList));
     filterEmployeeButton.setOnAction(
         event -> {
@@ -230,7 +229,6 @@ public class RequestHistoryController extends AbsServiceRequest {
       rows.addAll(filteredList);
       historyTable.setItems(rows);
     }
-
   }
 
   @FXML

@@ -22,7 +22,9 @@ import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -556,7 +558,11 @@ public class PathFindingController {
   @FXML
   void getQR(ActionEvent event) {
     TextDirectionsHelper textHelper = new TextDirectionsHelper();
-    Image tempImage = SwingFXUtils.toFXImage(textHelper.buildImage(path, graph), null);
+    LocalDate date = pickDate.getValue();
+    if (date == null) {
+      date = LocalDate.now();
+    }
+    Image tempImage = SwingFXUtils.toFXImage(textHelper.buildImage(path, graph, date), null);
 
     BorderPane borderPane = new BorderPane();
     VBox vbox = new VBox();

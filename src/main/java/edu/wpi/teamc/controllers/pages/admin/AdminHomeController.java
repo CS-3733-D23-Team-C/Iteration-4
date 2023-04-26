@@ -18,6 +18,8 @@ import javafx.scene.text.*;
 import javafx.scene.text.Font;
 import javafx.scene.web.HTMLEditor;
 import javax.swing.text.html.ImageView;
+import org.girod.javafx.svgimage.SVGImage;
+import org.girod.javafx.svgimage.SVGLoader;
 
 public class AdminHomeController {
 
@@ -44,13 +46,15 @@ public class AdminHomeController {
   //      login = loginDao.;
   //    }
 
+  SVGImage img = SVGLoader.load("http://www.w3.org/2000/svg");
+
   public int shiftlines(String s) {
     int count = s.length();
     int lines = count / 56;
     return lines;
   }
 
-  public void addNotification(String notification) {
+  public void addNotification(String notification, String type) {
 
     HBox hBox = new HBox();
     Text text = new Text(notification);
@@ -66,6 +70,9 @@ public class AdminHomeController {
     text.setFont(Font.font("Arial", FontWeight.BOLD, 25));
     //    text.setMinWidth(notificationBox.getWidth());
     text.setText(notification);
+    SVGPath svg = new SVGPath();
+    svg.setContent(chooseSVG(type));
+    hBox.getChildren().add(svg);
     hBox.getChildren().add(text);
     notificationVBox.getChildren().add(hBox);
   }
@@ -80,19 +87,50 @@ public class AdminHomeController {
     java.util.List<Alert> alertList = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
     for (Alert alert : alertList) {
       if (alert.getDescription() == null) {
-        addNotification(alert.getTitle() + " \nType: " + alert.getType());
+        addNotification(alert.getTitle() + " \nType: " + alert.getType(), alert.getType());
       } else {
         addNotification(
             alert.getTitle()
                 + " \nType: "
                 + alert.getType()
                 + " \nDescription: "
-                + alert.getDescription());
+                + alert.getDescription(),
+            alert.getType());
       }
     }
     if (!CApp.getAdminLoginCheck()) {
       AdminHome_Title.setText("Staff Home Page");
     }
+  }
+
+  // SVG Function for Notification//
+  @FXML
+  public String choosePNG(String type) {
+    String holder;
+    switch (type) {
+      case "Weather":
+        holder =
+            "";
+        break;
+      case "Construction":
+        holder = "";
+        break;
+      case "Car Crash":
+        holder = "";
+        break;
+      case "Closures":
+        holder = "";
+        break;
+      case "Emergency":
+        holder = "";
+        break;
+      case "Other":
+        holder = "";
+        break;
+      default:
+        holder = "";
+    }
+    return holder;
   }
 
   // LANGUAGE//

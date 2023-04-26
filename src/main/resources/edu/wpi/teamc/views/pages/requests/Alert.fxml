@@ -66,7 +66,7 @@
                   </AnchorPane>
                   <VBox alignment="CENTER" layoutX="720.0" layoutY="50.0" spacing="40.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
                      <children>
-                        <AnchorPane prefHeight="160.0" prefWidth="525.0" style="-fx-border-color: #02143b; -fx-background-color: white;">
+                        <AnchorPane prefHeight="160.0" prefWidth="390.0" style="-fx-border-color: #02143b; -fx-background-color: white;">
                            <children>
                               <TextField alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="2. Time Selection:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
@@ -79,8 +79,54 @@
                                     <Insets bottom="10.0" left="10.0" top="10.0" />
                                  </padding>
                               </TextField>
-                              <DatePicker fx:id="endTime" prefHeight="40.0" promptText="Select End Time:" style="-fx-background-color: white; -fx-border-color: #02143b;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0" />
-                              <DatePicker fx:id="startTime" layoutX="10.0" layoutY="10.0" prefHeight="40.0" promptText="Select Start Time:" style="-fx-background-color: white; -fx-border-color: #02143b;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
+                              <DatePicker fx:id="endTime" layoutX="22.0" layoutY="102.0" prefHeight="40.0" prefWidth="245.0" promptText="Select End Time:" style="-fx-background-color: white; -fx-border-color: #02143b;" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="264.0" AnchorPane.topAnchor="101.0" />
+                              <DatePicker fx:id="startTime" layoutX="22.0" layoutY="52.0" prefHeight="40.0" prefWidth="245.0" promptText="Select Start Time:" style="-fx-background-color: white; -fx-border-color: #02143b;" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="264.0" AnchorPane.topAnchor="51.0" />
+                              <MenuButton fx:id="startHour" layoutX="280.0" layoutY="52.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="75.0" text="Hour" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="174.0" AnchorPane.topAnchor="51.0">
+                                <items>
+                                  <MenuItem fx:id="Hour_01" mnemonicParsing="false" onAction="#getStartHour01" text="01" />
+                                  <MenuItem fx:id="Hour_02" mnemonicParsing="false" onAction="#getStartHour02" text="02" />
+                                    <MenuItem fx:id="Hour_03" mnemonicParsing="false" onAction="#getStartHour03" text="03" />
+                                    <MenuItem fx:id="Hour_04" mnemonicParsing="false" onAction="#getStartHour04" text="04" />
+                                    <MenuItem fx:id="Hour_05" mnemonicParsing="false" onAction="#getStartHour05" text="05" />
+                                    <MenuItem fx:id="Hour_06" mnemonicParsing="false" onAction="#getStartHour06" text="06" />
+                                    <MenuItem fx:id="Hour_07" mnemonicParsing="false" onAction="#getStartHour07" text="07" />
+                                    <MenuItem fx:id="Hour_08" mnemonicParsing="false" onAction="#getStartHour08" text="08" />
+                                    <MenuItem fx:id="Hour_09" mnemonicParsing="false" onAction="#getStartHour09" text="09" />
+                                    <MenuItem fx:id="Hour_10" mnemonicParsing="false" onAction="#getStartHour10" text="10" />
+                                    <MenuItem fx:id="Hour_11" mnemonicParsing="false" onAction="#getStartHour11" text="11" />
+                                    <MenuItem fx:id="Hour_12" mnemonicParsing="false" onAction="#getStartHour12" text="12" />
+                                </items>
+                              </MenuButton>
+                              <MenuButton fx:id="startTimePeriod" layoutX="370.0" layoutY="52.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="55.0" text="AM" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="51.0">
+                                 <items>
+                                    <MenuItem fx:id="AM" mnemonicParsing="false" onAction="#getStartPeriodAM" text="AM" />
+                                    <MenuItem fx:id="PM" mnemonicParsing="false" onAction="#getStartPeriodPM" text="PM" />
+                                 </items>
+                              </MenuButton>
+                              <MenuButton fx:id="endTimePeriod" layoutX="370.0" layoutY="102.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="55.0" text="AM" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="101.0">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndPeriodAM" text="AM" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndPeriodPM" text="PM" />
+                                 </items>
+                              </MenuButton>
+                              <TextField fx:id="startMinute" layoutX="440.0" layoutY="52.0" prefHeight="40.0" prefWidth="75.0" promptText="Minute" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.leftAnchor="440.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="51.0" />
+                              <TextField fx:id="endMinute" layoutX="440.0" layoutY="102.0" prefHeight="40.0" prefWidth="75.0" promptText="Minute" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.leftAnchor="440.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="101.0" />
+                              <MenuButton fx:id="endHour" layoutX="280.0" layoutY="102.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="75.0" text="Hour" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="174.0" AnchorPane.topAnchor="101.0">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour01" text="01" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour02" text="02" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour03" text="03" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour04" text="04" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour05" text="05" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour06" text="06" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour07" text="07" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour08" text="08" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour09" text="09" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour10" text="10" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour11" text="11" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour12" text="12" />
+                                 </items>
+                              </MenuButton>
                            </children>
                         </AnchorPane>
                         <MFXButton onAction="#getSubmit" prefHeight="40.0" prefWidth="525.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 16;" text="Submit" textFill="WHITE">

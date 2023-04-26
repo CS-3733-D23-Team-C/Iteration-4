@@ -152,6 +152,7 @@ public class GuestMenuController {
         MouseEvent.MOUSE_CLICKED,
         event -> {
           Navigation.navigate(Screen.EXIT_PAGE);
+          Navigation.setMenuType(Navigation.MenuType.DISABLED);
         });
 
     homeButton1

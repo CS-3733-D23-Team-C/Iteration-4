@@ -1,7 +1,5 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
-
-import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.SMSHelper;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.displays.Alert;

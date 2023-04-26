@@ -2519,7 +2519,7 @@ public class EditMapController {
     if (file != null) {
       try {
         BufferedReader br = new BufferedReader(new FileReader(file));
-        String nodeHeader = "nodeID,xcoord,ycoord,floor,building";
+        String nodeHeader = "nodeID,xcoord,ycoord,floorNum,building,status";
         String importedHeader = br.readLine();
         //        System.out.println(importedHeader);
         // check if file header matches Node header format

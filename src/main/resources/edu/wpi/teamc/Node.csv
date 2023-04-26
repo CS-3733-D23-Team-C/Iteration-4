@@ -1,4 +1,4 @@
-nodeID,xCoord,yCoord,floor,building,status
+nodeID,xcoord,ycoord,floorNum,building,status
 1740,2215,678,L2,45 Francis,OPEN
 1770,1894,923,L2,Tower,OPEN
 1790,1894,1183,L2,Tower,OPEN

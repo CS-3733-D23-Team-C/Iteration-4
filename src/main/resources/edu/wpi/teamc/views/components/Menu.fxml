@@ -532,6 +532,11 @@
                               <Insets />
                            </VBox.margin>
                         </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Brighams Women's Hospital for the Floor Maps" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
                      </children>
                   </VBox>
                </children>

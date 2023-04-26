@@ -15,7 +15,18 @@ public class OfficeSuppliesRequest extends AbsServiceRequest {
     this.officesupplytype = officesupplytype;
   }
 
-  OfficeSuppliesRequest(
+  public OfficeSuppliesRequest(
+      IUser requester,
+      String roomName,
+      String officesupplytype,
+      String additionalNotes,
+      String eta) {
+    super(requester, roomName, additionalNotes);
+    this.officesupplytype = officesupplytype;
+    this.eta = eta;
+  }
+
+  public OfficeSuppliesRequest(
       int requestID,
       IUser requester,
       String roomname,

@@ -121,6 +121,8 @@ public class ConferenceController {
     }
     List<LocationName> locationNames =
         (List<LocationName>) HospitalSystem.fetchAllObjects(new LocationName());
+    locationNames.removeIf(
+        locationName -> !locationName.getNodeType().equals("CONF")); // remove non-conference
     roomMenu.setItems(FXCollections.observableArrayList(locationNames));
 
     List<EmployeeUser> employeeUsers =

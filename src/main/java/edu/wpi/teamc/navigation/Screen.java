@@ -23,6 +23,7 @@ public enum Screen {
   PATIENT_HOME("views/pages/patient/PatientHome.fxml"),
   MENU("views/components/Menu.fxml"),
   GUEST_MENU("views/pages/guest/GuestMenu.fxml"),
+  ABOUT("views/pages/About.fxml"),
 
   // -------SERVICE REQUEST-------//
   MEAL("views/pages/requests/MealRequest.fxml"),
@@ -43,7 +44,11 @@ public enum Screen {
 
   EXIT_PAGE("views/pages/ExitPage.fxml"),
 
+  ALERT_REQUEST("views/pages/requests/Alert.fxml"),
+
   SIGNUP_PAGE("views/pages/SignUp.fxml"),
+
+  LOGIN_TABLE("views/pages/LoginTable.fxml"),
   EMPLOYEETABLE_PAGE("views/pages/EmployeeTable.fxml");
 
   private final String filename;

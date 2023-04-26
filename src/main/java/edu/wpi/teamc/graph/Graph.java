@@ -2,7 +2,6 @@ package edu.wpi.teamc.graph;
 
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.map.*;
-import java.sql.*;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -211,5 +210,9 @@ public class Graph {
 
   public int getNodeIDfromLongName(String longName) {
     return longNameToNodeID.get(longName);
+  }
+
+  public String getLongNameFromNodeID(int nodeID) {
+    return nodeIDtoLongName.get(nodeID);
   }
 }

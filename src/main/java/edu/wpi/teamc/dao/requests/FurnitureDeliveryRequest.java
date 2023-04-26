@@ -23,10 +23,30 @@ public class FurnitureDeliveryRequest extends AbsServiceRequest {
     this.eta = eta;
   }
 
+  FurnitureDeliveryRequest(
+      int requestID,
+      IUser requester,
+      String roomName,
+      STATUS status,
+      String additionalNotes,
+      String furnituretype,
+      String eta) {
+    super(requestID, requester, roomName, additionalNotes);
+    this.furnituretype = furnituretype;
+    this.eta = eta;
+  }
+
   public FurnitureDeliveryRequest(
       IUser requester, String roomName, String additionalNotes, String furnituretype) {
     super(requester, roomName, additionalNotes);
     this.furnituretype = furnituretype;
+  }
+
+  public FurnitureDeliveryRequest(
+      IUser requester, String roomName, String additionalNotes, String furnituretype, String eta) {
+    super(requester, roomName, additionalNotes);
+    this.furnituretype = furnituretype;
+    this.eta = eta;
   }
 
   public FurnitureDeliveryRequest() {}

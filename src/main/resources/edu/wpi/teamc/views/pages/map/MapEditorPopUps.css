@@ -9,6 +9,17 @@
     -fx-text-fill: "#02143b";
     -fx-font-weight: bold;
 }
+.MFXbuttonInit {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 0px 0px;
+    -fx-pref-height: 36px;
+    -fx-pref-width: 197px;
+    -fx-start-margin: 20px;
+    -fx-end-margin: 0px;
+    -fx-font-size: 16px;
+    -fx-text-fill: #02143b;
+    -fx-font-weight: bold;
+}
 .MFXtextIn {
     -fx-text-fill: "#000000";
     -fx-padding: 0px 0px;
@@ -64,4 +75,8 @@
     -fx-prompt-text-fill: "Select Move Date";
     -fx-pref-height: 30px;
     -fx-pref-width: 210px;
+}
+.mapBox {
+    -fx-background-color: #02143b;
+    -fx-background-radius: 10;
 }

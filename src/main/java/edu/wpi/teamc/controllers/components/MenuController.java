@@ -261,6 +261,11 @@ public class MenuController {
     //      Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
   }
 
+  @FXML
+  void getAlertRequest(ActionEvent event) {
+    Navigation.navigate(Screen.ALERT_REQUEST);
+  }
+
   public void getEmployeeTablePage(ActionEvent actionEvent) {
     Navigation.navigate(Screen.EMPLOYEETABLE_PAGE);
   }
@@ -383,7 +388,16 @@ public class MenuController {
   public void initialize() {
 
     List<Alert> alertList = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
-    alert1.setText(alertList.get(0).getType() + ": " + alertList.get(0).getTitle());
+    int alertListSize = alertList.size();
+    int recentAlert1 = alertListSize - 1;
+    int recentAlert2 = alertListSize - 2;
+    int recentAlert3 = alertListSize - 3;
+    alert1.setText(
+        alertList.get(recentAlert1).getType() + ": " + alertList.get(recentAlert1).getTitle());
+    alert2.setText(
+        alertList.get(recentAlert2).getType() + ": " + alertList.get(recentAlert2).getTitle());
+    alert3.setText(
+        alertList.get(recentAlert3).getType() + ": " + alertList.get(recentAlert3).getTitle());
 
     setlanguage(language_choice);
     homeTrigger1.setVisible(false);

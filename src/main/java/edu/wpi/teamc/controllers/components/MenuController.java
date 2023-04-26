@@ -147,6 +147,7 @@ public class MenuController {
   @FXML private Pane aboutPopOut1;
   @FXML private AnchorPane aboutPopOut2;
   @FXML private AnchorPane aboutPopOut3;
+  @FXML private AnchorPane creditsPopOut1;
 
   // LANGUAGE TEXT//
 
@@ -472,6 +473,7 @@ public class MenuController {
     TranslateTransition warningPopOutTransition = new TranslateTransition();
     TranslateTransition aboutPopOutTransition = new TranslateTransition();
     TranslateTransition aboutPopOutTransition1 = new TranslateTransition();
+    TranslateTransition creditPopOutTransition = new TranslateTransition();
 
     AtomicBoolean isHovering = new AtomicBoolean(false);
 
@@ -659,6 +661,41 @@ public class MenuController {
                 aboutPopOutTransition1.play();
                 aboutPopOut3.setVisible(true);
                 aboutPopOut1.setVisible(true);
+              }
+            });
+    Admin_menu_credits.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          creditsPopOut1.setVisible(true);
+          creditsPopOut.setVisible(true);
+          creditPopOutTransition.setDuration(Duration.millis(300));
+          creditPopOutTransition.setNode(creditsPopOut1);
+          creditPopOutTransition.setToX(290);
+          creditPopOutTransition.play();
+        });
+    creditsPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !creditsPopOut.isHover() && !homePopOut.isHover()) {
+                creditPopOutTransition.setDuration(Duration.millis(300));
+                creditPopOutTransition.setNode(creditsPopOut1);
+                creditPopOutTransition.setToX(0);
+                creditPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!creditsPopOut.isHover() && !homePopOut.isHover()) {
+                        creditsPopOut.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+                creditPopOutTransition.play();
+              } else if (newValue) {
+                creditPopOutTransition.setDuration(Duration.millis(300));
+                creditPopOutTransition.setNode(creditsPopOut1);
+                creditPopOutTransition.setToX(290);
+                creditPopOutTransition.play();
               }
             });
 

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.SearchableComboBox?>
+<?import org.controlsfx.control.tableview2.FilteredTableView?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.requests.RequestHistoryController">
+   <children>
+      <AnchorPane layoutX="400.0" layoutY="153.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
+         <children>
+            <AnchorPane style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
+                     <children>
+                        <AnchorPane prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Button fx:id="conference" mnemonicParsing="false" onAction="#getConference" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Conference" textFill="#02143b" />
+                                    <Button fx:id="flower" mnemonicParsing="false" onAction="#getFlower" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Flower" textFill="#02143b" />
+                                    <Button fx:id="furniture" mnemonicParsing="false" onAction="#getFurniture" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Furniture" textFill="#02143b" />
+                                    <Button fx:id="meal" mnemonicParsing="false" onAction="#getMeal" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Meal" textFill="#02143b" />
+                                    <Button fx:id="officeSupply" mnemonicParsing="false" onAction="#getOfficeSupply" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Office Supply" textFill="#02143b" />
+                                    <SearchableComboBox fx:id="filterButton" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                        <FilteredTableView fx:id="historyTable" layoutX="15.0" layoutY="15.0" prefHeight="561.0" prefWidth="1204.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="70.0">
+                           <columns>
+                              <TableColumn fx:id="Column1" prefWidth="40" text="" />
+                              <TableColumn fx:id="Column2" prefWidth="240" text="" />
+                              <TableColumn fx:id="Column3" prefWidth="240" text="" />
+                              <TableColumn fx:id="Column4" prefWidth="240" text="" />
+                              <TableColumn fx:id="Column5" prefWidth="240" text="" />
+                              <TableColumn fx:id="Column6" prefWidth="240" text="" />
+                              <TableColumn fx:id="Column7" prefWidth="240" text="" />
+                              <TableColumn fx:id="Column8" prefWidth="240" text="" />
+                           </columns>
+                        </FilteredTableView>
+                        <AnchorPane layoutX="16.0" layoutY="587.0" prefHeight="48.0" prefWidth="1202.0" AnchorPane.bottomAnchor="15.0">
+                           <children>
+                              <HBox fx:id="bottomPane" alignment="CENTER" layoutY="13.0" prefHeight="35.0" prefWidth="1198.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="ID:" textFill="WHITE">
+                                       <HBox.margin>
+                                          <Insets left="15.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField fx:id="idField" editable="false" prefHeight="26.0" prefWidth="92.0" style="-fx-background-color: white; -fx-background-radius: 2;">
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <Label layoutX="101.0" layoutY="15.0" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Status:" textFill="WHITE">
+                                       <HBox.margin>
+                                          <Insets left="15.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <MenuButton fx:id="statusField" mnemonicParsing="false" prefHeight="26.0" prefWidth="128.0" style="-fx-background-color: white; -fx-background-radius: 2; -fx-font-family: arial; -fx-font-size: 12;" text=" Select the status" textFill="#02143b">
+                                       <items>
+                                          <MenuItem mnemonicParsing="false" onAction="#statusPending" text="PENDING" />
+                                          <MenuItem mnemonicParsing="false" onAction="#statusInProgress" text="IN_PROGRESS" />
+                                          <MenuItem mnemonicParsing="false" onAction="#statusComplete" text="COMPLETE" />
+                                          <MenuItem mnemonicParsing="false" onAction="#statusCancelled" text="CANCELLED" />
+                                       </items>
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </HBox.margin>
+                                    </MenuButton>
+                                    <Label layoutX="223.0" layoutY="10.0" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Assigned To:" textFill="WHITE">
+                                       <HBox.margin>
+                                          <Insets left="15.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <SearchableComboBox fx:id="assignedtoField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="170.0" style="-fx-background-radius: 2; -fx-background-color: white;">
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </HBox.margin>
+                                    </SearchableComboBox>
+                                    <Button fx:id="updateButton" layoutX="885.0" layoutY="10.0" mnemonicParsing="false" prefWidth="61.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-background-radius: 2;" text="Update" textFill="#02143b">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="deleteButton" layoutX="815.0" layoutY="10.0" mnemonicParsing="false" prefWidth="61.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Delete" textFill="#02143b">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="clearButton" mnemonicParsing="false" prefWidth="61.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-background-radius: 2;" text="Clear" textFill="#02143b">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <MFXButton onAction="#getExportMenu" prefWidth="61.0" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-background-color: white; -fx-background-radius: 2;" text="Export" textFill="#02143b">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                    </MFXButton>
+                                    <MFXButton onAction="#getImportMenu" prefWidth="61.0" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-background-color: white; -fx-background-radius: 2;" text="Import" textFill="#02143b">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                    </MFXButton>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="80.0" layoutY="10.0" prefHeight="76.0" prefWidth="1366.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),10,0.75,0,0);" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="1147.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="History Tables" wrappingWidth="456.42291259765625" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="70.0" />
+               </padding>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

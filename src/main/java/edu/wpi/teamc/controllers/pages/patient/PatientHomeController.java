@@ -107,6 +107,15 @@ public class PatientHomeController {
     T1st.play();
   }
 
+  // @FXML
+  //  void recieveTextMessages(){
+  //    String name = HOME_username.getText();
+  //    String number = HOME_phonenumber.getText();
+  //    if(validPatient(name, number)){
+  //      //send text message
+  //    }
+  //  }
+
   @FXML
   void english() {
     //      language_choice = 0;

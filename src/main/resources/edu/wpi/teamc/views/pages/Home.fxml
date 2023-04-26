@@ -54,7 +54,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </MFXButton>
-                        <Hyperlink fx:id="HOME_forgot" alignment="CENTER" layoutX="102.0" layoutY="370.0" prefHeight="28.0" prefWidth="378.0" style="-fx-font-family: Arial; -fx-underline: true; -fx-font-size: 16;" text="Forgot Username or Password?" textFill="#02143b" AnchorPane.leftAnchor="102.0" AnchorPane.topAnchor="370.0" />
+                        <Hyperlink fx:id="HOME_forgot" alignment="CENTER" layoutX="102.0" layoutY="370.0" onAction="#resetPassword" prefHeight="28.0" prefWidth="378.0" style="-fx-font-family: Arial; -fx-underline: true; -fx-font-size: 16;" text="Forgot Username or Password?" textFill="#02143b" AnchorPane.leftAnchor="102.0" AnchorPane.topAnchor="370.0" />
                         <Hyperlink fx:id="HOME_create" alignment="CENTER" layoutX="35.0" layoutY="173.0" onAction="#getSignUp" prefHeight="24.0" prefWidth="281.0" style="-fx-font-family: Arial; -fx-underline: true; -fx-font-size: 16;" text="Sign-Up for Updates" textFill="#02143b" AnchorPane.leftAnchor="152.0" AnchorPane.topAnchor="397.0" />
                         <Line endX="18.0" startX="-100.0" stroke="#02143b" strokeWidth="2.0" AnchorPane.leftAnchor="121.0" AnchorPane.topAnchor="456.0" />
                         <Text fx:id="HOME_or" fill="#02143b" layoutX="147.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 24;" text="OR" textAlignment="CENTER" wrappingWidth="291.5" AnchorPane.leftAnchor="147.0" AnchorPane.topAnchor="442.2734375" />

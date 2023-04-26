@@ -12,9 +12,11 @@ import lombok.Getter;
 
 public class Login implements IOrm {
   @Getter private String username;
+  @Getter String email;
   @Getter String salt;
   @Getter String hashedPassword;
   private String otp;
+  @Getter boolean OTPEnabled;
   @Getter private PERMISSIONS permissions;
 
   public Login() {}
@@ -35,8 +37,31 @@ public class Login implements IOrm {
     this.hashedPassword = password;
     if (otp == null || otp.equalsIgnoreCase("null")) {
       this.otp = null;
+      OTPEnabled = false;
     } else {
       this.otp = otp;
+      OTPEnabled = true;
+    }
+  }
+
+  public Login(
+      String username,
+      String email,
+      String password,
+      PERMISSIONS permissions,
+      String salt,
+      String otp) {
+    this.username = username.toLowerCase();
+    this.email = email;
+    this.permissions = permissions;
+    this.salt = salt;
+    this.hashedPassword = password;
+    if (otp == null || otp.equalsIgnoreCase("null")) {
+      this.otp = null;
+      OTPEnabled = false;
+    } else {
+      this.otp = otp;
+      OTPEnabled = true;
     }
   }
 
@@ -87,12 +112,14 @@ public class Login implements IOrm {
     GoogleAuthenticator gAuth = new GoogleAuthenticator();
     GoogleAuthenticatorKey secret = gAuth.createCredentials();
     this.otp = secret.getKey();
+    OTPEnabled = true;
     HospitalSystem.updateRow(this);
     return otp;
   }
 
   public String removeOTP() {
     this.otp = null;
+    OTPEnabled = false;
     HospitalSystem.updateRow(this);
     return null;
   }

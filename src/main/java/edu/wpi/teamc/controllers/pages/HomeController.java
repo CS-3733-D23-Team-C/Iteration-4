@@ -1,7 +1,5 @@
 package edu.wpi.teamc.controllers.pages;
 
-import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
-
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
 import edu.wpi.teamc.dao.users.login.Login;
@@ -32,6 +30,8 @@ import org.apache.http.util.EntityUtils;
 
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 public class HomeController {
 
@@ -308,15 +308,14 @@ public class HomeController {
   }
 
   @FXML
-  void resetPassword(ActionEvent event) {
+  public void resetPassword(ActionEvent event) {
     try (CloseableHttpClient client = HttpClients.createDefault()) {
       // define website
-      HttpPost httpPost = new HttpPost(new URI("http://localhost3000/api/resetpassword"));
-
+      HttpPost httpPost = new HttpPost(new URI("http://teamc.blui.co/api/resetpassword"));
+      String username = HOME_username.getText();
+      //      String username = "blui";
       // format and set json
-      String json =
-              String.format(
-                      "{\"username\":\"%s\"}", HOME_username.getText());
+      String json = String.format("{\"username\":\"%s\"}", username);
       StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
       httpPost.setEntity(entity);
 

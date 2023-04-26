@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #ECE9E9;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.SignUpController">
+    <children>
+      <AnchorPane style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0" />
+              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 50;" text="Sign Up To Receive Notifications!" textAlignment="CENTER" wrappingWidth="1057.9533081054688">
+                          <font>
+                              <Font name="Verdana Bold" size="30.0" />
+                          </font>
+                      </Text>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 40;" text="Full Name:" wrappingWidth="350.48974609375">
+                                <font>
+                                    <Font name="Verdana Bold" size="15.0" />
+                                </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                            </Text>
+                        <TextField fx:id="name" prefHeight="47.0" prefWidth="300.0" promptText="Please Enter Full Name" style="-fx-font-family: arial; -fx-font-size: 12;">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="100.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 40;" text="Phone Number:" wrappingWidth="351.0626525878906">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Text>
+                        <TextField fx:id="phoneNumber" prefHeight="50.0" prefWidth="300.0" promptText="Please Enter Phone Number" style="-fx-font-family: arial; -fx-font-size: 12;">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="80.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Button fx:id="submitButton" mnemonicParsing="false" onAction="#getSubmit" prefHeight="40.0" prefWidth="363.0" style="-fx-background-color: white; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 25; -fx-background-radius: 10;" text="SUBMIT" textFill="#02143b">
+                     <font>
+                        <Font name="Verdana Bold" size="10.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <VBox.margin>
+                        <Insets top="100.0" />
+                     </VBox.margin>
+                  </Button>
+                    <Button fx:id="backButton" mnemonicParsing="false" onAction="#getBack" prefHeight="40.0" prefWidth="363.0" style="-fx-background-color: white; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 25; -fx-background-radius: 10;" text="Return to Main Menu" textFill="#02143b">
+                        <font>
+                            <Font name="Verdana Bold" size="10.0" />
+                        </font>
+                        <cursor>
+                            <Cursor fx:constant="HAND" />
+                        </cursor>
+                     <VBox.margin>
+                        <Insets bottom="80.0" top="80.0" />
+                     </VBox.margin>
+                    </Button>
+                  </children>
+                  <padding>
+                      <Insets top="80.0" />
+                  </padding>
+              </VBox>
+         </children>
+      </AnchorPane>
+    </children>
+</AnchorPane>

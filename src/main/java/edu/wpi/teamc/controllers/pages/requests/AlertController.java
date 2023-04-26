@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
+
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.SMSHelper;
 import edu.wpi.teamc.dao.HospitalSystem;
@@ -157,10 +158,6 @@ public class AlertController {
   /** Method run when controller is initialized */
   @FXML
   public void initialize() {
-    if (!CApp.getAdminLoginCheck()) {
-      assignEmployeeAnchor.setMouseTransparent(true);
-      assignEmployeeAnchor.setOpacity(0);
-    }
     setMinuteTextField();
   }
 

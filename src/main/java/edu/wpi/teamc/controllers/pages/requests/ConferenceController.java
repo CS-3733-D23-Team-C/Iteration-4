@@ -96,16 +96,16 @@ public class ConferenceController {
     Navigation.navigate(Screen.CONGRATS_PAGE);
   }
 
-  //  void getImage() {
-  //    serviceMenu.setText(servicechoice1.getText());
-  //    try {
-  //      image.setImage(
+  //    void getImage() {
+  //      serviceMenu.setText(servicechoice1.getText());
+  //      try {
+  //        image.setImage(
   //
-  // Main.class.getResource("views/Images/ConferenceRoom/conference_room_1.png").openStream());
-  //    } catch (IOException e) {
-  //      throw new RuntimeException(e);
+  //   Main.class.getResource("views/Images/ConferenceRoom/conference_room_1.png").openStream());
+  //      } catch (IOException e) {
+  //        throw new RuntimeException(e);
+  //      }
   //    }
-  //  }
 
   @FXML
   void getClear(ActionEvent event) {

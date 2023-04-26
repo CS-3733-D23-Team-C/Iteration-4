@@ -36,7 +36,7 @@
                               </MFXTextField>
                            </children>
                         </AnchorPane>
-                        <VBox alignment="TOP_CENTER" layoutX="1121.0" layoutY="440.0" prefHeight="188.0" prefWidth="122.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="440.0">
+                        <VBox alignment="TOP_CENTER" layoutX="1121.0" layoutY="474.0" prefHeight="188.0" prefWidth="122.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="474.0">
                            <children>
                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-weight: Bold; -fx-underline: True; -fx-font-size: 13;" text="Select Floor" textAlignment="CENTER" />
                               <AnchorPane prefHeight="30.0" prefWidth="20.0">
@@ -69,7 +69,7 @@
                               <Insets bottom="20.0" top="20.0" />
                            </padding>
                         </VBox>
-                        <HBox layoutX="996.0" layoutY="363.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="363.0">
+                        <HBox layoutX="996.0" layoutY="380.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="380.0">
                            <children>
                               <MFXButton fx:id="prevFloor" onAction="#getPrevFloor" prefHeight="30.0" prefWidth="127.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Previous Floor" textFill="#02143b" />
                               <MFXButton fx:id="nextFloor" onAction="#getNextFloor" prefHeight="30.0" prefWidth="127.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-background-size: 12;" text="Next Floor" textFill="#02143b" />

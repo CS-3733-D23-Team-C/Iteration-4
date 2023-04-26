@@ -79,8 +79,16 @@ public class AdminHomeController {
 
     java.util.List<Alert> alertList = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
     for (Alert alert : alertList) {
-      addNotification(
-          alert.getTitle() + " || " + alert.getType() + " || " + alert.getDescription());
+      if (alert.getDescription() == null) {
+        addNotification(alert.getTitle() + " \nType: " + alert.getType());
+      } else {
+        addNotification(
+            alert.getTitle()
+                + " \nType: "
+                + alert.getType()
+                + " \nDescription: "
+                + alert.getDescription());
+      }
     }
     if (!CApp.getAdminLoginCheck()) {
       AdminHome_Title.setText("Staff Home Page");

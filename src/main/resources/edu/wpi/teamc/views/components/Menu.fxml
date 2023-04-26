@@ -3,6 +3,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -640,9 +641,9 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="warningPopOut1" layoutX="-180.0" layoutY="585.0" prefHeight="97.0" prefWidth="250.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="-180.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="warningPopOut1" layoutX="-180.0" layoutY="585.0" prefHeight="179.0" prefWidth="250.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="-180.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Pane fx:id="warningPopOut" prefHeight="140.0" prefWidth="250.0" styleClass="menuSidebar" stylesheets="@Menu.css" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Pane fx:id="warningPopOut" prefHeight="163.0" prefWidth="250.0" styleClass="menuSidebar" stylesheets="@Menu.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <VBox alignment="CENTER" layoutX="10.0" layoutY="15.0" prefHeight="120.0" prefWidth="220.0" spacing="5.0">
                      <children>
@@ -656,21 +657,21 @@
                               <Insets />
                            </VBox.margin>
                         </Line>
-                        <Text fx:id="alert1" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
+                        <TextField fx:id="alert1" alignment="CENTER" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-font-family: arial; -fx-text-fill: white;">
                            <font>
                               <Font size="18.0" />
                            </font>
-                        </Text>
-                        <Text fx:id="alert2" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
+                        </TextField>
+                        <TextField fx:id="alert2" alignment="CENTER" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-text-fill: white; -fx-font-family: Arial;">
                            <font>
                               <Font size="18.0" />
                            </font>
-                        </Text>
-                        <Text fx:id="alert3" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
+                        </TextField>
+                        <TextField fx:id="alert3" alignment="CENTER" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-text-fill: white; -fx-font-family: Arial;">
                            <font>
                               <Font size="18.0" />
                            </font>
-                        </Text>
+                        </TextField>
                      </children>
                   </VBox>
                </children>

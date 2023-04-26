@@ -3,17 +3,19 @@ package edu.wpi.teamc.controllers.pages.admin;
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 import edu.wpi.teamc.CApp;
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.displays.Alert;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import java.awt.*;
+import java.io.IOException;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.SVGPath;
 import javafx.scene.text.*;
 import javafx.scene.text.Font;
 import javafx.scene.web.HTMLEditor;
@@ -54,7 +56,7 @@ public class AdminHomeController {
     return lines;
   }
 
-  public void addNotification(String notification, String type) {
+  public void addNotification(String notification, String type) throws IOException {
 
     HBox hBox = new HBox();
     Text text = new Text(notification);
@@ -70,15 +72,15 @@ public class AdminHomeController {
     text.setFont(Font.font("Arial", FontWeight.BOLD, 25));
     //    text.setMinWidth(notificationBox.getWidth());
     text.setText(notification);
-    SVGPath svg = new SVGPath();
-    svg.setContent(chooseSVG(type));
-    hBox.getChildren().add(svg);
+    Image img = choosePNG(type);
+    javafx.scene.image.ImageView imgView = new javafx.scene.image.ImageView(img);
+    hBox.getChildren().add(imgView);
     hBox.getChildren().add(text);
     notificationVBox.getChildren().add(hBox);
   }
 
   @FXML
-  public void initialize() {
+  public void initialize() throws IOException {
     setLanguage(language_choice);
     notificationVBox.setAlignment(Pos.TOP_CENTER);
     notificationVBox.setSpacing(20);
@@ -87,15 +89,10 @@ public class AdminHomeController {
     java.util.List<Alert> alertList = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
     for (Alert alert : alertList) {
       if (alert.getDescription() == null) {
-        addNotification(alert.getTitle() + " \nType: " + alert.getType(), alert.getType());
+        addNotification(alert.getTitle(), alert.getType());
       } else {
         addNotification(
-            alert.getTitle()
-                + " \nType: "
-                + alert.getType()
-                + " \nDescription: "
-                + alert.getDescription(),
-            alert.getType());
+            alert.getTitle() + " \nDescription: " + alert.getDescription(), alert.getType());
       }
     }
     if (!CApp.getAdminLoginCheck()) {
@@ -105,30 +102,41 @@ public class AdminHomeController {
 
   // SVG Function for Notification//
   @FXML
-  public String choosePNG(String type) {
-    String holder;
+  public javafx.scene.image.Image choosePNG(String type) throws IOException {
+    Image holder;
     switch (type) {
       case "Weather":
         holder =
-            "";
+            (new javafx.scene.image.Image(
+                Main.class.getResource("views/images/AlertIcons/img_5.png").openStream()));
         break;
       case "Construction":
-        holder = "";
+        holder =
+            (new javafx.scene.image.Image(
+                Main.class.getResource("views/images/AlertIcons/img_2.png").openStream()));
         break;
       case "Car Crash":
-        holder = "";
+        holder =
+            (new javafx.scene.image.Image(
+                Main.class.getResource("views/images/AlertIcons/img_1.png").openStream()));
         break;
       case "Closures":
-        holder = "";
+        holder =
+            (new javafx.scene.image.Image(
+                Main.class.getResource("views/images/AlertIcons/img.png").openStream()));
         break;
       case "Emergency":
-        holder = "";
+        holder =
+            (new javafx.scene.image.Image(
+                Main.class.getResource("views/images/AlertIcons/img_4.png").openStream()));
         break;
       case "Other":
-        holder = "";
+        holder =
+            (new javafx.scene.image.Image(
+                Main.class.getResource("views/images/AlertIcons/img_3.png").openStream()));
         break;
       default:
-        holder = "";
+        holder = (new javafx.scene.image.Image(Main.class.getResource("").openStream()));
     }
     return holder;
   }

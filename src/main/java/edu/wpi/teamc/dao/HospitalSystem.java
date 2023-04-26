@@ -2,6 +2,8 @@ package edu.wpi.teamc.dao;
 
 import edu.wpi.teamc.dao.displays.Alert;
 import edu.wpi.teamc.dao.displays.AlertDao;
+import edu.wpi.teamc.dao.displays.signage.SignEntry;
+import edu.wpi.teamc.dao.displays.signage.SignEntryDao;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.dao.users.AdminUser;
@@ -20,6 +22,7 @@ public class HospitalSystem {
   private static EdgeDao edgeDao = new EdgeDao();
   private static LocationNameDao locationNameDao = new LocationNameDao();
   private static MoveDao moveDao = new MoveDao();
+  private static NodeStatusDao nodeStatusDao = new NodeStatusDao();
 
   // Service Request DAOs
   private static ConferenceRoomRequestDAO conferenceRoomRequestDAO = new ConferenceRoomRequestDAO();
@@ -36,6 +39,7 @@ public class HospitalSystem {
 
   // Display DAOs
   private static AlertDao alertDao = new AlertDao();
+  private static SignEntryDao signDao = new SignEntryDao();
 
   public static List<? extends IOrm> fetchAllObjects(IOrm request) {
     if (request instanceof Node) {
@@ -46,13 +50,13 @@ public class HospitalSystem {
       return locationNameDao.fetchAllObjects();
     } else if (request instanceof Move) {
       return moveDao.fetchAllObjects();
+    } else if (request instanceof NodeStatus) {
+      return nodeStatusDao.fetchAllObjects();
     } else if (request instanceof ConferenceRoomRequest) {
       return conferenceRoomRequestDAO.fetchAllObjects();
-    }
-    //    else if (request instanceof EmployeeUser) {
-    //      return employeeDao.fetchAllObjects();
-    //    }
-    else if (request instanceof FlowerDeliveryRequest) {
+    } else if (request instanceof EmployeeUser) {
+      return employeeDao.fetchAllObjects();
+    } else if (request instanceof FlowerDeliveryRequest) {
       return flowerDeliveryRequestDAO.fetchAllObjects();
     } else if (request instanceof FurnitureDeliveryRequest) {
       return furnitureDeliveryRequestDAO.fetchAllObjects();
@@ -68,6 +72,8 @@ public class HospitalSystem {
       return loginDao.fetchAllObjects();
     } else if (request instanceof Alert) {
       return alertDao.fetchAllObjects();
+    } else if (request instanceof SignEntry) {
+      return signDao.fetchAllObjects();
     } else {
       return null;
     }
@@ -82,6 +88,8 @@ public class HospitalSystem {
       return locationNameDao.addRow((LocationName) request);
     } else if (request instanceof Move) {
       return moveDao.addRow((Move) request);
+    } else if (request instanceof NodeStatus) {
+      return nodeStatusDao.addRow((NodeStatus) request);
     } else if (request instanceof ConferenceRoomRequest) {
       return conferenceRoomRequestDAO.addRow((ConferenceRoomRequest) request);
     } else if (request instanceof EmployeeUser) {
@@ -102,6 +110,8 @@ public class HospitalSystem {
       return loginDao.addRow((Login) request);
     } else if (request instanceof Alert) {
       return alertDao.addRow((Alert) request);
+    } else if (request instanceof SignEntry) {
+      return signDao.addRow((SignEntry) request);
     } else {
       return null;
     }
@@ -116,6 +126,8 @@ public class HospitalSystem {
       return locationNameDao.deleteRow((LocationName) request);
     } else if (request instanceof Move) {
       return moveDao.deleteRow((Move) request);
+    } else if (request instanceof NodeStatus) {
+      return nodeStatusDao.deleteRow((NodeStatus) request);
     } else if (request instanceof ConferenceRoomRequest) {
       return conferenceRoomRequestDAO.deleteRow((ConferenceRoomRequest) request);
     } else if (request instanceof EmployeeUser) {
@@ -136,6 +148,8 @@ public class HospitalSystem {
       return loginDao.deleteRow((Login) request);
     } else if (request instanceof Alert) {
       return alertDao.deleteRow((Alert) request);
+    } else if (request instanceof SignEntry) {
+      return signDao.deleteRow((SignEntry) request);
     } else {
       return null;
     }
@@ -150,6 +164,8 @@ public class HospitalSystem {
       return locationNameDao.updateRow((LocationName) request, (LocationName) request);
     } else if (request instanceof Move) {
       return moveDao.updateRow((Move) request, (Move) request);
+    } else if (request instanceof NodeStatus) {
+      return nodeStatusDao.updateRow((NodeStatus) request, (NodeStatus) request);
     } else if (request instanceof ConferenceRoomRequest) {
       return conferenceRoomRequestDAO.updateRow(
           (ConferenceRoomRequest) request, (ConferenceRoomRequest) request);
@@ -174,6 +190,8 @@ public class HospitalSystem {
       return loginDao.updateRow((Login) request, (Login) request);
     } else if (request instanceof Alert) {
       return alertDao.updateRow((Alert) request, (Alert) request);
+    } else if (request instanceof SignEntry) {
+      return signDao.updateRow((SignEntry) request, (SignEntry) request);
     } else {
       return null;
     }

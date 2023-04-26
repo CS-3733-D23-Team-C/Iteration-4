@@ -1,0 +1,56 @@
+.menuSidebar {
+    -fx-background-color: rgba(255, 255, 255, 1);
+    -fx-border-color: #02143B;
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-style: none;
+}
+
+.menuButton {
+
+    -fx-background-color: #02143B;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 54px;
+}
+
+.menuButton:hover {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #02143B;
+    -fx-border-color: #02143B;
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-radius: 54px;
+    -fx-border-style: none;
+}
+
+.menuButtonTrigger {
+    -fx-background-color: #FFFFFF;
+}
+
+.helpButton {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #02143B;
+    -fx-background-radius: 1px;
+    -fx-border-color: #02143B;
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-radius: 1px;
+    -fx-border-style: none;
+}
+.helpButton:hover {
+    -fx-background-color: #02143B;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-radius: 2px;
+    -fx-border-style: none;
+}
+.menuBackground {
+    -fx-background-color: #2BBF39;
+}
+.menuIcon {
+    -fx-background-color: #000000;
+}
+.menuLine {
+    -fx-background-color: #000000;
+}
+.hiddenButton {
+    -fx-background-color: #2BBF39;
+}

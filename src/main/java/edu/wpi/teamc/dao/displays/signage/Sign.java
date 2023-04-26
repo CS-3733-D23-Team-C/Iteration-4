@@ -1,16 +1,38 @@
 package edu.wpi.teamc.dao.displays.signage;
 
-import edu.wpi.teamc.dao.IOrm;
+import java.sql.Date;
+import java.util.HashMap;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-public class Sign implements IOrm {
-  int id;
-  String name;
+@Setter
+public class Sign {
 
-  public Sign(String name) {
-    this.name = name;
+  String macadd;
+  String devicename;
+  private HashMap<Date, SignVersion> signVersions;
+
+  public Sign(HashMap<Date, SignVersion> signVersions) {
+    this.signVersions = signVersions;
   }
 
-  public Sign() {}
+  public Sign() {
+    signVersions = new HashMap<>();
+  }
+
+  void addSignEntry(SignEntry signEntry) {
+    if (signVersions.containsKey(signEntry.getDate())) {
+      signVersions.get(signEntry.getDate()).addSignEntry(signEntry);
+    } else {
+      SignVersion signVersion = new SignVersion();
+      signVersion.setDate(signEntry.getDate());
+      signVersion.addSignEntry(signEntry);
+      signVersions.put(signEntry.getDate(), signVersion);
+    }
+  }
+
+  public void removeSignEntryVersion(SignEntry signEntry) {
+    signVersions.remove(signEntry.getDate());
+  }
 }

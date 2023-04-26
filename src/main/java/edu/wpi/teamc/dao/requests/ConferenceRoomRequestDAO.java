@@ -3,6 +3,10 @@ package edu.wpi.teamc.dao.requests;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.users.PatientUser;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -89,22 +93,26 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
           "UPDATE "
               + table
               + " SET "
-              + "Requester = ?, "
-              + "roomName = ?, "
-              + "additionalNotes = ?, "
-              + "startTime = ?, "
-              + "endTime = ?, "
+              + "requestid = ?, "
+              + "requester = ?, "
+              + "roomname = ?, "
+              + "status = ?, "
+              + "additionalnotes = ?, "
+              + "starttime = ?, "
+              + "endtime = ?, "
               + "assignedto = ? "
-              + "WHERE requestID = ?";
+              + "WHERE requestid = ?";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
-      ps.setString(1, repl.getRequester().toString());
-      ps.setString(2, repl.getRoomName());
-      ps.setString(3, repl.getAdditionalNotes());
-      ps.setString(4, repl.getStartTime());
-      ps.setString(5, repl.getEndTime());
-      ps.setString(6, repl.getAssignedto());
-      ps.setInt(7, orm.getRequestID());
+      ps.setInt(1, repl.getRequestID());
+      ps.setString(2, repl.getRequester().toString());
+      ps.setString(3, repl.getRoomName());
+      ps.setString(4, repl.getStatus().toString());
+      ps.setString(5, repl.getAdditionalNotes());
+      ps.setString(6, repl.getStartTime());
+      ps.setString(7, repl.getEndTime());
+      ps.setString(8, repl.getAssignedto());
+      ps.setInt(9, orm.getRequestID());
 
       ps.execute();
     } catch (Exception e) {
@@ -121,7 +129,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
       // table names
       String table = "\"ServiceRequests\".\"conferenceRoomRequest\"";
       // queries
-      String query = "DELETE FROM " + table + " WHERE requestID = " + orm.getRequestID();
+      String query = "DELETE FROM " + table + " WHERE requestid = " + orm.getRequestID();
 
       stmtNode.executeUpdate(query);
     } catch (Exception e) {
@@ -140,7 +148,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
       // Table Name
       String table = "\"ServiceRequests\".\"conferenceRoomRequest\"";
       // Query
-      String query = "SELECT * FROM " + table + " WHERE requestID = " + key;
+      String query = "SELECT * FROM " + table + " WHERE requestid = " + key;
 
       ResultSet rs = stmt.executeQuery(query);
 
@@ -169,5 +177,43 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
       e.printStackTrace();
     }
     return request;
+  }
+
+  public boolean exportCSV(String CSVfilepath) throws IOException {
+    createFile(CSVfilepath);
+    BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
+    // Write the header row to the CSV file
+    writer.write(
+        "requestid,requester,roomname,status,additionalnotes,starttime,endtime,assignedto\n");
+    for (ConferenceRoomRequest conferenceRoomRequest : fetchAllObjects()) {
+      writer.write(
+          conferenceRoomRequest.getRequestID()
+              + ","
+              + conferenceRoomRequest.getRequester()
+              + ","
+              + conferenceRoomRequest.getRoomName()
+              + ","
+              + conferenceRoomRequest.getStatus()
+              + ","
+              + conferenceRoomRequest.getAdditionalNotes()
+              + ","
+              + conferenceRoomRequest.getStartTime()
+              + ","
+              + conferenceRoomRequest.getEndTime()
+              + ","
+              + conferenceRoomRequest.getAssignedto()
+              + "\n");
+    }
+    writer.close();
+    return true;
+  }
+
+  static void createFile(String fileName) throws IOException {
+    File file = new File(fileName);
+    if (file.createNewFile()) {
+      System.out.println("File created: " + file.getName());
+    } else {
+      System.out.println("File already exists.");
+    }
   }
 }

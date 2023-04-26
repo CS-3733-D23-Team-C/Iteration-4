@@ -3,6 +3,7 @@ package edu.wpi.teamc.navigation;
 public enum Screen {
   // -------NON USING PAGES-------//
   ROOT("views/Root.fxml"),
+  SIGN_UP("views/pages/SignUp.fxml"),
 
   // -------MAP & SIGNAGE-------//
   SIGNAGE("views/pages/displays/Signage.fxml"),
@@ -41,6 +42,8 @@ public enum Screen {
   GUEST_HELP("views/pages/guest/GuestHelp.fxml"),
 
   EXIT_PAGE("views/pages/ExitPage.fxml"),
+
+  ALERT_REQUEST("views/pages/requests/Alert.fxml"),
 
   SIGNUP_PAGE("views/pages/SignUp.fxml"),
 

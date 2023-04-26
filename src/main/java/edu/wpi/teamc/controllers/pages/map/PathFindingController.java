@@ -29,6 +29,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import net.kurobako.gesturefx.GesturePane;
@@ -612,6 +613,8 @@ public class PathFindingController {
     TextArea textField = new TextArea();
     textField.setMinHeight(300);
     textField.setMinWidth(150);
+    textField.setEditable(false);
+    textField.setFont(new Font(18));
     textField.setText(fullPath);
 
     // set object locations
@@ -627,7 +630,7 @@ public class PathFindingController {
     AnchorPane aPane = new AnchorPane();
     aPane.getChildren().addAll(vbox);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 600, 390);
+    Scene scene = new Scene(borderPane, 800, 390);
     scene
         .getStylesheets()
         .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());

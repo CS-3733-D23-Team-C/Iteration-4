@@ -2,12 +2,16 @@ package edu.wpi.teamc.controllers.pages.requests;
 
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.IOrm;
+import edu.wpi.teamc.dao.ImportCSV;
 import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.dao.users.IUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -15,7 +19,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import lombok.SneakyThrows;
 import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
@@ -61,6 +70,12 @@ public class RequestHistoryController extends AbsServiceRequest {
   @FXML Button updateButton;
   @FXML Button deleteButton;
   @FXML SearchableComboBox filterButton;
+
+  @FXML MFXButton exportButton;
+  @FXML MFXButton importButton;
+  private Desktop desktop = Desktop.getDesktop();
+  private String filePath;
+
   @FXML SearchableComboBox filterEmployeeButton;
 
   int incrTest = 0;
@@ -147,6 +162,19 @@ public class RequestHistoryController extends AbsServiceRequest {
             incrTest = -1;
           }
           incrTest++;
+        });
+
+    importButton.setOnMouseClicked(
+        event -> {
+          getImportMenu();
+        });
+    exportButton.setOnMouseClicked(
+        event -> {
+          try {
+            getExportMenu();
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
         });
 
     filterEmployeeButton.getItems().addAll(FXCollections.observableArrayList(employeeList));
@@ -453,11 +481,68 @@ public class RequestHistoryController extends AbsServiceRequest {
     officeSupply.setStyle(buttonColor);
   }
 
-  @FXML
-  private void getExportMenu() {}
+  //  @FXML
+  //  private void getExportMenu() {}
   // TODO
   @FXML
+  void getExportMenu() throws IOException {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Save");
+    fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.*"));
+    fileChooser.setInitialFileName("Export_Request");
+    File file = fileChooser.showSaveDialog(new Stage());
+    if (file != null) {
+      String filePath = file.getAbsolutePath();
+      if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
+        filePath += ".csv"; // append ".csv" to the file path
+      }
+      if (selectedRequest instanceof ConferenceRoomRequest) {
+        ConferenceRoomRequestDAO conferenceRoomRequestDAO = new ConferenceRoomRequestDAO();
+        conferenceRoomRequestDAO.exportCSV(filePath);
+      } else if (selectedRequest instanceof FlowerDeliveryRequest) {
+        FlowerDeliveryRequestDAO flowerDeliveryRequestDAO = new FlowerDeliveryRequestDAO();
+        flowerDeliveryRequestDAO.exportCSV(filePath);
+      } else if (selectedRequest instanceof FurnitureDeliveryRequest) {
+        FurnitureDeliveryRequestDAO furnitureDeliveryRequestDAO = new FurnitureDeliveryRequestDAO();
+        furnitureDeliveryRequestDAO.exportCSV(filePath);
+      } else if (selectedRequest instanceof MealRequest) {
+        MealRequestDAO mealRequestDAO = new MealRequestDAO();
+        mealRequestDAO.exportCSV(filePath);
+      } else if (selectedRequest instanceof OfficeSuppliesRequest) {
+        OfficeSuppliesRequestDAO officeSuppliesRequestDAO = new OfficeSuppliesRequestDAO();
+        officeSuppliesRequestDAO.exportCSV(filePath);
+      }
+    }
+  }
+
+  @SneakyThrows
+  @FXML
   private void getImportMenu() {
+    FileChooser fileChooser = new FileChooser();
+    FileChooser.ExtensionFilter extFilter =
+        new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+    fileChooser.getExtensionFilters().add(extFilter);
+    File file = fileChooser.showOpenDialog(new Stage());
+    desktop.open(file);
+    filePath = file.getAbsolutePath();
+    if (selectedRequest instanceof ConferenceRoomRequest) {
+      //      ImportCSV.nukeConferenceRequestDatabase();
+      ImportCSV.importConferenceRequestCSV(filePath);
+      System.out.println("IMPORT_WORKS");
+      this.getConference();
+    } else if (selectedRequest instanceof FlowerDeliveryRequest) {
+      ImportCSV.importflowerRequestCSV(filePath);
+      this.getFlower();
+    } else if (selectedRequest instanceof FurnitureDeliveryRequest) {
+      ImportCSV.importfurnitureDeliveryRequest(filePath);
+      this.getFurniture();
+    } else if (selectedRequest instanceof MealRequest) {
+      ImportCSV.importMealRequest(filePath);
+      this.getMeal();
+    } else if (selectedRequest instanceof OfficeSuppliesRequest) {
+      ImportCSV.importOfficeSupplyRequest(filePath);
+      this.getOfficeSupply();
+    }
     // TODO
   }
 

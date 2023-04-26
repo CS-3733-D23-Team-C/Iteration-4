@@ -311,7 +311,7 @@ public class HomeController {
   public void resetPassword(ActionEvent event) {
     try (CloseableHttpClient client = HttpClients.createDefault()) {
       // define website
-      HttpPost httpPost = new HttpPost(new URI("http://teamc.blui.co/api/resetpassword"));
+      HttpPost httpPost = new HttpPost(new URI("https://teamc.blui.co/api/resetpassword"));
       String username = HOME_username.getText();
       //      String username = "blui";
       // format and set json

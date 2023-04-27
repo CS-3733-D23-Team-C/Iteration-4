@@ -2246,6 +2246,10 @@ public class EditMapController {
           checkAndX_HBox1.setVisible(false);
           checkAndX_HBox.setMouseTransparent(true);
           checkAndX_HBox1.setMouseTransparent(true);
+          //          mapMode = HandleMapModes.SELECT;
+          ////          alignMode = false;
+          //          lockMap = false;
+          //          nodeClicked = false;
         });
   }
 

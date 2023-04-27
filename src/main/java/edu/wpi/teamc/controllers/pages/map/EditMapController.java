@@ -418,7 +418,8 @@ public class EditMapController {
           if (Objects.equals(mapMode.getMapMode(), "Select")) {
             // do Nothing
           }
-          if (Objects.equals(mapMode.getMapMode(), "Align")) {
+          if (Objects.equals(mapMode.getMapMode(), "Align") && !lockMap) {
+            System.out.println("why am i here");
             lockMap = true;
             alignNodes();
           }
@@ -789,19 +790,19 @@ public class EditMapController {
         resetAndSetModes(modeButton);
         edgeMadeText.setText("");
         edgeMadeText.setVisible(false);
-        //        System.out.println("Removing");
+        System.out.println("Removing");
       } else if (Objects.equals(modeButton.getId(), "Move")) {
         mapMode = HandleMapModes.MOVE;
         resetAndSetModes(modeButton);
         edgeMadeText.setText("");
         edgeMadeText.setVisible(false);
-        //        System.out.println("Moving");
+        System.out.println("Moving");
       } else if (Objects.equals(modeButton.getId(), "Edges")) {
         mapMode = HandleMapModes.MAKE_EDGES;
         resetAndSetModes(modeButton);
         edgeMadeText.setText("");
         edgeMadeText.setVisible(false);
-        //        System.out.println("Making Edges");
+        System.out.println("Making Edges");
       } else if (Objects.equals(modeButton.getId(), "Align")) {
         mapMode = HandleMapModes.ALIGN;
         resetAndSetModes(modeButton);
@@ -2155,6 +2156,7 @@ public class EditMapController {
     //    checkAndX_HBox1.setMouseTransparent(false);
     nodeClicked = false;
     alignMode = true;
+    initGroupOnMouseClicked = group.getOnMouseClicked();
     group.setOnMouseClicked(
         e -> {
           if (nodeClicked) {
@@ -2246,6 +2248,11 @@ public class EditMapController {
           checkAndX_HBox1.setVisible(false);
           checkAndX_HBox.setMouseTransparent(true);
           checkAndX_HBox1.setMouseTransparent(true);
+          //          mapMode = HandleMapModes.SELECT;
+          ////          alignMode = false;
+          lockMap = false;
+          group.setOnMouseClicked(initGroupOnMouseClicked);
+          //          nodeClicked = false;
         });
   }
 
@@ -2283,7 +2290,9 @@ public class EditMapController {
     sortEdges();
     placeEdges(floor);
     placeNodes(floor);
-    alignNodes();
+    group.setOnMouseClicked(initGroupOnMouseClicked);
+    lockMap = false;
+    //    alignNodes();
   }
 
   public void alignHorizontally(int y) {
@@ -2304,7 +2313,9 @@ public class EditMapController {
     sortEdges();
     placeEdges(floor);
     placeNodes(floor);
-    alignNodes();
+    group.setOnMouseClicked(initGroupOnMouseClicked);
+    lockMap = false;
+    //    alignNodes();
   }
 
   public void modifyByDrag() { // make this a pop up window instead of a whole new scene?

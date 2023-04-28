@@ -58,6 +58,8 @@ public class CApp extends Application {
           }
         }));
     startPause.play();
+
+
   }
 
   public static void timerPopUp() throws InterruptedException {
@@ -70,21 +72,44 @@ public class CApp extends Application {
     Text building = new Text("");
     int seconds = 60;
 
-    //    for (int i = 60; i >= 0; i--) {
-    //      building.setText(i + " seconds");
-    //      PauseTransition pause = new PauseTransition(Duration.seconds(60));
-    //      pause.setDuration(Duration.seconds(60));
-    //      pause.setDelay(Duration.seconds(60));
-    //      pause.setDelay(Duration.valueOf("60s"));
-    //      pause.play();
-    //      System.out.print("playing");
-    //    }
-    //    PauseTransition pause = new PauseTransition(Duration.seconds(1));
-    //    pause.setOnFinished(
-    //        (event -> {
-    //          Navigation.navigate(Screen.SCREENSAVER);
-    //          Navigation.setMenuType(Navigation.MenuType.DISABLED);
-    //        }));
+    int[] a = new int[] {60};
+    PauseTransition transition = new PauseTransition(Duration.seconds(1));
+    transition.setOnFinished(
+            (event -> {
+              building.setText(a[0] + " seconds");
+              a[0]--;
+            }));
+    transition.setCycleCount(60);
+    transition.setAutoReverse(true);
+
+    PauseTransition pause = new PauseTransition(Duration.seconds(1));
+    pause.setOnFinished(
+            (event -> {
+              Navigation.navigate(Screen.SCREENSAVER);
+              Navigation.setMenuType(Navigation.MenuType.DISABLED);
+            }));
+
+    /*for (int i = 60; i >= 0; i--) {
+      building.setText(i + " seconds");
+      PauseTransition pause = new PauseTransition(Duration.seconds(60));
+      pause.setDuration(Duration.seconds(60));
+      pause.setDelay(Duration.seconds(60));
+      pause.setDelay(Duration.valueOf("60s"));
+      pause.play();
+      System.out.print("playing");
+    } */
+
+    /*for(int i = 60; i >=0; i--) {
+        building.setText(i + " seconds");
+        Thread.sleep(1000);
+    }
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        pause.setOnFinished(
+            (event -> {
+              Navigation.navigate(Screen.SCREENSAVER);
+              Navigation.setMenuType(Navigation.MenuType.DISABLED);
+            })); */
     MFXButton addButton = new MFXButton("Continue");
     vBox.getChildren().addAll(headerText, building, addButton);
 
@@ -125,7 +150,7 @@ public class CApp extends Application {
     long currTime = System.currentTimeMillis();
     long tempTime = 0;
 
-    while (System.currentTimeMillis() - currTime < 20000) {
+    /*while (System.currentTimeMillis() - currTime < 20000) {
       //      System.out.println("waiting");
       if (tempTime == 0) {
         tempTime = currTime;
@@ -137,7 +162,9 @@ public class CApp extends Application {
         tempTime = 0;
         System.out.println("one second");
       }
-    }
+    } */
+
+
     //    for (int i = 60; i >= 0; i--) {
     //      building.setText(i + " seconds");
     //      PauseTransition pause = new PauseTransition(Duration.millis(60000));
@@ -149,12 +176,7 @@ public class CApp extends Application {
     //      pause.play();
     //      System.out.print("playing");
     //    }
-    PauseTransition pause = new PauseTransition(Duration.seconds(1));
-    pause.setOnFinished(
-        (event -> {
-          Navigation.navigate(Screen.SCREENSAVER);
-          Navigation.setMenuType(Navigation.MenuType.DISABLED);
-        }));
+
   }
 
   @Override

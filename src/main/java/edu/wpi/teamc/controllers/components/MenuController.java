@@ -706,7 +706,7 @@ public class MenuController {
         event -> {
           // Toggled sets boolean wpiDB false for AWS
           CApp.wpiDB = !dbToggle.selectedProperty().get();
-          System.out.println("DB: " + CApp.wpiDB);
+          //System.out.println("DB: " + CApp.wpiDB);
         });
     // Add a flag to track if the mouse is hovering over the aboutPopOut node
 

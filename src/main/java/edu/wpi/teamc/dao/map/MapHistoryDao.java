@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.map;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import java.sql.*;
@@ -10,7 +11,7 @@ public class MapHistoryDao implements IDao<MapHistory, Integer> {
 
   public List<MapHistory> fetchAllObjects() {
     List<MapHistory> returnList = new ArrayList<>();
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmtLocationName = db.getConnection().createStatement();
       // table names
@@ -41,7 +42,7 @@ public class MapHistoryDao implements IDao<MapHistory, Integer> {
   }
 
   public MapHistory addRow(MapHistory type) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     MapHistory returnMapHistory = null;
     try {
       // table names
@@ -87,7 +88,7 @@ public class MapHistoryDao implements IDao<MapHistory, Integer> {
 
   @Override
   public MapHistory fetchObject(Integer key) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     MapHistory returnMapHistory = null;
     try {
       // table names

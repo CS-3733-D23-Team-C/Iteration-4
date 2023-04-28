@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.users;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import java.io.BufferedWriter;
@@ -17,7 +18,7 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
 
   public List<EmployeeUser> fetchAllObjects() {
     List<EmployeeUser> returnList = new ArrayList<>();
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmt = db.getConnection().createStatement();
       // Table Name
@@ -44,7 +45,7 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
   }
 
   public EmployeeUser addRow(EmployeeUser orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       String query =
           "INSERT INTO \"users\".\"employee\" (id, username, name, department, position) VALUES (?,?,?,?,?)";
@@ -71,7 +72,7 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
   }
 
   public EmployeeUser updateRow(EmployeeUser orm, EmployeeUser repl) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String table = "\"users\".\"employee\"";
@@ -102,7 +103,7 @@ public class EmployeeUserDao implements IDao<EmployeeUser, Integer> {
   }
 
   public EmployeeUser deleteRow(EmployeeUser orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmtNode = db.getConnection().createStatement();
       // table names

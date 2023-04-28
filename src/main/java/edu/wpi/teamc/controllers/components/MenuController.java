@@ -25,6 +25,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import org.controlsfx.control.ToggleSwitch;
 
 public class MenuController {
 
@@ -285,6 +286,7 @@ public class MenuController {
   @FXML ImageView cancelIcon;
   @FXML Line menuLine1;
   @FXML Line menuLine2;
+  @FXML ToggleSwitch dbToggle;
 
   //  Login login = new Login();
   //  @FXML MFXButton moveButton;
@@ -700,18 +702,24 @@ public class MenuController {
               }
             });
 
+    dbToggle.setOnMouseClicked(
+        event -> {
+          // Toggled sets boolean wpiDB false for AWS
+          CApp.wpiDB = !dbToggle.selectedProperty().get();
+          System.out.println("DB: " + CApp.wpiDB);
+        });
     // Add a flag to track if the mouse is hovering over the aboutPopOut node
 
     // Set up the event filter for the Admin_menu_about_button
-    //    meetTheTeam.setOnMouseClicked(
-    //        event -> {
-    //          aboutPopOut1.setVisible(true);
-    //          aboutPopOut3.setVisible(true);
-    //          aboutPopOutTransition1.setDuration(Duration.millis(300));
-    //          aboutPopOutTransition1.setNode(aboutPopOut3);
-    //          aboutPopOutTransition1.setToX(585);
-    //          aboutPopOutTransition1.play();
-    //        });
+    //        meetTheTeam.setOnMouseClicked(
+    //            event -> {
+    //              aboutPopOut1.setVisible(true);
+    //              aboutPopOut3.setVisible(true);
+    //              aboutPopOutTransition1.setDuration(Duration.millis(300));
+    //              aboutPopOutTransition1.setNode(aboutPopOut3);
+    //              aboutPopOutTransition1.setToX(585);
+    //              aboutPopOutTransition1.play();
+    //            });
     //
     //    aboutPopOut1
     //        .hoverProperty()

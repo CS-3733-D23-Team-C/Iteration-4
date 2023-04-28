@@ -5,7 +5,15 @@ import java.sql.*;
 public class DBConnection {
   private Connection connection;
 
-  public DBConnection() {
+  public DBConnection(Boolean isWPI) {
+    if (isWPI) {
+      getWPIConnection();
+    } else {
+      getAWSConnection();
+    }
+  }
+
+  public void getWPIConnection() {
     try {
       // Load the PostgreSQL JDBC driver
       Class.forName("org.postgresql.Driver");

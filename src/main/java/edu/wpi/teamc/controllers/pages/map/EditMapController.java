@@ -232,11 +232,18 @@ public class EditMapController {
   @FXML MFXButton exportButton;
   //  EventHandler<MouseEvent> initGroupOnMouseClicked = new EventHandler();
   EventHandler<? super MouseEvent> initGroupOnMouseClicked;
+  @FXML MFXButton Align;
+
+
   //  Boolean
 
   // Notes: Fix bug that you can click on an edge and exit and its still highlighted
   // click bug that you can click on a node during move and then click anywhere on the map to bring
   // up the move menu
+
+  /* Bugs to fix
+  When go into remove mode, if click on edge, only edge menu. If click on node, get both edge and node menu. Should only get node menu.
+   */
 
   /** Method run when controller is initialized */
   public void initialize() {
@@ -321,6 +328,18 @@ public class EditMapController {
     FL1.setStyle(
         "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12; -fx-background-color: #EAB334");
     floorResetterHelper.setButton(FL1);
+
+    // Set tooltips
+    Tooltip alignTip = new Tooltip("Align Mode: Click on multiple nodes. Then, press the green check-mark to determine if you want to align nodes vertically or horizontally. Finally, click a location on the map to align the nodes about that location.");
+    Align.setTooltip(alignTip);
+
+    Tooltip addTip = new Tooltip("Add Mode: Click anywhere on the map to add a new node to the floor. Or, click on a node to add a location name to a node");
+    Add.setTooltip(addTip);
+
+    Tooltip modifyTip = new Tooltip("Modify Mode: Click on a node to be prompted with four options. 1: Modify the location of a node by text input. 2: Modify the location of a node by dragging the node on the map with the cursor. 3: Modify the location name of the node. 4: Enter Close Mode. Close Mode allows you to select multiple nodes and close them so pathfinding can no longer use those nodes. Closed nodes can also be opened in this mode.");
+    Modify.setTooltip(modifyTip);
+
+    Tooltip removeTip = new Tooltip("Remove Mode: Click on a node to remove either the node or just the node's location name. Click on an edge to remove the edge.");
 
     edgeToggle.setOnMouseClicked(
         e -> {

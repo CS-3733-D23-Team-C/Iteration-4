@@ -92,6 +92,7 @@ public class PathFindingController {
     textDir.setDisable(true);
     qrCode.setDisable(true);
     message.setEditable(true);
+    startChoice.setValue("75 Lobby");
     Image image = this.image;
     ImageView imageView = new ImageView(image);
     imageView.relocate(0, 0);

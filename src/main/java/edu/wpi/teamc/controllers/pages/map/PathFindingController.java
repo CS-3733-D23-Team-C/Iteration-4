@@ -77,7 +77,6 @@ public class PathFindingController {
   private GraphNode src;
   private GraphNode dest;
   private boolean toggleStatus;
-  private String url;
   public Group group;
   public Image image =
       new Image(Main.class.getResource("views/images/FirstFloor.png").openStream());
@@ -377,12 +376,12 @@ public class PathFindingController {
     }
   }
 
-  public void placeDestCircle(GraphNode node) {
+  public void placeDestCircle(GraphNode node, String paintVal) {
     Circle circ = new Circle();
     circ.setCenterX(node.getXCoord());
     circ.setCenterY(node.getYCoord());
     circ.setRadius(15);
-    circ.setFill(Paint.valueOf("#4CAF50"));
+    circ.setFill(Paint.valueOf(paintVal));
     circ.setStroke(Paint.valueOf("#021335"));
     circ.setVisible(true);
     mapNodes.getChildren().add(circ);
@@ -418,7 +417,13 @@ public class PathFindingController {
     }
 
     placeSrcCircle(splitPath.get(pathLoc).get(0));
-    placeDestCircle(splitPath.get(pathLoc).get(splitPath.get(pathLoc).size() - 1));
+
+    GraphNode destNode = splitPath.get(pathLoc).get(splitPath.get(pathLoc).size() - 1);
+    if (!destNode.equals(dest)) {
+      placeDestCircle(destNode, "#EAB334");
+    } else {
+      placeDestCircle(destNode, "#4CAF50");
+    }
   }
 
   @FXML

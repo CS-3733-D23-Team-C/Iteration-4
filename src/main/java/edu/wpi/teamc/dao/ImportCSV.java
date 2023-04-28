@@ -333,7 +333,7 @@ public class ImportCSV {
 
   public static void importNodeCSV(String CSVfilepath) {
     // Regular expression to match each row
-    String regex = "(\\d+),(\\d+),(\\d+),(.*),(.*),(.*)";
+    String regex = "(\\d+),(\\d+),(\\d+),(.*),(.*)";
     // Compile regular expression pattern
     Pattern pattern = Pattern.compile(regex);
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
@@ -348,9 +348,8 @@ public class ImportCSV {
           int yCoord = Integer.parseInt(matcher.group(3));
           String floor = matcher.group(4);
           String building = matcher.group(5);
-          String nodeStatus = matcher.group(6);
-          Node node =
-              new Node(nodeID, xCoord, yCoord, floor, building, NODE_STATUS.valueOf(nodeStatus));
+          //          String nodeStatus = matcher.group(6);
+          Node node = new Node(nodeID, xCoord, yCoord, floor, building, NODE_STATUS.OPEN);
           importNodeRow(node);
         }
       }

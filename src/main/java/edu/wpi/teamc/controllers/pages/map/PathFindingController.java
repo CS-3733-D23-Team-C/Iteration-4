@@ -603,6 +603,12 @@ public class PathFindingController {
     TextDirectionsHelper textHelper = new TextDirectionsHelper();
     LinkedList<String> directions = textHelper.textDirections(path, graph);
 
+//    String str = "☆" + directions.remove(1) + "☆";
+//    directions.add(1, str);
+//
+//    str = "☆" + directions.removeLast() + "☆";
+//    directions.addLast(str);
+
     for (String s : directions) {
       if (!s.startsWith("D")) {
         String[] split = s.split("~");

@@ -16,6 +16,7 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -148,6 +149,8 @@ public class MenuController {
   @FXML private AnchorPane aboutPopOut2;
   @FXML private AnchorPane aboutPopOut3;
   @FXML private AnchorPane creditsPopOut1;
+
+  @FXML private Label menuClock;
 
   // LANGUAGE TEXT//
 

@@ -39,7 +39,7 @@ public class TextDirectionsHelper {
 
     // format the directions for HttpPost
     for (String s : textDirections(path, currGraph)) {
-      directions += s + ";";
+      if (!s.startsWith("D")) directions += s + ";";
     }
 
     directions = directions.substring(0, directions.length() - 1);
@@ -104,6 +104,7 @@ public class TextDirectionsHelper {
     String direction;
 
     orientation = findOrientation(path.get(0), path.get(1));
+    textDirections.add("Directions on Floor " + path.get(0).getFloor());
     direction =
         distance(path.get(0), path.get(1))
             + "~Go straight~"
@@ -123,6 +124,7 @@ public class TextDirectionsHelper {
                 + "~"
                 + currGraph.getLongNameFromNodeID(src.getNodeID());
         textDirections.add(direction);
+        textDirections.add("Directions on Floor " + dest.getFloor());
       } else {
         if (!tempOrientation.equals(orientation)) {
           direction += distance(src, dest) + "~" + leftOrRight(tempOrientation);

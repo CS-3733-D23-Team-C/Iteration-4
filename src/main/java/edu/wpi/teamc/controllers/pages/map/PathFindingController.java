@@ -599,15 +599,19 @@ public class PathFindingController {
     LinkedList<String> directions = textHelper.textDirections(path, graph);
 
     for (String s : directions) {
-      String[] split = s.split("~");
+      if (!s.startsWith("D")) {
+        String[] split = s.split("~");
 
-      if (split[1].startsWith("Go s")) {
-        fullPath += split[1] + ": To ";
+        if (split[1].startsWith("Go s")) {
+          fullPath += split[1] + ": To ";
+        } else {
+          fullPath += split[1] + ": At ";
+        }
+
+        fullPath += split[2] + "; Distance: " + split[0] + "ft\n";
       } else {
-        fullPath += split[1] + ": At ";
+        fullPath += "\n" + s + ":\n\n";
       }
-
-      fullPath += split[2] + "; Distance: " + split[0] + "ft\n";
     }
 
     TextArea textField = new TextArea();

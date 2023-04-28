@@ -10,7 +10,6 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.utils.SwingFXUtils;
 import java.io.IOException;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -159,7 +158,6 @@ public class PathFindingController {
     for (LocationName locationName : locationNameList) {
       longNameToLocationName.put(locationName.getLongName(), locationName);
     }
-    longNameToLocationName.put("ERROR", new LocationName("ERROR", "ERROR", "ERROR"));
   }
 
   public void addLocationsToSelect() {
@@ -211,12 +209,11 @@ public class PathFindingController {
         for (int i = 0; i < Floor1.size(); i++) {
           int nodeID = Floor1.get(i).getNodeID();
           String longName;
-          try {
+          if (graph == null) {
             longName = nodeIDtoMove.get(nodeID).getLongName();
-          } catch (NullPointerException e) {
-            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
+          } else {
+            longName = graph.getLongNameFromNodeID(nodeID);
           }
-          longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNameToLocationName.get(longName).getShortName();
           String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(Floor1.get(i), shortName, nodeType);
@@ -226,12 +223,11 @@ public class PathFindingController {
         for (int i = 0; i < Floor2.size(); i++) {
           int nodeID = Floor2.get(i).getNodeID();
           String longName;
-          try {
+          if (graph == null) {
             longName = nodeIDtoMove.get(nodeID).getLongName();
-          } catch (NullPointerException e) {
-            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
+          } else {
+            longName = graph.getLongNameFromNodeID(nodeID);
           }
-          longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNameToLocationName.get(longName).getShortName();
           String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(Floor2.get(i), shortName, nodeType);
@@ -241,12 +237,11 @@ public class PathFindingController {
         for (int i = 0; i < Floor3.size(); i++) {
           int nodeID = Floor3.get(i).getNodeID();
           String longName;
-          try {
+          if (graph == null) {
             longName = nodeIDtoMove.get(nodeID).getLongName();
-          } catch (NullPointerException e) {
-            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
+          } else {
+            longName = graph.getLongNameFromNodeID(nodeID);
           }
-          longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNameToLocationName.get(longName).getShortName();
           String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(Floor3.get(i), shortName, nodeType);
@@ -256,12 +251,11 @@ public class PathFindingController {
         for (int i = 0; i < FloorL1.size(); i++) {
           int nodeID = FloorL1.get(i).getNodeID();
           String longName;
-          try {
+          if (graph == null) {
             longName = nodeIDtoMove.get(nodeID).getLongName();
-          } catch (NullPointerException e) {
-            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
+          } else {
+            longName = graph.getLongNameFromNodeID(nodeID);
           }
-          longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNameToLocationName.get(longName).getShortName();
           String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(FloorL1.get(i), shortName, nodeType);
@@ -271,12 +265,11 @@ public class PathFindingController {
         for (int i = 0; i < FloorL2.size(); i++) {
           int nodeID = FloorL2.get(i).getNodeID();
           String longName;
-          try {
+          if (graph == null) {
             longName = nodeIDtoMove.get(nodeID).getLongName();
-          } catch (NullPointerException e) {
-            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new Date(100)));
+          } else {
+            longName = graph.getLongNameFromNodeID(nodeID);
           }
-          longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNameToLocationName.get(longName).getShortName();
           String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(FloorL2.get(i), shortName, nodeType);

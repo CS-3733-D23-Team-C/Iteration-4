@@ -19,6 +19,7 @@ public class CApp extends Application {
   @Setter @Getter private static BorderPane rootPane;
 
   @Getter @Setter private static Boolean adminLoginCheck = false;
+  @Getter @Setter public static Boolean wpiDB = true;
   //  List<Node> Floor1 = new ArrayList<Node>();
   //  List<Node> Floor2 = new ArrayList<Node>();
   //  List<Node> Floor3 = new ArrayList<Node>();

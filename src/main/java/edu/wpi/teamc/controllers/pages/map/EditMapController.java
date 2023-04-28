@@ -1475,7 +1475,6 @@ public class EditMapController {
   public void closeMode() {
     nodeClicked = false;
     closeMode = true;
-    NodeStatusDao nodeStatusDao = new NodeStatusDao();
     currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
     currCircleClicked.setStroke(Paint.valueOf("#13DAF7"));
     group.setOnMouseClicked(

@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.users.login;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
@@ -18,7 +19,7 @@ public class LoginDao implements IDao<Login, String> {
   @Override
   public List<Login> fetchAllObjects() {
     List<Login> returnList = new ArrayList<>();
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmt = db.getConnection().createStatement();
       // Table Name
@@ -46,7 +47,7 @@ public class LoginDao implements IDao<Login, String> {
 
   @Override
   public Login updateRow(Login orm, Login repl) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String table = "\"users\".\"login\"";
@@ -79,7 +80,7 @@ public class LoginDao implements IDao<Login, String> {
 
   @Override
   public Login addRow(Login type) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String table = "\"users\".\"login\"";
@@ -106,7 +107,7 @@ public class LoginDao implements IDao<Login, String> {
 
   @Override
   public Login deleteRow(Login type) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String table = "\"users\".\"login\"";
@@ -126,7 +127,7 @@ public class LoginDao implements IDao<Login, String> {
 
   @Override
   public Login fetchObject(String key) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     Login login = null;
     try {
       key = key.toLowerCase();

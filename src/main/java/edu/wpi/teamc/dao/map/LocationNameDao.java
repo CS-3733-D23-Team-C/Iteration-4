@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.map;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import java.io.*;
@@ -14,7 +15,7 @@ import java.util.regex.Pattern;
 public class LocationNameDao implements IDao<LocationName, String> {
   public List<LocationName> fetchAllObjects() {
     List<LocationName> databaseLocationNameList = new ArrayList<>();
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmtLocationName = db.getConnection().createStatement();
       // table names
@@ -39,7 +40,7 @@ public class LocationNameDao implements IDao<LocationName, String> {
   }
 
   public LocationName updateRow(String oldLongName, LocationName repl) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String LOCATIONNAME = "\"hospitalNode\".\"locationName\"";
@@ -66,7 +67,7 @@ public class LocationNameDao implements IDao<LocationName, String> {
   }
 
   public LocationName updateRow(LocationName orm, LocationName repl) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String LOCATIONNAME = "\"hospitalNode\".\"locationName\"";
@@ -93,7 +94,7 @@ public class LocationNameDao implements IDao<LocationName, String> {
   }
 
   public LocationName addRow(LocationName orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String LOCATIONNAME = "\"hospitalNode\".\"locationName\"";
@@ -116,7 +117,7 @@ public class LocationNameDao implements IDao<LocationName, String> {
   }
 
   public LocationName deleteRow(LocationName orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String LOCATIONNAME = "\"hospitalNode\".\"locationName\"";
@@ -138,7 +139,7 @@ public class LocationNameDao implements IDao<LocationName, String> {
 
   @Override
   public LocationName fetchObject(String key) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     LocationName locationName = null;
     try {
       // table names
@@ -166,7 +167,7 @@ public class LocationNameDao implements IDao<LocationName, String> {
 
   // TODO delete this method and use method from facade in the edit map controller
   public String deleteRow(String longName) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String LOCATIONNAME = "\"hospitalNode\".\"locationName\"";

@@ -545,12 +545,14 @@ public class MenuController {
         event -> {
           CApp.setAdminLoginCheck(false);
           CApp.currScreen = Screen.HOME;
+          Navigation.clearCache();
           Navigation.navigate(Screen.HOME);
           Navigation.setMenuType(Navigation.MenuType.DISABLED);
         });
     exitTrigger1.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
+          Navigation.clearCache();
           Navigation.navigate(Screen.EXIT_PAGE);
           Navigation.setMenuType(Navigation.MenuType.DISABLED);
         });

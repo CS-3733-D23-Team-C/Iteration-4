@@ -208,10 +208,10 @@ public class AdminHomeController {
     // this.language_choice = language;
     if (language == 0) { // 0 is english
 
-      AdminHome_Title.setText(LanguageSet(AdminHome_Title.getText()));
+      AdminHome_Title.setText(AdminHome_Title.getText());
 
-      weather_title.setText(LanguageSet(weather_title.getText()));
-      notifications_title.setText(LanguageSet(notifications_title.getText()));
+      weather_title.setText(weather_title.getText());
+      notifications_title.setText(notifications_title.getText());
 
     } else if (language == 1) { // 1 is spanish
       AdminHome_Title.setText(

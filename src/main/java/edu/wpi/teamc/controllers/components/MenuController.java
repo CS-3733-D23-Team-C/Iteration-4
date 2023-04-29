@@ -378,13 +378,7 @@ public class MenuController {
       Admin_menu_settings.setText("Param" + "\u00e9" + "tres");
       // HISTORY TEXT//
       Admin_menu_history.setText("Histoire");
-      //      Admin_menu_flower_history.setText("Livraison de fleurs");
-      //      Admin_menu_furniture_history.setText("Livraison de meubles");
-      //      Admin_menu_meal_history.setText("Livraison de repas");
-      //      Admin_menu_stationary_history.setText("Fournitures de bureau");
       Admin_menu_mapchange_history.setText("Changements de carte");
-      //      Admin_menu_reservation_history.setText("R" + "\u00e9" + "servations de salles");
-      // Admin_menu_giftbasket_history.setText("Livraison de paniers-cadeaux");
       // NAVIGATION TEXT//
       Admin_menu_navigation.setText("Navigation");
       Admin_menu_directions.setText("Directions");

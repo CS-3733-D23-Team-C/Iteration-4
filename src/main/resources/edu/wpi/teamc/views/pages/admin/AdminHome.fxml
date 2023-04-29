@@ -2,10 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -93,20 +90,6 @@
                   <Insets left="70.0" />
                </padding>
             </VBox>
-            <Group layoutX="1099.0" layoutY="20.0">
-               <children>
-                  <ImageView fitHeight="37.0" fitWidth="70.0" layoutX="82.0" onMouseClicked="#spanish" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../images/spanish_flag.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="37.0" fitWidth="70.0" onMouseClicked="#english" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../images/english_flag.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Group>
          </children>
       </AnchorPane>
    </children>

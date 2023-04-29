@@ -27,19 +27,6 @@ public class RequestSystem {
         }
     }
 
-public void addRequest(IRequest request) {
-    HospitalSystem.addRow((IOrm) request);
-
-}
-
-public void removeRequest(IRequest request) {
-    HospitalSystem.deleteRow((IOrm) request);
-}
-
-public void updateRequest(IRequest request) {
-    HospitalSystem.updateRow((IOrm) request);
-}
-
 public List<AbsServiceRequest> filterRequest(String assingedto, STATUS status, IRequest request) {
     List<AbsServiceRequest> filteredRequests = new ArrayList<>();
     for (AbsServiceRequest request1 : requests) {

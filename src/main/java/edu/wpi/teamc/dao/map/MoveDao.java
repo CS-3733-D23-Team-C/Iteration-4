@@ -101,7 +101,7 @@ public class MoveDao implements IDao<Move, Move> {
       String MOVE = "\"hospitalNode\".move";
       // queries
       String queryDeleteMovesDB =
-          "DELETE FROM " + MOVE + " WHERE \"nodeID\"=?, \"longName\"=?, \"moveDate\"=?; ";
+          "DELETE FROM " + MOVE + " WHERE \"nodeID\"=? AND  \"longName\"=? AND \"moveDate\"=? ";
 
       PreparedStatement ps = db.getConnection().prepareStatement(queryDeleteMovesDB);
       ps.setInt(1, orm.getNodeID());
@@ -126,7 +126,7 @@ public class MoveDao implements IDao<Move, Move> {
       String MOVE = "\"hospitalNode\".move";
       // queries
       String queryDisplayMoves =
-          "SELECT * FROM " + MOVE + " WHERE \"nodeID\"=?, \"longName\"=?, \"moveDate\"=?; ";
+          "SELECT * FROM " + MOVE + " WHERE \"nodeID\"=? AND \"longName\"=? AND \"moveDate\"=?; ";
 
       PreparedStatement ps = db.getConnection().prepareStatement(queryDisplayMoves);
       ps.setInt(1, key.getNodeID());
@@ -144,6 +144,7 @@ public class MoveDao implements IDao<Move, Move> {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    db.closeConnection();
     return move;
   }
 

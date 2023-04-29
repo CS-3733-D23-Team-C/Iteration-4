@@ -208,17 +208,16 @@ public class AdminHomeController {
     // this.language_choice = language;
     if (language == 0) { // 0 is english
 
-      AdminHome_Title.setText(translatorAPI.translateToEn(AdminHome_Title.getText()));
+      AdminHome_Title.setText(LanguageSet(AdminHome_Title.getText()));
 
-      weather_title.setText(translatorAPI.translateToEn(weather_title.getText()));
-      notifications_title.setText(translatorAPI.translateToEn(notifications_title.getText()));
+      weather_title.setText(LanguageSet(weather_title.getText()));
+      notifications_title.setText(LanguageSet(notifications_title.getText()));
 
     } else if (language == 1) { // 1 is spanish
       AdminHome_Title.setText(
-          translatorAPI.translateToSp(
-              AdminHome_Title.getText())); // "\u00E1" is a in spanish for UTF-8
-      weather_title.setText(translatorAPI.translateToSp(weather_title.getText()));
-      notifications_title.setText(translatorAPI.translateToSp(notifications_title.getText()));
+          LanguageSet(AdminHome_Title.getText())); // "\u00E1" is a in spanish for UTF-8
+      weather_title.setText(LanguageSet(weather_title.getText()));
+      notifications_title.setText(LanguageSet(notifications_title.getText()));
     }
   }
 
@@ -228,6 +227,8 @@ public class AdminHomeController {
       text = translatorAPI.translateToEn(text);
     } else if (language_choice == 1) { // 1 is spanish
       text = translatorAPI.translateToSp(text);
+    } else if (language_choice == 2) { // 2 is Chinese
+      text = translatorAPI.translateToZh(text);
     }
     return text;
   }

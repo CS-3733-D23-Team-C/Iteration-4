@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.requests;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.users.PatientUser;
@@ -19,7 +20,7 @@ public class GiftBasketDAO implements IDao<GiftBasketRequest, Integer> {
   // this one should work
   public List<GiftBasketRequest> fetchAllObjects() {
     List<GiftBasketRequest> returnList = new ArrayList<>();
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmt = db.getConnection().createStatement();
       // Table Name
@@ -58,7 +59,7 @@ public class GiftBasketDAO implements IDao<GiftBasketRequest, Integer> {
   }
 
   public GiftBasketRequest addRow(GiftBasketRequest orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmtNode = db.getConnection().createStatement();
       String query =
@@ -85,7 +86,7 @@ public class GiftBasketDAO implements IDao<GiftBasketRequest, Integer> {
   }
 
   public GiftBasketRequest updateRow(GiftBasketRequest orm, GiftBasketRequest orm2) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     GiftBasketRequest request = null;
     try {
       Statement stmtNode = db.getConnection().createStatement();
@@ -111,7 +112,7 @@ public class GiftBasketDAO implements IDao<GiftBasketRequest, Integer> {
   }
 
   public GiftBasketRequest deleteRow(GiftBasketRequest orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     GiftBasketRequest request = null;
     try {
       Statement stmtNode = db.getConnection().createStatement();
@@ -130,7 +131,7 @@ public class GiftBasketDAO implements IDao<GiftBasketRequest, Integer> {
   public GiftBasketRequest fetchObject(Integer key) {
     GiftBasketRequest request = null;
     try {
-      DBConnection db = new DBConnection();
+      DBConnection db = new DBConnection(CApp.getWpiDB());
       Statement stmt = db.getConnection().createStatement();
       // Table Name
       String table = "\"ServiceRequests\".\"giftBasketRequest\"";

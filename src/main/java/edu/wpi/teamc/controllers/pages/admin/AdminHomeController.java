@@ -57,9 +57,9 @@ public class AdminHomeController {
 
   public void addNotification(String notification, String type) throws IOException {
 
-    StackPane stackPane = new StackPane();
     HBox hBox = new HBox();
     Text text = new Text(notification);
+
     hBox.setMaxHeight(shiftlines(text.getText()) * 45);
     hBox.setAlignment(Pos.CENTER_LEFT);
     hBox.setSpacing(50);
@@ -73,16 +73,10 @@ public class AdminHomeController {
     Image img = choosePNG(type);
     javafx.scene.image.ImageView imgView = new javafx.scene.image.ImageView(img);
     hBox.getChildren().add(imgView);
+    text.setWrappingWidth(550);
     hBox.getChildren().add(text);
     BorderColor(type, hBox);
-    // stackPane.getChildren().add(hBox);
-    // BorderColor(type, stackPane);
-    //    stackPane.setBorder(
-    //        new Border(
-    //            (new BorderStroke(
-    //                Color.BLUE, BorderStrokeStyle.SOLID, new CornerRadii(14), new
-    // BorderWidths(3)))));
-    stackPane.setMaxWidth(1000);
+
     // notificationVBox.getChildren().add(0, hBox);
     notificationVBox.getChildren().add(0, hBox);
     // notificationVBox.getChildren().get(0).setBorder(Border.EMPTY);

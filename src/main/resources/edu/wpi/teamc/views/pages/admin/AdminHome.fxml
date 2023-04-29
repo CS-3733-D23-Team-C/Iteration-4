@@ -16,7 +16,7 @@
    <children>
       <AnchorPane layoutX="71.0" layoutY="153.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
          <children>
-            <AnchorPane layoutX="-274.0" layoutY="58.0" prefHeight="289.0" prefWidth="1101.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="250.0">
+            <AnchorPane layoutX="-274.0" layoutY="58.0" prefHeight="289.0" prefWidth="687.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="550.0" AnchorPane.topAnchor="250.0">
                <children>
                   <TextField fx:id="notifications_title" editable="false" layoutY="-4.0" prefHeight="76.0" prefWidth="1098.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 30; -fx-text-fill: white;" text="Notifications" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
@@ -52,6 +52,30 @@
                         <Insets bottom="10.0" left="10.0" top="10.0" />
                      </padding>
                   </TextField>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="819.0" layoutY="306.0" prefHeight="361.0" prefWidth="306.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="785.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="250.0">
+               <children>
+                  <TextField fx:id="todo_title" editable="false" layoutY="-4.0" prefHeight="76.0" prefWidth="1098.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 30; -fx-text-fill: white;" text="TO DO" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" top="10.0" />
+                     </padding>
+                  </TextField>
+                  <MFXScrollPane fx:id="TODOBox" fitToWidth="true" hbarPolicy="NEVER" hmax="0.0" layoutX="147.0" layoutY="136.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
+                     <content>
+                        <VBox fx:id="notificationVBox1" alignment="TOP_CENTER" prefWidth="1230.0" spacing="20.0">
+                           <padding>
+                              <Insets top="20.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </MFXScrollPane>
                </children>
             </AnchorPane>
          </children>

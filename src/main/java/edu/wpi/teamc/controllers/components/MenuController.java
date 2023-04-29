@@ -785,7 +785,7 @@ public class MenuController {
               if (!newValue && !meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
                 aboutPopOutTransition1.setDuration(Duration.millis(200));
                 aboutPopOutTransition1.setNode(aboutPopOut3);
-                aboutPopOutTransition1.setToX(290);
+                aboutPopOutTransition1.setToX(0);
                 aboutPopOutTransition1.setOnFinished(
                     event -> {
                       if (!meetTheTeam.isHover() && !aboutPopOut3.isHover()) {

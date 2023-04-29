@@ -34,7 +34,7 @@
       <AnchorPane fx:id="mainSignIn" layoutX="597.0" layoutY="336.0" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: rgba(0,0,0,0.70);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="597.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="336.0">
          <children>
             <Text fx:id="HOME_HospitalName" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 40; -fx-font-weight: bold;" text="Brigham and Women's Hospital" wrappingWidth="422.4759216308594" AnchorPane.leftAnchor="52.0" AnchorPane.topAnchor="63.0" />
-            <VBox alignment="CENTER_RIGHT" fillWidth="false" style="-fx-border-color: (128,0,0,0.1); -fx-background-color: (128,0,0,0.0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox alignment="CENTER_RIGHT" fillWidth="false" style="-fx-border-color: rgba(128,0,0,0.1); -fx-background-color: rgba(128,0,0,0.0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane fx:id="signinAnchor1" prefHeight="618.0" prefWidth="583.0" style="-fx-background-color: #ECEDE8; -fx-background-radius: 26;">
                      <children>
@@ -108,6 +108,14 @@
                   <ImageView fx:id="English_flag1" fitHeight="37.0" fitWidth="70.0" onMouseClicked="#english" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/english_flag.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fx:id="Spanish_flag11" fitHeight="37.0" fitWidth="70.0" layoutX="160.0" onMouseClicked="#chinese" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/spanish_flag.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />

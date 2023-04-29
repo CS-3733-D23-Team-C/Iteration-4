@@ -32,8 +32,8 @@ public class DBConnection {
       // Load the PostgreSQL JDBC driver
       Class.forName("org.postgresql.Driver");
       // Establish the connection
-      String url = "jdbc:postgresql://softeng-c.c7x33sljy2ow.us-east-2.rds.amazonaws.com/teamc";
-      String user = "teamc";
+      String url = "jdbc:postgresql://teamcdb.c7x33sljy2ow.us-east-2.rds.amazonaws.com/teamcdb";
+      String user = "teamcdb";
       String password = "teamcteamcteamc";
       connection = DriverManager.getConnection(url, user, password);
     } catch (ClassNotFoundException | SQLException e) {

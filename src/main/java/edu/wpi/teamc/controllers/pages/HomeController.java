@@ -31,6 +31,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.controlsfx.control.ToggleSwitch;
 
 public class HomeController {
 
@@ -60,6 +61,7 @@ public class HomeController {
   @FXML private MFXButton HOME_back;
   @FXML private MFXTextField HOME_code;
   @FXML private AnchorPane aPane;
+  @FXML ToggleSwitch dbToggleHome;
 
   boolean wrongNextLogin = true;
   Login currentLogin;
@@ -160,6 +162,7 @@ public class HomeController {
             } else { // if the user is staff
               CApp.setAdminLoginCheck(false);
             }
+            CApp.currScreen = Screen.ADMIN_HOME;
             Navigation.navigate(Screen.ADMIN_HOME);
             Navigation.setMenuType(Navigation.MenuType.ADMIN);
           } else {
@@ -195,6 +198,7 @@ public class HomeController {
 
   @FXML
   public void initialize(Stage primaryStage) throws Exception {
+
     //    try {
     setLanguage(language_choice);
     //    aPane.setOnKeyPressed(event -> {
@@ -255,7 +259,17 @@ public class HomeController {
     //    } catch (Exception e) {
     //      e.printStackTrace();
     //    }
-
+    // get wpidb boolean and set toggle accordingly
+    dbToggleHome.setSelected(!CApp.getWpiDB());
+    dbToggleHome.setOnMouseClicked(
+        event -> {
+          // Toggled sets boolean wpiDB false for AWS
+          CApp.wpiDB = !dbToggleHome.selectedProperty().get();
+          dbToggleHome.setSelected(!CApp.wpiDB);
+          //          dbToggle.fire();
+          System.out.println("DB: " + CApp.wpiDB);
+          Navigation.navigate(CApp.currScreen);
+        });
   }
 
   @FXML

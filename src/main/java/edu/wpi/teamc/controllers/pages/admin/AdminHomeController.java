@@ -14,8 +14,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.scene.text.Font;
 import javafx.scene.web.HTMLEditor;
@@ -58,16 +57,15 @@ public class AdminHomeController {
 
   public void addNotification(String notification, String type) throws IOException {
 
+    StackPane stackPane = new StackPane();
     HBox hBox = new HBox();
     Text text = new Text(notification);
     hBox.setMaxHeight(shiftlines(text.getText()) * 45);
     hBox.setAlignment(Pos.CENTER_LEFT);
     hBox.setSpacing(50);
     hBox.setStyle(
-        "-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 1; -fx-max-width:1000; -fx-padding: 10;"
+        "-fx-background-color: #ffffff;-fx-border-width: 1; -fx-max-width:1000; -fx-padding: 10;"
             + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
-    // hBox.prefHeightProperty().bind(text.heightProperty());
-    // text.maxHeight(shiftlines(text.getText()) * 60);
 
     text.setFont(Font.font("Arial", FontWeight.BOLD, 25));
     //    text.setMinWidth(notificationBox.getWidth());
@@ -76,7 +74,54 @@ public class AdminHomeController {
     javafx.scene.image.ImageView imgView = new javafx.scene.image.ImageView(img);
     hBox.getChildren().add(imgView);
     hBox.getChildren().add(text);
+    BorderColor(type, hBox);
+    // stackPane.getChildren().add(hBox);
+    // BorderColor(type, stackPane);
+    //    stackPane.setBorder(
+    //        new Border(
+    //            (new BorderStroke(
+    //                Color.BLUE, BorderStrokeStyle.SOLID, new CornerRadii(14), new
+    // BorderWidths(3)))));
+    stackPane.setMaxWidth(1000);
+    // notificationVBox.getChildren().add(0, hBox);
     notificationVBox.getChildren().add(0, hBox);
+    // notificationVBox.getChildren().get(0).setBorder(Border.EMPTY);
+  }
+
+  @FXML
+  public void BorderColor(String type, HBox hBox) {
+    switch (type) {
+      case "Weather":
+        hBox.setStyle(
+            "-fx-background-color: #ffffff;-fx-border-color: blue;-fx-border-width: 2; -fx-max-width:1000; -fx-padding: 10;"
+                + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
+        break;
+      case "Construction":
+        hBox.setStyle(
+            "-fx-background-color: #ffffff;-fx-border-color: orange;-fx-border-width: 2; -fx-max-width:1000; -fx-padding: 10;"
+                + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
+        break;
+      case "Emergency":
+        hBox.setStyle(
+            "-fx-background-color: #ffffff;-fx-border-color: red;-fx-border-width: 2; -fx-max-width:1000; -fx-padding: 10;"
+                + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
+        break;
+      case "Car Crash":
+        hBox.setStyle(
+            "-fx-background-color: #ffffff;-fx-border-color: green;-fx-border-width: 2; -fx-max-width:1000; -fx-padding: 10;"
+                + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
+        break;
+      case "Closures":
+        hBox.setStyle(
+            "-fx-background-color: #ffffff;-fx-border-color: purple;-fx-border-width: 2; -fx-max-width:1000; -fx-padding: 10;"
+                + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
+        break;
+      case "Other":
+        hBox.setStyle(
+            "-fx-background-color: #ffffff;-fx-border-color: black;-fx-border-width: 2; -fx-max-width:1000; -fx-padding: 10;"
+                + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
+        break;
+    }
   }
 
   @FXML

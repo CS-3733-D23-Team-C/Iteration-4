@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.map.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -12,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ImportCSV {
-  static DBConnection dbConnection = new DBConnection();
+  static DBConnection dbConnection = new DBConnection(CApp.getWpiDB());
   static Connection connection;
 
   /** displays related import functions */
@@ -257,7 +258,7 @@ public class ImportCSV {
   }
 
   public static void importEmployeeUserCSV(String CSVfilepath) {
-    dbConnection = new DBConnection();
+    dbConnection = new DBConnection(CApp.getWpiDB());
     connection = dbConnection.getConnection();
     String query =
         "INSERT INTO users.employee (id,username,name,department,position) VALUES (?, ?, ?, ?, ?)";
@@ -283,7 +284,7 @@ public class ImportCSV {
   }
 
   public static void importLoginCSV(String CSVfilepath) {
-    dbConnection = new DBConnection();
+    dbConnection = new DBConnection(CApp.getWpiDB());
     connection = dbConnection.getConnection();
     String query =
         "INSERT INTO users.login (username,password,permissions,salt, otp) VALUES (?, ?, ?, ?, ?)";
@@ -333,7 +334,7 @@ public class ImportCSV {
 
   public static void importNodeCSV(String CSVfilepath) {
     // Regular expression to match each row
-    String regex = "(\\d+),(\\d+),(\\d+),(.*),(.*),(.*)";
+    String regex = "(\\d+),(\\d+),(\\d+),(.*),(.*)";
     // Compile regular expression pattern
     Pattern pattern = Pattern.compile(regex);
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
@@ -348,9 +349,8 @@ public class ImportCSV {
           int yCoord = Integer.parseInt(matcher.group(3));
           String floor = matcher.group(4);
           String building = matcher.group(5);
-          String nodeStatus = matcher.group(6);
-          Node node =
-              new Node(nodeID, xCoord, yCoord, floor, building, NODE_STATUS.valueOf(nodeStatus));
+          //          String nodeStatus = matcher.group(6);
+          Node node = new Node(nodeID, xCoord, yCoord, floor, building, NODE_STATUS.OPEN);
           importNodeRow(node);
         }
       }

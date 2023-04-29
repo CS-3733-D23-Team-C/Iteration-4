@@ -97,20 +97,20 @@
                                     <MenuItem fx:id="Hour_12" mnemonicParsing="false" onAction="#getStartHour12" text="12" />
                                 </items>
                               </MenuButton>
-                              <MenuButton fx:id="startTimePeriod" layoutX="370.0" layoutY="52.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="55.0" text="AM" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="51.0">
+                              <MenuButton fx:id="startTimePeriod" layoutX="411.0" layoutY="52.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="55.0" text="AM" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="52.0">
                                  <items>
                                     <MenuItem fx:id="AM" mnemonicParsing="false" onAction="#getStartPeriodAM" text="AM" />
                                     <MenuItem fx:id="PM" mnemonicParsing="false" onAction="#getStartPeriodPM" text="PM" />
                                  </items>
                               </MenuButton>
-                              <MenuButton fx:id="endTimePeriod" layoutX="370.0" layoutY="102.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="55.0" text="AM" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="101.0">
+                              <MenuButton fx:id="endTimePeriod" layoutX="370.0" layoutY="102.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="55.0" text="AM" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="101.0">
                                  <items>
                                     <MenuItem mnemonicParsing="false" onAction="#getEndPeriodAM" text="AM" />
                                     <MenuItem mnemonicParsing="false" onAction="#getEndPeriodPM" text="PM" />
                                  </items>
                               </MenuButton>
-                              <TextField fx:id="startMinute" layoutX="440.0" layoutY="52.0" prefHeight="40.0" prefWidth="75.0" promptText="Minute" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.leftAnchor="440.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="51.0" />
-                              <TextField fx:id="endMinute" layoutX="440.0" layoutY="102.0" prefHeight="40.0" prefWidth="75.0" promptText="Minute" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.leftAnchor="440.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="101.0" />
+                              <TextField fx:id="startMinute" layoutX="440.0" layoutY="52.0" prefHeight="40.0" prefWidth="75.0" promptText="Minute" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="51.0" />
+                              <TextField fx:id="endMinute" layoutX="440.0" layoutY="102.0" prefHeight="40.0" prefWidth="75.0" promptText="Minute" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="101.0" />
                               <MenuButton fx:id="endHour" layoutX="280.0" layoutY="102.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="75.0" text="Hour" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="174.0" AnchorPane.topAnchor="101.0">
                                  <items>
                                     <MenuItem mnemonicParsing="false" onAction="#getEndHour01" text="01" />

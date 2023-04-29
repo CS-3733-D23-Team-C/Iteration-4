@@ -9,6 +9,9 @@ import edu.wpi.teamc.graph.GraphNode;
 import java.awt.image.BufferedImage;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -28,7 +31,7 @@ public class TextDirectionsHelper {
 
   public TextDirectionsHelper() {}
 
-  public BufferedImage buildImage(List<GraphNode> path, Graph currGraph) {
+  public BufferedImage buildImage(List<GraphNode> path, Graph currGraph, LocalDate forDate) {
     String start = currGraph.getLongNameFromNodeID(path.get(0).getNodeID());
     String end = currGraph.getLongNameFromNodeID(path.get(path.size() - 1).getNodeID());
     String directions = "";
@@ -41,14 +44,18 @@ public class TextDirectionsHelper {
 
     directions = directions.substring(0, directions.length() - 1);
 
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    String formattedDate = formatter.format(Date.valueOf(forDate));
+    String json =
+        String.format(
+            "{\"start\":\"%s\",\"end\":\"%s\",\"directions\":\"%s\", \"forDate\":\"%s\"}",
+            start, end, directions, formattedDate);
+
     try (CloseableHttpClient client = HttpClients.createDefault()) {
       // define website
       HttpPost httpPost = new HttpPost(new URI("https://teamc.blui.co/api/directions"));
 
       // format and set json
-      String json =
-          String.format(
-              "{\"start\":\"%s\",\"end\":\"%s\",\"directions\":\"%s\"}", start, end, directions);
       StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
       httpPost.setEntity(entity);
 
@@ -61,9 +68,8 @@ public class TextDirectionsHelper {
     } catch (Exception e) {
       System.err.println(e.getMessage());
     }
-
-    JSONObject json = new JSONObject(responseBody);
-    String url = "https://teamc.blui.co/directions?id=" + json.getString("link");
+    JSONObject jsonobj = new JSONObject(responseBody);
+    String url = jsonobj.getString("shortLink");
     return genQR(url);
   }
 
@@ -160,21 +166,21 @@ public class TextDirectionsHelper {
     String retVal;
 
     if (orientation.equals("N") && tempOrientation.equals("E")) {
-      retVal = "Turn right";
+      retVal = "↱ Turn right ↱";
     } else if (orientation.equals("N") && tempOrientation.equals("W")) {
-      retVal = "Turn left";
+      retVal = "↰ Turn left ↰";
     } else if (orientation.equals("S") && tempOrientation.equals("E")) {
-      retVal = "Turn left";
+      retVal = "↰ Turn left ↰";
     } else if (orientation.equals("S") && tempOrientation.equals("W")) {
-      retVal = "Turn right";
+      retVal = "↱ Turn right ↱";
     } else if (orientation.equals("W") && tempOrientation.equals("S")) {
-      retVal = "Turn left";
+      retVal = "↰ Turn left ↰";
     } else if (orientation.equals("E") && tempOrientation.equals("S")) {
-      retVal = "Turn right";
+      retVal = "↱ Turn right ↱";
     } else if (orientation.equals("W") && tempOrientation.equals("N")) {
-      retVal = "Turn right";
+      retVal = "↱ Turn right ↱";
     } else if (orientation.equals("E") && tempOrientation.equals("N")) {
-      retVal = "Turn left";
+      retVal = "↰ Turn left ↰";
     } else {
       retVal = "Continue Straight";
     }

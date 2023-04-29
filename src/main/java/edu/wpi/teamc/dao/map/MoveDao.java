@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.map;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import java.io.*;
@@ -17,7 +18,7 @@ import java.util.regex.Pattern;
 public class MoveDao implements IDao<Move, Move> {
   public List<Move> fetchAllObjects() {
     List<Move> databaseMoveList = new ArrayList<>();
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmtMove = db.getConnection().createStatement();
       // table names
@@ -42,7 +43,7 @@ public class MoveDao implements IDao<Move, Move> {
   }
 
   public Move updateRow(Move orm, Move repl) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String MOVE = "\"hospitalNode\".move";
@@ -71,7 +72,7 @@ public class MoveDao implements IDao<Move, Move> {
   }
 
   public Move addRow(Move orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String MOVE = "\"hospitalNode\".move";
@@ -94,13 +95,13 @@ public class MoveDao implements IDao<Move, Move> {
   }
 
   public Move deleteRow(Move orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String MOVE = "\"hospitalNode\".move";
       // queries
       String queryDeleteMovesDB =
-          "DELETE FROM " + MOVE + " WHERE \"nodeID\"=?, \"longName\"=?, \"moveDate\"=?; ";
+          "DELETE FROM " + MOVE + " WHERE \"nodeID\"=? AND  \"longName\"=? AND \"moveDate\"=? ";
 
       PreparedStatement ps = db.getConnection().prepareStatement(queryDeleteMovesDB);
       ps.setInt(1, orm.getNodeID());
@@ -118,14 +119,14 @@ public class MoveDao implements IDao<Move, Move> {
 
   @Override
   public Move fetchObject(Move key) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     Move move = null;
     try {
       // table names
       String MOVE = "\"hospitalNode\".move";
       // queries
       String queryDisplayMoves =
-          "SELECT * FROM " + MOVE + " WHERE \"nodeID\"=?, \"longName\"=?, \"moveDate\"=?; ";
+          "SELECT * FROM " + MOVE + " WHERE \"nodeID\"=? AND \"longName\"=? AND \"moveDate\"=?; ";
 
       PreparedStatement ps = db.getConnection().prepareStatement(queryDisplayMoves);
       ps.setInt(1, key.getNodeID());
@@ -143,11 +144,12 @@ public class MoveDao implements IDao<Move, Move> {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    db.closeConnection();
     return move;
   }
 
   public int deleteRow(int nodeID) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String MOVE = "\"hospitalNode\".move";

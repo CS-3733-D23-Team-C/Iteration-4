@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.requests;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import java.sql.PreparedStatement;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class ConferenceRoomDAO implements IDao<ConferenceRoom, String> {
 
-  DBConnection db = new DBConnection();
+  DBConnection db = new DBConnection(CApp.getWpiDB());
 
   public ConferenceRoom addRow(ConferenceRoom orm) {
     try {

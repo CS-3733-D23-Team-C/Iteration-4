@@ -3,6 +3,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,37 +16,10 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.ToggleSwitch?>
 
 <AnchorPane fx:id="basePane" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.components.MenuController">
    <children>
-      <AnchorPane fx:id="homePopOut1" layoutX="-110.0" layoutY="11.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0">
-         <children>
-            <Pane fx:id="homePopOut" prefHeight="163.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
-               <children>
-                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
-                     <children>
-                        <Text fx:id="Admin_menu_home" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" textAlignment="CENTER" wrappingWidth="155.40002518892288">
-                           <font>
-                              <Font name="Arial" size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Text>
-                        <Line endX="80.0">
-                           <VBox.margin>
-                              <Insets left="35.0" />
-                           </VBox.margin>
-                        </Line>
-                        <MFXButton fx:id="Admin_menu_home_button" onAction="#getAdminHome" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
-                        <MFXButton fx:id="Admin_menu_about_button" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
-                        <MFXButton fx:id="Admin_menu_credits" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
-                     </children>
-                  </VBox>
-               </children>
-            </Pane>
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="aboutPopOut3" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutPopOut1" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
@@ -321,6 +295,34 @@
             </Pane>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="homePopOut1" layoutX="-110.0" layoutY="11.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0">
+         <children>
+            <Pane fx:id="homePopOut" prefHeight="163.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="149.0" prefWidth="156.0" spacing="5.0">
+                     <children>
+                        <Text fx:id="Admin_menu_home" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="80.0">
+                           <VBox.margin>
+                              <Insets left="35.0" />
+                           </VBox.margin>
+                        </Line>
+                        <MFXButton fx:id="Admin_menu_home_button" onAction="#getAdminHome" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
+                        <MFXButton fx:id="Admin_menu_about_button" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
+                        <MFXButton fx:id="Admin_menu_credits" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="aboutPopOut2" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutPopOut" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
@@ -485,7 +487,7 @@
          <children>
             <Pane fx:id="creditsPopOut" prefHeight="200.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
-                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="170.0" prefWidth="281.0" spacing="5.0">
                      <children>
                         <Text fx:id="Admin_menu_credits_text1" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Credits" textAlignment="CENTER" wrappingWidth="280.20001298189163">
                            <font>
@@ -548,7 +550,7 @@
          <children>
             <Pane fx:id="logoutPopOut" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
-                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="37.0" prefWidth="156.0" spacing="5.0">
                      <children>
                         <Text fx:id="Admin_menu_logout" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Logout" textAlignment="CENTER" wrappingWidth="155.40002518892288">
                            <font>
@@ -573,7 +575,7 @@
          <children>
             <Pane fx:id="exitPopOut" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
-                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="36.0" prefWidth="156.0" spacing="5.0">
                      <children>
                         <Text fx:id="Admin_menu_exit" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Exit" textAlignment="CENTER" wrappingWidth="155.40002518892288">
                            <font>
@@ -598,7 +600,7 @@
          <children>
             <Pane fx:id="helpPopOut" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
-                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="36.0" prefWidth="156.0" spacing="5.0">
                      <children>
                         <Text fx:id="Admin_menu_helpmenu" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Help Menu" textAlignment="CENTER" wrappingWidth="155.40002518892288">
                            <font>
@@ -640,6 +642,12 @@
                         </Line>
                         <MFXButton fx:id="Admin_menu_employee_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Employee Table" />
                         <MFXButton fx:id="Admin_menu_login_table" onAction="#getLoginTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Login Table" />
+                        <HBox>
+                           <children>
+                              <Label text="AWS database" />
+                              <ToggleSwitch fx:id="dbToggle" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
@@ -650,7 +658,7 @@
          <children>
             <Pane fx:id="historyPopOut" prefHeight="120.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
-                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="104.0" prefWidth="156.0" spacing="5.0">
                      <children>
                         <Text fx:id="Admin_menu_history" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="History" textAlignment="CENTER" wrappingWidth="155.40002518892288">
                            <font>
@@ -708,7 +716,7 @@
          <children>
             <Pane fx:id="warningPopOut" prefHeight="163.0" prefWidth="250.0" styleClass="menuSidebar" stylesheets="@Menu.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox alignment="CENTER" layoutX="10.0" layoutY="15.0" prefHeight="120.0" prefWidth="220.0" spacing="5.0">
+                  <VBox alignment="CENTER" layoutX="10.0" layoutY="15.0" prefHeight="159.0" prefWidth="220.0" spacing="5.0">
                      <children>
                         <Text fx:id="Admin_menu_navigation1" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Recent Alerts" textAlignment="CENTER" wrappingWidth="155.40002518892288">
                            <font>
@@ -745,7 +753,7 @@
          <children>
             <Pane fx:id="serviceRequestPopOut" prefHeight="240.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
-                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="156.0" spacing="5.0">
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="224.0" prefWidth="156.0" spacing="5.0">
                      <children>
                         <Text fx:id="Admin_menu_servicerequests" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests" textAlignment="CENTER" wrappingWidth="155.40002518892288">
                            <font>

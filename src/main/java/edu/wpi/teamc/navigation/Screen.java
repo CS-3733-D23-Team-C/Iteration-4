@@ -37,6 +37,7 @@ public enum Screen {
 
   // -------OTHER-------//
   CONGRATS_PAGE("views/pages/Congrats.fxml"),
+  CONGRATS_SIGNUP_PAGE("views/pages/CongratsSignUp.fxml"),
   HELP("views/pages/Help.fxml"),
 
   GUEST_HELP("views/pages/guest/GuestHelp.fxml"),
@@ -56,7 +57,7 @@ public enum Screen {
     this.filename = filename;
   }
 
-  public String getFilename() {
+  String getFilename() {
     return filename;
   }
 }

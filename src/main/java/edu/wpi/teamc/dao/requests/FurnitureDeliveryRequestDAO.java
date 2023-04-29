@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.requests;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.users.PatientUser;
@@ -15,7 +16,7 @@ import java.util.List;
 public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryRequest, Integer> {
   public List<FurnitureDeliveryRequest> fetchAllObjects() {
     List<FurnitureDeliveryRequest> returnList = new ArrayList<>();
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
 
     try {
       Statement stmt = db.getConnection().createStatement();
@@ -56,7 +57,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
   }
 
   public FurnitureDeliveryRequest addRow(FurnitureDeliveryRequest orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       String query =
           "INSERT INTO \"ServiceRequests\".\"furnitureDeliveryRequest\" (Requester, furnitureType, additionalNotes, roomName, status, assignedto, eta) VALUES (?,?,?,?,?,?,?)";
@@ -84,7 +85,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
 
   public FurnitureDeliveryRequest updateRow(
       FurnitureDeliveryRequest orm, FurnitureDeliveryRequest orm2) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       String query =
           "UPDATE \"ServiceRequests\".\"furnitureDeliveryRequest\" SET requestid = ?, requester = ?, roomname = ?, status = ?, additionalnotes = ?, furnituretype = ?, eta = ?, assignedto = ? WHERE requestid = ?";
@@ -112,7 +113,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
   }
 
   public FurnitureDeliveryRequest deleteRow(FurnitureDeliveryRequest orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       String query =
           "DELETE FROM \"ServiceRequests\".\"furnitureDeliveryRequest\" WHERE requestid = ?";
@@ -130,7 +131,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
   public FurnitureDeliveryRequest fetchObject(Integer key) {
     FurnitureDeliveryRequest request = null;
     try {
-      DBConnection db = new DBConnection();
+      DBConnection db = new DBConnection(CApp.getWpiDB());
       String query =
           "SELECT * FROM \"ServiceRequests\".\"furnitureDeliveryRequest\" WHERE requestid = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);

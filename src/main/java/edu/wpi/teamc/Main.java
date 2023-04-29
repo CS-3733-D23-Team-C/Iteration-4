@@ -7,24 +7,24 @@ public class Main {
       Logger.getLogger("main"); // need to copy this and then just use logger. commands
 
   public static void main(String[] args) {
-    /*try (FileInputStream fis = new FileInputStream("logging.properties")) {
-      LogManager.getLogManager().readConfiguration(fis);
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    */
+    //    try (FileInputStream fis = new FileInputStream("logging.properties")) {
+    //      LogManager.getLogManager().readConfiguration(fis);
+    //
+    //    } catch (IOException e) {
+    //      e.printStackTrace();
+    //    }
 
     logger.info("Start application");
     CApp.launch(CApp.class, args);
 
     //    ImportCSV importCSV = new ImportCSV();
     //    boolean test =
-    //        importCSV.importAllCSV(
+    //        importCSV.importMapCSV(
     //            "src/main/resources/edu/wpi/teamc/Node.csv",
     //            "src/main/resources/edu/wpi/teamc/Edge.csv",
     //            "src/main/resources/edu/wpi/teamc/Move.csv",
     //            "src/main/resources/edu/wpi/teamc/LocationName.csv");
+
     //
     //    System.out.println(test);
   }

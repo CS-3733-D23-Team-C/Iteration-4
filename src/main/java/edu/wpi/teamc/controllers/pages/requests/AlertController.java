@@ -94,13 +94,13 @@ public class AlertController {
     HospitalSystem.addRow(alert);
     //    IDao<Alert, Integer> dao = new AlertDao();
     //    dao.addRow(alert);
+    Navigation.navigate(Screen.CONGRATS_PAGE);
 
     PatientUserDao pddao = new PatientUserDao();
     List<String> phones = pddao.listActivePhone();
-    /*for (int i = 0; i < phones.size(); i++) {
+    for (int i = 0; i < phones.size(); i++) {
       SMSHelper.sendSMS(phones.get(i), description);
-    }*/
-    Navigation.navigate(Screen.CONGRATS_PAGE);
+    }
   }
 
   @FXML

@@ -69,14 +69,15 @@ public class RequestHistoryController extends AbsServiceRequest {
 
   @FXML Button updateButton;
   @FXML Button deleteButton;
-  @FXML SearchableComboBox filterButton;
+  @FXML SearchableComboBox filterByStatusField;
 
   @FXML MFXButton exportButton;
   @FXML MFXButton importButton;
   private Desktop desktop = Desktop.getDesktop();
   private String filePath;
 
-  @FXML SearchableComboBox filterEmployeeButton;
+  @FXML SearchableComboBox filterByEmployeeField;
+  @FXML Button clearButtonFilter;
 
   int incrTest = 0;
   String currTable;
@@ -151,13 +152,13 @@ public class RequestHistoryController extends AbsServiceRequest {
     statusList.add(STATUS.CANCELLED);
     statusList.add(STATUS.IN_PROGRESS);
     statusList.add(STATUS.PENDING);
-    filterButton.setItems(FXCollections.observableArrayList(statusList));
+    filterByStatusField.setItems(FXCollections.observableArrayList(statusList));
 
-    filterButton.setOnAction(
+    filterByStatusField.setOnAction(
         event -> {
           //          STATUS selected = STATUS.PENDING;
           if (incrTest == 2) {
-            status2 = (STATUS) filterButton.getValue();
+            status2 = (STATUS) filterByStatusField.getValue();
             filterView(status2);
             incrTest = -1;
           }
@@ -177,16 +178,22 @@ public class RequestHistoryController extends AbsServiceRequest {
           }
         });
 
-    filterEmployeeButton.getItems().addAll(FXCollections.observableArrayList(employeeList));
-    filterEmployeeButton.setOnAction(
+    filterByEmployeeField.getItems().addAll(FXCollections.observableArrayList(employeeList));
+    filterByEmployeeField.setOnAction(
         event -> {
           if (incrTest2 == 2) {
-            currEmployee = (EmployeeUser) filterEmployeeButton.getValue();
+            currEmployee = (EmployeeUser) filterByEmployeeField.getValue();
             assignedToFilterView(currEmployee);
             incrTest2 = -1;
           }
           incrTest2++;
         });
+
+    //    clearButtonFilter.setOnAction(
+    //        event -> {
+    //          filterByEmployeeField.getSelectionModel().clearSelection();
+    //          filterByStatusField.getSelectionModel().clearSelection();
+    //        });
   }
 
   public void assignedToFilterView(EmployeeUser employee) {
@@ -294,6 +301,7 @@ public class RequestHistoryController extends AbsServiceRequest {
     currTable = "Conf";
     this.resetColor();
     this.clearCurrentSelection();
+    clearFilters();
     conference.setStyle(selectedButtonColor);
     selectedRequest = new ConferenceRoomRequest();
     ObservableList<ConferenceRoomRequest> rows = FXCollections.observableArrayList();
@@ -332,6 +340,7 @@ public class RequestHistoryController extends AbsServiceRequest {
   private void getFlower() {
     this.resetColor();
     this.clearCurrentSelection();
+    clearFilters();
     flower.setStyle(selectedButtonColor);
     selectedRequest = new FlowerDeliveryRequest();
     ObservableList<FlowerDeliveryRequest> rows = FXCollections.observableArrayList();
@@ -369,6 +378,7 @@ public class RequestHistoryController extends AbsServiceRequest {
   private void getMeal() {
     this.resetColor();
     this.clearCurrentSelection();
+    clearFilters();
     meal.setStyle(selectedButtonColor);
     selectedRequest = new MealRequest();
     ObservableList<MealRequest> rows = FXCollections.observableArrayList();
@@ -400,6 +410,7 @@ public class RequestHistoryController extends AbsServiceRequest {
   private void getFurniture() {
     this.resetColor();
     this.clearCurrentSelection();
+    clearFilters();
     furniture.setStyle(selectedButtonColor);
     selectedRequest = new FurnitureDeliveryRequest();
     ObservableList<FurnitureDeliveryRequest> rows = FXCollections.observableArrayList();
@@ -440,6 +451,7 @@ public class RequestHistoryController extends AbsServiceRequest {
   public void getOfficeSupply() {
     this.resetColor();
     this.clearCurrentSelection();
+    clearFilters();
     officeSupply.setStyle(selectedButtonColor);
     selectedRequest = new OfficeSuppliesRequest();
     ObservableList<OfficeSuppliesRequest> rows = FXCollections.observableArrayList();
@@ -560,6 +572,11 @@ public class RequestHistoryController extends AbsServiceRequest {
     idField.setText(null);
     statusField.setText(null);
     assignedtoField.getSelectionModel().select(null);
+  }
+
+  private void clearFilters() {
+    filterByEmployeeField.getSelectionModel().select(null);
+    filterByStatusField.getSelectionModel().select(null);
   }
 
   public void getGoHome(ActionEvent event) {

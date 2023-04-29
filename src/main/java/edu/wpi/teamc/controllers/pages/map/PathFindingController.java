@@ -44,6 +44,7 @@ public class PathFindingController {
   @FXML SearchableComboBox<String> startChoice;
   @FXML SearchableComboBox<String> endChoice;
   @FXML ToggleSwitch locToggle;
+  @FXML ToggleSwitch stairToggle;
   @FXML DatePicker pickDate;
   @FXML GesturePane mapGPane;
   @FXML MFXButton FL1;
@@ -76,6 +77,7 @@ public class PathFindingController {
   private GraphNode src;
   private GraphNode dest;
   private boolean toggleStatus;
+  private boolean stairStatus;
   public Group group;
   public Image image =
       new Image(Main.class.getResource("views/images/FirstFloor.png").openStream());
@@ -116,6 +118,7 @@ public class PathFindingController {
     nextFloor.setDisable(true);
     prevFloor.setDisable(true);
     toggleStatus = false;
+    stairStatus = false;
   }
 
   public void sortNodes() {
@@ -445,7 +448,7 @@ public class PathFindingController {
     }
 
     String dateString = date.toString();
-    graph = new Graph(AlgoSingleton.INSTANCE.getType(), false);
+    graph = new Graph(AlgoSingleton.INSTANCE.getType(), stairStatus);
     graph.syncWithDB(dateString);
 
     int srcN = graph.getNodeIDfromLongName(startName);
@@ -547,6 +550,11 @@ public class PathFindingController {
       group.getChildren().remove(mapText);
       mapText = new Group();
     }
+  }
+
+  @FXML
+  void doStairToggle() {
+    stairStatus = !stairStatus;
   }
 
   @FXML

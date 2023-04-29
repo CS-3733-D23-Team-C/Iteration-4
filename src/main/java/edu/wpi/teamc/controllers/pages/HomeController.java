@@ -201,6 +201,7 @@ public class HomeController {
   public void initialize(Stage primaryStage) throws Exception {
 
     //    try {
+    language_choice = 0;
     setLanguage();
     //    aPane.setOnKeyPressed(event -> {
     //      event.ent

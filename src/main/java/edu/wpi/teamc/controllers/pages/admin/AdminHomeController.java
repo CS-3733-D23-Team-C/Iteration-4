@@ -1,11 +1,16 @@
 package edu.wpi.teamc.controllers.pages.admin;
 
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.displays.Alert;
 import edu.wpi.teamc.languageHelpers.TranslatorAPI;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
+import java.awt.*;
+import java.io.IOException;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
@@ -17,15 +22,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
+import javax.swing.text.html.ImageView;
 import org.girod.javafx.svgimage.SVGImage;
 import org.girod.javafx.svgimage.SVGLoader;
-
-import javax.swing.text.html.ImageView;
-import java.awt.*;
-import java.io.IOException;
-import java.util.List;
-
-import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 public class AdminHomeController {
 
@@ -129,7 +128,6 @@ public class AdminHomeController {
 
   @FXML
   public void initialize() throws Exception {
-    //    setLanguage(language_choice);
     notificationVBox.setAlignment(Pos.TOP_CENTER);
     notificationVBox.setSpacing(20);
     notificationVBox.setMinWidth(notificationBox.getWidth());
@@ -139,10 +137,9 @@ public class AdminHomeController {
       if (language_choice == 0) { // English
 
         addNotification(alert.getTitle(), alert.getDescription(), alert.getType());
-      } else { 
+      } else {
         addNotification(
             LanguageSet(alert.getTitle()), LanguageSet(alert.getDescription()), alert.getType());
-
       }
     }
     if (!CApp.getAdminLoginCheck()) {
@@ -193,23 +190,6 @@ public class AdminHomeController {
   }
 
   // LANGUAGE//
-  @FXML
-  void english() throws Exception {
-    language_choice = 0;
-    setLanguage();
-  }
-
-  @FXML
-  void spanish() throws Exception {
-    language_choice = 1;
-    setLanguage();
-  }
-
-  @FXML
-  void chinese() throws Exception {
-    language_choice = 2;
-    setLanguage();
-  }
 
   @FXML
   void setLanguage() throws Exception {
@@ -226,6 +206,9 @@ public class AdminHomeController {
 
   @FXML
   String LanguageSet(String text) throws Exception {
+    if (text == null) {
+      return null;
+    }
     if (language_choice == 0) { // 0 is english
       text = translatorAPI.translateToEn(text);
     } else if (language_choice == 1) { // 1 is spanish

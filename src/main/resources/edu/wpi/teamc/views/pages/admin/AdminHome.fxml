@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.HTMLEditor?>
 
-<AnchorPane prefHeight="787.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.admin.AdminHomeController">
+<AnchorPane fx:id="Admin_Home_AnchorPane" prefHeight="787.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.admin.AdminHomeController">
    <children>
       <AnchorPane layoutX="71.0" layoutY="153.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
          <children>

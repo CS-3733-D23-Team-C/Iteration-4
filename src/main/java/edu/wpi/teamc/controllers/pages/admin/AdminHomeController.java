@@ -8,7 +8,7 @@ import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.displays.Alert;
 import edu.wpi.teamc.languageHelpers.TranslatorAPI;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.IOException;
 import java.util.List;
 import javafx.fxml.FXML;
@@ -29,8 +29,7 @@ public class AdminHomeController {
   private Desktop desktop = Desktop.getDesktop();
   // @FXML private AdminMenuController adminMenuController;
 
-  public TranslatorAPI translatorAPI = new TranslatorAPI();
-
+  @FXML private AnchorPane Admin_Home_AnchorPane;
   @FXML private HTMLEditor guestWeather;
   @FXML private ImageView English_flag;
   @FXML private ImageView Spanish_flag;
@@ -41,9 +40,6 @@ public class AdminHomeController {
 
   @FXML private TextField weather_title;
   @FXML private TextField notifications_title;
-
-  //  Login login;
-
   // public void initialize() {
   //  LoginDao loginDao = new LoginDao();
   //    try {
@@ -120,7 +116,7 @@ public class AdminHomeController {
 
   @FXML
   public void initialize() throws Exception {
-    setLanguage(language_choice);
+    //    setLanguage(language_choice);
     notificationVBox.setAlignment(Pos.TOP_CENTER);
     notificationVBox.setSpacing(20);
     notificationVBox.setMinWidth(notificationBox.getWidth());
@@ -147,6 +143,8 @@ public class AdminHomeController {
     if (!CApp.getAdminLoginCheck()) {
       AdminHome_Title.setText("Staff Home Page");
     }
+
+    setLanguage();
   }
 
   // SVG Function for Notification//
@@ -194,32 +192,27 @@ public class AdminHomeController {
   @FXML
   void english() throws Exception {
     language_choice = 0;
-    setLanguage(language_choice);
+    setLanguage();
   }
 
   @FXML
   void spanish() throws Exception {
     language_choice = 1;
-    setLanguage(language_choice);
+    setLanguage();
   }
 
   @FXML
-  void setLanguage(int language) throws Exception {
-    // this.language_choice = language;
-    if (language == 0) { // 0 is english
-
-      AdminHome_Title.setText(AdminHome_Title.getText());
-
-      weather_title.setText(weather_title.getText());
-      notifications_title.setText(notifications_title.getText());
-
-    } else if (language == 1) { // 1 is spanish
-      AdminHome_Title.setText(
-          LanguageSet(AdminHome_Title.getText())); // "\u00E1" is a in spanish for UTF-8
+  void setLanguage() throws Exception {
+    if (language_choice == 0) { // 0 is english
+    } else {
+      AdminHome_Title.setText(LanguageSet(AdminHome_Title.getText()));
       weather_title.setText(LanguageSet(weather_title.getText()));
       notifications_title.setText(LanguageSet(notifications_title.getText()));
     }
   }
+
+  // TRANSLATOR//
+  public TranslatorAPI translatorAPI = new TranslatorAPI();
 
   @FXML
   String LanguageSet(String text) throws Exception {

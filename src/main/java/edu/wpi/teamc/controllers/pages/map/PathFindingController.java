@@ -445,7 +445,7 @@ public class PathFindingController {
     }
 
     String dateString = date.toString();
-    graph = new Graph(AlgoSingleton.INSTANCE.getType());
+    graph = new Graph(AlgoSingleton.INSTANCE.getType(), false);
     graph.syncWithDB(dateString);
 
     int srcN = graph.getNodeIDfromLongName(startName);

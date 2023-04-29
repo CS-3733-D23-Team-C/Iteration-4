@@ -41,6 +41,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.ToggleSwitch;
 
@@ -135,6 +136,7 @@ public class EditMapController {
   // ORM lists
   List<Node> nodeList = new ArrayList<Node>();
   List<NodeStatus> nodeStatusList = new ArrayList<NodeStatus>();
+
   List<Edge> edgeList = new ArrayList<Edge>();
   List<LocationName> locationNameList = new ArrayList<LocationName>();
   // hash maps
@@ -331,22 +333,31 @@ public class EditMapController {
     // Set tooltips
     Tooltip alignTip =
         new Tooltip(
-            "Align Mode: Click on multiple nodes. Then, press the green check-mark to determine if you want to align nodes vertically or horizontally. Finally, click a location on the map to align the nodes about that location.");
+            "Align Mode: Click on multiple nodes. Then, press the green check-mark\n to determine if you want to align nodes vertically or horizontally. Finally, click a location on the map\nto align the nodes about that location.");
     Align.setTooltip(alignTip);
+    alignTip.setShowDuration(Duration.hours(3));
+    alignTip.setShowDelay(Duration.millis(0));
 
     Tooltip addTip =
         new Tooltip(
-            "Add Mode: Click anywhere on the map to add a new node to the floor. Or, click on a node to add a location name to a node");
+            "Add Mode: Click anywhere on the map to add a new node to the floor. \nOr, click on a node to add a location name to a node");
     Add.setTooltip(addTip);
+    addTip.setShowDuration(Duration.hours(3));
+    addTip.setShowDelay(Duration.millis(0));
 
     Tooltip modifyTip =
         new Tooltip(
-            "Modify Mode: Click on a node to be prompted with four options. 1: Modify the location of a node by text input. 2: Modify the location of a node by dragging the node on the map with the cursor. 3: Modify the location name of the node. 4: Enter Close Mode. Close Mode allows you to select multiple nodes and close them so pathfinding can no longer use those nodes. Closed nodes can also be opened in this mode.");
+            "Modify Mode: Click on a node to be prompted with four options.\n1: Modify the location of a node by text input.\n2: Modify the location of a node by dragging the node on the map with the cursor.\n3: Modify the location name of the node.\n4: Enter Close Mode. Close Mode allows you to select multiple nodes and close them so \npathfinding can no longer use those nodes. Closed nodes can also be opened in this mode.");
     Modify.setTooltip(modifyTip);
+    modifyTip.setShowDuration(Duration.hours(3));
+    modifyTip.setShowDelay(Duration.millis(0));
 
     Tooltip removeTip =
         new Tooltip(
-            "Remove Mode: Click on a node to remove either the node or just the node's location name. Click on an edge to remove the edge.");
+            "Remove Mode: Click on a node to remove either the node or just\nthe node's location name. Click on an edge to remove the edge.");
+    Remove.setTooltip(removeTip);
+    removeTip.setShowDuration(Duration.hours(3));
+    removeTip.setShowDelay(Duration.millis(0));
 
     edgeToggle.setOnMouseClicked(
         e -> {
@@ -1036,6 +1047,16 @@ public class EditMapController {
       text = new Text(shortname);
     }
     //    }
+    Tooltip tooltip =
+        new Tooltip(
+            "Node ID: "
+                + node.getNodeID()
+                + "\n xCoord: "
+                + node.getXCoord()
+                + "\n yCoord"
+                + node.getYCoord()
+                + "\n Node Type: "
+                + nodeType);
 
     newCircle.setRadius(6);
     newCircle.setCenterX(node.getXCoord());
@@ -1045,6 +1066,9 @@ public class EditMapController {
     text.setY(node.getYCoord() - 5);
 
     newCircle.setId(String.valueOf(node.getNodeID()));
+    Tooltip.install(newCircle, tooltip);
+    tooltip.setShowDuration(Duration.hours(3));
+    tooltip.setShowDelay(Duration.millis(0));
 
     // load hashmap of status versus nodeID
     NODE_STATUS status = node.getStatus();
@@ -2264,16 +2288,92 @@ public class EditMapController {
     //    checkAndX_HBox1.setMouseTransparent(false);
     alignModeHelper.addToList(currNodeClicked, currCircleClicked);
     currCircleClicked.setFill(Paint.valueOf("#EAB334"));
-    checkAndX_HBox.setVisible(true);
-    checkAndX_HBox1.setVisible(true);
-    checkAndX_HBox.setMouseTransparent(false);
-    checkAndX_HBox1.setMouseTransparent(false);
+    //    checkAndX_HBox.setVisible(true);
+    //    checkAndX_HBox1.setVisible(true);
+    //    checkAndX_HBox.setMouseTransparent(false);
+    //    checkAndX_HBox1.setMouseTransparent(false);
     nodeClicked = false;
     alignMode = true;
     initGroupOnMouseClicked = group.getOnMouseClicked();
     group.setOnMouseClicked(
         e -> {
-          if (nodeClicked) {
+          if (e.isAltDown()) {
+            BorderPane borderPane = new BorderPane();
+
+            // Stuff to show on pop up
+            Text headerText = new Text("Undo Alignment?");
+            MFXButton confirm = new MFXButton("Confirm");
+            MFXButton cancel = new MFXButton("Cancel");
+
+            // set styles
+            headerText.getStyleClass().add("Header");
+            confirm.getStyleClass().add("MFXbutton");
+            cancel.getStyleClass().add("MFXbutton");
+            borderPane.getStyleClass().add("scenePane");
+
+            // set object locations
+            int lay_x = 45;
+            int lay_y = 40;
+            headerText.setLayoutX(lay_x);
+            headerText.setLayoutY(lay_y);
+            confirm.setLayoutX(lay_x);
+            confirm.setLayoutY(lay_y + 30);
+            cancel.setLayoutX(lay_x);
+            cancel.setLayoutY(lay_y + 90);
+
+            // Set and show screen
+            AnchorPane aPane = new AnchorPane();
+            aPane.getChildren().addAll(headerText, confirm, cancel);
+            //    Insets insets = new Insets(0, 0, 0, 200);
+            //    aPane.setPadding(insets);
+            borderPane.getChildren().add(aPane);
+            Scene scene = new Scene(borderPane, 290, 220);
+            scene
+                .getStylesheets()
+                .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
+            borderPane.relocate(0, 0);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Undo Alignment Window");
+            stage.setAlwaysOnTop(true);
+            stage.show();
+            EdgeDao edgeDao = new EdgeDao();
+
+            stage.setOnCloseRequest(
+                event -> {
+                  stage.close();
+                  lockMap = false;
+                  group.setOnMouseClicked(initGroupOnMouseClicked);
+                });
+            confirm.setOnMouseClicked(
+                event -> {
+                  NodeDao nodeDao = new NodeDao();
+                  for (Node node : alignModeHelper.getLastAlignedNode()) {
+                    nodeDao.updateRow(node.getNodeID(), node);
+                    System.out.println(node.getXCoord() + " " + node.getYCoord());
+                  }
+
+                  alignModeHelper.getLastAlignedNode().clear();
+                  group.getChildren().removeAll(mapNodes, mapText);
+                  mapNodes = new Group();
+                  mapText = new Group();
+                  group.getChildren().addAll(mapNodes, mapText);
+                  loadDatabase();
+                  loadNodeIDToNode();
+                  sortNodes();
+                  sortEdges();
+                  placeEdges(floor);
+                  placeNodes(floor);
+                  lockMap = false;
+                  stage.close();
+                  group.setOnMouseClicked(initGroupOnMouseClicked);
+                });
+            cancel.setOnMouseClicked(
+                event -> {
+                  stage.close();
+                  group.setOnMouseClicked(initGroupOnMouseClicked);
+                });
+          } else if (nodeClicked) {
             checkAndX_HBox.setVisible(true);
             checkAndX_HBox1.setVisible(true);
             checkAndX_HBox.setMouseTransparent(false);
@@ -2415,11 +2515,11 @@ public class EditMapController {
     group.setOnMouseClicked(
         e -> {
           if (alignVert) {
-            alignModeHelper.setAlignX((int) e.getX());
+            //            alignModeHelper.setAlignX((int) e.getX());
             alignVertically((int) e.getX());
           }
           if (alignHoriz) {
-            alignModeHelper.setAlignY((int) e.getY());
+            //            alignModeHelper.setAlignY((int) e.getY());
             alignHorizontally((int) e.getY());
           }
         });
@@ -2427,6 +2527,8 @@ public class EditMapController {
 
   public void alignVertically(int x) {
     NodeDao nodeDao = new NodeDao();
+    alignModeHelper.setLastAlignedCirc(alignModeHelper.getCircToAlign());
+    alignModeHelper.setLastAlignedNode(alignModeHelper.getToAlign());
     for (Node node : alignModeHelper.getToAlign()) {
       //      node.setXCoord(alignModeHelper.getAlignX());
       node.setXCoord(x);
@@ -2450,6 +2552,8 @@ public class EditMapController {
 
   public void alignHorizontally(int y) {
     NodeDao nodeDao = new NodeDao();
+    alignModeHelper.setLastAlignedCirc(alignModeHelper.getCircToAlign());
+    alignModeHelper.setLastAlignedNode(alignModeHelper.getToAlign());
     for (Node node : alignModeHelper.getToAlign()) {
       //      node.setYCoord(alignModeHelper.getAlignY());
       node.setYCoord(y);

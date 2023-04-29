@@ -57,9 +57,7 @@ public class GiftBasketRequestController {
   }
 
   @FXML
-  void getSubmit() {
-    submit.setOnMouseClicked(event -> Navigation.navigate(Screen.CONGRATS_PAGE));
-  }
+  void getSubmit() {}
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {
@@ -140,61 +138,45 @@ public class GiftBasketRequestController {
     Navigation.navigate(Screen.HELP);
   }
 
-  public void getRoomID(ActionEvent actionEvent) {
-  }
+  public void getRoomID(ActionEvent actionEvent) {}
 
-  public void getID0(ActionEvent actionEvent) {
-  }
+  public void getID0(ActionEvent actionEvent) {}
 
-  public void getID1(ActionEvent actionEvent) {
-  }
+  public void getID1(ActionEvent actionEvent) {}
 
-  public void getID2(ActionEvent actionEvent) {
-  }
-  public void getID3(ActionEvent actionEvent) {
-  }
+  public void getID2(ActionEvent actionEvent) {}
 
-  public void getBasketType(ActionEvent actionEvent) {
-  }
+  public void getID3(ActionEvent actionEvent) {}
 
-  public void getType0(ActionEvent actionEvent) {
-  }
-  public void getType1(ActionEvent actionEvent) {
-  }
-  public void getType2(ActionEvent actionEvent) {
-  }
-  public void getType3(ActionEvent actionEvent) {
-  }
+  public void getBasketType(ActionEvent actionEvent) {}
 
-  public void getArrangeSelection(ActionEvent actionEvent) {
-  }
+  public void getType0(ActionEvent actionEvent) {}
 
-  public void getSelection0(ActionEvent actionEvent) {
-  }
+  public void getType1(ActionEvent actionEvent) {}
 
-  public void getSelection1(ActionEvent actionEvent) {
-  }
+  public void getType2(ActionEvent actionEvent) {}
 
-  public void getSelection2(ActionEvent actionEvent) {
-  }
+  public void getType3(ActionEvent actionEvent) {}
 
-  public void getSelection3(ActionEvent actionEvent) {
-  }
+  public void getArrangeSelection(ActionEvent actionEvent) {}
 
-  public void getSelectTime(ActionEvent actionEvent) {
-  }
+  public void getSelection0(ActionEvent actionEvent) {}
 
-  public void getEmployeeName(ActionEvent actionEvent) {
-  }
-  public void getEmployee0(ActionEvent actionEvent) {
-  }
-  public void getEmployee1(ActionEvent actionEvent) {
-  }
+  public void getSelection1(ActionEvent actionEvent) {}
 
-  public void getEmployee2(ActionEvent actionEvent) {
-  }
+  public void getSelection2(ActionEvent actionEvent) {}
 
-  public void getEmployee3(ActionEvent actionEvent) {
-  }
+  public void getSelection3(ActionEvent actionEvent) {}
+
+  public void getSelectTime(ActionEvent actionEvent) {}
+
+  public void getEmployeeName(ActionEvent actionEvent) {}
+
+  public void getEmployee0(ActionEvent actionEvent) {}
+
+  public void getEmployee1(ActionEvent actionEvent) {}
+
+  public void getEmployee2(ActionEvent actionEvent) {}
+
+  public void getEmployee3(ActionEvent actionEvent) {}
 }
-

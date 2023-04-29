@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.List;
 
 public class RequestSystem {
-
    @Getter @Setter private List<AbsServiceRequest> requests;
      RequestSystem(List<AbsServiceRequest> requests) {
         this.requests = requests;
@@ -26,7 +25,6 @@ public class RequestSystem {
             requests.addAll((Collection<? extends AbsServiceRequest>) HospitalSystem.fetchAllObjects((IOrm) request));
         }
     }
-
 public List<AbsServiceRequest> filterRequest(String assingedto, STATUS status, IRequest request) {
     List<AbsServiceRequest> filteredRequests = new ArrayList<>();
     for (AbsServiceRequest request1 : requests) {

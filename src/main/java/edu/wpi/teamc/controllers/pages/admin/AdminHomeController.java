@@ -1,27 +1,31 @@
 package edu.wpi.teamc.controllers.pages.admin;
 
-import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
-
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.displays.Alert;
 import edu.wpi.teamc.languageHelpers.TranslatorAPI;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
-import java.awt.Desktop;
-import java.io.IOException;
-import java.util.List;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
-import javafx.scene.text.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
-import javax.swing.text.html.ImageView;
 import org.girod.javafx.svgimage.SVGImage;
 import org.girod.javafx.svgimage.SVGLoader;
+
+import javax.swing.text.html.ImageView;
+import java.awt.*;
+import java.io.IOException;
+import java.util.List;
+
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 public class AdminHomeController {
 
@@ -54,28 +58,37 @@ public class AdminHomeController {
     return lines;
   }
 
-  public void addNotification(String notification, String type) throws IOException {
+  public void addNotification(String notification, String description, String type)
+      throws IOException {
 
     HBox hBox = new HBox();
-    Text text = new Text(notification);
+    HBox container = new HBox();
+    VBox vBox = new VBox();
+    Text title = new Text(notification);
+    Text desc = new Text(description);
 
-    hBox.setMaxHeight(shiftlines(text.getText()) * 45);
+    hBox.setMaxHeight(shiftlines(title.getText()) * 45);
     hBox.setAlignment(Pos.CENTER_LEFT);
-    hBox.setSpacing(50);
+    hBox.setSpacing(20);
+    container.setSpacing(20);
     hBox.setStyle(
-        "-fx-background-color: #ffffff;-fx-border-width: 1; -fx-max-width:650; -fx-padding: 10;"
+        "-fx-background-color: #ffffff;-fx-border-width: 1; -fx-max-width:650; -fx-padding: 5 10 5 10;"
             + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
 
-    text.setFont(Font.font("Arial", FontWeight.BOLD, 25));
-    text.setText(notification);
+    title.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+    desc.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
     Image img = choosePNG(type);
     javafx.scene.image.ImageView imgView = new javafx.scene.image.ImageView(img);
     hBox.getChildren().add(imgView);
-    text.setWrappingWidth(550);
-    hBox.getChildren().add(text);
-    BorderColor(type, hBox);
+    title.setWrappingWidth(550);
+    desc.setWrappingWidth(550);
+    vBox.getChildren().add(title);
+    vBox.getChildren().add(desc);
+    hBox.getChildren().add(vBox);
+    container.getChildren().add(hBox);
+    BorderColor(type, container);
 
-    notificationVBox.getChildren().add(0, hBox);
+    notificationVBox.getChildren().add(0, container);
   }
 
   @FXML
@@ -124,26 +137,15 @@ public class AdminHomeController {
     java.util.List<Alert> alertList = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
     for (Alert alert : alertList) {
       if (language_choice == 0) { // English
-        if (alert.getDescription() == null) {
-          addNotification(alert.getTitle(), alert.getType());
-        } else {
-          addNotification(
-              alert.getTitle() + " \nDescription: " + alert.getDescription(), alert.getType());
-        }
+        addNotification(alert.getTitle(), alert.getDescription(), alert.getType());
       } else if (language_choice == 1) { // Spanish
-        if (alert.getDescription() == null) {
-          addNotification(LanguageSet(alert.getTitle()), alert.getType());
-        } else {
-          addNotification(
-              LanguageSet(alert.getTitle() + " \nDescription: " + alert.getDescription()),
-              alert.getType());
-        }
+        addNotification(
+            LanguageSet(alert.getTitle()), LanguageSet(alert.getDescription()), alert.getType());
       }
     }
     if (!CApp.getAdminLoginCheck()) {
       AdminHome_Title.setText("Staff Home Page");
     }
-
     setLanguage();
   }
 

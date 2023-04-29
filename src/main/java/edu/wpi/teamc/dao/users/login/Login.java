@@ -5,10 +5,11 @@ import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.IOrm;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
+import lombok.Getter;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import lombok.Getter;
 
 public class Login implements IOrm {
   @Getter private String username;
@@ -16,7 +17,7 @@ public class Login implements IOrm {
   @Getter String salt;
   @Getter String hashedPassword;
   private String otp;
-  @Getter boolean OTPEnabled;
+  boolean OTPEnabled;
   @Getter private PERMISSIONS permissions;
 
   public Login() {}
@@ -125,10 +126,13 @@ public class Login implements IOrm {
   }
 
   public boolean isOTPEnabled() {
-    if (this.otp == null) {
-      return false;
+    if (this.otp == null || this.otp.equalsIgnoreCase("null")) {
+      this.OTPEnabled = false;
+      return this.OTPEnabled;
+    } else {
+        this.OTPEnabled = true;
+        return this.OTPEnabled;
     }
-    return true;
   }
 
   public boolean checkOTP(String otp) {

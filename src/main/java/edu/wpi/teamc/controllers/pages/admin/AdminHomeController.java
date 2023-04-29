@@ -137,10 +137,12 @@ public class AdminHomeController {
     java.util.List<Alert> alertList = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
     for (Alert alert : alertList) {
       if (language_choice == 0) { // English
+
         addNotification(alert.getTitle(), alert.getDescription(), alert.getType());
-      } else if (language_choice == 1) { // Spanish
+      } else { 
         addNotification(
             LanguageSet(alert.getTitle()), LanguageSet(alert.getDescription()), alert.getType());
+
       }
     }
     if (!CApp.getAdminLoginCheck()) {
@@ -200,6 +202,12 @@ public class AdminHomeController {
   @FXML
   void spanish() throws Exception {
     language_choice = 1;
+    setLanguage();
+  }
+
+  @FXML
+  void chinese() throws Exception {
+    language_choice = 2;
     setLanguage();
   }
 

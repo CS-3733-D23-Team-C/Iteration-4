@@ -3,6 +3,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,37 +16,10 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.ToggleSwitch?>
 
 <AnchorPane fx:id="basePane" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.components.MenuController">
    <children>
-      <AnchorPane fx:id="homePopOut1" layoutX="-110.0" layoutY="11.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0">
-         <children>
-            <Pane fx:id="homePopOut" prefHeight="163.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
-               <children>
-                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
-                     <children>
-                        <Text fx:id="Admin_menu_home" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" textAlignment="CENTER" wrappingWidth="155.40002518892288">
-                           <font>
-                              <Font name="Arial" size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Text>
-                        <Line endX="80.0">
-                           <VBox.margin>
-                              <Insets left="35.0" />
-                           </VBox.margin>
-                        </Line>
-                        <MFXButton fx:id="Admin_menu_home_button" onAction="#getAdminHome" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
-                        <MFXButton fx:id="Admin_menu_about_button" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
-                        <MFXButton fx:id="Admin_menu_credits" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
-                     </children>
-                  </VBox>
-               </children>
-            </Pane>
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="aboutPopOut3" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutPopOut1" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
@@ -315,6 +289,34 @@
                               <Insets top="20.0" />
                            </VBox.margin>
                         </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="homePopOut1" layoutX="-110.0" layoutY="11.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0">
+         <children>
+            <Pane fx:id="homePopOut" prefHeight="163.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="200.0" prefWidth="150.0" spacing="5.0">
+                     <children>
+                        <Text fx:id="Admin_menu_home" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Home" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="80.0">
+                           <VBox.margin>
+                              <Insets left="35.0" />
+                           </VBox.margin>
+                        </Line>
+                        <MFXButton fx:id="Admin_menu_home_button" onAction="#getAdminHome" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
+                        <MFXButton fx:id="Admin_menu_about_button" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
+                        <MFXButton fx:id="Admin_menu_credits" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
                      </children>
                   </VBox>
                </children>
@@ -640,6 +642,12 @@
                         </Line>
                         <MFXButton fx:id="Admin_menu_employee_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Employee Table" />
                         <MFXButton fx:id="Admin_menu_login_table" onAction="#getLoginTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Login Table" />
+                        <HBox>
+                           <children>
+                              <Label text="AWS database" />
+                              <ToggleSwitch fx:id="dbToggle" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>

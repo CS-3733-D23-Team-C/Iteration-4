@@ -25,6 +25,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import org.controlsfx.control.ToggleSwitch;
 
 public class MenuController {
 
@@ -158,82 +159,98 @@ public class MenuController {
 
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {
+    CApp.currScreen = Screen.FLOWER;
     Navigation.navigate(Screen.FLOWER);
   }
 
   @FXML
   void getAdminHome(ActionEvent event) {
+    CApp.currScreen = Screen.ADMIN_HOME;
     Navigation.navigate(Screen.ADMIN_HOME);
   }
 
   @FXML
   void getAdminAbout(ActionEvent event) {
+    CApp.currScreen = Screen.ABOUT;
     Navigation.navigate(Screen.ABOUT);
   }
 
   @FXML
   void getFurnitureDeliveryPage(ActionEvent event) {
+    CApp.currScreen = Screen.FURNITURE;
     Navigation.navigate(Screen.FURNITURE);
   }
 
   @FXML
   void getHelpPage(ActionEvent event) {
+    CApp.currScreen = Screen.HELP;
     Navigation.navigate(Screen.HELP);
   }
 
   @FXML
   void getMealDeliveryPage(ActionEvent event) {
+    CApp.currScreen = Screen.MEAL;
     Navigation.navigate(Screen.MEAL);
   }
 
   @FXML
   void getOfficeSuppliesPage(ActionEvent event) {
+    CApp.currScreen = Screen.OFFICE_SUPPLY;
     Navigation.navigate(Screen.OFFICE_SUPPLY);
   }
 
   @FXML
   void getRoomReservationPage(ActionEvent event) {
+    CApp.currScreen = Screen.CONFERENCE;
     Navigation.navigate(Screen.CONFERENCE);
   }
 
   @FXML
   void getSignagePage(ActionEvent event) {
+    CApp.currScreen = Screen.SIGNAGE;
     Navigation.navigate(Screen.SIGNAGE);
   }
 
   @FXML
   void getPathfindingPage(ActionEvent event) {
+    CApp.currScreen = Screen.PATHFINDING_PAGE;
     Navigation.navigate(Screen.PATHFINDING_PAGE);
   }
 
   @FXML
   void getGiftBasketRequestPage(ActionEvent event) {
+    CApp.currScreen = Screen.GIFT_BASKET;
     Navigation.navigate(Screen.GIFT_BASKET);
   }
 
   @FXML
   void getExit(ActionEvent event) {
+    CApp.currScreen = Screen.EXIT_PAGE;
     Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   /** Method run when controller is initialized */
   @FXML
   void getEditMap(ActionEvent event) {
+    CApp.currScreen = Screen.EDIT_MAP;
     Navigation.navigate(Screen.EDIT_MAP);
   }
 
   @FXML
   void getLogOut(ActionEvent event) {
+    CApp.currScreen = Screen.HOME;
     Navigation.navigate(Screen.HOME);
   }
 
   @FXML
   void getMapHistory(ActionEvent event) {
+    CApp.currScreen = Screen.MAP_HISTORY_PAGE;
     Navigation.navigate(Screen.MAP_HISTORY_PAGE);
   }
 
   @FXML
   void getMoveTable(ActionEvent event) {
+    CApp.currScreen = Screen.MOVE_TABLE;
     Navigation.navigate(Screen.MOVE_TABLE);
   }
 
@@ -249,11 +266,13 @@ public class MenuController {
 
   @FXML
   void getSignageEdit(ActionEvent event) {
+    CApp.currScreen = Screen.SIGNAGE_EDIT;
     Navigation.navigate(Screen.SIGNAGE_EDIT);
   }
 
   @FXML
   void getRequestHistory(ActionEvent event) {
+    CApp.currScreen = Screen.REQUEST_HISTORY;
     Navigation.navigate(Screen.REQUEST_HISTORY);
   }
 
@@ -264,14 +283,17 @@ public class MenuController {
 
   @FXML
   void getAlertRequest(ActionEvent event) {
+    CApp.currScreen = Screen.ALERT_REQUEST;
     Navigation.navigate(Screen.ALERT_REQUEST);
   }
 
   public void getEmployeeTablePage(ActionEvent actionEvent) {
+    CApp.currScreen = Screen.EMPLOYEETABLE_PAGE;
     Navigation.navigate(Screen.EMPLOYEETABLE_PAGE);
   }
 
   public void getLoginTablePage(ActionEvent actionEvent) {
+    CApp.currScreen = Screen.LOGIN_TABLE;
     Navigation.navigate(Screen.LOGIN_TABLE);
   }
 
@@ -285,6 +307,7 @@ public class MenuController {
   @FXML ImageView cancelIcon;
   @FXML Line menuLine1;
   @FXML Line menuLine2;
+  @FXML ToggleSwitch dbToggle;
 
   //  Login login = new Login();
   //  @FXML MFXButton moveButton;
@@ -483,11 +506,13 @@ public class MenuController {
     helpTrigger1.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
+          CApp.currScreen = Screen.HELP;
           Navigation.navigate(Screen.HELP);
         });
     homeTrigger1.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
+          CApp.currScreen = Screen.ADMIN_HOME;
           Navigation.navigate(Screen.ADMIN_HOME);
         });
 
@@ -519,6 +544,7 @@ public class MenuController {
         MouseEvent.MOUSE_CLICKED,
         event -> {
           CApp.setAdminLoginCheck(false);
+          CApp.currScreen = Screen.HOME;
           Navigation.navigate(Screen.HOME);
           Navigation.setMenuType(Navigation.MenuType.DISABLED);
         });
@@ -699,19 +725,29 @@ public class MenuController {
                 creditPopOutTransition.play();
               }
             });
-
+    // get wpidb boolean and set toggle accordingly
+    dbToggle.setSelected(!CApp.getWpiDB());
+    dbToggle.setOnMouseClicked(
+        event -> {
+          // Toggled sets boolean wpiDB false for AWS
+          CApp.wpiDB = !dbToggle.selectedProperty().get();
+          dbToggle.setSelected(!CApp.wpiDB);
+          //          dbToggle.fire();
+          System.out.println("DB: " + CApp.wpiDB);
+          Navigation.navigate(CApp.currScreen);
+        });
     // Add a flag to track if the mouse is hovering over the aboutPopOut node
 
     // Set up the event filter for the Admin_menu_about_button
-    //    meetTheTeam.setOnMouseClicked(
-    //        event -> {
-    //          aboutPopOut1.setVisible(true);
-    //          aboutPopOut3.setVisible(true);
-    //          aboutPopOutTransition1.setDuration(Duration.millis(300));
-    //          aboutPopOutTransition1.setNode(aboutPopOut3);
-    //          aboutPopOutTransition1.setToX(585);
-    //          aboutPopOutTransition1.play();
-    //        });
+    //        meetTheTeam.setOnMouseClicked(
+    //            event -> {
+    //              aboutPopOut1.setVisible(true);
+    //              aboutPopOut3.setVisible(true);
+    //              aboutPopOutTransition1.setDuration(Duration.millis(300));
+    //              aboutPopOutTransition1.setNode(aboutPopOut3);
+    //              aboutPopOutTransition1.setToX(585);
+    //              aboutPopOutTransition1.play();
+    //            });
     //
     //    aboutPopOut1
     //        .hoverProperty()
@@ -749,7 +785,7 @@ public class MenuController {
               if (!newValue && !meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
                 aboutPopOutTransition1.setDuration(Duration.millis(200));
                 aboutPopOutTransition1.setNode(aboutPopOut3);
-                aboutPopOutTransition1.setToX(290);
+                aboutPopOutTransition1.setToX(0);
                 aboutPopOutTransition1.setOnFinished(
                     event -> {
                       if (!meetTheTeam.isHover() && !aboutPopOut3.isHover()) {

@@ -166,21 +166,21 @@ public class TextDirectionsHelper {
     String retVal;
 
     if (orientation.equals("N") && tempOrientation.equals("E")) {
-      retVal = "Turn right";
+      retVal = "↱ Turn right ↱";
     } else if (orientation.equals("N") && tempOrientation.equals("W")) {
-      retVal = "Turn left";
+      retVal = "↰ Turn left ↰";
     } else if (orientation.equals("S") && tempOrientation.equals("E")) {
-      retVal = "Turn left";
+      retVal = "↰ Turn left ↰";
     } else if (orientation.equals("S") && tempOrientation.equals("W")) {
-      retVal = "Turn right";
+      retVal = "↱ Turn right ↱";
     } else if (orientation.equals("W") && tempOrientation.equals("S")) {
-      retVal = "Turn left";
+      retVal = "↰ Turn left ↰";
     } else if (orientation.equals("E") && tempOrientation.equals("S")) {
-      retVal = "Turn right";
+      retVal = "↱ Turn right ↱";
     } else if (orientation.equals("W") && tempOrientation.equals("N")) {
-      retVal = "Turn right";
+      retVal = "↱ Turn right ↱";
     } else if (orientation.equals("E") && tempOrientation.equals("N")) {
-      retVal = "Turn left";
+      retVal = "↰ Turn left ↰";
     } else {
       retVal = "Continue Straight";
     }

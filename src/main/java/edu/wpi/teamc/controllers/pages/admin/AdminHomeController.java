@@ -76,7 +76,7 @@ public class AdminHomeController {
     javafx.scene.image.ImageView imgView = new javafx.scene.image.ImageView(img);
     hBox.getChildren().add(imgView);
     hBox.getChildren().add(text);
-    notificationVBox.getChildren().add(hBox);
+    notificationVBox.getChildren().add(0, hBox);
   }
 
   @FXML

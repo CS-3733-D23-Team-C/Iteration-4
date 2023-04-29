@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.requests;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.users.PatientUser;
@@ -17,7 +18,7 @@ import java.util.List;
 public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Integer> {
   public List<ConferenceRoomRequest> fetchAllObjects() {
     List<ConferenceRoomRequest> returnList = new ArrayList<>();
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmt = db.getConnection().createStatement();
       // Table Name
@@ -56,7 +57,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
   }
 
   public ConferenceRoomRequest addRow(ConferenceRoomRequest orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       String query =
           "INSERT INTO \"ServiceRequests\".\"conferenceRoomRequest\" (Requester, roomName, status, startTime, endTime, additionalNotes, assignedto) VALUES (?,?,?,?,?,?,?)";
@@ -83,7 +84,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
   }
 
   public ConferenceRoomRequest updateRow(ConferenceRoomRequest orm, ConferenceRoomRequest repl) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmtNode = db.getConnection().createStatement();
       // table names
@@ -123,7 +124,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
   }
 
   public ConferenceRoomRequest deleteRow(ConferenceRoomRequest orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmtNode = db.getConnection().createStatement();
       // table names
@@ -143,7 +144,7 @@ public class ConferenceRoomRequestDAO implements IDao<ConferenceRoomRequest, Int
   public ConferenceRoomRequest fetchObject(Integer key) {
     ConferenceRoomRequest request = null;
     try {
-      DBConnection db = new DBConnection();
+      DBConnection db = new DBConnection(CApp.getWpiDB());
       Statement stmt = db.getConnection().createStatement();
       // Table Name
       String table = "\"ServiceRequests\".\"conferenceRoomRequest\"";

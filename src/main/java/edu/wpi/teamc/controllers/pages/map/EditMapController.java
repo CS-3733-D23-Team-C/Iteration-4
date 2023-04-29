@@ -131,6 +131,7 @@ public class EditMapController {
   ModeResetterHelper modeResetterHelper = new ModeResetterHelper();
   FloorResetterHelper floorResetterHelper = new FloorResetterHelper();
   AlignModeHelper alignModeHelper = new AlignModeHelper();
+  AlignResetterHelper alignResetterHelper = new AlignResetterHelper();
   CloseModeHelper closeModeHelper = new CloseModeHelper();
 
   // ORM lists
@@ -442,6 +443,90 @@ public class EditMapController {
           //          if(addClicked) //dont need this bc when add is clicked will update mapMode
           // to
           // Add, need to set that up
+          if (e.isAltDown() && Objects.equals(mapMode.getMapMode(), "Align")) {
+            BorderPane borderPane = new BorderPane();
+
+            // Stuff to show on pop up
+            Text headerText = new Text("Undo Alignment?");
+            MFXButton confirm = new MFXButton("Confirm");
+            MFXButton cancel = new MFXButton("Cancel");
+
+            // set styles
+            headerText.getStyleClass().add("Header");
+            confirm.getStyleClass().add("MFXbutton");
+            cancel.getStyleClass().add("MFXbutton");
+            borderPane.getStyleClass().add("scenePane");
+
+            // set object locations
+            int lay_x = 45;
+            int lay_y = 40;
+            headerText.setLayoutX(lay_x);
+            headerText.setLayoutY(lay_y);
+            confirm.setLayoutX(lay_x);
+            confirm.setLayoutY(lay_y + 30);
+            cancel.setLayoutX(lay_x);
+            cancel.setLayoutY(lay_y + 90);
+
+            // Set and show screen
+            AnchorPane aPane = new AnchorPane();
+            aPane.getChildren().addAll(headerText, confirm, cancel);
+            //    Insets insets = new Insets(0, 0, 0, 200);
+            //    aPane.setPadding(insets);
+            borderPane.getChildren().add(aPane);
+            Scene scene = new Scene(borderPane, 290, 220);
+            scene
+                .getStylesheets()
+                .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
+            borderPane.relocate(0, 0);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Undo Alignment Window");
+            stage.setAlwaysOnTop(true);
+            stage.show();
+            EdgeDao edgeDao = new EdgeDao();
+
+            stage.setOnCloseRequest(
+                event -> {
+                  stage.close();
+                  lockMap = false;
+                  //                  group.setOnMouseClicked(initGroupOnMouseClicked);
+                });
+            confirm.setOnMouseClicked(
+                event -> {
+                  NodeDao nodeDao = new NodeDao();
+                  System.out.println("should be resetting nodes");
+
+                  for (Node node : alignResetterHelper.getToAlign()) {
+                    nodeDao.updateRow(node.getNodeID(), node);
+                    System.out.println(node.getXCoord() + " " + node.getYCoord());
+                  }
+
+                  //                  for (Node node : alignModeHelper.getLastAlignedNode()) {
+                  //                    nodeDao.updateRow(node.getNodeID(), node);
+                  //                    System.out.println(node.getXCoord() + " " +
+                  // node.getYCoord());
+                  //                  }
+
+                  alignModeHelper.getLastAlignedNode().clear();
+                  group.getChildren().removeAll(mapNodes, mapText);
+                  mapNodes = new Group();
+                  mapText = new Group();
+                  group.getChildren().addAll(mapNodes, mapText);
+                  loadDatabase();
+                  loadNodeIDToNode();
+                  sortNodes();
+                  sortEdges();
+                  placeEdges(floor);
+                  placeNodes(floor);
+                  lockMap = false;
+                  stage.close();
+                });
+            cancel.setOnMouseClicked(
+                event -> {
+                  stage.close();
+                  //                  group.setOnMouseClicked(initGroupOnMouseClicked);
+                });
+          }
 
           if ((Objects.equals(mapMode.getMapMode(), "Add")) && !lockMap && !nodeClicked) {
             lockMap = true;
@@ -452,14 +537,17 @@ public class EditMapController {
               throw new RuntimeException(ex);
             }
           } // bring up node add popup
+
           if (Objects.equals(mapMode.getMapMode(), "Select")) {
             // do Nothing
           }
-          if (Objects.equals(mapMode.getMapMode(), "Align") && !lockMap) {
+
+          if (Objects.equals(mapMode.getMapMode(), "Align") && !lockMap && nodeClicked) {
             System.out.println("why am i here");
             lockMap = true;
             alignNodes();
           }
+
           if (edgeClicked && !nodeClicked) {
             if (Objects.equals(mapMode.getMapMode(), "Remove")) {
               lineClicked.setFill(Paint.valueOf("#EAB334"));
@@ -2297,83 +2385,7 @@ public class EditMapController {
     initGroupOnMouseClicked = group.getOnMouseClicked();
     group.setOnMouseClicked(
         e -> {
-          if (e.isAltDown()) {
-            BorderPane borderPane = new BorderPane();
-
-            // Stuff to show on pop up
-            Text headerText = new Text("Undo Alignment?");
-            MFXButton confirm = new MFXButton("Confirm");
-            MFXButton cancel = new MFXButton("Cancel");
-
-            // set styles
-            headerText.getStyleClass().add("Header");
-            confirm.getStyleClass().add("MFXbutton");
-            cancel.getStyleClass().add("MFXbutton");
-            borderPane.getStyleClass().add("scenePane");
-
-            // set object locations
-            int lay_x = 45;
-            int lay_y = 40;
-            headerText.setLayoutX(lay_x);
-            headerText.setLayoutY(lay_y);
-            confirm.setLayoutX(lay_x);
-            confirm.setLayoutY(lay_y + 30);
-            cancel.setLayoutX(lay_x);
-            cancel.setLayoutY(lay_y + 90);
-
-            // Set and show screen
-            AnchorPane aPane = new AnchorPane();
-            aPane.getChildren().addAll(headerText, confirm, cancel);
-            //    Insets insets = new Insets(0, 0, 0, 200);
-            //    aPane.setPadding(insets);
-            borderPane.getChildren().add(aPane);
-            Scene scene = new Scene(borderPane, 290, 220);
-            scene
-                .getStylesheets()
-                .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
-            borderPane.relocate(0, 0);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Undo Alignment Window");
-            stage.setAlwaysOnTop(true);
-            stage.show();
-            EdgeDao edgeDao = new EdgeDao();
-
-            stage.setOnCloseRequest(
-                event -> {
-                  stage.close();
-                  lockMap = false;
-                  group.setOnMouseClicked(initGroupOnMouseClicked);
-                });
-            confirm.setOnMouseClicked(
-                event -> {
-                  NodeDao nodeDao = new NodeDao();
-                  for (Node node : alignModeHelper.getLastAlignedNode()) {
-                    nodeDao.updateRow(node.getNodeID(), node);
-                    System.out.println(node.getXCoord() + " " + node.getYCoord());
-                  }
-
-                  alignModeHelper.getLastAlignedNode().clear();
-                  group.getChildren().removeAll(mapNodes, mapText);
-                  mapNodes = new Group();
-                  mapText = new Group();
-                  group.getChildren().addAll(mapNodes, mapText);
-                  loadDatabase();
-                  loadNodeIDToNode();
-                  sortNodes();
-                  sortEdges();
-                  placeEdges(floor);
-                  placeNodes(floor);
-                  lockMap = false;
-                  stage.close();
-                  group.setOnMouseClicked(initGroupOnMouseClicked);
-                });
-            cancel.setOnMouseClicked(
-                event -> {
-                  stage.close();
-                  group.setOnMouseClicked(initGroupOnMouseClicked);
-                });
-          } else if (nodeClicked) {
+          if (nodeClicked) {
             checkAndX_HBox.setVisible(true);
             checkAndX_HBox1.setVisible(true);
             checkAndX_HBox.setMouseTransparent(false);
@@ -2479,6 +2491,24 @@ public class EditMapController {
                 checkAndX_HBox1.setVisible(false);
                 checkAndX_HBox.setMouseTransparent(true);
                 checkAndX_HBox1.setMouseTransparent(true);
+                //
+                // alignModeHelper.setLastAlignedCirc(alignModeHelper.getCircToAlign());
+                List<Node> tempAlign = new ArrayList<Node>(alignModeHelper.getToAlign());
+                alignModeHelper.setLastAlignedNode(tempAlign);
+
+                // resetter used
+                alignResetterHelper.setLastAlignedNode(tempAlign);
+                for (Node node : alignModeHelper.getToAlign()) { // try 2
+                  Node nodeNew = new Node();
+                  nodeNew.setNodeID(node.getNodeID());
+                  nodeNew.setXCoord(node.getXCoord());
+                  nodeNew.setYCoord(node.getYCoord());
+                  nodeNew.setStatus(node.getStatus());
+                  nodeNew.setFloor(node.getFloor());
+                  nodeNew.setBuilding(node.getBuilding());
+                  alignResetterHelper.addToList(nodeNew);
+                }
+
                 findAlignCenter();
               });
           horizontal.setOnMouseClicked(
@@ -2489,6 +2519,24 @@ public class EditMapController {
                 checkAndX_HBox1.setVisible(false);
                 checkAndX_HBox.setMouseTransparent(true);
                 checkAndX_HBox1.setMouseTransparent(true);
+                //
+                // alignModeHelper.setLastAlignedCirc(alignModeHelper.getCircToAlign());
+                List<Node> tempAlign = new ArrayList<Node>(alignModeHelper.getToAlign());
+                alignModeHelper.setLastAlignedNode(tempAlign);
+
+                // resetter used
+                alignResetterHelper.setLastAlignedNode(tempAlign);
+                for (Node node : alignModeHelper.getToAlign()) { // try 2
+                  Node nodeNew = new Node();
+                  nodeNew.setNodeID(node.getNodeID());
+                  nodeNew.setXCoord(node.getXCoord());
+                  nodeNew.setYCoord(node.getYCoord());
+                  nodeNew.setStatus(node.getStatus());
+                  nodeNew.setFloor(node.getFloor());
+                  nodeNew.setBuilding(node.getBuilding());
+                  alignResetterHelper.addToList(nodeNew);
+                }
+
                 findAlignCenter();
               });
         });
@@ -2527,8 +2575,8 @@ public class EditMapController {
 
   public void alignVertically(int x) {
     NodeDao nodeDao = new NodeDao();
-    alignModeHelper.setLastAlignedCirc(alignModeHelper.getCircToAlign());
-    alignModeHelper.setLastAlignedNode(alignModeHelper.getToAlign());
+    //    alignModeHelper.setLastAlignedCirc(alignModeHelper.getCircToAlign());
+    //    alignModeHelper.setLastAlignedNode(alignModeHelper.getToAlign());
     for (Node node : alignModeHelper.getToAlign()) {
       //      node.setXCoord(alignModeHelper.getAlignX());
       node.setXCoord(x);
@@ -2552,8 +2600,6 @@ public class EditMapController {
 
   public void alignHorizontally(int y) {
     NodeDao nodeDao = new NodeDao();
-    alignModeHelper.setLastAlignedCirc(alignModeHelper.getCircToAlign());
-    alignModeHelper.setLastAlignedNode(alignModeHelper.getToAlign());
     for (Node node : alignModeHelper.getToAlign()) {
       //      node.setYCoord(alignModeHelper.getAlignY());
       node.setYCoord(y);

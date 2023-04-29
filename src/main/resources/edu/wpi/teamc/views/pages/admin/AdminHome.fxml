@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.Group?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.HTMLEditor?>
-
-<AnchorPane prefHeight="787.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.admin.AdminHomeController">
+<AnchorPane fx:id="Admin_Home_AnchorPane" prefHeight="787.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.admin.AdminHomeController">
    <children>
       <AnchorPane layoutX="71.0" layoutY="153.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
          <children>
-            <AnchorPane layoutX="-274.0" layoutY="58.0" prefHeight="289.0" prefWidth="1101.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="250.0">
+            <AnchorPane layoutX="-274.0" layoutY="58.0" prefHeight="289.0" prefWidth="720.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="250.0">
                <children>
                   <TextField fx:id="notifications_title" editable="false" layoutY="-4.0" mouseTransparent="true" prefHeight="76.0" prefWidth="1098.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 30; -fx-text-fill: white; -fx-accent: #02143b;" text="Notifications" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
@@ -30,7 +25,7 @@
                         <Insets bottom="10.0" left="10.0" top="10.0" />
                      </padding>
                      <cursor>
-                        <Cursor fx:constant="DEFAULT" />
+                        <Cursor fx:constant="DEFAULT"/>
                      </cursor>
                   </TextField>
                   <MFXScrollPane fx:id="notificationBox" fitToWidth="true" hbarPolicy="NEVER" hmax="0.0" layoutX="147.0" layoutY="136.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
@@ -45,7 +40,7 @@
             <AnchorPane layoutX="-400.0" layoutY="95.0" prefHeight="190.0" prefWidth="1101.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                <children>
                   <HTMLEditor fx:id="weather" disable="true" htmlText="&lt;a class=&quot;weatherwidget-io&quot; href=&quot;https://forecast7.com/en/42d36n71d06/boston/?unit=us&quot; data-label_1=&quot;BOSTON&quot; data-label_2=&quot;WEATHER&quot; data-theme=&quot;pure&quot; &gt;BOSTON WEATHER&lt;/a&gt;&lt;script&gt;!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');&lt;/script&gt;" layoutX="-10.0" layoutY="-18.0" prefHeight="200.0" prefWidth="506.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <TextField fx:id="weather_title" editable="false" layoutX="5.0" layoutY="94.0" mouseTransparent="true" prefHeight="76.0" prefWidth="1098.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 30; -fx-text-fill: white; -fx-highlight-fill: transparant; -fx-accent: #02143b;" text="Current Weather Forcast" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TextField fx:id="weather_title" editable="false" layoutX="5.0" layoutY="94.0" mouseTransparent="true" prefHeight="76.0" prefWidth="1098.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 30; -fx-text-fill: white; -fx-accent: #02143b;" text="Current Weather Forcast" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font size="35.0" />
                      </font>
@@ -56,6 +51,30 @@
                         <Insets bottom="10.0" left="10.0" top="10.0" />
                      </padding>
                   </TextField>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="819.0" layoutY="306.0" prefHeight="361.0" prefWidth="306.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="775.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="250.0">
+               <children>
+                  <TextField fx:id="todo_title" editable="false" layoutY="-4.0" prefHeight="76.0" prefWidth="1098.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 30; -fx-text-fill: white;" text="TO DO" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" top="10.0" />
+                     </padding>
+                  </TextField>
+                  <MFXScrollPane fx:id="TODOBox" fitToWidth="true" hbarPolicy="NEVER" hmax="0.0" layoutX="147.0" layoutY="136.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
+                     <content>
+                        <VBox fx:id="notificationVBox1" alignment="TOP_CENTER" prefWidth="1230.0" spacing="20.0">
+                           <padding>
+                              <Insets top="20.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </MFXScrollPane>
                </children>
             </AnchorPane>
          </children>
@@ -73,20 +92,6 @@
                   <Insets left="70.0" />
                </padding>
             </VBox>
-            <Group layoutX="1099.0" layoutY="20.0">
-               <children>
-                  <ImageView fitHeight="37.0" fitWidth="70.0" layoutX="82.0" onMouseClicked="#spanish" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../images/spanish_flag.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="37.0" fitWidth="70.0" onMouseClicked="#english" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../images/english_flag.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Group>
          </children>
       </AnchorPane>
    </children>

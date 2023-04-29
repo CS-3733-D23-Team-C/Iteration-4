@@ -500,6 +500,7 @@ public class MenuController {
         event -> {
           CApp.setAdminLoginCheck(false);
           CApp.currScreen = Screen.HOME;
+          Navigation.clearCache();
           Navigation.navigate(Screen.HOME);
           Navigation.setMenuType(Navigation.MenuType.DISABLED);
         });

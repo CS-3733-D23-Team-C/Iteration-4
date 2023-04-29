@@ -9,24 +9,25 @@ import edu.wpi.teamc.dao.users.IUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
 import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.tableview2.FilteredTableView;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RequestHistoryController extends AbsServiceRequest {
 
@@ -144,7 +145,6 @@ public class RequestHistoryController extends AbsServiceRequest {
           HospitalSystem.deleteRow((IOrm) selected);
           getSwitch(selected);
         });
-    ;
 
     List<STATUS> statusList = new ArrayList<STATUS>();
     statusList.add(STATUS.COMPLETE);

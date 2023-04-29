@@ -60,7 +60,6 @@ public class AdminHomeController {
 
   public void addNotification(String notification, String description, String type)
       throws IOException {
-
     HBox hBox = new HBox();
     HBox container = new HBox();
     VBox vBox = new VBox();

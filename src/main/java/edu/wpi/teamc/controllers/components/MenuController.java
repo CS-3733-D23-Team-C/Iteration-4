@@ -336,8 +336,10 @@ public class MenuController {
       Admin_menu_helpmenu.setText(LanguageSet(Admin_menu_helpmenu.getText()));
       Admin_menu_settings.setText(LanguageSet(Admin_menu_settings.getText()));
       // HISTORY TEXT//
+
       Admin_menu_history.setText(LanguageSet(Admin_menu_history.getText()));
       Admin_menu_mapchange_history.setText(LanguageSet(Admin_menu_mapchange_history.getText()));
+
       // NAVIGATION TEXT//
       Admin_menu_navigation.setText(LanguageSet(Admin_menu_navigation.getText()));
       Admin_menu_directions.setText(LanguageSet(Admin_menu_directions.getText()));
@@ -687,6 +689,7 @@ public class MenuController {
           dbToggle.setSelected(!CApp.wpiDB);
           //          dbToggle.fire();
           System.out.println("DB: " + CApp.wpiDB);
+          Navigation.clearCache();
           Navigation.navigate(CApp.currScreen);
         });
     // Add a flag to track if the mouse is hovering over the aboutPopOut node

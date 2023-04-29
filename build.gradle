@@ -34,6 +34,8 @@ dependencies {
     implementation 'org.json:json:20171018'
     implementation 'com.google.zxing:core:3.3.3'
 
+    implementation 'com.deepl.api:deepl-java:1.1.0'
+
     implementation(
             'com.twilio.sdk:twilio:9.5.0',
             'io.github.palexdev:materialfx:11.15.0',

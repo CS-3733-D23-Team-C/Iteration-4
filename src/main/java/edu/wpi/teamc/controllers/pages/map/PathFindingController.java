@@ -1,6 +1,7 @@
 package edu.wpi.teamc.controllers.pages.map;
 
 import edu.wpi.teamc.Main;
+import edu.wpi.teamc.controllers.pages.map.MapHelpers.ArrowHelper;
 import edu.wpi.teamc.controllers.pages.map.MapHelpers.TextDirectionsHelper;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.graph.AlgoSingleton;
@@ -9,9 +10,11 @@ import edu.wpi.teamc.graph.GraphNode;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.utils.SwingFXUtils;
+import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
@@ -388,6 +391,7 @@ public class PathFindingController {
     circ.setFill(Paint.valueOf(paintVal));
     circ.setStroke(Paint.valueOf("#021335"));
     circ.setVisible(true);
+
     mapNodes.getChildren().add(circ);
   }
 
@@ -404,6 +408,12 @@ public class PathFindingController {
     Point2D centrePoint = new Point2D(node.getXCoord(), node.getYCoord());
     mapGPane.centreOn(centrePoint);
     mapGPane.zoomTo(0.4, mapGPane.targetPointAtViewportCentre());
+  }
+
+  public void placeArrow(GraphNode node, GraphNode nextNode) {
+    ArrowHelper arr = new ArrowHelper();
+    Group temp = arr.drawArrow(node, nextNode);
+    mapNodes.getChildren().add(temp);
   }
 
   public void drawEdges() {
@@ -425,6 +435,9 @@ public class PathFindingController {
     GraphNode destNode = splitPath.get(pathLoc).get(splitPath.get(pathLoc).size() - 1);
     if (!destNode.equals(dest)) {
       placeDestCircle(destNode, "#EAB334");
+
+      GraphNode nextNode = splitPath.get(pathLoc + 1).get(splitPath.get(pathLoc + 1).size() - 1);
+      placeArrow(destNode, nextNode);
     } else {
       placeDestCircle(destNode, "#4CAF50");
     }
@@ -467,7 +480,7 @@ public class PathFindingController {
       prevFloor.setDisable(true);
     }
 
-    edges.toFront();
+    mapNodes.toFront();
   }
 
   @FXML
@@ -487,7 +500,7 @@ public class PathFindingController {
     }
 
     drawEdges();
-    edges.toFront();
+    mapNodes.toFront();
   }
 
   @FXML
@@ -507,7 +520,7 @@ public class PathFindingController {
     }
 
     drawEdges();
-    edges.toFront();
+    mapNodes.toFront();
   }
 
   @FXML

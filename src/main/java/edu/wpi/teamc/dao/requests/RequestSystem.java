@@ -40,50 +40,16 @@ public void updateRequest(IRequest request) {
     HospitalSystem.updateRow((IOrm) request);
 }
 
-public List<AbsServiceRequest> filterRequest(STATUS status) {
-    List<AbsServiceRequest> filteredRequests = new ArrayList<>();
-    for (AbsServiceRequest request : requests) {
-        if (request.getStatus().equals(status)) {
-            filteredRequests.add(request);
-        }
-    }
-    return filteredRequests;
-}
-
-public List<AbsServiceRequest> filterRequest(String assingedto) {
-    List<AbsServiceRequest> filteredRequests = new ArrayList<>();
-    for (AbsServiceRequest request : requests) {
-        if (request.getAssignedto().equals(assingedto)) {
-            filteredRequests.add(request);
-        }
-    }
-    return filteredRequests;
-}
-
-    public List<AbsServiceRequest> filterRequest(IRequest requestType) {
-        List<AbsServiceRequest> filteredRequests = new ArrayList<>();
-        for (AbsServiceRequest request : requests) {
-            if (request.getClass().equals(requestType.getClass())) {
-                filteredRequests.add(request);
-            }
-        }
-        return filteredRequests;
-    }
-
-public List<AbsServiceRequest> filterRequest(String assingedto, STATUS status) {
-    List<AbsServiceRequest> filteredRequests = new ArrayList<>();
-    for (AbsServiceRequest request : requests) {
-        if (request.getAssignedto().equals(assingedto) && request.getStatus().equals(status)) {
-            filteredRequests.add(request);
-        }
-    }
-    return filteredRequests;
-}
-
 public List<AbsServiceRequest> filterRequest(String assingedto, STATUS status, IRequest request) {
     List<AbsServiceRequest> filteredRequests = new ArrayList<>();
     for (AbsServiceRequest request1 : requests) {
-        if (request1.getAssignedto().equals(assingedto) && request1.getStatus().equals(status) && request1.getClass().equals(request.getClass())) {
+        boolean assignedToCheck = request1.getAssignedto().equals(assingedto);
+        if (assingedto == null) {assignedToCheck = true;}
+        boolean statusCheck = request1.getStatus().equals(status);
+        if (status == null) {statusCheck = true;}
+        boolean requestCheck = request1.getClass().equals(request.getClass());
+        if (request == null) {requestCheck = true;}
+        if (assignedToCheck &&  statusCheck && requestCheck) {
             filteredRequests.add(request1);
         }
     }

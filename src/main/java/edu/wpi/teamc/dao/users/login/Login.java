@@ -130,8 +130,8 @@ public class Login implements IOrm {
       this.OTPEnabled = false;
       return this.OTPEnabled;
     } else {
-        this.OTPEnabled = true;
-        return this.OTPEnabled;
+      this.OTPEnabled = true;
+      return this.OTPEnabled;
     }
   }
 

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.requests.AlertController">
+   <children>
+      <AnchorPane layoutX="410.0" layoutY="163.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
+         <children>
+            <AnchorPane prefHeight="692.0" prefWidth="1293.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane layoutX="50.0" layoutY="20.0" prefHeight="592.0" prefWidth="570.0" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="670.0" AnchorPane.topAnchor="50.0">
+                     <children>
+                        <TextField alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="1. Alert Information" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="35.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" top="10.0" />
+                           </padding>
+                        </TextField>
+                        <TextField fx:id="alertTitle" alignment="TOP_LEFT" prefHeight="25.0" prefWidth="323.0" promptText="Title:" style="-fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
+                           <font>
+                              <Font size="35.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" top="10.0" />
+                           </padding>
+                        </TextField>
+                        <MenuButton fx:id="alertType" layoutX="210.0" layoutY="108.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-border-color: #02143b; -fx-background-color: white;" text="Select Alert Type:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="115.0">
+                          <items>
+                            <MenuItem fx:id="choice1" mnemonicParsing="false" onAction="#setChoice1" text="Construction" />
+                            <MenuItem fx:id="choice2" mnemonicParsing="false" onAction="#setChoice2" text="Weather" />
+                              <MenuItem fx:id="choice3" mnemonicParsing="false" onAction="#setChoice3" text="Car Crash" />
+                              <MenuItem fx:id="choice4" mnemonicParsing="false" onAction="#setChoice4" text="Closures" />
+                              <MenuItem fx:id="choice5" mnemonicParsing="false" onAction="#setChoice5" text="Emergency" />
+                              <MenuItem fx:id="choice6" mnemonicParsing="false" onAction="#setChoice6" text="Other" />
+                          </items>
+                        </MenuButton>
+                        <TextArea fx:id="alertDescription" layoutX="53.0" layoutY="156.0" prefHeight="148.0" prefWidth="1084.0" promptText="Description:" style="-fx-font-family: arial; -fx-background-color: white; -fx-border-color: #02143b; -fx-font-size: 12;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="250.0" />
+                        <MenuButton fx:id="severityType" layoutX="220.0" layoutY="118.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-border-color: #02143b; -fx-background-color: white;" text="Select Severity" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="180.0">
+                           <items>
+                              <MenuItem fx:id="severityLow" mnemonicParsing="false" onAction="#setSeverityLow" text="Low" />
+                              <MenuItem fx:id="severityMed" mnemonicParsing="false" onAction="#setSeverityMed" text="Medium" />
+                              <MenuItem fx:id="severityHigh" mnemonicParsing="false" onAction="#setSeverityHigh" text="High" />
+                           </items>
+                        </MenuButton>
+                     </children>
+                  </AnchorPane>
+                  <VBox alignment="CENTER" layoutX="720.0" layoutY="50.0" spacing="40.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+                     <children>
+                        <AnchorPane prefHeight="160.0" prefWidth="390.0" style="-fx-border-color: #02143b; -fx-background-color: white;">
+                           <children>
+                              <TextField alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="2. Time Selection:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font size="35.0" />
+                                 </font>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" top="10.0" />
+                                 </padding>
+                              </TextField>
+                              <DatePicker fx:id="endTime" layoutX="22.0" layoutY="102.0" prefHeight="40.0" prefWidth="245.0" promptText="Select End Time:" style="-fx-background-color: white; -fx-border-color: #02143b;" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="264.0" AnchorPane.topAnchor="101.0" />
+                              <DatePicker fx:id="startTime" layoutX="22.0" layoutY="52.0" prefHeight="40.0" prefWidth="245.0" promptText="Select Start Time:" style="-fx-background-color: white; -fx-border-color: #02143b;" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="264.0" AnchorPane.topAnchor="51.0" />
+                              <MenuButton fx:id="startHour" layoutX="280.0" layoutY="52.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="75.0" text="Hour" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="174.0" AnchorPane.topAnchor="51.0">
+                                <items>
+                                  <MenuItem fx:id="Hour_01" mnemonicParsing="false" onAction="#getStartHour01" text="01" />
+                                  <MenuItem fx:id="Hour_02" mnemonicParsing="false" onAction="#getStartHour02" text="02" />
+                                    <MenuItem fx:id="Hour_03" mnemonicParsing="false" onAction="#getStartHour03" text="03" />
+                                    <MenuItem fx:id="Hour_04" mnemonicParsing="false" onAction="#getStartHour04" text="04" />
+                                    <MenuItem fx:id="Hour_05" mnemonicParsing="false" onAction="#getStartHour05" text="05" />
+                                    <MenuItem fx:id="Hour_06" mnemonicParsing="false" onAction="#getStartHour06" text="06" />
+                                    <MenuItem fx:id="Hour_07" mnemonicParsing="false" onAction="#getStartHour07" text="07" />
+                                    <MenuItem fx:id="Hour_08" mnemonicParsing="false" onAction="#getStartHour08" text="08" />
+                                    <MenuItem fx:id="Hour_09" mnemonicParsing="false" onAction="#getStartHour09" text="09" />
+                                    <MenuItem fx:id="Hour_10" mnemonicParsing="false" onAction="#getStartHour10" text="10" />
+                                    <MenuItem fx:id="Hour_11" mnemonicParsing="false" onAction="#getStartHour11" text="11" />
+                                    <MenuItem fx:id="Hour_12" mnemonicParsing="false" onAction="#getStartHour12" text="12" />
+                                </items>
+                              </MenuButton>
+                              <MenuButton fx:id="startTimePeriod" layoutX="411.0" layoutY="52.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="55.0" text="AM" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="52.0">
+                                 <items>
+                                    <MenuItem fx:id="AM" mnemonicParsing="false" onAction="#getStartPeriodAM" text="AM" />
+                                    <MenuItem fx:id="PM" mnemonicParsing="false" onAction="#getStartPeriodPM" text="PM" />
+                                 </items>
+                              </MenuButton>
+                              <MenuButton fx:id="endTimePeriod" layoutX="370.0" layoutY="102.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="55.0" text="AM" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="101.0">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndPeriodAM" text="AM" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndPeriodPM" text="PM" />
+                                 </items>
+                              </MenuButton>
+                              <TextField fx:id="startMinute" layoutX="440.0" layoutY="52.0" prefHeight="40.0" prefWidth="75.0" promptText="Minute" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="51.0" />
+                              <TextField fx:id="endMinute" layoutX="440.0" layoutY="102.0" prefHeight="40.0" prefWidth="75.0" promptText="Minute" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="101.0" />
+                              <MenuButton fx:id="endHour" layoutX="280.0" layoutY="102.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="75.0" text="Hour" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="174.0" AnchorPane.topAnchor="101.0">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour01" text="01" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour02" text="02" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour03" text="03" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour04" text="04" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour05" text="05" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour06" text="06" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour07" text="07" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour08" text="08" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour09" text="09" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour10" text="10" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour11" text="11" />
+                                    <MenuItem mnemonicParsing="false" onAction="#getEndHour12" text="12" />
+                                 </items>
+                              </MenuButton>
+                           </children>
+                        </AnchorPane>
+                        <MFXButton onAction="#getSubmit" prefHeight="40.0" prefWidth="525.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 16;" text="Submit" textFill="WHITE">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </MFXButton>
+                        <HBox spacing="20.0">
+                           <children>
+                              <MFXButton onAction="#getGoHome" prefHeight="35.0" prefWidth="255.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Cancel" textFill="WHITE">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </MFXButton>
+                              <MFXButton onAction="#getClear" prefHeight="35.0" prefWidth="255.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Clear" textFill="WHITE">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </MFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="90.0" layoutY="20.0" prefHeight="76.0" prefWidth="1366.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),10,0.75,0,0);" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="1147.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Alert &amp; Notification Request" wrappingWidth="643.5101928710938" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="70.0" />
+               </padding>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

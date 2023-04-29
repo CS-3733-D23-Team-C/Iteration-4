@@ -325,7 +325,7 @@ public class MenuController {
   public void setlanguage() throws Exception {
     if (language_choice == 0) {
 
-    } else  {
+    } else {
       Admin_menu_home.setText(LanguageSet(Admin_menu_home.getText()));
       Admin_menu_about_button.setText(LanguageSet(Admin_menu_about_button.getText()));
       Admin_menu_credits.setText(LanguageSet(Admin_menu_credits.getText()));

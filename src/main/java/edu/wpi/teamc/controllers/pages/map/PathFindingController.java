@@ -62,17 +62,16 @@ public class PathFindingController {
   private Group edges = new Group();
   private Group mapText = new Group();
   private String floor = "1";
-  private List<Move> moveList = new ArrayList<Move>();
-  private List<Node> Floor1 = new ArrayList<Node>();
-  private List<Node> Floor2 = new ArrayList<Node>();
-  private List<Node> Floor3 = new ArrayList<Node>();
-  private List<Node> FloorL1 = new ArrayList<Node>();
-  private List<Node> FloorL2 = new ArrayList<Node>();
-  private List<Node> nodeList = new ArrayList<Node>();
-  private List<LocationName> locationNameList = new ArrayList<LocationName>();
-  private HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
-  private HashMap<String, LocationName> longNameToLocationName = new HashMap<>();
-  private LinkedList<List<GraphNode>> splitPath = new LinkedList<>();
+  private List<Move> moveList = new ArrayList<>();
+  private final List<Node> Floor1 = new ArrayList<>();
+  private final List<Node> Floor2 = new ArrayList<>();
+  private final List<Node> Floor3 = new ArrayList<>();
+  private final List<Node> FloorL1 = new ArrayList<>();
+  private final List<Node> FloorL2 = new ArrayList<>();
+  private List<Node> nodeList = new ArrayList<>();
+  private final HashMap<Integer, Move> nodeIDtoMove = new HashMap<>();
+  private final HashMap<String, LocationName> longNameToLocationName = new HashMap<>();
+  private final LinkedList<List<GraphNode>> splitPath = new LinkedList<>();
   private int pathLoc = 0;
   private GraphNode src;
   private GraphNode dest;
@@ -143,7 +142,7 @@ public class PathFindingController {
   // load database
   public void loadDatabase() {
     nodeList = new NodeDao().fetchAllObjects();
-    locationNameList = new LocationNameDao().fetchAllObjects();
+    List<LocationName> locationNameList = new LocationNameDao().fetchAllObjects();
     moveList = new MoveDao().fetchAllObjects();
 
     for (Move move : moveList) {
@@ -166,11 +165,12 @@ public class PathFindingController {
     Matcher matcher;
 
     for (Move move : moveList) {
-      matcher = pattern.matcher(move.getLongName());
+      String longName = move.getLongName();
+      matcher = pattern.matcher(longName);
 
       if (!matcher.find()) {
-        if (!locNames.contains(move.getLongName())) {
-          locNames.add(move.getLongName());
+        if (!locNames.contains(longName)) {
+          locNames.add(longName);
         }
       }
     }
@@ -205,7 +205,7 @@ public class PathFindingController {
 
   public void placeText(String floor) {
     switch (floor) {
-      case "1":
+      case "1" -> {
         for (int i = 0; i < Floor1.size(); i++) {
           int nodeID = Floor1.get(i).getNodeID();
           String longName;
@@ -218,8 +218,8 @@ public class PathFindingController {
           String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(Floor1.get(i), shortName, nodeType);
         }
-        break;
-      case "2":
+      }
+      case "2" -> {
         for (int i = 0; i < Floor2.size(); i++) {
           int nodeID = Floor2.get(i).getNodeID();
           String longName;
@@ -232,8 +232,8 @@ public class PathFindingController {
           String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(Floor2.get(i), shortName, nodeType);
         }
-        break;
-      case "3":
+      }
+      case "3" -> {
         for (int i = 0; i < Floor3.size(); i++) {
           int nodeID = Floor3.get(i).getNodeID();
           String longName;
@@ -246,8 +246,8 @@ public class PathFindingController {
           String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(Floor3.get(i), shortName, nodeType);
         }
-        break;
-      case "L1":
+      }
+      case "L1" -> {
         for (int i = 0; i < FloorL1.size(); i++) {
           int nodeID = FloorL1.get(i).getNodeID();
           String longName;
@@ -260,8 +260,8 @@ public class PathFindingController {
           String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(FloorL1.get(i), shortName, nodeType);
         }
-        break;
-      case "L2":
+      }
+      case "L2" -> {
         for (int i = 0; i < FloorL2.size(); i++) {
           int nodeID = FloorL2.get(i).getNodeID();
           String longName;
@@ -274,6 +274,7 @@ public class PathFindingController {
           String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(FloorL2.get(i), shortName, nodeType);
         }
+      }
     }
     mapNodes.toFront();
     mapText.toFront();
@@ -603,17 +604,11 @@ public class PathFindingController {
     TextDirectionsHelper textHelper = new TextDirectionsHelper();
     LinkedList<String> directions = textHelper.textDirections(path, graph);
 
-//    String str = "☆" + directions.remove(1) + "☆";
-//    directions.add(1, str);
-//
-//    str = "☆" + directions.removeLast() + "☆";
-//    directions.addLast(str);
-
     for (String s : directions) {
       if (!s.startsWith("D")) {
         String[] split = s.split("~");
 
-        if (split[1].startsWith("Go s")) {
+        if (split[1].startsWith("Go s") || split[1].startsWith("⚐") || split[1].startsWith("⚑")) {
           fullPath += split[1] + ": To ";
         } else {
           fullPath += split[1] + ": At ";

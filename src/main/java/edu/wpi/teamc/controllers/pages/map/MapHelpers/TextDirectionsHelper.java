@@ -103,7 +103,9 @@ public class TextDirectionsHelper {
     LinkedList<String> textDirections = new LinkedList<>();
     String direction;
 
+    // find starting orientation
     orientation = findOrientation(path.get(0), path.get(1));
+    // add floor indicator and first "direction"
     textDirections.add("Directions on Floor " + path.get(0).getFloor());
     direction =
         distance(path.get(0), path.get(1))
@@ -111,9 +113,11 @@ public class TextDirectionsHelper {
             + currGraph.getLongNameFromNodeID(path.get(1).getNodeID());
     textDirections.add(direction);
 
+    // iterate through the path and form the text directions
     for (int i = 1; i < path.size() - 1; i++) {
       GraphNode src = path.get(i);
       GraphNode dest = path.get(i + 1);
+      // find upcoming orientation to see if a turn is necessary
       String tempOrientation = findOrientation(src, dest);
       direction = "";
 
@@ -196,6 +200,8 @@ public class TextDirectionsHelper {
     Pattern pattern = Pattern.compile("Go straight", Pattern.CASE_INSENSITIVE);
     Matcher matcher;
 
+    // cleans the string by combining any "Go straight" that are next to X amount of other "Go
+    // straight"'s
     for (String textDirection : textDirections) {
       matcher = pattern.matcher(textDirection);
 
@@ -218,6 +224,19 @@ public class TextDirectionsHelper {
       String combined = totalLength + "~Go straight~" + split[2];
       clean.add(combined);
     }
+
+    // add icons for start/end
+    String str = clean.remove(1);
+    String[] strArr = str.split("~");
+    strArr[1] = "⚐" + strArr[1] + "⚐";
+    str = strArr[0] + "~" + strArr[1] + "~" + strArr[2];
+    clean.add(1, str);
+
+    str = clean.removeLast();
+    strArr = str.split("~");
+    strArr[1] = "⚑" + strArr[1] + "⚑";
+    str = strArr[0] + "~" + strArr[1] + "~" + strArr[2];
+    clean.addLast(str);
 
     return clean;
   }

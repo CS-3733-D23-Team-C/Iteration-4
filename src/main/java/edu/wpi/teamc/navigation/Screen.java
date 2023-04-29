@@ -57,7 +57,7 @@ public enum Screen {
     this.filename = filename;
   }
 
-  public String getFilename() {
+  String getFilename() {
     return filename;
   }
 }

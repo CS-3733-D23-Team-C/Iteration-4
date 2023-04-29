@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.map.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -12,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ImportCSV {
-  static DBConnection dbConnection = new DBConnection();
+  static DBConnection dbConnection = new DBConnection(CApp.getWpiDB());
   static Connection connection;
 
   /** displays related import functions */
@@ -257,7 +258,7 @@ public class ImportCSV {
   }
 
   public static void importEmployeeUserCSV(String CSVfilepath) {
-    dbConnection = new DBConnection();
+    dbConnection = new DBConnection(CApp.getWpiDB());
     connection = dbConnection.getConnection();
     String query =
         "INSERT INTO users.employee (id,username,name,department,position) VALUES (?, ?, ?, ?, ?)";
@@ -283,7 +284,7 @@ public class ImportCSV {
   }
 
   public static void importLoginCSV(String CSVfilepath) {
-    dbConnection = new DBConnection();
+    dbConnection = new DBConnection(CApp.getWpiDB());
     connection = dbConnection.getConnection();
     String query =
         "INSERT INTO users.login (username,password,permissions,salt, otp) VALUES (?, ?, ?, ?, ?)";

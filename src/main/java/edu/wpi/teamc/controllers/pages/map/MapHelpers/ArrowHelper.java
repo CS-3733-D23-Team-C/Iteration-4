@@ -28,15 +28,15 @@ public class ArrowHelper {
     int src = floorToInt(srcFloor);
     int dest = floorToInt(destFloor);
 
-    return src <= dest;
+    return src < dest;
   }
 
   public int floorToInt(String floor) {
     switch (floor) {
-      case "L1" -> {
+      case "L2" -> {
         return 1;
       }
-      case "L2" -> {
+      case "L1" -> {
         return 2;
       }
       case "1" -> {

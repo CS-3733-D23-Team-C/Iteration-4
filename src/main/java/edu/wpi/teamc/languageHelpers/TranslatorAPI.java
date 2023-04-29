@@ -1,35 +1,26 @@
 package edu.wpi.teamc.languageHelpers;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import com.deepl.api.*;
 
-// THIS IS NOT WORKING, FIGURE IT OUT LATER
 public class TranslatorAPI {
+  Translator translator;
 
-  public static String translate(String langFrom, String langTo, String text) throws IOException {
-    // INSERT YOU URL HERE
-    String urlStr =
-        "https://script.google.com/macros/s/AKfycby-mvvc0Y0enQ0eIM4QIY-3iwP1DniJgJE5jXv_87nkXLLK4KroykkC2chst486ftNw/exec"
-            + "?q="
-            + URLEncoder.encode(text, "UTF-8")
-            + "&target="
-            + langTo
-            + "&source="
-            + langFrom;
-    URL url = new URL(urlStr);
-    StringBuilder response = new StringBuilder();
-    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-    con.setRequestProperty("User-Agent", "Mozilla/5.0");
-    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-    String inputLine;
-    while ((inputLine = in.readLine()) != null) {
-      response.append(inputLine);
-    }
-    in.close();
-    return response.toString();
+  public TranslatorAPI() {
+    translator = new Translator("02c8b74a-7c53-1402-99da-924fe8df9a87:fx");
+  }
+
+  public String translateToZh(String text) throws Exception {
+    TextResult result = translator.translateText(text, null, "zh");
+    return result.getText();
+  }
+
+  public String translateToEn(String text) throws Exception {
+    TextResult result = translator.translateText(text, null, "en-US");
+    return result.getText();
+  }
+
+  public String translateToSp(String text) throws Exception {
+    TextResult result = translator.translateText(text, null, "es");
+    return result.getText();
   }
 }

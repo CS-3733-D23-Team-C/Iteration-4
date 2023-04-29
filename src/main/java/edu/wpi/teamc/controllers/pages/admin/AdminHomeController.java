@@ -6,6 +6,7 @@ import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.displays.Alert;
+import edu.wpi.teamc.languageHelpers.TranslatorAPI;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import java.awt.*;
 import java.io.IOException;
@@ -27,6 +28,8 @@ public class AdminHomeController {
   private String filePath;
   private Desktop desktop = Desktop.getDesktop();
   // @FXML private AdminMenuController adminMenuController;
+
+  public TranslatorAPI translatorAPI = new TranslatorAPI();
 
   @FXML private HTMLEditor guestWeather;
   @FXML private ImageView English_flag;
@@ -68,7 +71,6 @@ public class AdminHomeController {
             + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
 
     text.setFont(Font.font("Arial", FontWeight.BOLD, 25));
-    //    text.setMinWidth(notificationBox.getWidth());
     text.setText(notification);
     Image img = choosePNG(type);
     javafx.scene.image.ImageView imgView = new javafx.scene.image.ImageView(img);
@@ -77,9 +79,7 @@ public class AdminHomeController {
     hBox.getChildren().add(text);
     BorderColor(type, hBox);
 
-    // notificationVBox.getChildren().add(0, hBox);
     notificationVBox.getChildren().add(0, hBox);
-    // notificationVBox.getChildren().get(0).setBorder(Border.EMPTY);
   }
 
   @FXML
@@ -119,7 +119,7 @@ public class AdminHomeController {
   }
 
   @FXML
-  public void initialize() throws IOException {
+  public void initialize() throws Exception {
     setLanguage(language_choice);
     notificationVBox.setAlignment(Pos.TOP_CENTER);
     notificationVBox.setSpacing(20);
@@ -127,11 +127,21 @@ public class AdminHomeController {
 
     java.util.List<Alert> alertList = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
     for (Alert alert : alertList) {
-      if (alert.getDescription() == null) {
-        addNotification(alert.getTitle(), alert.getType());
-      } else {
-        addNotification(
-            alert.getTitle() + " \nDescription: " + alert.getDescription(), alert.getType());
+      if (language_choice == 0) { // English
+        if (alert.getDescription() == null) {
+          addNotification(alert.getTitle(), alert.getType());
+        } else {
+          addNotification(
+              alert.getTitle() + " \nDescription: " + alert.getDescription(), alert.getType());
+        }
+      } else if (language_choice == 1) { // Spanish
+        if (alert.getDescription() == null) {
+          addNotification(LanguageSet(alert.getTitle()), alert.getType());
+        } else {
+          addNotification(
+              LanguageSet(alert.getTitle() + " \nDescription: " + alert.getDescription()),
+              alert.getType());
+        }
       }
     }
     if (!CApp.getAdminLoginCheck()) {
@@ -182,34 +192,43 @@ public class AdminHomeController {
 
   // LANGUAGE//
   @FXML
-  void english() {
+  void english() throws Exception {
     language_choice = 0;
     setLanguage(language_choice);
   }
 
   @FXML
-  void spanish() {
+  void spanish() throws Exception {
     language_choice = 1;
     setLanguage(language_choice);
   }
 
   @FXML
-  void setLanguage(int language) {
+  void setLanguage(int language) throws Exception {
     // this.language_choice = language;
     if (language == 0) { // 0 is english
-      if (!CApp.getAdminLoginCheck()) {
-        AdminHome_Title.setText("Staff Home Page");
-      } else {
-        AdminHome_Title.setText("Admin Home Page");
-      }
-      weather_title.setText("Current Weather Forcast");
-      notifications_title.setText("Notifications");
+
+      AdminHome_Title.setText(translatorAPI.translateToEn(AdminHome_Title.getText()));
+
+      weather_title.setText(translatorAPI.translateToEn(weather_title.getText()));
+      notifications_title.setText(translatorAPI.translateToEn(notifications_title.getText()));
 
     } else if (language == 1) { // 1 is spanish
       AdminHome_Title.setText(
-          "P" + "\u00E1" + "gina de inicio de Admin"); // "\u00E1" is a in spanish for UTF-8
-      weather_title.setText("Pron" + "\u00F3" + "stico del tiempo actual");
-      notifications_title.setText("Notificaciones");
+          translatorAPI.translateToSp(
+              AdminHome_Title.getText())); // "\u00E1" is a in spanish for UTF-8
+      weather_title.setText(translatorAPI.translateToSp(weather_title.getText()));
+      notifications_title.setText(translatorAPI.translateToSp(notifications_title.getText()));
     }
+  }
+
+  @FXML
+  String LanguageSet(String text) throws Exception {
+    if (language_choice == 0) { // 0 is english
+      text = translatorAPI.translateToEn(text);
+    } else if (language_choice == 1) { // 1 is spanish
+      text = translatorAPI.translateToSp(text);
+    }
+    return text;
   }
 }

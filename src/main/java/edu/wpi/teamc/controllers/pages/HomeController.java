@@ -6,6 +6,7 @@ import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
 import edu.wpi.teamc.dao.users.login.Login;
 import edu.wpi.teamc.dao.users.login.LoginDao;
+import edu.wpi.teamc.languageHelpers.TranslatorAPI;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -200,7 +201,7 @@ public class HomeController {
   public void initialize(Stage primaryStage) throws Exception {
 
     //    try {
-    setLanguage(language_choice);
+    setLanguage();
     //    aPane.setOnKeyPressed(event -> {
     //      event.ent
     //              aPane.setOnKeyPressed(EventHandler.create())
@@ -273,51 +274,50 @@ public class HomeController {
   }
 
   @FXML
-  void english() {
+  void english() throws Exception {
     language_choice = 0;
-    setLanguage(language_choice);
+    setLanguage();
   }
 
   @FXML
-  void spanish() {
+  void spanish() throws Exception {
     language_choice = 1;
-    setLanguage(language_choice);
+    setLanguage();
   }
 
-  void setLanguage(int language) {
-    // this.language_choice = language;
-    if (language == 0) { // 0 is english
-      HOME_SignInText.setText("Sign In");
-      HOME_username.setPromptText("Username");
-      HOME_password.setPromptText("Password");
-      HOME_login.setText("Login");
-      HOME_next.setText("CONTINUE");
-      HOME_back.setText("Back");
-      HOME_forgot.setText("Forgot Username or Password?");
-      HOME_create.setText("Create an Account");
-      HOME_or.setText("OR");
-      HOME_guest.setText("Continue as Guest");
-      HOME_exit.setText("Exit");
-      HOME_motto.setText("Transforming Medicine Through Life-giving Breakthroughs");
-    } else if (language == 1) { // 1 is spanish
-      HOME_SignInText.setText("Iniciar Sesi" + "\u00F3" + "n"); // \u00F3 is the spanish o
-      HOME_username.setPromptText("Nombre de usuario");
-      HOME_password.setPromptText("Contrase" + "\u00F1" + "a"); // \u00F1 is the spanish n
-      HOME_login.setText("Iniciar");
-      HOME_next.setText("CONTINUAR");
-      HOME_back.setText("Atr" + "\u00E1" + "s"); // \u00E1 is the spanish a
-      HOME_forgot.setText(
-          "Olvid"
-              + "\u00F3"
-              + " su nombre de usuario o contrase"
-              + "\u00F1"
-              + "a?"); // \u00F1 is the spanish n
-      HOME_create.setText("Crear una cuenta");
-      HOME_or.setText("O");
-      HOME_guest.setText("Continuar como invitado");
-      HOME_exit.setText("Salir");
-      HOME_motto.setText("Transformando la medicina a trav" + "\u00E9" + "s de descubrimientos");
+  @FXML
+  void chinese() throws Exception {
+    language_choice = 2;
+    setLanguage();
+  }
+
+  void setLanguage() throws Exception {
+    HOME_SignInText.setText(LanguageSet(HOME_SignInText.getText()));
+    HOME_username.setPromptText(LanguageSet(HOME_username.getPromptText()));
+    HOME_password.setPromptText(LanguageSet(HOME_password.getPromptText()));
+    HOME_login.setText(LanguageSet(HOME_login.getText()));
+    HOME_next.setText(LanguageSet(HOME_next.getText()));
+    HOME_back.setText(LanguageSet(HOME_back.getText()));
+    HOME_forgot.setText(LanguageSet(HOME_forgot.getText()));
+    HOME_create.setText(LanguageSet(HOME_create.getText()));
+    HOME_or.setText(LanguageSet(HOME_or.getText()));
+    HOME_guest.setText(LanguageSet(HOME_guest.getText()));
+    HOME_exit.setText(LanguageSet(HOME_exit.getText()));
+    HOME_motto.setText(LanguageSet(HOME_motto.getText()));
+  }
+
+  public TranslatorAPI translatorAPI = new TranslatorAPI();
+
+  @FXML
+  String LanguageSet(String text) throws Exception {
+    if (language_choice == 0) { // 0 is english
+      text = translatorAPI.translateToEn(text);
+    } else if (language_choice == 1) { // 1 is spanish
+      text = translatorAPI.translateToSp(text);
+    } else if (language_choice == 2) { // 2 is Chinese
+      text = translatorAPI.translateToZh(text);
     }
+    return text;
   }
 
   @FXML
@@ -346,35 +346,5 @@ public class HomeController {
   @FXML
   void fancy_exit(ActionEvent event) {
     Navigation.navigate((Screen.EXIT_PAGE));
-    //    TranslateTransition tran = new TranslateTransition();
-    //    FadeTransition fade = new FadeTransition();
-    //    ScaleTransition scale = new ScaleTransition();
-    //    scale.setNode(HOME_sqr);
-    //    fade.setNode(HOME_sqr);
-    //    tran.setNode(HOME_sqr);
-    //
-    //    Timeline t1 =
-    //        new Timeline(
-    //            new KeyFrame(
-    //                Duration.millis(80),
-    //                ae -> {
-    //                  HOME_sqr.setVisible(true);
-    //                  HOME_sqr.setOpacity(1);
-    //                  scale.setToX(600);
-    //                  scale.setToY(400);
-    //                  scale.setDuration(Duration.millis(1500));
-    //                  scale.play();
-    //                  tran.setByX(-277);
-    //                  tran.setByY(-204);
-    //                  tran.setDuration(Duration.millis(1500));
-    //                  tran.play();
-    //                }),
-    //            new KeyFrame(
-    //                Duration.millis(1500),
-    //                ae -> {
-    //                  Navigation.navigate((Screen.EXIT_PAGE));
-    //                }));
-    //    t1.setCycleCount(1);
-    //    t1.play();
   }
 }

@@ -130,7 +130,7 @@ public class AdminHomeController {
           addNotification(
               alert.getTitle() + " \nDescription: " + alert.getDescription(), alert.getType());
         }
-      } else if (language_choice == 1) { // Spanish
+      } else {
         if (alert.getDescription() == null) {
           addNotification(LanguageSet(alert.getTitle()), alert.getType());
         } else {
@@ -198,6 +198,12 @@ public class AdminHomeController {
   @FXML
   void spanish() throws Exception {
     language_choice = 1;
+    setLanguage();
+  }
+
+  @FXML
+  void chinese() throws Exception {
+    language_choice = 2;
     setLanguage();
   }
 

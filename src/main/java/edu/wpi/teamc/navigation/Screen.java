@@ -60,7 +60,7 @@ public enum Screen {
     this.filename = filename;
   }
 
-  String getFilename() {
+  public String getFilename() {
     return filename;
   }
 }

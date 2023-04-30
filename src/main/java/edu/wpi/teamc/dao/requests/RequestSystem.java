@@ -2,12 +2,11 @@ package edu.wpi.teamc.dao.requests;
 
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.IOrm;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 public class RequestSystem {
   @Getter @Setter private List<AbsServiceRequest> requests;

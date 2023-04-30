@@ -1,19 +1,14 @@
 package edu.wpi.teamc.controllers.pages;
 
-import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.*;
 import edu.wpi.teamc.dao.ImportCSV;
-import edu.wpi.teamc.dao.displays.AlertDao;
-import edu.wpi.teamc.dao.displays.signage.SignEntryDao;
-import edu.wpi.teamc.dao.map.EdgeDao;
-import edu.wpi.teamc.dao.map.LocationNameDao;
-import edu.wpi.teamc.dao.map.MoveDao;
-import edu.wpi.teamc.dao.map.NodeDao;
+import edu.wpi.teamc.dao.displays.signage.SignEntry;
+import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.dao.requests.*;
-import edu.wpi.teamc.dao.users.EmployeeUserDao;
-import edu.wpi.teamc.dao.users.login.LoginDao;
+import edu.wpi.teamc.dao.users.EmployeeUser;
+import edu.wpi.teamc.dao.users.login.Login;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
-import edu.wpi.teamc.dao.*;
 import java.awt.*;
 import java.io.*;
 import java.sql.SQLException;
@@ -310,65 +305,143 @@ public class ImportExportController {
     selectedDisplaysFilePaths[1] = null;
   }
 
-  //Export
+  // Export
 
-//  void getExport(String header) throws IOException {
-//      FileChooser fileChooser = new FileChooser();
-//      fileChooser.setTitle("Save");
-//      fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.*"));
-//      File file = fileChooser.showSaveDialog(new Stage());
-//      if (file != null) {
-//        String filePath = file.getAbsolutePath();
-//        if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
-//          filePath += ".csv"; // append ".csv" to the file path
-//        }
-//        switch (header){
-//            case nodeHeader:
-//                NodeDao.exportCSV(filePath);
-//                break;
-//            case edgeHeader:
-//                EdgeDao.exportCSV(filePath);
-//                break;
-//            case moveHeader:
-//                MoveDao.exportCSV(filePath);
-//                break;
-//            case locationHeader:
-//                LocationNameDao.exportCSV(filePath);
-//                break;
-//            case conferenceRoomHeader:
-//              ConferenceRoomRequestDAO.exportCSV(filePath);
-//                break;
-//            case flowerHeader:
-//              FlowerDeliveryRequestDAO.exportCSV(filePath);
-//                break;
-//            case furnitureHeader:
-//              FurnitureDeliveryRequestDAO.exportCSV(filePath);
-//                break;
-////            case giftBasketHeader:
-////                GiftBasketDao.exportCSV(filePath);
-////                break;
-//            case mealHeader:
-//              MealRequestDAO.exportCSV(filePath);
-//                break;
-//            case officeSupplyHeader:
-//              OfficeSuppliesRequestDAO.exportCSV(filePath);
-//                break;
-//            case employeeHeader:
-//              EmployeeUserDao.exportCSV(filePath);
-//                break;
-//            case loginHeader:
-//                LoginDao.exportCSV(filePath);
-//                break;
-////            case patientHeader:
-////                PatientDao.exportCSV(filePath);
-////                break;
-//            case alertsHeader:
-//                AlertDao.exportCSV(filePath);
-//                break;
-//            case signageHeader:
-//              SignEntryDao.exportCSV(filePath);
-//                break;
-//        }
-//      }
-//    }
+  NodeDao nodeDao = new NodeDao();
+  HospitalSystem hospitalSystem = new HospitalSystem();
+
+  void getExport(String header) throws IOException {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Save");
+    fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.*"));
+    File file = fileChooser.showSaveDialog(new Stage());
+    if (file != null) {
+      String filePath = file.getAbsolutePath();
+      if (!filePath.endsWith(".csv")) { // check if file path doesn't already end with ".csv"
+        filePath += ".csv"; // append ".csv" to the file path
+      }
+      switch (header) {
+        case nodeHeader:
+          hospitalSystem.exportCSV(filePath, new Node());
+          break;
+        case edgeHeader:
+          hospitalSystem.exportCSV(filePath, new Edge());
+          break;
+        case moveHeader:
+          hospitalSystem.exportCSV(filePath, new Move());
+          break;
+        case locationHeader:
+          hospitalSystem.exportCSV(filePath, new LocationName());
+          break;
+        case conferenceRoomHeader:
+          hospitalSystem.exportCSV(filePath, new ConferenceRoomRequest());
+          break;
+        case flowerHeader:
+          hospitalSystem.exportCSV(filePath, new FlowerDeliveryRequest());
+          break;
+        case furnitureHeader:
+          hospitalSystem.exportCSV(filePath, new FurnitureDeliveryRequest());
+          break;
+        case giftBasketHeader:
+          hospitalSystem.exportCSV(filePath, new GiftBasketRequest());
+          break;
+        case mealHeader:
+          hospitalSystem.exportCSV(filePath, new MealRequest());
+          break;
+        case officeSupplyHeader:
+          hospitalSystem.exportCSV(filePath, new OfficeSuppliesRequest());
+          break;
+        case employeeHeader:
+          hospitalSystem.exportCSV(filePath, new EmployeeUser());
+          break;
+        case loginHeader:
+          hospitalSystem.exportCSV(filePath, new Login());
+          break;
+          //                case patientHeader:
+          //                    hospitalSystem.exportCSV(filePath, new PatientUser());
+          //                    break;
+        case alertsHeader:
+          hospitalSystem.exportCSV(filePath, new edu.wpi.teamc.dao.displays.Alert());
+          break;
+        case signageHeader:
+          hospitalSystem.exportCSV(filePath, new SignEntry());
+          break;
+      }
+    }
+  }
+
+  @FXML
+  public void getNodesExport() throws IOException {
+    getExport(nodeHeader);
+  }
+
+  @FXML
+  public void getEdgesExport() throws IOException {
+    getExport(edgeHeader);
+  }
+
+  @FXML
+  public void getMovesExport() throws IOException {
+    getExport(moveHeader);
+  }
+
+  @FXML
+  public void getLocationsExport() throws IOException {
+    getExport(locationHeader);
+  }
+
+  @FXML
+  public void getConferenceRoomExport() throws IOException {
+    getExport(conferenceRoomHeader);
+  }
+
+  @FXML
+  public void getFlowerExport() throws IOException {
+    getExport(flowerHeader);
+  }
+
+  @FXML
+  public void getFurnitureExport() throws IOException {
+    getExport(furnitureHeader);
+  }
+
+  @FXML
+  public void getGiftBasketExport() throws IOException {
+    getExport(giftBasketHeader);
+  }
+
+  @FXML
+  public void getMealExport() throws IOException {
+    getExport(mealHeader);
+  }
+
+  @FXML
+  public void getOfficeSupplyExport() throws IOException {
+    getExport(officeSupplyHeader);
+  }
+
+  @FXML
+  public void getEmployeeExport() throws IOException {
+    getExport(employeeHeader);
+  }
+
+  @FXML
+  public void getLoginExport() throws IOException {
+    getExport(loginHeader);
+  }
+
+  @FXML
+  public void getPatientExport() throws IOException {
+    getExport(patientHeader);
+  }
+
+  @FXML
+  public void getAlertsExport() throws IOException {
+    getExport(alertsHeader);
+  }
+
+  @FXML
+  public void getSignageExport() throws IOException {
+    getExport(signageHeader);
+  }
 }

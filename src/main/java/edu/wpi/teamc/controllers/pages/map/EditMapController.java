@@ -334,31 +334,44 @@ public class EditMapController {
     // Set tooltips
     Tooltip alignTip =
         new Tooltip(
-            "Align Mode: Click on multiple nodes. Then, press the green check-mark\n to determine if you want to align nodes vertically or horizontally. Finally, click a location on the map\nto align the nodes about that location.");
+            "Align Mode: \n\nClick on multiple nodes. Then, press the green check-mark\nto determine if you want to align nodes vertically or horizontally.\nFinally, click a location on the map to align the\nnodes about that location.\n\nTo undo the last alignment, click on the screen\nwhile holding down the alt key. Then, press\nthe confirm button in the pop-up window.");
     Align.setTooltip(alignTip);
     alignTip.setShowDuration(Duration.hours(3));
     alignTip.setShowDelay(Duration.millis(0));
 
     Tooltip addTip =
         new Tooltip(
-            "Add Mode: Click anywhere on the map to add a new node to the floor. \nOr, click on a node to add a location name to a node");
+            "Add Mode: \n\nClick anywhere on the map to add a new node to the floor.\n\nOr, click on a node to add a location name to a node");
     Add.setTooltip(addTip);
     addTip.setShowDuration(Duration.hours(3));
     addTip.setShowDelay(Duration.millis(0));
 
     Tooltip modifyTip =
         new Tooltip(
-            "Modify Mode: Click on a node to be prompted with four options.\n1: Modify the location of a node by text input.\n2: Modify the location of a node by dragging the node on the map with the cursor.\n3: Modify the location name of the node.\n4: Enter Close Mode. Close Mode allows you to select multiple nodes and close them so \npathfinding can no longer use those nodes. Closed nodes can also be opened in this mode.");
+            "Modify Mode: \n\nClick on a node to be prompted with four options:\n\n1: Modify the location of a node by text input.\n\n2: Modify the location of a node by dragging the node on the map with the cursor.\n\n3: Modify the location name of the node.\n\n4: Enter Close Mode. Close Mode allows you to select multiple nodes\n    and close them so pathfinding can no longer use those nodes.\n    Closed nodes can also be opened in this mode.");
     Modify.setTooltip(modifyTip);
     modifyTip.setShowDuration(Duration.hours(3));
     modifyTip.setShowDelay(Duration.millis(0));
 
     Tooltip removeTip =
         new Tooltip(
-            "Remove Mode: Click on a node to remove either the node or just\nthe node's location name. Click on an edge to remove the edge.");
+            "Remove Mode: \n\nClick on a node to remove either the node or just the node's\nlocation name. Click on an edge to remove the edge.");
     Remove.setTooltip(removeTip);
     removeTip.setShowDuration(Duration.hours(3));
     removeTip.setShowDelay(Duration.millis(0));
+
+    Tooltip moveTip =
+        new Tooltip(
+            "Move Mode: \n\nClick on a node to be moved. Then, click on\nthe node you want the first node to move to.\nIn the pop-up, select a date and press submit.");
+    Move.setTooltip(moveTip);
+    moveTip.setShowDuration(Duration.hours(3));
+    moveTip.setShowDelay(Duration.millis(0));
+
+    Tooltip edgeTip =
+        new Tooltip("Edge Mode: \n\nClick on two nodes to create an edge between them.");
+    Edges.setTooltip(edgeTip);
+    edgeTip.setShowDuration(Duration.hours(3));
+    edgeTip.setShowDelay(Duration.millis(0));
 
     edgeToggle.setOnMouseClicked(
         e -> {
@@ -1141,7 +1154,7 @@ public class EditMapController {
                 + node.getNodeID()
                 + "\n xCoord: "
                 + node.getXCoord()
-                + "\n yCoord"
+                + "\n yCoord: "
                 + node.getYCoord()
                 + "\n Node Type: "
                 + nodeType);

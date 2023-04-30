@@ -28,4 +28,6 @@ public class AdminUserDao implements IDao<AdminUser, Integer> {
   public AdminUser fetchObject(Integer key) {
     return null;
   }
+
+  public void exportCSV(String filePath) {}
 }

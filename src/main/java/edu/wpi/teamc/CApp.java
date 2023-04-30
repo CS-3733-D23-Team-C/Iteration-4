@@ -55,13 +55,12 @@ public class CApp extends Application {
         (event -> {
           try {
             timerPopUp();
+
           } catch (InterruptedException e) {
             throw new RuntimeException(e);
           }
         }));
     startPause.play();
-
-
   }
 
   public static void timerPopUp() throws InterruptedException {
@@ -71,47 +70,8 @@ public class CApp extends Application {
     VBox vBox = new VBox();
 
     Text headerText = new Text("Are you still there?");
-    Text building = new Text("");
-    int seconds = 60;
+    Text building = new Text("Counting down...");
 
-    int[] a = new int[] {60};
-    PauseTransition transition = new PauseTransition(Duration.seconds(1));
-    transition.setOnFinished(
-            (event -> {
-              building.setText(a[0] + " seconds");
-              a[0]--;
-            }));
-    transition.setCycleCount(60);
-    transition.setAutoReverse(true);
-
-    PauseTransition pause = new PauseTransition(Duration.seconds(1));
-    pause.setOnFinished(
-            (event -> {
-              Navigation.navigate(Screen.SCREENSAVER);
-              Navigation.setMenuType(Navigation.MenuType.DISABLED);
-            }));
-
-    /*for (int i = 60; i >= 0; i--) {
-      building.setText(i + " seconds");
-      PauseTransition pause = new PauseTransition(Duration.seconds(60));
-      pause.setDuration(Duration.seconds(60));
-      pause.setDelay(Duration.seconds(60));
-      pause.setDelay(Duration.valueOf("60s"));
-      pause.play();
-      System.out.print("playing");
-    } */
-
-    /*for(int i = 60; i >=0; i--) {
-        building.setText(i + " seconds");
-        Thread.sleep(1000);
-    }
-
-        PauseTransition pause = new PauseTransition(Duration.seconds(1));
-        pause.setOnFinished(
-            (event -> {
-              Navigation.navigate(Screen.SCREENSAVER);
-              Navigation.setMenuType(Navigation.MenuType.DISABLED);
-            })); */
     MFXButton addButton = new MFXButton("Continue");
     vBox.getChildren().addAll(headerText, building, addButton);
 
@@ -145,40 +105,41 @@ public class CApp extends Application {
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
-    stage.setTitle("Add Node Window");
+    stage.setTitle("Time Out");
     stage.setAlwaysOnTop(true);
     stage.show();
+    boolean[] end = new boolean[1];
+    end[0] = false;
 
-    long currTime = System.currentTimeMillis();
-    long tempTime = 0;
+    int[] seconds = new int[1];
+    seconds[0] = 10;
+    Thread thread =
+        new Thread() {
+          @Override
+          public void run() {
+            for (int i = 0; i < 10; i++) {
+              try {
+                building.setText(seconds[0] + " seconds");
+                seconds[0]--;
+                Thread.sleep(1000);
+              } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+              }
+            }
+            end[0] = true;
+          }
+        };
+    thread.start();
 
-    /*while (System.currentTimeMillis() - currTime < 20000) {
-      //      System.out.println("waiting");
-      if (tempTime == 0) {
-        tempTime = currTime;
+    while (end[0] == false) {
+      if (addButton.isPressed()) {
+        stage.close();
+        end[0] = true;
       }
-      if (System.currentTimeMillis() - tempTime > 1000) {
-        int i = 60;
-        building.setText(i + " seconds");
-        i--;
-        tempTime = 0;
-        System.out.println("one second");
-      }
-    } */
-
-
-    //    for (int i = 60; i >= 0; i--) {
-    //      building.setText(i + " seconds");
-    //      PauseTransition pause = new PauseTransition(Duration.millis(60000));
-    //      System.console().wait(60000);
-    //      System.currentTimeMillis();
-    //      pause.setDuration(Duration.seconds(60));
-    //      pause.setDelay(Duration.seconds(60));
-    //      pause.setDelay(Duration.valueOf("60s"));
-    //      pause.play();
-    //      System.out.print("playing");
-    //    }
-
+    }
+    // turn
+    Navigation.navigate(Screen.SCREENSAVER);
+    Navigation.setMenuType(Navigation.MenuType.DISABLED);
   }
 
   @Override

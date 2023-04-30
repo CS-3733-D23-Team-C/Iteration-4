@@ -7,25 +7,26 @@ import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.dao.users.IUser;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
 import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.tableview2.FilteredTableView;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class RequestHistoryController {
 
@@ -458,7 +459,6 @@ public class RequestHistoryController {
 
   @FXML
   public void getApplyFilter(ActionEvent event) {
-    getSwitch(selectedRequest);
     this.filterView();
   }
 
@@ -499,6 +499,7 @@ public class RequestHistoryController {
     for (GiftBasketRequest r : list) {
       rows.add(r);
     }
+    requestSystem.setRequests(new ArrayList<>(list));
     historyTable.setItems(rows);
   }
 }

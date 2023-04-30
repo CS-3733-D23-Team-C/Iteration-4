@@ -48,8 +48,9 @@ public enum Screen {
 
   SIGNUP_PAGE("views/pages/SignUp.fxml"),
 
-  LOGIN_TABLE("views/pages/LoginTable.fxml"),
-  EMPLOYEETABLE_PAGE("views/pages/EmployeeTable.fxml");
+  LOGIN_TABLE("views/pages/settings/LoginTable.fxml"),
+  EMPLOYEETABLE_PAGE("views/pages/settings/EmployeeTable.fxml"),
+  IMPORT_EXPORT_PAGE("views/pages/settings/ImportExport.fxml");
 
   private final String filename;
 

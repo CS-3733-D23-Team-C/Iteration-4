@@ -60,8 +60,6 @@ public class CApp extends Application {
           }
         }));
     startPause.play();
-
-
   }
 
   public static void timerPopUp() throws InterruptedException {
@@ -77,19 +75,19 @@ public class CApp extends Application {
     int[] a = new int[] {60};
     PauseTransition transition = new PauseTransition(Duration.seconds(1));
     transition.setOnFinished(
-            (event -> {
-              building.setText(a[0] + " seconds");
-              a[0]--;
-            }));
+        (event -> {
+          building.setText(a[0] + " seconds");
+          a[0]--;
+        }));
     transition.setCycleCount(60);
     transition.setAutoReverse(true);
 
     PauseTransition pause = new PauseTransition(Duration.seconds(1));
     pause.setOnFinished(
-            (event -> {
-              Navigation.navigate(Screen.SCREENSAVER);
-              Navigation.setMenuType(Navigation.MenuType.DISABLED);
-            }));
+        (event -> {
+          Navigation.navigate(Screen.SCREENSAVER);
+          Navigation.setMenuType(Navigation.MenuType.DISABLED);
+        }));
 
     /*for (int i = 60; i >= 0; i--) {
       building.setText(i + " seconds");
@@ -165,7 +163,6 @@ public class CApp extends Application {
         System.out.println("one second");
       }
     } */
-
 
     //    for (int i = 60; i >= 0; i--) {
     //      building.setText(i + " seconds");

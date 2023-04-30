@@ -1,6 +1,7 @@
 package edu.wpi.teamc.controllers.pages.map;
 
 import edu.wpi.teamc.Main;
+import edu.wpi.teamc.controllers.pages.map.MapHelpers.ArrowHelper;
 import edu.wpi.teamc.controllers.pages.map.MapHelpers.TextDirectionsHelper;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.graph.AlgoSingleton;
@@ -9,10 +10,11 @@ import edu.wpi.teamc.graph.GraphNode;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.utils.SwingFXUtils;
+import java.awt.*;
 import java.io.IOException;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
@@ -45,6 +47,7 @@ public class PathFindingController {
   @FXML SearchableComboBox<String> startChoice;
   @FXML SearchableComboBox<String> endChoice;
   @FXML ToggleSwitch locToggle;
+  @FXML ToggleSwitch stairToggle;
   @FXML DatePicker pickDate;
   @FXML GesturePane mapGPane;
   @FXML MFXButton FL1;
@@ -63,22 +66,21 @@ public class PathFindingController {
   private Group edges = new Group();
   private Group mapText = new Group();
   private String floor = "1";
-  private List<Move> moveList = new ArrayList<Move>();
-  private List<Node> Floor1 = new ArrayList<Node>();
-  private List<Node> Floor2 = new ArrayList<Node>();
-  private List<Node> Floor3 = new ArrayList<Node>();
-  private List<Node> FloorL1 = new ArrayList<Node>();
-  private List<Node> FloorL2 = new ArrayList<Node>();
-  private List<Node> nodeList = new ArrayList<Node>();
-  private List<LocationName> locationNameList = new ArrayList<LocationName>();
-  private HashMap<Integer, Move> nodeIDtoMove = new HashMap<Integer, Move>();
-  private HashMap<String, LocationName> longNameToLocationName = new HashMap<>();
-  private LinkedList<List<GraphNode>> splitPath = new LinkedList<>();
+  private List<Move> moveList = new ArrayList<>();
+  private final List<Node> Floor1 = new ArrayList<>();
+  private final List<Node> Floor2 = new ArrayList<>();
+  private final List<Node> Floor3 = new ArrayList<>();
+  private final List<Node> FloorL1 = new ArrayList<>();
+  private final List<Node> FloorL2 = new ArrayList<>();
+  private List<Node> nodeList = new ArrayList<>();
+  private final HashMap<Integer, Move> nodeIDtoMove = new HashMap<>();
+  private final HashMap<String, LocationName> longNameToLocationName = new HashMap<>();
+  private final LinkedList<List<GraphNode>> splitPath = new LinkedList<>();
   private int pathLoc = 0;
   private GraphNode src;
   private GraphNode dest;
   private boolean toggleStatus;
-  private String url;
+  private boolean stairStatus;
   public Group group;
   public Image image =
       new Image(Main.class.getResource("views/images/FirstFloor.png").openStream());
@@ -93,6 +95,7 @@ public class PathFindingController {
     textDir.setDisable(true);
     qrCode.setDisable(true);
     message.setEditable(true);
+    startChoice.setValue("75 Lobby");
     Image image = this.image;
     ImageView imageView = new ImageView(image);
     imageView.relocate(0, 0);
@@ -118,6 +121,7 @@ public class PathFindingController {
     nextFloor.setDisable(true);
     prevFloor.setDisable(true);
     toggleStatus = false;
+    stairStatus = false;
   }
 
   public void sortNodes() {
@@ -144,7 +148,7 @@ public class PathFindingController {
   // load database
   public void loadDatabase() {
     nodeList = new NodeDao().fetchAllObjects();
-    locationNameList = new LocationNameDao().fetchAllObjects();
+    List<LocationName> locationNameList = new LocationNameDao().fetchAllObjects();
     moveList = new MoveDao().fetchAllObjects();
 
     for (Move move : moveList) {
@@ -159,7 +163,6 @@ public class PathFindingController {
     for (LocationName locationName : locationNameList) {
       longNameToLocationName.put(locationName.getLongName(), locationName);
     }
-    longNameToLocationName.put("ERROR", new LocationName("ERROR", "ERROR", "ERROR"));
   }
 
   public void addLocationsToSelect() {
@@ -168,11 +171,12 @@ public class PathFindingController {
     Matcher matcher;
 
     for (Move move : moveList) {
-      matcher = pattern.matcher(move.getLongName());
+      String longName = move.getLongName();
+      matcher = pattern.matcher(longName);
 
       if (!matcher.find()) {
-        if (!locNames.contains(move.getLongName())) {
-          locNames.add(move.getLongName());
+        if (!locNames.contains(longName)) {
+          locNames.add(longName);
         }
       }
     }
@@ -207,80 +211,76 @@ public class PathFindingController {
 
   public void placeText(String floor) {
     switch (floor) {
-      case "1":
+      case "1" -> {
         for (int i = 0; i < Floor1.size(); i++) {
           int nodeID = Floor1.get(i).getNodeID();
           String longName;
-          try {
+          if (graph == null) {
             longName = nodeIDtoMove.get(nodeID).getLongName();
-          } catch (NullPointerException e) {
-            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
+          } else {
+            longName = graph.getLongNameFromNodeID(nodeID);
           }
-          longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNameToLocationName.get(longName).getShortName();
           String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(Floor1.get(i), shortName, nodeType);
         }
-        break;
-      case "2":
+      }
+      case "2" -> {
         for (int i = 0; i < Floor2.size(); i++) {
           int nodeID = Floor2.get(i).getNodeID();
           String longName;
-          try {
+          if (graph == null) {
             longName = nodeIDtoMove.get(nodeID).getLongName();
-          } catch (NullPointerException e) {
-            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
+          } else {
+            longName = graph.getLongNameFromNodeID(nodeID);
           }
-          longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNameToLocationName.get(longName).getShortName();
           String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(Floor2.get(i), shortName, nodeType);
         }
-        break;
-      case "3":
+      }
+      case "3" -> {
         for (int i = 0; i < Floor3.size(); i++) {
           int nodeID = Floor3.get(i).getNodeID();
           String longName;
-          try {
+          if (graph == null) {
             longName = nodeIDtoMove.get(nodeID).getLongName();
-          } catch (NullPointerException e) {
-            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
+          } else {
+            longName = graph.getLongNameFromNodeID(nodeID);
           }
-          longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNameToLocationName.get(longName).getShortName();
           String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(Floor3.get(i), shortName, nodeType);
         }
-        break;
-      case "L1":
+      }
+      case "L1" -> {
         for (int i = 0; i < FloorL1.size(); i++) {
           int nodeID = FloorL1.get(i).getNodeID();
           String longName;
-          try {
+          if (graph == null) {
             longName = nodeIDtoMove.get(nodeID).getLongName();
-          } catch (NullPointerException e) {
-            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new java.sql.Date(100)));
+          } else {
+            longName = graph.getLongNameFromNodeID(nodeID);
           }
-          longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNameToLocationName.get(longName).getShortName();
           String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(FloorL1.get(i), shortName, nodeType);
         }
-        break;
-      case "L2":
+      }
+      case "L2" -> {
         for (int i = 0; i < FloorL2.size(); i++) {
           int nodeID = FloorL2.get(i).getNodeID();
           String longName;
-          try {
+          if (graph == null) {
             longName = nodeIDtoMove.get(nodeID).getLongName();
-          } catch (NullPointerException e) {
-            nodeIDtoMove.put(nodeID, new Move(nodeID, "ERROR", new Date(100)));
+          } else {
+            longName = graph.getLongNameFromNodeID(nodeID);
           }
-          longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNameToLocationName.get(longName).getShortName();
           String nodeType = longNameToLocationName.get(longName).getNodeType();
           createMapNodes(FloorL2.get(i), shortName, nodeType);
         }
+      }
     }
     mapNodes.toFront();
     mapText.toFront();
@@ -383,14 +383,15 @@ public class PathFindingController {
     }
   }
 
-  public void placeDestCircle(GraphNode node) {
+  public void placeDestCircle(GraphNode node, String paintVal) {
     Circle circ = new Circle();
     circ.setCenterX(node.getXCoord());
     circ.setCenterY(node.getYCoord());
     circ.setRadius(15);
-    circ.setFill(Paint.valueOf("#4CAF50"));
+    circ.setFill(Paint.valueOf(paintVal));
     circ.setStroke(Paint.valueOf("#021335"));
     circ.setVisible(true);
+
     mapNodes.getChildren().add(circ);
   }
 
@@ -409,6 +410,12 @@ public class PathFindingController {
     mapGPane.zoomTo(0.4, mapGPane.targetPointAtViewportCentre());
   }
 
+  public void placeArrow(GraphNode node, GraphNode nextNode) {
+    ArrowHelper arr = new ArrowHelper();
+    Group temp = arr.drawArrow(node, nextNode);
+    mapNodes.getChildren().add(temp);
+  }
+
   public void drawEdges() {
     for (int i = 0; i < splitPath.get(pathLoc).size() - 1; i++) {
       Line temp =
@@ -424,7 +431,16 @@ public class PathFindingController {
     }
 
     placeSrcCircle(splitPath.get(pathLoc).get(0));
-    placeDestCircle(splitPath.get(pathLoc).get(splitPath.get(pathLoc).size() - 1));
+
+    GraphNode destNode = splitPath.get(pathLoc).get(splitPath.get(pathLoc).size() - 1);
+    if (!destNode.equals(dest)) {
+      placeDestCircle(destNode, "#EAB334");
+
+      GraphNode nextNode = splitPath.get(pathLoc + 1).get(splitPath.get(pathLoc + 1).size() - 1);
+      placeArrow(destNode, nextNode);
+    } else {
+      placeDestCircle(destNode, "#4CAF50");
+    }
   }
 
   @FXML
@@ -445,7 +461,7 @@ public class PathFindingController {
     }
 
     String dateString = date.toString();
-    graph = new Graph(AlgoSingleton.INSTANCE.getType());
+    graph = new Graph(AlgoSingleton.INSTANCE.getType(), stairStatus);
     graph.syncWithDB(dateString);
 
     int srcN = graph.getNodeIDfromLongName(startName);
@@ -464,7 +480,7 @@ public class PathFindingController {
       prevFloor.setDisable(true);
     }
 
-    edges.toFront();
+    mapNodes.toFront();
   }
 
   @FXML
@@ -484,7 +500,7 @@ public class PathFindingController {
     }
 
     drawEdges();
-    edges.toFront();
+    mapNodes.toFront();
   }
 
   @FXML
@@ -504,7 +520,7 @@ public class PathFindingController {
     }
 
     drawEdges();
-    edges.toFront();
+    mapNodes.toFront();
   }
 
   @FXML
@@ -547,6 +563,11 @@ public class PathFindingController {
       group.getChildren().remove(mapText);
       mapText = new Group();
     }
+  }
+
+  @FXML
+  void doStairToggle() {
+    stairStatus = !stairStatus;
   }
 
   @FXML
@@ -605,15 +626,19 @@ public class PathFindingController {
     LinkedList<String> directions = textHelper.textDirections(path, graph);
 
     for (String s : directions) {
-      String[] split = s.split("~");
+      if (!s.startsWith("D")) {
+        String[] split = s.split("~");
 
-      if (split[1].startsWith("Go s")) {
-        fullPath += split[1] + ": To ";
+        if (split[1].startsWith("Go s") || split[1].startsWith("⚐") || split[1].startsWith("⚑")) {
+          fullPath += split[1] + ": To ";
+        } else {
+          fullPath += split[1] + ": At ";
+        }
+
+        fullPath += split[2] + "; Distance: " + split[0] + "ft\n";
       } else {
-        fullPath += split[1] + ": At ";
+        fullPath += "\n" + s + ":\n\n";
       }
-
-      fullPath += split[2] + "; Distance: " + split[0] + "ft\n";
     }
 
     TextArea textField = new TextArea();

@@ -6,13 +6,12 @@ import edu.wpi.teamc.dao.ImportCSV;
 import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.dao.users.IUser;
-import edu.wpi.teamc.navigation.Navigation;
-import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,21 +27,10 @@ import lombok.SneakyThrows;
 import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.tableview2.FilteredTableView;
 
-public class RequestHistoryController extends AbsServiceRequest {
+public class RequestHistoryController {
 
-  public RequestHistoryController() {
-    super();
-  }
-
-  /** */
+  public SearchableComboBox filterByStatusField;
   @FXML MFXButton backButton;
-
-  /** Method run when controller is initialized */
-  @FXML
-  public void goHome() {
-    backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
-  }
-
   String buttonColor = "-fx-background-color: white; -fx-text-fill: #02143B;";
   String selectedButtonColor = "-fx-background-color: #FCC201; -fx-text-fill: #02143B;";
   @FXML private Button conference;
@@ -50,6 +38,8 @@ public class RequestHistoryController extends AbsServiceRequest {
   @FXML private Button meal;
   @FXML private Button furniture;
   @FXML private Button officeSupply;
+
+  @FXML private Button giftBasket;
 
   @FXML private FilteredTableView historyTable;
   @FXML TableColumn Column1;
@@ -69,7 +59,6 @@ public class RequestHistoryController extends AbsServiceRequest {
 
   @FXML Button updateButton;
   @FXML Button deleteButton;
-  @FXML SearchableComboBox filterByStatusField;
 
   @FXML MFXButton exportButton;
   @FXML MFXButton importButton;
@@ -77,18 +66,8 @@ public class RequestHistoryController extends AbsServiceRequest {
   private String filePath;
 
   @FXML SearchableComboBox filterByEmployeeField;
-  @FXML Button clearButtonFilter;
-
-  int incrTest = 0;
-  String currTable;
-
-  int incrTest2 = 0;
-  EmployeeUser currEmployee;
-  ;
 
   IRequest selectedRequest = null;
-  EmployeeUser selectedEmployee = null;
-  STATUS status2;
 
   @FXML
   void statusPending(ActionEvent event) {
@@ -110,13 +89,15 @@ public class RequestHistoryController extends AbsServiceRequest {
     statusField.setText("CANCELLED");
   }
 
+  RequestSystem requestSystem = new RequestSystem(new ArrayList<>());
+
   /** Method run when controller is initialized */
   public void initialize() {
     this.getConference();
-
     List<EmployeeUser> employeeList =
         (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
     assignedtoField.getItems().addAll(FXCollections.observableArrayList(employeeList));
+    filterByEmployeeField.getItems().addAll(FXCollections.observableArrayList(employeeList));
 
     historyTable.setOnMouseClicked(
         event -> {
@@ -145,25 +126,9 @@ public class RequestHistoryController extends AbsServiceRequest {
           HospitalSystem.deleteRow((IOrm) selected);
           getSwitch(selected);
         });
-    ;
 
-    List<STATUS> statusList = new ArrayList<STATUS>();
-    statusList.add(STATUS.COMPLETE);
-    statusList.add(STATUS.CANCELLED);
-    statusList.add(STATUS.IN_PROGRESS);
-    statusList.add(STATUS.PENDING);
+    List<STATUS> statusList = Arrays.stream(STATUS.values()).toList();
     filterByStatusField.setItems(FXCollections.observableArrayList(statusList));
-
-    filterByStatusField.setOnAction(
-        event -> {
-          //          STATUS selected = STATUS.PENDING;
-          if (incrTest == 2) {
-            status2 = (STATUS) filterByStatusField.getValue();
-            filterView(status2);
-            incrTest = -1;
-          }
-          incrTest++;
-        });
 
     importButton.setOnMouseClicked(
         event -> {
@@ -177,108 +142,26 @@ public class RequestHistoryController extends AbsServiceRequest {
             throw new RuntimeException(e);
           }
         });
-
-    filterByEmployeeField.getItems().addAll(FXCollections.observableArrayList(employeeList));
-    filterByEmployeeField.setOnAction(
-        event -> {
-          if (incrTest2 == 2) {
-            currEmployee = (EmployeeUser) filterByEmployeeField.getValue();
-            assignedToFilterView(currEmployee);
-            incrTest2 = -1;
-          }
-          incrTest2++;
-        });
-
-    //    clearButtonFilter.setOnAction(
-    //        event -> {
-    //          filterByEmployeeField.getSelectionModel().clearSelection();
-    //          filterByStatusField.getSelectionModel().clearSelection();
-    //        });
   }
 
-  public void assignedToFilterView(EmployeeUser employee) {
-    if (selectedRequest instanceof ConferenceRoomRequest) {
-      List<ConferenceRoomRequest> currentView =
-          (List<ConferenceRoomRequest>) HospitalSystem.fetchAllObjects(new ConferenceRoomRequest());
-      List<ConferenceRoomRequest> filteredList = filterRequestConferenceEmp(currentView, employee);
-      ObservableList<IRequest> rows = FXCollections.observableArrayList();
-      rows.addAll(filteredList);
-      historyTable.setItems(rows);
-    } else if (selectedRequest instanceof FlowerDeliveryRequest) {
-      List<FlowerDeliveryRequest> currentView =
-          (List<FlowerDeliveryRequest>) HospitalSystem.fetchAllObjects(new FlowerDeliveryRequest());
-      List<FlowerDeliveryRequest> filteredList = filterRequestFlowerEmp(currentView, employee);
-      ObservableList<IRequest> rows = FXCollections.observableArrayList();
-      rows.addAll(filteredList);
-      historyTable.setItems(rows);
-    } else if (selectedRequest instanceof MealRequest) {
-      List<MealRequest> currentView =
-          (List<MealRequest>) HospitalSystem.fetchAllObjects(new MealRequest());
-      List<MealRequest> filteredList = filterRequestMealEmp(currentView, employee);
-      ObservableList<IRequest> rows = FXCollections.observableArrayList();
-      rows.addAll(filteredList);
-      historyTable.setItems(rows);
-    } else if (selectedRequest instanceof FurnitureDeliveryRequest) {
-      List<FurnitureDeliveryRequest> currentView =
-          (List<FurnitureDeliveryRequest>)
-              HospitalSystem.fetchAllObjects(new FurnitureDeliveryRequest());
-      List<FurnitureDeliveryRequest> filteredList =
-          filterRequestFurnitureEmp(currentView, employee);
-      ObservableList<IRequest> rows = FXCollections.observableArrayList();
-      rows.addAll(filteredList);
-      historyTable.setItems(rows);
-    } else if (selectedRequest instanceof OfficeSuppliesRequest) {
-      List<OfficeSuppliesRequest> currentView =
-          (List<OfficeSuppliesRequest>) HospitalSystem.fetchAllObjects(new OfficeSuppliesRequest());
-      List<OfficeSuppliesRequest> filteredList =
-          filterRequestOfficeSuppliesEmp(currentView, employee);
-      ObservableList<IRequest> rows = FXCollections.observableArrayList();
-      rows.addAll(filteredList);
-      historyTable.setItems(rows);
+  public void filterView() {
+    historyTable.getItems().removeAll();
+    String assingedTo = null;
+    try {
+      assingedTo = filterByEmployeeField.getSelectionModel().getSelectedItem().toString();
+      System.out.println(assingedTo);
+    } catch (Exception e) {
+      assingedTo = null;
     }
-  }
-
-  @FXML
-  public void filterView(STATUS selected) {
-
-    //    historyTable.getItems().stream().filter((IRequest)item -> item.getStatus)
-    if (selectedRequest instanceof ConferenceRoomRequest) {
-      List<ConferenceRoomRequest> currentView =
-          (List<ConferenceRoomRequest>) HospitalSystem.fetchAllObjects(new ConferenceRoomRequest());
-      List<ConferenceRoomRequest> filteredList = filterRequestConference(currentView, selected);
-      ObservableList<IRequest> rows = FXCollections.observableArrayList();
-      rows.addAll(filteredList);
-      historyTable.setItems(rows);
-    } else if (selectedRequest instanceof FlowerDeliveryRequest) {
-      List<FlowerDeliveryRequest> currentView =
-          (List<FlowerDeliveryRequest>) HospitalSystem.fetchAllObjects(new FlowerDeliveryRequest());
-      List<FlowerDeliveryRequest> filteredList = filterRequestFlower(currentView, selected);
-      ObservableList<IRequest> rows = FXCollections.observableArrayList();
-      rows.addAll(filteredList);
-      historyTable.setItems(rows);
-    } else if (selectedRequest instanceof MealRequest) {
-      List<MealRequest> currentView =
-          (List<MealRequest>) HospitalSystem.fetchAllObjects(new MealRequest());
-      List<MealRequest> filteredList = filterRequestMeal(currentView, selected);
-      ObservableList<IRequest> rows = FXCollections.observableArrayList();
-      rows.addAll(filteredList);
-      historyTable.setItems(rows);
-    } else if (selectedRequest instanceof FurnitureDeliveryRequest) {
-      List<FurnitureDeliveryRequest> currentView =
-          (List<FurnitureDeliveryRequest>)
-              HospitalSystem.fetchAllObjects(new FurnitureDeliveryRequest());
-      List<FurnitureDeliveryRequest> filteredList = filterRequestFurniture(currentView, selected);
-      ObservableList<IRequest> rows = FXCollections.observableArrayList();
-      rows.addAll(filteredList);
-      historyTable.setItems(rows);
-    } else if (selectedRequest instanceof OfficeSuppliesRequest) {
-      List<OfficeSuppliesRequest> currentView =
-          (List<OfficeSuppliesRequest>) HospitalSystem.fetchAllObjects(new OfficeSuppliesRequest());
-      List<OfficeSuppliesRequest> filteredList = filterRequestOfficeSupplies(currentView, selected);
-      ObservableList<IRequest> rows = FXCollections.observableArrayList();
-      rows.addAll(filteredList);
-      historyTable.setItems(rows);
+    STATUS status = null;
+    try {
+      status = STATUS.valueOf(filterByStatusField.getSelectionModel().getSelectedItem().toString());
+      System.out.println(status);
+    } catch (Exception e) {
+      status = null;
     }
+    List<AbsServiceRequest> filteredList = requestSystem.filterRequest(assingedTo, status);
+    historyTable.setItems(FXCollections.observableArrayList(filteredList));
   }
 
   @FXML
@@ -298,10 +181,9 @@ public class RequestHistoryController extends AbsServiceRequest {
 
   @FXML
   private void getConference() {
-    currTable = "Conf";
     this.resetColor();
     this.clearCurrentSelection();
-    clearFilters();
+
     conference.setStyle(selectedButtonColor);
     selectedRequest = new ConferenceRoomRequest();
     ObservableList<ConferenceRoomRequest> rows = FXCollections.observableArrayList();
@@ -328,10 +210,11 @@ public class RequestHistoryController extends AbsServiceRequest {
     Column7.setText("End time");
     Column8.setText("Assigned To");
     ConferenceRoomRequestDAO dao = new ConferenceRoomRequestDAO();
-    List<ConferenceRoomRequest> list = (List<ConferenceRoomRequest>) dao.fetchAllObjects();
+    List<ConferenceRoomRequest> list = dao.fetchAllObjects();
     for (ConferenceRoomRequest ConferenceRoomRequest : list) {
       rows.add(ConferenceRoomRequest);
     }
+    requestSystem.setRequests(new ArrayList<>(list));
     historyTable.getItems().removeAll();
     historyTable.setItems(rows);
   }
@@ -340,7 +223,6 @@ public class RequestHistoryController extends AbsServiceRequest {
   private void getFlower() {
     this.resetColor();
     this.clearCurrentSelection();
-    clearFilters();
     flower.setStyle(selectedButtonColor);
     selectedRequest = new FlowerDeliveryRequest();
     ObservableList<FlowerDeliveryRequest> rows = FXCollections.observableArrayList();
@@ -370,6 +252,7 @@ public class RequestHistoryController extends AbsServiceRequest {
     for (FlowerDeliveryRequest r : list) {
       rows.add(r);
     }
+    requestSystem.setRequests(new ArrayList<>(list));
     historyTable.getItems().removeAll();
     historyTable.setItems(rows);
   }
@@ -378,7 +261,7 @@ public class RequestHistoryController extends AbsServiceRequest {
   private void getMeal() {
     this.resetColor();
     this.clearCurrentSelection();
-    clearFilters();
+
     meal.setStyle(selectedButtonColor);
     selectedRequest = new MealRequest();
     ObservableList<MealRequest> rows = FXCollections.observableArrayList();
@@ -402,6 +285,7 @@ public class RequestHistoryController extends AbsServiceRequest {
     for (MealRequest r : list) {
       rows.add(r);
     }
+    requestSystem.setRequests(new ArrayList<>(list));
     historyTable.getItems().removeAll();
     historyTable.setItems(rows);
   }
@@ -410,7 +294,7 @@ public class RequestHistoryController extends AbsServiceRequest {
   private void getFurniture() {
     this.resetColor();
     this.clearCurrentSelection();
-    clearFilters();
+
     furniture.setStyle(selectedButtonColor);
     selectedRequest = new FurnitureDeliveryRequest();
     ObservableList<FurnitureDeliveryRequest> rows = FXCollections.observableArrayList();
@@ -443,6 +327,7 @@ public class RequestHistoryController extends AbsServiceRequest {
     for (FurnitureDeliveryRequest r : list) {
       rows.add(r);
     }
+    requestSystem.setRequests(new ArrayList<>(list));
     historyTable.getItems().removeAll();
     historyTable.setItems(rows);
   }
@@ -451,7 +336,7 @@ public class RequestHistoryController extends AbsServiceRequest {
   public void getOfficeSupply() {
     this.resetColor();
     this.clearCurrentSelection();
-    clearFilters();
+
     officeSupply.setStyle(selectedButtonColor);
     selectedRequest = new OfficeSuppliesRequest();
     ObservableList<OfficeSuppliesRequest> rows = FXCollections.observableArrayList();
@@ -482,6 +367,7 @@ public class RequestHistoryController extends AbsServiceRequest {
     for (OfficeSuppliesRequest r : list) {
       rows.add(r);
     }
+    requestSystem.setRequests(new ArrayList<>(list));
     historyTable.setItems(rows);
   }
 
@@ -574,12 +460,49 @@ public class RequestHistoryController extends AbsServiceRequest {
     assignedtoField.getSelectionModel().select(null);
   }
 
-  private void clearFilters() {
-    filterByEmployeeField.getSelectionModel().select(null);
-    filterByStatusField.getSelectionModel().select(null);
+  @FXML
+  public void getApplyFilter(ActionEvent event) {
+    getSwitch(selectedRequest);
+    this.filterView();
   }
 
-  public void getGoHome(ActionEvent event) {
-    Navigation.navigate(Screen.HOME);
+  @FXML
+  public void getClearFilter(ActionEvent event) {
+    getSwitch(selectedRequest);
+    this.filterByStatusField.getSelectionModel().select(null);
+    this.filterByEmployeeField.getSelectionModel().select(null);
+  }
+
+  public void getGiftBasket(ActionEvent actionEvent) {
+    this.resetColor();
+    this.clearCurrentSelection();
+    giftBasket.setStyle(selectedButtonColor);
+    selectedRequest = new GiftBasketRequest();
+    ObservableList<GiftBasketRequest> rows = FXCollections.observableArrayList();
+    Column1.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, Integer>("requestID"));
+    Column2.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, IUser>("requester"));
+    Column6.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, STATUS>("eta"));
+    Column4.setCellValueFactory(
+        new PropertyValueFactory<GiftBasketRequest, String>("additionalnotes"));
+    Column5.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, String>("giftbasket"));
+    Column3.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, STATUS>("status"));
+    Column7.setCellValueFactory(
+        new PropertyValueFactory<OfficeSuppliesRequest, String>("roomname"));
+    Column8.setCellValueFactory(
+        new PropertyValueFactory<OfficeSuppliesRequest, String>("assignedto"));
+    Column1.setText("ID");
+    Column2.setText("Requester");
+    Column3.setText("Status");
+    Column4.setText("Additional Notes");
+    Column5.setText("Basket Type");
+    Column6.setText("ETA");
+    Column7.setText("Room Name");
+    Column8.setText("Assigned To");
+    GiftBasketDAO dao = new GiftBasketDAO();
+    List<GiftBasketRequest> list = dao.fetchAllObjects();
+    for (GiftBasketRequest r : list) {
+      rows.add(r);
+    }
+    historyTable.setItems(rows);
   }
 }

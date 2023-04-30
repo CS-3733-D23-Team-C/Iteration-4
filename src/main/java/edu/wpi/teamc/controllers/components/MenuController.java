@@ -10,13 +10,15 @@ import edu.wpi.teamc.languageHelpers.TranslatorAPI;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-import javafx.animation.PauseTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -150,6 +152,8 @@ public class MenuController {
   @FXML private AnchorPane aboutPopOut2;
   @FXML private AnchorPane aboutPopOut3;
   @FXML private AnchorPane creditsPopOut1;
+
+  @FXML private Label menuClock;
 
   // LANGUAGE TEXT//
 
@@ -500,12 +504,14 @@ public class MenuController {
         event -> {
           CApp.setAdminLoginCheck(false);
           CApp.currScreen = Screen.HOME;
+          Navigation.clearCache();
           Navigation.navigate(Screen.HOME);
           Navigation.setMenuType(Navigation.MenuType.DISABLED);
         });
     exitTrigger1.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
+          Navigation.clearCache();
           Navigation.navigate(Screen.EXIT_PAGE);
           Navigation.setMenuType(Navigation.MenuType.DISABLED);
         });
@@ -1424,6 +1430,17 @@ public class MenuController {
                 warningPopOutTransition.play();
               }
             });
+
+    Timeline clock =
+        new Timeline(
+            new KeyFrame(
+                Duration.ZERO,
+                e ->
+                    menuClock.setText(
+                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh:mm\na")))),
+            new KeyFrame(Duration.seconds(1)));
+    clock.setCycleCount(Animation.INDEFINITE);
+    clock.play();
   }
 
   // TRANSLATOR//

@@ -18,15 +18,15 @@ public class Graph {
   protected HashMap<String, Integer> longNameToNodeID = new HashMap<>();
   protected Map<Integer, Date> nodeIDtoLastDate = new HashMap<>();
   protected Map<String, String> longNameToNodeType = new HashMap<>();
-  protected Map<Integer, NODE_STATUS> nodeIDtoStatus = new HashMap<>();
   protected PriorityQueue<GraphNode> pq;
   protected final double DIST_DEFAULT = Double.POSITIVE_INFINITY;
   private IAlgorithm algo;
+  private boolean doStair;
 
   /** Empty Constructor for Graph */
   public Graph() {}
 
-  public Graph(String algoChoice) {
+  public Graph(String algoChoice, boolean doStair) {
     if (algoChoice.equals("A*")) {
       algo = new AStar();
     } else if (algoChoice.equals("BFS")) {
@@ -36,6 +36,7 @@ public class Graph {
     } else {
       algo = new Dijkstra();
     }
+    this.doStair = doStair;
   }
 
   /**
@@ -121,8 +122,15 @@ public class Graph {
       String reverseID = dest.getNodeID() + "_" + src.getNodeID();
 
       if (dest.getStatus().equals(NODE_STATUS.OPEN)) {
-        src.getGraphEdges().add(new GraphEdge(origID, src, dest));
-        dest.getGraphEdges().add(new GraphEdge(reverseID, dest, src));
+        if (doStair) {
+          src.getGraphEdges().add(new GraphEdge(origID, src, dest));
+          dest.getGraphEdges().add(new GraphEdge(reverseID, dest, src));
+        } else {
+          if (!src.getNodeType().equals("STAI") || !dest.getNodeType().equals("STAI")) {
+            src.getGraphEdges().add(new GraphEdge(origID, src, dest));
+            dest.getGraphEdges().add(new GraphEdge(reverseID, dest, src));
+          }
+        }
       }
     }
   }

@@ -76,30 +76,19 @@ public class CApp extends Application {
     VBox vBox = new VBox();
 
     Text headerText = new Text("Are you still there?");
-    Text building = new Text("");
-    int seconds = 60;
+    Text building = new Text("hello");
 
-    int[] a = new int[] {60};
+    //  int[] counter = new int[1];
+    //    counter[0] = 60;
 
     PauseTransition pause = new PauseTransition(Duration.seconds(1));
     pause.setOnFinished(
         (event -> {
           Navigation.navigate(Screen.SCREENSAVER);
           Navigation.setMenuType(Navigation.MenuType.DISABLED);
-
         }));
-    PauseTransition transition = new PauseTransition(Duration.seconds(1));
-    transition.setCycleCount(60);
-    transition.setAutoReverse(true);
-    transition.setOnFinished(
-        (event -> {
-          building.setText(a[0] + " seconds");
-          a[0]--;
-        }));
-    transition.play();
-    if (a[0] == 0) {
-      pause.play();
-    }
+    TimerHelper timer = new TimerHelper();
+    timer.start();
 
     /*for (int i = 60; i >= 0; i--) {
       building.setText(i + " seconds");
@@ -155,7 +144,7 @@ public class CApp extends Application {
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
-    stage.setTitle("Add Node Window");
+    stage.setTitle("Time Out");
     stage.setAlwaysOnTop(true);
     stage.show();
 

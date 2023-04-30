@@ -16,7 +16,7 @@ public class Login implements IOrm {
   @Getter String salt;
   @Getter String hashedPassword;
   private String otp;
-  @Getter boolean OTPEnabled;
+  boolean OTPEnabled;
   @Getter private PERMISSIONS permissions;
 
   public Login() {}
@@ -125,10 +125,13 @@ public class Login implements IOrm {
   }
 
   public boolean isOTPEnabled() {
-    if (this.otp == null) {
-      return false;
+    if (this.otp == null || this.otp.equalsIgnoreCase("null")) {
+      this.OTPEnabled = false;
+      return this.OTPEnabled;
+    } else {
+      this.OTPEnabled = true;
+      return this.OTPEnabled;
     }
-    return true;
   }
 
   public boolean checkOTP(String otp) {

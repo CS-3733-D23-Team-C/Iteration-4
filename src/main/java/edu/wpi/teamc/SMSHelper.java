@@ -23,18 +23,18 @@ public class SMSHelper {
           "You  must send the next environment variables for twilio: TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN");
     }
 
-    Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+    // Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
     try {
+      Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
       Message message =
           Message.creator(
-                  new com.twilio.type.PhoneNumber(
-                      phoneNum), ////////////////////// needs to be in the exact format as below
-                  // need to only pass in ok phone numbers thrpough the database check
-                  // what happens if it does not send?????????????????????????????????? -> figure
-                  // out
+                  new com.twilio.type.PhoneNumber(phoneNum),
                   new com.twilio.type.PhoneNumber("+18559181390"),
                   text)
               .create();
+
+      System.out.println(message.getSid());
+
       logger.info("message sent to a number " + phoneNum + " message ID " + message.getSid());
     } catch (Exception e) {
       logger.log(

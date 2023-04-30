@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.users;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import java.sql.*;
@@ -10,7 +11,7 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
 
   public List<String> listActivePhone() {
     List<String> returnList = new ArrayList<>();
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
 
     try (Connection con = db.getConnection();
         PreparedStatement ps =
@@ -27,7 +28,7 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
   }
 
   public PatientUser fetchPatient(String nameP, String phoneNum) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     PatientUser patient = new PatientUser();
 
     try (Connection con = db.getConnection();
@@ -58,7 +59,7 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
   @Override
   public List<PatientUser> fetchAllObjects() {
     List<PatientUser> returnList = new ArrayList<>();
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
 
     try (Connection con = db.getConnection();
         PreparedStatement ps = con.prepareStatement(" SELECT * FROM \"users\".\"patient\" ");
@@ -87,7 +88,7 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
 
   @Override
   public PatientUser updateRow(PatientUser orm, PatientUser repl) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String table = "\"users\".\"patient\"";
@@ -116,7 +117,7 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
   public PatientUser addRow(PatientUser orm) {
     String query =
         "INSERT INTO \"users\".\"patient\" (id, name, checkin, checkout, phone, room, activetext) VALUES (?,?,?,?,?,?,?)";
-    try (Connection con = new DBConnection().getConnection();
+    try (Connection con = new DBConnection(CApp.getWpiDB()).getConnection();
         PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS); ) {
 
       ps.setInt(1, orm.getId());
@@ -149,7 +150,7 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
   @Override
   public PatientUser deleteRow(PatientUser orm) {
     String query = "DELETE  FROM  \"users\".\"patient\" WHERE id = ? ";
-    try (Connection con = new DBConnection().getConnection();
+    try (Connection con = new DBConnection(CApp.getWpiDB()).getConnection();
         PreparedStatement ps = con.prepareStatement(query); ) {
       ps.setInt(1, orm.getId());
       ps.executeUpdate();
@@ -162,7 +163,7 @@ public class PatientUserDao implements IDao<PatientUser, Integer> {
 
   @Override
   public PatientUser fetchObject(Integer key) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     PatientUser patient = new PatientUser();
 
     try (Connection con = db.getConnection();

@@ -1,5 +1,7 @@
 package edu.wpi.teamc.dao.displays.signage;
 
+import edu.wpi.teamc.CApp;
+// import static edu.wpi.teamc.CApp.wpiDB;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import java.io.BufferedWriter;
@@ -15,7 +17,7 @@ public class SignEntryDao implements IDao<SignEntry, SignEntry> {
   @Override
   public List<SignEntry> fetchAllObjects() {
     List<SignEntry> returnList = new ArrayList<>();
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmt = db.getConnection().createStatement();
       // Table Name
@@ -50,7 +52,7 @@ public class SignEntryDao implements IDao<SignEntry, SignEntry> {
   @Override
   public SignEntry addRow(SignEntry type) {
     SignEntry sign = null;
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       String query =
           "INSERT INTO \"displays\".\"Signage\" (macadd, devicename, date, locationname, direction) VALUES (?,?,?,?,?)";
@@ -90,7 +92,7 @@ public class SignEntryDao implements IDao<SignEntry, SignEntry> {
   }
 
   public void deleteVersion(String macadd, Date date) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       String query = "DELETE FROM \"displays\".\"Signage\" WHERE macadd = ? AND date = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
@@ -104,7 +106,7 @@ public class SignEntryDao implements IDao<SignEntry, SignEntry> {
   }
 
   public void deleteAllVersions(String macadd) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       String query = "DELETE FROM \"displays\".\"Signage\" WHERE macadd = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
@@ -117,7 +119,7 @@ public class SignEntryDao implements IDao<SignEntry, SignEntry> {
   }
 
   public void updateDeviceName(String macadd, String newDeviceName) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       String query = "UPDATE \"displays\".\"Signage\" SET devicename = ? WHERE macadd = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
@@ -131,7 +133,7 @@ public class SignEntryDao implements IDao<SignEntry, SignEntry> {
   }
 
   public void updateMacAddress(String oldmac, String newmac) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       String query = "UPDATE \"displays\".\"Signage\" SET macadd = ? WHERE macadd = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);

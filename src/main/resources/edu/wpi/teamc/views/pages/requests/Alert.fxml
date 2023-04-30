@@ -22,7 +22,7 @@
                <children>
                   <AnchorPane layoutX="50.0" layoutY="20.0" prefHeight="592.0" prefWidth="570.0" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="670.0" AnchorPane.topAnchor="50.0">
                      <children>
-                        <TextField alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="1. Alert Information" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TextField alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" mouseTransparent="true" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white; -fx-accent: #02143b;" text="1. Alert Information" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
                               <Font size="35.0" />
                            </font>
@@ -68,7 +68,7 @@
                      <children>
                         <AnchorPane prefHeight="160.0" prefWidth="390.0" style="-fx-border-color: #02143b; -fx-background-color: white;">
                            <children>
-                              <TextField alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="2. Time Selection:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TextField alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" mouseTransparent="true" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="2. Time Selection:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
@@ -97,20 +97,20 @@
                                     <MenuItem fx:id="Hour_12" mnemonicParsing="false" onAction="#getStartHour12" text="12" />
                                 </items>
                               </MenuButton>
-                              <MenuButton fx:id="startTimePeriod" layoutX="370.0" layoutY="52.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="55.0" text="AM" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="51.0">
+                              <MenuButton fx:id="startTimePeriod" layoutX="411.0" layoutY="52.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="55.0" text="AM" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="52.0">
                                  <items>
                                     <MenuItem fx:id="AM" mnemonicParsing="false" onAction="#getStartPeriodAM" text="AM" />
                                     <MenuItem fx:id="PM" mnemonicParsing="false" onAction="#getStartPeriodPM" text="PM" />
                                  </items>
                               </MenuButton>
-                              <MenuButton fx:id="endTimePeriod" layoutX="370.0" layoutY="102.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="55.0" text="AM" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="101.0">
+                              <MenuButton fx:id="endTimePeriod" layoutX="370.0" layoutY="102.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="55.0" text="AM" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="101.0">
                                  <items>
                                     <MenuItem mnemonicParsing="false" onAction="#getEndPeriodAM" text="AM" />
                                     <MenuItem mnemonicParsing="false" onAction="#getEndPeriodPM" text="PM" />
                                  </items>
                               </MenuButton>
-                              <TextField fx:id="startMinute" layoutX="440.0" layoutY="52.0" prefHeight="40.0" prefWidth="75.0" promptText="Minute" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.leftAnchor="440.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="51.0" />
-                              <TextField fx:id="endMinute" layoutX="440.0" layoutY="102.0" prefHeight="40.0" prefWidth="75.0" promptText="Minute" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.leftAnchor="440.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="101.0" />
+                              <TextField fx:id="startMinute" layoutX="440.0" layoutY="52.0" prefHeight="40.0" prefWidth="75.0" promptText="Minute" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="51.0" />
+                              <TextField fx:id="endMinute" layoutX="440.0" layoutY="102.0" prefHeight="40.0" prefWidth="75.0" promptText="Minute" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="101.0" />
                               <MenuButton fx:id="endHour" layoutX="280.0" layoutY="102.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="75.0" text="Hour" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="174.0" AnchorPane.topAnchor="101.0">
                                  <items>
                                     <MenuItem mnemonicParsing="false" onAction="#getEndHour01" text="01" />
@@ -158,7 +158,7 @@
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="1147.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Alert &amp; Notification Request" wrappingWidth="643.5101928710938" />
+                  <Text fill="#02143b" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Alert &amp; Notification Request" wrappingWidth="643.5101928710938" />
                </children>
                <opaqueInsets>
                   <Insets />

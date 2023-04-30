@@ -55,7 +55,7 @@
                            <children>
                               <HBox fx:id="bottomPane" alignment="CENTER" layoutY="13.0" prefHeight="35.0" prefWidth="1198.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="ID:" textFill="WHITE">
+                                    <Label mouseTransparent="true" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-accent: #02143b;" text="ID:" textFill="WHITE">
                                        <HBox.margin>
                                           <Insets left="15.0" right="5.0" top="5.0" />
                                        </HBox.margin>
@@ -65,7 +65,7 @@
                                           <Insets left="10.0" right="10.0" />
                                        </HBox.margin>
                                     </TextField>
-                                    <Label layoutX="101.0" layoutY="15.0" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Status:" textFill="WHITE">
+                                    <Label layoutX="101.0" layoutY="15.0" mouseTransparent="true" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-accent: #02143b;" text="Status:" textFill="WHITE">
                                        <HBox.margin>
                                           <Insets left="15.0" right="5.0" top="5.0" />
                                        </HBox.margin>
@@ -81,7 +81,7 @@
                                           <Insets left="10.0" right="10.0" />
                                        </HBox.margin>
                                     </MenuButton>
-                                    <Label layoutX="223.0" layoutY="10.0" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Assigned To:" textFill="WHITE">
+                                    <Label layoutX="223.0" layoutY="10.0" mouseTransparent="true" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Assigned To:" textFill="WHITE">
                                        <HBox.margin>
                                           <Insets left="15.0" right="5.0" top="5.0" />
                                        </HBox.margin>
@@ -136,7 +136,7 @@
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="1147.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="History Tables" wrappingWidth="456.42291259765625" />
+                  <Text fill="#02143b" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="History Tables" wrappingWidth="456.42291259765625" />
                </children>
                <opaqueInsets>
                   <Insets />

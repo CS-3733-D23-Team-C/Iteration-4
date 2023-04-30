@@ -426,16 +426,16 @@ public class RequestHistoryController {
       System.out.println("IMPORT_WORKS");
       this.getConference();
     } else if (selectedRequest instanceof FlowerDeliveryRequest) {
-      ImportCSV.importflowerRequestCSV(filePath);
+      ImportCSV.importFlowerRequestCSV(filePath);
       this.getFlower();
     } else if (selectedRequest instanceof FurnitureDeliveryRequest) {
-      ImportCSV.importfurnitureDeliveryRequest(filePath);
+      ImportCSV.importFurnitureRequestCSV(filePath);
       this.getFurniture();
     } else if (selectedRequest instanceof MealRequest) {
-      ImportCSV.importMealRequest(filePath);
+      ImportCSV.importMealRequestCSV(filePath);
       this.getMeal();
     } else if (selectedRequest instanceof OfficeSuppliesRequest) {
-      ImportCSV.importOfficeSupplyRequest(filePath);
+      ImportCSV.importOfficeSupplyRequestCSV(filePath);
       this.getOfficeSupply();
     }
     // TODO

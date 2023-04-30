@@ -335,7 +335,7 @@
                   </Pane>
                </children>
             </AnchorPane>
-            <Label fx:id="menuClock" layoutX="14.0" layoutY="578.0" prefHeight="49.0" prefWidth="46.0" text="Label" textFill="WHITE">
+            <Label fx:id="menuClock" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="578.0" mouseTransparent="true" prefHeight="49.0" prefWidth="46.0" text="Label" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="141.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0">
                <font>
                   <Font size="15.0" />
                </font>

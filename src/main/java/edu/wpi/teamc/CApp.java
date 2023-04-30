@@ -41,7 +41,7 @@ public class CApp extends Application {
   }
 
   public static void timeOut() {
-    PauseTransition pause = new PauseTransition(Duration.millis(30000));
+    /*PauseTransition pause = new PauseTransition(Duration.millis(30000));
     pause.setOnFinished(
         (event -> {
           try {
@@ -59,10 +59,17 @@ public class CApp extends Application {
             throw new RuntimeException(e);
           }
         }));
-    startPause.play();
+    startPause.play(); */
+
+    PauseTransition pause = new PauseTransition(Duration.millis(6000));
+    pause.setOnFinished(
+        (event -> {
+          timerPopUp();
+        }));
+    pause.play();
   }
 
-  public static void timerPopUp() throws InterruptedException {
+  public static void timerPopUp() {
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
@@ -73,21 +80,26 @@ public class CApp extends Application {
     int seconds = 60;
 
     int[] a = new int[] {60};
-    PauseTransition transition = new PauseTransition(Duration.seconds(1));
-    transition.setOnFinished(
-        (event -> {
-          building.setText(a[0] + " seconds");
-          a[0]--;
-        }));
-    transition.setCycleCount(60);
-    transition.setAutoReverse(true);
 
     PauseTransition pause = new PauseTransition(Duration.seconds(1));
     pause.setOnFinished(
         (event -> {
           Navigation.navigate(Screen.SCREENSAVER);
           Navigation.setMenuType(Navigation.MenuType.DISABLED);
+
         }));
+    PauseTransition transition = new PauseTransition(Duration.seconds(1));
+    transition.setCycleCount(60);
+    transition.setAutoReverse(true);
+    transition.setOnFinished(
+        (event -> {
+          building.setText(a[0] + " seconds");
+          a[0]--;
+        }));
+    transition.play();
+    if (a[0] == 0) {
+      pause.play();
+    }
 
     /*for (int i = 60; i >= 0; i--) {
       building.setText(i + " seconds");

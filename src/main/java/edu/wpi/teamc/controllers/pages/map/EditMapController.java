@@ -19,6 +19,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -1660,6 +1661,7 @@ public class EditMapController {
             checkAndX_HBox.setMouseTransparent(false);
             checkAndX_HBox1.setMouseTransparent(false);
             closeModeHelper.addToList(currNodeClicked, currCircleClicked);
+            closeModeHelper.addToLongnameList(currNodeLongname);
             if (Objects.equals(currNodeClicked.getStatus(), NODE_STATUS.CLOSED)) {
               currCircleClicked.setFill(Paint.valueOf("#14FF03"));
               currCircleClicked.setStroke(Paint.valueOf("#14FF03"));
@@ -1672,30 +1674,138 @@ public class EditMapController {
         });
     check_button.setOnMouseClicked(
         e -> {
-          for (Node node : closeModeHelper.getToClose()) {
-            if (Objects.equals(node.getStatus(), NODE_STATUS.OPEN)) {
-              node.setStatus(NODE_STATUS.CLOSED);
-              HospitalSystem.updateRow(node);
-            } else {
-              node.setStatus(NODE_STATUS.OPEN);
-              HospitalSystem.updateRow(node);
-            }
-          }
-          loadNodeIDToNode();
-          loadDatabase();
-          loadNodeIDToNodeStatus();
-          sortEdges();
-          sortNodes();
-          placeEdges(floor);
-          placeNodes(floor);
-          checkAndX_HBox.setVisible(false);
-          checkAndX_HBox1.setVisible(false);
-          checkAndX_HBox.setMouseTransparent(true);
-          checkAndX_HBox1.setMouseTransparent(true);
-          mapMode = HandleMapModes.MODIFY;
-          lockMap = false;
-          nodeClicked = false;
-          group.setOnMouseClicked(initGroupOnMouseClicked);
+          BorderPane borderPane = new BorderPane();
+
+          Text headerText = new Text("Closings and Openings");
+          Text openingDesc = new Text("Input Closing Description");
+          Text closeDesc = new Text("Input Opening Description");
+          MFXTextField openingInput = new MFXTextField();
+          MFXTextField closingInput = new MFXTextField();
+
+          MFXButton submitDescriptions = new MFXButton("Submit");
+          submitDescriptions.setPrefSize(100, 35);
+          submitDescriptions.setMinSize(100, 35);
+
+          // set styles
+          headerText.getStyleClass().add("Header");
+          openingDesc.getStyleClass().add("Text");
+          closeDesc.getStyleClass().add("Text");
+          openingInput.getStyleClass().add("MFXtextIn");
+          closingInput.getStyleClass().add("MFXtextIn");
+          submitDescriptions.getStyleClass().add("MFXbutton");
+          borderPane.getStyleClass().add("scenePane");
+
+          // set object locations
+          int lay_x = 40;
+          int lay_y = 40;
+          headerText.setLayoutX(lay_x);
+          headerText.setLayoutY(lay_y);
+          openingDesc.setLayoutX(lay_x);
+          openingDesc.setLayoutY(lay_y + 35);
+          openingInput.setLayoutX(lay_x);
+          openingInput.setLayoutY(lay_y + 35);
+          closeDesc.setLayoutX(lay_x);
+          closeDesc.setLayoutY(lay_y + 105);
+          closingInput.setLayoutX(lay_x);
+          closingInput.setLayoutY(lay_y + 105);
+          submitDescriptions.setLayoutX(lay_x);
+          submitDescriptions.setLayoutY(lay_y + 165);
+
+          // Set and show screen
+          AnchorPane aPane = new AnchorPane();
+          aPane
+              .getChildren()
+              .addAll(
+                  headerText,
+                  openingDesc,
+                  openingInput,
+                  closeDesc,
+                  closingInput,
+                  submitDescriptions);
+          //    Insets insets = new Insets(0, 0, 0, 200);
+          //    aPane.setPadding(insets);
+          borderPane.getChildren().add(aPane);
+          Scene scene = new Scene(borderPane, 290, 290);
+          scene
+              .getStylesheets()
+              .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
+          borderPane.relocate(0, 0);
+          Stage stage = new Stage();
+          stage.setScene(scene);
+          stage.setTitle("Close/Open Description Window");
+          stage.setAlwaysOnTop(true);
+          stage.show();
+
+          // When stage closed with inherit x, will unlock map and understand a node is no longer
+          // selected
+          stage.setOnCloseRequest(
+              event -> {
+                lockMap = false;
+                nodeClicked = false;
+                NODE_STATUS status = currNodeClicked.getStatus();
+
+                // set color of nodes based on if they are closed or open
+                if (status.equals(NODE_STATUS.OPEN)) {
+                  currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
+                  currCircleClicked.setStroke(Paint.valueOf("#13DAF7"));
+                } else {
+                  currCircleClicked.setStroke(Paint.valueOf("#FE2300"));
+                  currCircleClicked.setFill(Paint.valueOf("#FE2300"));
+                }
+              });
+          submitDescriptions.setOnMouseClicked(
+              submitEvent -> {
+                LocalDate currDate = LocalDate.now();
+                Timestamp currTimestamp =
+                    new Timestamp(Integer.parseInt(String.valueOf(Date.valueOf(currDate))));
+                Timestamp endDate =
+                    new Timestamp(
+                        Integer.parseInt(String.valueOf(Date.valueOf(currDate.plusMonths(1)))));
+                int i = 0;
+                for (Node node : closeModeHelper.getToClose()) {
+                  if (Objects.equals(node.getStatus(), NODE_STATUS.OPEN)) {
+                    node.setStatus(NODE_STATUS.CLOSED);
+                    HospitalSystem.updateRow(node);
+
+                    edu.wpi.teamc.dao.displays.Alert alert =
+                        new edu.wpi.teamc.dao.displays.Alert(
+                            "Node Closed: " + closeModeHelper.getLongNameList().get(i),
+                            closingInput.getText(),
+                            "Closing",
+                            currTimestamp,
+                            endDate);
+                    alertDao.addRow(alert);
+                  } else {
+                    node.setStatus(NODE_STATUS.OPEN);
+                    HospitalSystem.updateRow(node);
+                    edu.wpi.teamc.dao.displays.Alert alert =
+                        new edu.wpi.teamc.dao.displays.Alert(
+                            "Node Opened: " + closeModeHelper.getLongNameList().get(i),
+                            openingInput.getText(),
+                            "Closing",
+                            currTimestamp,
+                            endDate);
+                    alertDao.addRow(alert);
+                  }
+                  i++;
+                }
+
+                loadNodeIDToNode();
+                loadDatabase();
+                loadNodeIDToNodeStatus();
+                sortEdges();
+                sortNodes();
+                placeEdges(floor);
+                placeNodes(floor);
+                checkAndX_HBox.setVisible(false);
+                checkAndX_HBox1.setVisible(false);
+                checkAndX_HBox.setMouseTransparent(true);
+                checkAndX_HBox1.setMouseTransparent(true);
+                mapMode = HandleMapModes.MODIFY;
+                lockMap = false;
+                nodeClicked = false;
+                group.setOnMouseClicked(initGroupOnMouseClicked);
+              });
         });
     x_button.setOnMouseClicked(
         xEvent -> {
@@ -2062,6 +2172,16 @@ public class EditMapController {
           move.setDate(Date.valueOf(datePicker.getValue()));
           HospitalSystem.addRow(move);
 
+          LocalDate testDate = datePicker.getValue().plusMonths(1);
+          Date tempDate = Date.valueOf(testDate);
+          int intDate = Integer.parseInt(tempDate.toString());
+          Timestamp endDate2 = new Timestamp((long) intDate);
+
+          LocalDate testDate2 = datePicker.getValue();
+          Date tempDate2 = Date.valueOf(testDate2);
+          int intDate2 = Integer.parseInt(tempDate2.toString());
+          Timestamp startDate2 = new Timestamp((long) intDate2);
+
           Timestamp endDate =
               new Timestamp(Integer.parseInt(String.valueOf(datePicker.getValue().plusMonths(1))));
           Timestamp startDate =
@@ -2072,10 +2192,8 @@ public class EditMapController {
                   "Node to be Moved: " + moveHelper.getLongname() + " to: " + currNodeLongname,
                   inputText.getText(),
                   "Closure",
-                  startDate,
-                  endDate);
-
-          alertDao.addRow(alert);
+                  startDate2,
+                  endDate2);
 
           //        secondNodeClicked = false;
           moveHelper.setNodesClicked(0);
@@ -2086,6 +2204,7 @@ public class EditMapController {
           moveHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
           moveHelper.getCircle().setStroke(Paint.valueOf("#13DAF7"));
           stage.close();
+          alertDao.addRow(alert);
         });
 
     cancelButton.setOnMouseClicked(

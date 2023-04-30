@@ -23,7 +23,7 @@
                         <Cursor fx:constant="MOVE" />
                      </cursor>
                         </TextArea>
-                        <TextField alignment="TOP_LEFT" editable="false" layoutX="43.0" layoutY="-7.0" prefHeight="60.0" prefWidth="535.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 35; -fx-text-fill: white;" text="Basic Functions" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+                        <TextField alignment="TOP_LEFT" editable="false" layoutX="43.0" layoutY="-7.0" mouseTransparent="true" prefHeight="60.0" prefWidth="535.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 35; -fx-text-fill: white; -fx-accent: #02143b;" text="Basic Functions" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
                             <font>
                                 <Font size="35.0" />
                             </font>
@@ -45,7 +45,7 @@
             <children>
                 <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="1147.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Text fx:id="helpTitle" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Help Page" wrappingWidth="643.5101928710938" />
+                        <Text fx:id="helpTitle" fill="#02143b" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Help Page" wrappingWidth="643.5101928710938" />
 
                     </children>
                     <opaqueInsets>

@@ -314,9 +314,9 @@
                               <Insets left="35.0" />
                            </VBox.margin>
                         </Line>
-                        <MFXButton fx:id="Admin_menu_home_button" onAction="#getAdminHome" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
-                        <MFXButton fx:id="Admin_menu_about_button" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
-                        <MFXButton fx:id="Admin_menu_credits" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Directions" />
+                        <MFXButton fx:id="Admin_menu_home_button" onAction="#getAdminHome" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Home" />
+                        <MFXButton fx:id="Admin_menu_about_button" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="About" />
+                        <MFXButton fx:id="Admin_menu_credits" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="Credits" />
                      </children>
                   </VBox>
                </children>
@@ -1048,6 +1048,11 @@
                   </Pane>
                </children>
             </AnchorPane>
+            <Label fx:id="menuClock" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="508.0" mouseTransparent="true" prefHeight="49.0" prefWidth="46.0" text="Label" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="211.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

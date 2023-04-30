@@ -280,7 +280,7 @@
          <children>
             <VBox alignment="CENTER_LEFT" layoutX="-28.0" layoutY="-24.0" prefHeight="76.0" prefWidth="721.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="577.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Text fx:id="AdminHome_Title" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Edit Signage" wrappingWidth="643.5101928710938" />
+                  <Text fx:id="AdminHome_Title" fill="#02143b" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Edit Signage" wrappingWidth="643.5101928710938" />
                </children>
                <opaqueInsets>
                   <Insets />

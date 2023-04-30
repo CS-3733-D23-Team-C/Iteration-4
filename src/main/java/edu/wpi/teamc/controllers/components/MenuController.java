@@ -302,6 +302,11 @@ public class MenuController {
     Navigation.navigate(Screen.LOGIN_TABLE);
   }
 
+  public void getImportExportPage(ActionEvent actionEvent) {
+    CApp.currScreen = Screen.IMPORT_EXPORT_PAGE;
+    Navigation.navigate(Screen.IMPORT_EXPORT_PAGE);
+  }
+
   @FXML ImageView appIcon;
   @FXML ImageView bellIcon;
   @FXML ImageView navIcon;

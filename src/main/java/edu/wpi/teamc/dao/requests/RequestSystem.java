@@ -11,12 +11,13 @@ import lombok.Setter;
 public class RequestSystem {
   @Getter @Setter private List<AbsServiceRequest> requests;
 
-  RequestSystem(List<AbsServiceRequest> requests) {
+  public RequestSystem(List<AbsServiceRequest> requests) {
     this.requests = requests;
   }
 
   public RequestSystem() {
     List<AbsServiceRequest> requestTypes = new ArrayList<>();
+    requests = new ArrayList<>();
     requestTypes.add(new ConferenceRoomRequest());
     requestTypes.add(new MealRequest());
     requestTypes.add(new FlowerDeliveryRequest());

@@ -1,11 +1,16 @@
 package edu.wpi.teamc.controllers.pages.admin;
 
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.displays.Alert;
 import edu.wpi.teamc.languageHelpers.TranslatorAPI;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
+import java.awt.*;
+import java.io.IOException;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
@@ -17,15 +22,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
+import javax.swing.text.html.ImageView;
 import org.girod.javafx.svgimage.SVGImage;
 import org.girod.javafx.svgimage.SVGLoader;
-
-import javax.swing.text.html.ImageView;
-import java.awt.*;
-import java.io.IOException;
-import java.util.List;
-
-import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 public class AdminHomeController {
 
@@ -138,10 +137,9 @@ public class AdminHomeController {
       if (language_choice == 0) { // English
 
         addNotification(alert.getTitle(), alert.getDescription(), alert.getType());
-      } else { 
+      } else {
         addNotification(
             LanguageSet(alert.getTitle()), LanguageSet(alert.getDescription()), alert.getType());
-
       }
     }
     if (!CApp.getAdminLoginCheck()) {

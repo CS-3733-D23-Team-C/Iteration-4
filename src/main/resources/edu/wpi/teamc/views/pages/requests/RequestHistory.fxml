@@ -33,8 +33,10 @@
                                     <Button fx:id="furniture" mnemonicParsing="false" onAction="#getFurniture" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Furniture" textFill="#02143b" />
                                     <Button fx:id="meal" mnemonicParsing="false" onAction="#getMeal" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Meal" textFill="#02143b" />
                                     <Button fx:id="officeSupply" mnemonicParsing="false" onAction="#getOfficeSupply" prefWidth="100.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="Office Supply" textFill="#02143b" />
-                                    <SearchableComboBox fx:id="filterButton" />
-                                    <SearchableComboBox fx:id="filterEmployeeButton" />
+                                    <SearchableComboBox fx:id="filterByStatusField" promptText="Filter by status" />
+                                    <SearchableComboBox fx:id="filterByEmployeeField" promptText="Filter by employee" />
+                                    <Button mnemonicParsing="false" onAction="#getApplyFilter" prefWidth="61.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-background-radius: 2;" text="Apply" textFill="#02143b" />
+                                    <Button mnemonicParsing="false" onAction="#getClearFilter" prefWidth="61.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-background-radius: 2;" text="Clear" textFill="#02143b" />
                                  </children>
                               </HBox>
                            </children>

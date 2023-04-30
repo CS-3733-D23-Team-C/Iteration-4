@@ -4,6 +4,7 @@ import edu.wpi.teamc.Main;
 import edu.wpi.teamc.controllers.pages.map.MapHelpers.*;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.ImportCSV;
+import edu.wpi.teamc.dao.displays.AlertDao;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
@@ -223,6 +224,7 @@ public class EditMapController {
   Boolean hallShown = true;
   MoveHelper moveHelper = new MoveHelper();
   Boolean secondNodeClicked = false;
+  AlertDao alertDao = new AlertDao();
 
   @FXML AnchorPane basePane;
   @FXML AnchorPane backgroundPane;
@@ -603,6 +605,7 @@ public class EditMapController {
                 moveHelper.setNodesClicked(1);
                 moveHelper.setCircle(currCircleClicked);
                 moveHelper.setNode(currNodeClicked);
+                moveHelper.setLongname(currNodeLongname);
                 currCircleClicked.setFill(Paint.valueOf("#FA8B02"));
                 currCircleClicked.setStroke(Paint.valueOf("#020275"));
                 nodeClicked = false;
@@ -1961,22 +1964,27 @@ public class EditMapController {
     //    Text remove_2 = new Text("move Node Location Name");
     //    MFXButton moveNode = new MFXButton("move Node");
     //    MFXButton moveName = new MFXButton("move Name");
-    Text headerText = new Text("Select Move Method");
-    Text moveByNodeID = new Text("Node ID to move to");
-    Text moveByLocationName = new Text("Name of location to move to");
-    MFXButton byNode = new MFXButton("By node ID");
-    MFXButton byLocationName = new MFXButton("By location name");
+    //    Text headerText = new Text("Select Move Method");
+    //    Text moveByNodeID = new Text("Node ID to move to");
+    //    Text moveByLocationName = new Text("Name of location to move to");
+    //    MFXButton byNode = new MFXButton("By node ID");
+    //    MFXButton byLocationName = new MFXButton("By location name");
 
     Text dateText = new Text("Select a Date for the Move to Occur");
     DatePicker datePicker = new DatePicker();
     MFXButton confirmButton = new MFXButton("Submit");
     MFXButton cancelButton = new MFXButton("Cancel");
 
+    Text descText = new Text("Why is this Node being Moved?");
+    MFXTextField inputText = new MFXTextField();
+
     confirmButton.getStyleClass().add("MFXbutton");
     datePicker.getStyleClass().add("DatePicker");
     cancelButton.getStyleClass().add("MFXbutton");
     dateText.getStyleClass().add("Header");
     borderPane.getStyleClass().add("scenePane");
+    descText.getStyleClass().add("Text");
+    inputText.getStyleClass().add("MFXtextInMove");
 
     // set object locations
     int lay_x = 45;
@@ -1985,16 +1993,22 @@ public class EditMapController {
     dateText.setLayoutY(lay_y);
     datePicker.setLayoutX(lay_x);
     datePicker.setLayoutY(lay_y + 25);
+    descText.setLayoutX(lay_x);
+    descText.setLayoutY(lay_y + 90);
+    inputText.setLayoutX(lay_x);
+    inputText.setLayoutY(lay_y + 90);
     confirmButton.setLayoutX(lay_x);
-    confirmButton.setLayoutY(lay_y + 70);
+    confirmButton.setLayoutY(lay_y + 155);
     cancelButton.setLayoutX(lay_x);
-    cancelButton.setLayoutY(lay_y + 120);
+    cancelButton.setLayoutY(lay_y + 205);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().addAll(dateText, datePicker, confirmButton, cancelButton);
+    aPane
+        .getChildren()
+        .addAll(dateText, datePicker, descText, inputText, confirmButton, cancelButton);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 450, 225);
+    Scene scene = new Scene(borderPane, 440, 310);
     scene
         .getStylesheets()
         .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
@@ -2047,6 +2061,21 @@ public class EditMapController {
           move.setLongName(currNodeLongname);
           move.setDate(Date.valueOf(datePicker.getValue()));
           HospitalSystem.addRow(move);
+
+          Timestamp endDate =
+              new Timestamp(Integer.parseInt(String.valueOf(datePicker.getValue().plusMonths(1))));
+          Timestamp startDate =
+              new Timestamp(Integer.parseInt(String.valueOf(datePicker.getValue())));
+
+          edu.wpi.teamc.dao.displays.Alert alert =
+              new edu.wpi.teamc.dao.displays.Alert(
+                  "Node to be Moved: " + moveHelper.getLongname() + " to: " + currNodeLongname,
+                  inputText.getText(),
+                  "Closure",
+                  startDate,
+                  endDate);
+
+          alertDao.addRow(alert);
 
           //        secondNodeClicked = false;
           moveHelper.setNodesClicked(0);

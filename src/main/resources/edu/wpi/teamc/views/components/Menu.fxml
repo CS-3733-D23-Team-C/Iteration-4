@@ -1047,9 +1047,9 @@
                   </Pane>
                </children>
             </AnchorPane>
-            <Label fx:id="menuClock" layoutX="16.0" layoutY="404.0" prefHeight="150.0" prefWidth="42.0" text="Label" textFill="WHITE">
+            <Label fx:id="menuClock" layoutX="14.0" layoutY="508.0" prefHeight="49.0" prefWidth="46.0" text="Label" textFill="WHITE">
                <font>
-                  <Font size="24.0" />
+                  <Font size="17.0" />
                </font>
             </Label>
          </children>

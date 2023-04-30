@@ -1480,7 +1480,7 @@ public class MenuController {
                 Duration.ZERO,
                 e ->
                     menuClock.setText(
-                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh\n  :\nmm\na")))),
+                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh:mm \n  a")))),
             new KeyFrame(Duration.seconds(1)));
     clock.setCycleCount(Animation.INDEFINITE);
     clock.play();

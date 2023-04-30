@@ -31,12 +31,12 @@
                                     </GesturePane>
                               <MFXTextField fx:id="message" alignment="CENTER" floatMode="ABOVE" layoutX="5.0" layoutY="-8.0" prefHeight="59.0" prefWidth="936.0" style="-fx-border-radius: 0;" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-8.0">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font size="22.0" />
                                  </font>
                               </MFXTextField>
                            </children>
                         </AnchorPane>
-                        <VBox alignment="TOP_CENTER" layoutX="1121.0" layoutY="474.0" prefHeight="188.0" prefWidth="122.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="474.0">
+                        <VBox alignment="TOP_CENTER" layoutX="1129.0" layoutY="442.0" prefHeight="221.0" prefWidth="116.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="442.0">
                            <children>
                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-weight: Bold; -fx-underline: True; -fx-font-size: 13;" text="Select Floor" textAlignment="CENTER" />
                               <AnchorPane prefHeight="30.0" prefWidth="20.0">
@@ -69,7 +69,7 @@
                               <Insets bottom="20.0" top="20.0" />
                            </padding>
                         </VBox>
-                        <HBox layoutX="996.0" layoutY="380.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="380.0">
+                        <HBox layoutX="995.0" layoutY="351.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="351.0">
                            <children>
                               <MFXButton fx:id="prevFloor" onAction="#getPrevFloor" prefHeight="30.0" prefWidth="127.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Previous Floor" textFill="#02143b" />
                               <MFXButton fx:id="nextFloor" onAction="#getNextFloor" prefHeight="30.0" prefWidth="127.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-background-size: 12;" text="Next Floor" textFill="#02143b" />
@@ -102,10 +102,30 @@
                               <MFXButton fx:id="submit" onAction="#getSubmit" prefHeight="50.0" prefWidth="210.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Submit" textFill="#02143b" />
                               <MFXButton fx:id="qrCode" onAction="#getQR" prefHeight="50.0" prefWidth="210.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Generate QR Code" textFill="#02143b" />
                               <MFXButton fx:id="textDir" onAction="#getTextDirections" prefHeight="50.0" prefWidth="210.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Get Text Directions" textFill="#02143b" />
-                              <ToggleSwitch fx:id="locToggle" onMouseClicked="#doLocToggle" prefHeight="20.0" prefWidth="210.0" style="-fx-font-weight: bold; -fx-background-color: WHITE;" text="Location Name Toggle" textFill="#02143b" />
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" layoutX="996.0" layoutY="442.0" prefHeight="221.0" prefWidth="118.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="157.0" AnchorPane.topAnchor="442.0">
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-weight: Bold; -fx-underline: True; -fx-font-size: 13;" text="Toggles" textAlignment="CENTER" />
+                              <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                                 <children>
+                                    <ToggleSwitch fx:id="locToggle" layoutX="9.0" layoutY="1.0" onMouseClicked="#doLocToggle" prefHeight="20.0" prefWidth="100.0" style="-fx-font-weight: bold; -fx-background-color: WHITE; -fx-background-radius: 3;" text="Locations" textFill="#02143b" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="30.0" prefWidth="20.0">
+                                 <children>
+                                    <ToggleSwitch fx:id="stairToggle" layoutX="9.0" layoutY="1.0" onMouseClicked="#doStairToggle" prefHeight="20.0" prefWidth="100.0" style="-fx-font-weight: bold; -fx-background-color: WHITE; -fx-background-radius: 3;" text="Use Stairs" textFill="#02143b" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="30.0" prefWidth="20.0" />
+                              <AnchorPane prefHeight="30.0" prefWidth="20.0" />
+                              <AnchorPane prefHeight="30.0" prefWidth="20.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" top="20.0" />
                            </padding>
                         </VBox>
                      </children>

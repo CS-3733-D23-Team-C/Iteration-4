@@ -35,16 +35,7 @@ public class CApp extends Application {
   }
 
   public static void timeOut() {
-    PauseTransition pause = new PauseTransition(Duration.millis(30000));
-    pause.setOnFinished(
-        (event -> {
-          try {
-            timerPopUp();
-          } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-          }
-        }));
-    PauseTransition startPause = new PauseTransition(Duration.millis(6000));
+    PauseTransition startPause = new PauseTransition(Duration.millis(480000));
     startPause.setOnFinished(
         (event -> {
           try {
@@ -129,6 +120,7 @@ public class CApp extends Application {
         (event -> {
           if (!stage.isShowing()) {
             stage.close();
+            CApp.timeOut();
             return;
           } else {
             stage.close();

@@ -458,7 +458,6 @@ public class RequestHistoryController {
 
   @FXML
   public void getApplyFilter(ActionEvent event) {
-    getSwitch(selectedRequest);
     this.filterView();
   }
 
@@ -499,6 +498,7 @@ public class RequestHistoryController {
     for (GiftBasketRequest r : list) {
       rows.add(r);
     }
+    requestSystem.setRequests(new ArrayList<>(list));
     historyTable.setItems(rows);
   }
 }

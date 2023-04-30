@@ -51,6 +51,8 @@ public class RequestHistoryController extends AbsServiceRequest {
   @FXML private Button furniture;
   @FXML private Button officeSupply;
 
+  @FXML private Button giftBasket;
+
   @FXML private FilteredTableView historyTable;
   @FXML TableColumn Column1;
   @FXML TableColumn Column2;
@@ -564,5 +566,38 @@ public class RequestHistoryController extends AbsServiceRequest {
 
   public void getGoHome(ActionEvent event) {
     Navigation.navigate(Screen.HOME);
+  }
+
+  public void getGiftBasket(ActionEvent actionEvent) {
+    this.resetColor();
+    this.clearCurrentSelection();
+    giftBasket.setStyle(selectedButtonColor);
+    selectedRequest = new GiftBasketRequest();
+    ObservableList<GiftBasketRequest> rows = FXCollections.observableArrayList();
+    Column1.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, Integer>("requestID"));
+    Column2.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, IUser>("requester"));
+    Column6.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, STATUS>("eta"));
+    Column4.setCellValueFactory(
+        new PropertyValueFactory<GiftBasketRequest, String>("additionalnotes"));
+    Column5.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, String>("giftbasket"));
+    Column3.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, STATUS>("status"));
+    Column7.setCellValueFactory(
+        new PropertyValueFactory<OfficeSuppliesRequest, String>("roomname"));
+    Column8.setCellValueFactory(
+        new PropertyValueFactory<OfficeSuppliesRequest, String>("assignedto"));
+    Column1.setText("ID");
+    Column2.setText("Requester");
+    Column3.setText("Status");
+    Column4.setText("Additional Notes");
+    Column5.setText("Basket Type");
+    Column6.setText("ETA");
+    Column7.setText("Room Name");
+    Column8.setText("Assigned To");
+    GiftBasketDAO dao = new GiftBasketDAO();
+    List<GiftBasketRequest> list = dao.fetchAllObjects();
+    for (GiftBasketRequest r : list) {
+      rows.add(r);
+    }
+    historyTable.setItems(rows);
   }
 }

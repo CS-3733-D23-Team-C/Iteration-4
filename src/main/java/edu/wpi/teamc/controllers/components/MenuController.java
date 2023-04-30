@@ -3,22 +3,31 @@ package edu.wpi.teamc.controllers.components;
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 import edu.wpi.teamc.CApp;
+import edu.wpi.teamc.Main;
+import edu.wpi.teamc.dao.HospitalSystem;
+import edu.wpi.teamc.dao.displays.Alert;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-import javafx.animation.PauseTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import org.controlsfx.control.ToggleSwitch;
 
 public class MenuController {
 
@@ -36,7 +45,7 @@ public class MenuController {
   @FXML private ImageView exitButton;
   @FXML private ImageView logoutButton;
   @FXML private ImageView historyButton;
-
+  @FXML private ImageView warningButton;
   @FXML private Pane homeTrigger;
   @FXML private Pane serviceRequestTrigger;
   @FXML private Pane navigationTrigger;
@@ -46,6 +55,7 @@ public class MenuController {
 
   @FXML private Pane exitTrigger;
   @FXML private Pane logoutTrigger;
+  @FXML private Pane warningTrigger;
   @FXML private Pane serviceRequestPopOut;
   @FXML private Pane navigationPopOut;
   @FXML private Pane settingsPopOut;
@@ -53,6 +63,7 @@ public class MenuController {
   @FXML private Pane historyPopOut;
   @FXML private Pane exitPopOut;
   @FXML private Pane logoutPopOut;
+  @FXML private Pane warningPopOut;
   @FXML private Pane homePopOut;
   @FXML private AnchorPane basePane;
   @FXML private Pane settingsPane;
@@ -71,6 +82,7 @@ public class MenuController {
   @FXML private AnchorPane exitButton1;
   @FXML private AnchorPane logoutButton1;
   @FXML private AnchorPane historyButton1;
+  @FXML private AnchorPane warningButton1;
 
   @FXML private AnchorPane homeTrigger1;
   @FXML private AnchorPane serviceRequestTrigger1;
@@ -78,7 +90,7 @@ public class MenuController {
   @FXML private AnchorPane settingsTrigger1;
   @FXML private AnchorPane helpTrigger1;
   @FXML private AnchorPane historyTrigger1;
-
+  @FXML private AnchorPane warningTrigger1;
   @FXML private AnchorPane exitTrigger1;
   @FXML private AnchorPane logoutTrigger1;
   @FXML private AnchorPane serviceRequestPopOut1;
@@ -86,6 +98,7 @@ public class MenuController {
   @FXML private AnchorPane settingsPopOut1;
   @FXML private AnchorPane helpPopOut1;
   @FXML private AnchorPane historyPopOut1;
+  @FXML private AnchorPane warningPopOut1;
   @FXML private AnchorPane exitPopOut1;
   @FXML private AnchorPane logoutPopOut1;
   @FXML private AnchorPane homePopOut1;
@@ -137,87 +150,111 @@ public class MenuController {
   @FXML private Pane aboutPopOut1;
   @FXML private AnchorPane aboutPopOut2;
   @FXML private AnchorPane aboutPopOut3;
+  @FXML private AnchorPane creditsPopOut1;
+
+  @FXML private Label menuClock;
 
   // LANGUAGE TEXT//
 
+  // ALERT TEXT//
+  @FXML private TextField alert1;
+  @FXML private TextField alert2;
+  @FXML private TextField alert3;
+
   @FXML
   void getFlowerDeliveryPage(ActionEvent event) {
+    CApp.currScreen = Screen.FLOWER;
     Navigation.navigate(Screen.FLOWER);
   }
 
   @FXML
   void getAdminHome(ActionEvent event) {
+    CApp.currScreen = Screen.ADMIN_HOME;
     Navigation.navigate(Screen.ADMIN_HOME);
   }
 
   @FXML
   void getAdminAbout(ActionEvent event) {
+    CApp.currScreen = Screen.ABOUT;
     Navigation.navigate(Screen.ABOUT);
   }
 
   @FXML
   void getFurnitureDeliveryPage(ActionEvent event) {
+    CApp.currScreen = Screen.FURNITURE;
     Navigation.navigate(Screen.FURNITURE);
   }
 
   @FXML
   void getHelpPage(ActionEvent event) {
+    CApp.currScreen = Screen.HELP;
     Navigation.navigate(Screen.HELP);
   }
 
   @FXML
   void getMealDeliveryPage(ActionEvent event) {
+    CApp.currScreen = Screen.MEAL;
     Navigation.navigate(Screen.MEAL);
   }
 
   @FXML
   void getOfficeSuppliesPage(ActionEvent event) {
+    CApp.currScreen = Screen.OFFICE_SUPPLY;
     Navigation.navigate(Screen.OFFICE_SUPPLY);
   }
 
   @FXML
   void getRoomReservationPage(ActionEvent event) {
+    CApp.currScreen = Screen.CONFERENCE;
     Navigation.navigate(Screen.CONFERENCE);
   }
 
   @FXML
   void getSignagePage(ActionEvent event) {
+    CApp.currScreen = Screen.SIGNAGE;
     Navigation.navigate(Screen.SIGNAGE);
   }
 
   @FXML
   void getPathfindingPage(ActionEvent event) {
+    CApp.currScreen = Screen.PATHFINDING_PAGE;
     Navigation.navigate(Screen.PATHFINDING_PAGE);
   }
 
   @FXML
   void getGiftBasketRequestPage(ActionEvent event) {
+    CApp.currScreen = Screen.GIFT_BASKET;
     Navigation.navigate(Screen.GIFT_BASKET);
   }
 
   @FXML
   void getExit(ActionEvent event) {
+    CApp.currScreen = Screen.EXIT_PAGE;
     Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   /** Method run when controller is initialized */
   @FXML
   void getEditMap(ActionEvent event) {
+    CApp.currScreen = Screen.EDIT_MAP;
     Navigation.navigate(Screen.EDIT_MAP);
   }
 
   @FXML
   void getLogOut(ActionEvent event) {
+    CApp.currScreen = Screen.HOME;
     Navigation.navigate(Screen.HOME);
   }
 
   @FXML
   void getMapHistory(ActionEvent event) {
+    CApp.currScreen = Screen.MAP_HISTORY_PAGE;
     Navigation.navigate(Screen.MAP_HISTORY_PAGE);
   }
 
   @FXML
   void getMoveTable(ActionEvent event) {
+    CApp.currScreen = Screen.MOVE_TABLE;
     Navigation.navigate(Screen.MOVE_TABLE);
   }
 
@@ -233,11 +270,13 @@ public class MenuController {
 
   @FXML
   void getSignageEdit(ActionEvent event) {
+    CApp.currScreen = Screen.SIGNAGE_EDIT;
     Navigation.navigate(Screen.SIGNAGE_EDIT);
   }
 
   @FXML
   void getRequestHistory(ActionEvent event) {
+    CApp.currScreen = Screen.REQUEST_HISTORY;
     Navigation.navigate(Screen.REQUEST_HISTORY);
   }
 
@@ -246,9 +285,33 @@ public class MenuController {
     //      Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
   }
 
+  @FXML
+  void getAlertRequest(ActionEvent event) {
+    CApp.currScreen = Screen.ALERT_REQUEST;
+    Navigation.navigate(Screen.ALERT_REQUEST);
+  }
+
   public void getEmployeeTablePage(ActionEvent actionEvent) {
+    CApp.currScreen = Screen.EMPLOYEETABLE_PAGE;
     Navigation.navigate(Screen.EMPLOYEETABLE_PAGE);
   }
+
+  public void getLoginTablePage(ActionEvent actionEvent) {
+    CApp.currScreen = Screen.LOGIN_TABLE;
+    Navigation.navigate(Screen.LOGIN_TABLE);
+  }
+
+  @FXML ImageView appIcon;
+  @FXML ImageView bellIcon;
+  @FXML ImageView navIcon;
+  @FXML ImageView histIcon;
+  @FXML ImageView settingsIcon;
+  @FXML ImageView questionIcon;
+  @FXML ImageView logoutIcon;
+  @FXML ImageView cancelIcon;
+  @FXML Line menuLine1;
+  @FXML Line menuLine2;
+  @FXML ToggleSwitch dbToggle;
 
   //  Login login = new Login();
   //  @FXML MFXButton moveButton;
@@ -267,6 +330,9 @@ public class MenuController {
   void getHelpage(ActionEvent event) {
     Navigation.navigate(Screen.HELP);
   }
+
+  @FXML
+  void receiveWarning() {}
 
   @FXML
   public void setlanguage(int language_choice) {
@@ -316,12 +382,12 @@ public class MenuController {
       Admin_menu_settings.setText("Param" + "\u00e9" + "tres");
       // HISTORY TEXT//
       Admin_menu_history.setText("Histoire");
-      Admin_menu_flower_history.setText("Livraison de fleurs");
-      Admin_menu_furniture_history.setText("Livraison de meubles");
-      Admin_menu_meal_history.setText("Livraison de repas");
-      Admin_menu_stationary_history.setText("Fournitures de bureau");
+      //      Admin_menu_flower_history.setText("Livraison de fleurs");
+      //      Admin_menu_furniture_history.setText("Livraison de meubles");
+      //      Admin_menu_meal_history.setText("Livraison de repas");
+      //      Admin_menu_stationary_history.setText("Fournitures de bureau");
       Admin_menu_mapchange_history.setText("Changements de carte");
-      Admin_menu_reservation_history.setText("R" + "\u00e9" + "servations de salles");
+      //      Admin_menu_reservation_history.setText("R" + "\u00e9" + "servations de salles");
       // Admin_menu_giftbasket_history.setText("Livraison de paniers-cadeaux");
       // NAVIGATION TEXT//
       Admin_menu_navigation.setText("Navigation");
@@ -348,6 +414,19 @@ public class MenuController {
 
   @FXML
   public void initialize() {
+
+    List<Alert> alertList = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
+    int alertListSize = alertList.size();
+    int recentAlert1 = alertListSize - 1;
+    int recentAlert2 = alertListSize - 2;
+    int recentAlert3 = alertListSize - 3;
+    alert1.setText(
+        alertList.get(recentAlert1).getType() + ": " + alertList.get(recentAlert1).getTitle());
+    alert2.setText(
+        alertList.get(recentAlert2).getType() + ": " + alertList.get(recentAlert2).getTitle());
+    alert3.setText(
+        alertList.get(recentAlert3).getType() + ": " + alertList.get(recentAlert3).getTitle());
+
     setlanguage(language_choice);
     homeTrigger1.setVisible(false);
     serviceRequestTrigger1.setVisible(false);
@@ -357,6 +436,7 @@ public class MenuController {
     historyTrigger1.setVisible(false);
     exitTrigger1.setVisible(false);
     logoutTrigger1.setVisible(false);
+    warningTrigger1.setVisible(false);
     serviceRequestPopOut1.setVisible(false);
     navigationPopOut1.setVisible(false);
     settingsPopOut1.setVisible(false);
@@ -364,10 +444,29 @@ public class MenuController {
     exitPopOut1.setVisible(false);
     logoutPopOut1.setVisible(false);
     homePopOut1.setVisible(false);
+    warningPopOut1.setVisible(false);
     aboutPopOut1.setVisible(false);
     aboutPopOut.setVisible(false);
     aboutPopOut2.setVisible(false);
     aboutPopOut3.setVisible(false);
+
+    // Set styleClasses
+    menuPane.getStyleClass().add("menuBackground");
+    appIcon.getStyleClass().add("menuIcon");
+    bellIcon.getStyleClass().add("menuIcon");
+    navIcon.getStyleClass().add("menuIcon");
+    histIcon.getStyleClass().add("menuIcon");
+    settingsIcon.getStyleClass().add("menuIcon");
+    questionIcon.getStyleClass().add("menuIcon");
+    logoutIcon.getStyleClass().add("menuIcon");
+    cancelIcon.getStyleClass().add("menuIcon");
+    menuLine1.getStyleClass().add("menuLine");
+    menuLine2.getStyleClass().add("menuLine");
+    Admin_menu_movetable.getStyleClass().add("hiddenButton");
+
+    basePane
+        .getStylesheets()
+        .add(Main.class.getResource("views/components/Menu_Dark.css").toString());
 
     if (!CApp.getAdminLoginCheck()) {
       Admin_menu_movetable.setMouseTransparent(true);
@@ -398,8 +497,10 @@ public class MenuController {
     TranslateTransition logoutPopOutTransition = new TranslateTransition();
     TranslateTransition homePopOutTransition = new TranslateTransition();
     TranslateTransition settingsPaneTransition = new TranslateTransition();
+    TranslateTransition warningPopOutTransition = new TranslateTransition();
     TranslateTransition aboutPopOutTransition = new TranslateTransition();
     TranslateTransition aboutPopOutTransition1 = new TranslateTransition();
+    TranslateTransition creditPopOutTransition = new TranslateTransition();
 
     AtomicBoolean isHovering = new AtomicBoolean(false);
 
@@ -409,11 +510,13 @@ public class MenuController {
     helpTrigger1.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
+          CApp.currScreen = Screen.HELP;
           Navigation.navigate(Screen.HELP);
         });
     homeTrigger1.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
+          CApp.currScreen = Screen.ADMIN_HOME;
           Navigation.navigate(Screen.ADMIN_HOME);
         });
 
@@ -445,6 +548,7 @@ public class MenuController {
         MouseEvent.MOUSE_CLICKED,
         event -> {
           CApp.setAdminLoginCheck(false);
+          CApp.currScreen = Screen.HOME;
           Navigation.navigate(Screen.HOME);
           Navigation.setMenuType(Navigation.MenuType.DISABLED);
         });
@@ -452,6 +556,7 @@ public class MenuController {
         MouseEvent.MOUSE_CLICKED,
         event -> {
           Navigation.navigate(Screen.EXIT_PAGE);
+          Navigation.setMenuType(Navigation.MenuType.DISABLED);
         });
 
     homeButton1
@@ -589,19 +694,65 @@ public class MenuController {
                 aboutPopOut1.setVisible(true);
               }
             });
-
+    Admin_menu_credits.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          creditsPopOut1.setVisible(true);
+          creditsPopOut.setVisible(true);
+          creditPopOutTransition.setDuration(Duration.millis(300));
+          creditPopOutTransition.setNode(creditsPopOut1);
+          creditPopOutTransition.setToX(290);
+          creditPopOutTransition.play();
+        });
+    creditsPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !creditsPopOut.isHover() && !homePopOut.isHover()) {
+                creditPopOutTransition.setDuration(Duration.millis(300));
+                creditPopOutTransition.setNode(creditsPopOut1);
+                creditPopOutTransition.setToX(0);
+                creditPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!creditsPopOut.isHover() && !homePopOut.isHover()) {
+                        creditsPopOut.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+                creditPopOutTransition.play();
+              } else if (newValue) {
+                creditPopOutTransition.setDuration(Duration.millis(300));
+                creditPopOutTransition.setNode(creditsPopOut1);
+                creditPopOutTransition.setToX(290);
+                creditPopOutTransition.play();
+              }
+            });
+    // get wpidb boolean and set toggle accordingly
+    dbToggle.setSelected(!CApp.getWpiDB());
+    dbToggle.setOnMouseClicked(
+        event -> {
+          // Toggled sets boolean wpiDB false for AWS
+          CApp.wpiDB = !dbToggle.selectedProperty().get();
+          dbToggle.setSelected(!CApp.wpiDB);
+          //          dbToggle.fire();
+          System.out.println("DB: " + CApp.wpiDB);
+          Navigation.clearCache();
+          Navigation.navigate(CApp.currScreen);
+        });
     // Add a flag to track if the mouse is hovering over the aboutPopOut node
 
     // Set up the event filter for the Admin_menu_about_button
-    //    meetTheTeam.setOnMouseClicked(
-    //        event -> {
-    //          aboutPopOut1.setVisible(true);
-    //          aboutPopOut3.setVisible(true);
-    //          aboutPopOutTransition1.setDuration(Duration.millis(300));
-    //          aboutPopOutTransition1.setNode(aboutPopOut3);
-    //          aboutPopOutTransition1.setToX(585);
-    //          aboutPopOutTransition1.play();
-    //        });
+    //        meetTheTeam.setOnMouseClicked(
+    //            event -> {
+    //              aboutPopOut1.setVisible(true);
+    //              aboutPopOut3.setVisible(true);
+    //              aboutPopOutTransition1.setDuration(Duration.millis(300));
+    //              aboutPopOutTransition1.setNode(aboutPopOut3);
+    //              aboutPopOutTransition1.setToX(585);
+    //              aboutPopOutTransition1.play();
+    //            });
     //
     //    aboutPopOut1
     //        .hoverProperty()
@@ -639,7 +790,7 @@ public class MenuController {
               if (!newValue && !meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
                 aboutPopOutTransition1.setDuration(Duration.millis(200));
                 aboutPopOutTransition1.setNode(aboutPopOut3);
-                aboutPopOutTransition1.setToX(290);
+                aboutPopOutTransition1.setToX(0);
                 aboutPopOutTransition1.setOnFinished(
                     event -> {
                       if (!meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
@@ -1241,5 +1392,97 @@ public class MenuController {
                 exitPopOutTransition.play();
               }
             });
+
+    warningTrigger1
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !warningButton.isHover() && !warningPopOut.isHover()) {
+                warningPopOutTransition.setDuration(Duration.millis(200));
+                warningPopOutTransition.setNode(warningPopOut);
+                warningPopOutTransition.setToX(0);
+                warningPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!warningPopOut.isHover() && !warningTrigger.isHover()) {
+                        warningPopOut1.setVisible(false);
+                        warningTrigger1.setVisible(false);
+                        warningButton1.setVisible(true);
+                      }
+                    });
+                warningPopOutTransition.play();
+              } else if (newValue) {
+                warningPopOutTransition.setDuration(Duration.millis(200));
+                warningPopOutTransition.setNode(warningPopOut);
+                warningPopOut.setTranslateX(250);
+                warningPopOutTransition.play();
+              }
+            });
+    warningPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !warningButton.isHover() && !warningTrigger.isHover()) {
+                warningPopOutTransition.setDuration(Duration.millis(200));
+                warningPopOutTransition.setNode(warningPopOut);
+                warningPopOutTransition.setToX(0);
+                warningPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!warningPopOut.isHover() && !warningTrigger.isHover()) {
+                        warningPopOut1.setVisible(false);
+                        warningTrigger1.setVisible(false);
+                        warningButton1.setVisible(true);
+                      }
+                    });
+                warningPopOutTransition.play();
+              } else if (newValue) {
+                warningPopOutTransition.stop();
+                warningPopOut.setTranslateX(250);
+              }
+            });
+    warningButton1
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue || isHovering.get()) {
+                delay.setOnFinished(
+                    event -> {
+                      warningPopOutTransition.setDuration(Duration.millis(200));
+                      warningPopOutTransition.setNode(warningPopOut);
+                      warningPopOutTransition.setToX(250);
+                      warningPopOutTransition.play();
+                      warningPopOut1.setVisible(true);
+                      warningTrigger1.setVisible(true);
+                      warningButton1.setVisible(false);
+                    });
+                delay.play();
+              } else {
+                delay.setOnFinished(null); // Clear the delay's onFinished event
+                warningPopOutTransition.setDuration(Duration.millis(200));
+                warningPopOutTransition.setNode(warningPopOut);
+                warningPopOutTransition.setToX(0);
+                warningPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!warningPopOut.isHover() && !warningTrigger.isHover()) {
+                        warningPopOut1.setVisible(false);
+                        warningTrigger1.setVisible(false);
+                        warningButton1.setVisible(true);
+                      }
+                    });
+                warningPopOutTransition.play();
+              }
+            });
+
+    Timeline clock =
+        new Timeline(
+            new KeyFrame(
+                Duration.ZERO,
+                e ->
+                    menuClock.setText(
+                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh:mm \n  a")))),
+            new KeyFrame(Duration.seconds(1)));
+    clock.setCycleCount(Animation.INDEFINITE);
+    clock.play();
   }
 }

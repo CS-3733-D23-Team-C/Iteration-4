@@ -7,9 +7,11 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import edu.wpi.teamc.graph.Graph;
 import edu.wpi.teamc.graph.GraphNode;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -29,51 +31,55 @@ public class TextDirectionsHelper {
 
   public TextDirectionsHelper() {}
 
-  public BufferedImage buildURL(List<GraphNode> path, Graph currGraph) {
+  public BufferedImage buildImage(List<GraphNode> path, Graph currGraph, LocalDate forDate) {
     String start = currGraph.getLongNameFromNodeID(path.get(0).getNodeID());
     String end = currGraph.getLongNameFromNodeID(path.get(path.size() - 1).getNodeID());
     String directions = "";
     String responseBody = "";
 
+    // format the directions for HttpPost
     for (String s : textDirections(path, currGraph)) {
       directions += s + ";";
     }
 
-    directions = directions.substring(0, directions.length() - 2);
+    directions = directions.substring(0, directions.length() - 1);
+
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    String formattedDate = formatter.format(Date.valueOf(forDate));
+    String json =
+        String.format(
+            "{\"start\":\"%s\",\"end\":\"%s\",\"directions\":\"%s\", \"forDate\":\"%s\"}",
+            start, end, directions, formattedDate);
 
     try (CloseableHttpClient client = HttpClients.createDefault()) {
+      // define website
       HttpPost httpPost = new HttpPost(new URI("https://teamc.blui.co/api/directions"));
 
-      // set request body
-      String json =
-          String.format(
-              "{\"start\":\"%s\",\"end\":\"%s\",\"directions\":\"%s\"}", start, end, directions);
+      // format and set json
       StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
       httpPost.setEntity(entity);
 
-      // execute request
       HttpResponse response = client.execute(httpPost);
       HttpEntity responseEntity = response.getEntity();
       if (responseEntity != null) {
         responseBody = EntityUtils.toString(responseEntity, StandardCharsets.UTF_8);
+        System.out.println(responseBody);
       }
     } catch (Exception e) {
-      System.err.println("Invalid URI: " + e.getMessage());
+      System.err.println(e.getMessage());
     }
-
-    JSONObject obj = new JSONObject(responseBody);
-    String url = "https://teamc.blui.co/directions?id=" + obj.getString("link");
+    JSONObject jsonobj = new JSONObject(responseBody);
+    String url = jsonobj.getString("shortLink");
     return genQR(url);
   }
 
   public BufferedImage genQR(String url) {
+    BufferedImage qrImage = null;
     int width = 300;
     int height = 300;
-    String fileType = "png";
-    File qrFile = new File("qr_code.png");
-    BufferedImage qrImage = null;
 
     try {
+      // setup writer and then encode into a bitMatrix
       QRCodeWriter qrCodeWriter = new QRCodeWriter();
       BitMatrix bitMatrix =
           qrCodeWriter.encode(url, com.google.zxing.BarcodeFormat.QR_CODE, width, height);
@@ -81,13 +87,12 @@ public class TextDirectionsHelper {
       qrImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
       qrImage.createGraphics();
 
+      // using the bitMatrix to "paint" the qrCode
       for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
-          qrImage.setRGB(x, y, bitMatrix.get(x, y) ? 0xFF000000 : 0xFFFFFFFF);
+          qrImage.setRGB(x, y, bitMatrix.get(x, y) ? 0xFFFFFFFF : 0xFF02143b);
         }
       }
-
-      //      ImageIO.write(qrImage, fileType, qrFile);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -134,9 +139,6 @@ public class TextDirectionsHelper {
   }
 
   private String findOrientation(GraphNode one, GraphNode two) {
-    // 1748 1321, 75 Francis exit
-    // 2091, 796, Bathroom Lobby
-
     // x increases eastward
     // y decreases northward
 
@@ -164,21 +166,21 @@ public class TextDirectionsHelper {
     String retVal;
 
     if (orientation.equals("N") && tempOrientation.equals("E")) {
-      retVal = "Turn right";
+      retVal = "↱ Turn right ↱";
     } else if (orientation.equals("N") && tempOrientation.equals("W")) {
-      retVal = "Turn left";
+      retVal = "↰ Turn left ↰";
     } else if (orientation.equals("S") && tempOrientation.equals("E")) {
-      retVal = "Turn left";
+      retVal = "↰ Turn left ↰";
     } else if (orientation.equals("S") && tempOrientation.equals("W")) {
-      retVal = "Turn right";
+      retVal = "↱ Turn right ↱";
     } else if (orientation.equals("W") && tempOrientation.equals("S")) {
-      retVal = "Turn left";
+      retVal = "↰ Turn left ↰";
     } else if (orientation.equals("E") && tempOrientation.equals("S")) {
-      retVal = "Turn right";
+      retVal = "↱ Turn right ↱";
     } else if (orientation.equals("W") && tempOrientation.equals("N")) {
-      retVal = "Turn right";
+      retVal = "↱ Turn right ↱";
     } else if (orientation.equals("E") && tempOrientation.equals("N")) {
-      retVal = "Turn left";
+      retVal = "↰ Turn left ↰";
     } else {
       retVal = "Continue Straight";
     }

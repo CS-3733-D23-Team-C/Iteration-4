@@ -1,5 +1,8 @@
 package edu.wpi.teamc.controllers.pages;
 
+import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.users.PatientUser;
+import edu.wpi.teamc.dao.users.PatientUserDao;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import javafx.event.ActionEvent;
@@ -23,5 +26,24 @@ public class SignUpController {
   }
 
   @FXML
-  void getSubmit(ActionEvent event) {}
+  void getSubmit(ActionEvent event) {
+    // modify an existing patient
+    IDao<PatientUser, Integer> dao = new PatientUserDao();
+    PatientUserDao pdao = new PatientUserDao();
+    PatientUser patient1 =
+        pdao.fetchPatient(
+            name.getText(), phoneNumber.getText()); // why did I need to make this static????
+    PatientUser patient2 =
+        new PatientUser(
+            patient1.getId(),
+            patient1.getName(),
+            patient1.getIn(),
+            patient1.getOut(),
+            patient1.getPhone(),
+            patient1.getRoom(),
+            true);
+    dao.updateRow(patient1, patient2);
+
+    Navigation.navigate(Screen.CONGRATS_SIGNUP_PAGE); // maybe make this different
+  }
 }

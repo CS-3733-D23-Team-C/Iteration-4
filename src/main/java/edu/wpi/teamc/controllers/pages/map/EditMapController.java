@@ -9,6 +9,7 @@ import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.effects.DepthLevel;
 import io.github.palexdev.materialfx.enums.ButtonType;
 import java.awt.*;
 import java.io.BufferedReader;
@@ -122,38 +123,25 @@ public class EditMapController {
   String iD;
   String building = "";
   String floor = "1";
-  List<Node> n_toAdd = new ArrayList<Node>();
-  List<Node> n_toModify_newNode = new ArrayList<Node>();
-  List<String> n_toModify_oldID = new ArrayList<String>();
-  List<String> n_toRemove = new ArrayList<String>();
-  List<Node> oldNameToAdd = new ArrayList<Node>();
   MakeEdgesHelper edgesHelper = new MakeEdgesHelper(0);
 
-  List<LocationName> newNameToAdd = new ArrayList<LocationName>();
-  List<Move> moveNamesToAdd = new ArrayList<Move>();
-
-  List<String> oldNameToModify = new ArrayList<String>();
-  List<LocationName> newNameToModify = new ArrayList<LocationName>();
-  List<String> nameToRemove = new ArrayList<String>();
-  List<String> idList_r = new ArrayList<String>();
-  String iD_r = "";
-  String removeName = "";
-  List<Move> moveNamesToRemove = new ArrayList<Move>();
-  List<Node> listNodeToRemove = new ArrayList<Node>();
   NodeResetterHelper nodeResetterHelper = new NodeResetterHelper();
   LineResetterHelper lineResetterHelper = new LineResetterHelper();
   ModeResetterHelper modeResetterHelper = new ModeResetterHelper();
   FloorResetterHelper floorResetterHelper = new FloorResetterHelper();
   AlignModeHelper alignModeHelper = new AlignModeHelper();
+  CloseModeHelper closeModeHelper = new CloseModeHelper();
 
   // ORM lists
   List<Node> nodeList = new ArrayList<Node>();
+  List<NodeStatus> nodeStatusList = new ArrayList<NodeStatus>();
   List<Edge> edgeList = new ArrayList<Edge>();
   List<LocationName> locationNameList = new ArrayList<LocationName>();
   // hash maps
   HashMap<Integer, Move> nodeIDtoMove = new HashMap<>();
   HashMap<String, LocationName> longNametoLocationName = new HashMap<String, LocationName>();
   HashMap<Integer, Node> nodeIDToNode = new HashMap<Integer, Node>();
+  HashMap<Integer, NODE_STATUS> nodeIDtoNodeStatus = new HashMap<Integer, NODE_STATUS>();
   //  HashMap<Integer,String> nodeIDToFloor = new HashMap<Integer, String>();
 
   List<Move> moveList = new ArrayList<Move>();
@@ -181,6 +169,7 @@ public class EditMapController {
   Edge clickedEdge;
   Line lineClicked;
   Boolean alignMode = true;
+  Boolean closeMode = false;
   Node currNodeClicked;
   Circle currCircleClicked;
   Circle tempSave;
@@ -232,14 +221,38 @@ public class EditMapController {
   MoveHelper moveHelper = new MoveHelper();
   Boolean secondNodeClicked = false;
 
+  @FXML AnchorPane basePane;
+  @FXML AnchorPane backgroundPane;
+  @FXML AnchorPane headerPane;
+  @FXML VBox floorBox;
+  @FXML VBox importBox;
+  @FXML VBox modeBox;
+  @FXML AnchorPane mapBackgroundPane;
+  @FXML MFXButton importButton;
+  @FXML MFXButton exportButton;
+  //  EventHandler<MouseEvent> initGroupOnMouseClicked = new EventHandler();
+  EventHandler<? super MouseEvent> initGroupOnMouseClicked;
+  @FXML MFXButton Align;
+
   //  Boolean
 
   // Notes: Fix bug that you can click on an edge and exit and its still highlighted
   // click bug that you can click on a node during move and then click anywhere on the map to bring
   // up the move menu
 
+  /* Bugs to fix
+  When go into remove mode, if click on edge, only edge menu. If click on node, get both edge and node menu. Should only get node menu.
+   */
+
   /** Method run when controller is initialized */
   public void initialize() {
+
+    backgroundPane.getStyleClass().add("backgroundPane");
+    headerPane.getStyleClass().add("headerPane");
+    floorBox.getStyleClass().add("mapBox");
+    importBox.getStyleClass().add("mapBox");
+    modeBox.getStyleClass().add("mapBox");
+    mapBackgroundPane.getStyleClass().add("mapBackgroundPane");
 
     Image image = this.image;
     imageView = new ImageView(image); // was ImageView imageView
@@ -264,6 +277,13 @@ public class EditMapController {
     //    filterBox.setItems(FXCollections.observableArrayList(toggleButtons));
     // Does not work *********
 
+    backgroundPane.getStyleClass().add("backgroundPane");
+    headerPane.getStyleClass().add("headerPane");
+    floorBox.getStyleClass().add("mapBox");
+    importBox.getStyleClass().add("mapBox");
+    modeBox.getStyleClass().add("mapBox");
+    mapBackgroundPane.getStyleClass().add("mapBackgroundPane");
+
     shortToggleText.getStyleClass().add("toggleText");
     confToggleText.getStyleClass().add("toggleText");
     elevToggleText.getStyleClass().add("toggleText");
@@ -275,8 +295,12 @@ public class EditMapController {
     elevToggle.getStyleClass().add("toggleButton");
     hallToggle.getStyleClass().add("toggleButton");
     edgeToggle.getStyleClass().add("toggleButton");
+    toggleBox.getStyleClass().add("mapBox");
 
-    toggleBox
+    //    toggleBox
+    //        .getStylesheets()
+    //        .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
+    basePane
         .getStylesheets()
         .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
 
@@ -293,9 +317,36 @@ public class EditMapController {
     checkAndX_HBox.setMouseTransparent(true);
     checkAndX_HBox1.setMouseTransparent(true);
     selectButton.setBackground(Background.fill(Paint.valueOf("#EAB334")));
+    selectButton.setStyle(
+        "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12; -fx-background-color: #EAB334");
     modeResetterHelper.setButton(selectButton);
+    String defaultButtonStyle = FL1.getStyle();
+    importButton.setStyle(defaultButtonStyle);
+    exportButton.setStyle(defaultButtonStyle);
     FL1.setBackground(Background.fill(Paint.valueOf("#EAB334")));
+    FL1.setStyle(
+        "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12; -fx-background-color: #EAB334");
     floorResetterHelper.setButton(FL1);
+
+    // Set tooltips
+    Tooltip alignTip =
+        new Tooltip(
+            "Align Mode: Click on multiple nodes. Then, press the green check-mark to determine if you want to align nodes vertically or horizontally. Finally, click a location on the map to align the nodes about that location.");
+    Align.setTooltip(alignTip);
+
+    Tooltip addTip =
+        new Tooltip(
+            "Add Mode: Click anywhere on the map to add a new node to the floor. Or, click on a node to add a location name to a node");
+    Add.setTooltip(addTip);
+
+    Tooltip modifyTip =
+        new Tooltip(
+            "Modify Mode: Click on a node to be prompted with four options. 1: Modify the location of a node by text input. 2: Modify the location of a node by dragging the node on the map with the cursor. 3: Modify the location name of the node. 4: Enter Close Mode. Close Mode allows you to select multiple nodes and close them so pathfinding can no longer use those nodes. Closed nodes can also be opened in this mode.");
+    Modify.setTooltip(modifyTip);
+
+    Tooltip removeTip =
+        new Tooltip(
+            "Remove Mode: Click on a node to remove either the node or just the node's location name. Click on an edge to remove the edge.");
 
     edgeToggle.setOnMouseClicked(
         e -> {
@@ -393,11 +444,12 @@ public class EditMapController {
           if (Objects.equals(mapMode.getMapMode(), "Select")) {
             // do Nothing
           }
-          if (Objects.equals(mapMode.getMapMode(), "Align")) {
+          if (Objects.equals(mapMode.getMapMode(), "Align") && !lockMap) {
+            System.out.println("why am i here");
             lockMap = true;
             alignNodes();
           }
-          if (edgeClicked) {
+          if (edgeClicked && !nodeClicked) {
             if (Objects.equals(mapMode.getMapMode(), "Remove")) {
               lineClicked.setFill(Paint.valueOf("#EAB334"));
               removeEdges();
@@ -433,12 +485,14 @@ public class EditMapController {
               if (moveHelper.getNodesClicked() == 1) {
                 lockMap = true;
                 currCircleClicked.setFill(Paint.valueOf("#CB02D7"));
+                currCircleClicked.setStroke(Paint.valueOf("#020275"));
                 moveMenu();
               } else if (moveHelper.getNodesClicked() == 0) {
                 moveHelper.setNodesClicked(1);
                 moveHelper.setCircle(currCircleClicked);
                 moveHelper.setNode(currNodeClicked);
-                currCircleClicked.setFill(Paint.valueOf("#02D755"));
+                currCircleClicked.setFill(Paint.valueOf("#FA8B02"));
+                currCircleClicked.setStroke(Paint.valueOf("#020275"));
                 nodeClicked = false;
               }
             } else if (Objects.equals(mapMode.getMapMode(), "Make_edges")) {
@@ -463,8 +517,12 @@ public class EditMapController {
           ;
         });
 
+    //    initGroupOnMouseClicked = group.getOnMouseClicked();
+    initGroupOnMouseClicked = group.getOnMouseClicked();
+
     loadDatabase();
     loadNodeIDToNode();
+    loadNodeIDToNodeStatus();
     sortNodes();
     sortEdges();
     placeEdges("1");
@@ -477,6 +535,13 @@ public class EditMapController {
       nodeIDToNode.put(node.getNodeID(), node);
     }
   }
+  // load hashmap of nodeID to nodeStatus
+  private void loadNodeIDToNodeStatus() {
+    //    for (NodeStatus nodeStatus : nodeStatusList) {
+    //      nodeIDtoNodeStatus.put(nodeStatus.getNodeID(), nodeStatus.getStatus());
+    //    }
+  }
+
   // see if both nodes are on the same floor
   private boolean sameFloor(int nodeID1, int nodeID2) {
     String node1Floor = nodeIDToNode.get(nodeID1).getFloor();
@@ -528,6 +593,14 @@ public class EditMapController {
     stage.setAlwaysOnTop(true);
     stage.show();
     EdgeDao edgeDao = new EdgeDao();
+
+    stage.setOnCloseRequest(
+        event -> {
+          lineClicked.setStroke(Paint.valueOf("#021335"));
+          edgeClicked = false;
+          stage.close();
+          lockMap = false;
+        });
     confirm.setOnMouseClicked(
         e -> {
           edgeDao.deleteRow(clickedEdge);
@@ -674,6 +747,7 @@ public class EditMapController {
   // load database
   public void loadDatabase() {
     nodeList = new NodeDao().fetchAllObjects();
+    // nodeStatusList = new NodeStatusDao().fetchAllObjects();
     edgeList = new EdgeDao().fetchAllObjects();
     locationNameList = new LocationNameDao().fetchAllObjects();
     moveList = new MoveDao().fetchAllObjects();
@@ -752,19 +826,19 @@ public class EditMapController {
         resetAndSetModes(modeButton);
         edgeMadeText.setText("");
         edgeMadeText.setVisible(false);
-        //        System.out.println("Removing");
+        System.out.println("Removing");
       } else if (Objects.equals(modeButton.getId(), "Move")) {
         mapMode = HandleMapModes.MOVE;
         resetAndSetModes(modeButton);
         edgeMadeText.setText("");
         edgeMadeText.setVisible(false);
-        //        System.out.println("Moving");
+        System.out.println("Moving");
       } else if (Objects.equals(modeButton.getId(), "Edges")) {
         mapMode = HandleMapModes.MAKE_EDGES;
         resetAndSetModes(modeButton);
         edgeMadeText.setText("");
         edgeMadeText.setVisible(false);
-        //        System.out.println("Making Edges");
+        System.out.println("Making Edges");
       } else if (Objects.equals(modeButton.getId(), "Align")) {
         mapMode = HandleMapModes.ALIGN;
         resetAndSetModes(modeButton);
@@ -870,7 +944,7 @@ public class EditMapController {
           longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
-          createMapNodes(Floor1.get(i), shortName, nodeType, longName);
+          createMapNode(Floor1.get(i), shortName, nodeType, longName);
         }
         break;
       case "2":
@@ -885,7 +959,7 @@ public class EditMapController {
           longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
-          createMapNodes(Floor2.get(i), shortName, nodeType, longName);
+          createMapNode(Floor2.get(i), shortName, nodeType, longName);
         }
         break;
       case "3":
@@ -900,7 +974,7 @@ public class EditMapController {
           longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
-          createMapNodes(Floor3.get(i), shortName, nodeType, longName);
+          createMapNode(Floor3.get(i), shortName, nodeType, longName);
         }
         break;
       case "G":
@@ -915,7 +989,7 @@ public class EditMapController {
           longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
-          createMapNodes(FloorG.get(i), shortName, nodeType, longName);
+          createMapNode(FloorG.get(i), shortName, nodeType, longName);
         }
         break;
       case "L1":
@@ -930,7 +1004,7 @@ public class EditMapController {
           longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
-          createMapNodes(FloorL1.get(i), shortName, nodeType, longName);
+          createMapNode(FloorL1.get(i), shortName, nodeType, longName);
         }
         break;
       case "L2":
@@ -945,14 +1019,14 @@ public class EditMapController {
           longName = nodeIDtoMove.get(nodeID).getLongName();
           String shortName = longNametoLocationName.get(longName).getShortName();
           String nodeType = longNametoLocationName.get(longName).getNodeType();
-          createMapNodes(FloorL2.get(i), shortName, nodeType, longName);
+          createMapNode(FloorL2.get(i), shortName, nodeType, longName);
         }
     }
     mapNodes.toFront();
     mapText.toFront();
   }
 
-  public void createMapNodes(Node node, String shortname, String nodeType, String longName) {
+  public void createMapNode(Node node, String shortname, String nodeType, String longName) {
     Circle newCircle = new Circle();
     Text text = new Text();
     //    System.out.println("creating nodes");
@@ -971,8 +1045,19 @@ public class EditMapController {
     text.setY(node.getYCoord() - 5);
 
     newCircle.setId(String.valueOf(node.getNodeID()));
-    newCircle.setStroke(Paint.valueOf("#13DAF7"));
-    newCircle.setFill(Paint.valueOf("#13DAF7"));
+
+    // load hashmap of status versus nodeID
+    NODE_STATUS status = node.getStatus();
+
+    // set color of nodes based on if they are closed or open
+    if (status.equals(NODE_STATUS.OPEN)) {
+      newCircle.setStroke(Paint.valueOf("#13DAF7"));
+      newCircle.setFill(Paint.valueOf("#13DAF7"));
+    } else {
+      newCircle.setStroke(Paint.valueOf("#FE2300"));
+      newCircle.setFill(Paint.valueOf("#FE2300"));
+    }
+
     newCircle.setVisible(false);
     text.setVisible(false);
 
@@ -992,12 +1077,15 @@ public class EditMapController {
 
           if (!(Objects.equals(mapMode.getMapMode(), "Modify_drag"))
               && !(Objects.equals(mapMode.getMapMode(), "Align"))
-              && !(Objects.equals(mapMode.getMapMode(), "Move"))) {
+              && !(Objects.equals(mapMode.getMapMode(), "Move"))
+              && status.equals(NODE_STATUS.OPEN)
+              && !(Objects.equals(mapMode.getMapMode(), "Close"))) {
             resetAndSetCircle(newCircle);
 
             //            newCircle.setFill(Paint.valueOf("#45a37f"));
           } else if (Objects.equals(node.getNodeID(), mapModeSaver.getNodeID())
-              && !(Objects.equals(mapMode.getMapMode(), "Move"))) {
+              && !(Objects.equals(mapMode.getMapMode(), "Move"))
+              && status.equals(NODE_STATUS.OPEN)) {
             newCircle.setFill(Paint.valueOf("#45a37f"));
           }
 
@@ -1009,7 +1097,11 @@ public class EditMapController {
 
     newCircle.setOnMouseExited(
         e -> {
-          if (!nodeClicked) {
+          if (!nodeClicked
+              && !Objects.equals(mapMode.getMapMode(), "Close")
+              && !Objects.equals(mapMode.getMapMode(), "Align")
+              && status.equals(NODE_STATUS.OPEN)
+              && !Objects.equals(mapMode.getMapMode(), "Move")) {
             newCircle.setStroke(Paint.valueOf("#13DAF7"));
           }
         });
@@ -1152,11 +1244,22 @@ public class EditMapController {
   }
 
   public void resetAndSetModes(MFXButton button) {
-    button.setBackground(Background.fill(Paint.valueOf("#EAB334")));
+    button.setButtonType(ButtonType.FLAT);
+    button.setDepthLevel(DepthLevel.LEVEL2);
+    button.setRippleAnimateBackground(true);
+    button.setStyle(
+        "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12; -fx-background-color: #EAB334");
+    //    button.setBackground(Background.fill(Paint.valueOf("#EAB334")));
+
     modeResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
     modeResetterHelper.getButton().setRippleAnimateBackground(true);
     //    modeResetterHelper.getButton().setDepthLevel(DepthLevel.LEVEL4);
-    modeResetterHelper.getButton().setButtonType(ButtonType.RAISED);
+    modeResetterHelper.getButton().setButtonType(ButtonType.FLAT);
+    modeResetterHelper.getButton().setDepthLevel(DepthLevel.LEVEL2);
+    modeResetterHelper
+        .getButton()
+        .setStyle(
+            "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12");
     modeResetterHelper.setButton(button);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;
@@ -1164,9 +1267,18 @@ public class EditMapController {
 
   public void resetAndSetFloorIndicators(MFXButton button) {
     button.setBackground(Background.fill(Paint.valueOf("#EAB334")));
+    button.setRippleAnimateBackground(true);
+    button.setButtonType(ButtonType.FLAT);
+    button.setDepthLevel(DepthLevel.LEVEL2);
+    button.setStyle(
+        "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12; -fx-background-color: #EAB334");
     floorResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
     floorResetterHelper.getButton().setRippleAnimateBackground(true);
-    floorResetterHelper.getButton().setButtonType(ButtonType.RAISED);
+    floorResetterHelper.getButton().setButtonType(ButtonType.FLAT);
+    floorResetterHelper
+        .getButton()
+        .setStyle(
+            "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12");
     floorResetterHelper.setButton(button);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;
@@ -1269,20 +1381,37 @@ public class EditMapController {
     Text modify_1 = new Text("Modify node by text input?");
     Text modify_2 = new Text("Modify node by dragging on map?");
     Text modify_3 = new Text("Modify location name of node?");
+
+    Text modify_4 =
+        new Text("Enter close node mode?"); // /////////// Add this changing to "Open node?" if
+    // currNodeClicked = closed
     MFXButton byText = new MFXButton("By Text");
     MFXButton byDrag = new MFXButton("By Drag");
     MFXButton editName = new MFXButton("Edit Name");
+    MFXButton closeNodeButton = new MFXButton("Close Mode");
 
-    vBox.getChildren().addAll(headerText, modify_1, byText, modify_2, byDrag, modify_3, editName);
+    vBox.getChildren()
+        .addAll(
+            headerText,
+            modify_1,
+            byText,
+            modify_2,
+            byDrag,
+            modify_3,
+            editName,
+            modify_4,
+            closeNodeButton);
 
     // set styles
     headerText.getStyleClass().add("Header");
     modify_1.getStyleClass().add("Text");
     modify_2.getStyleClass().add("Text");
     modify_3.getStyleClass().add("Text");
+    modify_4.getStyleClass().add("Text");
     byText.getStyleClass().add("MFXbutton");
     byDrag.getStyleClass().add("MFXbutton");
     editName.getStyleClass().add("MFXbutton");
+    closeNodeButton.getStyleClass().add("MFXbutton");
     borderPane.getStyleClass().add("scenePane");
 
     // set object locations
@@ -1302,14 +1431,29 @@ public class EditMapController {
     modify_3.setLayoutY(lay_y + 205);
     editName.setLayoutX(lay_x);
     editName.setLayoutY(lay_y + 220);
+    modify_4.setLayoutX(lay_x);
+    modify_4.setLayoutY(lay_y + 290);
+    closeNodeButton.setLayoutX(lay_x);
+    closeNodeButton.setLayoutY(lay_y + 305);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().addAll(headerText, modify_1, byText, modify_2, byDrag, modify_3, editName);
+    aPane
+        .getChildren()
+        .addAll(
+            headerText,
+            modify_1,
+            byText,
+            modify_2,
+            byDrag,
+            modify_3,
+            editName,
+            modify_4,
+            closeNodeButton);
     //    Insets insets = new Insets(0, 0, 0, 200);
     //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 350, 330);
+    Scene scene = new Scene(borderPane, 350, 415);
     scene
         .getStylesheets()
         .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
@@ -1325,6 +1469,16 @@ public class EditMapController {
         event -> {
           lockMap = false;
           nodeClicked = false;
+          NODE_STATUS status = currNodeClicked.getStatus();
+
+          // set color of nodes based on if they are closed or open
+          if (status.equals(NODE_STATUS.OPEN)) {
+            currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
+            currCircleClicked.setStroke(Paint.valueOf("#13DAF7"));
+          } else {
+            currCircleClicked.setStroke(Paint.valueOf("#FE2300"));
+            currCircleClicked.setFill(Paint.valueOf("#FE2300"));
+          }
         });
 
     byText.setOnMouseClicked(
@@ -1356,6 +1510,79 @@ public class EditMapController {
           } catch (IOException e) {
             throw new RuntimeException(e);
           }
+        });
+    closeNodeButton.setOnMouseClicked(
+        event -> {
+          stage.close();
+          mapMode = HandleMapModes.CLOSE;
+          closeMode();
+        });
+  }
+
+  public void closeMode() {
+    nodeClicked = false;
+    closeMode = true;
+    currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
+    currCircleClicked.setStroke(Paint.valueOf("#13DAF7"));
+    group.setOnMouseClicked(
+        e -> {
+          if (nodeClicked) {
+            checkAndX_HBox.setVisible(true);
+            checkAndX_HBox1.setVisible(true);
+            checkAndX_HBox.setMouseTransparent(false);
+            checkAndX_HBox1.setMouseTransparent(false);
+            closeModeHelper.addToList(currNodeClicked, currCircleClicked);
+            if (Objects.equals(currNodeClicked.getStatus(), NODE_STATUS.CLOSED)) {
+              currCircleClicked.setFill(Paint.valueOf("#14FF03"));
+              currCircleClicked.setStroke(Paint.valueOf("#14FF03"));
+            } else {
+              currCircleClicked.setFill(Paint.valueOf("#FE2300"));
+              currCircleClicked.setStroke(Paint.valueOf("#FE2300"));
+            }
+            nodeClicked = false;
+          }
+        });
+    check_button.setOnMouseClicked(
+        e -> {
+          for (Node node : closeModeHelper.getToClose()) {
+            if (Objects.equals(node.getStatus(), NODE_STATUS.OPEN)) {
+              node.setStatus(NODE_STATUS.CLOSED);
+              HospitalSystem.updateRow(node);
+            } else {
+              node.setStatus(NODE_STATUS.OPEN);
+              HospitalSystem.updateRow(node);
+            }
+          }
+          loadNodeIDToNode();
+          loadDatabase();
+          loadNodeIDToNodeStatus();
+          sortEdges();
+          sortNodes();
+          placeEdges(floor);
+          placeNodes(floor);
+          checkAndX_HBox.setVisible(false);
+          checkAndX_HBox1.setVisible(false);
+          checkAndX_HBox.setMouseTransparent(true);
+          checkAndX_HBox1.setMouseTransparent(true);
+          mapMode = HandleMapModes.MODIFY;
+          lockMap = false;
+          nodeClicked = false;
+          group.setOnMouseClicked(initGroupOnMouseClicked);
+        });
+    x_button.setOnMouseClicked(
+        xEvent -> {
+          for (Circle circle : closeModeHelper.getCircToClose()) {
+            circle.setFill(Paint.valueOf("#13DAF7"));
+            circle.setStroke(Paint.valueOf("#13DAF7"));
+          }
+          checkAndX_HBox.setVisible(false);
+          checkAndX_HBox1.setVisible(false);
+          checkAndX_HBox.setMouseTransparent(true);
+          checkAndX_HBox1.setMouseTransparent(true);
+          mapMode = HandleMapModes.MODIFY;
+          lockMap = false;
+          nodeClicked = false;
+          group.setOnMouseClicked(initGroupOnMouseClicked);
         });
   }
 
@@ -1428,6 +1655,16 @@ public class EditMapController {
         event -> {
           lockMap = false;
           nodeClicked = false;
+          NODE_STATUS status = currNodeClicked.getStatus();
+
+          // set color of nodes based on if they are closed or open
+          if (status.equals(NODE_STATUS.OPEN)) {
+            currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
+            currCircleClicked.setStroke(Paint.valueOf("#13DAF7"));
+          } else {
+            currCircleClicked.setStroke(Paint.valueOf("#FE2300"));
+            currCircleClicked.setFill(Paint.valueOf("#FE2300"));
+          }
         });
 
     submitModify.setOnMouseClicked(
@@ -1532,6 +1769,16 @@ public class EditMapController {
         event -> {
           lockMap = false;
           nodeClicked = false;
+          NODE_STATUS status = currNodeClicked.getStatus();
+
+          // set color of nodes based on if they are closed or open
+          if (status.equals(NODE_STATUS.OPEN)) {
+            currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
+            currCircleClicked.setStroke(Paint.valueOf("#13DAF7"));
+          } else {
+            currCircleClicked.setStroke(Paint.valueOf("#FE2300"));
+            currCircleClicked.setFill(Paint.valueOf("#FE2300"));
+          }
         });
 
     removeNode.setOnMouseClicked(
@@ -1640,10 +1887,30 @@ public class EditMapController {
           nodeClicked = false;
           //          secondNodeClicked = false;
           moveHelper.setNodesClicked(0);
-          currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
-          currCircleClicked.setStroke(Paint.valueOf("#13DAF7"));
-          moveHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
-          moveHelper.getCircle().setStroke(Paint.valueOf("#13DAF7"));
+
+          // load hashmap of status versus nodeID
+          NODE_STATUS status = currNodeClicked.getStatus();
+
+          // set color of nodes based on if they are closed or open
+          if (status.equals(NODE_STATUS.OPEN)) {
+            currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
+            currCircleClicked.setStroke(Paint.valueOf("#13DAF7"));
+          } else {
+            currCircleClicked.setStroke(Paint.valueOf("#FE2300"));
+            currCircleClicked.setFill(Paint.valueOf("#FE2300"));
+          }
+
+          // load hashmap of status versus nodeID
+          NODE_STATUS status_helper = moveHelper.getNode().getStatus();
+
+          // set color of nodes based on if they are closed or open
+          if (status_helper.equals(NODE_STATUS.OPEN)) {
+            moveHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
+            moveHelper.getCircle().setStroke(Paint.valueOf("#13DAF7"));
+          } else {
+            moveHelper.getCircle().setStroke(Paint.valueOf("#13DAF7"));
+            moveHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
+          }
         });
 
     MoveDao moveDao = new MoveDao();
@@ -1830,6 +2097,17 @@ public class EditMapController {
         event -> {
           lockMap = false;
           nodeClicked = false;
+          // load hashmap of status versus nodeID
+          NODE_STATUS status = currNodeClicked.getStatus();
+
+          // set color of nodes based on if they are closed or open
+          if (status.equals(NODE_STATUS.OPEN)) {
+            currCircleClicked.setStroke(Paint.valueOf("#13DAF7"));
+            currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
+          } else {
+            currCircleClicked.setStroke(Paint.valueOf("#FE2300"));
+            currCircleClicked.setFill(Paint.valueOf("#FE2300"));
+          }
         });
 
     addName.setOnMouseClicked(
@@ -1936,6 +2214,16 @@ public class EditMapController {
         event -> {
           lockMap = false;
           nodeClicked = false;
+          NODE_STATUS status = currNodeClicked.getStatus();
+
+          // set color of nodes based on if they are closed or open
+          if (status.equals(NODE_STATUS.OPEN)) {
+            currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
+            currCircleClicked.setStroke(Paint.valueOf("#13DAF7"));
+          } else {
+            currCircleClicked.setStroke(Paint.valueOf("#FE2300"));
+            currCircleClicked.setFill(Paint.valueOf("#FE2300"));
+          }
         });
 
     modifyName.setOnMouseClicked(
@@ -1973,8 +2261,15 @@ public class EditMapController {
     //    checkAndX_HBox1.setVisible(true);
     //    checkAndX_HBox.setMouseTransparent(false);
     //    checkAndX_HBox1.setMouseTransparent(false);
+    alignModeHelper.addToList(currNodeClicked, currCircleClicked);
+    currCircleClicked.setFill(Paint.valueOf("#EAB334"));
+    checkAndX_HBox.setVisible(true);
+    checkAndX_HBox1.setVisible(true);
+    checkAndX_HBox.setMouseTransparent(false);
+    checkAndX_HBox1.setMouseTransparent(false);
     nodeClicked = false;
     alignMode = true;
+    initGroupOnMouseClicked = group.getOnMouseClicked();
     group.setOnMouseClicked(
         e -> {
           if (nodeClicked) {
@@ -2027,7 +2322,7 @@ public class EditMapController {
           aPane.getChildren().addAll(headerText, headerText2, vertical, horizontal);
 
           borderPane.getChildren().add(aPane);
-          Scene scene = new Scene(borderPane, 680, 260);
+          Scene scene = new Scene(borderPane, 670, 190);
           scene
               .getStylesheets()
               .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
@@ -2035,7 +2330,46 @@ public class EditMapController {
           Stage stage = new Stage();
           stage.setScene(scene);
           stage.setTitle("Align Window");
+          stage.setAlwaysOnTop(true);
           stage.show();
+
+          // When stage closed with inherit x, will unlock map and understand a node is no longer
+          // selected
+          stage.setOnCloseRequest(
+              event -> {
+                lockMap = false;
+                nodeClicked = false;
+                group.setOnMouseClicked(initGroupOnMouseClicked);
+                NODE_STATUS status = currNodeClicked.getStatus();
+
+                // set color of nodes based on if they are closed or open
+                if (status.equals(NODE_STATUS.OPEN)) {
+                  currCircleClicked.setFill(Paint.valueOf("#13DAF7"));
+                  currCircleClicked.setStroke(Paint.valueOf("#13DAF7"));
+                } else {
+                  currCircleClicked.setStroke(Paint.valueOf("#FE2300"));
+                  currCircleClicked.setFill(Paint.valueOf("#FE2300"));
+                }
+                int i = 0;
+
+                for (Node node : alignModeHelper.getToAlign()) {
+                  status = node.getStatus();
+                  if (status.equals(NODE_STATUS.OPEN)) {
+                    alignModeHelper.getCircToAlign().get(i).setFill(Paint.valueOf("#13DAF7"));
+                    alignModeHelper.getCircToAlign().get(i).setStroke(Paint.valueOf("#13DAF7"));
+                  } else {
+                    alignModeHelper.getCircToAlign().get(i).setStroke(Paint.valueOf("#FE2300"));
+                    alignModeHelper.getCircToAlign().get(i).setFill(Paint.valueOf("#FE2300"));
+                  }
+                  i++;
+                }
+                i = 0;
+                checkAndX_HBox.setVisible(false);
+                checkAndX_HBox1.setVisible(false);
+                checkAndX_HBox.setMouseTransparent(true);
+                checkAndX_HBox1.setMouseTransparent(true);
+              });
+
           vertical.setOnMouseClicked(
               vEvent -> {
                 alignVert = true;
@@ -2066,6 +2400,11 @@ public class EditMapController {
           checkAndX_HBox1.setVisible(false);
           checkAndX_HBox.setMouseTransparent(true);
           checkAndX_HBox1.setMouseTransparent(true);
+          //          mapMode = HandleMapModes.SELECT;
+          ////          alignMode = false;
+          lockMap = false;
+          group.setOnMouseClicked(initGroupOnMouseClicked);
+          //          nodeClicked = false;
         });
   }
 
@@ -2103,7 +2442,9 @@ public class EditMapController {
     sortEdges();
     placeEdges(floor);
     placeNodes(floor);
-    alignNodes();
+    group.setOnMouseClicked(initGroupOnMouseClicked);
+    lockMap = false;
+    //    alignNodes();
   }
 
   public void alignHorizontally(int y) {
@@ -2124,7 +2465,9 @@ public class EditMapController {
     sortEdges();
     placeEdges(floor);
     placeNodes(floor);
-    alignNodes();
+    group.setOnMouseClicked(initGroupOnMouseClicked);
+    lockMap = false;
+    //    alignNodes();
   }
 
   public void modifyByDrag() { // make this a pop up window instead of a whole new scene?
@@ -2339,7 +2682,7 @@ public class EditMapController {
     if (file != null) {
       try {
         BufferedReader br = new BufferedReader(new FileReader(file));
-        String nodeHeader = "nodeID,xcoord,ycoord,floor,building";
+        String nodeHeader = "nodeID,xcoord,ycoord,floorNum,building,status";
         String importedHeader = br.readLine();
         //        System.out.println(importedHeader);
         // check if file header matches Node header format
@@ -2647,3 +2990,7 @@ public class EditMapController {
  */
 
 // NEED TO MAKE EXCEPTION CASES FOR IF TRYING TO ADD A NAME TO A NODE THAT ALREADY HAS A NAME
+
+/*
+Close method for submitting a nodes status as closed is working, more to add to it such as opening the node if it is clicked on and closed, making a notification with it, and sending to pathfinding to be ignored, and doing something with edges here as well
+ */

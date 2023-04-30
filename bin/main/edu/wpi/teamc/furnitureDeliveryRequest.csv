@@ -1,0 +1,14 @@
+requestid,requester,roomname,status,additionalnotes,furnituretype,eta,assignedto
+2,nick,1005,PENDING,chair allergy,Chair,,a
+3,nick,1005,PENDING,chair allergy,Chair,,a
+9,Angela,Cubicle 7,PENDING,None,Couch,,a
+1,nick,1005,PENDING,chair allergy,Chair,,staff
+4,nick,1005,PENDING,chair allergy,Chair,4/19/2023,a
+12,Angela,Cubicle 7,PENDING,None,Couch,,a
+13,Angela,Cubicle 7,PENDING,None,Couch,,a
+14,Angela,Cubicle 7,PENDING,None,Couch,,a
+15,Angela,Cubicle 7,PENDING,None,Couch,,a
+16,Angela,Cubicle 7,PENDING,None,Couch,,a
+17,Angela,Cubicle 7,PENDING,None,Couch,,a
+18,Angela,Cubicle 7,PENDING,None,Couch,,a
+19,Angela,Cubicle 7,PENDING,None,Couch,,a

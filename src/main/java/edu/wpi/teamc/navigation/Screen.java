@@ -3,6 +3,7 @@ package edu.wpi.teamc.navigation;
 public enum Screen {
   // -------NON USING PAGES-------//
   ROOT("views/Root.fxml"),
+  SIGN_UP("views/pages/SignUp.fxml"),
 
   // -------MAP & SIGNAGE-------//
   SIGNAGE("views/pages/displays/Signage.fxml"),
@@ -22,6 +23,7 @@ public enum Screen {
   HOME("views/pages/Home.fxml"),
   ADMIN_HOME("views/pages/admin/AdminHome.fxml"),
   GUEST_HOME("views/pages/guest/GuestHome.fxml"),
+  PATIENT_HOME("views/pages/patient/PatientHome.fxml"),
   MENU("views/components/Menu.fxml"),
   GUEST_MENU("views/pages/guest/GuestMenu.fxml"),
   ABOUT("views/pages/About.fxml"),
@@ -38,13 +40,18 @@ public enum Screen {
 
   // -------OTHER-------//
   CONGRATS_PAGE("views/pages/Congrats.fxml"),
+  CONGRATS_SIGNUP_PAGE("views/pages/CongratsSignUp.fxml"),
   HELP("views/pages/Help.fxml"),
 
   GUEST_HELP("views/pages/guest/GuestHelp.fxml"),
 
   EXIT_PAGE("views/pages/ExitPage.fxml"),
 
+  ALERT_REQUEST("views/pages/requests/Alert.fxml"),
+
   SIGNUP_PAGE("views/pages/SignUp.fxml"),
+
+  LOGIN_TABLE("views/pages/LoginTable.fxml"),
   EMPLOYEETABLE_PAGE("views/pages/EmployeeTable.fxml");
 
   private final String filename;
@@ -53,7 +60,7 @@ public enum Screen {
     this.filename = filename;
   }
 
-  public String getFilename() {
+  String getFilename() {
     return filename;
   }
 }

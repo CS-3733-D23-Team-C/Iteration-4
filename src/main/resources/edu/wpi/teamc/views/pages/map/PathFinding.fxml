@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.DatePicker?>
@@ -28,9 +29,14 @@
                                     <GesturePane fx:id="mapGPane" fitHeight="false" fitMode="COVER" fitWidth="false" minScale="0.1" prefHeight="698.0" prefWidth="1155.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                         <Group fx:id="group" />
                                     </GesturePane>
+                              <MFXTextField fx:id="message" alignment="CENTER" floatMode="ABOVE" layoutX="5.0" layoutY="-8.0" prefHeight="59.0" prefWidth="936.0" style="-fx-border-radius: 0;" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-8.0">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </MFXTextField>
                            </children>
                         </AnchorPane>
-                        <VBox alignment="TOP_CENTER" layoutX="1120.0" layoutY="427.0" prefHeight="188.0" prefWidth="122.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="29.0" AnchorPane.topAnchor="427.0">
+                        <VBox alignment="TOP_CENTER" layoutX="1121.0" layoutY="474.0" prefHeight="188.0" prefWidth="122.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="474.0">
                            <children>
                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-weight: Bold; -fx-underline: True; -fx-font-size: 13;" text="Select Floor" textAlignment="CENTER" />
                               <AnchorPane prefHeight="30.0" prefWidth="20.0">
@@ -63,7 +69,7 @@
                               <Insets bottom="20.0" top="20.0" />
                            </padding>
                         </VBox>
-                        <HBox layoutX="995.0" layoutY="339.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="339.0">
+                        <HBox layoutX="996.0" layoutY="380.0" prefWidth="250.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="380.0">
                            <children>
                               <MFXButton fx:id="prevFloor" onAction="#getPrevFloor" prefHeight="30.0" prefWidth="127.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Previous Floor" textFill="#02143b" />
                               <MFXButton fx:id="nextFloor" onAction="#getNextFloor" prefHeight="30.0" prefWidth="127.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-background-size: 12;" text="Next Floor" textFill="#02143b" />
@@ -94,6 +100,7 @@
                               </MenuButton>
                               <DatePicker fx:id="pickDate" prefHeight="26.0" prefWidth="210.0" promptText="Choose Date:" />
                               <MFXButton fx:id="submit" onAction="#getSubmit" prefHeight="50.0" prefWidth="210.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Submit" textFill="#02143b" />
+                              <MFXButton fx:id="qrCode" onAction="#getQR" prefHeight="50.0" prefWidth="210.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Generate QR Code" textFill="#02143b" />
                               <MFXButton fx:id="textDir" onAction="#getTextDirections" prefHeight="50.0" prefWidth="210.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Get Text Directions" textFill="#02143b" />
                               <ToggleSwitch fx:id="locToggle" onMouseClicked="#doLocToggle" prefHeight="20.0" prefWidth="210.0" style="-fx-font-weight: bold; -fx-background-color: WHITE;" text="Location Name Toggle" textFill="#02143b" />
                            </children>

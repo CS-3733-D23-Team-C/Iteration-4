@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.requests;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.users.IUser;
@@ -17,7 +18,7 @@ import java.util.List;
 public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Integer> {
 
   public List<OfficeSuppliesRequest> fetchAllObjects() {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     List<OfficeSuppliesRequest> returnList = new ArrayList<>();
     String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
     // queries
@@ -48,13 +49,13 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
   }
 
   public OfficeSuppliesRequest addRow(OfficeSuppliesRequest orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
     // queries
     String query =
         "INSERT INTO "
             + table
-            + " (requester, roomName, officesupplytype, additionalNotes, status, assignedto) VALUES (?,?,?,?,?,?);";
+            + " (requester, roomName, officesupplytype, additionalNotes, status, assignedto,eta) VALUES (?,?,?,?,?,?,?);";
     try {
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -65,6 +66,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
       ps.setString(4, orm.getAdditionalNotes());
       ps.setString(5, orm.getStatus().toString());
       ps.setString(6, orm.getAssignedto());
+      ps.setString(7, orm.getEta());
       ps.executeUpdate();
 
       ResultSet rs = ps.getGeneratedKeys();
@@ -80,7 +82,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
   }
 
   public OfficeSuppliesRequest deleteRow(OfficeSuppliesRequest orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     OfficeSuppliesRequest request = orm;
     String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
     // queries
@@ -101,7 +103,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
   public OfficeSuppliesRequest fetchObject(Integer key) {
     OfficeSuppliesRequest request = null;
     try {
-      DBConnection db = new DBConnection();
+      DBConnection db = new DBConnection(CApp.getWpiDB());
       String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
       // queries
       String query = "SELECT * FROM " + table + " WHERE requestid = " + key + ";";
@@ -128,7 +130,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
   }
 
   public OfficeSuppliesRequest updateRow(OfficeSuppliesRequest orm, OfficeSuppliesRequest repl) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     OfficeSuppliesRequest request = null;
     String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
     // queries

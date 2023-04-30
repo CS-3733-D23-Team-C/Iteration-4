@@ -2,7 +2,10 @@ package edu.wpi.teamc.navigation;
 
 import edu.wpi.teamc.CApp;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -42,18 +45,51 @@ public class Navigation {
     }
   }
 
+  //  public static void navigate(final Screen screen) {
+  //    final String filename = screen.getFilename();
+  //
+  //    try {
+  //      final var resource = CApp.class.getResource(filename);
+  //      final FXMLLoader loader = new FXMLLoader(resource);
+  //      final FXMLLoader menuBarLoader =
+  //          new FXMLLoader(CApp.class.getResource("views/components/Menu.fxml"));
+  //      final FXMLLoader guestMenuBarLoader =
+  //          new FXMLLoader(CApp.class.getResource("views/pages/guest/GuestMenu.fxml"));
+  //
+  //      CApp.getRootPane().setCenter(loader.load());
+  //      updateMenu();
+  //
+  //    } catch (IOException | NullPointerException e) {
+  //      e.printStackTrace();
+  //    }
+  //  }
+
+  //  caching pages, not sure if we should include this,
+  //  but it doesn't really work with how we have the switching between database setup rn
+
+  private static final Map<String, Node> pageCache = new HashMap<>();
+
+  public static void clearCache() {
+    pageCache.clear();
+  }
+
   public static void navigate(final Screen screen) {
     final String filename = screen.getFilename();
 
     try {
-      final var resource = CApp.class.getResource(filename);
-      final FXMLLoader loader = new FXMLLoader(resource);
-      final FXMLLoader menuBarLoader =
-          new FXMLLoader(CApp.class.getResource("views/components/Menu.fxml"));
-      final FXMLLoader guestMenuBarLoader =
-          new FXMLLoader(CApp.class.getResource("views/pages/guest/GuestMenu.fxml"));
+      // Check if the page view is already cached
+      Node pageView = pageCache.get(filename);
 
-      CApp.getRootPane().setCenter(loader.load());
+      // If the page view is not cached, load it and add it to the cache
+      if (pageView == null) {
+        final var resource = CApp.class.getResource(filename);
+        final FXMLLoader loader = new FXMLLoader(resource);
+        pageView = loader.load();
+        pageCache.put(filename, pageView);
+      }
+
+      // Set the page view as the center of the root pane
+      CApp.getRootPane().setCenter(pageView);
       updateMenu();
 
     } catch (IOException | NullPointerException e) {

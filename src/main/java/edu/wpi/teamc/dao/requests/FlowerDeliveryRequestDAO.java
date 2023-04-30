@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.requests;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.users.IUser;
@@ -15,10 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Integer> {
+  private DBConnection db;
+
   public List<FlowerDeliveryRequest> fetchAllObjects() {
     List<FlowerDeliveryRequest> returnList = new ArrayList<>();
-    DBConnection db = new DBConnection();
-
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmtNode = db.getConnection().createStatement();
       // table names
@@ -53,7 +55,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
   }
 
   public FlowerDeliveryRequest updateRow(FlowerDeliveryRequest orm, FlowerDeliveryRequest repl) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     FlowerDeliveryRequest fdr = null;
     try {
       Statement stmtNode = db.getConnection().createStatement();
@@ -95,7 +97,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
   }
 
   public FlowerDeliveryRequest addRow(FlowerDeliveryRequest orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmtNode = db.getConnection().createStatement();
       // table names
@@ -104,7 +106,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       String query =
           "INSERT INTO "
               + table
-              + " (requester, roomName, flower, additionalNotes, status, assignedto) VALUES (?,?,?,?,?,?);";
+              + " (requester, roomName, flower, additionalNotes, status, assignedto,eta) VALUES (?,?,?,?,?,?,?);";
 
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -115,6 +117,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
       ps.setString(4, orm.getAdditionalNotes());
       ps.setString(5, orm.getStatus().toString());
       ps.setString(6, orm.getAssignedto());
+      ps.setString(7, orm.getEta());
 
       ps.executeUpdate();
       ResultSet rs = ps.getGeneratedKeys();
@@ -129,7 +132,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
   }
 
   public FlowerDeliveryRequest deleteRow(FlowerDeliveryRequest orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmtNode = db.getConnection().createStatement();
       // table names
@@ -154,7 +157,7 @@ public class FlowerDeliveryRequestDAO implements IDao<FlowerDeliveryRequest, Int
   public FlowerDeliveryRequest fetchObject(Integer key) {
     FlowerDeliveryRequest fdr = null;
     try {
-      DBConnection db = new DBConnection();
+      DBConnection db = new DBConnection(CApp.getWpiDB());
       Statement stmtNode = db.getConnection().createStatement();
       // table names
       String table = "\"ServiceRequests\".\"flowerRequest\"";

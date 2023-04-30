@@ -33,6 +33,7 @@ public class RequestHistoryController {
   @FXML MFXButton backButton;
   String buttonColor = "-fx-background-color: white; -fx-text-fill: #02143B;";
   String selectedButtonColor = "-fx-background-color: #FCC201; -fx-text-fill: #02143B;";
+
   @FXML private Button conference;
   @FXML private Button flower;
   @FXML private Button meal;
@@ -91,6 +92,8 @@ public class RequestHistoryController {
 
   RequestSystem requestSystem = new RequestSystem(new ArrayList<>());
 
+
+
   /** Method run when controller is initialized */
   public void initialize() {
     this.getConference();
@@ -142,6 +145,13 @@ public class RequestHistoryController {
             throw new RuntimeException(e);
           }
         });
+
+    historyTable.getStyleClass().add("table-view");
+    historyTable.getStyleClass().add("column-header-background");
+    historyTable.getStyleClass().add("corner");
+
+
+
   }
 
   public void filterView() {

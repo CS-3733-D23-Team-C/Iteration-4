@@ -253,7 +253,7 @@ public class MealController {
   }
 
   // TEXT need to be Translated
-    @FXML private Text Meal_Title;
+  @FXML private Text Meal_Title;
   @FXML private TextField Meal_Box1;
   @FXML private TextField Meal_Box2;
   @FXML private TextField Meal_Box3;

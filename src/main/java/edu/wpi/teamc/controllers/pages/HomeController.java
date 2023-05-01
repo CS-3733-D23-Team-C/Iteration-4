@@ -277,18 +277,22 @@ public class HomeController {
   @FXML
   void english() throws Exception {
     language_choice = 0;
+    Warning_translation.setVisible(false);
     setLanguage();
   }
 
   @FXML
   void spanish() throws Exception {
     language_choice = 1;
+    Warning_translation.setVisible(true);
+    Warning_translation.maxWidth(400); //Spanish translation is too long!
     setLanguage();
   }
 
   @FXML
   void chinese() throws Exception {
     language_choice = 2;
+    Warning_translation.setVisible(true);
     setLanguage();
   }
 
@@ -305,7 +309,10 @@ public class HomeController {
     HOME_guest.setText(LanguageSet(HOME_guest.getText()));
     HOME_exit.setText(LanguageSet(HOME_exit.getText()));
     HOME_motto.setText(LanguageSet(HOME_motto.getText()));
+    Warning_translation.setText(LanguageSet(Warning_translation.getText()));
   }
+
+  @FXML private Text Warning_translation;
 
   public TranslatorAPI translatorAPI = new TranslatorAPI();
 

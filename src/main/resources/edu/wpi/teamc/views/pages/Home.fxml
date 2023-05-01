@@ -121,6 +121,11 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
+                  <Text fx:id="Warning_translation" fill="#fc0000" layoutX="219.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The translation is only available for homepage and service request." visible="false" wrappingWidth="301.51806640625">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Text>
                </children>
             </Group>
          </children>

@@ -651,6 +651,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               if (newValue || isHovering.get()) {
                 aboutPopOutTransition.stop();
+                aboutPopOutTransition1.stop();
 
                 aboutPopOutTransition.setDuration(Duration.millis(300));
                 aboutPopOutTransition.setNode(aboutPopOut2);
@@ -715,6 +716,7 @@ public class MenuController {
                   && !homePopOut.isHover()
                   && !aboutPopOut3.isHover()
                   && !aboutPopOut4.isHover()) {
+                aboutPopOutTransition.stop();
                 aboutPopOutTransition.setDuration(Duration.millis(300));
                 aboutPopOutTransition.setNode(aboutPopOut2);
                 aboutPopOutTransition.setToX(0);
@@ -742,6 +744,8 @@ public class MenuController {
 
                 aboutPopOutTransition1.play();
               } else if (newValue) {
+                aboutClosePane.setVisible(true);
+                aboutPopOutTransition.stop();
                 aboutPopOutTransition.setDuration(Duration.millis(300));
                 aboutPopOutTransition.setNode(aboutPopOut2);
                 aboutPopOutTransition.setToX(290);
@@ -771,6 +775,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !creditsPopOut.isHover() && !homePopOut.isHover()) {
+                creditPopOutTransition.stop();
                 creditPopOutTransition.setDuration(Duration.millis(300));
                 creditPopOutTransition.setNode(creditsPopOut1);
                 creditPopOutTransition.setToX(0);
@@ -844,6 +849,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
+                aboutPopOutTransition1.stop();
                 aboutPopOutTransition1.setDuration(Duration.millis(200));
                 aboutPopOutTransition1.setNode(aboutPopOut3);
                 aboutPopOutTransition1.setToX(0);
@@ -866,6 +872,67 @@ public class MenuController {
                 aboutPopOutTransition1.setDuration(Duration.millis(200));
                 aboutPopOutTransition1.setNode(aboutPopOut3);
                 aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+
+                aboutRandyPopOutTransition.stop();
+                aboutRandyPopOutTransition.setDuration(Duration.millis(200));
+                aboutRandyPopOutTransition.setNode(aboutRandyPopOut);
+                aboutRandyPopOutTransition.setToX(0);
+                aboutRandyPopOutTransition.play();
+
+                aboutEddiePopOutTransition.stop();
+                aboutEddiePopOutTransition.setDuration(Duration.millis(200));
+                aboutEddiePopOutTransition.setNode(aboutEddiePopOut);
+                aboutEddiePopOutTransition.setToX(0);
+                aboutEddiePopOutTransition.play();
+
+                aboutNickPopOutTransition.stop();
+                aboutNickPopOutTransition.setDuration(Duration.millis(200));
+                aboutNickPopOutTransition.setNode(aboutNickPopOut);
+                aboutNickPopOutTransition.setToX(0);
+                aboutNickPopOutTransition.play();
+
+                aboutAaronPopOutTransition.stop();
+                aboutAaronPopOutTransition.setDuration(Duration.millis(200));
+                aboutAaronPopOutTransition.setNode(aboutAaronPopOut);
+                aboutAaronPopOutTransition.setToX(0);
+                aboutAaronPopOutTransition.play();
+
+                aboutSebastianPopOutTransition.stop();
+                aboutSebastianPopOutTransition.setDuration(Duration.millis(200));
+                aboutSebastianPopOutTransition.setNode(aboutSebastianPopOut);
+                aboutSebastianPopOutTransition.setToX(0);
+                aboutSebastianPopOutTransition.play();
+
+                aboutBrandonPopOutTransition.stop();
+                aboutBrandonPopOutTransition.setDuration(Duration.millis(200));
+                aboutBrandonPopOutTransition.setNode(aboutBrandonPopOut);
+                aboutBrandonPopOutTransition.setToX(0);
+                aboutBrandonPopOutTransition.play();
+
+                aboutTayaPopOutTransition.stop();
+                aboutTayaPopOutTransition.setDuration(Duration.millis(200));
+                aboutTayaPopOutTransition.setNode(aboutTayaPopOut);
+                aboutTayaPopOutTransition.setToX(0);
+                aboutTayaPopOutTransition.play();
+
+                aboutChasePopOutTransition.stop();
+                aboutChasePopOutTransition.setDuration(Duration.millis(200));
+                aboutChasePopOutTransition.setNode(aboutChasePopOut);
+                aboutChasePopOutTransition.setToX(0);
+                aboutChasePopOutTransition.play();
+
+                aboutChaoPopOutTransition.stop();
+                aboutChaoPopOutTransition.setDuration(Duration.millis(200));
+                aboutChaoPopOutTransition.setNode(aboutChaoPopOut);
+                aboutChaoPopOutTransition.setToX(0);
+                aboutChaoPopOutTransition.play();
+
+                aboutJoeyPopOutTransition.stop();
+                aboutJoeyPopOutTransition.setDuration(Duration.millis(200));
+                aboutJoeyPopOutTransition.setNode(aboutJoeyPopOut);
+                aboutJoeyPopOutTransition.setToX(0);
+                aboutJoeyPopOutTransition.play();
 
                 aboutPopOut.setVisible(true);
                 aboutPopOut3.setVisible(true);
@@ -906,6 +973,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Randy.isHover()) {
+                aboutRandyPopOutTransition.stop();
                 aboutRandyPopOutTransition.setDuration(Duration.millis(200));
                 aboutRandyPopOutTransition.setNode(aboutRandyPopOut);
                 aboutRandyPopOutTransition.setToX(0);
@@ -944,6 +1012,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Randy.isHover()) {
+                aboutRandyPopOutTransition.stop();
                 aboutRandyPopOutTransition.setDuration(Duration.millis(200));
                 aboutRandyPopOutTransition.setNode(aboutRandyPopOut);
                 aboutRandyPopOutTransition.setToX(0);
@@ -982,6 +1051,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Eddie.isHover()) {
+                aboutEddiePopOutTransition.stop();
                 aboutEddiePopOutTransition.setDuration(Duration.millis(200));
                 aboutEddiePopOutTransition.setNode(aboutEddiePopOut);
                 aboutEddiePopOutTransition.setToX(0);
@@ -1021,6 +1091,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Eddie.isHover()) {
+                aboutEddiePopOutTransition.stop();
                 aboutEddiePopOutTransition.setDuration(Duration.millis(200));
                 aboutEddiePopOutTransition.setNode(aboutEddiePopOut);
                 aboutEddiePopOutTransition.setToX(0);
@@ -1059,6 +1130,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Sebastian.isHover()) {
+                aboutSebastianPopOutTransition.stop();
                 aboutSebastianPopOutTransition.setDuration(Duration.millis(200));
                 aboutSebastianPopOutTransition.setNode(aboutSebastianPopOut);
                 aboutSebastianPopOutTransition.setToX(0);
@@ -1098,6 +1170,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Sebastian.isHover()) {
+                aboutSebastianPopOutTransition.stop();
                 aboutSebastianPopOutTransition.setDuration(Duration.millis(200));
                 aboutSebastianPopOutTransition.setNode(aboutSebastianPopOut);
                 aboutSebastianPopOutTransition.setToX(0);
@@ -1135,6 +1208,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Nick.isHover()) {
+                aboutNickPopOutTransition.stop();
                 aboutNickPopOutTransition.setDuration(Duration.millis(200));
                 aboutNickPopOutTransition.setNode(aboutNickPopOut);
                 aboutNickPopOutTransition.setToX(0);
@@ -1173,6 +1247,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Nick.isHover()) {
+                aboutNickPopOutTransition.stop();
                 aboutNickPopOutTransition.setDuration(Duration.millis(200));
                 aboutNickPopOutTransition.setNode(aboutNickPopOut);
                 aboutNickPopOutTransition.setToX(0);
@@ -1210,6 +1285,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Aaron.isHover()) {
+                aboutAaronPopOutTransition.stop();
                 aboutAaronPopOutTransition.setDuration(Duration.millis(200));
                 aboutAaronPopOutTransition.setNode(aboutAaronPopOut);
                 aboutAaronPopOutTransition.setToX(0);
@@ -1248,6 +1324,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Aaron.isHover()) {
+                aboutAaronPopOutTransition.stop();
                 aboutAaronPopOutTransition.setDuration(Duration.millis(200));
                 aboutAaronPopOutTransition.setNode(aboutAaronPopOut);
                 aboutAaronPopOutTransition.setToX(0);
@@ -1285,6 +1362,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Brandon.isHover()) {
+                aboutBrandonPopOutTransition.stop();
                 aboutBrandonPopOutTransition.setDuration(Duration.millis(200));
                 aboutBrandonPopOutTransition.setNode(aboutBrandonPopOut);
                 aboutBrandonPopOutTransition.setToX(0);
@@ -1323,6 +1401,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Brandon.isHover()) {
+                aboutBrandonPopOutTransition.stop();
                 aboutBrandonPopOutTransition.setDuration(Duration.millis(200));
                 aboutBrandonPopOutTransition.setNode(aboutBrandonPopOut);
                 aboutBrandonPopOutTransition.setToX(0);
@@ -1360,6 +1439,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Taya.isHover()) {
+                aboutTayaPopOutTransition.stop();
                 aboutTayaPopOutTransition.setDuration(Duration.millis(200));
                 aboutTayaPopOutTransition.setNode(aboutTayaPopOut);
                 aboutTayaPopOutTransition.setToX(0);
@@ -1398,6 +1478,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Taya.isHover()) {
+                aboutTayaPopOutTransition.stop();
                 aboutTayaPopOutTransition.setDuration(Duration.millis(200));
                 aboutTayaPopOutTransition.setNode(aboutTayaPopOut);
                 aboutTayaPopOutTransition.setToX(0);
@@ -1435,6 +1516,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Chase.isHover()) {
+                aboutChasePopOutTransition.stop();
                 aboutChasePopOutTransition.setDuration(Duration.millis(200));
                 aboutChasePopOutTransition.setNode(aboutChasePopOut);
                 aboutChasePopOutTransition.setToX(0);
@@ -1473,6 +1555,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Chase.isHover()) {
+                aboutChasePopOutTransition.stop();
                 aboutChasePopOutTransition.setDuration(Duration.millis(200));
                 aboutChasePopOutTransition.setNode(aboutChasePopOut);
                 aboutChasePopOutTransition.setToX(0);
@@ -1510,6 +1593,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Chao.isHover()) {
+                aboutChaoPopOutTransition.stop();
                 aboutChaoPopOutTransition.setDuration(Duration.millis(200));
                 aboutChaoPopOutTransition.setNode(aboutChaoPopOut);
                 aboutChaoPopOutTransition.setToX(0);
@@ -1548,6 +1632,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Chao.isHover()) {
+                aboutChaoPopOutTransition.stop();
                 aboutChaoPopOutTransition.setDuration(Duration.millis(200));
                 aboutChaoPopOutTransition.setNode(aboutChaoPopOut);
                 aboutChaoPopOutTransition.setToX(0);
@@ -1585,6 +1670,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Joey.isHover()) {
+                aboutJoeyPopOutTransition.stop();
                 aboutJoeyPopOutTransition.setDuration(Duration.millis(200));
                 aboutJoeyPopOutTransition.setNode(aboutJoeyPopOut);
                 aboutJoeyPopOutTransition.setToX(0);
@@ -1623,6 +1709,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !Joey.isHover()) {
+                aboutJoeyPopOutTransition.stop();
                 aboutJoeyPopOutTransition.setDuration(Duration.millis(200));
                 aboutJoeyPopOutTransition.setNode(aboutJoeyPopOut);
                 aboutJoeyPopOutTransition.setToX(0);

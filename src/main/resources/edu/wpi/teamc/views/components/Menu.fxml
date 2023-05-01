@@ -20,7 +20,7 @@
 
 <AnchorPane fx:id="basePane" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.components.MenuController">
    <children>
-      <AnchorPane fx:id="aboutClosePane" layoutX="70.0" prefHeight="745.0" prefWidth="740.0" style="-fx-background-color: orange;" />
+      <AnchorPane fx:id="aboutClosePane" layoutX="70.0" prefHeight="745.0" prefWidth="740.0" style="-fx-background-color: transparent;" />
       <AnchorPane fx:id="aboutPopOut3" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutPopOut1" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
@@ -484,7 +484,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutPopOut4" layoutX="284.0" layoutY="1.0" prefHeight="550.0" prefWidth="109.0" style="-fx-background-color: blue;" />
+      <AnchorPane fx:id="aboutPopOut4" layoutX="284.0" layoutY="1.0" prefHeight="550.0" prefWidth="109.0" style="-fx-background-color: transparant;" />
       <AnchorPane fx:id="aboutRandyPopOut" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
@@ -509,7 +509,7 @@
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Junior Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -533,17 +533,17 @@
                               <Insets top="14.0" />
                            </VBox.margin>
                         </HBox>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: I play the drums and compose music. I play basketball," textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="spikeball, and I snowboard. I also enjoy cooking." textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="fav animal: dog" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -560,7 +560,7 @@
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
                      <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Edward Dang" textAlignment="CENTER" wrappingWidth="280.20001298189163">
                            <font>
                               <Font name="Arial" size="18.0" />
                            </font>
@@ -573,12 +573,12 @@
                               <Insets left="20.0" />
                            </VBox.margin>
                         </Line>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science and Data ScienceMajor" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2025" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -589,7 +589,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/RandyCrop.png" />
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/EddieCrop.png" />
                                        </image>
                                     </ImageView>
                                  </children>
@@ -629,7 +629,7 @@
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
                      <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Nicholas Ishigami" textAlignment="CENTER" wrappingWidth="280.20001298189163">
                            <font>
                               <Font name="Arial" size="18.0" />
                            </font>
@@ -647,7 +647,7 @@
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2025" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -658,7 +658,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/RandyCrop.png" />
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/NickCrop.png" />
                                        </image>
                                     </ImageView>
                                  </children>
@@ -671,17 +671,12 @@
                               <Insets top="14.0" />
                            </VBox.margin>
                         </HBox>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: I enjoy reading, cooking, and eating good food" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                        </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Favorite Animal: Komodo Dragon" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -698,7 +693,7 @@
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
                      <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Aaron Zhang" textAlignment="CENTER" wrappingWidth="280.20001298189163">
                            <font>
                               <Font name="Arial" size="18.0" />
                            </font>
@@ -716,7 +711,7 @@
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2025" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -727,7 +722,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/RandyCrop.png" />
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/AaronCrop.png" />
                                        </image>
                                     </ImageView>
                                  </children>
@@ -740,17 +735,12 @@
                               <Insets top="14.0" />
                            </VBox.margin>
                         </HBox>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts:  I can speak fluent Mandarin. I enjoy taking naps, eating Chinese cuisine, and playing basketball." textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                        </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Favorite Animal: Giant Panda" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -767,7 +757,7 @@
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
                      <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sebastian Valle" textAlignment="CENTER" wrappingWidth="280.20001298189163">
                            <font>
                               <Font name="Arial" size="18.0" />
                            </font>
@@ -780,12 +770,12 @@
                               <Insets left="20.0" />
                            </VBox.margin>
                         </Line>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Robotics Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Junior Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -796,7 +786,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/RandyCrop.png" />
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/sebastianCrop.png" />
                                        </image>
                                     </ImageView>
                                  </children>
@@ -809,17 +799,12 @@
                               <Insets top="14.0" />
                            </VBox.margin>
                         </HBox>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: I am a member of the Combat Robotics Club, I love eating Mexican food, and spending time with my friends." textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                        </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Favorite Animal: Mantis Shrimp" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -836,7 +821,7 @@
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
                      <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Brandon Liu" textAlignment="CENTER" wrappingWidth="280.20001298189163">
                            <font>
                               <Font name="Arial" size="18.0" />
                            </font>
@@ -854,7 +839,7 @@
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2025" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -865,7 +850,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/RandyCrop.png" />
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/BrandonCrop.png" />
                                        </image>
                                     </ImageView>
                                  </children>
@@ -905,7 +890,7 @@
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
                      <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Taya Yakovenko" textAlignment="CENTER" wrappingWidth="280.20001298189163">
                            <font>
                               <Font name="Arial" size="18.0" />
                            </font>
@@ -918,12 +903,12 @@
                               <Insets left="20.0" />
                            </VBox.margin>
                         </Line>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science and Math Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Junior Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -934,7 +919,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/RandyCrop.png" />
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/tayaCrop.png" />
                                        </image>
                                     </ImageView>
                                  </children>
@@ -947,17 +932,12 @@
                               <Insets top="14.0" />
                            </VBox.margin>
                         </HBox>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: I like baking, reading, and spending time outside. During the winter season, I like to snowboard and hibernate like a bear." textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                        </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Favorite Animal: Jellyfish" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -974,7 +954,7 @@
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
                      <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Chase Beausoleil" textAlignment="CENTER" wrappingWidth="280.20001298189163">
                            <font>
                               <Font name="Arial" size="18.0" />
                            </font>
@@ -987,12 +967,12 @@
                               <Insets left="20.0" />
                            </VBox.margin>
                         </Line>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Biomedical and Robotics Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Junior Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -1003,7 +983,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/RandyCrop.png" />
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/ChaseCrop.png" />
                                        </image>
                                     </ImageView>
                                  </children>
@@ -1016,17 +996,12 @@
                               <Insets top="14.0" />
                            </VBox.margin>
                         </HBox>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: I play guitar and am on the ultimate frisbee team." textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                        </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Favorite Animal: Peregrine Falcon" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -1043,7 +1018,7 @@
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
                      <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Chao An" textAlignment="CENTER" wrappingWidth="280.20001298189163">
                            <font>
                               <Font name="Arial" size="18.0" />
                            </font>
@@ -1061,7 +1036,7 @@
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2025" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -1072,7 +1047,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/RandyCrop.png" />
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/ChaoCrop.png" />
                                        </image>
                                     </ImageView>
                                  </children>
@@ -1085,17 +1060,12 @@
                               <Insets top="14.0" />
                            </VBox.margin>
                         </HBox>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: I enjoy cooking Chinese cuisine. I've also started to explore cooking French cuisine and desserts now." textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                        </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Favorite Animal: Snow Leopard" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -1112,7 +1082,7 @@
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
                      <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Joseph Caproni" textAlignment="CENTER" wrappingWidth="280.20001298189163">
                            <font>
                               <Font name="Arial" size="18.0" />
                            </font>
@@ -1130,7 +1100,7 @@
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2025" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -1141,7 +1111,7 @@
                                  <children>
                                     <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/RandyCrop.png" />
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/JoeyCrop.png" />
                                        </image>
                                     </ImageView>
                                  </children>

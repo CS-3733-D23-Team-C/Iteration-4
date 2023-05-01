@@ -52,10 +52,8 @@ public class CApp extends Application {
 
     // Stuff to show on pop up
     VBox vBox = new VBox();
-
     Text headerText = new Text("Are you still there?");
     Text building = new Text("Counting down...");
-
     MFXButton continueButton = new MFXButton("Continue");
     vBox.getChildren().addAll(headerText, building, continueButton);
 
@@ -79,8 +77,6 @@ public class CApp extends Application {
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
     aPane.getChildren().addAll(headerText, building, continueButton);
-    //    Insets insets = new Insets(0, 0, 0, 200);
-    //    aPane.setPadding(insets);
     borderPane.getChildren().add(aPane);
     Scene scene = new Scene(borderPane, 410, 225);
     scene
@@ -146,15 +142,11 @@ public class CApp extends Application {
     primaryStage.show();
     Navigation.navigate(Screen.HOME);
 
-    timeOut();
+    CApp.timeOut();
   }
 
   @Override
   public void stop() {
     log.info("Shutting Down");
-  }
-
-  public void navigateAway() {
-    Navigation.navigate(Screen.ADMIN_HOME);
   }
 }

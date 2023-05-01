@@ -30,7 +30,6 @@ import org.controlsfx.control.tableview2.FilteredTableView;
 public class RequestHistoryController {
 
   public SearchableComboBox filterByStatusField;
-  @FXML MFXButton backButton;
   String buttonColor = "-fx-background-color: white; -fx-text-fill: #02143B;";
   String selectedButtonColor = "-fx-background-color: #FCC201; -fx-text-fill: #02143B;";
   @FXML private Button conference;
@@ -149,14 +148,12 @@ public class RequestHistoryController {
     String assingedTo = null;
     try {
       assingedTo = filterByEmployeeField.getSelectionModel().getSelectedItem().toString();
-      System.out.println(assingedTo);
     } catch (Exception e) {
       assingedTo = null;
     }
     STATUS status = null;
     try {
       status = STATUS.valueOf(filterByStatusField.getSelectionModel().getSelectedItem().toString());
-      System.out.println(status);
     } catch (Exception e) {
       status = null;
     }

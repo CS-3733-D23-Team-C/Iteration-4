@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.map.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -12,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ImportCSV {
-  static DBConnection dbConnection = new DBConnection();
+  static DBConnection dbConnection = new DBConnection(CApp.getWpiDB());
   static Connection connection;
 
   /** displays related import functions */
@@ -28,11 +29,13 @@ public class ImportCSV {
     }
   }
 
-  private static void importSignageCSV(String CSVfilepath)
+  public static void importSignageCSV(String CSVfilepath)
       throws SQLException, FileNotFoundException {
     String query =
         "INSERT INTO displays.\"Signage\" (macadd,devicename,date,locationname,direction) VALUES (?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
+      connection = new DBConnection(CApp.getWpiDB()).getConnection();
+      nukeSignageDatabase();
       String line;
       br.readLine(); // skip the first line
       while ((line = br.readLine()) != null) {
@@ -47,16 +50,18 @@ public class ImportCSV {
         stmt.executeUpdate();
         stmt.close();
       }
+      connection.close();
     } catch (IOException ex) {
       throw new RuntimeException(ex);
     }
   }
 
-  private static void importAlertCSV(String CSVfilepath)
-      throws SQLException, FileNotFoundException {
+  public static void importAlertCSV(String CSVfilepath) throws SQLException, FileNotFoundException {
     String query =
         "INSERT INTO displays.\"Alert\" (id,title,description,type,startdate,enddate) VALUES (?, ?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
+      connection = new DBConnection(CApp.getWpiDB()).getConnection();
+      nukeAlertDatabase();
       String line;
       br.readLine(); // skip the first line
       while ((line = br.readLine()) != null) {
@@ -72,16 +77,18 @@ public class ImportCSV {
         stmt.executeUpdate();
         stmt.close();
       }
+      connection.close();
     } catch (IOException ex) {
       throw new RuntimeException(ex);
     }
   }
 
   /** service request related import functions */
-  public void importAllRequestsCSV(
+  public static void importAllRequestsCSV(
       String CSVfilepathConference,
       String CSVfilepathFlower,
       String CSVfilepathFurniture,
+      String CSVfilepathGiftBasket,
       String CSVfilepathMeal,
       String CSVfilepathOfficeSupply)
       throws SQLException {
@@ -89,10 +96,10 @@ public class ImportCSV {
       nukeServiceRequestsDatabase();
       connection = dbConnection.getConnection();
       importConferenceRequestCSV(CSVfilepathConference);
-      importflowerRequestCSV(CSVfilepathFlower);
-      importfurnitureDeliveryRequest(CSVfilepathFurniture);
-      importMealRequest(CSVfilepathMeal);
-      importOfficeSupplyRequest(CSVfilepathOfficeSupply);
+      importFlowerRequestCSV(CSVfilepathFlower);
+      importFurnitureRequestCSV(CSVfilepathFurniture);
+      importMealRequestCSV(CSVfilepathMeal);
+      importOfficeSupplyRequestCSV(CSVfilepathOfficeSupply);
       connection.close();
     } catch (Exception e) {
       throw new RuntimeException(e);
@@ -104,7 +111,7 @@ public class ImportCSV {
     String query =
         "INSERT INTO \"ServiceRequests\".\"conferenceRoomRequest\" (requestid, requester, roomname, status, additionalnotes, starttime, endtime, assignedto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
-      connection = dbConnection.getConnection();
+      connection = new DBConnection(CApp.getWpiDB()).getConnection();
       nukeConferenceRequestDatabase();
       String line;
       br.readLine(); // skip the first line
@@ -129,11 +136,11 @@ public class ImportCSV {
     }
   }
 
-  public static void importflowerRequestCSV(String CSVfilepath) {
+  public static void importFlowerRequestCSV(String CSVfilepath) {
     String query =
         "INSERT INTO \"ServiceRequests\".\"flowerRequest\" (requestid, requester, roomname, status, additionalnotes,eta, flower, assignedto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
-      connection = dbConnection.getConnection();
+      connection = new DBConnection(CApp.getWpiDB()).getConnection();
       nukeFlowerRequestDatabase();
       String line;
       br.readLine(); // skip the first line
@@ -158,11 +165,11 @@ public class ImportCSV {
     }
   }
 
-  public static void importfurnitureDeliveryRequest(String CSVfilepath) {
+  public static void importFurnitureRequestCSV(String CSVfilepath) {
     String query =
         "INSERT INTO \"ServiceRequests\".\"furnitureDeliveryRequest\" (requestid, requester, roomname, status, additionalnotes,furnitureType, eta, assignedto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
-      connection = dbConnection.getConnection();
+      connection = new DBConnection(CApp.getWpiDB()).getConnection();
       nukeFurnitureDeliveryRequestDatabase();
 
       String line;
@@ -188,11 +195,11 @@ public class ImportCSV {
     }
   }
 
-  public static void importMealRequest(String CSVfilepath) {
+  public static void importMealRequestCSV(String CSVfilepath) {
     String query =
         "INSERT INTO \"ServiceRequests\".\"mealRequest\" (requestid, requester, status, additionalnotes,meal, eta, roomname, assignedto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
-      connection = dbConnection.getConnection();
+      connection = new DBConnection(CApp.getWpiDB()).getConnection();
       nukeMealRequestDatabase();
       String line;
       br.readLine(); // skip the first line
@@ -217,11 +224,11 @@ public class ImportCSV {
     }
   }
 
-  public static void importOfficeSupplyRequest(String CSVfilepath) {
+  public static void importOfficeSupplyRequestCSV(String CSVfilepath) {
     String query =
         "INSERT INTO \"ServiceRequests\".\"officeSupplyRequest\" (requestid, requester, status, additionalnotes,officesupplytype, eta, roomname, assignedto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
-      connection = dbConnection.getConnection();
+      connection = new DBConnection(CApp.getWpiDB()).getConnection();
       nukeOfficeSupplyRequestDatabase();
       String line;
       br.readLine(); // skip the first line
@@ -245,10 +252,39 @@ public class ImportCSV {
       throw new RuntimeException(ex);
     }
   }
-  /** Employee related import functions */
-  public void importEmployeeCSV(String CSVfilepathLogin, String CSVfilepathUser)
-      throws SQLException {
 
+  public static void importGiftBasketRequestCSV(String CSVfilepath) {
+    String query =
+        "INSERT INTO \"ServiceRequests\".\"giftBasketRequest\" (requestid, requester, status, additionalnotes, giftbasket, eta, roomname, assignedto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
+      connection = new DBConnection(CApp.getWpiDB()).getConnection();
+      nukeGiftBasketRequestDatabase();
+      String line;
+      br.readLine(); // skip the first line
+      while ((line = br.readLine()) != null) {
+        String[] values = line.split(",");
+
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, Integer.valueOf(values[0]));
+        stmt.setString(2, values[1]);
+        stmt.setString(3, values[2]);
+        stmt.setString(4, values[3]);
+        stmt.setString(5, values[4]);
+        stmt.setString(6, values[5]);
+        stmt.setString(7, values[6]);
+        stmt.setString(8, values[7]);
+        stmt.executeUpdate();
+        stmt.close();
+      }
+      connection.close();
+    } catch (IOException | SQLException ex) {
+      throw new RuntimeException(ex);
+    }
+  }
+  /** Employee related import functions */
+  public static void importEmployeeCSV(String CSVfilepathLogin, String CSVfilepathUser)
+      throws SQLException {
+    dbConnection = new DBConnection(CApp.getWpiDB());
     connection = dbConnection.getConnection();
     nukeUserDatabase();
     importLoginCSV(CSVfilepathLogin);
@@ -257,8 +293,8 @@ public class ImportCSV {
   }
 
   public static void importEmployeeUserCSV(String CSVfilepath) {
-    dbConnection = new DBConnection();
-    connection = dbConnection.getConnection();
+    //    dbConnection = new DBConnection(CApp.getWpiDB());
+    //    connection = dbConnection.getConnection();
     String query =
         "INSERT INTO users.employee (id,username,name,department,position) VALUES (?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
@@ -275,7 +311,7 @@ public class ImportCSV {
         stmt.setString(5, values[4]);
         stmt.executeUpdate();
         stmt.close();
-        connection.close();
+        //        connection.close();
       }
     } catch (IOException | SQLException ex) {
       throw new RuntimeException(ex);
@@ -283,8 +319,8 @@ public class ImportCSV {
   }
 
   public static void importLoginCSV(String CSVfilepath) {
-    dbConnection = new DBConnection();
-    connection = dbConnection.getConnection();
+    //    dbConnection = new DBConnection(CApp.getWpiDB());
+    //    connection = dbConnection.getConnection();
     String query =
         "INSERT INTO users.login (username,password,permissions,salt, otp) VALUES (?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
@@ -299,6 +335,36 @@ public class ImportCSV {
         stmt.setString(3, values[2]);
         stmt.setString(4, values[3]);
         stmt.setString(5, values[4]);
+        stmt.executeUpdate();
+        stmt.close();
+        //        connection.close();
+      }
+    } catch (IOException | SQLException ex) {
+      throw new RuntimeException(ex);
+    }
+  }
+
+  public static void importPatientCSV(String CSVfilepath) {
+    dbConnection = new DBConnection(CApp.getWpiDB());
+    connection = dbConnection.getConnection();
+    nukePatientDatabase();
+    String query =
+        "INSERT INTO users.patient (id,name,checkin,checkout,phone,room,activetext) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
+      String line;
+      br.readLine(); // skip the first line
+      while ((line = br.readLine()) != null) {
+        String[] values = line.split(",");
+
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setInt(1, Integer.valueOf(values[0]));
+        stmt.setString(2, values[1]);
+        stmt.setString(3, values[2]);
+        stmt.setString(4, values[3]);
+        stmt.setString(5, values[4]);
+        stmt.setString(6, values[5]);
+        stmt.setString(7, values[6]);
+
         stmt.executeUpdate();
         stmt.close();
         connection.close();
@@ -333,7 +399,7 @@ public class ImportCSV {
 
   public static void importNodeCSV(String CSVfilepath) {
     // Regular expression to match each row
-    String regex = "(\\d+),(\\d+),(\\d+),(.*),(.*),(.*)";
+    String regex = "(\\d+),(\\d+),(\\d+),(.*),(.*)";
     // Compile regular expression pattern
     Pattern pattern = Pattern.compile(regex);
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
@@ -348,9 +414,8 @@ public class ImportCSV {
           int yCoord = Integer.parseInt(matcher.group(3));
           String floor = matcher.group(4);
           String building = matcher.group(5);
-          String nodeStatus = matcher.group(6);
-          Node node =
-              new Node(nodeID, xCoord, yCoord, floor, building, NODE_STATUS.valueOf(nodeStatus));
+          //          String nodeStatus = matcher.group(6);
+          Node node = new Node(nodeID, xCoord, yCoord, floor, building, NODE_STATUS.OPEN);
           importNodeRow(node);
         }
       }
@@ -516,7 +581,6 @@ public class ImportCSV {
   /** nuke functions */
   public void nukeDisplaysDatabase() {
     try {
-      connection = dbConnection.getConnection();
 
       // table names
       String Alert = "displays.\"Alert\"";
@@ -534,9 +598,38 @@ public class ImportCSV {
     }
   }
 
+  public static void nukeAlertDatabase() {
+    try {
+
+      // table names
+      String Alert = "displays.\"Alert\"";
+      // queries
+      String queryDeleteAlert = "DELETE FROM " + Alert + ";";
+
+      PreparedStatement psDeleteAlert = connection.prepareStatement(queryDeleteAlert);
+      psDeleteAlert.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static void nukeSignageDatabase() {
+    try {
+      // table names
+      String Signage = "displays.\"Signage\"";
+      // queries
+      String queryDeleteSignages = "DELETE FROM " + Signage + ";";
+
+      PreparedStatement psDeleteSignages = connection.prepareStatement(queryDeleteSignages);
+      psDeleteSignages.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
   public static void nukeUserDatabase() {
     try {
-      connection = dbConnection.getConnection();
+      //      connection = dbConnection.getConnection();
 
       // table names
       String Login = "users.login";
@@ -550,6 +643,23 @@ public class ImportCSV {
 
       psDeleteEmployees.executeUpdate();
       psDeleteLogins.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static void nukePatientDatabase() {
+    try {
+      connection = dbConnection.getConnection();
+
+      // table names
+      String Patient = "users.patint";
+      // queries
+      String queryDeletePatients = "DELETE FROM " + Patient + ";";
+
+      PreparedStatement psDeletePatients = connection.prepareStatement(queryDeletePatients);
+
+      psDeletePatients.executeUpdate();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -645,7 +755,19 @@ public class ImportCSV {
     }
   }
 
-  public void nukeServiceRequestsDatabase() {
+  public static void nukeGiftBasketRequestDatabase() {
+    try {
+      String giftBasket = "\"ServiceRequests\".\"giftBasketRequest\"";
+      String queryDeleteGiftBasketRequests = "DELETE FROM " + giftBasket + ";";
+      PreparedStatement psDeleteGiftBasketRequests =
+          connection.prepareStatement(queryDeleteGiftBasketRequests);
+      psDeleteGiftBasketRequests.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static void nukeServiceRequestsDatabase() {
     try {
       connection = dbConnection.getConnection();
       // table names

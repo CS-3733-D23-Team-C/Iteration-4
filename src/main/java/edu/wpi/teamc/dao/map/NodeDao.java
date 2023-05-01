@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.map;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import java.io.*;
@@ -14,7 +15,7 @@ import java.util.regex.Pattern;
 public class NodeDao implements IDao<Node, Integer> {
   public List<Node> fetchAllObjects() {
     List<Node> databaseNodeList = new ArrayList<>();
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
 
     try {
       Statement stmtNode = db.getConnection().createStatement();
@@ -44,7 +45,7 @@ public class NodeDao implements IDao<Node, Integer> {
   }
 
   public Node updateRow(int oldNodeID, Node repl) {
-    DBConnection dbConnection = new DBConnection();
+    DBConnection dbConnection = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String NODE = "\"hospitalNode\".node";
@@ -74,7 +75,7 @@ public class NodeDao implements IDao<Node, Integer> {
   }
 
   public Node updateRow(Node orm, Node repl) {
-    DBConnection dbConnection = new DBConnection();
+    DBConnection dbConnection = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String NODE = "\"hospitalNode\".node";
@@ -104,7 +105,7 @@ public class NodeDao implements IDao<Node, Integer> {
   }
 
   public Node addRow(Node orm) {
-    DBConnection dbConnection = new DBConnection();
+    DBConnection dbConnection = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String NODE = "\"hospitalNode\".node";
@@ -138,7 +139,7 @@ public class NodeDao implements IDao<Node, Integer> {
   }
 
   public Node deleteRow(Node orm) {
-    DBConnection dbConnection = new DBConnection();
+    DBConnection dbConnection = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String NODE = "\"hospitalNode\".node";
@@ -160,7 +161,7 @@ public class NodeDao implements IDao<Node, Integer> {
   @Override
   public Node fetchObject(Integer key) {
     Node node = null;
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
 
     try {
       Statement stmtNode = db.getConnection().createStatement();
@@ -190,7 +191,7 @@ public class NodeDao implements IDao<Node, Integer> {
   }
 
   public int deleteRow(int nodeID) {
-    DBConnection dbConnection = new DBConnection();
+    DBConnection dbConnection = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String NODE = "\"hospitalNode\".node";
@@ -210,7 +211,7 @@ public class NodeDao implements IDao<Node, Integer> {
   }
 
   public void importRow(Node orm) {
-    DBConnection dbConnection = new DBConnection();
+    DBConnection dbConnection = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String NODE = "\"hospitalNode\".node";
@@ -265,7 +266,7 @@ public class NodeDao implements IDao<Node, Integer> {
     createFile(CSVfilepath);
     BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
     // Write the header row to the CSV file
-    writer.write("nodeID,xCoord,yCoord,floor,building,status\n");
+    writer.write("nodeID,xcoord,ycoord,floorNum,building,status\n");
     // Write each Node into the CSV file
     for (Node node : fetchAllObjects()) {
       writer.write(

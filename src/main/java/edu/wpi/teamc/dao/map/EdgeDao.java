@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.map;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import java.io.*;
@@ -14,7 +15,7 @@ import java.util.regex.Pattern;
 public class EdgeDao implements IDao<Edge, Edge> {
   public List<Edge> fetchAllObjects() {
     List<Edge> databaseEdgeList = new ArrayList<>();
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmtEdge = db.getConnection().createStatement();
       // table names
@@ -37,7 +38,7 @@ public class EdgeDao implements IDao<Edge, Edge> {
   }
 
   public Edge updateRow(Edge orm, Edge repl) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       String EDGE = "\"hospitalNode\".edge";
       String queryUpdateEdgesDB =
@@ -61,7 +62,7 @@ public class EdgeDao implements IDao<Edge, Edge> {
   }
 
   public Edge addRow(Edge orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       String EDGE = "\"hospitalNode\".edge";
       String queryInsertEdgesDB = "INSERT INTO " + EDGE + " VALUES (?,?); ";
@@ -81,7 +82,7 @@ public class EdgeDao implements IDao<Edge, Edge> {
   }
 
   public Edge deleteRow(Edge orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String EDGE = "\"hospitalNode\".edge";
@@ -105,7 +106,7 @@ public class EdgeDao implements IDao<Edge, Edge> {
   }
 
   public Edge fetchObject(Edge orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String EDGE = "\"hospitalNode\".edge";
@@ -162,7 +163,7 @@ public class EdgeDao implements IDao<Edge, Edge> {
     createFile(CSVfilepath);
     BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
     // Write the header row to the CSV file
-    writer.write("startNodeID,endNodeID\n");
+    writer.write("startNode,endNode\n");
     for (Edge edge : fetchAllObjects()) {
       writer.write(edge.getStartNode() + "," + edge.getEndNode() + "\n");
     }

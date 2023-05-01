@@ -15,6 +15,7 @@ public class CloseModeHelper {
   int alignX;
   int alignY;
   Circle circle;
+  List<String> longNameList = new ArrayList<String>();
   List<Circle> circToClose = new ArrayList<Circle>();
 
   public CloseModeHelper() {}
@@ -30,5 +31,9 @@ public class CloseModeHelper {
   public void addToList(Node node, Circle circle) {
     this.toClose.add(node);
     this.circToClose.add(circle);
+  }
+
+  public void addToLongnameList(String longname) {
+    this.longNameList.add(longname);
   }
 }

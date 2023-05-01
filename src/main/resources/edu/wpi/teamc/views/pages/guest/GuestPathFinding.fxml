@@ -117,7 +117,7 @@
             <children>
                 <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="1147.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Navigation" wrappingWidth="371.51019287109375" />
+                        <Text fill="#02143b" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Navigation" wrappingWidth="371.51019287109375" />
                     </children>
                     <opaqueInsets>
                         <Insets />

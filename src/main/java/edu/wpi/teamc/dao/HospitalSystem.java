@@ -12,6 +12,7 @@ import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.dao.users.EmployeeUserDao;
 import edu.wpi.teamc.dao.users.login.Login;
 import edu.wpi.teamc.dao.users.login.LoginDao;
+import java.io.IOException;
 import java.util.List;
 
 // facade pattern
@@ -22,7 +23,6 @@ public class HospitalSystem {
   private static EdgeDao edgeDao = new EdgeDao();
   private static LocationNameDao locationNameDao = new LocationNameDao();
   private static MoveDao moveDao = new MoveDao();
-  private static NodeStatusDao nodeStatusDao = new NodeStatusDao();
 
   // Service Request DAOs
   private static ConferenceRoomRequestDAO conferenceRoomRequestDAO = new ConferenceRoomRequestDAO();
@@ -50,8 +50,6 @@ public class HospitalSystem {
       return locationNameDao.fetchAllObjects();
     } else if (request instanceof Move) {
       return moveDao.fetchAllObjects();
-    } else if (request instanceof NodeStatus) {
-      return nodeStatusDao.fetchAllObjects();
     } else if (request instanceof ConferenceRoomRequest) {
       return conferenceRoomRequestDAO.fetchAllObjects();
     } else if (request instanceof EmployeeUser) {
@@ -88,8 +86,6 @@ public class HospitalSystem {
       return locationNameDao.addRow((LocationName) request);
     } else if (request instanceof Move) {
       return moveDao.addRow((Move) request);
-    } else if (request instanceof NodeStatus) {
-      return nodeStatusDao.addRow((NodeStatus) request);
     } else if (request instanceof ConferenceRoomRequest) {
       return conferenceRoomRequestDAO.addRow((ConferenceRoomRequest) request);
     } else if (request instanceof EmployeeUser) {
@@ -126,8 +122,6 @@ public class HospitalSystem {
       return locationNameDao.deleteRow((LocationName) request);
     } else if (request instanceof Move) {
       return moveDao.deleteRow((Move) request);
-    } else if (request instanceof NodeStatus) {
-      return nodeStatusDao.deleteRow((NodeStatus) request);
     } else if (request instanceof ConferenceRoomRequest) {
       return conferenceRoomRequestDAO.deleteRow((ConferenceRoomRequest) request);
     } else if (request instanceof EmployeeUser) {
@@ -164,8 +158,6 @@ public class HospitalSystem {
       return locationNameDao.updateRow((LocationName) request, (LocationName) request);
     } else if (request instanceof Move) {
       return moveDao.updateRow((Move) request, (Move) request);
-    } else if (request instanceof NodeStatus) {
-      return nodeStatusDao.updateRow((NodeStatus) request, (NodeStatus) request);
     } else if (request instanceof ConferenceRoomRequest) {
       return conferenceRoomRequestDAO.updateRow(
           (ConferenceRoomRequest) request, (ConferenceRoomRequest) request);
@@ -194,6 +186,42 @@ public class HospitalSystem {
       return signDao.updateRow((SignEntry) request, (SignEntry) request);
     } else {
       return null;
+    }
+  }
+
+  public static void exportCSV(String filePath, IOrm request) throws IOException {
+    if (request instanceof Node) {
+      nodeDao.exportCSV(filePath);
+    } else if (request instanceof Edge) {
+      edgeDao.exportCSV(filePath);
+    } else if (request instanceof LocationName) {
+      locationNameDao.exportCSV(filePath);
+    } else if (request instanceof Move) {
+      moveDao.exportCSV(filePath);
+    } else if (request instanceof ConferenceRoomRequest) {
+      conferenceRoomRequestDAO.exportCSV(filePath);
+    } else if (request instanceof EmployeeUser) {
+      employeeDao.exportCSV(filePath);
+    } else if (request instanceof FlowerDeliveryRequest) {
+      flowerDeliveryRequestDAO.exportCSV(filePath);
+    } else if (request instanceof FurnitureDeliveryRequest) {
+      furnitureDeliveryRequestDAO.exportCSV(filePath);
+    } else if (request instanceof MealRequest) {
+      mealRequestDAO.exportCSV(filePath);
+    } else if (request instanceof OfficeSuppliesRequest) {
+      officeSuppliesRequestDAO.exportCSV(filePath);
+    } else if (request instanceof AdminUser) {
+      adminDao.exportCSV(filePath);
+    } else if (request instanceof EmployeeUser) {
+      employeeDao.exportCSV(filePath);
+    } else if (request instanceof Login) {
+      loginDao.exportCSV(filePath);
+    } else if (request instanceof Alert) {
+      alertDao.exportCSV(filePath);
+    } else if (request instanceof SignEntry) {
+      signDao.exportCSV(filePath);
+    } else {
+      return;
     }
   }
 }

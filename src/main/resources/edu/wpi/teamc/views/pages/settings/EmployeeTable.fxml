@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.tableview2.FilteredTableView?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.EmployeeTableController">
+<AnchorPane prefHeight="768.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.settings.EmployeeTableController">
     <children>
         <AnchorPane layoutX="400.0" layoutY="153.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
             <children>
@@ -37,7 +37,7 @@
                                                         <Insets left="10.0" />
                                                     </HBox.margin>
                                                 </Button>
-                                                <Label text="ID:">
+                                                <Label mouseTransparent="true" style="-fx-font-family: arial; -fx-font-size: 12; -fx-accent: #02143b;" text="ID:">
                                                     <HBox.margin>
                                                         <Insets left="10.0" top="5.0" />
                                                     </HBox.margin>
@@ -47,7 +47,7 @@
                                                         <Insets left="10.0" />
                                                     </HBox.margin>
                                                 </TextField>
-                                                <Label layoutX="101.0" layoutY="15.0" text="username:">
+                                                <Label layoutX="101.0" layoutY="15.0" mouseTransparent="true" style="-fx-accent: #02143b;" text="username:">
                                                     <HBox.margin>
                                                         <Insets left="10.0" top="5.0" />
                                                     </HBox.margin></Label>
@@ -105,7 +105,7 @@
             <children>
                 <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="1147.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Employee Table" wrappingWidth="456.42291259765625" />
+                        <Text fill="#02143b" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Employee Table" wrappingWidth="456.42291259765625" />
                     </children>
                     <opaqueInsets>
                         <Insets />

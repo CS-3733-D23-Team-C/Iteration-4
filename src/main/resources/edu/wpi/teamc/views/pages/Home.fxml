@@ -113,6 +113,14 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
+                  <ImageView fx:id="Spanish_flag11" fitHeight="37.0" fitWidth="70.0" layoutX="160.0" onMouseClicked="#chinese" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/spanish_flag.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
                </children>
             </Group>
          </children>

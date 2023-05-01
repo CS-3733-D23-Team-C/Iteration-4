@@ -1,12 +1,15 @@
 package edu.wpi.teamc.controllers.pages.guest;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.atomic.AtomicBoolean;
-import javafx.animation.PauseTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -16,6 +19,7 @@ import javafx.util.Duration;
 public class GuestMenuController {
 
   @FXML private AnchorPane menuPane;
+
   @FXML private AnchorPane homeButton1;
   @FXML private AnchorPane navigationButton1;
   @FXML private AnchorPane settingsButton1;
@@ -45,6 +49,8 @@ public class GuestMenuController {
   @FXML private ImageView helpButton;
   @FXML private ImageView exitButton;
   @FXML private ImageView logoutButton;
+
+  @FXML private Label menuClock;
 
   @FXML private Pane homeTrigger;
   @FXML private Pane navigationTrigger;
@@ -145,8 +151,7 @@ public class GuestMenuController {
     logoutTrigger.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.navigate(Screen.HOME);
-          Navigation.setMenuType(Navigation.MenuType.DISABLED);
+          CApp.logoutPopUp();
         });
     exitTrigger.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
@@ -652,5 +657,16 @@ public class GuestMenuController {
                 exitPopOutTransition.play();
               }
             });
+
+    Timeline clock =
+        new Timeline(
+            new KeyFrame(
+                Duration.ZERO,
+                e ->
+                    menuClock.setText(
+                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh:mm\na")))),
+            new KeyFrame(Duration.seconds(1)));
+    clock.setCycleCount(Animation.INDEFINITE);
+    clock.play();
   }
 }

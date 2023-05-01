@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.HTMLEditor?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1366.0" styleClass="background" stylesheets="@../Linear-Gradient.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.ScreenSaverController">
+   <children>
+      <AnchorPane layoutX="883.0" layoutY="519.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="30.0">
+         <children>
+            <HTMLEditor fx:id="screenWeather" disable="true" htmlText="&lt;a class=&quot;weatherwidget-io&quot; href=&quot;https://forecast7.com/en/42d36n71d06/boston/?unit=us&quot; data-label_1=&quot;BOSTON&quot; data-label_2=&quot;WEATHER&quot; data-mode=&quot;Current&quot; data-theme=&quot;original&quot; &gt;BOSTON WEATHER&lt;/a&gt;&lt;script&gt;!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');&lt;/script&gt;" layoutY="4.0" prefHeight="200.0" prefWidth="468.0" />
+            <AnchorPane prefHeight="84.0" prefWidth="468.0" style="-fx-background-color: #1F567C; -fx-border-color: #1F567C;" />
+            <AnchorPane layoutY="75.0" prefHeight="135.0" prefWidth="12.0" style="-fx-background-color: #1F567C; -fx-border-color: #1F567C;" />
+            <AnchorPane layoutX="426.0" layoutY="75.0" prefHeight="129.0" prefWidth="44.0" style="-fx-background-color: #1F567C; -fx-border-color: #1F567C;" />
+            <AnchorPane layoutX="12.0" layoutY="173.0" prefHeight="36.0" prefWidth="458.0" style="-fx-background-color: #1F567C; -fx-border-color: #1F567C;" />
+         </children>
+      </AnchorPane>
+      <Label fx:id="dateDisplay" layoutX="100.0" layoutY="695.0" prefHeight="36.0" prefWidth="528.0" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="45.0">
+         <font>
+            <Font name="Arial" size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="timeDisplay" layoutX="100.0" layoutY="620.0" prefHeight="47.0" prefWidth="480.0" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="45.0">
+         <font>
+            <Font name="Arial" size="55.0" />
+         </font>
+      </Label>
+      <VBox alignment="CENTER" layoutX="1.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="408.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.25;">
+               <image>
+                  <Image url="@../images/homeButton2.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <MFXButton fx:id="home" onAction="#getHome" prefHeight="58.0" prefWidth="343.0" style="-fx-background-color: EAB334; -fx-background-radius: 53; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 24;" text="Press to Continue" textFill="#02143b" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="512.0" AnchorPane.rightAnchor="512.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </MFXButton>
+   </children>
+</AnchorPane>

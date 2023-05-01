@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.requests;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.users.IUser;
@@ -17,7 +18,7 @@ import java.util.List;
 public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Integer> {
 
   public List<OfficeSuppliesRequest> fetchAllObjects() {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     List<OfficeSuppliesRequest> returnList = new ArrayList<>();
     String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
     // queries
@@ -48,7 +49,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
   }
 
   public OfficeSuppliesRequest addRow(OfficeSuppliesRequest orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
     // queries
     String query =
@@ -81,7 +82,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
   }
 
   public OfficeSuppliesRequest deleteRow(OfficeSuppliesRequest orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     OfficeSuppliesRequest request = orm;
     String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
     // queries
@@ -102,7 +103,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
   public OfficeSuppliesRequest fetchObject(Integer key) {
     OfficeSuppliesRequest request = null;
     try {
-      DBConnection db = new DBConnection();
+      DBConnection db = new DBConnection(CApp.getWpiDB());
       String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
       // queries
       String query = "SELECT * FROM " + table + " WHERE requestid = " + key + ";";
@@ -129,7 +130,7 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
   }
 
   public OfficeSuppliesRequest updateRow(OfficeSuppliesRequest orm, OfficeSuppliesRequest repl) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     OfficeSuppliesRequest request = null;
     String table = "\"ServiceRequests\".\"officeSupplyRequest\"";
     // queries
@@ -163,22 +164,22 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
     BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
     // Write the header row to the CSV file
     writer.write(
-        "requestid,requester,roomname,status,additionalnotes,eta,officesupplytype,assignedto\n");
+        "requestid,requester,status,additionalnotes,officesupplytype,eta,roomname,assignedto\n");
     for (OfficeSuppliesRequest officeSuppliesRequest : fetchAllObjects()) {
       writer.write(
           officeSuppliesRequest.getRequestID()
               + ","
               + officeSuppliesRequest.getRequester()
               + ","
-              + officeSuppliesRequest.getRoomName()
-              + ","
               + officeSuppliesRequest.getStatus()
               + ","
               + officeSuppliesRequest.getAdditionalNotes()
               + ","
+              + officeSuppliesRequest.getOfficesupplytype()
+              + ","
               + officeSuppliesRequest.getEta()
               + ","
-              + officeSuppliesRequest.getOfficesupplytype()
+              + officeSuppliesRequest.getRoomName()
               + ","
               + officeSuppliesRequest.getAssignedto()
               + "\n");

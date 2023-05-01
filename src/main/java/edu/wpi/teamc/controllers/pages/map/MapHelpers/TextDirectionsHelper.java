@@ -9,6 +9,9 @@ import edu.wpi.teamc.graph.GraphNode;
 import java.awt.image.BufferedImage;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -28,7 +31,7 @@ public class TextDirectionsHelper {
 
   public TextDirectionsHelper() {}
 
-  public BufferedImage buildImage(List<GraphNode> path, Graph currGraph) {
+  public BufferedImage buildImage(List<GraphNode> path, Graph currGraph, LocalDate forDate) {
     String start = currGraph.getLongNameFromNodeID(path.get(0).getNodeID());
     String end = currGraph.getLongNameFromNodeID(path.get(path.size() - 1).getNodeID());
     String directions = "";
@@ -36,19 +39,23 @@ public class TextDirectionsHelper {
 
     // format the directions for HttpPost
     for (String s : textDirections(path, currGraph)) {
-      directions += s + ";";
+      if (!s.startsWith("D")) directions += s + ";";
     }
 
     directions = directions.substring(0, directions.length() - 1);
+
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    String formattedDate = formatter.format(Date.valueOf(forDate));
+    String json =
+        String.format(
+            "{\"start\":\"%s\",\"end\":\"%s\",\"directions\":\"%s\", \"forDate\":\"%s\"}",
+            start, end, directions, formattedDate);
 
     try (CloseableHttpClient client = HttpClients.createDefault()) {
       // define website
       HttpPost httpPost = new HttpPost(new URI("https://teamc.blui.co/api/directions"));
 
       // format and set json
-      String json =
-          String.format(
-              "{\"start\":\"%s\",\"end\":\"%s\",\"directions\":\"%s\"}", start, end, directions);
       StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
       httpPost.setEntity(entity);
 
@@ -61,9 +68,8 @@ public class TextDirectionsHelper {
     } catch (Exception e) {
       System.err.println(e.getMessage());
     }
-
-    JSONObject json = new JSONObject(responseBody);
-    String url = "https://teamc.blui.co/directions?id=" + json.getString("link");
+    JSONObject jsonobj = new JSONObject(responseBody);
+    String url = jsonobj.getString("shortLink");
     return genQR(url);
   }
 
@@ -97,16 +103,21 @@ public class TextDirectionsHelper {
     LinkedList<String> textDirections = new LinkedList<>();
     String direction;
 
+    // find starting orientation
     orientation = findOrientation(path.get(0), path.get(1));
+    // add floor indicator and first "direction"
+    textDirections.add("Directions on Floor " + path.get(0).getFloor());
     direction =
         distance(path.get(0), path.get(1))
             + "~Go straight~"
             + currGraph.getLongNameFromNodeID(path.get(1).getNodeID());
     textDirections.add(direction);
 
+    // iterate through the path and form the text directions
     for (int i = 1; i < path.size() - 1; i++) {
       GraphNode src = path.get(i);
       GraphNode dest = path.get(i + 1);
+      // find upcoming orientation to see if a turn is necessary
       String tempOrientation = findOrientation(src, dest);
       direction = "";
 
@@ -117,6 +128,7 @@ public class TextDirectionsHelper {
                 + "~"
                 + currGraph.getLongNameFromNodeID(src.getNodeID());
         textDirections.add(direction);
+        textDirections.add("Directions on Floor " + dest.getFloor());
       } else {
         if (!tempOrientation.equals(orientation)) {
           direction += distance(src, dest) + "~" + leftOrRight(tempOrientation);
@@ -160,21 +172,21 @@ public class TextDirectionsHelper {
     String retVal;
 
     if (orientation.equals("N") && tempOrientation.equals("E")) {
-      retVal = "Turn right";
+      retVal = "↱ Turn right ↱";
     } else if (orientation.equals("N") && tempOrientation.equals("W")) {
-      retVal = "Turn left";
+      retVal = "↰ Turn left ↰";
     } else if (orientation.equals("S") && tempOrientation.equals("E")) {
-      retVal = "Turn left";
+      retVal = "↰ Turn left ↰";
     } else if (orientation.equals("S") && tempOrientation.equals("W")) {
-      retVal = "Turn right";
+      retVal = "↱ Turn right ↱";
     } else if (orientation.equals("W") && tempOrientation.equals("S")) {
-      retVal = "Turn left";
+      retVal = "↰ Turn left ↰";
     } else if (orientation.equals("E") && tempOrientation.equals("S")) {
-      retVal = "Turn right";
+      retVal = "↱ Turn right ↱";
     } else if (orientation.equals("W") && tempOrientation.equals("N")) {
-      retVal = "Turn right";
+      retVal = "↱ Turn right ↱";
     } else if (orientation.equals("E") && tempOrientation.equals("N")) {
-      retVal = "Turn left";
+      retVal = "↰ Turn left ↰";
     } else {
       retVal = "Continue Straight";
     }
@@ -188,6 +200,8 @@ public class TextDirectionsHelper {
     Pattern pattern = Pattern.compile("Go straight", Pattern.CASE_INSENSITIVE);
     Matcher matcher;
 
+    // cleans the string by combining any "Go straight" that are next to X amount of other "Go
+    // straight"'s
     for (String textDirection : textDirections) {
       matcher = pattern.matcher(textDirection);
 
@@ -210,6 +224,19 @@ public class TextDirectionsHelper {
       String combined = totalLength + "~Go straight~" + split[2];
       clean.add(combined);
     }
+
+    // add icons for start/end
+    String str = clean.remove(1);
+    String[] strArr = str.split("~");
+    strArr[1] = "⚐" + strArr[1] + "⚐";
+    str = strArr[0] + "~" + strArr[1] + "~" + strArr[2];
+    clean.add(1, str);
+
+    str = clean.removeLast();
+    strArr = str.split("~");
+    strArr[1] = "⚑" + strArr[1] + "⚑";
+    str = strArr[0] + "~" + strArr[1] + "~" + strArr[2];
+    clean.addLast(str);
 
     return clean;
   }

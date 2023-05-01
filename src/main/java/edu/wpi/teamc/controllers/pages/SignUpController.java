@@ -44,6 +44,6 @@ public class SignUpController {
             true);
     dao.updateRow(patient1, patient2);
 
-    Navigation.navigate(Screen.CONGRATS_PAGE); // maybe make this different
+    Navigation.navigate(Screen.CONGRATS_SIGNUP_PAGE); // maybe make this different
   }
 }

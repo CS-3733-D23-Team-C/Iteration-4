@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.users.login;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
@@ -18,7 +19,7 @@ public class LoginDao implements IDao<Login, String> {
   @Override
   public List<Login> fetchAllObjects() {
     List<Login> returnList = new ArrayList<>();
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmt = db.getConnection().createStatement();
       // Table Name
@@ -31,11 +32,13 @@ public class LoginDao implements IDao<Login, String> {
       while (rs.next()) {
         // Get all the data from the table
         String username = rs.getString("username");
+        String email = rs.getString("email");
         String password = rs.getString("password");
         PERMISSIONS permissions = PERMISSIONS.valueOf(rs.getString("permissions"));
         String salt = rs.getString("salt");
         String otp = rs.getString("otp");
         Login login = new Login(username, password, permissions, salt, otp);
+        login.setEmail(email);
         returnList.add(login);
       }
     } catch (SQLException e) {
@@ -46,7 +49,7 @@ public class LoginDao implements IDao<Login, String> {
 
   @Override
   public Login updateRow(Login orm, Login repl) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String table = "\"users\".\"login\"";
@@ -59,7 +62,8 @@ public class LoginDao implements IDao<Login, String> {
               + "password = ?, "
               + "permissions = ?, "
               + "salt = ?,"
-              + "otp = ?"
+              + "otp = ?,"
+              + "email = ?"
               + " WHERE username = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, repl.getUsername());
@@ -67,7 +71,8 @@ public class LoginDao implements IDao<Login, String> {
       ps.setString(3, repl.getPermissions().toString());
       ps.setString(4, repl.salt);
       ps.setString(5, repl.getOtp());
-      ps.setString(6, orm.getUsername());
+      ps.setString(6, repl.getEmail());
+      ps.setString(7, orm.getUsername());
       ps.execute();
       db.closeConnection();
     } catch (Exception e) {
@@ -79,7 +84,7 @@ public class LoginDao implements IDao<Login, String> {
 
   @Override
   public Login addRow(Login type) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String table = "\"users\".\"login\"";
@@ -87,7 +92,7 @@ public class LoginDao implements IDao<Login, String> {
       String query =
           "INSERT INTO "
               + table
-              + " (username, password, permissions, salt, otp) VALUES (?,?,?,?,?)";
+              + " (username, password, permissions, salt, otp, email) VALUES (?,?,?,?,?,?)";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, type.getUsername());
@@ -95,6 +100,7 @@ public class LoginDao implements IDao<Login, String> {
       ps.setString(3, type.getPermissions().toString());
       ps.setString(4, type.salt);
       ps.setString(5, type.getOtp());
+      ps.setString(6, type.getEmail());
       ps.execute();
       db.closeConnection();
     } catch (Exception e) {
@@ -106,7 +112,7 @@ public class LoginDao implements IDao<Login, String> {
 
   @Override
   public Login deleteRow(Login type) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       // table names
       String table = "\"users\".\"login\"";
@@ -126,7 +132,7 @@ public class LoginDao implements IDao<Login, String> {
 
   @Override
   public Login fetchObject(String key) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     Login login = null;
     try {
       key = key.toLowerCase();
@@ -142,11 +148,13 @@ public class LoginDao implements IDao<Login, String> {
       while (rs.next()) {
         // Get all the data from the table
         String username = rs.getString("username");
+        String email = rs.getString("email");
         String password = rs.getString("password");
         PERMISSIONS permissions = PERMISSIONS.valueOf(rs.getString("permissions"));
         String salt = rs.getString("salt");
         String otp = rs.getString("otp");
         login = new Login(username, password, permissions, salt, otp);
+        login.setEmail(email);
       }
     } catch (Exception e) {
       e.printStackTrace();

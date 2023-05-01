@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.displays;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import java.io.BufferedWriter;
@@ -14,7 +15,7 @@ public class AlertDao implements IDao<Alert, Integer> {
   @Override
   public List<Alert> fetchAllObjects() {
     List<Alert> returnList = new ArrayList<>();
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmt = db.getConnection().createStatement();
       // Table Name
@@ -45,7 +46,7 @@ public class AlertDao implements IDao<Alert, Integer> {
   @Override
   public Alert updateRow(Alert type, Alert type2) {
     Alert alert = null;
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       String query =
           "UPDATE \"displays\".\"Alert\" SET title = ?, description = ?, type = ?, startdate = ?, enddate = ? WHERE id = ?";
@@ -68,7 +69,7 @@ public class AlertDao implements IDao<Alert, Integer> {
 
   @Override
   public Alert addRow(Alert type) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     Alert alert = null;
     try {
       String query =
@@ -102,7 +103,7 @@ public class AlertDao implements IDao<Alert, Integer> {
   @Override
   public Alert deleteRow(Alert type) {
     Alert alert = type;
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       String query = "DELETE FROM \"displays\".\"Alert\" WHERE id = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
@@ -118,7 +119,7 @@ public class AlertDao implements IDao<Alert, Integer> {
 
   @Override
   public Alert fetchObject(Integer key) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     Alert alert = null;
     try {
       String query = "SELECT * FROM \"displays\".\"Alert\" WHERE id = ?";
@@ -173,4 +174,6 @@ public class AlertDao implements IDao<Alert, Integer> {
       System.out.println("File already exists.");
     }
   }
+
+  protected void close() {}
 }

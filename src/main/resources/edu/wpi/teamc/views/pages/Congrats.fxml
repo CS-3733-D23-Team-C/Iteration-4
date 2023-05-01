@@ -8,16 +8,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #ECE9E9;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.CongratsController">
+<AnchorPane prefHeight="768.0" prefWidth="1296.0" style="-fx-background-color: #ECE9E9;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.CongratsController">
     <children>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 70;" text="CONGRATULATIONS!" textAlignment="CENTER" wrappingWidth="801.2343139648438">
+              <Text fill="WHITE" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 70; -fx-accent: #02143b;" text="CONGRATULATIONS!" textAlignment="CENTER" wrappingWidth="801.2343139648438">
                   <font>
                       <Font name="Verdana Bold" size="30.0" />
                   </font>
               </Text>
-              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 40;" text="Your Request has Sucessfully Been Entered." textAlignment="CENTER" wrappingWidth="594.5030517578125">
+              <Text fill="WHITE" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 40; -fx-accent: #02143b;" text="Your Request has Sucessfully Been Entered." textAlignment="CENTER" wrappingWidth="594.5030517578125">
                   <font>
                       <Font name="Verdana Bold" size="15.0" />
                   </font>

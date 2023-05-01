@@ -1,5 +1,6 @@
 package edu.wpi.teamc.dao.requests;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
 import edu.wpi.teamc.dao.users.PatientUser;
@@ -17,7 +18,7 @@ import java.util.List;
 public class MealRequestDAO implements IDao<MealRequest, Integer> {
   public List<MealRequest> fetchAllObjects() {
     List<MealRequest> returnList = new ArrayList<>();
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmt = db.getConnection().createStatement();
       // Table Name
@@ -55,7 +56,7 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
   }
 
   public MealRequest addRow(MealRequest orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     try {
       Statement stmtNode = db.getConnection().createStatement();
       String query =
@@ -83,7 +84,7 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
   }
 
   public MealRequest updateRow(MealRequest orm, MealRequest orm2) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     MealRequest request = null;
     try {
       Statement stmtNode = db.getConnection().createStatement();
@@ -109,7 +110,7 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
   }
 
   public MealRequest deleteRow(MealRequest orm) {
-    DBConnection db = new DBConnection();
+    DBConnection db = new DBConnection(CApp.getWpiDB());
     MealRequest request = null;
     try {
       Statement stmtNode = db.getConnection().createStatement();
@@ -128,7 +129,7 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
   public MealRequest fetchObject(Integer key) {
     MealRequest request = null;
     try {
-      DBConnection db = new DBConnection();
+      DBConnection db = new DBConnection(CApp.getWpiDB());
       Statement stmt = db.getConnection().createStatement();
       // Table Name
       String table = "\"ServiceRequests\".\"mealRequest\"";
@@ -164,22 +165,22 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
     createFile(CSVfilepath);
     BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
     // Write the header row to the CSV file
-    writer.write("requestid,requester,roomname,status,additionalnotes,eta,meal,assignedto\n");
+    writer.write("requestid,requester,status,additionalnotes,meal,eta,roomname,assignedto\n");
     for (MealRequest mealRequest : fetchAllObjects()) {
       writer.write(
           mealRequest.getRequestID()
               + ","
               + mealRequest.getRequester()
               + ","
-              + mealRequest.getRoomName()
-              + ","
               + mealRequest.getStatus()
               + ","
               + mealRequest.getAdditionalNotes()
               + ","
+              + mealRequest.getMeal()
+              + ","
               + mealRequest.getEta()
               + ","
-              + mealRequest.getMeal()
+              + mealRequest.getRoomName()
               + ","
               + mealRequest.getAssignedto()
               + "\n");

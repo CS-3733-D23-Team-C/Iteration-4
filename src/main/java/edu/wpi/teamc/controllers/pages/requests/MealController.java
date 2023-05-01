@@ -26,6 +26,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
 
 public class MealController {
@@ -246,11 +247,13 @@ public class MealController {
       drinkchoice2.setText(LanguageSet(drinkchoice2.getText()));
       drinkchoice3.setText(LanguageSet(drinkchoice3.getText()));
       drinkchoice4.setText(LanguageSet(drinkchoice4.getText()));
+      Meal_Title.setText(LanguageSet(Meal_Title.getText()));
       notEnglish = true;
     }
   }
 
   // TEXT need to be Translated
+    @FXML private Text Meal_Title;
   @FXML private TextField Meal_Box1;
   @FXML private TextField Meal_Box2;
   @FXML private TextField Meal_Box3;

@@ -811,7 +811,7 @@ public class ImportCSV {
           new SimpleDateFormat("d/M/yyyy"),
           new SimpleDateFormat("dd/M/yyyy"),
           new SimpleDateFormat("dd/MM/yyyy"),
-          new SimpleDateFormat("d/MM/yyyy")
+          new SimpleDateFormat("yyyy-MM-dd")
         };
     for (SimpleDateFormat format : formats) {
       try {

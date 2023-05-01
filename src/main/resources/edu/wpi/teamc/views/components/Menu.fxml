@@ -20,6 +20,7 @@
 
 <AnchorPane fx:id="basePane" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.components.MenuController">
    <children>
+      <AnchorPane fx:id="aboutClosePane" layoutX="70.0" prefHeight="745.0" prefWidth="740.0" style="-fx-background-color: orange;" />
       <AnchorPane fx:id="aboutPopOut3" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutPopOut1" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
@@ -483,10 +484,631 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutPopOut4" layoutX="250.0" layoutY="1.0" prefHeight="550.0" prefWidth="128.0" style="-fx-background-color: blue;" />
+      <AnchorPane fx:id="aboutPopOut4" layoutX="284.0" layoutY="1.0" prefHeight="550.0" prefWidth="109.0" style="-fx-background-color: blue;" />
       <AnchorPane fx:id="aboutRandyPopOut" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/RandyCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutEddiePopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy1" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/RandyCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutNickPopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy11" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/RandyCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutAaronPopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy111" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/RandyCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutSebastianPopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy2" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/RandyCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutBrandonPopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy21" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/RandyCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutTayaPopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy211" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/RandyCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutChasePopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy2111" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/RandyCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutChaoPopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy21111" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/RandyCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutJoeyPopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy211111" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
                      <children>

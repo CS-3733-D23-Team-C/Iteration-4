@@ -5,3 +5,7 @@ id,title,description,type,startdate,enddate
 5,a,hi!!,Construction,2023-05-02 00:01:00.0,2023-05-04 00:01:00.0
 1,Cafe,Renovating kitchen,Construction,2023-04-24 01:11:00.0,2023-04-25 01:11:00.0
 6,test,test,Construction,2023-04-24 02:11:00.0,2023-04-25 02:11:00.0
+53,Node Closed: Obstetrics,it is closed,Closures,2023-05-01 15:25:35.934315,2023-06-01 15:25:35.934315
+54,Node Opened: Obstetrics,test,Closures,2023-05-01 15:26:12.149748,2023-06-01 15:26:12.149748
+55,Node Closed: Hallway Node 19,test,Closures,2023-05-01 15:26:12.149748,2023-06-01 15:26:12.149748
+56,Node to be Moved: Emergency Department Entrance to: Hallway Connector 19 Floor 2,testing,Other,2023-05-01 00:00:00.0,2023-06-01 00:00:00.0

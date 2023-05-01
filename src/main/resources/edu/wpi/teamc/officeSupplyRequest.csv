@@ -1,15 +1,2 @@
-requestID,requester,status,additionalnotes,officesupplytype,eta,roomname,assignedto
-4,Chonk,PENDING,None,Pencisl,,Office Five,a
-7,Joe,PENDING,Yeah I WANT RED,Pen,,Conference A1,a
-8,Joe,PENDING,RED,Notebook,,Conference A3,a
-11,Nick,PENDING,sharpened to perfection,Pencil,,Conference A3,a
-1,Nick,PENDING,danger,Paper Shredder,admin,200,a
-6,Chonk,PENDING,None,Pencisl,,Office Five,a
-13,Chonk,PENDING,1,Pencil,,Office Five,a
-14,Chonk,PENDING,1,Pencil,,Office Five,a
-15,Chonk,PENDING,1,Pencil,,Office Five,a
-16,Chonk,PENDING,1,Pencil,,Office Five,a
-17,Chonk,PENDING,1,Pencil,,Office Five,a
-18,Chonk,PENDING,1,Pencil,,Office Five,a
-19,Chonk,PENDING,1,Pencil,,Office Five,a
-20,Chonk,PENDING,1,Pencil,,Office Five,a
+requestid,requester,status,additionalnotes,officesupplytype,eta,roomname,assignedto
+28,chase,PENDING,,Pencil,2023-04-21,CART Waiting,joey

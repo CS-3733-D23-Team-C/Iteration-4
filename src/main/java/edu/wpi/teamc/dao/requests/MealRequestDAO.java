@@ -165,22 +165,22 @@ public class MealRequestDAO implements IDao<MealRequest, Integer> {
     createFile(CSVfilepath);
     BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
     // Write the header row to the CSV file
-    writer.write("requestid,requester,roomname,status,additionalnotes,eta,meal,assignedto\n");
+    writer.write("requestid,requester,status,additionalnotes,meal,eta,roomname,assignedto\n");
     for (MealRequest mealRequest : fetchAllObjects()) {
       writer.write(
           mealRequest.getRequestID()
               + ","
               + mealRequest.getRequester()
               + ","
-              + mealRequest.getRoomName()
-              + ","
               + mealRequest.getStatus()
               + ","
               + mealRequest.getAdditionalNotes()
               + ","
+              + mealRequest.getMeal()
+              + ","
               + mealRequest.getEta()
               + ","
-              + mealRequest.getMeal()
+              + mealRequest.getRoomName()
               + ","
               + mealRequest.getAssignedto()
               + "\n");

@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AlignModeHelper {
+public class AlignResetterHelper {
   List<Node> toAlign = new ArrayList<Node>();
   Node node = new Node();
   int alignX;
@@ -19,18 +19,18 @@ public class AlignModeHelper {
   List<Node> lastAlignedNode = new ArrayList<Node>();
   List<Circle> lastAlignedCirc = new ArrayList<Circle>();
 
-  public AlignModeHelper() {}
+  public AlignResetterHelper() {}
 
-  public AlignModeHelper(Node node) {
+  public AlignResetterHelper(Node node) {
     this.node = node;
   }
 
-  public AlignModeHelper(List<Node> nodeList) {
+  public AlignResetterHelper(List<Node> nodeList) {
     this.toAlign = nodeList;
   }
 
-  public void addToList(Node node, Circle circle) {
+  public void addToList(Node node) {
     this.toAlign.add(node);
-    this.circToAlign.add(circle);
+    //        this.circToAlign.add(circle);
   }
 }

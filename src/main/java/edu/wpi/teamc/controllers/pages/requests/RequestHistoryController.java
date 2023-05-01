@@ -26,7 +26,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
 import org.controlsfx.control.SearchableComboBox;
-import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class RequestHistoryController {
 
@@ -43,7 +42,7 @@ public class RequestHistoryController {
 
   @FXML private Button giftBasket;
 
-  @FXML private FilteredTableView historyTable;
+  @FXML private TableView historyTable;
   @FXML TableColumn Column1;
   @FXML TableColumn Column2;
   @FXML TableColumn Column3;

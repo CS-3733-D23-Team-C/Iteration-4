@@ -7,10 +7,13 @@ import edu.wpi.teamc.dao.map.LocationName;
 import edu.wpi.teamc.dao.requests.FurnitureDeliveryRequest;
 import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.dao.users.PatientUser;
+import edu.wpi.teamc.languageHelpers.TranslatorAPI;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import java.io.IOException;
 import java.util.List;
+
+import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +21,11 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
+
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.notEnglish;
 
 public class FurnitureController {
 
@@ -47,6 +54,8 @@ public class FurnitureController {
   @FXML private TextArea weightInfo;
   @FXML AnchorPane assignEmployeeAnchor;
 
+  int furnitureHolder = 0;
+
   @FXML
   void getGoHome(ActionEvent event) {
     Navigation.navigate(Screen.ADMIN_HOME);
@@ -55,6 +64,7 @@ public class FurnitureController {
   @FXML
   void getFurnitureChoice1() {
     furnitureMenu.setText(furniturechoice1.getText());
+    furnitureHolder = 1;
     try {
       getFurnitureInfo(1);
     } catch (IOException e) {
@@ -65,6 +75,7 @@ public class FurnitureController {
   @FXML
   void getFurnitureChoice2() {
     furnitureMenu.setText(furniturechoice2.getText());
+    furnitureHolder = 2;
     try {
       getFurnitureInfo(2);
     } catch (IOException e) {
@@ -75,6 +86,7 @@ public class FurnitureController {
   @FXML
   void getFurnitureChoice3() {
     furnitureMenu.setText(furniturechoice3.getText());
+    furnitureHolder = 3;
     try {
       getFurnitureInfo(3);
     } catch (IOException e) {
@@ -85,10 +97,28 @@ public class FurnitureController {
   @FXML
   void getFurnitureChoice4() {
     furnitureMenu.setText(furniturechoice4.getText());
+    furnitureHolder = 4;
     try {
       getFurnitureInfo(4);
     } catch (IOException e) {
       throw new RuntimeException(e);
+    }
+  }
+
+  String furnitureSelecter(int holder){
+    switch(holder){
+      case 0:
+        return "No Furniture Selected";
+      case 1:
+        return "Chair";
+      case 2:
+        return "Desk";
+      case 3:
+        return "Stool";
+      case 4:
+        return "Couch";
+      default:
+        return "No Furniture Selected";
     }
   }
 
@@ -154,7 +184,7 @@ public class FurnitureController {
     String name = nameBox.getText();
     String room = roomMenu.getValue().toString();
     String notes = specialRequest.getText();
-    String furnituretype = furnitureMenu.getText();
+    String furnituretype = furnitureSelecter(furnitureHolder);
     String eta = startTime.getValue().toString();
     FurnitureDeliveryRequest req =
         new FurnitureDeliveryRequest(new PatientUser(name), room, notes, furnituretype, eta);
@@ -207,4 +237,63 @@ public class FurnitureController {
     Dimensions.setWrapText(true);
     weightInfo.setWrapText(true);
   }
+
+  public TranslatorAPI translatorAPI = new TranslatorAPI();
+
+  @FXML
+  String LanguageSet(String text) throws Exception {
+    if (language_choice == 0) { // 0 is english
+      text = translatorAPI.translateToEn(text);
+    } else if (language_choice == 1) { // 1 is spanish
+      text = translatorAPI.translateToSp(text);
+    } else if (language_choice == 2) { // 2 is Chinese
+      text = translatorAPI.translateToZh(text);
+    }
+    return text;
+  }
+
+  @FXML
+  void setLanguage() throws Exception {
+    if (language_choice == 0 && notEnglish == false) { // 0 is english
+    } else {
+      Box1.setText(LanguageSet(Box1.getText()));
+      Box2.setText(LanguageSet(Box2.getText()));
+      Box3.setText(LanguageSet(Box3.getText()));
+      Box4.setText(LanguageSet(Box4.getText()));
+      Box5.setText(LanguageSet(Box5.getText()));
+      nameBox.setPromptText(LanguageSet(nameBox.getPromptText()));
+      roomMenu.setPromptText(LanguageSet(roomMenu.getPromptText()));
+      furnitureMenu.setText(LanguageSet(furnitureMenu.getText()));
+      amountMenu.setText(LanguageSet(amountMenu.getText()));
+      specialRequest.setPromptText(LanguageSet(specialRequest.getPromptText()));
+      startTime.setPromptText(LanguageSet(startTime.getPromptText()));
+      employeeName.setPromptText(LanguageSet(employeeName.getPromptText()));
+      Furn_dimensions.setText(LanguageSet(Furn_dimensions.getText()));
+      Furn_weight.setText(LanguageSet(Furn_weight.getText()));
+      Submit.setText(LanguageSet(Submit.getText()));
+      Clear.setText(LanguageSet(Clear.getText()));
+      Cancel.setText(LanguageSet(Cancel.getText()));
+      //      ingredients.setText(LanguageSet(ingredients.getText()));
+      //      allergyInfo.setText(LanguageSet(allergyInfo.getText()));
+
+      furniturechoice1.setText(LanguageSet(furniturechoice1.getText()));
+      furniturechoice2.setText(LanguageSet(furniturechoice2.getText()));
+      furniturechoice3.setText(LanguageSet(furniturechoice3.getText()));
+      furniturechoice4.setText(LanguageSet(furniturechoice4.getText()));
+      Title.setText(LanguageSet(Title.getText()));
+      notEnglish = true;
+    }
+  }
+
+    @FXML private Text Title;
+  @FXML private MFXButton Submit;
+  @FXML private MFXButton Clear;
+  @FXML private MFXButton Cancel;
+  @FXML private TextField Box1;
+    @FXML private TextField Box2;
+    @FXML private TextField Box3;
+    @FXML private TextField Box4;
+    @FXML private TextField Box5;
+    @FXML private TextField Furn_dimensions;
+    @FXML private TextField Furn_weight;
 }

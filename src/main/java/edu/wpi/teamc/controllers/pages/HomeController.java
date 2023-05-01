@@ -17,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -278,6 +279,7 @@ public class HomeController {
   void english() throws Exception {
     language_choice = 0;
     Warning_translation.setVisible(false);
+    Warning_translation.setPrefWidth(260);
     setLanguage();
   }
 
@@ -285,7 +287,7 @@ public class HomeController {
   void spanish() throws Exception {
     language_choice = 1;
     Warning_translation.setVisible(true);
-    Warning_translation.maxWidth(400); //Spanish translation is too long!
+    Warning_translation.setPrefWidth(380); // Spanish translation is too long!
     setLanguage();
   }
 
@@ -293,6 +295,7 @@ public class HomeController {
   void chinese() throws Exception {
     language_choice = 2;
     Warning_translation.setVisible(true);
+    Warning_translation.setPrefWidth(260);
     setLanguage();
   }
 
@@ -312,7 +315,7 @@ public class HomeController {
     Warning_translation.setText(LanguageSet(Warning_translation.getText()));
   }
 
-  @FXML private Text Warning_translation;
+  @FXML private TextArea Warning_translation;
 
   public TranslatorAPI translatorAPI = new TranslatorAPI();
 

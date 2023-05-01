@@ -58,6 +58,8 @@ public class MealController {
   @FXML private TextArea allergyInfo;
   @FXML AnchorPane assignEmployeeAnchor;
 
+  int mealHolder = 0;
+
   @FXML
   void getGoHome(ActionEvent event) {
     Navigation.navigate(Screen.ADMIN_HOME);
@@ -66,6 +68,7 @@ public class MealController {
   @FXML
   void getServicechoice1() throws Exception {
     serviceMenu.setText(servicechoice1.getText());
+    mealHolder = 1;
     try {
       getMealInfo(1);
     } catch (IOException e) {
@@ -76,6 +79,7 @@ public class MealController {
   @FXML
   void getServicechoice2() throws Exception {
     serviceMenu.setText(servicechoice2.getText());
+    mealHolder = 2;
     try {
       getMealInfo(2);
     } catch (IOException e) {
@@ -86,6 +90,7 @@ public class MealController {
   @FXML
   void getServicechoice3() throws Exception {
     serviceMenu.setText(servicechoice3.getText());
+    mealHolder = 3;
     try {
       getMealInfo(3);
     } catch (IOException e) {
@@ -96,6 +101,7 @@ public class MealController {
   @FXML
   void getServicechoice4() throws Exception {
     serviceMenu.setText(servicechoice4.getText());
+    mealHolder = 4;
     try {
       getMealInfo(4);
     } catch (IOException e) {
@@ -103,25 +109,65 @@ public class MealController {
     }
   }
 
+  String mealSelecter(int holder) {
+    switch (holder) {
+      case 0:
+        return "No Meal Selected";
+      case 1:
+        return "Spaghetti";
+      case 2:
+        return "Garlic Steak";
+      case 3:
+        return "Grill Chicken";
+      case 4:
+        return "Fried Rice";
+      default:
+        return "No Meal Selected";
+    }
+  }
+
   // These 4 choices(1-4) are for the drink menu
+  int drinkHolder = 0;
+
   @FXML
   void getDrinkChoice1() {
     drinkMenu.setText(drinkchoice1.getText());
+    drinkHolder = 1;
   }
 
   @FXML
   void getDrinkChoice2() {
     drinkMenu.setText(drinkchoice2.getText());
+    drinkHolder = 2;
   }
 
   @FXML
   void getDrinkChoice3() {
     drinkMenu.setText(drinkchoice3.getText());
+    drinkHolder = 3;
   }
 
   @FXML
   void getDrinkChoice4() {
     drinkMenu.setText(drinkchoice4.getText());
+    drinkHolder = 4;
+  }
+
+  String drinkSelecter(int holder) {
+    switch (holder) {
+      case 0:
+        return "No Drink Selected";
+      case 1:
+        return "Water";
+      case 2:
+        return "Lemonade";
+      case 3:
+        return "Coffee";
+      case 4:
+        return "Tea";
+      default:
+        return "No Drink Selected";
+    }
   }
 
   @FXML
@@ -163,8 +209,8 @@ public class MealController {
   void getSubmit(ActionEvent event) {
     String name = nameBox.getText();
     String room = roomMenu.getValue().toString();
-    String notes = specialRequest.getText();
-    Meal meal = new Meal(serviceMenu.getText(), "");
+    String notes = "Drink: " + drinkSelecter(drinkHolder) + specialRequest.getText();
+    Meal meal = new Meal(mealSelecter(mealHolder), "");
     String eta = startTime.getValue().toString();
     MealRequest req = new MealRequest(new PatientUser(name), room, notes, meal, eta);
 

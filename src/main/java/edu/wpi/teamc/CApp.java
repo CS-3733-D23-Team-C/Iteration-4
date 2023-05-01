@@ -38,29 +38,27 @@ public class CApp extends Application {
     PauseTransition startPause = new PauseTransition(Duration.millis(480000));
     startPause.setOnFinished(
         (event -> {
-          try {
-            timerPopUp();
-          } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-          }
+          CApp.logoutPopUp();
         }));
     startPause.play();
   }
 
-  public static void timerPopUp() throws InterruptedException {
+  public static void logoutPopUp() {
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
     VBox vBox = new VBox();
-    Text headerText = new Text("Are you still there?");
+    Text headerText = new Text("Logging out...");
     Text building = new Text("Counting down...");
-    MFXButton continueButton = new MFXButton("Continue");
-    vBox.getChildren().addAll(headerText, building, continueButton);
+    MFXButton cancel = new MFXButton("Cancel");
+    MFXButton logoutButton = new MFXButton("Logout");
+    vBox.getChildren().addAll(headerText, building, cancel, logoutButton);
 
     // set styles
     headerText.getStyleClass().add("Header");
     building.getStyleClass().add("Text");
-    continueButton.getStyleClass().add("MFXbutton");
+    cancel.getStyleClass().add("MFXbutton");
+    logoutButton.getStyleClass().add("MFXbutton");
     borderPane.getStyleClass().add("scenePane");
 
     // set object locations
@@ -71,12 +69,16 @@ public class CApp extends Application {
     building.setLayoutX(lay_x);
     building.setLayoutY(lay_y + 35);
 
-    continueButton.setLayoutX(lay_x);
-    continueButton.setLayoutY(lay_y + 95);
+    cancel.setLayoutX(lay_x);
+    cancel.setLayoutY(lay_y + 55);
+    logoutButton.setLayoutX(lay_x + 125);
+    logoutButton.setLayoutY(lay_y + 55);
+    cancel.setMaxWidth(100);
+    logoutButton.setMaxWidth(100);
 
     // Set and show screen
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().addAll(headerText, building, continueButton);
+    aPane.getChildren().addAll(headerText, building, cancel, logoutButton);
     borderPane.getChildren().add(aPane);
     Scene scene = new Scene(borderPane, 410, 225);
     scene
@@ -85,7 +87,7 @@ public class CApp extends Application {
     borderPane.relocate(0, 0);
     Stage stage = new Stage();
     stage.setScene(scene);
-    stage.setTitle("Time Out");
+    stage.setTitle("Log Out");
     stage.setAlwaysOnTop(true);
     stage.show();
     int[] seconds = new int[1];
@@ -106,9 +108,19 @@ public class CApp extends Application {
           }
         };
     thread.start();
-    continueButton.setOnAction(
+    cancel.setOnAction(
         (event -> {
           stage.close();
+        }));
+
+    logoutButton.setOnAction(
+        (event -> {
+          stage.close();
+          CApp.setAdminLoginCheck(false);
+          CApp.currScreen = Screen.HOME;
+          Navigation.clearCache();
+          Navigation.navigate(Screen.HOME);
+          Navigation.setMenuType(Navigation.MenuType.DISABLED);
         }));
 
     PauseTransition startPause = new PauseTransition(Duration.millis(10000));
@@ -120,6 +132,9 @@ public class CApp extends Application {
             return;
           } else {
             stage.close();
+            CApp.setAdminLoginCheck(false);
+            CApp.currScreen = Screen.SCREENSAVER;
+            Navigation.clearCache();
             Navigation.navigate(Screen.SCREENSAVER);
             Navigation.setMenuType(Navigation.MenuType.DISABLED);
           }

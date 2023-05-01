@@ -21,6 +21,7 @@ public class ScreenSaverController {
 
   @FXML
   void getHome(ActionEvent event) {
+    CApp.currScreen = Screen.HOME;
     Navigation.navigate(Screen.HOME);
     CApp.timeOut();
   }

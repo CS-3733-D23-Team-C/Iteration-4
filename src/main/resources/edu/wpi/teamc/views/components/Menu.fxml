@@ -676,7 +676,7 @@
                         </Line>
                         <MFXButton fx:id="Admin_menu_reservation_history" onAction="#getRequestHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Requests History" />
                         <MFXButton fx:id="Admin_menu_mapchange_history" onAction="#getMapHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Map Change History" />
-      <!--                  <MFXButton fx:id="Admin_menu_giftbasket_history" disable="true" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket History" />-->
+                        <!--                  <MFXButton fx:id="Admin_menu_giftbasket_history" disable="true" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket History" />-->
                      </children>
                   </VBox>
                </children>
@@ -775,7 +775,7 @@
                         <MFXButton fx:id="Admin_menu_stationary_delivery" onAction="#getOfficeSuppliesPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Stationary Request" />
                         <MFXButton fx:id="Admin_menu_furniture_delivery" onAction="#getFurnitureDeliveryPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Furniture Request" />
                         <MFXButton fx:id="Admin_menu_room_reservation" onAction="#getRoomReservationPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Room Reservation" />
-      <!--                  <MFXButton fx:id="Admin_menu_giftbasket_delivery" onAction="#getGiftBasketRequestPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket Delivery" />-->
+                        <!--                  <MFXButton fx:id="Admin_menu_giftbasket_delivery" onAction="#getGiftBasketRequestPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket Delivery" />-->
                      </children>
                   </VBox>
                </children>

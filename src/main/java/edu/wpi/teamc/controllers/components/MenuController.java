@@ -682,6 +682,7 @@ public class MenuController {
               }
             });
     // get wpidb boolean and set toggle accordingly
+
     dbToggle.setSelected(!CApp.getWpiDB());
     dbToggle.setOnMouseClicked(
         event -> {

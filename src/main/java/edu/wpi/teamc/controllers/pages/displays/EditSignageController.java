@@ -6,6 +6,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -229,14 +230,28 @@ public class EditSignageController {
   @FXML
   void getDelete(ActionEvent event) {
     SignVersion selected = table2.getSelectionModel().getSelectedItem();
-    String macadd = selected.getSignEntries().get(0).getMacadd();
     if (selected != null) {
-      signSystem.removeSignVersion(selected);
-      if (signSystem.getSigns().containsKey(macadd)) {
-        this.updateCurrentSelectionSign();
-      } else {
-        this.loadSignTable();
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setTitle("Delete Sign");
+      alert.setHeaderText("Are you sure you want to delete this sign?");
+      alert.setContentText("This will delete the " + selected.getDate() + " version of the sign.");
+      Optional<ButtonType> result = alert.showAndWait();
+      if (result.get() == ButtonType.OK) {
+        String macadd = selected.getSignEntries().get(0).getMacadd();
+
+        signSystem.removeSignVersion(selected);
+        if (signSystem.getSigns().containsKey(macadd)) {
+          this.updateCurrentSelectionSign();
+        } else {
+          this.loadSignTable();
+        }
       }
+    } else {
+      Alert alert = new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("Error");
+      alert.setHeaderText("No sign version selected");
+      alert.setContentText("Please select a sign version to delete.");
+      alert.showAndWait();
     }
   }
 
@@ -488,6 +503,12 @@ public class EditSignageController {
           table1.getSelectionModel().select(selectedIndex);
           this.updateCurrentSelectionSign();
         }
+      } else {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("No Sign Version Selected");
+        alert.setContentText("Please select a sign version to edit");
+        alert.showAndWait();
       }
     } else {
       Sign newSign = new Sign();
@@ -587,6 +608,12 @@ public class EditSignageController {
       if (newVersion.getSignEntries().size() > 0) {
         signSystem.addSignVersion(newVersion);
         this.loadSignTable();
+      } else {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("No Sign Data Entered");
+        alert.setContentText("Please enter sign data to add a sign");
+        alert.showAndWait();
       }
     }
   }

@@ -88,8 +88,28 @@ public class MoveTableController {
 
   public void getDelete(ActionEvent event) {
     Move move = historyTable.getSelectionModel().getSelectedItem();
-    HospitalSystem.deleteRow(move);
-    rows.remove(move);
-    historyTable.getItems().setAll(rows);
+    if (!(move == null)) {
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setTitle("Delete Move");
+      alert.setHeaderText(
+          "Are you sure you want to delete this move: "
+              + move.getNodeID()
+              + " | "
+              + move.getDate()
+              + " ?");
+      alert.setContentText("This action cannot be undone.");
+      alert.showAndWait();
+      if (alert.getResult() == ButtonType.OK) {
+        HospitalSystem.deleteRow(move);
+        rows.remove(move);
+        historyTable.getItems().setAll(rows);
+      }
+    } else {
+      Alert alert = new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("Error");
+      alert.setHeaderText("No Move Selected");
+      alert.setContentText("Please select a move row on the table to delete.");
+      alert.showAndWait();
+    }
   }
 }

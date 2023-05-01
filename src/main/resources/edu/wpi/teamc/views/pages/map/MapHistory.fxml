@@ -7,6 +7,7 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.tableview2.FilteredTableView?>
 
+<?import javafx.scene.control.TableView?>
 <AnchorPane prefHeight="768.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.map.MapHistoryController">
     <children>
         <AnchorPane layoutX="400.0" layoutY="153.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
@@ -15,7 +16,7 @@
                     <children>
                         <AnchorPane style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
                             <children>
-                                <FilteredTableView fx:id="historyTable" layoutX="15.0" layoutY="15.0" prefHeight="775.0" prefWidth="1200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                                <TableView fx:id="historyTable" layoutX="15.0" layoutY="15.0" prefHeight="775.0" prefWidth="1200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                                     <columns>
                                         <TableColumn fx:id="ColumnOne" prefWidth="240" text="" />
                                         <TableColumn fx:id="ColumnTwo" prefWidth="240" text="" />
@@ -25,7 +26,7 @@
 <!--                                        <TableColumn fx:id="ColumnSix" prefWidth="171" text="" />-->
 <!--                                        <TableColumn fx:id="ColumnSeven" prefWidth="171" text="" />-->
                                     </columns>
-                                </FilteredTableView>
+                                </TableView>
                             </children>
                         </AnchorPane>
                     </children>

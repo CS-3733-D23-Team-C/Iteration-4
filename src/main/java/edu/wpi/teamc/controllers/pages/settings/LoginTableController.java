@@ -5,6 +5,7 @@ import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
 import edu.wpi.teamc.dao.users.login.Login;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.util.List;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,8 +20,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.control.tableview2.FilteredTableView;
-
-import java.util.List;
 
 public class LoginTableController {
 

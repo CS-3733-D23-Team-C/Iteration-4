@@ -28,11 +28,7 @@ public class Main {
         System.out.println("test screensaver - test screensaver");
       }
       if (command.equals("test screensaver")) {
-        try {
-          CApp.timerPopUp();
-        } catch (InterruptedException e) {
-          throw new RuntimeException(e);
-        }
+        CApp.logoutPopUp();
       }
     }
   }

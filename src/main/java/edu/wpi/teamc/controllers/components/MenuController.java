@@ -242,12 +242,6 @@ public class MenuController {
   }
 
   @FXML
-  void getLogOut(ActionEvent event) {
-    CApp.currScreen = Screen.HOME;
-    Navigation.navigate(Screen.HOME);
-  }
-
-  @FXML
   void getMapHistory(ActionEvent event) {
     CApp.currScreen = Screen.MAP_HISTORY_PAGE;
     Navigation.navigate(Screen.MAP_HISTORY_PAGE);
@@ -507,11 +501,7 @@ public class MenuController {
     logoutTrigger1.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
-          CApp.setAdminLoginCheck(false);
-          CApp.currScreen = Screen.HOME;
-          Navigation.clearCache();
-          Navigation.navigate(Screen.HOME);
-          Navigation.setMenuType(Navigation.MenuType.DISABLED);
+          CApp.logoutPopUp();
         });
     exitTrigger1.addEventFilter(
         MouseEvent.MOUSE_CLICKED,

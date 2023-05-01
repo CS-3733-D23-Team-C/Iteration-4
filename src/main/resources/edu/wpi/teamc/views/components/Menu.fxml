@@ -483,7 +483,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutPopOut4" layoutX="250.0" layoutY="1.0" prefHeight="550.0" prefWidth="128.0" style="-fx-background-color: transparent;" />
+      <AnchorPane fx:id="aboutPopOut4" layoutX="250.0" layoutY="1.0" prefHeight="550.0" prefWidth="128.0" style="-fx-background-color: blue;" />
       <AnchorPane fx:id="aboutRandyPopOut" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">

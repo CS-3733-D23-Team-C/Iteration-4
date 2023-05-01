@@ -53,7 +53,9 @@ public enum Screen {
 
   LOGIN_TABLE("views/pages/settings/LoginTable.fxml"),
   EMPLOYEETABLE_PAGE("views/pages/settings/EmployeeTable.fxml"),
-  IMPORT_EXPORT_PAGE("views/pages/settings/ImportExport.fxml");
+  IMPORT_EXPORT_PAGE("views/pages/settings/ImportExport.fxml"),
+
+  PATIENTTABLE_PAGE("views/pages/settings/PatientTable.fxml");
 
   private final String filename;
 

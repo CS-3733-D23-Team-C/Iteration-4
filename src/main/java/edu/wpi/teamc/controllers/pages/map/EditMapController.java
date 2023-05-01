@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -1677,8 +1679,8 @@ public class EditMapController {
           BorderPane borderPane = new BorderPane();
 
           Text headerText = new Text("Closings and Openings");
-          Text openingDesc = new Text("Input Closing Description");
-          Text closeDesc = new Text("Input Opening Description");
+          Text openingDesc = new Text("Input Opening Description");
+          Text closeDesc = new Text("Input Closing Description");
           MFXTextField openingInput = new MFXTextField();
           MFXTextField closingInput = new MFXTextField();
 
@@ -1756,11 +1758,17 @@ public class EditMapController {
           submitDescriptions.setOnMouseClicked(
               submitEvent -> {
                 LocalDate currDate = LocalDate.now();
-                Timestamp currTimestamp =
-                    new Timestamp(Integer.parseInt(String.valueOf(Date.valueOf(currDate))));
-                Timestamp endDate =
-                    new Timestamp(
-                        Integer.parseInt(String.valueOf(Date.valueOf(currDate.plusMonths(1)))));
+                LocalDateTime localDateTime = LocalDateTime.now();
+
+                Timestamp currTimestamp = Timestamp.valueOf(localDateTime);
+
+                //                    new
+                // Timestamp(Integer.parseInt(String.valueOf(Date.valueOf(currDate))));
+                Timestamp endDate = Timestamp.valueOf(localDateTime.plusMonths(1));
+
+                //                    new Timestamp(
+                //
+                // Integer.parseInt(String.valueOf(Date.valueOf(currDate.plusMonths(1)))));
                 int i = 0;
                 for (Node node : closeModeHelper.getToClose()) {
                   if (Objects.equals(node.getStatus(), NODE_STATUS.OPEN)) {
@@ -1771,10 +1779,17 @@ public class EditMapController {
                         new edu.wpi.teamc.dao.displays.Alert(
                             "Node Closed: " + closeModeHelper.getLongNameList().get(i),
                             closingInput.getText(),
-                            "Closing",
+                            "Closures",
                             currTimestamp,
                             endDate);
-                    alertDao.addRow(alert);
+                    HospitalSystem.addRow(alert);
+                    //                    PatientUserDao pddao = new PatientUserDao();
+                    //                    List<String> phones = pddao.listActivePhone();
+                    //                    for (int incr = 0; incr < phones.size(); incr++) {
+                    //                      SMSHelper.sendSMS(phones.get(incr),
+                    // closingInput.getText());
+                    //                    }
+                    //                    alertDao.addRow(alert);
                   } else {
                     node.setStatus(NODE_STATUS.OPEN);
                     HospitalSystem.updateRow(node);
@@ -1782,10 +1797,11 @@ public class EditMapController {
                         new edu.wpi.teamc.dao.displays.Alert(
                             "Node Opened: " + closeModeHelper.getLongNameList().get(i),
                             openingInput.getText(),
-                            "Closing",
+                            "Closures",
                             currTimestamp,
                             endDate);
-                    alertDao.addRow(alert);
+                    HospitalSystem.addRow(alert);
+                    //                    alertDao.addRow(alert);
                   }
                   i++;
                 }
@@ -1804,6 +1820,7 @@ public class EditMapController {
                 mapMode = HandleMapModes.MODIFY;
                 lockMap = false;
                 nodeClicked = false;
+                stage.close();
                 group.setOnMouseClicked(initGroupOnMouseClicked);
               });
         });
@@ -2065,20 +2082,8 @@ public class EditMapController {
         });
   }
 
-  public void moveMenu() { // make this a pop up window instead of a whole new scene?
+  public void moveMenu() {
     BorderPane borderPane = new BorderPane();
-
-    // Stuff to show on pop up
-    //    VBox vBox = new VBox();
-    //    Text remove_1 = new Text("move Node?");
-    //    Text remove_2 = new Text("move Node Location Name");
-    //    MFXButton moveNode = new MFXButton("move Node");
-    //    MFXButton moveName = new MFXButton("move Name");
-    //    Text headerText = new Text("Select Move Method");
-    //    Text moveByNodeID = new Text("Node ID to move to");
-    //    Text moveByLocationName = new Text("Name of location to move to");
-    //    MFXButton byNode = new MFXButton("By node ID");
-    //    MFXButton byLocationName = new MFXButton("By location name");
 
     Text dateText = new Text("Select a Date for the Move to Occur");
     DatePicker datePicker = new DatePicker();
@@ -2162,8 +2167,6 @@ public class EditMapController {
           }
         });
 
-    MoveDao moveDao = new MoveDao();
-
     confirmButton.setOnMouseClicked(
         event -> {
           Move move = new Move();
@@ -2172,30 +2175,21 @@ public class EditMapController {
           move.setDate(Date.valueOf(datePicker.getValue()));
           HospitalSystem.addRow(move);
 
-          LocalDate testDate = datePicker.getValue().plusMonths(1);
-          Date tempDate = Date.valueOf(testDate);
-          int intDate = Integer.parseInt(tempDate.toString());
-          Timestamp endDate2 = new Timestamp((long) intDate);
-
-          LocalDate testDate2 = datePicker.getValue();
-          Date tempDate2 = Date.valueOf(testDate2);
-          int intDate2 = Integer.parseInt(tempDate2.toString());
-          Timestamp startDate2 = new Timestamp((long) intDate2);
-
-          Timestamp endDate =
-              new Timestamp(Integer.parseInt(String.valueOf(datePicker.getValue().plusMonths(1))));
-          Timestamp startDate =
-              new Timestamp(Integer.parseInt(String.valueOf(datePicker.getValue())));
+          LocalDateTime futureDateTime =
+              LocalDateTime.of(
+                  LocalDate.from(datePicker.getValue().plusMonths(1)), LocalTime.of(0, 0, 0));
+          LocalDateTime moveDateTime =
+              LocalDateTime.of(LocalDate.from(datePicker.getValue()), LocalTime.of(0, 0, 0));
 
           edu.wpi.teamc.dao.displays.Alert alert =
               new edu.wpi.teamc.dao.displays.Alert(
                   "Node to be Moved: " + moveHelper.getLongname() + " to: " + currNodeLongname,
                   inputText.getText(),
-                  "Closure",
-                  startDate2,
-                  endDate2);
+                  "Other",
+                  Timestamp.valueOf(moveDateTime),
+                  Timestamp.valueOf(futureDateTime));
+          HospitalSystem.addRow(alert);
 
-          //        secondNodeClicked = false;
           moveHelper.setNodesClicked(0);
           lockMap = false;
           nodeClicked = false;
@@ -2204,7 +2198,6 @@ public class EditMapController {
           moveHelper.getCircle().setFill(Paint.valueOf("#13DAF7"));
           moveHelper.getCircle().setStroke(Paint.valueOf("#13DAF7"));
           stage.close();
-          alertDao.addRow(alert);
         });
 
     cancelButton.setOnMouseClicked(

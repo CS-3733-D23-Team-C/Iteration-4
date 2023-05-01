@@ -674,7 +674,7 @@
                               <Insets left="35.0" />
                            </VBox.margin>
                         </Line>
-                        <MFXButton fx:id="Admin_menu_reservation_history" onAction="#getRequestHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Requests History" />
+                        <MFXButton fx:id="Admin_menu_request_history" onAction="#getRequestHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Requests History" />
                         <MFXButton fx:id="Admin_menu_mapchange_history" onAction="#getMapHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Map Change History" />
                         <!--                  <MFXButton fx:id="Admin_menu_giftbasket_history" disable="true" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket History" />-->
                      </children>
@@ -706,7 +706,7 @@
                         <MFXButton fx:id="Admin_menu_editmap" onAction="#getEditMap" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Edit Map" />
                         <MFXButton fx:id="Admin_menu_movetable" onAction="#getMoveTable" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Move Table" />
                         <MFXButton fx:id="Admin_menu_signage" onAction="#getSignagePage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="View Signage" />
-                        <MFXButton fx:id="Admin_menu_furniture_history" onAction="#getSignageEdit" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Edit Signage" />
+                        <MFXButton fx:id="Admin_menu_edit_signage" onAction="#getSignageEdit" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Edit Signage" />
                      </children>
                   </VBox>
                </children>
@@ -719,7 +719,7 @@
                <children>
                   <VBox alignment="CENTER" layoutX="10.0" layoutY="15.0" prefHeight="159.0" prefWidth="220.0" spacing="5.0">
                      <children>
-                        <Text fx:id="Admin_menu_navigation1" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Recent Alerts" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                        <Text fx:id="Admin_menu_recent_alerts" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Recent Alerts" textAlignment="CENTER" wrappingWidth="155.40002518892288">
                            <font>
                               <Font name="Arial" size="18.0" />
                            </font>

@@ -1,6 +1,7 @@
 package edu.wpi.teamc.controllers.components;
 
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.notEnglish;
 
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
@@ -123,7 +124,7 @@ public class MenuController {
   @FXML private MFXButton Admin_menu_meal_history;
   @FXML private MFXButton Admin_menu_stationary_history;
   @FXML private MFXButton Admin_menu_mapchange_history;
-  @FXML private MFXButton Admin_menu_reservation_history;
+  @FXML private MFXButton Admin_menu_request_history;
   // @FXML private MFXButton Admin_menu_giftbasket_history;
   // NAVIGATION TEXT//
   @FXML private Text Admin_menu_navigation;
@@ -133,6 +134,7 @@ public class MenuController {
   @FXML private MFXButton Admin_menu_signage;
 
   // SERVICE REQUEST TEXT//
+  @FXML private MFXButton Admin_menu_alert_request;
   @FXML private Text Admin_menu_servicerequests;
   @FXML private MFXButton Admin_menu_flower_delivery;
   @FXML private MFXButton Admin_menu_furniture_delivery;
@@ -140,6 +142,10 @@ public class MenuController {
   @FXML private MFXButton Admin_menu_stationary_delivery;
   @FXML private MFXButton Admin_menu_room_reservation;
   // @FXML private MFXButton Admin_menu_giftbasket_delivery;
+  @FXML private Text Admin_menu_recent_alerts;
+  @FXML private MFXButton Admin_menu_login_table;
+  @FXML private MFXButton Admin_menu_import_export;
+  @FXML private MFXButton Admin_menu_edit_signage;
   @FXML private MFXButton Admin_menu_employee_table;
 
   @FXML private MFXButton Admin_menu_home_button;
@@ -326,7 +332,7 @@ public class MenuController {
 
   @FXML
   public void setlanguage() throws Exception {
-    if (language_choice == 0) {
+    if (language_choice == 0 && notEnglish == true) {
 
     } else {
       Admin_menu_home.setText(LanguageSet(Admin_menu_home.getText()));
@@ -340,7 +346,7 @@ public class MenuController {
       Admin_menu_settings.setText(LanguageSet(Admin_menu_settings.getText()));
       // HISTORY TEXT//
 
-      Admin_menu_history.setText(LanguageSet(Admin_menu_history.getText()));
+      Admin_menu_request_history.setText(LanguageSet(Admin_menu_request_history.getText()));
       Admin_menu_mapchange_history.setText(LanguageSet(Admin_menu_mapchange_history.getText()));
 
       // NAVIGATION TEXT//
@@ -349,7 +355,9 @@ public class MenuController {
       Admin_menu_editmap.setText(LanguageSet(Admin_menu_editmap.getText()));
       Admin_menu_movetable.setText(LanguageSet(Admin_menu_movetable.getText()));
       Admin_menu_signage.setText(LanguageSet(Admin_menu_signage.getText()));
+      Admin_menu_edit_signage.setText(LanguageSet(Admin_menu_edit_signage.getText()));
       // SERVICE REQUEST TEXT//
+      Admin_menu_alert_request.setText(LanguageSet(Admin_menu_alert_request.getText()));
       Admin_menu_servicerequests.setText(LanguageSet(Admin_menu_servicerequests.getText()));
       Admin_menu_flower_delivery.setText(LanguageSet(Admin_menu_flower_delivery.getText()));
       Admin_menu_furniture_delivery.setText(LanguageSet(Admin_menu_furniture_delivery.getText()));
@@ -358,9 +366,26 @@ public class MenuController {
       Admin_menu_room_reservation.setText(LanguageSet(Admin_menu_room_reservation.getText()));
       // Admin_menu_giftbasket_delivery.setText(LanguageSet(Admin_menu_giftbasket_delivery.getText()));
       Admin_menu_employee_table.setText(LanguageSet(Admin_menu_employee_table.getText()));
+      Admin_menu_recent_alerts.setText(LanguageSet(Admin_menu_recent_alerts.getText()));
+      alert1.setText(LanguageSet(alert1.getText()));
+      alert2.setText(LanguageSet(alert2.getText()));
+      alert3.setText(LanguageSet(alert3.getText()));
+      Admin_menu_login_table.setText(LanguageSet(Admin_menu_login_table.getText()));
+      Admin_menu_import_export.setText(LanguageSet(Admin_menu_import_export.getText()));
+      notEnglish = true;
+
+      //Other Stuff - Credits, About, etc.
+      Admin_menu_special_thanks.setText(LanguageSet(Admin_menu_special_thanks.getText()));
+      meetTheTeam.setText(LanguageSet(meetTheTeam.getText()));
+      Admin_menu_teamC.setText(LanguageSet(Admin_menu_teamC.getText()));
+      Admin_menu_CS3733.setText(LanguageSet(Admin_menu_CS3733.getText()));
     }
   }
 
+  //TEXTS FOR Other Stuff - Credits, About, etc.
+  @FXML private Text Admin_menu_special_thanks;
+@FXML private Text Admin_menu_teamC;
+@FXML private Text Admin_menu_CS3733;
   public EventHandler<ActionEvent> nothing() {
 
     return null;

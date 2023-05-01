@@ -1,6 +1,7 @@
 package edu.wpi.teamc.controllers.pages.admin;
 
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.notEnglish;
 
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
@@ -192,11 +193,12 @@ public class AdminHomeController {
 
   @FXML
   void setLanguage() throws Exception {
-    if (language_choice == 0) { // 0 is english
+    if (language_choice == 0 && notEnglish == false) { // 0 is english
     } else {
       AdminHome_Title.setText(LanguageSet(AdminHome_Title.getText()));
       weather_title.setText(LanguageSet(weather_title.getText()));
       notifications_title.setText(LanguageSet(notifications_title.getText()));
+      notEnglish = true;
     }
   }
 

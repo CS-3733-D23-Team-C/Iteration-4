@@ -470,7 +470,7 @@
                               <Insets left="130.0" top="70.0" />
                            </VBox.margin>
                         </StackPane>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="And thanks to Brigham and Women’s Hospital for their time and input!" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>

@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.pages;
 
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
@@ -15,7 +16,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class EmployeeTableController {
 
@@ -28,7 +28,7 @@ public class EmployeeTableController {
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }
 
-  @FXML private FilteredTableView<EmployeeUser> employeeTable;
+  @FXML private TableView<EmployeeUser> employeeTable;
 
   @FXML TableColumn<EmployeeUser, Integer> id;
   @FXML TableColumn<EmployeeUser, String> username;
@@ -105,6 +105,9 @@ public class EmployeeTableController {
           hospitalSystem.updateRow(getEmployeeUser());
           loadEmployees();
         });
+    employeeTable
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/requests/RequestHistory.css").toString());
   }
 
   private void loadEmployees() {

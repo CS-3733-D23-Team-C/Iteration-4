@@ -9,15 +9,16 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import lombok.Getter;
+import lombok.Setter;
 
 public class Login implements IOrm {
   @Getter private String username;
-  @Getter String email;
+  @Getter @Setter String email;
   @Getter String salt;
   @Getter String hashedPassword;
   private String otp;
   boolean OTPEnabled;
-  @Getter private PERMISSIONS permissions;
+  @Getter @Setter private PERMISSIONS permissions;
 
   public Login() {}
 
@@ -63,6 +64,10 @@ public class Login implements IOrm {
       this.otp = otp;
       OTPEnabled = true;
     }
+  }
+
+  public Login(String username) {
+    this.username = username.toLowerCase();
   }
 
   public String saltPassword() {
@@ -147,5 +152,10 @@ public class Login implements IOrm {
 
   String getOtp() {
     return otp;
+  }
+
+  public void setPassword(String text) {
+    this.salt = saltPassword();
+    this.hashedPassword = hashPassword(text + this.salt);
   }
 }

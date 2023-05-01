@@ -1,4 +1,4 @@
-package edu.wpi.teamc.controllers.pages;
+package edu.wpi.teamc.controllers.pages.settings;
 
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.users.EmployeeUser;
@@ -13,7 +13,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.controlsfx.control.tableview2.FilteredTableView;
 

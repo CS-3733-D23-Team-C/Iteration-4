@@ -6,16 +6,19 @@ import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.displays.Alert;
+import edu.wpi.teamc.languageHelpers.TranslatorAPI;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-import javafx.animation.PauseTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -160,6 +163,8 @@ public class MenuController {
   @FXML private StackPane Chao;
   @FXML private AnchorPane aboutPopOut4;
   @FXML private AnchorPane aboutRandyPopOut;
+
+  @FXML private Label menuClock;
 
   // LANGUAGE TEXT//
 
@@ -308,6 +313,11 @@ public class MenuController {
     Navigation.navigate(Screen.LOGIN_TABLE);
   }
 
+  public void getImportExportPage(ActionEvent actionEvent) {
+    CApp.currScreen = Screen.IMPORT_EXPORT_PAGE;
+    Navigation.navigate(Screen.IMPORT_EXPORT_PAGE);
+  }
+
   @FXML ImageView appIcon;
   @FXML ImageView bellIcon;
   @FXML ImageView navIcon;
@@ -323,16 +333,6 @@ public class MenuController {
   //  Login login = new Login();
   //  @FXML MFXButton moveButton;
 
-  //    @FXML
-  //    void getGiftBasketHistory(ActionEvent event) {
-  //        Navigation.navigate(Screen.GIFTBASKET_HISTORY);
-  //    }
-
-  //  @FXML
-  //  void getMapPage(ActionEvent event) {
-  //    Navigation.navigate(Screen.FLOOR_PLAN);
-  //  }
-
   @FXML
   void getHelpage(ActionEvent event) {
     Navigation.navigate(Screen.HELP);
@@ -342,75 +342,39 @@ public class MenuController {
   void receiveWarning() {}
 
   @FXML
-  public void setlanguage(int language_choice) {
+  public void setlanguage() throws Exception {
     if (language_choice == 0) {
-      Admin_menu_home.setText("Home");
-      Admin_menu_about_button.setText("About");
-      Admin_menu_credits.setText("Credits");
-      Admin_menu_home_button.setText("Home");
 
-      Admin_menu_logout.setText("Logout");
-      Admin_menu_exit.setText("Exit");
-      Admin_menu_helpmenu.setText("Help Menu");
-      Admin_menu_settings.setText("Settings");
-      // HISTORY TEXT//
-      Admin_menu_history.setText("History");
-      //      Admin_menu_flower_history.setText("Flower Delivery");
-      //      Admin_menu_furniture_history.setText("Furniture Delivery");
-      //      Admin_menu_meal_history.setText("Meal Delivery");
-      //      Admin_menu_stationary_history.setText("Office Supplies");
-      Admin_menu_mapchange_history.setText("Map Changes");
-      //      Admin_menu_reservation_history.setText("Room Reservations");
-      // Admin_menu_giftbasket_history.setText("Gift Basket Delivery");
-      // NAVIGATION TEXT//
-      Admin_menu_navigation.setText("Navigation");
-      Admin_menu_directions.setText("Directions");
-      Admin_menu_editmap.setText("Edit Map");
-      Admin_menu_movetable.setText("Move Table");
-      Admin_menu_signage.setText("Signage");
-      // SERVICE REQUEST TEXT//
-      Admin_menu_servicerequests.setText("Service Requests");
-      Admin_menu_flower_delivery.setText("Flower Delivery");
-      Admin_menu_furniture_delivery.setText("Furniture Delivery");
-      Admin_menu_meal_delivery.setText("Meal Delivery");
-      Admin_menu_stationary_delivery.setText("Office Supplies");
-      Admin_menu_room_reservation.setText("Room Reservations");
-      // Admin_menu_giftbasket_delivery.setText("Gift Basket Delivery");
-      Admin_menu_employee_table.setText("Employee Table");
-    } else if (language_choice == 1) {
-      Admin_menu_home.setText("Accueil");
-      Admin_menu_about_button.setText("Acerca");
-      Admin_menu_credits.setText("Creditos");
-      Admin_menu_home_button.setText("Accueil");
+    } else {
+      Admin_menu_home.setText(LanguageSet(Admin_menu_home.getText()));
+      Admin_menu_about_button.setText(LanguageSet(Admin_menu_about_button.getText()));
+      Admin_menu_credits.setText(LanguageSet(Admin_menu_credits.getText()));
+      Admin_menu_home_button.setText(LanguageSet(Admin_menu_home_button.getText()));
 
-      Admin_menu_logout.setText("Se d" + "\u00e9" + "connecter");
-      Admin_menu_exit.setText("Sortie");
-      Admin_menu_helpmenu.setText("Menu d'aide");
-      Admin_menu_settings.setText("Param" + "\u00e9" + "tres");
+      Admin_menu_logout.setText(LanguageSet(Admin_menu_logout.getText()));
+      Admin_menu_exit.setText(LanguageSet(Admin_menu_exit.getText()));
+      Admin_menu_helpmenu.setText(LanguageSet(Admin_menu_helpmenu.getText()));
+      Admin_menu_settings.setText(LanguageSet(Admin_menu_settings.getText()));
       // HISTORY TEXT//
-      Admin_menu_history.setText("Histoire");
-      Admin_menu_flower_history.setText("Livraison de fleurs");
-      Admin_menu_furniture_history.setText("Livraison de meubles");
-      Admin_menu_meal_history.setText("Livraison de repas");
-      Admin_menu_stationary_history.setText("Fournitures de bureau");
-      Admin_menu_mapchange_history.setText("Changements de carte");
-      Admin_menu_reservation_history.setText("R" + "\u00e9" + "servations de salles");
-      // Admin_menu_giftbasket_history.setText("Livraison de paniers-cadeaux");
+
+      Admin_menu_history.setText(LanguageSet(Admin_menu_history.getText()));
+      Admin_menu_mapchange_history.setText(LanguageSet(Admin_menu_mapchange_history.getText()));
+
       // NAVIGATION TEXT//
-      Admin_menu_navigation.setText("Navigation");
-      Admin_menu_directions.setText("Directions");
-      Admin_menu_editmap.setText("Modifier la carte");
-      Admin_menu_movetable.setText("D" + "\u00e9" + "placer la table");
-      Admin_menu_signage.setText("Signalisation");
+      Admin_menu_navigation.setText(LanguageSet(Admin_menu_navigation.getText()));
+      Admin_menu_directions.setText(LanguageSet(Admin_menu_directions.getText()));
+      Admin_menu_editmap.setText(LanguageSet(Admin_menu_editmap.getText()));
+      Admin_menu_movetable.setText(LanguageSet(Admin_menu_movetable.getText()));
+      Admin_menu_signage.setText(LanguageSet(Admin_menu_signage.getText()));
       // SERVICE REQUEST TEXT//
-      Admin_menu_servicerequests.setText("Demandes de service");
-      Admin_menu_flower_delivery.setText("Livraison de fleurs");
-      Admin_menu_furniture_delivery.setText("Livraison de meubles");
-      Admin_menu_meal_delivery.setText("Livraison de repas");
-      Admin_menu_stationary_delivery.setText("Fournitures de bureau");
-      Admin_menu_room_reservation.setText("R" + "\u00e9" + "servations de salles");
-      // Admin_menu_giftbasket_delivery.setText("Livraison de paniers-cadeaux");
-      Admin_menu_employee_table.setText("Table d'employ" + "\u00e9" + "");
+      Admin_menu_servicerequests.setText(LanguageSet(Admin_menu_servicerequests.getText()));
+      Admin_menu_flower_delivery.setText(LanguageSet(Admin_menu_flower_delivery.getText()));
+      Admin_menu_furniture_delivery.setText(LanguageSet(Admin_menu_furniture_delivery.getText()));
+      Admin_menu_meal_delivery.setText(LanguageSet(Admin_menu_meal_delivery.getText()));
+      Admin_menu_stationary_delivery.setText(LanguageSet(Admin_menu_stationary_delivery.getText()));
+      Admin_menu_room_reservation.setText(LanguageSet(Admin_menu_room_reservation.getText()));
+      // Admin_menu_giftbasket_delivery.setText(LanguageSet(Admin_menu_giftbasket_delivery.getText()));
+      Admin_menu_employee_table.setText(LanguageSet(Admin_menu_employee_table.getText()));
     }
   }
 
@@ -420,7 +384,7 @@ public class MenuController {
   }
 
   @FXML
-  public void initialize() {
+  public void initialize() throws Exception {
 
     List<Alert> alertList = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
     int alertListSize = alertList.size();
@@ -434,7 +398,7 @@ public class MenuController {
     alert3.setText(
         alertList.get(recentAlert3).getType() + ": " + alertList.get(recentAlert3).getTitle());
 
-    setlanguage(language_choice);
+    setlanguage();
     homeTrigger1.setVisible(false);
     serviceRequestTrigger1.setVisible(false);
     navigationTrigger1.setVisible(false);
@@ -561,12 +525,14 @@ public class MenuController {
         event -> {
           CApp.setAdminLoginCheck(false);
           CApp.currScreen = Screen.HOME;
+          Navigation.clearCache();
           Navigation.navigate(Screen.HOME);
           Navigation.setMenuType(Navigation.MenuType.DISABLED);
         });
     exitTrigger1.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
+          Navigation.clearCache();
           Navigation.navigate(Screen.EXIT_PAGE);
           Navigation.setMenuType(Navigation.MenuType.DISABLED);
         });
@@ -755,6 +721,7 @@ public class MenuController {
           dbToggle.setSelected(!CApp.wpiDB);
           //          dbToggle.fire();
           System.out.println("DB: " + CApp.wpiDB);
+          Navigation.clearCache();
           Navigation.navigate(CApp.currScreen);
         });
 
@@ -1594,5 +1561,31 @@ public class MenuController {
                 warningPopOutTransition.play();
               }
             });
+
+    Timeline clock =
+        new Timeline(
+            new KeyFrame(
+                Duration.ZERO,
+                e ->
+                    menuClock.setText(
+                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh:mm\na")))),
+            new KeyFrame(Duration.seconds(1)));
+    clock.setCycleCount(Animation.INDEFINITE);
+    clock.play();
+  }
+
+  // TRANSLATOR//
+  public TranslatorAPI translatorAPI = new TranslatorAPI();
+
+  @FXML
+  String LanguageSet(String text) throws Exception {
+    if (language_choice == 0) { // 0 is english
+      text = translatorAPI.translateToEn(text);
+    } else if (language_choice == 1) { // 1 is spanish
+      text = translatorAPI.translateToSp(text);
+    } else if (language_choice == 2) { // 2 is Chinese
+      text = translatorAPI.translateToZh(text);
+    }
+    return text;
   }
 }

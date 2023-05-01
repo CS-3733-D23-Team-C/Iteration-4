@@ -11,6 +11,7 @@ public class MoveHelper {
   Node node;
   int nodesClicked;
   Circle circle;
+  String longname;
 
   public MoveHelper() {}
 

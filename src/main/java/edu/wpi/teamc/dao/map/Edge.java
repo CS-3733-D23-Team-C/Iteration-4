@@ -13,6 +13,8 @@ public class Edge implements IOrm {
     this.endNode = endNode;
   }
 
+  public Edge() {}
+
   public int getStartNode() {
     return startNode;
   }

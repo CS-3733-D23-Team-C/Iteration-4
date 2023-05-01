@@ -44,6 +44,10 @@ public class SignEntryDao implements IDao<SignEntry, SignEntry> {
     return returnList;
   }
 
+  public static List<SignEntry> fetchAllObjectsExport() {
+    return null;
+  }
+
   @Override
   public SignEntry updateRow(SignEntry type, SignEntry type2) {
     return null;

@@ -16,6 +16,8 @@ public class AlignModeHelper {
   int alignY;
   Circle circle;
   List<Circle> circToAlign = new ArrayList<Circle>();
+  List<Node> lastAlignedNode = new ArrayList<Node>();
+  List<Circle> lastAlignedCirc = new ArrayList<Circle>();
 
   public AlignModeHelper() {}
 

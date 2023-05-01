@@ -346,6 +346,7 @@ public class MenuController {
       Admin_menu_settings.setText(LanguageSet(Admin_menu_settings.getText()));
       // HISTORY TEXT//
 
+      Admin_menu_history.setText(LanguageSet(Admin_menu_history.getText()));
       Admin_menu_request_history.setText(LanguageSet(Admin_menu_request_history.getText()));
       Admin_menu_mapchange_history.setText(LanguageSet(Admin_menu_mapchange_history.getText()));
 
@@ -374,18 +375,39 @@ public class MenuController {
       Admin_menu_import_export.setText(LanguageSet(Admin_menu_import_export.getText()));
       notEnglish = true;
 
-      //Other Stuff - Credits, About, etc.
-      Admin_menu_special_thanks.setText(LanguageSet(Admin_menu_special_thanks.getText()));
+      // Other Stuff - Credits, About, etc.
+      About_special_thanks.setText(LanguageSet(About_special_thanks.getText()));
       meetTheTeam.setText(LanguageSet(meetTheTeam.getText()));
-      Admin_menu_teamC.setText(LanguageSet(Admin_menu_teamC.getText()));
-      Admin_menu_CS3733.setText(LanguageSet(Admin_menu_CS3733.getText()));
+      About_teamC.setText(LanguageSet(About_teamC.getText()));
+      About_CS3733.setText(LanguageSet(About_CS3733.getText()));
+      About_WPICS.setText(LanguageSet(About_WPICS.getText()));
+      About_This.setText(LanguageSet(About_This.getText()));
+      About_text.setText(LanguageSet(About_text.getText()));
+      About_And_thanks.setText(LanguageSet(About_And_thanks.getText()));
+      About_created.setText(LanguageSet(About_created.getText()));
+
+      Credits_text.setText(LanguageSet(Credits_text.getText()));
+      Credits_API.setText(LanguageSet(Credits_API.getText()));
+      Credits_Thanks.setText(LanguageSet(Credits_Thanks.getText()));
+      Credits_Floors.setText(LanguageSet(Credits_Floors.getText()));
     }
   }
 
-  //TEXTS FOR Other Stuff - Credits, About, etc.
-  @FXML private Text Admin_menu_special_thanks;
-@FXML private Text Admin_menu_teamC;
-@FXML private Text Admin_menu_CS3733;
+  // TEXTS FOR Other Stuff - Credits, About, etc.
+  @FXML private Text Credits_text;
+  @FXML private Text Credits_API;
+  @FXML private Text Credits_Thanks;
+  @FXML private Text Credits_Floors;
+
+  @FXML private Text About_special_thanks;
+  @FXML private Text About_created;
+  @FXML private Text About_teamC;
+  @FXML private Text About_CS3733;
+  @FXML private Text About_text;
+  @FXML private Text About_WPICS;
+  @FXML private Text About_This;
+  @FXML private Text About_And_thanks;
+
   public EventHandler<ActionEvent> nothing() {
 
     return null;

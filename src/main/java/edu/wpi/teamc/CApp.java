@@ -81,7 +81,7 @@ public class CApp extends Application {
     AnchorPane aPane = new AnchorPane();
     aPane.getChildren().addAll(headerText, building, cancel, logoutButton);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 410, 225);
+    Scene scene = new Scene(borderPane, 330, 165);
     scene
         .getStylesheets()
         .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());

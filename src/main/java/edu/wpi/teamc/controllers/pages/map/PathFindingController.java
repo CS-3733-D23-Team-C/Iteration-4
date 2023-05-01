@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.pages.map;
 
+import com.fazecast.jSerialComm.SerialPort;
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.controllers.pages.map.MapHelpers.ArrowHelper;
 import edu.wpi.teamc.controllers.pages.map.MapHelpers.TextDirectionsHelper;
@@ -60,6 +61,7 @@ public class PathFindingController {
   @FXML MFXButton qrCode;
   @FXML MFXButton floorButton;
   @FXML MFXTextField message;
+  @FXML MFXButton robotButton;
   private MFXButton tempSave;
   private final Paint DEFAULT_BG = Paint.valueOf("#bebebe");
   private Group mapNodes = new Group();
@@ -94,6 +96,7 @@ public class PathFindingController {
     submit.setDisable(true);
     textDir.setDisable(true);
     qrCode.setDisable(true);
+    robotButton.setDisable(true);
     message.setEditable(true);
     startChoice.setValue("75 Lobby");
     Image image = this.image;
@@ -107,6 +110,7 @@ public class PathFindingController {
     pane.setMinHeight(image.getHeight());
     pane.setMaxHeight(image.getHeight());
     pane.relocate(0, 0);
+//    robotButton.setOnAction();
 
     Point2D centrePoint = new Point2D(1100, 400);
     mapGPane.centreOn(centrePoint);
@@ -447,6 +451,7 @@ public class PathFindingController {
   void getSubmit(ActionEvent event) throws IOException {
     nextFloor.setDisable(false);
     textDir.setDisable(false);
+    robotButton.setDisable(false);
     qrCode.setDisable(false);
     prevFloor.setDisable(true);
     edges.getChildren().clear();
@@ -672,6 +677,53 @@ public class PathFindingController {
     stage.setTitle("Text Directions");
     stage.show();
     stage.setAlwaysOnTop(true);
+  }
+
+  public void sendToRobot(List<Node> currentPath) {
+    SerialPort[] ports = SerialPort.getCommPorts();
+    //        List<Node> currentPath = new ArrayList<Node>();
+
+    if (ports.length != 0) {
+      System.out.println(ports[0]);
+      ports[0].setComPortParameters(115200, 8, 1, SerialPort.NO_PARITY);
+      ports[0].setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 16); // Blocking write
+
+      if (ports[0].openPort(16)) {
+        int numMessages = currentPath.size();
+        byte[] bytes = {
+                (byte) (numMessages / 1000 % 10),
+                (byte) (numMessages / 100 % 10),
+                (byte) (numMessages / 10 % 10),
+                (byte) (numMessages % 10),
+                10
+        };
+        ports[0].writeBytes(bytes, bytes.length);
+      }
+
+      for (Node node : currentPath) {
+        if (ports[0].isOpen() || ports[0].openPort(16)) {
+          //            System.out.println("Port opened successfully");
+          int x = node.getXCoord();
+          int y = node.getYCoord();
+          byte[] bytes = {
+                  (byte) (x / 1000 % 10), (byte) (x / 100 % 10), (byte) (x / 10 % 10), (byte) (x % 10), 10
+          };
+          ports[0].writeBytes(bytes, bytes.length);
+          byte[] bytes2 = {
+                  (byte) (y / 1000 % 10), (byte) (y / 100 % 10), (byte) (y / 10 % 10), (byte) (y % 10), 10
+          };
+          ports[0].writeBytes(bytes2, bytes2.length);
+          System.out.println(bytes.toString() + "sent");
+          System.out.println(bytes2.toString() + "sent");
+        } else {
+          System.out.println("Failed to open port");
+          System.out.println(ports[0].getLastErrorCode());
+        }
+      }
+
+      ports[0].closePort();
+      //        System.out.println("Port closed");
+    }
   }
 
   void activateSubmit() {

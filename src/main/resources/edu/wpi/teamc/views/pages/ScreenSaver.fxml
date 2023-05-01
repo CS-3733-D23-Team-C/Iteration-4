@@ -35,7 +35,7 @@
          <children>
             <ImageView fitHeight="408.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.25;">
                <image>
-                  <Image url="@../images/homeButton.png" />
+                  <Image url="@../images/homeButton2.png" />
                </image>
             </ImageView>
          </children>

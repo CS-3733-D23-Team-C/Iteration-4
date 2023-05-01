@@ -34,6 +34,7 @@ public class CApp extends Application {
   }
 
   public static void timeOut() {
+    // 480000
     PauseTransition startPause = new PauseTransition(Duration.millis(480000));
     startPause.setOnFinished(
         (event -> {

@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.IOrm;
 import edu.wpi.teamc.dao.ImportCSV;
@@ -92,8 +93,6 @@ public class RequestHistoryController {
 
   RequestSystem requestSystem = new RequestSystem(new ArrayList<>());
 
-
-
   /** Method run when controller is initialized */
   public void initialize() {
     this.getConference();
@@ -146,12 +145,29 @@ public class RequestHistoryController {
           }
         });
 
-    historyTable.getStyleClass().add("table-view");
-    historyTable.getStyleClass().add("column-header-background");
-    historyTable.getStyleClass().add("corner");
-
-
-
+    //    historyTable.getStyleClass().add("table-view");
+    //    historyTable.getStyleClass().add("column-header-background");
+    //    historyTable.getStyleClass().add("corner");
+    //
+    //    historyTable.setStyle("-fx-opacity: 0; -fx-background-color: #02143B;  -fx-text-fill:
+    // white;");
+    //    historyTable.getRowHeader()
+    //        .setStyle("-fx-opacity: 1; -fx-background-color: red; -fx-text-fill: white;");
+    //    Column1.setStyle("-fx-opacity: 0.5; -fx-background-color: #02143B; -fx-text-fill:
+    // white;");
+    //    Column2.setStyle("-fx-opacity: 1; -fx-background-color: #02143B; -fx-text-fill: white;");
+    //    Column3.setStyle("-fx-opacity: 0.5; -fx-background-color: #02143B; -fx-text-fill:
+    // white;");
+    //    Column4.setStyle("-fx-opacity: 1; -fx-background-color: #02143B; -fx-text-fill: white;");
+    //    Column5.setStyle("-fx-opacity: 0.5; -fx-background-color: #02143B; -fx-text-fill:
+    // white;");
+    //    Column6.setStyle("-fx-opacity: 1; -fx-background-color: #02143B; -fx-text-fill: white;");
+    //    Column7.setStyle("-fx-opacity: 0.5; -fx-background-color: #02143B; -fx-text-fill:
+    // white;");
+    //    Column8.setStyle("-fx-opacity: 1; -fx-background-color: #02143B; -fx-text-fill: white;");
+    historyTable
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/requests/RequestHistory.css").toString());
   }
 
   public void filterView() {

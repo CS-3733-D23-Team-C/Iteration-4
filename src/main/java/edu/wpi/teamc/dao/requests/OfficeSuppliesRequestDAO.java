@@ -164,22 +164,22 @@ public class OfficeSuppliesRequestDAO implements IDao<OfficeSuppliesRequest, Int
     BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
     // Write the header row to the CSV file
     writer.write(
-        "requestid,requester,roomname,status,additionalnotes,eta,officesupplytype,assignedto\n");
+        "requestid,requester,status,additionalnotes,officesupplytype,eta,roomname,assignedto\n");
     for (OfficeSuppliesRequest officeSuppliesRequest : fetchAllObjects()) {
       writer.write(
           officeSuppliesRequest.getRequestID()
               + ","
               + officeSuppliesRequest.getRequester()
               + ","
-              + officeSuppliesRequest.getRoomName()
-              + ","
               + officeSuppliesRequest.getStatus()
               + ","
               + officeSuppliesRequest.getAdditionalNotes()
               + ","
+              + officeSuppliesRequest.getOfficesupplytype()
+              + ","
               + officeSuppliesRequest.getEta()
               + ","
-              + officeSuppliesRequest.getOfficesupplytype()
+              + officeSuppliesRequest.getRoomName()
               + ","
               + officeSuppliesRequest.getAssignedto()
               + "\n");

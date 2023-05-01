@@ -163,7 +163,7 @@ public class EdgeDao implements IDao<Edge, Edge> {
     createFile(CSVfilepath);
     BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
     // Write the header row to the CSV file
-    writer.write("startNodeID,endNodeID\n");
+    writer.write("startNode,endNode\n");
     for (Edge edge : fetchAllObjects()) {
       writer.write(edge.getStartNode() + "," + edge.getEndNode() + "\n");
     }

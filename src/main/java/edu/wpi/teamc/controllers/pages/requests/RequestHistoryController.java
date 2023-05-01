@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.IOrm;
 import edu.wpi.teamc.dao.ImportCSV;
@@ -25,13 +26,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
 import org.controlsfx.control.SearchableComboBox;
-import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class RequestHistoryController {
 
   public SearchableComboBox filterByStatusField;
   String buttonColor = "-fx-background-color: white; -fx-text-fill: #02143B;";
   String selectedButtonColor = "-fx-background-color: #FCC201; -fx-text-fill: #02143B;";
+
   @FXML private Button conference;
   @FXML private Button flower;
   @FXML private Button meal;
@@ -40,7 +41,7 @@ public class RequestHistoryController {
 
   @FXML private Button giftBasket;
 
-  @FXML private FilteredTableView historyTable;
+  @FXML private TableView historyTable;
   @FXML TableColumn Column1;
   @FXML TableColumn Column2;
   @FXML TableColumn Column3;
@@ -141,6 +142,30 @@ public class RequestHistoryController {
             throw new RuntimeException(e);
           }
         });
+
+    //    historyTable.getStyleClass().add("table-view");
+    //    historyTable.getStyleClass().add("column-header-background");
+    //    historyTable.getStyleClass().add("corner");
+    //
+    //    historyTable.setStyle("-fx-opacity: 0; -fx-background-color: #02143B;  -fx-text-fill:
+    // white;");
+    //    historyTable.getRowHeader()
+    //        .setStyle("-fx-opacity: 1; -fx-background-color: red; -fx-text-fill: white;");
+    //    Column1.setStyle("-fx-opacity: 0.5; -fx-background-color: #02143B; -fx-text-fill:
+    // white;");
+    //    Column2.setStyle("-fx-opacity: 1; -fx-background-color: #02143B; -fx-text-fill: white;");
+    //    Column3.setStyle("-fx-opacity: 0.5; -fx-background-color: #02143B; -fx-text-fill:
+    // white;");
+    //    Column4.setStyle("-fx-opacity: 1; -fx-background-color: #02143B; -fx-text-fill: white;");
+    //    Column5.setStyle("-fx-opacity: 0.5; -fx-background-color: #02143B; -fx-text-fill:
+    // white;");
+    //    Column6.setStyle("-fx-opacity: 1; -fx-background-color: #02143B; -fx-text-fill: white;");
+    //    Column7.setStyle("-fx-opacity: 0.5; -fx-background-color: #02143B; -fx-text-fill:
+    // white;");
+    //    Column8.setStyle("-fx-opacity: 1; -fx-background-color: #02143B; -fx-text-fill: white;");
+    historyTable
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/requests/RequestHistory.css").toString());
   }
 
   public void filterView() {

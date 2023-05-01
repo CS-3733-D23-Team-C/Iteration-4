@@ -43,7 +43,10 @@ public class CApp extends Application {
     startPause.play();
   }
 
+  static volatile boolean logoutOpen = false;
+
   public static void logoutPopUp() {
+    if (logoutOpen) return;
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
@@ -80,7 +83,7 @@ public class CApp extends Application {
     AnchorPane aPane = new AnchorPane();
     aPane.getChildren().addAll(headerText, building, cancel, logoutButton);
     borderPane.getChildren().add(aPane);
-    Scene scene = new Scene(borderPane, 410, 225);
+    Scene scene = new Scene(borderPane, 330, 165);
     scene
         .getStylesheets()
         .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
@@ -89,6 +92,7 @@ public class CApp extends Application {
     stage.setScene(scene);
     stage.setTitle("Log Out");
     stage.setAlwaysOnTop(true);
+    logoutOpen = true;
     stage.show();
     int[] seconds = new int[1];
     seconds[0] = 10;
@@ -111,11 +115,13 @@ public class CApp extends Application {
     cancel.setOnAction(
         (event -> {
           stage.close();
+          logoutOpen = false;
         }));
 
     logoutButton.setOnAction(
         (event -> {
           stage.close();
+          logoutOpen = false;
           CApp.setAdminLoginCheck(false);
           CApp.currScreen = Screen.HOME;
           Navigation.clearCache();
@@ -132,6 +138,7 @@ public class CApp extends Application {
             return;
           } else {
             stage.close();
+            logoutOpen = false;
             CApp.setAdminLoginCheck(false);
             CApp.currScreen = Screen.SCREENSAVER;
             Navigation.clearCache();

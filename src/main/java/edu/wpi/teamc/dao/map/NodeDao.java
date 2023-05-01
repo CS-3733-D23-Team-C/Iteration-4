@@ -266,7 +266,7 @@ public class NodeDao implements IDao<Node, Integer> {
     createFile(CSVfilepath);
     BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
     // Write the header row to the CSV file
-    writer.write("nodeID,xCoord,yCoord,floor,building,status\n");
+    writer.write("nodeID,xcoord,ycoord,floorNum,building,status\n");
     // Write each Node into the CSV file
     for (Node node : fetchAllObjects()) {
       writer.write(

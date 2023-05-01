@@ -1283,11 +1283,11 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="settingsPopOut1" layoutX="-110.0" layoutY="276.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="276.0">
+      <AnchorPane fx:id="settingsPopOut1" layoutX="-110.0" layoutY="276.0" prefHeight="175.0" prefWidth="180.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="276.0">
          <children>
-            <Pane fx:id="settingsPopOut" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+            <Pane fx:id="settingsPopOut" prefHeight="179.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
-                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="80.0" prefWidth="150.0" spacing="5.0">
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="163.0" prefWidth="156.0" spacing="5.0">
                      <children>
                         <Text fx:id="Admin_menu_settings" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" textAlignment="CENTER" wrappingWidth="155.40002518892288">
                            <font>
@@ -1305,9 +1305,9 @@
                         <MFXButton fx:id="Admin_menu_employee_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Employee Table" />
                         <MFXButton fx:id="Admin_menu_login_table" onAction="#getLoginTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Login Table" />
                         <MFXButton fx:id="Admin_menu_import_export" layoutX="10.0" layoutY="74.0" onAction="#getImportExportPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Import/Export" />
-                        <HBox>
+                        <HBox alignment="CENTER">
                            <children>
-                              <Label text="AWS database" />
+                              <Label style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold;" text="AWS database" textFill="#02143b" />
                               <ToggleSwitch fx:id="dbToggle" />
                            </children>
                         </HBox>

@@ -37,7 +37,7 @@
                                        <children>
                                           <HBox>
                                              <children>
-                                                <MFXButton onAction="#getImportNodes" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Nodes" textFill="WHITE">
+                                                <MFXButton fx:id="importNodes" onAction="#getImportNodes" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Nodes" textFill="WHITE">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
@@ -45,7 +45,7 @@
                                                       <Insets right="10.0" />
                                                    </HBox.margin>
                                                 </MFXButton>
-                                                <MFXButton layoutX="10.0" layoutY="10.0" onAction="#getImportEdges" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Edge" textFill="WHITE">
+                                                <MFXButton fx:id="importEdges" layoutX="10.0" layoutY="10.0" onAction="#getImportEdges" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Edge" textFill="WHITE">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
@@ -53,7 +53,7 @@
                                                       <Insets right="10.0" />
                                                    </HBox.margin>
                                                 </MFXButton>
-                                                <MFXButton layoutX="110.0" layoutY="10.0" onAction="#getImportMoves" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Move" textFill="WHITE">
+                                                <MFXButton fx:id="importMoves" layoutX="110.0" layoutY="10.0" onAction="#getImportMoves" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Move" textFill="WHITE">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
@@ -61,7 +61,7 @@
                                                       <Insets right="10.0" />
                                                    </HBox.margin>
                                                 </MFXButton>
-                                                <MFXButton layoutX="210.0" layoutY="10.0" onAction="#getImportLocations" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Location name" textFill="WHITE">
+                                                <MFXButton fx:id="importLocations" layoutX="210.0" layoutY="10.0" onAction="#getImportLocations" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Location name" textFill="WHITE">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
@@ -115,7 +115,7 @@
                                        <children>
                                           <HBox>
                                              <children>
-                                                <MFXButton onAction="#getImportConferenceRoom" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Conference Room" textFill="WHITE">
+                                                <MFXButton fx:id="ImportConferenceRoom" onAction="#getImportConferenceRoom" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Conference Room" textFill="WHITE">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
@@ -123,7 +123,7 @@
                                                       <Insets right="10.0" />
                                                    </HBox.margin>
                                                 </MFXButton>
-                                                <MFXButton layoutX="10.0" layoutY="10.0" onAction="#getImportFlower" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Flower" textFill="WHITE">
+                                                <MFXButton fx:id="ImportFlower" layoutX="10.0" layoutY="10.0" onAction="#getImportFlower" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Flower" textFill="WHITE">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
@@ -131,7 +131,7 @@
                                                       <Insets right="10.0" />
                                                    </HBox.margin>
                                                 </MFXButton>
-                                                <MFXButton layoutX="110.0" layoutY="10.0" onAction="#getImportFurniture" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Furniture" textFill="WHITE">
+                                                <MFXButton fx:id="ImportFurniture" layoutX="110.0" layoutY="10.0" onAction="#getImportFurniture" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Furniture" textFill="WHITE">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
@@ -139,19 +139,19 @@
                                                       <Insets right="10.0" />
                                                    </HBox.margin>
                                                 </MFXButton>
-                                                <MFXButton onAction="#getImportGiftBasket" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Gift Basket" textFill="WHITE">
+                                                <MFXButton fx:id="ImportGiftBasket" onAction="#getImportGiftBasket" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Gift Basket" textFill="WHITE">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
                                                    <HBox.margin>
-                                                      <Insets right="10.0" />
+                                                      <Insets />
                                                    </HBox.margin>
                                                 </MFXButton>
                                              </children>
                                           </HBox>
                                           <HBox layoutX="10.0" layoutY="10.0">
                                              <children>
-                                                <MFXButton onAction="#getImportMeal" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Meal" textFill="WHITE">
+                                                <MFXButton fx:id="ImportMeal" onAction="#getImportMeal" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Meal" textFill="WHITE">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
@@ -159,7 +159,7 @@
                                                       <Insets right="10.0" />
                                                    </HBox.margin>
                                                 </MFXButton>
-                                                <MFXButton onAction="#getImportOfficeSupply" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Office Supplies" textFill="WHITE">
+                                                <MFXButton fx:id="ImportOfficeSupply" onAction="#getImportOfficeSupply" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Office Supplies" textFill="WHITE">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
@@ -215,7 +215,7 @@
                                              <children>
                                                 <HBox>
                                                    <children>
-                                                      <MFXButton onAction="#getImportEmployee" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Employee" textFill="WHITE">
+                                                      <MFXButton fx:id="ImportEmployee" onAction="#getImportEmployee" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Employee" textFill="WHITE">
                                                          <cursor>
                                                             <Cursor fx:constant="HAND" />
                                                          </cursor>
@@ -223,7 +223,7 @@
                                                             <Insets right="10.0" />
                                                          </HBox.margin>
                                                       </MFXButton>
-                                                      <MFXButton layoutX="10.0" layoutY="10.0" onAction="#getImportLogin" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Login" textFill="WHITE">
+                                                      <MFXButton fx:id="ImportLogin" layoutX="10.0" layoutY="10.0" onAction="#getImportLogin" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Login" textFill="WHITE">
                                                          <cursor>
                                                             <Cursor fx:constant="HAND" />
                                                          </cursor>
@@ -238,7 +238,7 @@
                                                 </HBox>
                                                 <HBox layoutX="10.0" layoutY="10.0">
                                                    <children>
-                                                      <MFXButton onAction="#getImportPatient" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Patient" textFill="WHITE">
+                                                      <MFXButton fx:id="ImportPatient" onAction="#getImportPatient" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Patient" textFill="WHITE">
                                                          <cursor>
                                                             <Cursor fx:constant="HAND" />
                                                          </cursor>
@@ -292,7 +292,7 @@
                                              <children>
                                                 <HBox>
                                                    <children>
-                                                      <MFXButton onAction="#getImportAlerts" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Alerts" textFill="WHITE">
+                                                      <MFXButton fx:id="ImportAlerts" onAction="#getImportAlerts" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Alerts" textFill="WHITE">
                                                          <cursor>
                                                             <Cursor fx:constant="HAND" />
                                                          </cursor>
@@ -300,7 +300,7 @@
                                                             <Insets right="10.0" />
                                                          </HBox.margin>
                                                       </MFXButton>
-                                                      <MFXButton layoutX="10.0" layoutY="10.0" onAction="#getImportSignage" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Signage" textFill="WHITE">
+                                                      <MFXButton fx:id="ImportSignage" layoutX="10.0" layoutY="10.0" onAction="#getImportSignage" prefHeight="35.0" prefWidth="120.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Signage" textFill="WHITE">
                                                          <cursor>
                                                             <Cursor fx:constant="HAND" />
                                                          </cursor>
@@ -399,24 +399,6 @@
                                              </children>
                                           </HBox>
                                           <HBox alignment="TOP_RIGHT" layoutX="10.0" layoutY="10.0">
-                                             <children>
-                                                <MFXButton onAction="#getGoHome" prefHeight="26.0" prefWidth="80.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Cancel" textFill="WHITE">
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                   <HBox.margin>
-                                                      <Insets right="10.0" />
-                                                   </HBox.margin>
-                                                </MFXButton>
-                                                <MFXButton layoutX="220.0" layoutY="10.0" onAction="#getGoHome" prefHeight="26.0" prefWidth="80.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Submit" textFill="WHITE">
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                   <HBox.margin>
-                                                      <Insets />
-                                                   </HBox.margin>
-                                                </MFXButton>
-                                             </children>
                                              <VBox.margin>
                                                 <Insets top="10.0" />
                                              </VBox.margin>
@@ -494,24 +476,6 @@
                                              </children>
                                           </HBox>
                                           <HBox alignment="TOP_RIGHT" layoutX="10.0" layoutY="10.0">
-                                             <children>
-                                                <MFXButton onAction="#getGoHome" prefHeight="26.0" prefWidth="80.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Cancel" textFill="WHITE">
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                   <HBox.margin>
-                                                      <Insets right="10.0" />
-                                                   </HBox.margin>
-                                                </MFXButton>
-                                                <MFXButton layoutX="220.0" layoutY="10.0" onAction="#getGoHome" prefHeight="26.0" prefWidth="80.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Submit" textFill="WHITE">
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                   <HBox.margin>
-                                                      <Insets />
-                                                   </HBox.margin>
-                                                </MFXButton>
-                                             </children>
                                              <VBox.margin>
                                                 <Insets top="10.0" />
                                              </VBox.margin>
@@ -573,24 +537,6 @@
                                                    </children>
                                                 </HBox>
                                                 <HBox alignment="TOP_RIGHT" layoutX="10.0" layoutY="10.0">
-                                                   <children>
-                                                      <MFXButton onAction="#getGoHome" prefHeight="26.0" prefWidth="80.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Cancel" textFill="WHITE">
-                                                         <cursor>
-                                                            <Cursor fx:constant="HAND" />
-                                                         </cursor>
-                                                         <HBox.margin>
-                                                            <Insets right="10.0" />
-                                                         </HBox.margin>
-                                                      </MFXButton>
-                                                      <MFXButton layoutX="220.0" layoutY="10.0" onAction="#getGoHome" prefHeight="26.0" prefWidth="80.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Submit" textFill="WHITE">
-                                                         <cursor>
-                                                            <Cursor fx:constant="HAND" />
-                                                         </cursor>
-                                                         <HBox.margin>
-                                                            <Insets right="10.0" />
-                                                         </HBox.margin>
-                                                      </MFXButton>
-                                                   </children>
                                                    <VBox.margin>
                                                       <Insets top="10.0" />
                                                    </VBox.margin>
@@ -639,24 +585,6 @@
                                                 </HBox>
                                                 <HBox layoutX="10.0" layoutY="10.0" />
                                                 <HBox alignment="TOP_RIGHT" layoutX="10.0" layoutY="10.0">
-                                                   <children>
-                                                      <MFXButton onAction="#getGoHome" prefHeight="26.0" prefWidth="80.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Cancel" textFill="WHITE">
-                                                         <cursor>
-                                                            <Cursor fx:constant="HAND" />
-                                                         </cursor>
-                                                         <HBox.margin>
-                                                            <Insets right="10.0" />
-                                                         </HBox.margin>
-                                                      </MFXButton>
-                                                      <MFXButton layoutX="220.0" layoutY="10.0" onAction="#getGoHome" prefHeight="26.0" prefWidth="80.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Submit" textFill="WHITE">
-                                                         <cursor>
-                                                            <Cursor fx:constant="HAND" />
-                                                         </cursor>
-                                                         <HBox.margin>
-                                                            <Insets right="10.0" />
-                                                         </HBox.margin>
-                                                      </MFXButton>
-                                                   </children>
                                                    <VBox.margin>
                                                       <Insets top="45.0" />
                                                    </VBox.margin>

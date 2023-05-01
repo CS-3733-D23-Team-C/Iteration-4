@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.pages.guest;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import java.time.LocalDateTime;
@@ -150,8 +151,7 @@ public class GuestMenuController {
     logoutTrigger.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.navigate(Screen.HOME);
-          Navigation.setMenuType(Navigation.MenuType.DISABLED);
+          CApp.logoutPopUp();
         });
     exitTrigger.addEventFilter(
         MouseEvent.MOUSE_CLICKED,

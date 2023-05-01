@@ -31,5 +31,15 @@ public class Main {
         CApp.logoutPopUp();
       }
     }
+
+    //    ImportCSV importCSV = new ImportCSV();
+    //    boolean test =
+    //        importCSV.importMapCSV(
+    //            "src/main/resources/edu/wpi/teamc/Node.csv",
+    //            "src/main/resources/edu/wpi/teamc/Edge.csv",
+    //            "src/main/resources/edu/wpi/teamc/Move.csv",
+    //            "src/main/resources/edu/wpi/teamc/LocationName.csv");
+    //
+    //    System.out.println(test);
   }
 }

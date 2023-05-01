@@ -25,13 +25,10 @@ import org.controlsfx.control.tableview2.FilteredTableView;
 public class EditSignageController {
   String buttonColor = "-fx-background-color: white; -fx-text-fill: #02143B;";
   String selectedButtonColor = "-fx-background-color: #FCC201; -fx-text-fill: #02143B;";
-  @FXML private Text AdminHome_Title;
 
   @FXML private Button add;
 
   @FXML private DatePicker date;
-
-  @FXML private Button delete;
 
   @FXML private SearchableComboBox<String> direction1;
 
@@ -62,8 +59,6 @@ public class EditSignageController {
   @FXML private TextField signID;
 
   @FXML private TextField signName;
-
-  @FXML private Button submit;
 
   @FXML private FilteredTableView<Sign> table1;
 

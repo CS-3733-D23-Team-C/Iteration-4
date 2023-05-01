@@ -1,5 +1,8 @@
 package edu.wpi.teamc;
 
+import static java.lang.System.exit;
+
+import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class Main {
@@ -28,7 +31,7 @@ public class Main {
         CApp.logoutPopUp();
       }
     }
-    
+
     //    ImportCSV importCSV = new ImportCSV();
     //    boolean test =
     //        importCSV.importMapCSV(

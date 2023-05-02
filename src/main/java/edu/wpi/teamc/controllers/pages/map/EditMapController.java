@@ -92,7 +92,7 @@ public class EditMapController {
   @FXML MFXButton FL3;
   @FXML MFXButton FLB1;
   @FXML MFXButton FLB2;
-  @FXML MFXButton selectButton;
+  MFXButton selectButton;
   @FXML MFXButton floorButton;
   @FXML MFXButton modeButton;
   @FXML VBox importMenu;
@@ -324,10 +324,12 @@ public class EditMapController {
     mapMode = HandleMapModes.SELECT;
     checkAndX_HBox.setMouseTransparent(true);
     checkAndX_HBox1.setMouseTransparent(true);
-    selectButton.setBackground(Background.fill(Paint.valueOf("#EAB334")));
-    selectButton.setStyle(
-        "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12; -fx-background-color: #EAB334");
-    modeResetterHelper.setButton(selectButton);
+    //    selectButton.setBackground(Background.fill(Paint.valueOf("#EAB334")));
+    //    selectButton.setStyle(
+    //        "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold;
+    // -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12; -fx-background-color:
+    // #EAB334");
+    //    modeResetterHelper.setButton(selectButton);
     String defaultButtonStyle = FL1.getStyle();
     importButton.setStyle(defaultButtonStyle);
     exportButton.setStyle(defaultButtonStyle);
@@ -923,13 +925,14 @@ public class EditMapController {
   public void changeMapMode(ActionEvent event) {
     if (!dragModeOn) {
       modeButton = (MFXButton) event.getTarget();
-      if (Objects.equals(modeButton.getId(), "selectButton")) {
-        mapMode = HandleMapModes.SELECT;
-        resetAndSetModes(modeButton);
-        System.out.println("select mode");
-        edgeMadeText.setText("");
-        edgeMadeText.setVisible(false);
-      } else if (Objects.equals(modeButton.getId(), "Add")) {
+      //      if (Objects.equals(modeButton.getId(), "selectButton")) {
+      //        mapMode = HandleMapModes.SELECT;
+      //        resetAndSetModes(modeButton);
+      //        System.out.println("select mode");
+      //        edgeMadeText.setText("");
+      //        edgeMadeText.setVisible(false);
+      //      }
+      if (Objects.equals(modeButton.getId(), "Add")) {
         mapMode = HandleMapModes.ADD;
         resetAndSetModes(modeButton);
         edgeMadeText.setText("");
@@ -1375,13 +1378,6 @@ public class EditMapController {
   }
 
   public void resetAndSetModes(MFXButton button) {
-    button.setButtonType(ButtonType.FLAT);
-    button.setDepthLevel(DepthLevel.LEVEL2);
-    button.setRippleAnimateBackground(true);
-    button.setStyle(
-        "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12; -fx-background-color: #EAB334");
-    //    button.setBackground(Background.fill(Paint.valueOf("#EAB334")));
-
     modeResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
     modeResetterHelper.getButton().setRippleAnimateBackground(true);
     //    modeResetterHelper.getButton().setDepthLevel(DepthLevel.LEVEL4);
@@ -1391,6 +1387,11 @@ public class EditMapController {
         .getButton()
         .setStyle(
             "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12");
+    button.setButtonType(ButtonType.FLAT);
+    button.setDepthLevel(DepthLevel.LEVEL2);
+    button.setRippleAnimateBackground(true);
+    button.setStyle(
+        "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12; -fx-background-color: #EAB334");
     modeResetterHelper.setButton(button);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;
@@ -2172,8 +2173,10 @@ public class EditMapController {
     confirmButton.setOnMouseClicked(
         event -> {
           Move move = new Move();
-          move.setNodeID(moveHelper.getNode().getNodeID());
-          move.setLongName(currNodeLongname);
+          move.setNodeID(currNodeClicked.getNodeID());
+          move.setLongName(moveHelper.getLongname());
+          //          move.setNodeID(moveHelper.getNode().getNodeID());
+          //          move.setLongName(currNodeLongname);
           move.setDate(Date.valueOf(datePicker.getValue()));
           HospitalSystem.addRow(move);
 

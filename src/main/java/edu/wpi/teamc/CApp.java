@@ -162,7 +162,7 @@ public class CApp extends Application {
     final Scene scene = new Scene(root);
     primaryStage.setScene(scene);
     primaryStage.show();
-    Navigation.navigate(Screen.GIFT_BASKET);
+    Navigation.navigate(Screen.HOME);
 
     CApp.timeOut();
   }

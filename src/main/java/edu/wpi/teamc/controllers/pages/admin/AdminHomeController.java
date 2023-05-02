@@ -6,6 +6,7 @@ import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.displays.Alert;
+import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.languageHelpers.TranslatorAPI;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import java.awt.*;
@@ -39,7 +40,9 @@ public class AdminHomeController {
   // ALL TEXT//
   @FXML private Text AdminHome_Title;
   @FXML private VBox notificationVBox;
+  @FXML private VBox TODOVBox;
   @FXML private MFXScrollPane notificationBox;
+  @FXML private MFXScrollPane TODOBox;
 
   @FXML private TextField weather_title;
   @FXML private TextField notifications_title;
@@ -49,12 +52,60 @@ public class AdminHomeController {
   //      login = loginDao.;
   //    }
 
+  RequestSystem requestSystem = new RequestSystem();
   SVGImage img = SVGLoader.load("http://www.w3.org/2000/svg");
 
   public int shiftlines(String s) {
     int count = s.length();
     int lines = count / 56;
     return lines;
+  }
+
+  public void addTask(AbsServiceRequest request) {
+
+    // for each request in the list, create a box with the title and description
+    Text title = new Text("");
+    if (request instanceof ConferenceRoomRequest) {
+      title = new Text("Conference Room Request");
+    } else if (request instanceof FlowerDeliveryRequest) {
+      title = new Text("Flower Delivery Request");
+    } else if (request instanceof FurnitureDeliveryRequest) {
+      title = new Text("Furniture Delivery Request");
+    } else if (request instanceof GiftBasketRequest) {
+      title = new Text("Gift Basket Request");
+    } else if (request instanceof MealRequest) {
+      title = new Text("Meal Request");
+    } else if (request instanceof OfficeSuppliesRequest) {
+      title = new Text("Office Supplies Request");
+    }
+    Text desc = new Text(request.getRequestID() + " | " + request.getRequester().getName());
+
+    HBox hBox = new HBox();
+    HBox container = new HBox();
+    VBox vBox = new VBox();
+
+    hBox.setMaxHeight(shiftlines(title.getText()) * 45);
+    hBox.setAlignment(Pos.CENTER_LEFT);
+    hBox.setSpacing(20);
+    container.setSpacing(20);
+    hBox.setStyle(
+        "-fx-background-color: #ffffff;-fx-border-width: 1; -fx-max-width:650; -fx-padding: 5 10 5 10;"
+            + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
+
+    title.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+    desc.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
+    //      Image img = choosePNG(type);
+    //      javafx.scene.image.ImageView imgView = new javafx.scene.image.ImageView(img);
+    //      hBox.getChildren().add(imgView);
+    title.setWrappingWidth(300);
+    desc.setWrappingWidth(300);
+    vBox.getChildren().add(title);
+    vBox.getChildren().add(desc);
+    hBox.getChildren().add(vBox);
+    container.getChildren().add(hBox);
+    BorderColor("Other", container);
+
+    TODOVBox.getChildren().add(0, container);
   }
 
   public void addNotification(String notification, String description, String type)
@@ -127,6 +178,29 @@ public class AdminHomeController {
 
   @FXML
   public void initialize() throws Exception {
+    this.initNotification();
+    this.initTodo();
+    if (!CApp.getAdminLoginCheck()) {
+      AdminHome_Title.setText("Staff Home Page");
+    }
+    setLanguage();
+  }
+
+  private void initTodo() {
+    TODOVBox.setAlignment(Pos.TOP_CENTER);
+    TODOVBox.setSpacing(20);
+    TODOVBox.setMinWidth(TODOBox.getWidth());
+
+    RequestSystem requestSystem = new RequestSystem();
+    List<AbsServiceRequest> filteredList =
+        requestSystem.filterRequest(CApp.getCurrLogin(), STATUS.PENDING);
+    for (AbsServiceRequest a : filteredList) {
+      this.addTask(a);
+    }
+  }
+
+  @FXML
+  public void initNotification() throws Exception {
     notificationVBox.setAlignment(Pos.TOP_CENTER);
     notificationVBox.setSpacing(20);
     notificationVBox.setMinWidth(notificationBox.getWidth());
@@ -134,19 +208,13 @@ public class AdminHomeController {
     java.util.List<Alert> alertList = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
     for (Alert alert : alertList) {
       if (language_choice == 0) { // English
-
-        addNotification(alert.getTitle(), alert.getDescription(), alert.getType());
+        this.addNotification(alert.getTitle(), alert.getDescription(), alert.getType());
       } else {
-        addNotification(
+        this.addNotification(
             LanguageSet(alert.getTitle()), LanguageSet(alert.getDescription()), alert.getType());
       }
     }
-    if (!CApp.getAdminLoginCheck()) {
-      AdminHome_Title.setText("Staff Home Page");
-    }
-    setLanguage();
   }
-
   // SVG Function for Notification//
   @FXML
   public javafx.scene.image.Image choosePNG(String type) throws IOException {

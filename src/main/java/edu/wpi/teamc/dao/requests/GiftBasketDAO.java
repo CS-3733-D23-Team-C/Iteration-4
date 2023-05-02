@@ -24,29 +24,30 @@ public class GiftBasketDAO implements IDao<GiftBasketRequest, Integer> {
     try {
       Statement stmt = db.getConnection().createStatement();
       // Table Name
-      String table = "\"ServiceRequests\".\"GiftBasketRequest\"";
+      String table = "\"ServiceRequests\".\"giftBasketRequest\"";
       // Query
       String query = "SELECT * FROM " + table;
       ResultSet rs = stmt.executeQuery(query);
       while (rs.next()) {
         // Get all the data from the table
-        int requestID = rs.getInt("requestID");
+        int requestID = rs.getInt("requestid");
         String requester = rs.getString("requester");
         String status = rs.getString("status");
-        String additionalNotes = rs.getString("additionalNotes");
-        String deliveryTime = rs.getString("ETA");
+        String additionalNotes = rs.getString("additionalnotes");
+        String deliveryTime = rs.getString("eta");
         String roomName = rs.getString("roomName");
-        String assignedTo = rs.getString("assignedTo");
-        String gift = rs.getString("giftBasket");
+        String assignedTo = rs.getString("assignedto");
+        String giftbasket = rs.getString("giftbasket");
         GiftBasketRequest request =
             new GiftBasketRequest(
                 requestID,
                 new PatientUser(requester),
-                roomName,
                 additionalNotes,
-                new GiftBasket(gift, ""));
+                giftbasket,
+                deliveryTime,
+                roomName);
 
-        request.setEta(deliveryTime);
+        //        request.setEta(deliveryTime);
         request.setStatus(STATUS.valueOf(status));
         request.setAssignedto(assignedTo);
 
@@ -63,21 +64,21 @@ public class GiftBasketDAO implements IDao<GiftBasketRequest, Integer> {
     try {
       Statement stmtNode = db.getConnection().createStatement();
       String query =
-          "INSERT INTO \"ServiceRequests\".\"giftBasketRequest\" (requester, status, additionalNotes, giftBasket, eta, assignedto) VALUES (?,?,?,?,?,?,?)";
+          "INSERT INTO \"ServiceRequests\".\"giftBasketRequest\" (requester, roomname, additionalnotes, giftbasket, eta, status, assignedto) VALUES (?,?,?,?,?,?,?)";
       PreparedStatement ps =
           db.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
       ps.setString(1, orm.getRequester().toString());
-      ps.setString(4, orm.getGift().toString());
+      ps.setString(2, orm.getRoomName());
       ps.setString(3, orm.getAdditionalNotes());
+      ps.setString(4, orm.getGiftbasket().toString());
       ps.setString(5, orm.getEta());
-      ps.setString(6, orm.getRoomName());
-      ps.setString(2, orm.getStatus().toString());
+      ps.setString(6, orm.getStatus().toString());
       ps.setString(7, orm.getAssignedto());
       ps.executeUpdate();
 
       ResultSet rs = ps.getGeneratedKeys();
       rs.next();
-      orm.requestID = (rs.getInt("requestID"));
+      orm.requestID = (rs.getInt("requestid"));
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -91,13 +92,13 @@ public class GiftBasketDAO implements IDao<GiftBasketRequest, Integer> {
     try {
       Statement stmtNode = db.getConnection().createStatement();
       String query =
-          "UPDATE \"ServiceRequests\".\"giftBasketRequest\" SET requestID = ?, requester = ?, status = ?, additionalnotes = ?, GiftBasket = ?, eta= ?, roomname = ?, assignedto = ? WHERE requestID = ?";
+          "UPDATE \"ServiceRequests\".\"giftBasketRequest\" SET requestid = ?, requester = ?, status = ?, additionalnotes = ?, giftbasket = ?, eta= ?, roomname = ?, assignedto = ? WHERE requestid = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setInt(1, orm2.getRequestID());
       ps.setString(2, orm2.getRequester().toString());
       ps.setString(3, orm2.getStatus().toString());
       ps.setString(4, orm2.getAdditionalNotes());
-      ps.setString(5, orm2.getGift().toString());
+      ps.setString(5, orm2.getGiftbasket().toString());
       ps.setString(6, orm2.getEta());
       ps.setString(7, orm2.getRoomName());
       ps.setString(8, orm2.getAssignedto());
@@ -116,7 +117,7 @@ public class GiftBasketDAO implements IDao<GiftBasketRequest, Integer> {
     GiftBasketRequest request = null;
     try {
       Statement stmtNode = db.getConnection().createStatement();
-      String query = "DELETE FROM \"ServiceRequests\".\"giftBasketRequest\" WHERE requestID = ?";
+      String query = "DELETE FROM \"ServiceRequests\".\"giftBasketRequest\" WHERE requestid = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setInt(1, orm.getRequestID());
       ps.executeUpdate();
@@ -136,24 +137,25 @@ public class GiftBasketDAO implements IDao<GiftBasketRequest, Integer> {
       // Table Name
       String table = "\"ServiceRequests\".\"giftBasketRequest\"";
       // Query
-      String query = "SELECT * FROM " + table + " WHERE requestID = " + key;
+      String query = "SELECT * FROM " + table + " WHERE requestid = " + key;
       ResultSet rs = stmt.executeQuery(query);
       while (rs.next()) {
         // Get all the data from the table
-        int requestID = rs.getInt("requestID");
-        String requester = rs.getString("Requester");
-        String GiftBasketType = rs.getString("GiftBasket");
-        String roomName = rs.getString("roomName");
-        String additionalNotes = rs.getString("additionalNotes");
-        String deliveryTime = rs.getString("ETA");
+        int requestID = rs.getInt("requestid");
+        String requester = rs.getString("requester");
+        String giftbasket = rs.getString("giftbasket");
+        String roomName = rs.getString("roomname");
+        String additionalNotes = rs.getString("additionalnotes");
+        String deliveryTime = rs.getString("eta");
         request =
             new GiftBasketRequest(
                 requestID,
                 new PatientUser(requester),
                 roomName,
                 additionalNotes,
-                new GiftBasket(GiftBasketType, ""));
-        request.setEta(deliveryTime);
+                giftbasket,
+                deliveryTime);
+        //        request.setEta(deliveryTime);
         request.setStatus(STATUS.valueOf(rs.getString("status")));
         request.setAssignedto(rs.getString("assignedto"));
       }
@@ -167,7 +169,7 @@ public class GiftBasketDAO implements IDao<GiftBasketRequest, Integer> {
     createFile(CSVfilepath);
     BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
     // Write the header row to the CSV file
-    writer.write("requestid,requester,status,additionalnotes,GiftBasket,eta,roomname,assignedto\n");
+    writer.write("requestid,requester,status,additionalnotes,giftbasket,eta,roomname,assignedto\n");
     for (GiftBasketRequest GiftBasketRequest : fetchAllObjects()) {
       writer.write(
           GiftBasketRequest.getRequestID()
@@ -178,7 +180,7 @@ public class GiftBasketDAO implements IDao<GiftBasketRequest, Integer> {
               + ","
               + GiftBasketRequest.getAdditionalNotes()
               + ","
-              + GiftBasketRequest.getGift()
+              + GiftBasketRequest.getGiftbasket()
               + ","
               + GiftBasketRequest.getEta()
               + ","

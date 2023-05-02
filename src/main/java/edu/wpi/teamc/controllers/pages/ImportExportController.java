@@ -75,7 +75,7 @@ public class ImportExportController {
   // User imports
   private String[] selectedUsersFilePaths = new String[3];
   final String employeeHeader = "id,username,name,department,position";
-  final String loginHeader = "username,password,permissions,salt,otp";
+  final String loginHeader = "username,password,permissions,salt,otp,email";
   final String patientHeader = "id,name,checkin,checkout,phone,room,activetext";
   // Displays imports
   private String[] selectedDisplaysFilePaths = new String[2];
@@ -331,7 +331,7 @@ public class ImportExportController {
     String loginFilePath = selectedUsersFilePaths[1];
     String patientFilePath = selectedUsersFilePaths[2];
     if (employeeFilePath != null && loginFilePath != null) {
-      ImportCSV.importEmployeeCSV(employeeFilePath, loginFilePath);
+      ImportCSV.importEmployeeCSV(loginFilePath, employeeFilePath);
     }
     if (patientFilePath != null) {
       ImportCSV.importPatientCSV(patientFilePath);

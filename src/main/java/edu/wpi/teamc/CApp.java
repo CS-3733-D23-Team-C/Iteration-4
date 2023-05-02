@@ -27,6 +27,7 @@ public class CApp extends Application {
   @Getter @Setter private static Boolean adminLoginCheck = false;
   @Getter @Setter public static Boolean wpiDB = true;
   @Getter @Setter public static Screen currScreen = Screen.HOME;
+  @Getter @Setter public static String currLogin = null;
 
   @Override
   public void init() {
@@ -124,7 +125,7 @@ public class CApp extends Application {
           logoutOpen = false;
           CApp.setAdminLoginCheck(false);
           CApp.currScreen = Screen.HOME;
-          Navigation.clearCache();
+          //          Navigation.clearCache();
           Navigation.navigate(Screen.HOME);
           Navigation.setMenuType(Navigation.MenuType.DISABLED);
         }));
@@ -141,7 +142,7 @@ public class CApp extends Application {
             logoutOpen = false;
             CApp.setAdminLoginCheck(false);
             CApp.currScreen = Screen.SCREENSAVER;
-            Navigation.clearCache();
+            //            Navigation.clearCache();
             Navigation.navigate(Screen.SCREENSAVER);
             Navigation.setMenuType(Navigation.MenuType.DISABLED);
           }

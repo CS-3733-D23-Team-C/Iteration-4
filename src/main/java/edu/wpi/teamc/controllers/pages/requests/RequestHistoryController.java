@@ -215,6 +215,8 @@ public class RequestHistoryController {
       this.getFurniture();
     } else if (selected instanceof OfficeSuppliesRequest) {
       this.getOfficeSupply();
+    } else if (selected instanceof GiftBasketRequest) {
+      this.getGiftBasket();
     }
   }
 
@@ -406,12 +408,46 @@ public class RequestHistoryController {
     historyTable.setItems(rows);
   }
 
+  @FXML
+  public void getGiftBasket() {
+    this.resetColor();
+    this.clearCurrentSelection();
+    giftBasket.setStyle(selectedButtonColor);
+    selectedRequest = new GiftBasketRequest();
+    ObservableList<GiftBasketRequest> rows = FXCollections.observableArrayList();
+    Column1.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, Integer>("requestID"));
+    Column2.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, IUser>("requester"));
+    Column3.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, String>("roomName"));
+    Column4.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, String>("gifttype"));
+    Column5.setCellValueFactory(
+        new PropertyValueFactory<GiftBasketRequest, String>("additionalNotes"));
+    Column6.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, STATUS>("status"));
+    Column7.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, String>("eta"));
+    Column8.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, String>("assignedto"));
+    Column1.setText("ID");
+    Column2.setText("Requester");
+    Column3.setText("Room Name");
+    Column4.setText("Gift");
+    Column5.setText("Additional Notes");
+    Column6.setText("Status");
+    Column7.setText("ETA");
+    Column8.setText("Assigned To");
+    GiftBasketDAO dao = new GiftBasketDAO();
+    List<GiftBasketRequest> list = dao.fetchAllObjects();
+    for (GiftBasketRequest r : list) {
+      rows.add(r);
+    }
+    requestSystem.setRequests(new ArrayList<>(list));
+    historyTable.setItems(rows);
+  }
+
   private void resetColor() {
     conference.setStyle(buttonColor);
     flower.setStyle(buttonColor);
     meal.setStyle(buttonColor);
     furniture.setStyle(buttonColor);
     officeSupply.setStyle(buttonColor);
+    giftBasket.setStyle(buttonColor);
   }
 
   //  @FXML
@@ -444,6 +480,9 @@ public class RequestHistoryController {
       } else if (selectedRequest instanceof OfficeSuppliesRequest) {
         OfficeSuppliesRequestDAO officeSuppliesRequestDAO = new OfficeSuppliesRequestDAO();
         officeSuppliesRequestDAO.exportCSV(filePath);
+      } else if (selectedRequest instanceof GiftBasketRequest) {
+        GiftBasketDAO giftBasketDAO = new GiftBasketDAO();
+        giftBasketDAO.exportCSV(filePath);
       }
     }
   }
@@ -475,6 +514,9 @@ public class RequestHistoryController {
     } else if (selectedRequest instanceof OfficeSuppliesRequest) {
       ImportCSV.importOfficeSupplyRequestCSV(filePath);
       this.getOfficeSupply();
+    } else if (selectedRequest instanceof GiftBasketRequest) {
+      ImportCSV.importGiftBasketRequestCSV(filePath);
+      this.getGiftBasket();
     }
     // TODO
   }
@@ -505,39 +547,5 @@ public class RequestHistoryController {
     getSwitch(selectedRequest);
     this.filterByStatusField.getSelectionModel().select(null);
     this.filterByEmployeeField.getSelectionModel().select(null);
-  }
-
-  public void getGiftBasket(ActionEvent actionEvent) {
-    this.resetColor();
-    this.clearCurrentSelection();
-    giftBasket.setStyle(selectedButtonColor);
-    selectedRequest = new GiftBasketRequest();
-    ObservableList<GiftBasketRequest> rows = FXCollections.observableArrayList();
-    Column1.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, Integer>("requestID"));
-    Column2.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, IUser>("requester"));
-    Column6.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, STATUS>("eta"));
-    Column4.setCellValueFactory(
-        new PropertyValueFactory<GiftBasketRequest, String>("additionalnotes"));
-    Column5.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, String>("giftbasket"));
-    Column3.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, STATUS>("status"));
-    Column7.setCellValueFactory(
-        new PropertyValueFactory<OfficeSuppliesRequest, String>("roomname"));
-    Column8.setCellValueFactory(
-        new PropertyValueFactory<OfficeSuppliesRequest, String>("assignedto"));
-    Column1.setText("ID");
-    Column2.setText("Requester");
-    Column3.setText("Status");
-    Column4.setText("Additional Notes");
-    Column5.setText("Basket Type");
-    Column6.setText("ETA");
-    Column7.setText("Room Name");
-    Column8.setText("Assigned To");
-    GiftBasketDAO dao = new GiftBasketDAO();
-    List<GiftBasketRequest> list = dao.fetchAllObjects();
-    for (GiftBasketRequest r : list) {
-      rows.add(r);
-    }
-    requestSystem.setRequests(new ArrayList<>(list));
-    historyTable.setItems(rows);
   }
 }

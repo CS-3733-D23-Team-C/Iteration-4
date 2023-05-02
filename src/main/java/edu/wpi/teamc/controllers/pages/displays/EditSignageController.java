@@ -21,7 +21,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
-import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class EditSignageController {
   String buttonColor = "-fx-background-color: white; -fx-text-fill: #02143B;";
@@ -61,9 +60,9 @@ public class EditSignageController {
 
   @FXML private TextField signName;
 
-  @FXML private FilteredTableView<Sign> table1;
+  @FXML private TableView<Sign> table1;
 
-  @FXML private FilteredTableView<SignVersion> table2;
+  @FXML private TableView<SignVersion> table2;
   @FXML private TableColumn signIDCol;
   @FXML private TableColumn signNameCol;
   @FXML private TableColumn signDateCol;
@@ -109,6 +108,12 @@ public class EditSignageController {
             updateCurrentSelectionVersion();
           }
         });
+    table1
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/requests/RequestHistory.css").toString());
+    table2
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/requests/RequestHistory.css").toString());
   }
 
   private void loadSignTable() {

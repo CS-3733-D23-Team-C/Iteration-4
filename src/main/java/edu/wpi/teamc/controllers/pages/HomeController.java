@@ -102,40 +102,6 @@ public class HomeController {
   }
 
   @FXML
-  void getLoginNext2(ActionEvent event) {
-    wrongNextLogin = true;
-    String username = HOME_username.getText();
-    LoginDao loginDao = new LoginDao();
-    try {
-      currentLogin = loginDao.fetchObject(username);
-      if (currentLogin == null) {
-        wrongNextLogin = true;
-        wrongPass.setVisible(true);
-      } else {
-        wrongNextLogin = false;
-        wrongPass.setVisible(false);
-        if (currentLogin.checkPassword(HOME_password.getText())) {
-          if (currentLogin.isOTPEnabled()) {
-            HOME_username.setVisible(false);
-            HOME_password.setVisible(false);
-            HOME_next.setVisible(false);
-            HOME_back.setVisible(true);
-            HOME_login.setVisible(true);
-            HOME_code.setVisible(true);
-          } else {
-            getLogin(event);
-          }
-        } else {
-          wrongPass.setVisible(true);
-          wrongNextLogin = true;
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  @FXML
   void backToLogin(ActionEvent event) {
     HOME_login.setVisible(true);
     HOME_username.setVisible(true);
@@ -166,6 +132,7 @@ public class HomeController {
             CApp.currScreen = Screen.ADMIN_HOME;
             Navigation.navigate(Screen.ADMIN_HOME);
             Navigation.setMenuType(Navigation.MenuType.ADMIN);
+            CApp.setCurrLogin(currentLogin.getUsername());
           } else {
             // Show Error Message
             wrongPass.setVisible(true);
@@ -199,7 +166,7 @@ public class HomeController {
 
   @FXML
   public void initialize(Stage primaryStage) throws Exception {
-
+    CApp.setCurrLogin(null);
     //    try {
     language_choice = 0;
     setLanguage();

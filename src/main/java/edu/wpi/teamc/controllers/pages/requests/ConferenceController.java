@@ -110,7 +110,6 @@ public class ConferenceController {
     thread.start();
   }
 
-
   @FXML
   void getClear(ActionEvent event) {
     Navigation.navigate(Screen.CONFERENCE);

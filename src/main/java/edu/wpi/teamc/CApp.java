@@ -1,9 +1,13 @@
 package edu.wpi.teamc;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -21,12 +25,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CApp extends Application {
 
+  public static List<String> Home_Chinese_list;
+  public static List<String> Home_English_list;
   @Setter @Getter private static Stage primaryStage;
   @Setter @Getter private static BorderPane rootPane;
 
   @Getter @Setter private static Boolean adminLoginCheck = false;
   @Getter @Setter public static Boolean wpiDB = true;
   @Getter @Setter public static Screen currScreen = Screen.HOME;
+
+  public CApp() throws IOException {}
 
   @Override
   public void init() {
@@ -149,15 +157,31 @@ public class CApp extends Application {
     startPause.play();
   }
 
+  //  public void getAllTextForAllPages() {
+  //    HomeController.getAllTexts();
+  //    System.out.println("All texts loaded");
+  //  }
+
+  //    String filePath = "src/main/java/edu/wpi/teamc/languageHelpers/HomeSpanish.json";
+  //    String jsonString = new String(Files.readAllBytes(Paths.get(filePath)),
+  // StandardCharsets.UTF_8);
+  //    JSONArray jsonArray = new JSONArray(jsonString);
+  //    public static List<String> list = new ArrayList<>();
+
   @Override
-  public void start(Stage primaryStage) throws IOException {
+  public void start(Stage primaryStage) throws Exception {
+
+    Home_Chinese_list = loadJson(Home_Chinese);
+    Home_English_list = loadJson(Home_English);
+
     /* primaryStage is generally only used if one of your components require the stage to display */
     CApp.primaryStage = primaryStage;
-
     final FXMLLoader loader = new FXMLLoader(CApp.class.getResource("views/Root.fxml"));
     final BorderPane root = loader.load();
 
     CApp.rootPane = root;
+    // GET Texts
+    // getAllTextForAllPages();
 
     final Scene scene = new Scene(root);
     primaryStage.setScene(scene);
@@ -171,4 +195,14 @@ public class CApp extends Application {
   public void stop() {
     log.info("Shutting Down");
   }
+
+  public List<String> loadJson(String filePath) throws Exception {
+    File file = new File(filePath);
+    ObjectMapper objectMapper = new ObjectMapper();
+    List<String> myList = objectMapper.readValue(file, new TypeReference<List<String>>() {});
+    return myList;
+  }
+
+  String Home_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/Home/HomeChinese.json";
+  String Home_English = "src/main/java/edu/wpi/teamc/languageHelpers/Home/HomeEnglish.json";
 }

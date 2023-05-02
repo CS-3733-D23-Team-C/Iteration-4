@@ -1,7 +1,6 @@
 package edu.wpi.teamc.controllers.pages.admin;
 
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
-import static edu.wpi.teamc.languageHelpers.LanguageHolder.notEnglish;
 
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
@@ -138,14 +137,13 @@ public class AdminHomeController {
 
         addNotification(alert.getTitle(), alert.getDescription(), alert.getType());
       } else {
-        addNotification(
-            LanguageSet(alert.getTitle()), LanguageSet(alert.getDescription()), alert.getType());
+        addNotification((alert.getTitle()), (alert.getDescription()), alert.getType());
       }
     }
     if (!CApp.getAdminLoginCheck()) {
       AdminHome_Title.setText("Staff Home Page");
     }
-    setLanguage();
+    // setLanguage();
   }
 
   // SVG Function for Notification//
@@ -191,32 +189,32 @@ public class AdminHomeController {
 
   // LANGUAGE//
 
-  @FXML
-  void setLanguage() throws Exception {
-    if (language_choice == 0 && notEnglish == false) { // 0 is english
-    } else {
-      AdminHome_Title.setText(LanguageSet(AdminHome_Title.getText()));
-      weather_title.setText(LanguageSet(weather_title.getText()));
-      notifications_title.setText(LanguageSet(notifications_title.getText()));
-      notEnglish = true;
-    }
-  }
+  //  @FXML
+  //  void setLanguage() throws Exception {
+  //    if (language_choice == 0 && notEnglish == false) { // 0 is english
+  //    } else {
+  //      AdminHome_Title.setText(LanguageSet(AdminHome_Title.getText()));
+  //      weather_title.setText(LanguageSet(weather_title.getText()));
+  //      notifications_title.setText(LanguageSet(notifications_title.getText()));
+  //      notEnglish = true;
+  //    }
+  //  }
 
   // TRANSLATOR//
   public TranslatorAPI translatorAPI = new TranslatorAPI();
 
-  @FXML
-  String LanguageSet(String text) throws Exception {
-    if (text == null) {
-      return null;
-    }
-    if (language_choice == 0) { // 0 is english
-      text = translatorAPI.translateToEn(text);
-    } else if (language_choice == 1) { // 1 is spanish
-      text = translatorAPI.translateToSp(text);
-    } else if (language_choice == 2) { // 2 is Chinese
-      text = translatorAPI.translateToZh(text);
-    }
-    return text;
-  }
+  //  @FXML
+  //  String LanguageSet(String text) throws Exception {
+  //    if (text == null) {
+  //      return null;
+  //    }
+  //    if (language_choice == 0) { // 0 is english
+  //      text = translatorAPI.translateToEn(text);
+  //    } else if (language_choice == 1) { // 1 is spanish
+  //      text = translatorAPI.translateToSp(text);
+  //    } else if (language_choice == 2) { // 2 is Chinese
+  //      text = translatorAPI.translateToZh(text);
+  //    }
+  //    return text;
+  //  }
 }

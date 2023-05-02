@@ -1,8 +1,5 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
-import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
-import static edu.wpi.teamc.languageHelpers.LanguageHolder.notEnglish;
-
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
@@ -176,31 +173,31 @@ public class MealController {
       case 1:
         mealImage.setImage(
             new Image(Main.class.getResource("views/images/Meal/spaghetti.png").openStream()));
-        ingredients.setText(LanguageSet("Ground Beef, Spaghetti, Tomato Sauce, Cheese"));
-        allergyInfo.setText(LanguageSet("Contains: Milk, Wheat"));
+        ingredients.setText(("Ground Beef, Spaghetti, Tomato Sauce, Cheese"));
+        allergyInfo.setText(("Contains: Milk, Wheat"));
         break;
       case 2:
         mealImage.setImage(
             new Image(Main.class.getResource("views/images/Meal/garlic_steak.png").openStream()));
-        ingredients.setText(LanguageSet("Beef, Garlic, Butter"));
-        allergyInfo.setText(LanguageSet("Contains: Milk"));
+        ingredients.setText(("Beef, Garlic, Butter"));
+        allergyInfo.setText(("Contains: Milk"));
         break;
       case 3:
         mealImage.setImage(
             new Image(Main.class.getResource("views/images/Meal/grill_chicken.png").openStream()));
-        ingredients.setText(LanguageSet("Chicken, Broccoli, Honey, Soy Sauce"));
-        allergyInfo.setText(LanguageSet("Contains: Soy, Honey"));
+        ingredients.setText(("Chicken, Broccoli, Honey, Soy Sauce"));
+        allergyInfo.setText(("Contains: Soy, Honey"));
         break;
       case 4:
         mealImage.setImage(
             new Image(Main.class.getResource("views/images/Meal/fried_rice.png").openStream()));
-        ingredients.setText(LanguageSet("Chicken, Rice, Egg, Soy Sauce"));
-        allergyInfo.setText(LanguageSet("Contains: Egg, Soy"));
+        ingredients.setText(("Chicken, Rice, Egg, Soy Sauce"));
+        allergyInfo.setText(("Contains: Egg, Soy"));
         break;
       default:
         mealImage.setImage(new Image("file:src/main/resources/images/meal1.png"));
-        ingredients.setText(LanguageSet(""));
-        allergyInfo.setText(LanguageSet("Contains:"));
+        ingredients.setText((""));
+        allergyInfo.setText(("Contains:"));
         break;
     }
   }
@@ -209,7 +206,7 @@ public class MealController {
   void getSubmit(ActionEvent event) {
     String name = nameBox.getText();
     String room = roomMenu.getValue().toString();
-    String notes = "Drink: " + drinkSelecter(drinkHolder) +"; "+ specialRequest.getText();
+    String notes = "Drink: " + drinkSelecter(drinkHolder) + "; " + specialRequest.getText();
     Meal meal = new Meal(mealSelecter(mealHolder), "");
     String eta = startTime.getValue().toString();
     MealRequest req = new MealRequest(new PatientUser(name), room, notes, meal, eta);
@@ -258,48 +255,49 @@ public class MealController {
     ingredients.setWrapText(true);
     allergyInfo.setWrapText(true);
 
-    setLanguage();
+    // setLanguage();
   }
 
-  @FXML
-  void setLanguage() throws Exception {
-    if (language_choice == 0 && notEnglish == false) { // 0 is english
-    } else {
-      Meal_Box1.setText(LanguageSet(Meal_Box1.getText()));
-      Meal_Box2.setText(LanguageSet(Meal_Box2.getText()));
-      Meal_Box3.setText(LanguageSet(Meal_Box3.getText()));
-      Meal_Box4.setText(LanguageSet(Meal_Box4.getText()));
-      Meal_Box5.setText(LanguageSet(Meal_Box5.getText()));
-      nameBox.setPromptText(LanguageSet(nameBox.getPromptText()));
-      roomMenu.setPromptText(LanguageSet(roomMenu.getPromptText()));
-      serviceMenu.setText(LanguageSet(serviceMenu.getText()));
-      drinkMenu.setText(LanguageSet(drinkMenu.getText()));
-      specialRequest.setPromptText(LanguageSet(specialRequest.getPromptText()));
-      startTime.setPromptText(LanguageSet(startTime.getPromptText()));
-      employeeName.setPromptText(LanguageSet(employeeName.getPromptText()));
-      Meal_IngredientsBox.setText(LanguageSet(Meal_IngredientsBox.getText()));
-      Meal_AllergyBox.setText(LanguageSet(Meal_AllergyBox.getText()));
-      Meal_Submit.setText(LanguageSet(Meal_Submit.getText()));
-      Meal_Clear.setText(LanguageSet(Meal_Clear.getText()));
-      Meal_Cancel.setText(LanguageSet(Meal_Cancel.getText()));
-      //      ingredients.setText(LanguageSet(ingredients.getText()));
-      //      allergyInfo.setText(LanguageSet(allergyInfo.getText()));
-
-      servicechoice1.setText(LanguageSet(servicechoice1.getText()));
-      servicechoice2.setText(LanguageSet(servicechoice2.getText()));
-      servicechoice3.setText(LanguageSet(servicechoice3.getText()));
-      servicechoice4.setText(LanguageSet(servicechoice4.getText()));
-      drinkchoice1.setText(LanguageSet(drinkchoice1.getText()));
-      drinkchoice2.setText(LanguageSet(drinkchoice2.getText()));
-      drinkchoice3.setText(LanguageSet(drinkchoice3.getText()));
-      drinkchoice4.setText(LanguageSet(drinkchoice4.getText()));
-      Meal_Title.setText(LanguageSet(Meal_Title.getText()));
-      notEnglish = true;
-    }
-  }
+  // @FXML
+  //  void setLanguage() throws Exception {
+  //    if (language_choice == 0 && notEnglish == false) { // 0 is english
+  //    } else {
+  //      Meal_Box1.setText(LanguageSet(Meal_Box1.getText()));
+  //      Meal_Box2.setText(LanguageSet(Meal_Box2.getText()));
+  //      Meal_Box3.setText(LanguageSet(Meal_Box3.getText()));
+  //      Meal_Box4.setText(LanguageSet(Meal_Box4.getText()));
+  //      Meal_Box5.setText(LanguageSet(Meal_Box5.getText()));
+  //      nameBox.setPromptText(LanguageSet(nameBox.getPromptText()));
+  //      roomMenu.setPromptText(LanguageSet(roomMenu.getPromptText()));
+  //      serviceMenu.setText(LanguageSet(serviceMenu.getText()));
+  //      drinkMenu.setText(LanguageSet(drinkMenu.getText()));
+  //      specialRequest.setPromptText(LanguageSet(specialRequest.getPromptText()));
+  //      startTime.setPromptText(LanguageSet(startTime.getPromptText()));
+  //      employeeName.setPromptText(LanguageSet(employeeName.getPromptText()));
+  //      Meal_IngredientsBox.setText(LanguageSet(Meal_IngredientsBox.getText()));
+  //      Meal_AllergyBox.setText(LanguageSet(Meal_AllergyBox.getText()));
+  //      Meal_Submit.setText(LanguageSet(Meal_Submit.getText()));
+  //      Meal_Clear.setText(LanguageSet(Meal_Clear.getText()));
+  //      Meal_Cancel.setText(LanguageSet(Meal_Cancel.getText()));
+  //      //      ingredients.setText(LanguageSet(ingredients.getText()));
+  //      //      allergyInfo.setText(LanguageSet(allergyInfo.getText()));
+  //
+  //      servicechoice1.setText(LanguageSet(servicechoice1.getText()));
+  //      servicechoice2.setText(LanguageSet(servicechoice2.getText()));
+  //      servicechoice3.setText(LanguageSet(servicechoice3.getText()));
+  //      servicechoice4.setText(LanguageSet(servicechoice4.getText()));
+  //      drinkchoice1.setText(LanguageSet(drinkchoice1.getText()));
+  //      drinkchoice2.setText(LanguageSet(drinkchoice2.getText()));
+  //      drinkchoice3.setText(LanguageSet(drinkchoice3.getText()));
+  //      drinkchoice4.setText(LanguageSet(drinkchoice4.getText()));
+  //      Meal_Title.setText(LanguageSet(Meal_Title.getText()));
+  //      notEnglish = true;
+  //    }
+  //  }
 
   // TEXT need to be Translated
   @FXML private Text Meal_Title;
+
   @FXML private TextField Meal_Box1;
   @FXML private TextField Meal_Box2;
   @FXML private TextField Meal_Box3;
@@ -313,18 +311,18 @@ public class MealController {
 
   public TranslatorAPI translatorAPI = new TranslatorAPI();
 
-  @FXML
-  String LanguageSet(String text) throws Exception {
-    if (text == null) {
-      return null;
-    }
-    if (language_choice == 0) { // 0 is english
-      text = translatorAPI.translateToEn(text);
-    } else if (language_choice == 1) { // 1 is spanish
-      text = translatorAPI.translateToSp(text);
-    } else if (language_choice == 2) { // 2 is Chinese
-      text = translatorAPI.translateToZh(text);
-    }
-    return text;
-  }
+  //  @FXML
+  //  String LanguageSet(String text) throws Exception {
+  //    if (text == null) {
+  //      return null;
+  //    }
+  //    if (language_choice == 0) { // 0 is english
+  //      text = translatorAPI.translateToEn(text);
+  //    } else if (language_choice == 1) { // 1 is spanish
+  //      text = translatorAPI.translateToSp(text);
+  //    } else if (language_choice == 2) { // 2 is Chinese
+  //      text = translatorAPI.translateToZh(text);
+  //    }
+  //    return text;
+  //  }
 }

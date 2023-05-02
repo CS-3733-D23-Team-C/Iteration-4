@@ -141,7 +141,7 @@ public class HospitalSystem {
     } else if (request instanceof OfficeSuppliesRequest) {
       return officeSuppliesRequestDAO.deleteRow((OfficeSuppliesRequest) request);
     } else if (request instanceof GiftBasketRequest) {
-        return giftBasketRequestDAO.deleteRow((GiftBasketRequest) request);
+      return giftBasketRequestDAO.deleteRow((GiftBasketRequest) request);
     } else if (request instanceof AdminUser) {
       return adminDao.deleteRow((AdminUser) request);
     } else if (request instanceof EmployeeUser) {
@@ -183,7 +183,8 @@ public class HospitalSystem {
       return officeSuppliesRequestDAO.updateRow(
           (OfficeSuppliesRequest) request, (OfficeSuppliesRequest) request);
     } else if (request instanceof GiftBasketRequest) {
-        return giftBasketRequestDAO.updateRow((GiftBasketRequest) request, (GiftBasketRequest) request);
+      return giftBasketRequestDAO.updateRow(
+          (GiftBasketRequest) request, (GiftBasketRequest) request);
     } else if (request instanceof AdminUser) {
       return adminDao.updateRow((AdminUser) request, (AdminUser) request);
     } else if (request instanceof EmployeeUser) {
@@ -221,7 +222,7 @@ public class HospitalSystem {
     } else if (request instanceof OfficeSuppliesRequest) {
       officeSuppliesRequestDAO.exportCSV(filePath);
     } else if (request instanceof GiftBasketRequest) {
-        giftBasketRequestDAO.exportCSV(filePath);
+      giftBasketRequestDAO.exportCSV(filePath);
     } else if (request instanceof AdminUser) {
       adminDao.exportCSV(filePath);
     } else if (request instanceof EmployeeUser) {

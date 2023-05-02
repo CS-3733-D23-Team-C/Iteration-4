@@ -8,7 +8,6 @@ import edu.wpi.teamc.graph.AlgoSingleton;
 import edu.wpi.teamc.graph.Graph;
 import edu.wpi.teamc.graph.GraphNode;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.utils.SwingFXUtils;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -57,7 +56,7 @@ public class PathFindingController {
   @FXML MFXButton textDir;
   @FXML MFXButton qrCode;
   @FXML MFXButton floorButton;
-  @FXML MFXTextField message;
+  @FXML TextArea message;
   private MFXButton tempSave;
   private static final Paint DEFAULT_BG = Paint.valueOf("#bebebe");
   private static final int SIZE_FACTOR = 18;
@@ -509,7 +508,8 @@ public class PathFindingController {
 
     if (!s.isEmpty()) {
       combo += s + "\n";
-    } else if (!s2.isEmpty()) {
+    }
+    if (!s2.isEmpty()) {
       combo += s2 + "\n";
     }
 
@@ -518,10 +518,12 @@ public class PathFindingController {
 
     if (!s3.isEmpty()) {
       combo += s3 + "\n";
-    } else if (!s4.isEmpty()) {
+    }
+    if (!s4.isEmpty()) {
       combo += s4 + "\n";
     }
 
+    message.setFont(new Font(24));
     message.setText(combo);
     mapNodes.toFront();
   }

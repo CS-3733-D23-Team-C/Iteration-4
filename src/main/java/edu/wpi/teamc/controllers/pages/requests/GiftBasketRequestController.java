@@ -1,49 +1,77 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import javafx.event.ActionEvent;
+import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import org.controlsfx.control.SearchableComboBox;
 
 public class GiftBasketRequestController {
   @FXML private MFXButton goHome;
   @FXML private MFXButton submit;
 
-  @FXML private MFXButton clear;
-
-  @FXML private MenuButton menuButton;
-  @FXML private MenuButton roomID;
+  @FXML private AnchorPane assignEmployeeAnchor;
+  @FXML private TextArea basketItems;
+  @FXML private DatePicker deliveryTime;
+  @FXML private SearchableComboBox<?> employeeName;
+  @FXML private ImageView image;
+  @FXML private TextField nameBox;
+  @FXML private SearchableComboBox<?> roomMenu;
+  @FXML private MenuButton serviceMenu;
+  @FXML private MenuItem servicechoice1;
+  @FXML private MenuItem servicechoice2;
+  @FXML private MenuItem servicechoice3;
+  @FXML private MenuItem servicechoice4;
+  @FXML private TextArea specialRequest;
 
   @FXML
-  void getChoice0() {
-    menuButton.setText("Small");
+  void getServicechoice1() {
+    serviceMenu.setText(servicechoice1.getText());
+    try {
+      getImage(1);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
-  void getChoice1() {
-    menuButton.setText("Medium");
+  void getServicechoice2() {
+    serviceMenu.setText(servicechoice2.getText());
+    try {
+      getImage(2);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
-  void getChoice2() {
-    menuButton.setText("Large");
+  void getServicechoice3() {
+    serviceMenu.setText(servicechoice3.getText());
+    try {
+      getImage(3);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
-  void getChoice3() {
-    menuButton.setText("Extra-Large");
-  }
-
-  @FXML
-  void getRoom1() {
-    roomID.setText("Room1");
-  }
-
-  @FXML
-  void getRoom2() {
-    roomID.setText("Room2");
+  void getServicechoice4() {
+    serviceMenu.setText(servicechoice4.getText());
+    try {
+      getImage(4);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @FXML
@@ -53,130 +81,40 @@ public class GiftBasketRequestController {
 
   @FXML
   void getClear() {
-    clear.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER));
+    Navigation.navigate(Screen.GIFT_BASKET);
   }
 
   @FXML
   void getSubmit() {}
 
   @FXML
-  void getFlowerDeliveryPage(ActionEvent event) {
-    Navigation.navigate(Screen.FLOWER);
-  }
-
-  @FXML
-  void getFurnitureDeliveryPage(ActionEvent event) {
-    Navigation.navigate(Screen.FURNITURE);
-  }
-
-  @FXML
-  void getHelpPage(ActionEvent event) {
-    Navigation.navigate(Screen.HELP);
-  }
-
-  @FXML
-  void getMealDeliveryPage(ActionEvent event) {
-    Navigation.navigate(Screen.MEAL);
-  }
-
-  @FXML
-  void getOfficeSuppliesPage(ActionEvent event) {
-    Navigation.navigate(Screen.OFFICE_SUPPLY);
-  }
-
-  @FXML
-  void getRoomReservationPage(ActionEvent event) {
-    Navigation.navigate(Screen.CONFERENCE);
-  }
-
-  @FXML
-  void getGiftBasketRequestPage(ActionEvent event) {
-    Navigation.navigate(Screen.GIFT_BASKET);
-  }
-
-  @FXML
-  void getSignagePage(ActionEvent event) {
-    Navigation.navigate(Screen.SIGNAGE);
+  void getImage(int choice) throws IOException {
+    switch (choice) {
+      case 1:
+        image.setImage(
+            new Image(Main.class.getResource("views/images/Flower/roses.png").openStream()));
+        break;
+      case 2:
+        image.setImage(
+            new Image(Main.class.getResource("views/images/Flower/lilies.png").openStream()));
+        break;
+      case 3:
+        image.setImage(
+            new Image(Main.class.getResource("views/images/Flower/daisies.png").openStream()));
+        break;
+      case 4:
+        image.setImage(
+            new Image(Main.class.getResource("views/images/Flower/sunflowers.png").openStream()));
+        break;
+    }
   }
 
   /** Method run when controller is initialized */
   @FXML
   public void initialize() {}
 
-  @FXML
-  void getEditMap(ActionEvent event) {
-    Navigation.navigate(Screen.EDIT_MAP);
-  }
-
-  @FXML
-  void getLogOut(ActionEvent event) {
-    Navigation.navigate(Screen.HOME);
-  }
-
-  @FXML
-  void getExit(ActionEvent event) {
-    Navigation.navigate(Screen.EXIT_PAGE);
-  }
-
-  @FXML
-  void getMapHistory(ActionEvent event) {
-    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
-  }
-
   //  @FXML
   //  void getMapPage(ActionEvent event) {
   //    Navigation.navigate(Screen.FLOOR_PLAN);
   //  }
-
-  @FXML
-  void getPathfindingPage(ActionEvent event) {
-    Navigation.navigate(Screen.PATHFINDING_PAGE);
-  }
-
-  @FXML
-  void getHelpage(ActionEvent event) {
-    Navigation.navigate(Screen.HELP);
-  }
-
-  public void getRoomID(ActionEvent actionEvent) {}
-
-  public void getID0(ActionEvent actionEvent) {}
-
-  public void getID1(ActionEvent actionEvent) {}
-
-  public void getID2(ActionEvent actionEvent) {}
-
-  public void getID3(ActionEvent actionEvent) {}
-
-  public void getBasketType(ActionEvent actionEvent) {}
-
-  public void getType0(ActionEvent actionEvent) {}
-
-  public void getType1(ActionEvent actionEvent) {}
-
-  public void getType2(ActionEvent actionEvent) {}
-
-  public void getType3(ActionEvent actionEvent) {}
-
-  public void getArrangeSelection(ActionEvent actionEvent) {}
-
-  public void getSelection0(ActionEvent actionEvent) {}
-
-  public void getSelection1(ActionEvent actionEvent) {}
-
-  public void getSelection2(ActionEvent actionEvent) {}
-
-  public void getSelection3(ActionEvent actionEvent) {}
-
-  public void getSelectTime(ActionEvent actionEvent) {}
-
-  public void getEmployeeName(ActionEvent actionEvent) {}
-
-  public void getEmployee0(ActionEvent actionEvent) {}
-
-  public void getEmployee1(ActionEvent actionEvent) {}
-
-  public void getEmployee2(ActionEvent actionEvent) {}
-
-  public void getEmployee3(ActionEvent actionEvent) {}
 }

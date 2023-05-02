@@ -5,6 +5,7 @@ import edu.wpi.teamc.dao.map.*;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Graph {
@@ -227,5 +228,37 @@ public class Graph {
 
   public String getLongNameFromNodeID(int nodeID) {
     return nodeIDtoLongName.get(nodeID);
+  }
+
+  public String checkRecentMoves(int src, int dest, LocalDate date) {
+    String s = "";
+    int srcVal = dateToInt(nodeIDtoLastDate.get(src).toLocalDate());
+    int destVal = dateToInt(nodeIDtoLastDate.get(dest).toLocalDate());
+    int currVal = dateToInt(date);
+    int diffSrc = srcVal - currVal;
+    int diffDest = destVal - currVal;
+    int withinAmount = 3;
+
+    if (-withinAmount <= diffSrc && diffSrc <= 0) {
+      s =
+          "NOTICE : "
+              + " Your starting location has moved to "
+              + nodeIDtoLongName.get(src)
+              + " "
+              + -diffDest
+              + " days ago.";
+    } else if (diffSrc <= withinAmount && !(diffSrc < 0)) {
+
+    }
+
+    return s;
+  }
+
+  public int dateToInt(LocalDate date) {
+    String[] dateArr = date.toString().split("-");
+    int[] dateIntArr = {
+      Integer.parseInt(dateArr[0]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[2])
+    };
+    return dateIntArr[0] * 12 * 31 + dateIntArr[1] * 31 + dateIntArr[2];
   }
 }

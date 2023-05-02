@@ -92,19 +92,31 @@ public class GiftBasketRequestController {
     switch (choice) {
       case 1:
         image.setImage(
-            new Image(Main.class.getResource("views/images/Flower/roses.png").openStream()));
+            new Image(
+                Main.class
+                    .getResource("views/images/GiftBasket/small-gift-basket.png")
+                    .openStream()));
         break;
       case 2:
         image.setImage(
-            new Image(Main.class.getResource("views/images/Flower/lilies.png").openStream()));
+            new Image(
+                Main.class
+                    .getResource("views/images/GiftBasket/medium-gift-basket.png")
+                    .openStream()));
         break;
       case 3:
         image.setImage(
-            new Image(Main.class.getResource("views/images/Flower/daisies.png").openStream()));
+            new Image(
+                Main.class
+                    .getResource("views/images/GiftBasket/large-gift-basket.png")
+                    .openStream()));
         break;
       case 4:
         image.setImage(
-            new Image(Main.class.getResource("views/images/Flower/sunflowers.png").openStream()));
+            new Image(
+                Main.class
+                    .getResource("views/images/GiftBasket/extra-large-gift-basket.png")
+                    .openStream()));
         break;
     }
   }

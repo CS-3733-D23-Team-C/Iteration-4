@@ -552,7 +552,7 @@ public class MenuController {
     exitTrigger1.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.clearCache();
+          //          Navigation.clearCache();
           Navigation.navigate(Screen.EXIT_PAGE);
           Navigation.setMenuType(Navigation.MenuType.DISABLED);
         });
@@ -812,7 +812,7 @@ public class MenuController {
           dbToggle.setSelected(!CApp.wpiDB);
           //          dbToggle.fire();
           System.out.println("DB: " + CApp.wpiDB);
-          Navigation.clearCache();
+          //          Navigation.clearCache();
           Navigation.navigate(CApp.currScreen);
         });
 

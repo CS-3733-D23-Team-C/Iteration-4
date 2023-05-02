@@ -124,7 +124,7 @@ public class CApp extends Application {
           logoutOpen = false;
           CApp.setAdminLoginCheck(false);
           CApp.currScreen = Screen.HOME;
-          Navigation.clearCache();
+          //          Navigation.clearCache();
           Navigation.navigate(Screen.HOME);
           Navigation.setMenuType(Navigation.MenuType.DISABLED);
         }));
@@ -141,7 +141,7 @@ public class CApp extends Application {
             logoutOpen = false;
             CApp.setAdminLoginCheck(false);
             CApp.currScreen = Screen.SCREENSAVER;
-            Navigation.clearCache();
+            //            Navigation.clearCache();
             Navigation.navigate(Screen.SCREENSAVER);
             Navigation.setMenuType(Navigation.MenuType.DISABLED);
           }

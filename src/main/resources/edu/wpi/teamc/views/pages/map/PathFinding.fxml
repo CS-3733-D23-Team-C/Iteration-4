@@ -112,12 +112,22 @@
                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-weight: Bold; -fx-underline: True; -fx-font-size: 13;" text="Toggles" textAlignment="CENTER" />
                               <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                  <children>
-                                    <ToggleSwitch fx:id="locToggle" layoutX="9.0" layoutY="1.0" onMouseClicked="#doLocToggle" prefHeight="20.0" prefWidth="100.0" style="-fx-font-weight: bold; -fx-background-color: WHITE; -fx-background-radius: 3;" text="Locations" textFill="#02143b" />
+                                    <HBox alignment="CENTER" layoutX="55.0" spacing="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Name:" />
+                                          <ToggleSwitch fx:id="locToggle" onMouseClicked="#doLocToggle" prefHeight="20.0" prefWidth="0.0" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                  <children>
-                                    <ToggleSwitch fx:id="stairToggle" layoutX="9.0" layoutY="1.0" onMouseClicked="#doStairToggle" prefHeight="20.0" prefWidth="100.0" style="-fx-font-weight: bold; -fx-background-color: WHITE; -fx-background-radius: 3;" text="Use Stairs" textFill="#02143b" />
+                                    <HBox alignment="CENTER" layoutY="-10.86328125" spacing="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Stairs:" />
+                                          <ToggleSwitch fx:id="stairToggle" onMouseClicked="#doStairToggle" prefHeight="20.0" prefWidth="0.0" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="30.0" prefWidth="20.0" />

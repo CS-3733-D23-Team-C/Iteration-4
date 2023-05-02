@@ -115,6 +115,16 @@ public class PatientTableController {
     patientTable.getItems().setAll(list);
   }
 
+  private Boolean booleanValOf(String check) {
+    if (check.equals(true)) {
+      return true;
+    } else if (check.equals(false)) {
+      return false;
+    } else {
+      return null;
+    }
+  }
+
   private PatientUser getPatientUser() {
     PatientUser patientUser = null;
     try {
@@ -125,7 +135,7 @@ public class PatientTableController {
       String checkout = checkOutField.getText();
       String phone = phoneField.getText();
       String room = roomField.getText();
-      Boolean activeText = Boolean.valueOf(activeTextField.getText());
+      Boolean activeText = booleanValOf(activeTextField.getText());
       // for when check in and check out are strings they just get recorded as null
 
       patientUser = new PatientUser(id, name, checkin, checkout, phone, room, activeText);

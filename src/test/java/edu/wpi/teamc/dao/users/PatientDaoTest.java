@@ -38,6 +38,14 @@ public class PatientDaoTest {
   }
 
   @Test
+  public void testBool() {
+    boolean t = true;
+    PatientUser pu = null;
+
+    Assertions.assertEquals(t, pu.booleanValOf("true"));
+  }
+
+  @Test
   public void testUpdate() {
     PatientUserDao pdao = new PatientUserDao();
     IDao<PatientUser, Integer> dao = new PatientUserDao();

@@ -16,13 +16,16 @@ public class Graph {
   protected Map<GraphNode, Double> distance = new HashMap<>();
   protected Map<GraphNode, String> nodeType = new HashMap<>();
   protected Map<Integer, String> nodeIDtoLongName = new HashMap<>();
+  protected Map<Integer, String> nodeIDtoPrevLongName = new HashMap<>();
   protected HashMap<String, Integer> longNameToNodeID = new HashMap<>();
   protected Map<Integer, Date> nodeIDtoLastDate = new HashMap<>();
   protected Map<String, String> longNameToNodeType = new HashMap<>();
   protected PriorityQueue<GraphNode> pq;
+  protected Move prev = null;
   protected final double DIST_DEFAULT = Double.POSITIVE_INFINITY;
   private IAlgorithm algo;
   private boolean doStair;
+  private boolean trigger = false;
 
   /** Empty Constructor for Graph */
   public Graph() {}
@@ -47,8 +50,16 @@ public class Graph {
    */
   public void massPutMove(Move move) {
     nodeIDtoLastDate.put(move.getNodeID(), move.getDate());
-    nodeIDtoLongName.put(move.getNodeID(), move.getLongName());
     longNameToNodeID.put(move.getLongName(), move.getNodeID());
+
+    if (trigger) {
+      nodeIDtoPrevLongName.put(prev.getNodeID(), prev.getLongName());
+    } else {
+      trigger = true;
+    }
+    prev = move;
+
+    nodeIDtoLongName.put(move.getNodeID(), move.getLongName());
   }
 
   /**
@@ -85,6 +96,7 @@ public class Graph {
       // store the move for the desired date
       if (move.getDate().equals(dateObj)) {
         massPutMove(move);
+        nodeIDtoPrevLongName.computeIfAbsent(prev.getNodeID(), k -> prev.getLongName());
       } else if (move.getDate().compareTo(dateObj) < 0) {
         nodeIDtoLastDate.putIfAbsent(move.getNodeID(), move.getDate());
         nodeIDtoLongName.putIfAbsent(move.getNodeID(), move.getLongName());
@@ -93,6 +105,7 @@ public class Graph {
         // if date is more recent than the one currently stored
         if (nodeIDtoLastDate.get(move.getNodeID()).compareTo(move.getDate()) < 0) {
           massPutMove(move);
+          nodeIDtoPrevLongName.computeIfAbsent(prev.getNodeID(), k -> prev.getLongName());
         }
       }
     }
@@ -242,10 +255,10 @@ public class Graph {
     if (-withinAmount <= diffSrc && diffSrc <= 0) {
       s =
           "NOTICE : "
-              + " Your starting location has moved to "
-              + nodeIDtoLongName.get(src)
-              + " "
-              + -diffDest
+              + " Your starting location has moved to where "
+              + nodeIDtoPrevLongName.get(src)
+              + " was "
+              + -diffSrc
               + " days ago.";
     } else if (diffSrc <= withinAmount && !(diffSrc < 0)) {
 

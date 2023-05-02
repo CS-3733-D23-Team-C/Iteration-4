@@ -57,7 +57,7 @@ public class PathFindingController {
   @FXML MFXButton textDir;
   @FXML MFXButton qrCode;
   @FXML MFXButton floorButton;
-//  @FXML MFXTextField message;
+  //  @FXML MFXTextField message;
   @FXML MFXButton robotButton;
   int numNodesSent = 0;
   int totalNodesSent = 0;

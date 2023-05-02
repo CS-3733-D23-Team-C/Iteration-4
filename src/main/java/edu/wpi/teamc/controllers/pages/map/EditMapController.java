@@ -2170,8 +2170,10 @@ public class EditMapController {
     confirmButton.setOnMouseClicked(
         event -> {
           Move move = new Move();
-          move.setNodeID(moveHelper.getNode().getNodeID());
-          move.setLongName(currNodeLongname);
+          move.setNodeID(currNodeClicked.getNodeID());
+          move.setLongName(moveHelper.getLongname());
+          //          move.setNodeID(moveHelper.getNode().getNodeID());
+          //          move.setLongName(currNodeLongname);
           move.setDate(Date.valueOf(datePicker.getValue()));
           HospitalSystem.addRow(move);
 

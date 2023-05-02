@@ -166,7 +166,7 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
     BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
     // Write the header row to the CSV file
     writer.write(
-        "requestid,requester,roomname,status,additionalnotes,eta,furnituretype,assignedto\n");
+        "requestid,requester,roomname,status,additionalnotes,furnituretype,eta,assignedto\n");
     for (FurnitureDeliveryRequest furnitureDeliveryRequest : fetchAllObjects()) {
       writer.write(
           furnitureDeliveryRequest.getRequestID()
@@ -179,9 +179,9 @@ public class FurnitureDeliveryRequestDAO implements IDao<FurnitureDeliveryReques
               + ","
               + furnitureDeliveryRequest.getAdditionalNotes()
               + ","
-              + furnitureDeliveryRequest.getEta()
-              + ","
               + furnitureDeliveryRequest.getFurnituretype()
+              + ","
+              + furnitureDeliveryRequest.getEta()
               + ","
               + furnitureDeliveryRequest.getAssignedto()
               + "\n");

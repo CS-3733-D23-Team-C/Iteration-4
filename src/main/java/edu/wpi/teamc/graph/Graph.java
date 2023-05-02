@@ -16,7 +16,7 @@ public class Graph {
   protected Map<GraphNode, Double> distance = new HashMap<>();
   protected Map<GraphNode, String> nodeType = new HashMap<>();
   protected Map<Integer, String> nodeIDtoLongName = new HashMap<>();
-  protected Map<Integer, String> nodeIDtoPrevLongName = new HashMap<>();
+  protected Map<String, LinkedList<Move>> longNameToMoves = new HashMap<>();
   protected HashMap<String, Integer> longNameToNodeID = new HashMap<>();
   protected Map<Integer, Date> nodeIDtoLastDate = new HashMap<>();
   protected Map<String, String> longNameToNodeType = new HashMap<>();
@@ -51,33 +51,18 @@ public class Graph {
   public void massPutMove(Move move) {
     nodeIDtoLastDate.put(move.getNodeID(), move.getDate());
     longNameToNodeID.put(move.getLongName(), move.getNodeID());
-
-    if (trigger) {
-      nodeIDtoPrevLongName.put(prev.getNodeID(), prev.getLongName());
-    } else {
-      trigger = true;
-    }
-    prev = move;
-
     nodeIDtoLongName.put(move.getNodeID(), move.getLongName());
   }
 
-  /**
-   * A method to sync the graph with stored DB data
-   *
-   * @param date Date to sync with (specifically for move component)
-   */
-  public void syncWithDB(String date) {
-    List<Node> nodes = new LinkedList<>();
-    List<Edge> edges = new LinkedList<>();
+  public void syncMoves(String date) {
     List<Move> moves = new LinkedList<>();
-    List<LocationName> locs = new LinkedList<>();
+    nodeIDtoLastDate.clear();
+    longNameToNodeID.clear();
+    nodeIDtoLongName.clear();
+    longNameToMoves.clear();
 
     try {
-      nodes = (List<Node>) HospitalSystem.fetchAllObjects(new Node());
-      edges = (List<Edge>) HospitalSystem.fetchAllObjects(new Edge(1, 1));
       moves = (List<Move>) HospitalSystem.fetchAllObjects(new Move());
-      locs = (List<LocationName>) HospitalSystem.fetchAllObjects(new LocationName());
     } catch (Exception e) {
       // error
     }
@@ -93,10 +78,16 @@ public class Graph {
     Date dateObj = new Date(locDate.getTime());
 
     for (Move move : moves) {
+      if (longNameToMoves.get(move.getLongName()) == null) {
+        LinkedList<Move> temp = new LinkedList<>();
+        temp.add(move);
+        longNameToMoves.put(move.getLongName(), temp);
+      } else {
+        longNameToMoves.get(move.getLongName()).add(move);
+      }
       // store the move for the desired date
       if (move.getDate().equals(dateObj)) {
         massPutMove(move);
-        nodeIDtoPrevLongName.computeIfAbsent(prev.getNodeID(), k -> prev.getLongName());
       } else if (move.getDate().compareTo(dateObj) < 0) {
         nodeIDtoLastDate.putIfAbsent(move.getNodeID(), move.getDate());
         nodeIDtoLongName.putIfAbsent(move.getNodeID(), move.getLongName());
@@ -105,10 +96,29 @@ public class Graph {
         // if date is more recent than the one currently stored
         if (nodeIDtoLastDate.get(move.getNodeID()).compareTo(move.getDate()) < 0) {
           massPutMove(move);
-          nodeIDtoPrevLongName.computeIfAbsent(prev.getNodeID(), k -> prev.getLongName());
         }
       }
     }
+  }
+  /**
+   * A method to sync the graph with stored DB data
+   *
+   * @param date Date to sync with (specifically for move component)
+   */
+  public void syncWithDB(String date) {
+    List<Node> nodes = new LinkedList<>();
+    List<Edge> edges = new LinkedList<>();
+    List<LocationName> locs = new LinkedList<>();
+
+    try {
+      nodes = (List<Node>) HospitalSystem.fetchAllObjects(new Node());
+      edges = (List<Edge>) HospitalSystem.fetchAllObjects(new Edge(1, 1));
+      locs = (List<LocationName>) HospitalSystem.fetchAllObjects(new LocationName());
+    } catch (Exception e) {
+      // error
+    }
+
+    syncMoves(date);
 
     for (LocationName loc : locs) {
       longNameToNodeType.put(loc.getLongName(), loc.getNodeType());
@@ -245,23 +255,72 @@ public class Graph {
 
   public String checkRecentMoves(int src, int dest, LocalDate date) {
     String s = "";
-    int srcVal = dateToInt(nodeIDtoLastDate.get(src).toLocalDate());
-    int destVal = dateToInt(nodeIDtoLastDate.get(dest).toLocalDate());
-    int currVal = dateToInt(date);
-    int diffSrc = srcVal - currVal;
-    int diffDest = destVal - currVal;
-    int withinAmount = 3;
 
-    if (-withinAmount <= diffSrc && diffSrc <= 0) {
-      s =
-          "NOTICE : "
-              + " Your starting location has moved to where "
-              + nodeIDtoPrevLongName.get(src)
-              + " was "
-              + -diffSrc
-              + " days ago.";
-    } else if (diffSrc <= withinAmount && !(diffSrc < 0)) {
+    if (longNameToMoves.get(nodeIDtoLongName.get(src)).size() > 1
+        || longNameToMoves.get(nodeIDtoLongName.get(dest)).size() > 1) {
+      int srcVal = dateToInt(nodeIDtoLastDate.get(src).toLocalDate());
+      int destVal = dateToInt(nodeIDtoLastDate.get(dest).toLocalDate());
+      int currVal = dateToInt(date);
+      int diffSrc = srcVal - currVal;
+      int diffDest = destVal - currVal;
+      int withinAmount = 3;
 
+      if (-withinAmount <= diffSrc && diffSrc <= 0) {
+        s =
+            "NOTICE : "
+                + " Your starting location has moved to where "
+                + getPrevLocName(src, date)
+                + " was "
+                + -diffSrc
+                + " days ago.";
+      }
+
+      if (-withinAmount <= diffDest && diffDest <= 0) {
+        s =
+            "NOTICE : "
+                + " Your end location has moved to where "
+                + getPrevLocName(dest, date)
+                + " was "
+                + -diffDest
+                + " days ago.";
+      }
+    }
+
+    return s;
+  }
+
+  public String checkUpcomingMoves(String src, String dest, LocalDate date) {
+    String s = "";
+
+    if (longNameToMoves.get(src).size() > 1 || longNameToMoves.get(dest).size() > 1) {
+      Move start = findUpcomingMove(src, date);
+      // Move end = findUpcomingMove(dest, date);
+      int srcVal = dateToInt(start.getDate().toLocalDate());
+      // int destVal = dateToInt(end.getDate().toLocalDate());
+      int currVal = dateToInt(date);
+      int diffSrc = srcVal - currVal;
+      // int diffDest = destVal - currVal;
+      int withinAmount = 3;
+
+      if (withinAmount >= diffSrc && diffSrc >= 0) {
+        s =
+            "NOTICE : "
+                + " Your starting location will move to where "
+                + nodeIDtoLongName.get(start.getNodeID())
+                + " is in "
+                + diffSrc
+                + " day(s).";
+      }
+
+      //      if (-withinAmount <= diffDest && diffDest <= 0) {
+      //        s =
+      //                "NOTICE : "
+      //                        + " Your end location has moved to where "
+      //                        + getPrevLocName(dest, date)
+      //                        + " was "
+      //                        + -diffDest
+      //                        + " days ago.";
+      //      }
     }
 
     return s;
@@ -273,5 +332,42 @@ public class Graph {
       Integer.parseInt(dateArr[0]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[2])
     };
     return dateIntArr[0] * 12 * 31 + dateIntArr[1] * 31 + dateIntArr[2];
+  }
+
+  public String getPrevLocName(int node, LocalDate date) {
+    HashMap<LocalDate, String> dateToName = new HashMap<>();
+    LinkedList<LocalDate> trimmed = new LinkedList<>();
+    String s = "";
+
+    for (Move m : longNameToMoves.get(nodeIDtoLongName.get(node))) {
+      if (!m.getDate().toLocalDate().isAfter(date)) {
+        trimmed.add(m.getDate().toLocalDate());
+        dateToName.put(m.getDate().toLocalDate(), m.getLongName());
+      }
+    }
+
+    LocalDate first = Collections.max(trimmed);
+    trimmed.remove(first);
+
+    LocalDate second = Collections.max(trimmed);
+
+    return dateToName.get(second);
+  }
+
+  public Move findUpcomingMove(String nodeID, LocalDate date) {
+    HashMap<LocalDate, Move> dateToMove = new HashMap<>();
+    LinkedList<LocalDate> trimmed = new LinkedList<>();
+    String s = "";
+
+    for (Move m : longNameToMoves.get(nodeID)) {
+      if (m.getDate().toLocalDate().isAfter(date)) {
+        trimmed.add(m.getDate().toLocalDate());
+        dateToMove.put(m.getDate().toLocalDate(), m);
+      }
+    }
+
+    LocalDate first = Collections.min(trimmed);
+
+    return dateToMove.get(first);
   }
 }

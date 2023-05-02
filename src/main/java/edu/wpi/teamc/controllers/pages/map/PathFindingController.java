@@ -467,6 +467,7 @@ public class PathFindingController {
 
   @FXML
   void getSubmit(ActionEvent event) throws IOException {
+    message.setText("");
     nextFloor.setDisable(false);
     textDir.setDisable(false);
     qrCode.setDisable(false);
@@ -483,6 +484,14 @@ public class PathFindingController {
     }
 
     String dateString = date.toString();
+
+    //    if (graph == null) {
+    //      graph = new Graph(AlgoSingleton.INSTANCE.getType(), stairStatus);
+    //      graph.syncWithDB(dateString);
+    //    } else {
+    //      graph.syncMoves(dateString);
+    //    }
+
     graph = new Graph(AlgoSingleton.INSTANCE.getType(), stairStatus);
     graph.syncWithDB(dateString);
 
@@ -503,6 +512,7 @@ public class PathFindingController {
     }
 
     message.setText(graph.checkRecentMoves(srcN, destN, date));
+    // message.setText(graph.checkUpcomingMoves(startName, endName, date));
 
     mapNodes.toFront();
   }

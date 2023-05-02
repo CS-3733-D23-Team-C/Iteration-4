@@ -12,11 +12,10 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -392,25 +391,34 @@ public class MenuController {
     }
   }
 
-  public EventHandler<ActionEvent> nothing() {
-
-    return null;
-  }
-
   @FXML
   public void initialize() throws Exception {
-
-    List<Alert> alertList = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
-    int alertListSize = alertList.size();
-    int recentAlert1 = alertListSize - 1;
-    int recentAlert2 = alertListSize - 2;
-    int recentAlert3 = alertListSize - 3;
-    alert1.setText(
-        alertList.get(recentAlert1).getType() + ": " + alertList.get(recentAlert1).getTitle());
-    alert2.setText(
-        alertList.get(recentAlert2).getType() + ": " + alertList.get(recentAlert2).getTitle());
-    alert3.setText(
-        alertList.get(recentAlert3).getType() + ": " + alertList.get(recentAlert3).getTitle());
+    Thread thread =
+        new Thread(
+            () -> {
+              java.util.List<Alert> alertList =
+                  (java.util.List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
+              int alertListSize = alertList.size();
+              int recentAlert1 = alertListSize - 1;
+              int recentAlert2 = alertListSize - 2;
+              int recentAlert3 = alertListSize - 3;
+              Platform.runLater(
+                  () -> {
+                    alert1.setText(
+                        alertList.get(recentAlert1).getType()
+                            + ": "
+                            + alertList.get(recentAlert1).getTitle());
+                    alert2.setText(
+                        alertList.get(recentAlert2).getType()
+                            + ": "
+                            + alertList.get(recentAlert2).getTitle());
+                    alert3.setText(
+                        alertList.get(recentAlert3).getType()
+                            + ": "
+                            + alertList.get(recentAlert3).getTitle());
+                  });
+            });
+    thread.start();
 
     setlanguage();
     homeTrigger1.setVisible(false);

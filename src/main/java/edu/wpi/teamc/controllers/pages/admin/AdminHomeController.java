@@ -1,5 +1,7 @@
 package edu.wpi.teamc.controllers.pages.admin;
 
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
@@ -7,39 +9,21 @@ import edu.wpi.teamc.dao.displays.Alert;
 import edu.wpi.teamc.dao.requests.*;
 import edu.wpi.teamc.languageHelpers.TranslatorAPI;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.web.HTMLEditor;
-import org.girod.javafx.svgimage.SVGImage;
-import org.girod.javafx.svgimage.SVGLoader;
-
-import javax.swing.text.html.ImageView;
-import java.awt.*;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 public class AdminHomeController {
-
-  private String filePath;
-  private Desktop desktop = Desktop.getDesktop();
-  // @FXML private AdminMenuController adminMenuController;
-
-  @FXML private AnchorPane Admin_Home_AnchorPane;
-  @FXML private HTMLEditor guestWeather;
-  @FXML private ImageView English_flag;
-  @FXML private ImageView Spanish_flag;
   // ALL TEXT//
   @FXML private Text AdminHome_Title;
   @FXML private VBox notificationVBox;
@@ -49,13 +33,9 @@ public class AdminHomeController {
 
   @FXML private TextField weather_title;
   @FXML private TextField notifications_title;
-  // public void initialize() {
-  //  LoginDao loginDao = new LoginDao();
-  //    try {
-  //      login = loginDao.;
-  //    }
 
   RequestSystem requestSystem = null;
+
   public int shiftlines(String s) {
     int count = s.length();
     int lines = count / 56;
@@ -133,53 +113,52 @@ public class AdminHomeController {
               }
 
               private void addTask(AbsServiceRequest request) {
+                Text title = new Text("");
+                if (request instanceof ConferenceRoomRequest) {
+                  title = new Text("Conference Room Request");
+                } else if (request instanceof FlowerDeliveryRequest) {
+                  title = new Text("Flower Delivery Request");
+                } else if (request instanceof FurnitureDeliveryRequest) {
+                  title = new Text("Furniture Delivery Request");
+                } else if (request instanceof GiftBasketRequest) {
+                  title = new Text("Gift Basket Request");
+                } else if (request instanceof MealRequest) {
+                  title = new Text("Meal Request");
+                } else if (request instanceof OfficeSuppliesRequest) {
+                  title = new Text("Office Supplies Request");
+                }
+                Text desc =
+                    new Text(request.getRequestID() + " | " + request.getRequester().getName());
 
+                HBox hBox = new HBox();
+                HBox container = new HBox();
+                VBox vBox = new VBox();
+
+                hBox.setMaxHeight(shiftlines(title.getText()) * 45);
+                hBox.setAlignment(Pos.CENTER_LEFT);
+                hBox.setSpacing(20);
+                container.setSpacing(20);
+                hBox.setStyle(
+                    "-fx-background-color: #ffffff;-fx-border-width: 1; -fx-max-width:650; -fx-padding: 10;"
+                        + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
+
+                title.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+                desc.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
+                //      Image img = choosePNG(type);
+                //      javafx.scene.image.ImageView imgView = new
+                // javafx.scene.image.ImageView(img);
+                //      hBox.getChildren().add(imgView);
+                vBox.getChildren().add(title);
+                vBox.getChildren().add(desc);
+                hBox.getChildren().add(vBox);
+                container.getChildren().add(hBox);
+                BorderColor("Other", container);
                 Platform.runLater(
                     new Runnable() {
                       @Override
                       public void run() {
                         // for each request in the list, create a box with the title and description
-                        Text title = new Text("");
-                        if (request instanceof ConferenceRoomRequest) {
-                          title = new Text("Conference Room Request");
-                        } else if (request instanceof FlowerDeliveryRequest) {
-                          title = new Text("Flower Delivery Request");
-                        } else if (request instanceof FurnitureDeliveryRequest) {
-                          title = new Text("Furniture Delivery Request");
-                        } else if (request instanceof GiftBasketRequest) {
-                          title = new Text("Gift Basket Request");
-                        } else if (request instanceof MealRequest) {
-                          title = new Text("Meal Request");
-                        } else if (request instanceof OfficeSuppliesRequest) {
-                          title = new Text("Office Supplies Request");
-                        }
-                        Text desc =
-                            new Text(
-                                request.getRequestID() + " | " + request.getRequester().getName());
 
-                        HBox hBox = new HBox();
-                        HBox container = new HBox();
-                        VBox vBox = new VBox();
-
-                        hBox.setMaxHeight(shiftlines(title.getText()) * 45);
-                        hBox.setAlignment(Pos.CENTER_LEFT);
-                        hBox.setSpacing(20);
-                        container.setSpacing(20);
-                        hBox.setStyle(
-                            "-fx-background-color: #ffffff;-fx-border-width: 1; -fx-max-width:650; -fx-padding: 10;"
-                                + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
-
-                        title.setFont(Font.font("Arial", FontWeight.BOLD, 25));
-                        desc.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
-                        //      Image img = choosePNG(type);
-                        //      javafx.scene.image.ImageView imgView = new
-                        // javafx.scene.image.ImageView(img);
-                        //      hBox.getChildren().add(imgView);
-                        vBox.getChildren().add(title);
-                        vBox.getChildren().add(desc);
-                        hBox.getChildren().add(vBox);
-                        container.getChildren().add(hBox);
-                        BorderColor("Other", container);
                         TODOVBox.getChildren().add(0, container);
                       }
                     });
@@ -204,7 +183,6 @@ public class AdminHomeController {
                 } catch (Exception e) {
                   e.printStackTrace();
                 }
-
                 for (Alert alert : alertList[0]) {
                   if (language_choice == 0) { // English
                     try {
@@ -228,90 +206,101 @@ public class AdminHomeController {
 
               public void addNotification(String notification, String description, String type)
                   throws IOException {
+                HBox hBox = new HBox();
+                HBox container = new HBox();
+                VBox vBox = new VBox();
+                Text title = new Text(notification);
+                Text desc = new Text(description);
 
+                hBox.setMaxHeight(shiftlines(title.getText()) * 45);
+                hBox.setAlignment(Pos.CENTER_LEFT);
+                hBox.setSpacing(20);
+                container.setSpacing(20);
+                hBox.setStyle(
+                    "-fx-background-color: #ffffff;-fx-border-width: 1; -fx-max-width:650; -fx-padding: 5 10 5 10;"
+                        + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
+
+                title.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+                desc.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
+                Image img = null;
+                try {
+                  img = choosePNG(type);
+                } catch (IOException e) {
+                  throw new RuntimeException(e);
+                }
+                javafx.scene.image.ImageView imgView = new javafx.scene.image.ImageView(img);
+                hBox.getChildren().add(imgView);
+                title.setWrappingWidth(550);
+                desc.setWrappingWidth(550);
+                vBox.getChildren().add(title);
+                vBox.getChildren().add(desc);
+                hBox.getChildren().add(vBox);
+                container.getChildren().add(hBox);
+                BorderColor(type, container);
                 Platform.runLater(
                     new Runnable() {
                       @Override
                       public void run() {
-                        HBox hBox = new HBox();
-                        HBox container = new HBox();
-                        VBox vBox = new VBox();
-                        Text title = new Text(notification);
-                        Text desc = new Text(description);
-
-                        hBox.setMaxHeight(shiftlines(title.getText()) * 45);
-                        hBox.setAlignment(Pos.CENTER_LEFT);
-                        hBox.setSpacing(20);
-                        container.setSpacing(20);
-                        hBox.setStyle(
-                            "-fx-background-color: #ffffff;-fx-border-width: 1; -fx-max-width:650; -fx-padding: 5 10 5 10;"
-                                + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
-
-                        title.setFont(Font.font("Arial", FontWeight.BOLD, 25));
-                        desc.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
-                        Image img = null;
-                        try {
-                          img = choosePNG(type);
-                        } catch (IOException e) {
-                          throw new RuntimeException(e);
-                        }
-                        javafx.scene.image.ImageView imgView =
-                            new javafx.scene.image.ImageView(img);
-                        hBox.getChildren().add(imgView);
-                        title.setWrappingWidth(550);
-                        desc.setWrappingWidth(550);
-                        vBox.getChildren().add(title);
-                        vBox.getChildren().add(desc);
-                        hBox.getChildren().add(vBox);
-                        container.getChildren().add(hBox);
-                        BorderColor(type, container);
                         notificationVBox.getChildren().add(0, container);
                       }
                     });
+              }
+
+              public javafx.scene.image.Image choosePNG(String type) throws IOException {
+                Image holder;
+                switch (type) {
+                  case "Weather":
+                    holder =
+                        (new javafx.scene.image.Image(
+                            Main.class
+                                .getResource("views/images/AlertIcons/img_5.png")
+                                .openStream()));
+                    break;
+                  case "Construction":
+                    holder =
+                        (new javafx.scene.image.Image(
+                            Main.class
+                                .getResource("views/images/AlertIcons/img_2.png")
+                                .openStream()));
+                    break;
+                  case "Car Crash":
+                    holder =
+                        (new javafx.scene.image.Image(
+                            Main.class
+                                .getResource("views/images/AlertIcons/img_1.png")
+                                .openStream()));
+                    break;
+                  case "Closures":
+                    holder =
+                        (new javafx.scene.image.Image(
+                            Main.class
+                                .getResource("views/images/AlertIcons/img.png")
+                                .openStream()));
+                    break;
+                  case "Emergency":
+                    holder =
+                        (new javafx.scene.image.Image(
+                            Main.class
+                                .getResource("views/images/AlertIcons/img_4.png")
+                                .openStream()));
+                    break;
+                  case "Other":
+                    holder =
+                        (new javafx.scene.image.Image(
+                            Main.class
+                                .getResource("views/images/AlertIcons/img_3.png")
+                                .openStream()));
+                    break;
+                  default:
+                    holder =
+                        (new javafx.scene.image.Image(Main.class.getResource("").openStream()));
+                }
+                return holder;
               }
             });
     thread.start();
   }
   // SVG Function for Notification//
-  @FXML
-  public javafx.scene.image.Image choosePNG(String type) throws IOException {
-    Image holder;
-    switch (type) {
-      case "Weather":
-        holder =
-            (new javafx.scene.image.Image(
-                Main.class.getResource("views/images/AlertIcons/img_5.png").openStream()));
-        break;
-      case "Construction":
-        holder =
-            (new javafx.scene.image.Image(
-                Main.class.getResource("views/images/AlertIcons/img_2.png").openStream()));
-        break;
-      case "Car Crash":
-        holder =
-            (new javafx.scene.image.Image(
-                Main.class.getResource("views/images/AlertIcons/img_1.png").openStream()));
-        break;
-      case "Closures":
-        holder =
-            (new javafx.scene.image.Image(
-                Main.class.getResource("views/images/AlertIcons/img.png").openStream()));
-        break;
-      case "Emergency":
-        holder =
-            (new javafx.scene.image.Image(
-                Main.class.getResource("views/images/AlertIcons/img_4.png").openStream()));
-        break;
-      case "Other":
-        holder =
-            (new javafx.scene.image.Image(
-                Main.class.getResource("views/images/AlertIcons/img_3.png").openStream()));
-        break;
-      default:
-        holder = (new javafx.scene.image.Image(Main.class.getResource("").openStream()));
-    }
-    return holder;
-  }
 
   // LANGUAGE//
 
@@ -330,6 +319,7 @@ public class AdminHomeController {
 
   @FXML
   String LanguageSet(String text) throws Exception {
+    text = null;
     if (text == null) {
       return null;
     }

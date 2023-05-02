@@ -4,8 +4,8 @@ import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
-import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -13,7 +13,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -36,18 +35,30 @@ public class CApp extends Application {
 
   public static void timeOut() {
     // 480000
-    PauseTransition startPause = new PauseTransition(Duration.millis(480000));
-    startPause.setOnFinished(
-        (event -> {
-          CApp.logoutPopUp();
-        }));
-    startPause.play();
+    Thread thread =
+        new Thread(
+            () -> {
+              try {
+                Thread.sleep(480000);
+                Platform.runLater(
+                    () -> {
+                      CApp.logoutPopUp();
+                    });
+              } catch (InterruptedException e) {
+                e.printStackTrace();
+              }
+            });
+    thread.start();
   }
 
   static volatile boolean logoutOpen = false;
 
   public static void logoutPopUp() {
-    if (logoutOpen) return;
+    if (logoutOpen || currScreen.equals(Screen.SCREENSAVER)) return;
+    if (currScreen.equals(Screen.HOME)) {
+      Navigation.navigate(Screen.SCREENSAVER);
+      return;
+    }
     BorderPane borderPane = new BorderPane();
 
     // Stuff to show on pop up
@@ -95,32 +106,58 @@ public class CApp extends Application {
     stage.setAlwaysOnTop(true);
     logoutOpen = true;
     stage.show();
-    int[] seconds = new int[1];
-    seconds[0] = 10;
     Thread thread =
         new Thread() {
           @Override
           public void run() {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 10; i >= 0; i--) {
               try {
-                building.setText(seconds[0] + " seconds");
-                seconds[0]--;
+                building.setText(i + " seconds");
                 Thread.sleep(1000);
+                if (i == 0) {
+                  building.setText("Logging out...");
+                }
+                if (Thread.currentThread().isInterrupted()) {
+                  break;
+                }
               } catch (InterruptedException e) {
-                throw new RuntimeException(e);
               }
             }
+            if (Thread.currentThread().isInterrupted()) {
+              return;
+            }
+            Platform.runLater(
+                new Runnable() {
+                  @Override
+                  public void run() {
+                    if (!stage.isShowing()) {
+                      stage.close();
+                      CApp.timeOut();
+                      return;
+                    } else {
+                      stage.close();
+                      logoutOpen = false;
+                      CApp.setAdminLoginCheck(false);
+                      CApp.currScreen = Screen.SCREENSAVER;
+                      //            Navigation.clearCache();
+                      Navigation.navigate(Screen.SCREENSAVER);
+                      Navigation.setMenuType(Navigation.MenuType.DISABLED);
+                    }
+                  }
+                });
           }
         };
     thread.start();
     cancel.setOnAction(
         (event -> {
+          thread.interrupt();
           stage.close();
           logoutOpen = false;
         }));
 
     logoutButton.setOnAction(
         (event -> {
+          thread.interrupt();
           stage.close();
           logoutOpen = false;
           CApp.setAdminLoginCheck(false);
@@ -129,25 +166,6 @@ public class CApp extends Application {
           Navigation.navigate(Screen.HOME);
           Navigation.setMenuType(Navigation.MenuType.DISABLED);
         }));
-
-    PauseTransition startPause = new PauseTransition(Duration.millis(10000));
-    startPause.setOnFinished(
-        (event -> {
-          if (!stage.isShowing()) {
-            stage.close();
-            CApp.timeOut();
-            return;
-          } else {
-            stage.close();
-            logoutOpen = false;
-            CApp.setAdminLoginCheck(false);
-            CApp.currScreen = Screen.SCREENSAVER;
-            //            Navigation.clearCache();
-            Navigation.navigate(Screen.SCREENSAVER);
-            Navigation.setMenuType(Navigation.MenuType.DISABLED);
-          }
-        }));
-    startPause.play();
   }
 
   @Override

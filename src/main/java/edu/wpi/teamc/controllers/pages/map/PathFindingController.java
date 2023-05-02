@@ -62,6 +62,8 @@ public class PathFindingController {
   @FXML MFXButton floorButton;
   @FXML MFXTextField message;
   @FXML MFXButton robotButton;
+  int numNodesSent = 0;
+  int totalNodesSent = 0;
   private MFXButton tempSave;
   private final Paint DEFAULT_BG = Paint.valueOf("#bebebe");
   private Group mapNodes = new Group();
@@ -112,7 +114,7 @@ public class PathFindingController {
     pane.relocate(0, 0);
     robotButton.setOnAction(
         event -> {
-          sendToRobot(path);
+          sendToRobotMethod3(path);
         });
 
     Point2D centrePoint = new Point2D(1100, 400);
@@ -690,7 +692,7 @@ public class PathFindingController {
 
     if (ports.length != 0) {
       System.out.println(ports[0]);
-      ports[2].setComPortParameters(115200, 8, 1, SerialPort.NO_PARITY);
+      ports[2].setComPortParameters(115200, 8, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
       ports[2].setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 16); // Blocking write
 
       if (ports[2].openPort(16)) {
@@ -703,9 +705,11 @@ public class PathFindingController {
           10
         };
         ports[2].writeBytes(bytes, bytes.length);
+        System.out.println(numMessages + " numMessages sent");
       }
 
       for (GraphNode node : currentPath) {
+        System.out.println(node.getNodeID());
         if (ports[2].isOpen() || ports[2].openPort(16)) {
           //            System.out.println("Port opened successfully");
           int x = node.getXCoord();
@@ -714,10 +718,12 @@ public class PathFindingController {
             (byte) (x / 1000 % 10), (byte) (x / 100 % 10), (byte) (x / 10 % 10), (byte) (x % 10), 10
           };
           ports[2].writeBytes(bytes, bytes.length);
+          // not sending the the following byte, only sending the numMessages and x
           byte[] bytes2 = {
             (byte) (y / 1000 % 10), (byte) (y / 100 % 10), (byte) (y / 10 % 10), (byte) (y % 10), 10
           };
           ports[2].writeBytes(bytes2, bytes2.length);
+          //          ports[2].readBytes(bytes, 2);
           System.out.println(bytes.toString() + "sent");
           System.out.println(bytes2.toString() + "sent");
         } else {
@@ -731,6 +737,266 @@ public class PathFindingController {
     }
   }
 
+  public void sendToRobotMethod2(List<GraphNode> currentPath) {
+    SerialPort[] ports = SerialPort.getCommPorts();
+    //        List<Node> currentPath = new ArrayList<Node>();
+    System.out.println(Arrays.toString(ports));
+    System.out.println("Got ports");
+
+    if (ports.length != 0) {
+      //      System.out.println(ports[2]);
+      ports[2].setComPortParameters(115200, 8, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
+      ports[2].setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 16); // Blocking write
+
+      //      if (ports[2].openPort(16)) {
+      //        int numMessages = currentPath.size();
+      //        byte[] bytes = {
+      //                (byte) (numMessages / 1000 % 10),
+      //                (byte) (numMessages / 100 % 10),
+      //                (byte) (numMessages / 10 % 10),
+      //                (byte) (numMessages % 10),
+      //                10
+      //        };
+      //        ports[2].writeBytes(bytes, bytes.length);
+      //        System.out.println(numMessages + " numMessages sent");
+      //      }
+      ports[2].openPort(16);
+
+      while (numNodesSent < 1 && totalNodesSent < currentPath.size()) {
+        System.out.println(currentPath.get(totalNodesSent).getNodeID());
+        if (ports[2].isOpen() || ports[2].openPort(16)) {
+          System.out.println("Port opened successfully");
+          int x = currentPath.get(totalNodesSent).getXCoord();
+          System.out.println("x coord: " + x);
+          int y = currentPath.get(totalNodesSent).getYCoord();
+          System.out.println("y coord: " + y);
+          byte[] bytes = {
+            (byte) (x / 1000 % 10), (byte) (x / 100 % 10), (byte) (x / 10 % 10), (byte) (x % 10), 10
+          };
+          ports[2].writeBytes(bytes, bytes.length);
+          // not sending the the following byte, only sending the numMessages and x
+          byte[] bytes2 = {
+            (byte) (y / 1000 % 10), (byte) (y / 100 % 10), (byte) (y / 10 % 10), (byte) (y % 10), 10
+          };
+          ports[2].writeBytes(bytes2, bytes2.length);
+          System.out.println(bytes.toString() + "sent");
+          System.out.println(bytes2.toString() + "sent");
+        } else {
+          System.out.println("Failed to open port");
+          System.out.println(ports[2].getLastErrorCode());
+        }
+
+        ports[2].closePort();
+        System.out.println("Port closed");
+        numNodesSent++;
+        totalNodesSent++;
+      }
+      numNodesSent = 0;
+      if (totalNodesSent >= currentPath.size()) {
+        System.out.println("Robot has reached the final node in the path");
+        totalNodesSent = 0;
+      }
+
+      //      for (GraphNode node : currentPath) {
+      //        System.out.println(node.getNodeID());
+      //        if (ports[2].isOpen() || ports[2].openPort(16)) {
+      //          //            System.out.println("Port opened successfully");
+      //          int x = node.getXCoord();
+      //          int y = node.getYCoord();
+      //          byte[] bytes = {
+      //                  (byte) (x / 1000 % 10), (byte) (x / 100 % 10), (byte) (x / 10 % 10),
+      // (byte) (x % 10), 10
+      //          };
+      //          ports[2].writeBytes(bytes, bytes.length);
+      //          // not sending the the following byte, only sending the numMessages and x
+      //          byte[] bytes2 = {
+      //                  (byte) (y / 1000 % 10), (byte) (y / 100 % 10), (byte) (y / 10 % 10),
+      // (byte) (y % 10), 10
+      //          };
+      //          ports[2].writeBytes(bytes2, bytes2.length);
+      //          System.out.println(bytes.toString() + "sent");
+      //          System.out.println(bytes2.toString() + "sent");
+      //        } else {
+      //          System.out.println("Failed to open port");
+      //          System.out.println(ports[2].getLastErrorCode());
+      //        }
+      //      }
+      //
+      //      ports[2].closePort();
+      //      System.out.println("Port closed");
+      //    }
+    }
+  }
+
+  public void sendToRobotMethod3(List<GraphNode> currentPath) {
+    SerialPort[] ports = SerialPort.getCommPorts();
+    //        List<Node> currentPath = new ArrayList<Node>();
+    System.out.println(Arrays.toString(ports));
+    System.out.println("Got ports");
+
+    if (ports.length != 0) {
+      System.out.println(ports[2]);
+      ports[2].setComPortParameters(115200, 8, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
+      ports[2].setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 16); // Blocking write
+
+      if (ports[2].openPort(16)) {
+        int numMessages = currentPath.size();
+        byte[] bytes = {
+          (byte) (numMessages / 1000 % 10),
+          (byte) (numMessages / 100 % 10),
+          (byte) (numMessages / 10 % 10),
+          (byte) (numMessages % 10),
+          10
+        };
+        ports[2].writeBytes(bytes, bytes.length);
+        System.out.println(numMessages + " numMessages sent");
+        ports[2].closePort();
+        System.out.println("Message Port Closed");
+      }
+
+      //      ports[2].openPort(16);
+      for (GraphNode node : currentPath) {
+        if (ports[2].openPort(16)) {
+          //          System.out.println(currentPath.get(totalNodesSent).getNodeID());
+          if (ports[2].isOpen() || ports[2].openPort(16)) {
+            System.out.println("Port opened successfully");
+            int x = node.getXCoord();
+            System.out.println("x coord: " + x);
+            int y = node.getYCoord();
+            System.out.println("y coord: " + y);
+            byte[] bytes = {
+              (byte) (x / 1000 % 10),
+              (byte) (x / 100 % 10),
+              (byte) (x / 10 % 10),
+              (byte) (x % 10),
+              10
+            };
+            ports[2].writeBytes(bytes, bytes.length);
+            // not sending the the following byte, only sending the numMessages and x
+            byte[] bytes2 = {
+              (byte) (y / 1000 % 10),
+              (byte) (y / 100 % 10),
+              (byte) (y / 10 % 10),
+              (byte) (y % 10),
+              10
+            };
+            ports[2].writeBytes(bytes2, bytes2.length);
+            System.out.println(bytes.toString() + "sent");
+            System.out.println(bytes2.toString() + "sent");
+          } else {
+            System.out.println("Failed to open port");
+            System.out.println(ports[2].getLastErrorCode());
+          }
+
+          ports[2].closePort();
+          System.out.println("Port closed");
+          numNodesSent++;
+          totalNodesSent++;
+        }
+        //        numNodesSent = 0;
+        if (totalNodesSent >= currentPath.size()) {
+          if (ports[2].openPort(16)) {
+            System.out.println("final port opening for end call");
+            byte[] bytes3 = {9, 9, 9, 9, 10};
+            byte[] bytes4 = {9, 9, 9, 9, 10};
+            ports[2].writeBytes(bytes3, bytes3.length);
+            ports[2].writeBytes(bytes4, bytes4.length);
+            System.out.println(bytes3.toString() + "sent");
+            System.out.println(bytes4.toString() + "sent");
+          }
+          System.out.println("Robot has reached the final node in the path");
+          ports[2].closePort();
+          System.out.println("Final port Closing");
+          totalNodesSent = 0;
+        }
+      }
+    }
+  }
+
+  public void sendToRobotMethod4(List<GraphNode> currentPath) {
+    SerialPort[] ports = SerialPort.getCommPorts();
+    //        List<Node> currentPath = new ArrayList<Node>();
+    System.out.println(Arrays.toString(ports));
+    System.out.println("Got ports");
+
+    if (ports.length != 0) {
+      System.out.println(ports[2]);
+      ports[2].setComPortParameters(115200, 8, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
+      ports[2].setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 16); // Blocking write
+
+      if (ports[2].openPort(16)) {
+        int numMessages = currentPath.size();
+        byte[] bytes = {
+                (byte) (numMessages / 1000 % 10),
+                (byte) (numMessages / 100 % 10),
+                (byte) (numMessages / 10 % 10),
+                (byte) (numMessages % 10),
+                10
+        };
+        ports[2].writeBytes(bytes, bytes.length);
+        System.out.println(numMessages + " numMessages sent");
+        ports[2].closePort();
+        System.out.println("Message Port Closed");
+      }
+
+      //      ports[2].openPort(16);
+      for (GraphNode node : currentPath) {
+        if (ports[2].openPort(16)) {
+          //          System.out.println(currentPath.get(totalNodesSent).getNodeID());
+          if (ports[2].isOpen() || ports[2].openPort(16)) {
+            System.out.println("Port opened successfully");
+            int x = node.getXCoord();
+            System.out.println("x coord: " + x);
+            int y = node.getYCoord();
+            System.out.println("y coord: " + y);
+            byte[] bytes = {
+                    (byte) (x / 1000 % 10),
+                    (byte) (x / 100 % 10),
+                    (byte) (x / 10 % 10),
+                    (byte) (x % 10),
+                    10
+            };
+            ports[2].writeBytes(bytes, bytes.length);
+            // not sending the the following byte, only sending the numMessages and x
+            byte[] bytes2 = {
+                    (byte) (y / 1000 % 10),
+                    (byte) (y / 100 % 10),
+                    (byte) (y / 10 % 10),
+                    (byte) (y % 10),
+                    10
+            };
+            ports[2].writeBytes(bytes2, bytes2.length);
+            System.out.println(bytes.toString() + "sent");
+            System.out.println(bytes2.toString() + "sent");
+          } else {
+            System.out.println("Failed to open port");
+            System.out.println(ports[2].getLastErrorCode());
+          }
+
+          ports[2].closePort();
+          System.out.println("Port closed");
+          numNodesSent++;
+          totalNodesSent++;
+        }
+        //        numNodesSent = 0;
+        if (totalNodesSent >= currentPath.size()) {
+          if (ports[2].openPort(16)) {
+            System.out.println("final port opening for end call");
+            byte[] bytes3 = {9, 9, 9, 9, 10};
+            byte[] bytes4 = {9, 9, 9, 9, 10};
+            ports[2].writeBytes(bytes3, bytes3.length);
+            ports[2].writeBytes(bytes4, bytes4.length);
+            System.out.println(bytes3.toString() + "sent");
+            System.out.println(bytes4.toString() + "sent");
+          }
+          System.out.println("Robot has reached the final node in the path");
+          ports[2].closePort();
+          System.out.println("Final port Closing");
+          totalNodesSent = 0;
+        }
+      }
+    }
+  }
   void activateSubmit() {
     submit.setDisable(false);
   }

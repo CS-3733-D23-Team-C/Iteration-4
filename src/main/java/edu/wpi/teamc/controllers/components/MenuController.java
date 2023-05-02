@@ -143,6 +143,7 @@ public class MenuController {
   @FXML private MFXButton Admin_menu_room_reservation;
   // @FXML private MFXButton Admin_menu_giftbasket_delivery;
   @FXML private MFXButton Admin_menu_employee_table;
+  @FXML private MFXButton Admin_menu_patient_table;
 
   @FXML private MFXButton Admin_menu_home_button;
   @FXML private MFXButton Admin_menu_about_button;
@@ -279,16 +280,6 @@ public class MenuController {
   }
 
   @FXML
-  void getMealHistory(ActionEvent event) {
-    //      Navigation.navigate(Screen.MEAL_HISTORY);
-  }
-
-  @FXML
-  void getFlowerHistory(ActionEvent event) {
-    //      Navigation.navigate(Screen.FLOWER_HISTORY);
-  }
-
-  @FXML
   void getSignageEdit(ActionEvent event) {
     CApp.currScreen = Screen.SIGNAGE_EDIT;
     Navigation.navigate(Screen.SIGNAGE_EDIT);
@@ -301,11 +292,6 @@ public class MenuController {
   }
 
   @FXML
-  void getOfficeSupplyHistory(ActionEvent event) {
-    //      Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
-  }
-
-  @FXML
   void getAlertRequest(ActionEvent event) {
     CApp.currScreen = Screen.ALERT_REQUEST;
     Navigation.navigate(Screen.ALERT_REQUEST);
@@ -314,6 +300,11 @@ public class MenuController {
   public void getEmployeeTablePage(ActionEvent actionEvent) {
     CApp.currScreen = Screen.EMPLOYEETABLE_PAGE;
     Navigation.navigate(Screen.EMPLOYEETABLE_PAGE);
+  }
+
+  public void getPatientTablePage(ActionEvent actionEvent) {
+    CApp.currScreen = Screen.PATIENTTABLE_PAGE;
+    Navigation.navigate(Screen.PATIENTTABLE_PAGE);
   }
 
   public void getLoginTablePage(ActionEvent actionEvent) {
@@ -395,28 +386,34 @@ public class MenuController {
   public void initialize() throws Exception {
     Thread thread =
         new Thread(
-            () -> {
-              java.util.List<Alert> alertList =
-                  (java.util.List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
-              int alertListSize = alertList.size();
-              int recentAlert1 = alertListSize - 1;
-              int recentAlert2 = alertListSize - 2;
-              int recentAlert3 = alertListSize - 3;
-              Platform.runLater(
-                  () -> {
-                    alert1.setText(
-                        alertList.get(recentAlert1).getType()
-                            + ": "
-                            + alertList.get(recentAlert1).getTitle());
-                    alert2.setText(
-                        alertList.get(recentAlert2).getType()
-                            + ": "
-                            + alertList.get(recentAlert2).getTitle());
-                    alert3.setText(
-                        alertList.get(recentAlert3).getType()
-                            + ": "
-                            + alertList.get(recentAlert3).getTitle());
-                  });
+            new Runnable() {
+              @Override
+              public void run() {
+                java.util.List<Alert> alertList =
+                    (java.util.List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
+                int alertListSize = alertList.size();
+                int recentAlert1 = alertListSize - 1;
+                int recentAlert2 = alertListSize - 2;
+                int recentAlert3 = alertListSize - 3;
+                Platform.runLater(
+                    new Runnable() {
+                      @Override
+                      public void run() {
+                        alert1.setText(
+                            alertList.get(recentAlert1).getType()
+                                + ": "
+                                + alertList.get(recentAlert1).getTitle());
+                        alert2.setText(
+                            alertList.get(recentAlert2).getType()
+                                + ": "
+                                + alertList.get(recentAlert2).getTitle());
+                        alert3.setText(
+                            alertList.get(recentAlert3).getType()
+                                + ": "
+                                + alertList.get(recentAlert3).getTitle());
+                      }
+                    });
+              }
             });
     thread.start();
 

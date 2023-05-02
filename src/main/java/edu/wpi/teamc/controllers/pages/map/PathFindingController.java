@@ -110,7 +110,10 @@ public class PathFindingController {
     pane.setMinHeight(image.getHeight());
     pane.setMaxHeight(image.getHeight());
     pane.relocate(0, 0);
-//    robotButton.setOnAction();
+    robotButton.setOnAction(
+        event -> {
+          sendToRobot(path);
+        });
 
     Point2D centrePoint = new Point2D(1100, 400);
     mapGPane.centreOn(centrePoint);
@@ -679,50 +682,52 @@ public class PathFindingController {
     stage.setAlwaysOnTop(true);
   }
 
-  public void sendToRobot(List<Node> currentPath) {
+  public void sendToRobot(List<GraphNode> currentPath) {
     SerialPort[] ports = SerialPort.getCommPorts();
     //        List<Node> currentPath = new ArrayList<Node>();
+    System.out.println(Arrays.toString(ports));
+    System.out.println("Got ports");
 
     if (ports.length != 0) {
       System.out.println(ports[0]);
-      ports[0].setComPortParameters(115200, 8, 1, SerialPort.NO_PARITY);
-      ports[0].setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 16); // Blocking write
+      ports[2].setComPortParameters(115200, 8, 1, SerialPort.NO_PARITY);
+      ports[2].setComPortTimeouts(SerialPort.TIMEOUT_WRITE_BLOCKING, 0, 16); // Blocking write
 
-      if (ports[0].openPort(16)) {
+      if (ports[2].openPort(16)) {
         int numMessages = currentPath.size();
         byte[] bytes = {
-                (byte) (numMessages / 1000 % 10),
-                (byte) (numMessages / 100 % 10),
-                (byte) (numMessages / 10 % 10),
-                (byte) (numMessages % 10),
-                10
+          (byte) (numMessages / 1000 % 10),
+          (byte) (numMessages / 100 % 10),
+          (byte) (numMessages / 10 % 10),
+          (byte) (numMessages % 10),
+          10
         };
-        ports[0].writeBytes(bytes, bytes.length);
+        ports[2].writeBytes(bytes, bytes.length);
       }
 
-      for (Node node : currentPath) {
-        if (ports[0].isOpen() || ports[0].openPort(16)) {
+      for (GraphNode node : currentPath) {
+        if (ports[2].isOpen() || ports[2].openPort(16)) {
           //            System.out.println("Port opened successfully");
           int x = node.getXCoord();
           int y = node.getYCoord();
           byte[] bytes = {
-                  (byte) (x / 1000 % 10), (byte) (x / 100 % 10), (byte) (x / 10 % 10), (byte) (x % 10), 10
+            (byte) (x / 1000 % 10), (byte) (x / 100 % 10), (byte) (x / 10 % 10), (byte) (x % 10), 10
           };
-          ports[0].writeBytes(bytes, bytes.length);
+          ports[2].writeBytes(bytes, bytes.length);
           byte[] bytes2 = {
-                  (byte) (y / 1000 % 10), (byte) (y / 100 % 10), (byte) (y / 10 % 10), (byte) (y % 10), 10
+            (byte) (y / 1000 % 10), (byte) (y / 100 % 10), (byte) (y / 10 % 10), (byte) (y % 10), 10
           };
-          ports[0].writeBytes(bytes2, bytes2.length);
+          ports[2].writeBytes(bytes2, bytes2.length);
           System.out.println(bytes.toString() + "sent");
           System.out.println(bytes2.toString() + "sent");
         } else {
           System.out.println("Failed to open port");
-          System.out.println(ports[0].getLastErrorCode());
+          System.out.println(ports[2].getLastErrorCode());
         }
       }
 
-      ports[0].closePort();
-      //        System.out.println("Port closed");
+      ports[2].closePort();
+      System.out.println("Port closed");
     }
   }
 

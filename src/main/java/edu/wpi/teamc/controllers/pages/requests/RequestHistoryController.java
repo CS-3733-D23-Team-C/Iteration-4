@@ -123,8 +123,24 @@ public class RequestHistoryController {
     deleteButton.setOnMouseClicked(
         event -> {
           IRequest selected = (IRequest) historyTable.getSelectionModel().getSelectedItem();
-          HospitalSystem.deleteRow((IOrm) selected);
-          getSwitch(selected);
+          if (selected != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete Request");
+            alert.setHeaderText(
+                "Are you sure you want to delete this request: " + selected.getRequestID() + "?");
+            alert.setContentText("This action cannot be undone.");
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+              HospitalSystem.deleteRow((IOrm) selected);
+              getSwitch(selected);
+            }
+          } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No request selected");
+            alert.setContentText("Please select a request to delete.");
+            alert.showAndWait();
+          }
         });
 
     List<STATUS> statusList = Arrays.stream(STATUS.values()).toList();

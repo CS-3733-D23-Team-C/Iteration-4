@@ -1,13 +1,15 @@
 package edu.wpi.teamc.navigation;
 
 import edu.wpi.teamc.CApp;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import lombok.Getter;
 import lombok.NonNull;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Navigation {
   public enum MenuType {
@@ -27,41 +29,66 @@ public class Navigation {
   }
 
   private static void updateMenu() {
-    try {
-      final FXMLLoader menuBarLoader =
-          new FXMLLoader(CApp.class.getResource("views/components/Menu.fxml"));
-      final FXMLLoader guestMenuBarLoader =
-          new FXMLLoader(CApp.class.getResource("views/pages/guest/GuestMenu.fxml"));
-      final FXMLLoader adminMenuBarLoader =
-          new FXMLLoader(CApp.class.getResource("views/components/Menu.fxml"));
+    Thread thread =
+        new Thread(
+            () -> {
+              try {
+                final FXMLLoader menuBarLoader =
+                    new FXMLLoader(CApp.class.getResource("views/components/Menu.fxml"));
+                final FXMLLoader guestMenuBarLoader =
+                    new FXMLLoader(CApp.class.getResource("views/pages/guest/GuestMenu.fxml"));
+                final FXMLLoader adminMenuBarLoader =
+                    new FXMLLoader(CApp.class.getResource("views/components/Menu.fxml"));
+                Platform.runLater(
+                    () -> {
+                      try {
+                        switch (menuType) {
+                          case ADMIN -> CApp.getRootPane().setLeft(adminMenuBarLoader.load());
+                          case GUEST -> CApp.getRootPane().setLeft(guestMenuBarLoader.load());
+                          case DISABLED -> CApp.getRootPane()
+                              .getChildren()
+                              .remove(CApp.getRootPane().getLeft());
+                        }
+                      } catch (IOException e) {
+                        throw new RuntimeException(e);
+                      }
+                    });
 
-      switch (menuType) {
-        case ADMIN -> CApp.getRootPane().setLeft(adminMenuBarLoader.load());
-        case GUEST -> CApp.getRootPane().setLeft(guestMenuBarLoader.load());
-        case DISABLED -> CApp.getRootPane().getChildren().remove(CApp.getRootPane().getLeft());
-      }
-    } catch (IOException | NullPointerException e) {
-      e.printStackTrace();
-    }
+              } catch (NullPointerException e) {
+                e.printStackTrace();
+              }
+            });
+
+    thread.start();
   }
 
   public static void navigate(final Screen screen) {
-    final String filename = screen.getFilename();
+    Thread thread =
+        new Thread(
+            () -> {
+              try {
+                final String filename = screen.getFilename();
+                final var resource = CApp.class.getResource(filename);
+                final FXMLLoader loader = new FXMLLoader(resource);
+                final FXMLLoader menuBarLoader =
+                    new FXMLLoader(CApp.class.getResource("views/components/Menu.fxml"));
+                final FXMLLoader guestMenuBarLoader =
+                    new FXMLLoader(CApp.class.getResource("views/pages/guest/GuestMenu.fxml"));
 
-    try {
-      final var resource = CApp.class.getResource(filename);
-      final FXMLLoader loader = new FXMLLoader(resource);
-      final FXMLLoader menuBarLoader =
-          new FXMLLoader(CApp.class.getResource("views/components/Menu.fxml"));
-      final FXMLLoader guestMenuBarLoader =
-          new FXMLLoader(CApp.class.getResource("views/pages/guest/GuestMenu.fxml"));
-
-      CApp.getRootPane().setCenter(loader.load());
-      updateMenu();
-
-    } catch (IOException | NullPointerException e) {
-      e.printStackTrace();
-    }
+                Platform.runLater(
+                    () -> {
+                      try {
+                        CApp.getRootPane().setCenter(loader.load());
+                      } catch (IOException e) {
+                        throw new RuntimeException(e);
+                      }
+                    });
+              } catch (NullPointerException e) {
+                e.printStackTrace();
+              }
+              updateMenu();
+            });
+    thread.start();
   }
 
   //  caching pages, not sure if we should include this,

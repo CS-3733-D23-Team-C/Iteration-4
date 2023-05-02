@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -62,7 +63,7 @@ public class RequestHistoryController {
 
   @FXML MFXButton exportButton;
   @FXML MFXButton importButton;
-  private Desktop desktop = Desktop.getDesktop();
+  private Desktop desktop;
   private String filePath;
 
   @FXML SearchableComboBox filterByEmployeeField;
@@ -89,15 +90,30 @@ public class RequestHistoryController {
     statusField.setText("CANCELLED");
   }
 
-  RequestSystem requestSystem = new RequestSystem(new ArrayList<>());
+  RequestSystem requestSystem;
 
   /** Method run when controller is initialized */
   public void initialize() {
-    this.getConference();
-    List<EmployeeUser> employeeList =
-        (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
-    assignedtoField.getItems().addAll(FXCollections.observableArrayList(employeeList));
-    filterByEmployeeField.getItems().addAll(FXCollections.observableArrayList(employeeList));
+    Thread thread =
+        new Thread(
+            () -> {
+              desktop = Desktop.getDesktop();
+              requestSystem = new RequestSystem(new ArrayList<>());
+              this.getConference();
+              historyTable
+                  .getStylesheets()
+                  .add(
+                      Main.class.getResource("views/pages/requests/RequestHistory.css").toString());
+              List<EmployeeUser> employeeList =
+                  (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
+              assignedtoField.getItems().addAll(FXCollections.observableArrayList(employeeList));
+              filterByEmployeeField
+                  .getItems()
+                  .addAll(FXCollections.observableArrayList(employeeList));
+              List<STATUS> statusList = Arrays.stream(STATUS.values()).toList();
+              filterByStatusField.setItems(FXCollections.observableArrayList(statusList));
+            });
+    thread.start();
 
     historyTable.setOnMouseClicked(
         event -> {
@@ -143,9 +159,6 @@ public class RequestHistoryController {
           }
         });
 
-    List<STATUS> statusList = Arrays.stream(STATUS.values()).toList();
-    filterByStatusField.setItems(FXCollections.observableArrayList(statusList));
-
     importButton.setOnMouseClicked(
         event -> {
           getImportMenu();
@@ -179,27 +192,37 @@ public class RequestHistoryController {
     //    Column7.setStyle("-fx-opacity: 0.5; -fx-background-color: #02143B; -fx-text-fill:
     // white;");
     //    Column8.setStyle("-fx-opacity: 1; -fx-background-color: #02143B; -fx-text-fill: white;");
-    historyTable
-        .getStylesheets()
-        .add(Main.class.getResource("views/pages/requests/RequestHistory.css").toString());
+
   }
 
   public void filterView() {
-    historyTable.getItems().removeAll();
-    String assingedTo = null;
-    try {
-      assingedTo = filterByEmployeeField.getSelectionModel().getSelectedItem().toString();
-    } catch (Exception e) {
-      assingedTo = null;
-    }
-    STATUS status = null;
-    try {
-      status = STATUS.valueOf(filterByStatusField.getSelectionModel().getSelectedItem().toString());
-    } catch (Exception e) {
-      status = null;
-    }
-    List<AbsServiceRequest> filteredList = requestSystem.filterRequest(assingedTo, status);
-    historyTable.setItems(FXCollections.observableArrayList(filteredList));
+    Thread thread =
+        new Thread(
+            () -> {
+              String assingedTo = null;
+              try {
+                assingedTo = filterByEmployeeField.getSelectionModel().getSelectedItem().toString();
+              } catch (Exception e) {
+                assingedTo = null;
+              }
+              STATUS status = null;
+              try {
+                status =
+                    STATUS.valueOf(
+                        filterByStatusField.getSelectionModel().getSelectedItem().toString());
+              } catch (Exception e) {
+                status = null;
+              }
+              List<AbsServiceRequest> filteredList =
+                  requestSystem.filterRequest(assingedTo, status);
+
+              Platform.runLater(
+                  () -> {
+                    historyTable.getItems().removeAll();
+                    historyTable.setItems(FXCollections.observableArrayList(filteredList));
+                  });
+            });
+    thread.start();
   }
 
   @FXML
@@ -221,41 +244,53 @@ public class RequestHistoryController {
 
   @FXML
   private void getConference() {
-    this.resetColor();
-    this.clearCurrentSelection();
-    conference.setStyle(selectedButtonColor);
-    selectedRequest = new ConferenceRoomRequest();
-    ObservableList<ConferenceRoomRequest> rows = FXCollections.observableArrayList();
-    Column1.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, Integer>("requestID"));
-    Column2.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, IUser>("requester"));
-    Column3.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, ConferenceRoom>("conferenceRoom"));
-    Column4.setCellValueFactory(new PropertyValueFactory<ConferenceRoomRequest, STATUS>("status"));
-    Column5.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, String>("additionalNotes"));
-    Column6.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, String>("startTime"));
-    Column7.setCellValueFactory(new PropertyValueFactory<ConferenceRoomRequest, String>("endTime"));
-    Column8.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, String>("assignedto"));
-    Column1.setText("ID");
-    Column2.setText("Requester");
-    Column3.setText("Room Name");
-    Column4.setText("Status");
-    Column5.setText("Additional Notes");
-    Column6.setText("Start time");
-    Column7.setText("End time");
-    Column8.setText("Assigned To");
-    ConferenceRoomRequestDAO dao = new ConferenceRoomRequestDAO();
-    List<ConferenceRoomRequest> list = dao.fetchAllObjects();
-    for (ConferenceRoomRequest ConferenceRoomRequest : list) {
-      rows.add(ConferenceRoomRequest);
-    }
-    requestSystem.setRequests(new ArrayList<>(list));
-    historyTable.getItems().removeAll();
-    historyTable.setItems(rows);
+    Thread thread =
+        new Thread(
+            () -> {
+              this.resetColor();
+              conference.setStyle(selectedButtonColor);
+              selectedRequest = new ConferenceRoomRequest();
+              ObservableList<ConferenceRoomRequest> rows = FXCollections.observableArrayList();
+              Column1.setCellValueFactory(
+                  new PropertyValueFactory<ConferenceRoomRequest, Integer>("requestID"));
+              Column2.setCellValueFactory(
+                  new PropertyValueFactory<ConferenceRoomRequest, IUser>("requester"));
+              Column3.setCellValueFactory(
+                  new PropertyValueFactory<ConferenceRoomRequest, ConferenceRoom>(
+                      "conferenceRoom"));
+              Column4.setCellValueFactory(
+                  new PropertyValueFactory<ConferenceRoomRequest, STATUS>("status"));
+              Column5.setCellValueFactory(
+                  new PropertyValueFactory<ConferenceRoomRequest, String>("additionalNotes"));
+              Column6.setCellValueFactory(
+                  new PropertyValueFactory<ConferenceRoomRequest, String>("startTime"));
+              Column7.setCellValueFactory(
+                  new PropertyValueFactory<ConferenceRoomRequest, String>("endTime"));
+              Column8.setCellValueFactory(
+                  new PropertyValueFactory<ConferenceRoomRequest, String>("assignedto"));
+
+              ConferenceRoomRequestDAO dao = new ConferenceRoomRequestDAO();
+              List<ConferenceRoomRequest> list = dao.fetchAllObjects();
+              for (ConferenceRoomRequest ConferenceRoomRequest : list) {
+                rows.add(ConferenceRoomRequest);
+              }
+              requestSystem.setRequests(new ArrayList<>(list));
+              historyTable.getItems().removeAll();
+              historyTable.setItems(rows);
+              Platform.runLater(
+                  () -> {
+                    this.clearCurrentSelection();
+                    Column1.setText("ID");
+                    Column2.setText("Requester");
+                    Column3.setText("Room Name");
+                    Column4.setText("Status");
+                    Column5.setText("Additional Notes");
+                    Column6.setText("Start time");
+                    Column7.setText("End time");
+                    Column8.setText("Assigned To");
+                  });
+            });
+    thread.start();
   }
 
   @FXML

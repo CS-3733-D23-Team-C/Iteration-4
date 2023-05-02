@@ -1,10 +1,17 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
+import edu.wpi.teamc.dao.HospitalSystem;
+import edu.wpi.teamc.dao.map.LocationName;
+import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
+import java.util.List;
+
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
@@ -123,7 +130,28 @@ public class GiftBasketRequestController {
 
   /** Method run when controller is initialized */
   @FXML
-  public void initialize() {}
+  public void initialize() {
+    if (!CApp.getAdminLoginCheck()) {
+      assignEmployeeAnchor.setMouseTransparent(true);
+      assignEmployeeAnchor.setOpacity(0);
+    }
+
+    List<LocationName> locationNames =
+            (List<LocationName>) HospitalSystem.fetchAllObjects(new LocationName());
+    // remove halls, elevators, stairs and bathrooms from list
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("HALL"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("ELEV"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("BATH"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("STAI"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("REST"));
+
+    roomMenu.setItems(FXCollections.observableArrayList(locationNames));
+
+    List<EmployeeUser> employeeUsers =
+            (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
+    employeeName.setItems(FXCollections.observableArrayList(employeeUsers));
+  }
+  }
 
   //  @FXML
   //  void getMapPage(ActionEvent event) {

@@ -32,6 +32,8 @@ public class HospitalSystem {
   private static MealRequestDAO mealRequestDAO = new MealRequestDAO();
   private static OfficeSuppliesRequestDAO officeSuppliesRequestDAO = new OfficeSuppliesRequestDAO();
 
+  private static GiftBasketDAO giftBasketRequestDAO = new GiftBasketDAO();
+
   // User DAOs
   private static EmployeeUserDao employeeDao = new EmployeeUserDao();
   private static AdminUserDao adminDao = new AdminUserDao();
@@ -62,6 +64,8 @@ public class HospitalSystem {
       return mealRequestDAO.fetchAllObjects();
     } else if (request instanceof OfficeSuppliesRequest) {
       return officeSuppliesRequestDAO.fetchAllObjects();
+    } else if (request instanceof GiftBasketRequest) {
+      return giftBasketRequestDAO.fetchAllObjects();
     } else if (request instanceof AdminUser) {
       return adminDao.fetchAllObjects();
     } else if (request instanceof EmployeeUser) {
@@ -98,6 +102,8 @@ public class HospitalSystem {
       return mealRequestDAO.addRow((MealRequest) request);
     } else if (request instanceof OfficeSuppliesRequest) {
       return officeSuppliesRequestDAO.addRow((OfficeSuppliesRequest) request);
+    } else if (request instanceof GiftBasketRequest) {
+      return giftBasketRequestDAO.addRow((GiftBasketRequest) request);
     } else if (request instanceof AdminUser) {
       return adminDao.addRow((AdminUser) request);
     } else if (request instanceof EmployeeUser) {
@@ -134,6 +140,8 @@ public class HospitalSystem {
       return mealRequestDAO.deleteRow((MealRequest) request);
     } else if (request instanceof OfficeSuppliesRequest) {
       return officeSuppliesRequestDAO.deleteRow((OfficeSuppliesRequest) request);
+    } else if (request instanceof GiftBasketRequest) {
+        return giftBasketRequestDAO.deleteRow((GiftBasketRequest) request);
     } else if (request instanceof AdminUser) {
       return adminDao.deleteRow((AdminUser) request);
     } else if (request instanceof EmployeeUser) {
@@ -174,6 +182,8 @@ public class HospitalSystem {
     } else if (request instanceof OfficeSuppliesRequest) {
       return officeSuppliesRequestDAO.updateRow(
           (OfficeSuppliesRequest) request, (OfficeSuppliesRequest) request);
+    } else if (request instanceof GiftBasketRequest) {
+        return giftBasketRequestDAO.updateRow((GiftBasketRequest) request, (GiftBasketRequest) request);
     } else if (request instanceof AdminUser) {
       return adminDao.updateRow((AdminUser) request, (AdminUser) request);
     } else if (request instanceof EmployeeUser) {
@@ -210,6 +220,8 @@ public class HospitalSystem {
       mealRequestDAO.exportCSV(filePath);
     } else if (request instanceof OfficeSuppliesRequest) {
       officeSuppliesRequestDAO.exportCSV(filePath);
+    } else if (request instanceof GiftBasketRequest) {
+        giftBasketRequestDAO.exportCSV(filePath);
     } else if (request instanceof AdminUser) {
       adminDao.exportCSV(filePath);
     } else if (request instanceof EmployeeUser) {

@@ -503,28 +503,26 @@ public class PathFindingController {
       prevFloor.setDisable(true);
     }
 
+    String combo = "";
     String s = graph.checkRecentMoves(true, srcN, date);
     String s2 = graph.checkRecentMoves(false, destN, date);
 
     if (!s.isEmpty()) {
-      message.setText(s);
+      combo += s + "\n";
     } else if (!s2.isEmpty()) {
-      message.setText(s2);
-    } else {
-      // message.setText("Both source and destination have moved!");
+      combo += s2 + "\n";
     }
 
     String s3 = graph.checkUpcomingMoves(startName, true, srcN, date);
     String s4 = graph.checkUpcomingMoves(endName, false, destN, date);
 
     if (!s3.isEmpty()) {
-      message.setText(s3);
+      combo += s3 + "\n";
     } else if (!s4.isEmpty()) {
-      message.setText(s4);
-    } else {
-      // message.setText("Both source and destination will move soon!");
+      combo += s4 + "\n";
     }
 
+    message.setText(combo);
     mapNodes.toFront();
   }
 

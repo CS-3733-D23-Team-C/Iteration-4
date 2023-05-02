@@ -209,7 +209,7 @@ public class MealController {
   void getSubmit(ActionEvent event) {
     String name = nameBox.getText();
     String room = roomMenu.getValue().toString();
-    String notes = "Drink: " + drinkSelecter(drinkHolder) + specialRequest.getText();
+    String notes = "Drink: " + drinkSelecter(drinkHolder) +"; "+ specialRequest.getText();
     Meal meal = new Meal(mealSelecter(mealHolder), "");
     String eta = startTime.getValue().toString();
     MealRequest req = new MealRequest(new PatientUser(name), room, notes, meal, eta);

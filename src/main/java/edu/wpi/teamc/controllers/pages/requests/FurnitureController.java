@@ -1,5 +1,8 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.notEnglish;
+
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
@@ -10,10 +13,9 @@ import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.languageHelpers.TranslatorAPI;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.util.List;
-
-import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,9 +25,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
-
-import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
-import static edu.wpi.teamc.languageHelpers.LanguageHolder.notEnglish;
 
 public class FurnitureController {
 
@@ -62,7 +61,7 @@ public class FurnitureController {
   }
 
   @FXML
-  void getFurnitureChoice1() {
+  void getFurnitureChoice1() throws Exception {
     furnitureMenu.setText(furniturechoice1.getText());
     furnitureHolder = 1;
     try {
@@ -73,7 +72,7 @@ public class FurnitureController {
   }
 
   @FXML
-  void getFurnitureChoice2() {
+  void getFurnitureChoice2() throws Exception {
     furnitureMenu.setText(furniturechoice2.getText());
     furnitureHolder = 2;
     try {
@@ -84,7 +83,7 @@ public class FurnitureController {
   }
 
   @FXML
-  void getFurnitureChoice3() {
+  void getFurnitureChoice3() throws Exception {
     furnitureMenu.setText(furniturechoice3.getText());
     furnitureHolder = 3;
     try {
@@ -95,7 +94,7 @@ public class FurnitureController {
   }
 
   @FXML
-  void getFurnitureChoice4() {
+  void getFurnitureChoice4() throws Exception {
     furnitureMenu.setText(furniturechoice4.getText());
     furnitureHolder = 4;
     try {
@@ -105,8 +104,8 @@ public class FurnitureController {
     }
   }
 
-  String furnitureSelecter(int holder){
-    switch(holder){
+  String furnitureSelecter(int holder) {
+    switch (holder) {
       case 0:
         return "No Furniture Selected";
       case 1:
@@ -144,31 +143,31 @@ public class FurnitureController {
   }
 
   @FXML
-  void getFurnitureInfo(int furnitureChoice) throws IOException {
+  void getFurnitureInfo(int furnitureChoice) throws Exception {
     switch (furnitureChoice) {
       case 1:
         furnitureImage.setImage(
             new Image(Main.class.getResource("views/images/Furniture/chair.png").openStream()));
-        Dimensions.setText("Width: 30 in, Length: 27 in, Height: 60 in");
-        weightInfo.setText("25 lbs each");
+        Dimensions.setText(LanguageSet("Width: 30 in, Length: 27 in, Height: 60 in"));
+        weightInfo.setText(LanguageSet("25 lbs each"));
         break;
       case 2:
         furnitureImage.setImage(
             new Image(Main.class.getResource("views/images/Furniture/doradesk.png").openStream()));
-        Dimensions.setText("Width: Backpack, Length: Boots, Height: Dora");
-        weightInfo.setText("5 Swipers each");
+        Dimensions.setText(LanguageSet("Width: Backpack, Length: Boots, Height: Dora"));
+        weightInfo.setText(LanguageSet("5 Swipers each"));
         break;
       case 3:
         furnitureImage.setImage(
             new Image(Main.class.getResource("views/images/Furniture/stool.png").openStream()));
-        Dimensions.setText("Width: 15 in, Length: 15 in, Height: 30 in");
-        weightInfo.setText("10 lbs each");
+        Dimensions.setText(LanguageSet("Width: 15 in, Length: 15 in, Height: 30 in"));
+        weightInfo.setText(LanguageSet("10 lbs each"));
         break;
       case 4:
         furnitureImage.setImage(
             new Image(Main.class.getResource("views/images/Furniture/couch.png").openStream()));
-        Dimensions.setText("Width: 350 in, Length: 40 in, Height: 15 in");
-        weightInfo.setText("500 lbs each");
+        Dimensions.setText(LanguageSet("Width: 350 in, Length: 40 in, Height: 15 in"));
+        weightInfo.setText(LanguageSet("500 lbs each"));
         break;
       default:
         furnitureImage.setImage(
@@ -209,7 +208,7 @@ public class FurnitureController {
 
   /** Method run when controller is initialized */
   @FXML
-  public void initialize() {
+  public void initialize() throws Exception {
     List<LocationName> locationNames =
         (List<LocationName>) HospitalSystem.fetchAllObjects(new LocationName());
     // remove halls, elevators, stairs and bathrooms from list
@@ -236,6 +235,8 @@ public class FurnitureController {
     }
     Dimensions.setWrapText(true);
     weightInfo.setWrapText(true);
+
+    setLanguage();
   }
 
   public TranslatorAPI translatorAPI = new TranslatorAPI();
@@ -285,15 +286,15 @@ public class FurnitureController {
     }
   }
 
-    @FXML private Text Title;
+  @FXML private Text Title;
   @FXML private MFXButton Submit;
   @FXML private MFXButton Clear;
   @FXML private MFXButton Cancel;
   @FXML private TextField Box1;
-    @FXML private TextField Box2;
-    @FXML private TextField Box3;
-    @FXML private TextField Box4;
-    @FXML private TextField Box5;
-    @FXML private TextField Furn_dimensions;
-    @FXML private TextField Furn_weight;
+  @FXML private TextField Box2;
+  @FXML private TextField Box3;
+  @FXML private TextField Box4;
+  @FXML private TextField Box5;
+  @FXML private TextField Furn_dimensions;
+  @FXML private TextField Furn_weight;
 }

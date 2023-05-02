@@ -1,10 +1,7 @@
 package edu.wpi.teamc.controllers.pages.settings;
 
-import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
-import edu.wpi.teamc.dao.users.EmployeeUser;
-import edu.wpi.teamc.dao.users.PERMISSIONS;
-import edu.wpi.teamc.dao.users.login.Login;
+import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -12,7 +9,6 @@ import java.util.List;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -31,55 +27,62 @@ public class PatientTableController {
     backButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }
 
-  @FXML private TableView<EmployeeUser> employeeTable;
+  @FXML private TableView<PatientUser> patientTable;
 
-  @FXML TableColumn<EmployeeUser, Integer> id;
-  @FXML TableColumn<EmployeeUser, String> username;
-  @FXML TableColumn<EmployeeUser, String> name;
-  @FXML TableColumn<EmployeeUser, String> department;
-  @FXML TableColumn<EmployeeUser, String> position;
+  @FXML TableColumn<PatientUser, Integer> id;
+  @FXML TableColumn<PatientUser, String> name;
+  @FXML TableColumn<PatientUser, String> checkin;
+  @FXML TableColumn<PatientUser, String> checkout;
+  @FXML TableColumn<PatientUser, String> phone;
+  @FXML TableColumn<PatientUser, String> room;
+  @FXML TableColumn<PatientUser, String> activeText;
   @FXML TextField idField;
-  @FXML TextField usernameField;
   @FXML TextField nameField;
-  @FXML TextField departmentField;
-  @FXML TextField positionField;
+  @FXML TextField checkInField;
+  @FXML TextField checkOutField;
+  @FXML TextField phoneField;
+  @FXML TextField roomField;
+  @FXML TextField activeTextField;
 
   @FXML Button clearButton;
   @FXML Button updateButton;
   @FXML Button deleteButton;
   @FXML Button addButton;
 
-  ObservableList<EmployeeUser> rows = FXCollections.observableArrayList();
-
+  ObservableList<PatientUser> rows = FXCollections.observableArrayList();
   HospitalSystem hospitalSystem = new HospitalSystem();
 
   /** Method run when controller is initialized */
   public void initialize() {
-    id.setCellValueFactory(new PropertyValueFactory<EmployeeUser, Integer>("id"));
-    username.setCellValueFactory(new PropertyValueFactory<EmployeeUser, String>("username"));
-    name.setCellValueFactory(new PropertyValueFactory<EmployeeUser, String>("name"));
-    department.setCellValueFactory(new PropertyValueFactory<EmployeeUser, String>("department"));
-    position.setCellValueFactory(new PropertyValueFactory<EmployeeUser, String>("position"));
+    id.setCellValueFactory(new PropertyValueFactory<PatientUser, Integer>("id"));
+    name.setCellValueFactory(new PropertyValueFactory<PatientUser, String>("name"));
+    checkin.setCellValueFactory(new PropertyValueFactory<PatientUser, String>("checkin"));
+    checkout.setCellValueFactory(new PropertyValueFactory<PatientUser, String>("checkout"));
+    phone.setCellValueFactory(new PropertyValueFactory<PatientUser, String>("phone"));
+    room.setCellValueFactory(new PropertyValueFactory<PatientUser, String>("room"));
+    activeText.setCellValueFactory(new PropertyValueFactory<PatientUser, String>("activetext"));
 
     id.setText("ID");
-    username.setText("Username");
     name.setText("Name");
-    department.setText("Department");
-    position.setText("Position");
-    //
+    checkin.setText("Check In");
+    checkout.setText("Check Out");
+    phone.setText("Phone");
+    room.setText("Room");
+    activeText.setText("Active Text");
+
     deleteButton
         .disableProperty()
-        .bind(Bindings.isEmpty(employeeTable.getSelectionModel().getSelectedItems()));
+        .bind(Bindings.isEmpty(patientTable.getSelectionModel().getSelectedItems()));
     updateButton
         .disableProperty()
-        .bind(Bindings.isEmpty(employeeTable.getSelectionModel().getSelectedItems()));
+        .bind(Bindings.isEmpty(patientTable.getSelectionModel().getSelectedItems()));
 
-    List<EmployeeUser> list =
-        (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
+    List<PatientUser> list = (List<PatientUser>) HospitalSystem.fetchAllObjects(new PatientUser());
     rows.addAll(list);
-    employeeTable.getItems().setAll(rows);
 
-    employeeTable.setOnMouseClicked(
+    patientTable.getItems().setAll(rows);
+
+    patientTable.setOnMouseClicked(
         event -> {
           updateEmpView();
         });
@@ -89,74 +92,75 @@ public class PatientTableController {
         });
     addButton.setOnMouseClicked(
         event -> {
-          hospitalSystem.addRow(
-              new Login(getEmployeeUser().getUsername(), "staff", PERMISSIONS.STAFF));
-          hospitalSystem.addRow(getEmployeeUser());
-          loadEmployees();
+          hospitalSystem.addRow(getPatientUser());
+          loadPatients();
         });
     deleteButton.setOnMouseClicked(
         event -> {
-          hospitalSystem.deleteRow(getEmployeeUser());
-          loadEmployees();
+          hospitalSystem.deleteRow(getPatientUser());
+          loadPatients();
         });
     updateButton.setOnMouseClicked(
         event -> {
-          hospitalSystem.deleteRow(
-              new Login(getEmployeeUser().getUsername(), "staff", PERMISSIONS.STAFF));
-          hospitalSystem.addRow(
-              new Login(getEmployeeUser().getUsername(), "staff", PERMISSIONS.STAFF));
-          hospitalSystem.updateRow(getEmployeeUser());
-          loadEmployees();
+          hospitalSystem.deleteRow(getPatientUser());
+          hospitalSystem.addRow(getPatientUser());
+          hospitalSystem.updateRow(getPatientUser());
+          loadPatients();
         });
-    employeeTable
-        .getStylesheets()
-        .add(Main.class.getResource("views/pages/requests/RequestHistory.css").toString());
   }
 
-  private void loadEmployees() {
-    List<EmployeeUser> list =
-        (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
-    employeeTable.getItems().removeAll();
-    employeeTable.getItems().setAll(list);
+  private void loadPatients() {
+    List<PatientUser> list = (List<PatientUser>) HospitalSystem.fetchAllObjects(new PatientUser());
+    patientTable.getItems().removeAll();
+    patientTable.getItems().setAll(list);
   }
 
-  private EmployeeUser getEmployeeUser() {
-    EmployeeUser employeeUser = null;
+  private PatientUser getPatientUser() {
+    PatientUser patientUser = null;
     try {
       int id = Integer.parseInt(idField.getText());
-      String username = usernameField.getText();
+
       String name = nameField.getText();
-      String department = departmentField.getText();
-      String position = positionField.getText();
-      employeeUser = new EmployeeUser(id, username, name, department, position);
+      String checkin = checkInField.getText();
+      String checkout = checkOutField.getText();
+      String phone = phoneField.getText();
+      String room = roomField.getText();
+      Boolean activeText = Boolean.valueOf(activeTextField.getText());
+      // for when check in and check out are strings they just get recorded as null
+
+      patientUser = new PatientUser(id, name, checkin, checkout, phone, room, activeText);
     } catch (NumberFormatException e) {
       return null;
     }
-    return employeeUser;
+    return patientUser;
   }
 
   private void updateEmpView() {
-    EmployeeUser employeeUser = employeeTable.getSelectionModel().getSelectedItem();
-    setEmployeeView(employeeUser);
+    PatientUser patientUser = patientTable.getSelectionModel().getSelectedItem();
+    setPatientView(patientUser);
   }
 
   private void clearEmpView() {
     idField.setText("");
-    usernameField.setText("");
     nameField.setText("");
-    departmentField.setText("");
-    positionField.setText("");
+    checkInField.setText("");
+    checkOutField.setText("");
+    phoneField.setText("");
+    roomField.setText("");
+    activeTextField.setText("");
   }
 
-  public void setEmployeeView(EmployeeUser selected) {
+  public void setPatientView(PatientUser selected) {
     idField.setText(Integer.toString(selected.getId()));
-    usernameField.setText(selected.getUsername());
     nameField.setText(selected.getName());
-    departmentField.setText(selected.getDepartment());
-    positionField.setText(selected.getPosition());
+    checkInField.setText(String.valueOf(selected.getIn()));
+    checkOutField.setText(String.valueOf(selected.getOut()));
+    phoneField.setText(selected.getPhone());
+    roomField.setText(selected.getRoom());
+    activeTextField.setText(String.valueOf(selected.isActiveText()));
   }
 
-  public void getGoHome(ActionEvent event) {
+  public void getGoHome() {
     Navigation.navigate(Screen.HOME);
   }
 }

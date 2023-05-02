@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -14,264 +15,276 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.SearchableComboBox?>
-<?import org.controlsfx.control.tableview2.FilteredTableView?>
 
 <AnchorPane prefHeight="787.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.displays.EditSignageController">
    <children>
       <AnchorPane layoutX="71.0" layoutY="153.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
          <children>
-            <AnchorPane layoutX="52.0" layoutY="44.0" prefHeight="643.0" prefWidth="1218.0" style="-fx-background-color: #02143b; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane layoutX="-25.0" layoutY="-25.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <FilteredTableView fx:id="table1" layoutX="138.0" layoutY="123.0" prefHeight="350.0" prefWidth="480.0" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="761.0" AnchorPane.topAnchor="50.0">
-                          <columns>
-                        <TableColumn fx:id="signIDCol" prefWidth="200.0" text="" />
-                        <TableColumn fx:id="signNameCol" prefWidth="250.0" text="" />
-                     </columns>
-                    </FilteredTableView>
-                  <AnchorPane layoutX="564.0" layoutY="34.0" prefHeight="40.0" prefWidth="647.0" AnchorPane.leftAnchor="545.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0" />
-                  <FilteredTableView fx:id="table2" layoutX="711.0" layoutY="491.0" prefHeight="200.0" prefWidth="480.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="761.0">
-                     <columns>
-                        <TableColumn fx:id="signDateCol" prefWidth="450.0" text="" />
-                     </columns>
-                  </FilteredTableView>
-                  <VBox alignment="CENTER" layoutX="545.0" layoutY="30.0" prefHeight="626.0" prefWidth="700.0" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+                  <AnchorPane layoutX="25.0" layoutY="25.0" prefHeight="643.0" prefWidth="1218.0" style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <children>
-                        <AnchorPane>
+                        <TableView fx:id="table1" layoutX="138.0" layoutY="123.0" prefHeight="350.0" prefWidth="480.0" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="761.0" AnchorPane.topAnchor="50.0">
+                                <columns>
+                              <TableColumn fx:id="signIDCol" prefWidth="200.0" text="" />
+                              <TableColumn fx:id="signNameCol" prefWidth="250.0" text="" />
+                           </columns>
+                          </TableView>
+                        <AnchorPane layoutX="564.0" layoutY="34.0" prefHeight="40.0" prefWidth="647.0" AnchorPane.leftAnchor="545.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0" />
+                        <TableView fx:id="table2" layoutX="711.0" layoutY="491.0" prefHeight="200.0" prefWidth="480.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="761.0">
+                           <columns>
+                              <TableColumn fx:id="signDateCol" prefWidth="450.0" text="" />
+                           </columns>
+                        </TableView>
+                        <VBox alignment="CENTER" layoutX="545.0" layoutY="30.0" prefHeight="626.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <HBox alignment="CENTER" spacing="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <AnchorPane>
                                  <children>
-                                    <Button fx:id="add" mnemonicParsing="false" onAction="#getAdd" prefHeight="23.0" prefWidth="162.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text=" ADD MODE" textFill="#02143b" />
-                                    <Button fx:id="editSelect" mnemonicParsing="false" onAction="#getEditSelect" prefHeight="23.0" prefWidth="162.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="EDIT SELECTION MODE" textFill="#02143b" />
+                                    <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <HBox alignment="CENTER" spacing="150.0">
+                                             <children>
+                                                <Button fx:id="add" mnemonicParsing="false" onAction="#getAdd" prefHeight="23.0" prefWidth="162.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text=" ADD MODE" textFill="#02143b" />
+                                                <Button fx:id="editSelect" mnemonicParsing="false" onAction="#getEditSelect" prefHeight="23.0" prefWidth="162.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="EDIT SELECTION MODE" textFill="#02143b" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="30.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <HBox fx:id="bottomPane2" alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="1198.0">
+                                             <children>
+                                                <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Mac Address:" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets right="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="signID" editable="false" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 2;">
+                                                   <HBox.margin>
+                                                      <Insets left="35.0" right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                                <Hyperlink fx:id="autofillMac" onAction="#getAutofillMac" style="-fx-font-family: arial; -fx-font-size: 10; -fx-underline: true;" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                </Hyperlink>
+                                                <Hyperlink fx:id="editMac" onAction="#getEditMac" style="-fx-font-family: arial; -fx-font-size: 10; -fx-underline: true;" text="Edit Mac Address" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                </Hyperlink>
+                                             </children>
+                                          </HBox>
+                                          <HBox fx:id="bottomPane" alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="1198.0">
+                                             <children>
+                                                <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Device Name:" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets right="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="signName" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 2;">
+                                                   <HBox.margin>
+                                                      <Insets left="35.0" right="10.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                                <Hyperlink fx:id="editDeviceName" onAction="#getEditDeviceName" style="-fx-font-family: arial; -fx-font-size: 10; -fx-underline: true;" text="Edit Device Name" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <padding>
+                                                      <Insets left="9.0" />
+                                                   </padding>
+                                                </Hyperlink>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <HBox fx:id="bottomPane3" alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="1198.0" spacing="80.0">
+                                             <children>
+                                                <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Date:" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets right="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <DatePicker fx:id="date" onAction="#getDate" prefHeight="26.0" prefWidth="170.0">
+                                                   <HBox.margin>
+                                                      <Insets left="3.0" />
+                                                   </HBox.margin>
+                                                </DatePicker>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eab334" height="2.0" stroke="#eab334" strokeType="INSIDE" width="673.0" />
+                                          <HBox fx:id="bottomPane1" alignment="CENTER">
+                                             <children>
+                                                <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Direction:" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <SearchableComboBox fx:id="direction1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="170.0">
+                                                   <HBox.margin>
+                                                      <Insets left="60.0" right="25.0" />
+                                                   </HBox.margin>
+                                                </SearchableComboBox>
+                                                <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Location Name:" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets left="40.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="location1" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 2;">
+                                                   <HBox.margin>
+                                                      <Insets left="60.0" right="25.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox fx:id="bottomPane11" alignment="CENTER">
+                                             <children>
+                                                <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Direction:" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <SearchableComboBox fx:id="direction2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="170.0">
+                                                   <HBox.margin>
+                                                      <Insets left="60.0" right="25.0" />
+                                                   </HBox.margin>
+                                                </SearchableComboBox>
+                                                <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Location Name:" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets left="40.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="location2" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 2;">
+                                                   <HBox.margin>
+                                                      <Insets left="60.0" right="25.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox fx:id="bottomPane111" alignment="CENTER">
+                                             <children>
+                                                <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Direction:" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <SearchableComboBox fx:id="direction3" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="170.0">
+                                                   <HBox.margin>
+                                                      <Insets left="60.0" right="25.0" />
+                                                   </HBox.margin>
+                                                </SearchableComboBox>
+                                                <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Location Name:" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets left="40.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="location3" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 2;">
+                                                   <HBox.margin>
+                                                      <Insets left="60.0" right="25.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox fx:id="bottomPane1111" alignment="CENTER">
+                                             <children>
+                                                <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Direction:" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <SearchableComboBox fx:id="direction4" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="170.0">
+                                                   <HBox.margin>
+                                                      <Insets left="60.0" right="25.0" />
+                                                   </HBox.margin>
+                                                </SearchableComboBox>
+                                                <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Location Name:" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets left="40.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="location4" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 2;">
+                                                   <HBox.margin>
+                                                      <Insets left="60.0" right="25.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox fx:id="bottomPane11111" alignment="CENTER">
+                                             <children>
+                                                <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Direction:" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <SearchableComboBox fx:id="direction5" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="170.0">
+                                                   <HBox.margin>
+                                                      <Insets left="60.0" right="25.0" />
+                                                   </HBox.margin>
+                                                </SearchableComboBox>
+                                                <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Location Name:" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets left="40.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="location5" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 2;">
+                                                   <HBox.margin>
+                                                      <Insets left="60.0" right="25.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox fx:id="bottomPane111112" alignment="CENTER">
+                                             <children>
+                                                <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Direction:" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <SearchableComboBox fx:id="direction6" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="170.0">
+                                                   <HBox.margin>
+                                                      <Insets left="60.0" right="25.0" />
+                                                   </HBox.margin>
+                                                </SearchableComboBox>
+                                                <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Location Name:" textFill="WHITE">
+                                                   <HBox.margin>
+                                                      <Insets left="40.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="location6" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 2;">
+                                                   <HBox.margin>
+                                                      <Insets left="60.0" right="25.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" spacing="150.0">
+                                             <children>
+                                                <Button fx:id="submit" mnemonicParsing="false" onAction="#getSubmit" prefWidth="165.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="SUBMIT" textFill="#02143b" />
+                                                <Button fx:id="delete" mnemonicParsing="false" onAction="#getDelete" prefHeight="23.0" prefWidth="165.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="DELETE" textFill="#02143b" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets top="30.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
                                  </children>
-                              </HBox>
-                              <VBox spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
-                                 <children>
-                                    <HBox fx:id="bottomPane2" alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="1198.0">
-                                       <children>
-                                          <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Mac Address:" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets right="5.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                          <TextField fx:id="signID" editable="false" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 2;">
-                                             <HBox.margin>
-                                                <Insets left="40.0" right="10.0" />
-                                             </HBox.margin>
-                                          </TextField>
-                                          <Hyperlink fx:id="autofillMac" onAction="#getAutofillMac" style="-fx-font-family: arial; -fx-font-size: 10; -fx-underline: true;" textFill="WHITE">
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                          </Hyperlink>
-                                          <Hyperlink fx:id="editMac" onAction="#getEditMac" style="-fx-font-family: arial; -fx-font-size: 10; -fx-underline: true;" text="Edit Mac Address" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets />
-                                             </HBox.margin>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                          </Hyperlink>
-                                       </children>
-                                    </HBox>
-                                    <HBox fx:id="bottomPane" alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="1198.0">
-                                       <children>
-                                          <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Device Name:" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets right="5.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                          <TextField fx:id="signName" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 2;">
-                                             <HBox.margin>
-                                                <Insets left="40.0" right="10.0" />
-                                             </HBox.margin>
-                                          </TextField>
-                                          <Hyperlink fx:id="editDeviceName" onAction="#getEditDeviceName" style="-fx-font-family: arial; -fx-font-size: 10; -fx-underline: true;" text="Edit Device Name" textFill="WHITE">
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                             <padding>
-                                                <Insets left="9.0" />
-                                             </padding>
-                                          </Hyperlink>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox fx:id="bottomPane3" alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="1198.0" spacing="50.0">
-                                       <children>
-                                          <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Date:" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets right="5.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                          <DatePicker fx:id="date" onAction="#getDate" prefHeight="26.0" prefWidth="170.0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </DatePicker>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eab334" height="2.0" stroke="#eab334" strokeType="INSIDE" width="673.0" />
-                                    <HBox fx:id="bottomPane1" alignment="CENTER">
-                                       <children>
-                                          <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Direction:" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets />
-                                             </HBox.margin>
-                                          </Label>
-                                          <SearchableComboBox fx:id="direction1" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="170.0">
-                                             <HBox.margin>
-                                                <Insets left="25.0" right="25.0" />
-                                             </HBox.margin>
-                                          </SearchableComboBox>
-                                          <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Location Name:" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets left="20.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                          <TextField fx:id="location1" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 2;">
-                                             <HBox.margin>
-                                                <Insets left="25.0" right="25.0" />
-                                             </HBox.margin>
-                                          </TextField>
-                                       </children>
-                                    </HBox>
-                                    <HBox fx:id="bottomPane11" alignment="CENTER">
-                                       <children>
-                                          <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Direction:" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets />
-                                             </HBox.margin>
-                                          </Label>
-                                          <SearchableComboBox fx:id="direction2" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="170.0">
-                                             <HBox.margin>
-                                                <Insets left="25.0" right="25.0" />
-                                             </HBox.margin>
-                                          </SearchableComboBox>
-                                          <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Location Name:" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets left="20.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                          <TextField fx:id="location2" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 2;">
-                                             <HBox.margin>
-                                                <Insets left="25.0" right="25.0" />
-                                             </HBox.margin>
-                                          </TextField>
-                                       </children>
-                                    </HBox>
-                                    <HBox fx:id="bottomPane111" alignment="CENTER">
-                                       <children>
-                                          <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Direction:" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets />
-                                             </HBox.margin>
-                                          </Label>
-                                          <SearchableComboBox fx:id="direction3" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="170.0">
-                                             <HBox.margin>
-                                                <Insets left="25.0" right="25.0" />
-                                             </HBox.margin>
-                                          </SearchableComboBox>
-                                          <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Location Name:" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets left="20.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                          <TextField fx:id="location3" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 2;">
-                                             <HBox.margin>
-                                                <Insets left="25.0" right="25.0" />
-                                             </HBox.margin>
-                                          </TextField>
-                                       </children>
-                                    </HBox>
-                                    <HBox fx:id="bottomPane1111" alignment="CENTER">
-                                       <children>
-                                          <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Direction:" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets />
-                                             </HBox.margin>
-                                          </Label>
-                                          <SearchableComboBox fx:id="direction4" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="170.0">
-                                             <HBox.margin>
-                                                <Insets left="25.0" right="25.0" />
-                                             </HBox.margin>
-                                          </SearchableComboBox>
-                                          <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Location Name:" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets left="20.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                          <TextField fx:id="location4" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 2;">
-                                             <HBox.margin>
-                                                <Insets left="25.0" right="25.0" />
-                                             </HBox.margin>
-                                          </TextField>
-                                       </children>
-                                    </HBox>
-                                    <HBox fx:id="bottomPane11111" alignment="CENTER">
-                                       <children>
-                                          <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Direction:" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets />
-                                             </HBox.margin>
-                                          </Label>
-                                          <SearchableComboBox fx:id="direction5" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="170.0">
-                                             <HBox.margin>
-                                                <Insets left="25.0" right="25.0" />
-                                             </HBox.margin>
-                                          </SearchableComboBox>
-                                          <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Location Name:" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets left="20.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                          <TextField fx:id="location5" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 2;">
-                                             <HBox.margin>
-                                                <Insets left="25.0" right="25.0" />
-                                             </HBox.margin>
-                                          </TextField>
-                                       </children>
-                                    </HBox>
-                                    <HBox fx:id="bottomPane111112" alignment="CENTER">
-                                       <children>
-                                          <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Direction:" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets />
-                                             </HBox.margin>
-                                          </Label>
-                                          <SearchableComboBox fx:id="direction6" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="170.0">
-                                             <HBox.margin>
-                                                <Insets left="25.0" right="25.0" />
-                                             </HBox.margin>
-                                          </SearchableComboBox>
-                                          <Label style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Location Name:" textFill="WHITE">
-                                             <HBox.margin>
-                                                <Insets left="20.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                          <TextField fx:id="location6" prefHeight="26.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 2;">
-                                             <HBox.margin>
-                                                <Insets left="25.0" right="25.0" />
-                                             </HBox.margin>
-                                          </TextField>
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER" spacing="50.0">
-                                       <children>
-                                          <Button fx:id="submit" mnemonicParsing="false" onAction="#getSubmit" prefWidth="130.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="SUBMIT" textFill="#02143b" />
-                                          <Button fx:id="delete" mnemonicParsing="false" onAction="#getDelete" prefHeight="23.0" prefWidth="130.0" style="-fx-background-color: white; -fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12; -fx-background-radius: 2;" text="DELETE" textFill="#02143b" />
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </AnchorPane>
                            </children>
-                        </AnchorPane>
+                        </VBox>
                      </children>
-                  </VBox>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </children>

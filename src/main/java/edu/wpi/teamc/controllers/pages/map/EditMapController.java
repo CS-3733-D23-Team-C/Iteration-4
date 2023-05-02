@@ -1939,7 +1939,8 @@ public class EditMapController {
                   Integer.valueOf(xCoord_temp),
                   Integer.valueOf(yCoord_temp),
                   floor,
-                  building);
+                  building,
+                  currNodeClicked.getStatus());
 
           // Add node to database
           NodeDao nodeDao = new NodeDao();

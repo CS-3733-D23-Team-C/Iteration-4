@@ -45,24 +45,24 @@ public class Navigation {
     }
   }
 
-  //  public static void navigate(final Screen screen) {
-  //    final String filename = screen.getFilename();
-  //
-  //    try {
-  //      final var resource = CApp.class.getResource(filename);
-  //      final FXMLLoader loader = new FXMLLoader(resource);
-  //      final FXMLLoader menuBarLoader =
-  //          new FXMLLoader(CApp.class.getResource("views/components/Menu.fxml"));
-  //      final FXMLLoader guestMenuBarLoader =
-  //          new FXMLLoader(CApp.class.getResource("views/pages/guest/GuestMenu.fxml"));
-  //
-  //      CApp.getRootPane().setCenter(loader.load());
-  //      updateMenu();
-  //
-  //    } catch (IOException | NullPointerException e) {
-  //      e.printStackTrace();
-  //    }
-  //  }
+  public static void navigate(final Screen screen) {
+    final String filename = screen.getFilename();
+
+    try {
+      final var resource = CApp.class.getResource(filename);
+      final FXMLLoader loader = new FXMLLoader(resource);
+      final FXMLLoader menuBarLoader =
+          new FXMLLoader(CApp.class.getResource("views/components/Menu.fxml"));
+      final FXMLLoader guestMenuBarLoader =
+          new FXMLLoader(CApp.class.getResource("views/pages/guest/GuestMenu.fxml"));
+
+      CApp.getRootPane().setCenter(loader.load());
+      updateMenu();
+
+    } catch (IOException | NullPointerException e) {
+      e.printStackTrace();
+    }
+  }
 
   //  caching pages, not sure if we should include this,
   //  but it doesn't really work with how we have the switching between database setup rn
@@ -169,31 +169,31 @@ public class Navigation {
   //            new FXMLLoader(getClass().getResource(Screen.EMPLOYEETABLE_PAGE.getFilename())));
   //  }
 
-  public static void clearCache() {
-    pageCache.clear();
-  }
+  //  public static void clearCache() {
+  //    pageCache.clear();
+  //  }
 
-  public static void navigate(final Screen screen) {
-    final String filename = screen.getFilename();
-
-    try {
-      // Check if the page view is already cached
-      Node pageView = pageCache.get(filename);
-
-      // If the page view is not cached, load it and add it to the cache
-      if (pageView == null) {
-        final var resource = CApp.class.getResource(filename);
-        final FXMLLoader loader = new FXMLLoader(resource);
-        pageView = loader.load();
-        pageCache.put(filename, pageView);
-      }
-
-      // Set the page view as the center of the root pane
-      CApp.getRootPane().setCenter(pageView);
-      updateMenu();
-
-    } catch (IOException | NullPointerException e) {
-      e.printStackTrace();
-    }
-  }
+  //  public static void navigate(final Screen screen) {
+  //    final String filename = screen.getFilename();
+  //
+  //    try {
+  //      // Check if the page view is already cached
+  //      Node pageView = pageCache.get(filename);
+  //
+  //      // If the page view is not cached, load it and add it to the cache
+  //      if (pageView == null) {
+  //        final var resource = CApp.class.getResource(filename);
+  //        final FXMLLoader loader = new FXMLLoader(resource);
+  //        pageView = loader.load();
+  //        pageCache.put(filename, pageView);
+  //      }
+  //
+  //      // Set the page view as the center of the root pane
+  //      CApp.getRootPane().setCenter(pageView);
+  //      updateMenu();
+  //
+  //    } catch (IOException | NullPointerException e) {
+  //      e.printStackTrace();
+  //    }
+  //  }
 }

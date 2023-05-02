@@ -467,6 +467,7 @@ public class PathFindingController {
 
   @FXML
   void getSubmit(ActionEvent event) throws IOException {
+    message.setText("");
     nextFloor.setDisable(false);
     textDir.setDisable(false);
     qrCode.setDisable(false);
@@ -500,6 +501,28 @@ public class PathFindingController {
     if (splitPath.size() == 1) {
       nextFloor.setDisable(true);
       prevFloor.setDisable(true);
+    }
+
+    String s = graph.checkRecentMoves(true, srcN, date);
+    String s2 = graph.checkRecentMoves(false, destN, date);
+
+    if (!s.isEmpty()) {
+      message.setText(s);
+    } else if (!s2.isEmpty()) {
+      message.setText(s2);
+    } else {
+      // message.setText("Both source and destination have moved!");
+    }
+
+    String s3 = graph.checkUpcomingMoves(startName, true, srcN, date);
+    String s4 = graph.checkUpcomingMoves(endName, false, destN, date);
+
+    if (!s3.isEmpty()) {
+      message.setText(s3);
+    } else if (!s4.isEmpty()) {
+      message.setText(s4);
+    } else {
+      // message.setText("Both source and destination will move soon!");
     }
 
     mapNodes.toFront();

@@ -354,8 +354,6 @@ public class HomeController {
     } else if (language_choice == 2) {
       holder = CApp.Home_Chinese_list;
     }
-    // allTextsTranslated = LanguageSet(allTexts);
-
     HOME_SignInText.setText(holder.get(0));
     HOME_username.setPromptText(holder.get(1));
     HOME_password.setPromptText(holder.get(2));
@@ -374,16 +372,14 @@ public class HomeController {
   public TranslatorAPI translatorAPI = new TranslatorAPI();
 
   @FXML
-  ArrayList<String> LanguageSet(ArrayList<String> text) throws Exception {
-    ArrayList<String> translatedText = new ArrayList<String>();
+  void LanguageSet(String text) throws Exception {
     if (language_choice == 0) { // 0 is english
-      translatedText = translatorAPI.translateToEn(text);
+      text = translatorAPI.translateToEn(text);
     } else if (language_choice == 1) { // 1 is spanish
-      translatedText = translatorAPI.translateToSp(text);
+      text = translatorAPI.translateToSp(text);
     } else if (language_choice == 2) { // 2 is Chinese
-      translatedText = translatorAPI.translateToZh(text);
+      text = translatorAPI.translateToZh(text);
     }
-    return translatedText;
   }
 
   @FXML

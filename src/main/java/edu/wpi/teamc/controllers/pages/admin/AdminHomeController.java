@@ -10,6 +10,7 @@ import edu.wpi.teamc.languageHelpers.TranslatorAPI;
 import io.github.palexdev.materialfx.controls.MFXScrollPane;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -137,13 +138,14 @@ public class AdminHomeController {
 
         addNotification(alert.getTitle(), alert.getDescription(), alert.getType());
       } else {
-        addNotification((alert.getTitle()), (alert.getDescription()), alert.getType());
+        addNotification(
+            LanguageSet(alert.getTitle()), LanguageSet(alert.getDescription()), alert.getType());
       }
     }
     if (!CApp.getAdminLoginCheck()) {
       AdminHome_Title.setText("Staff Home Page");
     }
-    // setLanguage();
+    setLanguage();
   }
 
   // SVG Function for Notification//
@@ -188,33 +190,39 @@ public class AdminHomeController {
   }
 
   // LANGUAGE//
+  public List<String> holder = new ArrayList<String>();
 
-  //  @FXML
-  //  void setLanguage() throws Exception {
-  //    if (language_choice == 0 && notEnglish == false) { // 0 is english
-  //    } else {
-  //      AdminHome_Title.setText(LanguageSet(AdminHome_Title.getText()));
-  //      weather_title.setText(LanguageSet(weather_title.getText()));
-  //      notifications_title.setText(LanguageSet(notifications_title.getText()));
-  //      notEnglish = true;
-  //    }
-  //  }
+  @FXML
+  void setLanguage() throws Exception {
+    if (language_choice == 0) {
+      holder = CApp.Admin_Home_English_list;
+    } else if (language_choice == 1) {
+      // holder = CApp.Home_Spanish_list;
+    } else if (language_choice == 2) {
+      holder = CApp.Admin_Home_Chinese_list;
+    }
+
+    AdminHome_Title.setText(holder.get(0));
+    weather_title.setText(holder.get(1));
+    notifications_title.setText(holder.get(2));
+    //        notEnglish = true;
+  }
 
   // TRANSLATOR//
   public TranslatorAPI translatorAPI = new TranslatorAPI();
 
-  //  @FXML
-  //  String LanguageSet(String text) throws Exception {
-  //    if (text == null) {
-  //      return null;
-  //    }
-  //    if (language_choice == 0) { // 0 is english
-  //      text = translatorAPI.translateToEn(text);
-  //    } else if (language_choice == 1) { // 1 is spanish
-  //      text = translatorAPI.translateToSp(text);
-  //    } else if (language_choice == 2) { // 2 is Chinese
-  //      text = translatorAPI.translateToZh(text);
-  //    }
-  //    return text;
-  //  }
+  @FXML
+  String LanguageSet(String text) throws Exception {
+    if (text == null) {
+      return "";
+    }
+    if (language_choice == 0) { // 0 is english
+      text = translatorAPI.translateToEn(text);
+    } else if (language_choice == 1) { // 1 is spanish
+      text = translatorAPI.translateToSp(text);
+    } else if (language_choice == 2) { // 2 is Chinese
+      text = translatorAPI.translateToZh(text);
+    }
+    return text;
+  }
 }

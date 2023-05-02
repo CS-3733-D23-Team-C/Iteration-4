@@ -1,5 +1,7 @@
 package edu.wpi.teamc;
 
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.wpi.teamc.navigation.Navigation;
@@ -27,6 +29,8 @@ public class CApp extends Application {
 
   public static List<String> Home_Chinese_list;
   public static List<String> Home_English_list;
+  public static List<String> Admin_Home_English_list;
+  public static List<String> Admin_Home_Chinese_list;
   @Setter @Getter private static Stage primaryStage;
   @Setter @Getter private static BorderPane rootPane;
 
@@ -128,6 +132,7 @@ public class CApp extends Application {
 
     logoutButton.setOnAction(
         (event -> {
+          language_choice = 0;
           stage.close();
           logoutOpen = false;
           CApp.setAdminLoginCheck(false);
@@ -173,6 +178,8 @@ public class CApp extends Application {
 
     Home_Chinese_list = loadJson(Home_Chinese);
     Home_English_list = loadJson(Home_English);
+    Admin_Home_English_list = loadJson(Admin_Home_English);
+    Admin_Home_Chinese_list = loadJson(Admin_Home_Chinese);
 
     /* primaryStage is generally only used if one of your components require the stage to display */
     CApp.primaryStage = primaryStage;
@@ -205,4 +212,8 @@ public class CApp extends Application {
 
   String Home_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/Home/HomeChinese.json";
   String Home_English = "src/main/java/edu/wpi/teamc/languageHelpers/Home/HomeEnglish.json";
+  String Admin_Home_English =
+      "src/main/java/edu/wpi/teamc/languageHelpers/AdminHome/AdminHomeEnglish.json";
+  String Admin_Home_Chinese =
+      "src/main/java/edu/wpi/teamc/languageHelpers/AdminHome/AdminHomeChinese.json";
 }

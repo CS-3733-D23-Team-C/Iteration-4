@@ -1,10 +1,19 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
+import edu.wpi.teamc.dao.HospitalSystem;
+import edu.wpi.teamc.dao.map.LocationName;
+import edu.wpi.teamc.dao.map.LocationNameDao;
+import edu.wpi.teamc.dao.requests.GiftBasketRequest;
+import edu.wpi.teamc.dao.users.EmployeeUser;
+import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
+import java.util.List;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
@@ -23,10 +32,10 @@ public class GiftBasketRequestController {
   @FXML private AnchorPane assignEmployeeAnchor;
   @FXML private TextArea basketItems;
   @FXML private DatePicker deliveryTime;
-  @FXML private SearchableComboBox<?> employeeName;
+  @FXML private SearchableComboBox<EmployeeUser> employeeName;
   @FXML private ImageView image;
   @FXML private TextField nameBox;
-  @FXML private SearchableComboBox<?> roomMenu;
+  @FXML private SearchableComboBox<LocationName> roomMenu;
   @FXML private MenuButton serviceMenu;
   @FXML private MenuItem servicechoice1;
   @FXML private MenuItem servicechoice2;
@@ -85,33 +94,82 @@ public class GiftBasketRequestController {
   }
 
   @FXML
-  void getSubmit() {}
+  void getSubmit() {
+    String name = nameBox.getText();
+    String room = roomMenu.getValue().toString();
+    String special = specialRequest.getText();
+    String giftbasket = basketItems.getText();
+    String eta = deliveryTime.getValue().toString();
+    GiftBasketRequest req =
+        new GiftBasketRequest(new PatientUser(name), special, giftbasket, eta, room);
+    if (!(employeeName == null)) {
+      try {
+        req.setAssignedto(employeeName.getValue().toString());
+      } catch (Exception e) {
+        System.out.println("No employee selected");
+        req.setAssignedto(null);
+      }
+    }
+    HospitalSystem.addRow(req);
+    Navigation.navigate(Screen.CONGRATS_PAGE);
+  }
 
   @FXML
   void getImage(int choice) throws IOException {
     switch (choice) {
       case 1:
         image.setImage(
-            new Image(Main.class.getResource("views/images/Flower/roses.png").openStream()));
+            new Image(
+                Main.class
+                    .getResource("views/images/GiftBasket/small-gift-basket.png")
+                    .openStream()));
         break;
       case 2:
         image.setImage(
-            new Image(Main.class.getResource("views/images/Flower/lilies.png").openStream()));
+            new Image(
+                Main.class
+                    .getResource("views/images/GiftBasket/medium-gift-basket.png")
+                    .openStream()));
         break;
       case 3:
         image.setImage(
-            new Image(Main.class.getResource("views/images/Flower/daisies.png").openStream()));
+            new Image(
+                Main.class
+                    .getResource("views/images/GiftBasket/large-gift-basket.png")
+                    .openStream()));
         break;
       case 4:
         image.setImage(
-            new Image(Main.class.getResource("views/images/Flower/sunflowers.png").openStream()));
+            new Image(
+                Main.class
+                    .getResource("views/images/GiftBasket/extra-large-gift-basket.png")
+                    .openStream()));
         break;
     }
   }
 
   /** Method run when controller is initialized */
   @FXML
-  public void initialize() {}
+  public void initialize() {
+    LocationNameDao locationNameDao = new LocationNameDao();
+    List<LocationName> locationNames = (List<LocationName>) locationNameDao.fetchAllObjects();
+    // remove halls, elevators, stairs and bathrooms from list
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("HALL"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("ELEV"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("BATH"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("STAI"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("REST"));
+    roomMenu.setItems(FXCollections.observableArrayList(locationNames));
+
+    List<EmployeeUser> employeeUsers =
+        (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
+    employeeName.setItems(FXCollections.observableArrayList(employeeUsers));
+
+    if (!CApp.getAdminLoginCheck()) {
+      assignEmployeeAnchor.setMouseTransparent(true);
+      assignEmployeeAnchor.setOpacity(0);
+    }
+  }
 
   //  @FXML
   //  void getMapPage(ActionEvent event) {

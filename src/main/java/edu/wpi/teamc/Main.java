@@ -28,12 +28,18 @@ public class Main {
         System.out.println("test screensaver - test screensaver");
       }
       if (command.equals("test screensaver")) {
-        try {
-          CApp.timerPopUp();
-        } catch (InterruptedException e) {
-          throw new RuntimeException(e);
-        }
+        CApp.logoutPopUp();
       }
     }
+
+    //    ImportCSV importCSV = new ImportCSV();
+    //    boolean test =
+    //        importCSV.importMapCSV(
+    //            "src/main/resources/edu/wpi/teamc/Node.csv",
+    //            "src/main/resources/edu/wpi/teamc/Edge.csv",
+    //            "src/main/resources/edu/wpi/teamc/Move.csv",
+    //            "src/main/resources/edu/wpi/teamc/LocationName.csv");
+    //
+    //    System.out.println(test);
   }
 }

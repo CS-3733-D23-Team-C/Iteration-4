@@ -174,4 +174,6 @@ public class AlertDao implements IDao<Alert, Integer> {
       System.out.println("File already exists.");
     }
   }
+
+  protected void close() {}
 }

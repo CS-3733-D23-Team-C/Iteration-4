@@ -34,6 +34,8 @@ public class ImportCSV {
     String query =
         "INSERT INTO displays.\"Signage\" (macadd,devicename,date,locationname,direction) VALUES (?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
+      connection = new DBConnection(CApp.getWpiDB()).getConnection();
+      nukeSignageDatabase();
       String line;
       br.readLine(); // skip the first line
       while ((line = br.readLine()) != null) {
@@ -48,6 +50,7 @@ public class ImportCSV {
         stmt.executeUpdate();
         stmt.close();
       }
+      connection.close();
     } catch (IOException ex) {
       throw new RuntimeException(ex);
     }
@@ -57,6 +60,8 @@ public class ImportCSV {
     String query =
         "INSERT INTO displays.\"Alert\" (id,title,description,type,startdate,enddate) VALUES (?, ?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
+      connection = new DBConnection(CApp.getWpiDB()).getConnection();
+      nukeAlertDatabase();
       String line;
       br.readLine(); // skip the first line
       while ((line = br.readLine()) != null) {
@@ -72,6 +77,7 @@ public class ImportCSV {
         stmt.executeUpdate();
         stmt.close();
       }
+      connection.close();
     } catch (IOException ex) {
       throw new RuntimeException(ex);
     }
@@ -105,7 +111,7 @@ public class ImportCSV {
     String query =
         "INSERT INTO \"ServiceRequests\".\"conferenceRoomRequest\" (requestid, requester, roomname, status, additionalnotes, starttime, endtime, assignedto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
-      connection = dbConnection.getConnection();
+      connection = new DBConnection(CApp.getWpiDB()).getConnection();
       nukeConferenceRequestDatabase();
       String line;
       br.readLine(); // skip the first line
@@ -134,7 +140,7 @@ public class ImportCSV {
     String query =
         "INSERT INTO \"ServiceRequests\".\"flowerRequest\" (requestid, requester, roomname, status, additionalnotes,eta, flower, assignedto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
-      connection = dbConnection.getConnection();
+      connection = new DBConnection(CApp.getWpiDB()).getConnection();
       nukeFlowerRequestDatabase();
       String line;
       br.readLine(); // skip the first line
@@ -163,7 +169,7 @@ public class ImportCSV {
     String query =
         "INSERT INTO \"ServiceRequests\".\"furnitureDeliveryRequest\" (requestid, requester, roomname, status, additionalnotes,furnitureType, eta, assignedto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
-      connection = dbConnection.getConnection();
+      connection = new DBConnection(CApp.getWpiDB()).getConnection();
       nukeFurnitureDeliveryRequestDatabase();
 
       String line;
@@ -193,7 +199,7 @@ public class ImportCSV {
     String query =
         "INSERT INTO \"ServiceRequests\".\"mealRequest\" (requestid, requester, status, additionalnotes,meal, eta, roomname, assignedto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
-      connection = dbConnection.getConnection();
+      connection = new DBConnection(CApp.getWpiDB()).getConnection();
       nukeMealRequestDatabase();
       String line;
       br.readLine(); // skip the first line
@@ -222,7 +228,7 @@ public class ImportCSV {
     String query =
         "INSERT INTO \"ServiceRequests\".\"officeSupplyRequest\" (requestid, requester, status, additionalnotes,officesupplytype, eta, roomname, assignedto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
-      connection = dbConnection.getConnection();
+      connection = new DBConnection(CApp.getWpiDB()).getConnection();
       nukeOfficeSupplyRequestDatabase();
       String line;
       br.readLine(); // skip the first line
@@ -251,7 +257,7 @@ public class ImportCSV {
     String query =
         "INSERT INTO \"ServiceRequests\".\"giftBasketRequest\" (requestid, requester, status, additionalnotes, giftbasket, eta, roomname, assignedto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
-      connection = dbConnection.getConnection();
+      connection = new DBConnection(CApp.getWpiDB()).getConnection();
       nukeGiftBasketRequestDatabase();
       String line;
       br.readLine(); // skip the first line
@@ -278,6 +284,7 @@ public class ImportCSV {
   /** Employee related import functions */
   public static void importEmployeeCSV(String CSVfilepathLogin, String CSVfilepathUser)
       throws SQLException {
+    dbConnection = new DBConnection(CApp.getWpiDB());
     connection = dbConnection.getConnection();
     nukeUserDatabase();
     importLoginCSV(CSVfilepathLogin);
@@ -286,8 +293,8 @@ public class ImportCSV {
   }
 
   public static void importEmployeeUserCSV(String CSVfilepath) {
-    dbConnection = new DBConnection(CApp.getWpiDB());
-    connection = dbConnection.getConnection();
+    //    dbConnection = new DBConnection(CApp.getWpiDB());
+    //    connection = dbConnection.getConnection();
     String query =
         "INSERT INTO users.employee (id,username,name,department,position) VALUES (?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
@@ -304,7 +311,7 @@ public class ImportCSV {
         stmt.setString(5, values[4]);
         stmt.executeUpdate();
         stmt.close();
-        connection.close();
+        //        connection.close();
       }
     } catch (IOException | SQLException ex) {
       throw new RuntimeException(ex);
@@ -312,10 +319,10 @@ public class ImportCSV {
   }
 
   public static void importLoginCSV(String CSVfilepath) {
-    dbConnection = new DBConnection(CApp.getWpiDB());
-    connection = dbConnection.getConnection();
+    //    dbConnection = new DBConnection(CApp.getWpiDB());
+    //    connection = dbConnection.getConnection();
     String query =
-        "INSERT INTO users.login (username,password,permissions,salt, otp) VALUES (?, ?, ?, ?, ?)";
+        "INSERT INTO users.login (username,password,permissions,salt,otp,email) VALUES (?, ?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
       String line;
       br.readLine(); // skip the first line
@@ -328,9 +335,10 @@ public class ImportCSV {
         stmt.setString(3, values[2]);
         stmt.setString(4, values[3]);
         stmt.setString(5, values[4]);
+        stmt.setString(6, values[5]);
         stmt.executeUpdate();
         stmt.close();
-        connection.close();
+        //        connection.close();
       }
     } catch (IOException | SQLException ex) {
       throw new RuntimeException(ex);
@@ -574,7 +582,6 @@ public class ImportCSV {
   /** nuke functions */
   public void nukeDisplaysDatabase() {
     try {
-      connection = dbConnection.getConnection();
 
       // table names
       String Alert = "displays.\"Alert\"";
@@ -592,9 +599,38 @@ public class ImportCSV {
     }
   }
 
+  public static void nukeAlertDatabase() {
+    try {
+
+      // table names
+      String Alert = "displays.\"Alert\"";
+      // queries
+      String queryDeleteAlert = "DELETE FROM " + Alert + ";";
+
+      PreparedStatement psDeleteAlert = connection.prepareStatement(queryDeleteAlert);
+      psDeleteAlert.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  public static void nukeSignageDatabase() {
+    try {
+      // table names
+      String Signage = "displays.\"Signage\"";
+      // queries
+      String queryDeleteSignages = "DELETE FROM " + Signage + ";";
+
+      PreparedStatement psDeleteSignages = connection.prepareStatement(queryDeleteSignages);
+      psDeleteSignages.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
   public static void nukeUserDatabase() {
     try {
-      connection = dbConnection.getConnection();
+      //      connection = dbConnection.getConnection();
 
       // table names
       String Login = "users.login";
@@ -776,7 +812,7 @@ public class ImportCSV {
           new SimpleDateFormat("d/M/yyyy"),
           new SimpleDateFormat("dd/M/yyyy"),
           new SimpleDateFormat("dd/MM/yyyy"),
-          new SimpleDateFormat("d/MM/yyyy")
+          new SimpleDateFormat("yyyy-MM-dd")
         };
     for (SimpleDateFormat format : formats) {
       try {

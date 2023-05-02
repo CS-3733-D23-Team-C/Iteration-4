@@ -14,6 +14,7 @@ import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
@@ -69,70 +70,52 @@ public class HomeController {
 
   @FXML
   void getLoginNext(ActionEvent event) {
-    wrongNextLogin = true;
-    String username = HOME_username.getText();
-    LoginDao loginDao = new LoginDao();
-    try {
-      currentLogin = loginDao.fetchObject(username);
-      if (currentLogin == null) {
-        wrongNextLogin = true;
-        wrongPass.setVisible(true);
-      } else {
-        wrongNextLogin = false;
-        wrongPass.setVisible(false);
-        if (currentLogin.checkPassword(HOME_password.getText())) {
-          if (currentLogin.isOTPEnabled()) {
-            HOME_username.setVisible(false);
-            HOME_password.setVisible(false);
-            HOME_next.setVisible(false);
-            HOME_back.setVisible(true);
-            HOME_login.setVisible(true);
-            HOME_code.setVisible(true);
-          } else {
-            getLogin(event);
-          }
-        } else {
-          wrongPass.setVisible(true);
-          wrongNextLogin = true;
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
+    LoginDao loginDao;
+    Thread thread =
+        new Thread(
+            new Runnable() {
+              @Override
+              public void run() {
+                LoginDao loginDao = new LoginDao();
+                wrongNextLogin = true;
 
-  @FXML
-  void getLoginNext2(ActionEvent event) {
-    wrongNextLogin = true;
-    String username = HOME_username.getText();
-    LoginDao loginDao = new LoginDao();
-    try {
-      currentLogin = loginDao.fetchObject(username);
-      if (currentLogin == null) {
-        wrongNextLogin = true;
-        wrongPass.setVisible(true);
-      } else {
-        wrongNextLogin = false;
-        wrongPass.setVisible(false);
-        if (currentLogin.checkPassword(HOME_password.getText())) {
-          if (currentLogin.isOTPEnabled()) {
-            HOME_username.setVisible(false);
-            HOME_password.setVisible(false);
-            HOME_next.setVisible(false);
-            HOME_back.setVisible(true);
-            HOME_login.setVisible(true);
-            HOME_code.setVisible(true);
-          } else {
-            getLogin(event);
-          }
-        } else {
-          wrongPass.setVisible(true);
-          wrongNextLogin = true;
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+                Platform.runLater(
+                    new Runnable() {
+                      @Override
+                      public void run() {
+                        String username = HOME_username.getText();
+                        try {
+                          currentLogin = loginDao.fetchObject(username);
+                          if (currentLogin == null) {
+                            wrongNextLogin = true;
+                            wrongPass.setVisible(true);
+                          } else {
+                            wrongNextLogin = false;
+                            wrongPass.setVisible(false);
+                            if (currentLogin.checkPassword(HOME_password.getText())) {
+                              if (currentLogin.isOTPEnabled()) {
+                                HOME_username.setVisible(false);
+                                HOME_password.setVisible(false);
+                                HOME_next.setVisible(false);
+                                HOME_back.setVisible(true);
+                                HOME_login.setVisible(true);
+                                HOME_code.setVisible(true);
+                              } else {
+                                getLogin(event);
+                              }
+                            } else {
+                              wrongPass.setVisible(true);
+                              wrongNextLogin = true;
+                            }
+                          }
+                        } catch (Exception e) {
+                          e.printStackTrace();
+                        }
+                      }
+                    });
+              }
+            });
+    thread.start();
   }
 
   @FXML
@@ -163,9 +146,10 @@ public class HomeController {
             } else { // if the user is staff
               CApp.setAdminLoginCheck(false);
             }
-            CApp.currScreen = Screen.ADMIN_HOME;
             Navigation.navigate(Screen.ADMIN_HOME);
             Navigation.setMenuType(Navigation.MenuType.ADMIN);
+            CApp.currScreen = Screen.ADMIN_HOME;
+            CApp.setCurrLogin(currentLogin.getUsername());
           } else {
             // Show Error Message
             wrongPass.setVisible(true);
@@ -193,13 +177,8 @@ public class HomeController {
   }
 
   @FXML
-  public void getExit(ActionEvent actionEvent) {
-    Navigation.navigate(Screen.EXIT_PAGE);
-  }
-
-  @FXML
   public void initialize(Stage primaryStage) throws Exception {
-
+    CApp.setCurrLogin(null);
     //    try {
     language_choice = 0;
     setLanguage();

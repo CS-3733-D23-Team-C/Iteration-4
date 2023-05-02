@@ -1,6 +1,7 @@
 package edu.wpi.teamc.controllers.pages.map.MapHelpers;
 
 import edu.wpi.teamc.dao.map.LocationName;
+import edu.wpi.teamc.dao.map.NODE_STATUS;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ public class MapModeSaver {
   public String shortName;
   public String longName;
   public LocationName locationName;
+  public NODE_STATUS nodeStatus;
   public Boolean draggingNodeCreated = false;
 
   public MapModeSaver() {}

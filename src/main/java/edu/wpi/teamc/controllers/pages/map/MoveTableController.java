@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.pages.map;
 
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.map.LocationName;
 import edu.wpi.teamc.dao.map.Move;
@@ -16,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.controlsfx.control.SearchableComboBox;
-import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class MoveTableController {
 
@@ -31,7 +31,7 @@ public class MoveTableController {
 
   @FXML private Button testButton;
   @FXML private TextField inputBox;
-  @FXML private FilteredTableView<Move> historyTable;
+  @FXML private TableView<Move> historyTable;
   @FXML TableView<Move> otherTable;
   @FXML TableColumn<Move, Integer> ColumnOne;
   @FXML TableColumn<Move, String> ColumnTwo;
@@ -66,7 +66,9 @@ public class MoveTableController {
     List<LocationName> locationNames =
         (List<LocationName>) HospitalSystem.fetchAllObjects(new LocationName());
     locationName.setItems(FXCollections.observableArrayList(locationNames));
-
+    historyTable
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/requests/RequestHistory.css").toString());
     //    System.out.println("did it");
   }
 
@@ -86,8 +88,28 @@ public class MoveTableController {
 
   public void getDelete(ActionEvent event) {
     Move move = historyTable.getSelectionModel().getSelectedItem();
-    HospitalSystem.deleteRow(move);
-    rows.remove(move);
-    historyTable.getItems().setAll(rows);
+    if (!(move == null)) {
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setTitle("Delete Move");
+      alert.setHeaderText(
+          "Are you sure you want to delete this move: "
+              + move.getNodeID()
+              + " | "
+              + move.getDate()
+              + " ?");
+      alert.setContentText("This action cannot be undone.");
+      alert.showAndWait();
+      if (alert.getResult() == ButtonType.OK) {
+        HospitalSystem.deleteRow(move);
+        rows.remove(move);
+        historyTable.getItems().setAll(rows);
+      }
+    } else {
+      Alert alert = new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("Error");
+      alert.setHeaderText("No Move Selected");
+      alert.setContentText("Please select a move row on the table to delete.");
+      alert.showAndWait();
+    }
   }
 }

@@ -9,9 +9,7 @@ import edu.wpi.teamc.graph.AlgoSingleton;
 import edu.wpi.teamc.graph.Graph;
 import edu.wpi.teamc.graph.GraphNode;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.utils.SwingFXUtils;
-import java.awt.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
@@ -32,8 +30,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
+import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -60,12 +57,14 @@ public class PathFindingController {
   @FXML MFXButton textDir;
   @FXML MFXButton qrCode;
   @FXML MFXButton floorButton;
-  @FXML MFXTextField message;
+//  @FXML MFXTextField message;
   @FXML MFXButton robotButton;
   int numNodesSent = 0;
   int totalNodesSent = 0;
+  @FXML TextArea message;
   private MFXButton tempSave;
-  private final Paint DEFAULT_BG = Paint.valueOf("#bebebe");
+  private static final Paint DEFAULT_BG = Paint.valueOf("#bebebe");
+  private static final int SIZE_FACTOR = 18;
   private Group mapNodes = new Group();
   private Group edges = new Group();
   private Group mapText = new Group();
@@ -404,6 +403,25 @@ public class PathFindingController {
     mapNodes.getChildren().add(circ);
   }
 
+  public void placeStartShape(GraphNode node) {
+    int x = node.getXCoord();
+    int y = node.getYCoord();
+
+    Path p = new Path();
+
+    MoveTo moveTo = new MoveTo(x - SIZE_FACTOR, y);
+    LineTo line1 = new LineTo(x, y - SIZE_FACTOR);
+    LineTo line2 = new LineTo(x + SIZE_FACTOR, y);
+    LineTo line3 = new LineTo(x, y + SIZE_FACTOR);
+    LineTo line4 = new LineTo(x - SIZE_FACTOR, y);
+
+    p.getElements().add(moveTo);
+    p.getElements().addAll(line1, line2, line3, line4);
+    p.setFill(Paint.valueOf("#EAB334"));
+    p.setVisible(true);
+    mapNodes.getChildren().add(p);
+  }
+
   public void placeSrcCircle(GraphNode node) {
     Circle circ2 = new Circle();
     circ2.setCenterX(node.getXCoord());
@@ -439,7 +457,11 @@ public class PathFindingController {
       edges.getChildren().add(temp);
     }
 
-    placeSrcCircle(splitPath.get(pathLoc).get(0));
+    if (pathLoc != 0) {
+      placeSrcCircle(splitPath.get(pathLoc).get(0));
+    } else {
+      placeStartShape(splitPath.get(pathLoc).get(0));
+    }
 
     GraphNode destNode = splitPath.get(pathLoc).get(splitPath.get(pathLoc).size() - 1);
     if (!destNode.equals(dest)) {
@@ -454,6 +476,7 @@ public class PathFindingController {
 
   @FXML
   void getSubmit(ActionEvent event) throws IOException {
+    message.setText("");
     nextFloor.setDisable(false);
     textDir.setDisable(false);
     robotButton.setDisable(false);
@@ -490,6 +513,29 @@ public class PathFindingController {
       prevFloor.setDisable(true);
     }
 
+    String combo = "";
+    String s = graph.checkRecentMoves(true, srcN, date);
+    String s2 = graph.checkRecentMoves(false, destN, date);
+
+    if (!s.isEmpty()) {
+      combo += s + "\n";
+    }
+    if (!s2.isEmpty()) {
+      combo += s2 + "\n";
+    }
+
+    String s3 = graph.checkUpcomingMoves(startName, true, srcN, date);
+    String s4 = graph.checkUpcomingMoves(endName, false, destN, date);
+
+    if (!s3.isEmpty()) {
+      combo += s3 + "\n";
+    }
+    if (!s4.isEmpty()) {
+      combo += s4 + "\n";
+    }
+
+    message.setFont(new Font(24));
+    message.setText(combo);
     mapNodes.toFront();
   }
 

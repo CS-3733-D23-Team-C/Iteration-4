@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -29,11 +29,11 @@
                                     <GesturePane fx:id="mapGPane" fitHeight="false" fitMode="COVER" fitWidth="false" minScale="0.1" prefHeight="698.0" prefWidth="1155.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                         <Group fx:id="group" />
                                     </GesturePane>
-                              <MFXTextField fx:id="message" alignment="CENTER" floatMode="ABOVE" layoutX="5.0" layoutY="-8.0" prefHeight="59.0" prefWidth="936.0" style="-fx-border-radius: 0;" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-8.0">
+                              <TextArea fx:id="message" layoutX="5.0" prefHeight="59.0" prefWidth="931.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                  <font>
-                                    <Font size="22.0" />
+                                    <Font size="18.0" />
                                  </font>
-                              </MFXTextField>
+                              </TextArea>
                            </children>
                         </AnchorPane>
                         <VBox alignment="TOP_CENTER" layoutX="1129.0" layoutY="442.0" prefHeight="221.0" prefWidth="116.0" spacing="10.0" style="-fx-background-color: #02143b; -fx-background-radius: 10;" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="442.0">
@@ -113,12 +113,22 @@
                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-weight: Bold; -fx-underline: True; -fx-font-size: 13;" text="Toggles" textAlignment="CENTER" />
                               <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                  <children>
-                                    <ToggleSwitch fx:id="locToggle" layoutX="9.0" layoutY="1.0" onMouseClicked="#doLocToggle" prefHeight="20.0" prefWidth="100.0" style="-fx-font-weight: bold; -fx-background-color: WHITE; -fx-background-radius: 3;" text="Locations" textFill="#02143b" />
+                                    <HBox alignment="CENTER" layoutX="55.0" spacing="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Name:" />
+                                          <ToggleSwitch fx:id="locToggle" onMouseClicked="#doLocToggle" prefHeight="20.0" prefWidth="0.0" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="30.0" prefWidth="20.0">
                                  <children>
-                                    <ToggleSwitch fx:id="stairToggle" layoutX="9.0" layoutY="1.0" onMouseClicked="#doStairToggle" prefHeight="20.0" prefWidth="100.0" style="-fx-font-weight: bold; -fx-background-color: WHITE; -fx-background-radius: 3;" text="Use Stairs" textFill="#02143b" />
+                                    <HBox alignment="CENTER" layoutY="-10.86328125" spacing="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Stairs:" />
+                                          <ToggleSwitch fx:id="stairToggle" onMouseClicked="#doStairToggle" prefHeight="20.0" prefWidth="0.0" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="30.0" prefWidth="20.0" />

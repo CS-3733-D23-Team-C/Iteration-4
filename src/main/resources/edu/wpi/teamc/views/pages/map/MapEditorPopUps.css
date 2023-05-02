@@ -90,3 +90,7 @@
     -fx-background-color: #02143b;
     -fx-background-radius: 10;
 }
+
+.whiteLabel {
+    -fx-text-fill: white;
+}

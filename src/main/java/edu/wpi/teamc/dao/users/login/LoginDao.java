@@ -32,11 +32,13 @@ public class LoginDao implements IDao<Login, String> {
       while (rs.next()) {
         // Get all the data from the table
         String username = rs.getString("username");
+        String email = rs.getString("email");
         String password = rs.getString("password");
         PERMISSIONS permissions = PERMISSIONS.valueOf(rs.getString("permissions"));
         String salt = rs.getString("salt");
         String otp = rs.getString("otp");
         Login login = new Login(username, password, permissions, salt, otp);
+        login.setEmail(email);
         returnList.add(login);
       }
     } catch (SQLException e) {
@@ -60,7 +62,8 @@ public class LoginDao implements IDao<Login, String> {
               + "password = ?, "
               + "permissions = ?, "
               + "salt = ?,"
-              + "otp = ?"
+              + "otp = ?,"
+              + "email = ?"
               + " WHERE username = ?";
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, repl.getUsername());
@@ -68,7 +71,8 @@ public class LoginDao implements IDao<Login, String> {
       ps.setString(3, repl.getPermissions().toString());
       ps.setString(4, repl.salt);
       ps.setString(5, repl.getOtp());
-      ps.setString(6, orm.getUsername());
+      ps.setString(6, repl.getEmail());
+      ps.setString(7, orm.getUsername());
       ps.execute();
       db.closeConnection();
     } catch (Exception e) {
@@ -88,7 +92,7 @@ public class LoginDao implements IDao<Login, String> {
       String query =
           "INSERT INTO "
               + table
-              + " (username, password, permissions, salt, otp) VALUES (?,?,?,?,?)";
+              + " (username, password, permissions, salt, otp, email) VALUES (?,?,?,?,?,?)";
 
       PreparedStatement ps = db.getConnection().prepareStatement(query);
       ps.setString(1, type.getUsername());
@@ -96,6 +100,7 @@ public class LoginDao implements IDao<Login, String> {
       ps.setString(3, type.getPermissions().toString());
       ps.setString(4, type.salt);
       ps.setString(5, type.getOtp());
+      ps.setString(6, type.getEmail());
       ps.execute();
       db.closeConnection();
     } catch (Exception e) {
@@ -143,11 +148,13 @@ public class LoginDao implements IDao<Login, String> {
       while (rs.next()) {
         // Get all the data from the table
         String username = rs.getString("username");
+        String email = rs.getString("email");
         String password = rs.getString("password");
         PERMISSIONS permissions = PERMISSIONS.valueOf(rs.getString("permissions"));
         String salt = rs.getString("salt");
         String otp = rs.getString("otp");
         login = new Login(username, password, permissions, salt, otp);
+        login.setEmail(email);
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -160,7 +167,7 @@ public class LoginDao implements IDao<Login, String> {
     createFile(CSVfilepath);
     BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
     // Write the header row to the CSV file
-    writer.write("username,password,permissions,salt,otp\n");
+    writer.write("username,password,permissions,salt,otp,email\n");
     for (Login login : fetchAllObjects()) {
       writer.write(
           login.getUsername()
@@ -172,6 +179,8 @@ public class LoginDao implements IDao<Login, String> {
               + login.getSalt()
               + ","
               + login.getOtp()
+              + ","
+              + login.getEmail()
               + "\n");
     }
     writer.close();

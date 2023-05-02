@@ -1378,13 +1378,6 @@ public class EditMapController {
   }
 
   public void resetAndSetModes(MFXButton button) {
-    button.setButtonType(ButtonType.FLAT);
-    button.setDepthLevel(DepthLevel.LEVEL2);
-    button.setRippleAnimateBackground(true);
-    button.setStyle(
-        "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12; -fx-background-color: #EAB334");
-    //    button.setBackground(Background.fill(Paint.valueOf("#EAB334")));
-
     modeResetterHelper.getButton().setBackground(Background.fill(Paint.valueOf("#FFFFFF")));
     modeResetterHelper.getButton().setRippleAnimateBackground(true);
     //    modeResetterHelper.getButton().setDepthLevel(DepthLevel.LEVEL4);
@@ -1394,6 +1387,11 @@ public class EditMapController {
         .getButton()
         .setStyle(
             "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12");
+    button.setButtonType(ButtonType.FLAT);
+    button.setDepthLevel(DepthLevel.LEVEL2);
+    button.setRippleAnimateBackground(true);
+    button.setStyle(
+        "-fx-background-radius: 2; -fx-pref-height: 23.2; -fx-font-weight: bold; -fx-set-pref-width: 70; -fx-font-family: Arial; -fx-font-size: 12; -fx-background-color: #EAB334");
     modeResetterHelper.setButton(button);
     //    tempSave.setFill(Paint.valueOf("#13DAF7"));
     //    tempSave = circle;

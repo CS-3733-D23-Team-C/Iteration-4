@@ -112,87 +112,69 @@ public class RequestHistoryController {
                   .addAll(FXCollections.observableArrayList(employeeList));
               List<STATUS> statusList = Arrays.stream(STATUS.values()).toList();
               filterByStatusField.setItems(FXCollections.observableArrayList(statusList));
+              historyTable.setOnMouseClicked(
+                  event -> {
+                    updateCurrentSelection();
+                  });
+              clearButton.setOnAction(
+                  event -> {
+                    idField.clear();
+                    statusField.setText("");
+                    assignedtoField.getSelectionModel().clearSelection();
+                    etaField.getEditor().clear();
+                  });
+
+              updateButton.setOnMouseClicked(
+                  event -> {
+                    IRequest selected =
+                        (IRequest) historyTable.getSelectionModel().getSelectedItem();
+                    selected.setAssignedto(
+                        assignedtoField.getSelectionModel().getSelectedItem().toString());
+                    selected.setStatus(STATUS.valueOf(statusField.getText()));
+                    HospitalSystem.updateRow((IOrm) selected);
+                    getSwitch(selected);
+                  });
+
+              deleteButton.setOnMouseClicked(
+                  event -> {
+                    IRequest selected =
+                        (IRequest) historyTable.getSelectionModel().getSelectedItem();
+                    if (selected != null) {
+                      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                      alert.setTitle("Delete Request");
+                      alert.setHeaderText(
+                          "Are you sure you want to delete this request: "
+                              + selected.getRequestID()
+                              + "?");
+                      alert.setContentText("This action cannot be undone.");
+                      alert.showAndWait();
+                      if (alert.getResult() == ButtonType.OK) {
+                        HospitalSystem.deleteRow((IOrm) selected);
+                        getSwitch(selected);
+                      }
+                    } else {
+                      Alert alert = new Alert(Alert.AlertType.ERROR);
+                      alert.setTitle("Error");
+                      alert.setHeaderText("No request selected");
+                      alert.setContentText("Please select a request to delete.");
+                      alert.showAndWait();
+                    }
+                  });
+
+              importButton.setOnMouseClicked(
+                  event -> {
+                    getImportMenu();
+                  });
+              exportButton.setOnMouseClicked(
+                  event -> {
+                    try {
+                      getExportMenu();
+                    } catch (IOException e) {
+                      throw new RuntimeException(e);
+                    }
+                  });
             });
     thread.start();
-
-    historyTable.setOnMouseClicked(
-        event -> {
-          updateCurrentSelection();
-        });
-    clearButton.setOnAction(
-        event -> {
-          idField.clear();
-          statusField.setText("");
-          assignedtoField.getSelectionModel().clearSelection();
-          etaField.getEditor().clear();
-        });
-
-    updateButton.setOnMouseClicked(
-        event -> {
-          IRequest selected = (IRequest) historyTable.getSelectionModel().getSelectedItem();
-          selected.setAssignedto(assignedtoField.getSelectionModel().getSelectedItem().toString());
-          selected.setStatus(STATUS.valueOf(statusField.getText()));
-          HospitalSystem.updateRow((IOrm) selected);
-          getSwitch(selected);
-        });
-
-    deleteButton.setOnMouseClicked(
-        event -> {
-          IRequest selected = (IRequest) historyTable.getSelectionModel().getSelectedItem();
-          if (selected != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Delete Request");
-            alert.setHeaderText(
-                "Are you sure you want to delete this request: " + selected.getRequestID() + "?");
-            alert.setContentText("This action cannot be undone.");
-            alert.showAndWait();
-            if (alert.getResult() == ButtonType.OK) {
-              HospitalSystem.deleteRow((IOrm) selected);
-              getSwitch(selected);
-            }
-          } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("No request selected");
-            alert.setContentText("Please select a request to delete.");
-            alert.showAndWait();
-          }
-        });
-
-    importButton.setOnMouseClicked(
-        event -> {
-          getImportMenu();
-        });
-    exportButton.setOnMouseClicked(
-        event -> {
-          try {
-            getExportMenu();
-          } catch (IOException e) {
-            throw new RuntimeException(e);
-          }
-        });
-
-    //    historyTable.getStyleClass().add("table-view");
-    //    historyTable.getStyleClass().add("column-header-background");
-    //    historyTable.getStyleClass().add("corner");
-    //
-    //    historyTable.setStyle("-fx-opacity: 0; -fx-background-color: #02143B;  -fx-text-fill:
-    // white;");
-    //    historyTable.getRowHeader()
-    //        .setStyle("-fx-opacity: 1; -fx-background-color: red; -fx-text-fill: white;");
-    //    Column1.setStyle("-fx-opacity: 0.5; -fx-background-color: #02143B; -fx-text-fill:
-    // white;");
-    //    Column2.setStyle("-fx-opacity: 1; -fx-background-color: #02143B; -fx-text-fill: white;");
-    //    Column3.setStyle("-fx-opacity: 0.5; -fx-background-color: #02143B; -fx-text-fill:
-    // white;");
-    //    Column4.setStyle("-fx-opacity: 1; -fx-background-color: #02143B; -fx-text-fill: white;");
-    //    Column5.setStyle("-fx-opacity: 0.5; -fx-background-color: #02143B; -fx-text-fill:
-    // white;");
-    //    Column6.setStyle("-fx-opacity: 1; -fx-background-color: #02143B; -fx-text-fill: white;");
-    //    Column7.setStyle("-fx-opacity: 0.5; -fx-background-color: #02143B; -fx-text-fill:
-    // white;");
-    //    Column8.setStyle("-fx-opacity: 1; -fx-background-color: #02143B; -fx-text-fill: white;");
-
   }
 
   public void filterView() {

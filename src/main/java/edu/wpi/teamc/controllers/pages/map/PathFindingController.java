@@ -511,7 +511,7 @@ public class PathFindingController {
       prevFloor.setDisable(true);
     }
 
-    message.setText(graph.checkRecentMoves(srcN, destN, date));
+    // message.setText(graph.checkRecentMoves(srcN, destN, date));
     // message.setText(graph.checkUpcomingMoves(startName, endName, date));
 
     mapNodes.toFront();

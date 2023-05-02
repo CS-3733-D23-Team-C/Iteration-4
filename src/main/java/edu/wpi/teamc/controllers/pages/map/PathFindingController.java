@@ -990,6 +990,8 @@ public class PathFindingController {
             //            System.out.println(reading);
             ports[2].closePort();
             System.out.println("Port closed after initial node sent");
+            numNodesSent++;
+            reading = -1;
           }
           //          if (ports[2].openPort(16)) {
           //            reading2 = ports[2].readBytes(inputByte2, 1);
@@ -1000,13 +1002,13 @@ public class PathFindingController {
         }
         if (ports[2].openPort(16) && !(reading2 == 0)) {
           reading2 = ports[2].readBytes(inputByte2, 1);
-          reading = reading2 + 2;
+          //          reading = reading2 + 2;
           System.out.println("Reading 2 is: " + reading2);
           ports[2].closePort();
         }
-        if (reading2 == 0) {
+        if (reading2 == 0 && numNodesSent >= currentPath.size()) {
           if (ports[2].openPort()) {
-            System.out.print("reading 2 was read");
+            System.out.println("reading final was read");
 
             byte[] bytes3 = {(byte) 9, (byte) 9, (byte) 9, (byte) 9, 10};
             ports[2].writeBytes(bytes3, bytes3.length);
@@ -1014,6 +1016,55 @@ public class PathFindingController {
             ports[2].closePort();
             System.out.println("Final port closed hoorah");
             block = false;
+            numNodesSent = 0;
+          }
+        } else if (reading2 == 0) {
+          if (ports[2].openPort()) {
+            System.out.print("reading 2 was read");
+            if (ports[2].openPort(16)) {
+              if (ports[2].isOpen() || ports[2].openPort(16)) {
+                System.out.println("Port opened successfully");
+                int x = currentPath.get(numNodesSent).getXCoord();
+                System.out.println("x coord: " + x);
+                int y = currentPath.get(numNodesSent).getYCoord();
+                System.out.println("y coord: " + y);
+                byte[] bytes = {
+                  (byte) (x / 1000 % 10),
+                  (byte) (x / 100 % 10),
+                  (byte) (x / 10 % 10),
+                  (byte) (x % 10),
+                  10
+                };
+                ports[2].writeBytes(bytes, bytes.length);
+                // not sending the the following byte, only sending the numMessages and x
+                byte[] bytes2 = {
+                  (byte) (y / 1000 % 10),
+                  (byte) (y / 100 % 10),
+                  (byte) (y / 10 % 10),
+                  (byte) (y % 10),
+                  10
+                };
+                ports[2].writeBytes(bytes2, bytes2.length);
+                System.out.println(bytes.toString() + "sent");
+                System.out.println(bytes2.toString() + "sent");
+              } else {
+                System.out.println("Failed to open port");
+                System.out.println(ports[2].getLastErrorCode());
+              }
+              //            reading = ports[2].readBytes(inputByte, 1);
+              //            System.out.println(reading);
+              ports[2].closePort();
+              System.out.println("Port closed after initial node sent");
+              numNodesSent++;
+            }
+
+            //            byte[] bytes3 = {(byte) 9, (byte) 9, (byte) 9, (byte) 9, 10};
+            //            ports[2].writeBytes(bytes3, bytes3.length);
+            //            ports[2].writeBytes(bytes3, bytes3.length);
+            //            ports[2].closePort();
+            //            System.out.println("Final port closed hoorah");
+            //            block = false;
+            reading2 = -1;
           }
         }
       }

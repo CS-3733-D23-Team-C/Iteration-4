@@ -143,6 +143,7 @@ public class MenuController {
   @FXML private MFXButton Admin_menu_room_reservation;
   // @FXML private MFXButton Admin_menu_giftbasket_delivery;
   @FXML private MFXButton Admin_menu_employee_table;
+  @FXML private MFXButton Admin_menu_patient_table;
 
   @FXML private MFXButton Admin_menu_home_button;
   @FXML private MFXButton Admin_menu_about_button;
@@ -314,6 +315,11 @@ public class MenuController {
   public void getEmployeeTablePage(ActionEvent actionEvent) {
     CApp.currScreen = Screen.EMPLOYEETABLE_PAGE;
     Navigation.navigate(Screen.EMPLOYEETABLE_PAGE);
+  }
+
+  public void getPatientTablePage(ActionEvent actionEvent) {
+    CApp.currScreen = Screen.PATIENTTABLE_PAGE;
+    Navigation.navigate(Screen.PATIENTTABLE_PAGE);
   }
 
   public void getLoginTablePage(ActionEvent actionEvent) {

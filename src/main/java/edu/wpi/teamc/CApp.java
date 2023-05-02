@@ -3,7 +3,6 @@ package edu.wpi.teamc;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.io.IOException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +15,8 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
 
 @Slf4j
 public class CApp extends Application {
@@ -33,7 +34,11 @@ public class CApp extends Application {
     log.info("Starting Up");
   }
 
+  static boolean timeoutRunning = false;
+
   public static void timeOut() {
+    if (timeoutRunning) return;
+    timeoutRunning = true;
     // 480000
     Thread thread =
         new Thread(
@@ -45,6 +50,7 @@ public class CApp extends Application {
                       CApp.logoutPopUp();
                     });
               } catch (InterruptedException e) {
+                timeoutRunning = false;
                 e.printStackTrace();
               }
             });
@@ -56,7 +62,12 @@ public class CApp extends Application {
   public static void logoutPopUp() {
     if (logoutOpen || currScreen.equals(Screen.SCREENSAVER)) return;
     if (currScreen.equals(Screen.HOME)) {
+      logoutOpen = false;
+      CApp.setAdminLoginCheck(false);
+      CApp.currScreen = Screen.SCREENSAVER;
+      //            Navigation.clearCache();
       Navigation.navigate(Screen.SCREENSAVER);
+      Navigation.setMenuType(Navigation.MenuType.DISABLED);
       return;
     }
     BorderPane borderPane = new BorderPane();

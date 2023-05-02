@@ -15,12 +15,11 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.*;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
 import javax.swing.text.html.ImageView;
-import org.girod.javafx.svgimage.SVGImage;
-import org.girod.javafx.svgimage.SVGLoader;
 
 public class GuestHomeController {
 
@@ -43,7 +42,6 @@ public class GuestHomeController {
 
   @FXML private javafx.scene.control.TextField weather_title;
   @FXML private javafx.scene.control.TextField notifications_title;
-  SVGImage img = SVGLoader.load("http://www.w3.org/2000/svg");
 
   public int shiftlines(String s) {
     int count = s.length();

@@ -70,7 +70,6 @@ public class HomeController {
 
   @FXML
   void getLoginNext(ActionEvent event) {
-    LoginDao loginDao;
     Thread thread =
         new Thread(
             new Runnable() {
@@ -78,14 +77,13 @@ public class HomeController {
               public void run() {
                 LoginDao loginDao = new LoginDao();
                 wrongNextLogin = true;
-
+                String username = HOME_username.getText();
+                currentLogin = loginDao.fetchObject(username);
                 Platform.runLater(
                     new Runnable() {
                       @Override
                       public void run() {
-                        String username = HOME_username.getText();
                         try {
-                          currentLogin = loginDao.fetchObject(username);
                           if (currentLogin == null) {
                             wrongNextLogin = true;
                             wrongPass.setVisible(true);
@@ -169,6 +167,7 @@ public class HomeController {
   void getGuest(ActionEvent event) {
     Navigation.navigate(Screen.GUEST_HOME);
     Navigation.setMenuType(Navigation.MenuType.GUEST);
+    CApp.currScreen = Screen.GUEST_HOME;
   }
 
   @FXML

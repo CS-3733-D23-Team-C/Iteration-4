@@ -1390,17 +1390,17 @@
                               <Insets />
                            </VBox.margin>
                         </Line>
-                        <TextField fx:id="alert1" alignment="CENTER" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-font-family: arial; -fx-text-fill: white;">
+                        <TextField fx:id="alert1" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-font-family: arial; -fx-text-fill: white;">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="alert2" alignment="CENTER" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-text-fill: white; -fx-font-family: Arial;">
+                        <TextField fx:id="alert2" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-text-fill: white; -fx-font-family: Arial;">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="alert3" alignment="CENTER" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-text-fill: white; -fx-font-family: Arial;">
+                        <TextField fx:id="alert3" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-text-fill: white; -fx-font-family: Arial;">
                            <font>
                               <Font size="18.0" />
                            </font>

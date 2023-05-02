@@ -12,11 +12,10 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -139,6 +138,8 @@ public class MenuController {
   @FXML private MFXButton Admin_menu_furniture_delivery;
   @FXML private MFXButton Admin_menu_meal_delivery;
   @FXML private MFXButton Admin_menu_stationary_delivery;
+
+  @FXML private MFXButton Admin_menu_giftbasket_delivery;
   @FXML private MFXButton Admin_menu_room_reservation;
   // @FXML private MFXButton Admin_menu_giftbasket_delivery;
   @FXML private MFXButton Admin_menu_employee_table;
@@ -248,7 +249,7 @@ public class MenuController {
   }
 
   @FXML
-  void getGiftBasketRequestPage(ActionEvent event) {
+  void getGiftBasketPage(ActionEvent event) {
     CApp.currScreen = Screen.GIFT_BASKET;
     Navigation.navigate(Screen.GIFT_BASKET);
   }
@@ -386,30 +387,44 @@ public class MenuController {
       Admin_menu_meal_delivery.setText(LanguageSet(Admin_menu_meal_delivery.getText()));
       Admin_menu_stationary_delivery.setText(LanguageSet(Admin_menu_stationary_delivery.getText()));
       Admin_menu_room_reservation.setText(LanguageSet(Admin_menu_room_reservation.getText()));
-      // Admin_menu_giftbasket_delivery.setText(LanguageSet(Admin_menu_giftbasket_delivery.getText()));
+      Admin_menu_giftbasket_delivery.setText(LanguageSet(Admin_menu_giftbasket_delivery.getText()));
       Admin_menu_employee_table.setText(LanguageSet(Admin_menu_employee_table.getText()));
     }
-  }
 
-  public EventHandler<ActionEvent> nothing() {
-
-    return null;
+    if (language_choice == 1) {
+      serviceRequestPopOut.setMinSize(
+          serviceRequestPopOut.getPrefWidth(), serviceRequestPopOut.getPrefHeight() + 10);
+    }
   }
 
   @FXML
   public void initialize() throws Exception {
-
-    List<Alert> alertList = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
-    int alertListSize = alertList.size();
-    int recentAlert1 = alertListSize - 1;
-    int recentAlert2 = alertListSize - 2;
-    int recentAlert3 = alertListSize - 3;
-    alert1.setText(
-        alertList.get(recentAlert1).getType() + ": " + alertList.get(recentAlert1).getTitle());
-    alert2.setText(
-        alertList.get(recentAlert2).getType() + ": " + alertList.get(recentAlert2).getTitle());
-    alert3.setText(
-        alertList.get(recentAlert3).getType() + ": " + alertList.get(recentAlert3).getTitle());
+    Thread thread =
+        new Thread(
+            () -> {
+              java.util.List<Alert> alertList =
+                  (java.util.List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
+              int alertListSize = alertList.size();
+              int recentAlert1 = alertListSize - 1;
+              int recentAlert2 = alertListSize - 2;
+              int recentAlert3 = alertListSize - 3;
+              Platform.runLater(
+                  () -> {
+                    alert1.setText(
+                        alertList.get(recentAlert1).getType()
+                            + ": "
+                            + alertList.get(recentAlert1).getTitle());
+                    alert2.setText(
+                        alertList.get(recentAlert2).getType()
+                            + ": "
+                            + alertList.get(recentAlert2).getTitle());
+                    alert3.setText(
+                        alertList.get(recentAlert3).getType()
+                            + ": "
+                            + alertList.get(recentAlert3).getTitle());
+                  });
+            });
+    thread.start();
 
     setlanguage();
     homeTrigger1.setVisible(false);
@@ -551,7 +566,7 @@ public class MenuController {
     exitTrigger1.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.clearCache();
+          //          Navigation.clearCache();
           Navigation.navigate(Screen.EXIT_PAGE);
           Navigation.setMenuType(Navigation.MenuType.DISABLED);
         });
@@ -811,7 +826,7 @@ public class MenuController {
           dbToggle.setSelected(!CApp.wpiDB);
           //          dbToggle.fire();
           System.out.println("DB: " + CApp.wpiDB);
-          Navigation.clearCache();
+          //          Navigation.clearCache();
           Navigation.navigate(CApp.currScreen);
         });
 

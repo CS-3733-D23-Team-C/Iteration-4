@@ -322,7 +322,7 @@ public class ImportCSV {
     //    dbConnection = new DBConnection(CApp.getWpiDB());
     //    connection = dbConnection.getConnection();
     String query =
-        "INSERT INTO users.login (username,password,permissions,salt, otp) VALUES (?, ?, ?, ?, ?)";
+        "INSERT INTO users.login (username,password,permissions,salt,otp,email) VALUES (?, ?, ?, ?, ?, ?)";
     try (BufferedReader br = new BufferedReader(new FileReader(CSVfilepath))) {
       String line;
       br.readLine(); // skip the first line
@@ -335,6 +335,7 @@ public class ImportCSV {
         stmt.setString(3, values[2]);
         stmt.setString(4, values[3]);
         stmt.setString(5, values[4]);
+        stmt.setString(6, values[5]);
         stmt.executeUpdate();
         stmt.close();
         //        connection.close();

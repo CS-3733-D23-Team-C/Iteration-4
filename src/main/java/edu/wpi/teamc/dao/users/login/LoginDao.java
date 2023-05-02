@@ -167,7 +167,7 @@ public class LoginDao implements IDao<Login, String> {
     createFile(CSVfilepath);
     BufferedWriter writer = new BufferedWriter(new FileWriter(CSVfilepath));
     // Write the header row to the CSV file
-    writer.write("username,password,permissions,salt,otp\n");
+    writer.write("username,password,permissions,salt,otp,email\n");
     for (Login login : fetchAllObjects()) {
       writer.write(
           login.getUsername()
@@ -179,6 +179,8 @@ public class LoginDao implements IDao<Login, String> {
               + login.getSalt()
               + ","
               + login.getOtp()
+              + ","
+              + login.getEmail()
               + "\n");
     }
     writer.close();

@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.requests.FlowerController">
+<AnchorPane prefHeight="768.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.requests.GiftBasketRequestController">
    <children>
       <AnchorPane layoutX="410.0" layoutY="163.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
          <children>
@@ -67,12 +67,12 @@
                                     <Insets bottom="10.0" left="10.0" top="10.0" />
                                  </padding>
                               </TextField>
-                              <MenuButton fx:id="serviceMenu" layoutX="21.0" layoutY="50.0" prefHeight="40.0" prefWidth="483.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" text="Select Basket Size:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0">
+                              <MenuButton fx:id="serviceMenu" layoutX="21.0" layoutY="50.0" prefHeight="40.0" prefWidth="483.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" text="Select Basket Size:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
                                  <items>
-                                    <MenuItem fx:id="servicechoice1" mnemonicParsing="false" onAction="#getServicechoice1" text="Roses" />
-                                    <MenuItem fx:id="servicechoice2" mnemonicParsing="false" onAction="#getServicechoice2" text="Lilies" />
-                                    <MenuItem fx:id="servicechoice3" mnemonicParsing="false" onAction="#getServicechoice3" text="Daisies" />
-                                    <MenuItem fx:id="servicechoice4" mnemonicParsing="false" onAction="#getServicechoice4" text="Sunflowers" />
+                                    <MenuItem fx:id="servicechoice1" mnemonicParsing="false" onAction="#getServicechoice1" text="Small" />
+                                    <MenuItem fx:id="servicechoice2" mnemonicParsing="false" onAction="#getServicechoice2" text="Medium" />
+                                    <MenuItem fx:id="servicechoice3" mnemonicParsing="false" onAction="#getServicechoice3" text="Large" />
+                                    <MenuItem fx:id="servicechoice4" mnemonicParsing="false" onAction="#getServicechoice4" text="Extra Large" />
                                  </items>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />

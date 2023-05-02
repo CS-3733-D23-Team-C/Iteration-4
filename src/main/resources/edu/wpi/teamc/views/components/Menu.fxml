@@ -1339,7 +1339,6 @@
                         </Line>
                         <MFXButton fx:id="Admin_menu_reservation_history" onAction="#getRequestHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Requests History" />
                         <MFXButton fx:id="Admin_menu_mapchange_history" onAction="#getMapHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Map Change History" />
-                        <!--                  <MFXButton fx:id="Admin_menu_giftbasket_history" disable="true" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket History" />-->
                      </children>
                   </VBox>
                </children>
@@ -1413,9 +1412,9 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="serviceRequestPopOut1" layoutX="-110.0" layoutY="98.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
+      <AnchorPane fx:id="serviceRequestPopOut1" layoutX="-110.0" layoutY="98.0" prefHeight="280.0" prefWidth="180.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
          <children>
-            <Pane fx:id="serviceRequestPopOut" prefHeight="240.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+            <Pane fx:id="serviceRequestPopOut" prefHeight="287.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="224.0" prefWidth="156.0" spacing="5.0">
                      <children>
@@ -1438,7 +1437,7 @@
                         <MFXButton fx:id="Admin_menu_stationary_delivery" onAction="#getOfficeSuppliesPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Stationary Request" />
                         <MFXButton fx:id="Admin_menu_furniture_delivery" onAction="#getFurnitureDeliveryPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Furniture Request" />
                         <MFXButton fx:id="Admin_menu_room_reservation" onAction="#getRoomReservationPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Room Reservation" />
-                        <!--                  <MFXButton fx:id="Admin_menu_giftbasket_delivery" onAction="#getGiftBasketRequestPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket Delivery" />-->
+                        <MFXButton fx:id="Admin_menu_giftbasket_delivery" onAction="#getGiftBasketPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket" />
                      </children>
                   </VBox>
                </children>

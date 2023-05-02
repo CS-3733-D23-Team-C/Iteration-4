@@ -56,8 +56,6 @@ public class AdminHomeController {
   //    }
 
   RequestSystem requestSystem = null;
-  SVGImage img = SVGLoader.load("http://www.w3.org/2000/svg");
-
   public int shiftlines(String s) {
     int count = s.length();
     int lines = count / 56;

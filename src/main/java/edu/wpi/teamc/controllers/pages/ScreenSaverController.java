@@ -35,7 +35,7 @@ public class ScreenSaverController {
 
   @FXML
   public void initialize() {
-
+    CApp.setCurrLogin(null);
     Timeline clock =
         new Timeline(
             new KeyFrame(

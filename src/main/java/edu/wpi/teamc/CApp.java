@@ -3,6 +3,7 @@ package edu.wpi.teamc;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.io.IOException;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,8 +18,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
-
 @Slf4j
 public class CApp extends Application {
 
@@ -28,6 +27,7 @@ public class CApp extends Application {
   @Getter @Setter private static Boolean adminLoginCheck = false;
   @Getter @Setter public static Boolean wpiDB = true;
   @Getter @Setter public static Screen currScreen = Screen.HOME;
+  @Getter @Setter public static String currLogin = null;
 
   @Override
   public void init() {

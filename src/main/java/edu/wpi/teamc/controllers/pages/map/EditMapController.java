@@ -1631,6 +1631,7 @@ public class EditMapController {
               new LocationName(currNodeLongname, currNodeShortname, currNodeType));
           initXCoord = currNodeClicked.getXCoord();
           initYCoord = currNodeClicked.getYCoord();
+          mapModeSaver.setNodeStatus(currNodeClicked.getStatus());
           modifyByDrag();
         });
     editName.setOnMouseClicked(
@@ -1938,7 +1939,8 @@ public class EditMapController {
                   Integer.valueOf(xCoord_temp),
                   Integer.valueOf(yCoord_temp),
                   floor,
-                  building);
+                  building,
+                  currNodeClicked.getStatus());
 
           // Add node to database
           NodeDao nodeDao = new NodeDao();
@@ -2848,7 +2850,8 @@ public class EditMapController {
                   mapModeSaver.getEventX(),
                   mapModeSaver.getEventY(),
                   floor,
-                  nodeToDrag.getBuilding());
+                  nodeToDrag.getBuilding(),
+                  mapModeSaver.getNodeStatus());
 
           System.out.println(
               mapModeSaver.getEventX()

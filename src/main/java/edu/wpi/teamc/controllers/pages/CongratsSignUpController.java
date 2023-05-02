@@ -9,6 +9,9 @@ public class CongratsSignUpController {
   @FXML private Button mainMenuButton;
 
   @FXML
+
+
+
   public void getMainMenu() {
     mainMenuButton.setOnMouseClicked(event -> Navigation.navigate(Screen.HOME));
   }

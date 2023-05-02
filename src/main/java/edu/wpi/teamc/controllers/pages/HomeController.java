@@ -1,7 +1,5 @@
 package edu.wpi.teamc.controllers.pages;
 
-import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
-
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
 import edu.wpi.teamc.dao.users.login.Login;
@@ -12,8 +10,6 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
@@ -33,6 +29,11 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.controlsfx.control.ToggleSwitch;
+
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 public class HomeController {
 
@@ -130,9 +131,9 @@ public class HomeController {
               CApp.setAdminLoginCheck(false);
             }
             CApp.currScreen = Screen.ADMIN_HOME;
+            CApp.setCurrLogin(currentLogin.getUsername());
             Navigation.navigate(Screen.ADMIN_HOME);
             Navigation.setMenuType(Navigation.MenuType.ADMIN);
-            CApp.setCurrLogin(currentLogin.getUsername());
           } else {
             // Show Error Message
             wrongPass.setVisible(true);

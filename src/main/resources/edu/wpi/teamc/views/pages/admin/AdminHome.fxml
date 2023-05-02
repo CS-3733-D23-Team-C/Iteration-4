@@ -68,7 +68,7 @@
                         <Insets bottom="10.0" left="10.0" top="10.0" />
                      </padding>
                   </TextField>
-                  <MFXScrollPane fx:id="TODOBox" fitToWidth="true" hbarPolicy="NEVER" hmax="0.0" layoutX="147.0" layoutY="136.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
+                  <MFXScrollPane fx:id="TODOBox" fitToWidth="true" hbarPolicy="NEVER" hmax="0.0" layoutX="147.0" layoutY="136.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
                      <content>
                         <VBox fx:id="TODOVBox" alignment="TOP_CENTER" prefWidth="1230.0" spacing="20.0">
                            <padding>

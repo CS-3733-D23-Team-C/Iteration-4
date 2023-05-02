@@ -27,7 +27,7 @@ public class CApp extends Application {
   @Getter @Setter private static Boolean adminLoginCheck = false;
   @Getter @Setter public static Boolean wpiDB = true;
   @Getter @Setter public static Screen currScreen = Screen.HOME;
-  @Getter @Setter public static String currLogin = null;
+  @Getter @Setter public static String currLogin = "";
 
   @Override
   public void init() {

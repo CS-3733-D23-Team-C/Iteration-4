@@ -139,6 +139,8 @@ public class MenuController {
   @FXML private MFXButton Admin_menu_furniture_delivery;
   @FXML private MFXButton Admin_menu_meal_delivery;
   @FXML private MFXButton Admin_menu_stationary_delivery;
+
+  @FXML private MFXButton Admin_menu_giftbasket_delivery;
   @FXML private MFXButton Admin_menu_room_reservation;
   // @FXML private MFXButton Admin_menu_giftbasket_delivery;
   @FXML private MFXButton Admin_menu_employee_table;
@@ -247,7 +249,7 @@ public class MenuController {
   }
 
   @FXML
-  void getGiftBasketRequestPage(ActionEvent event) {
+  void getGiftBasketPage(ActionEvent event) {
     CApp.currScreen = Screen.GIFT_BASKET;
     Navigation.navigate(Screen.GIFT_BASKET);
   }
@@ -380,7 +382,7 @@ public class MenuController {
       Admin_menu_meal_delivery.setText(LanguageSet(Admin_menu_meal_delivery.getText()));
       Admin_menu_stationary_delivery.setText(LanguageSet(Admin_menu_stationary_delivery.getText()));
       Admin_menu_room_reservation.setText(LanguageSet(Admin_menu_room_reservation.getText()));
-      // Admin_menu_giftbasket_delivery.setText(LanguageSet(Admin_menu_giftbasket_delivery.getText()));
+      Admin_menu_giftbasket_delivery.setText(LanguageSet(Admin_menu_giftbasket_delivery.getText()));
       Admin_menu_employee_table.setText(LanguageSet(Admin_menu_employee_table.getText()));
     }
 

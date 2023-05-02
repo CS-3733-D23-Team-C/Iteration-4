@@ -280,16 +280,6 @@ public class MenuController {
   }
 
   @FXML
-  void getMealHistory(ActionEvent event) {
-    //      Navigation.navigate(Screen.MEAL_HISTORY);
-  }
-
-  @FXML
-  void getFlowerHistory(ActionEvent event) {
-    //      Navigation.navigate(Screen.FLOWER_HISTORY);
-  }
-
-  @FXML
   void getSignageEdit(ActionEvent event) {
     CApp.currScreen = Screen.SIGNAGE_EDIT;
     Navigation.navigate(Screen.SIGNAGE_EDIT);
@@ -299,11 +289,6 @@ public class MenuController {
   void getRequestHistory(ActionEvent event) {
     CApp.currScreen = Screen.REQUEST_HISTORY;
     Navigation.navigate(Screen.REQUEST_HISTORY);
-  }
-
-  @FXML
-  void getOfficeSupplyHistory(ActionEvent event) {
-    //      Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
   }
 
   @FXML
@@ -401,28 +386,34 @@ public class MenuController {
   public void initialize() throws Exception {
     Thread thread =
         new Thread(
-            () -> {
-              java.util.List<Alert> alertList =
-                  (java.util.List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
-              int alertListSize = alertList.size();
-              int recentAlert1 = alertListSize - 1;
-              int recentAlert2 = alertListSize - 2;
-              int recentAlert3 = alertListSize - 3;
-              Platform.runLater(
-                  () -> {
-                    alert1.setText(
-                        alertList.get(recentAlert1).getType()
-                            + ": "
-                            + alertList.get(recentAlert1).getTitle());
-                    alert2.setText(
-                        alertList.get(recentAlert2).getType()
-                            + ": "
-                            + alertList.get(recentAlert2).getTitle());
-                    alert3.setText(
-                        alertList.get(recentAlert3).getType()
-                            + ": "
-                            + alertList.get(recentAlert3).getTitle());
-                  });
+            new Runnable() {
+              @Override
+              public void run() {
+                java.util.List<Alert> alertList =
+                    (java.util.List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
+                int alertListSize = alertList.size();
+                int recentAlert1 = alertListSize - 1;
+                int recentAlert2 = alertListSize - 2;
+                int recentAlert3 = alertListSize - 3;
+                Platform.runLater(
+                    new Runnable() {
+                      @Override
+                      public void run() {
+                        alert1.setText(
+                            alertList.get(recentAlert1).getType()
+                                + ": "
+                                + alertList.get(recentAlert1).getTitle());
+                        alert2.setText(
+                            alertList.get(recentAlert2).getType()
+                                + ": "
+                                + alertList.get(recentAlert2).getTitle());
+                        alert3.setText(
+                            alertList.get(recentAlert3).getType()
+                                + ": "
+                                + alertList.get(recentAlert3).getTitle());
+                      }
+                    });
+              }
             });
     thread.start();
 

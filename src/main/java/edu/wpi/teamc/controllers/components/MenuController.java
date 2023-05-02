@@ -383,6 +383,11 @@ public class MenuController {
       // Admin_menu_giftbasket_delivery.setText(LanguageSet(Admin_menu_giftbasket_delivery.getText()));
       Admin_menu_employee_table.setText(LanguageSet(Admin_menu_employee_table.getText()));
     }
+
+    if (language_choice == 1) {
+      serviceRequestPopOut.setMinSize(
+          serviceRequestPopOut.getPrefWidth(), serviceRequestPopOut.getPrefHeight() + 10);
+    }
   }
 
   public EventHandler<ActionEvent> nothing() {

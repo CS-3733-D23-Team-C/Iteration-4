@@ -3,7 +3,6 @@ package edu.wpi.teamc.controllers.pages;
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
-import io.github.palexdev.materialfx.controls.MFXButton;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javafx.animation.Animation;
@@ -12,23 +11,17 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.shape.SVGPath;
-import javafx.scene.web.HTMLEditor;
 import javafx.util.Duration;
 
 public class ScreenSaverController {
 
   @FXML private Label dateDisplay;
 
-  @FXML private HTMLEditor screenWeather;
-
   @FXML private Label timeDisplay;
-
-  @FXML private MFXButton home;
-  @FXML private SVGPath logo;
 
   @FXML
   void getHome(ActionEvent event) {
+    CApp.currScreen = Screen.HOME;
     Navigation.navigate(Screen.HOME);
     CApp.timeOut();
   }
@@ -54,7 +47,7 @@ public class ScreenSaverController {
                 e ->
                     dateDisplay.setText(
                         LocalDateTime.now()
-                            .format(DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy")))),
+                            .format(DateTimeFormatter.ofPattern("EEEE MMMM dd, yyyy")))),
             new KeyFrame(Duration.seconds(1)));
     date.setCycleCount(Animation.INDEFINITE);
     date.play();

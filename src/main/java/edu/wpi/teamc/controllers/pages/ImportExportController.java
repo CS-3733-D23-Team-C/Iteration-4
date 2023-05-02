@@ -9,6 +9,7 @@ import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.dao.users.login.Login;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import java.awt.*;
 import java.io.*;
 import java.sql.SQLException;
@@ -32,11 +33,28 @@ public class ImportExportController {
   @FXML
   public void initialize() {}
 
+  // Buttons
+  @FXML private MFXButton importNodes;
+  @FXML private MFXButton importEdges;
+  @FXML private MFXButton importMoves;
+  @FXML private MFXButton importLocations;
+  @FXML private MFXButton ImportConferenceRoom;
+  @FXML private MFXButton ImportFlower;
+  @FXML private MFXButton ImportFurniture;
+  @FXML private MFXButton ImportGiftBasket;
+  @FXML private MFXButton ImportMeal;
+  @FXML private MFXButton ImportOfficeSupply;
+  @FXML private MFXButton ImportEmployee;
+  @FXML private MFXButton ImportLogin;
+  @FXML private MFXButton ImportPatient;
+  @FXML private MFXButton ImportAlerts;
+  @FXML private MFXButton ImportSignage;
+
   // Map variables
   private String[] selectedMapFilePaths = new String[4];
-  final String nodeHeader = "nodeID,xCoord,yCoord,floor,building,status";
+  final String nodeHeader = "nodeID,xcoord,ycoord,floorNum,building,status";
   final String edgeHeader = "startNode,endNode";
-  final String moveHeader = "nodeID,longName,date";
+  final String moveHeader = "nodeID,longName,moveDate";
   final String locationHeader = "longName,shortName,nodeType";
 
   // Service variables
@@ -44,20 +62,20 @@ public class ImportExportController {
   final String conferenceRoomHeader =
       "requestid,requester,roomname,status,additionalnotes,starttime,endtime,assignedto";
   final String flowerHeader =
-      "requestID,requester,roomname,status,additionalnotes,eta,flower,assignedto";
+      "requestid,requester,roomname,status,additionalnotes,eta,flower,assignedto";
   final String furnitureHeader =
       "requestid,requester,roomname,status,additionalnotes,furnituretype,eta,assignedto";
   final String giftBasketHeader =
       "requestid,requester,status,additionalnotes,giftbasket,eta,roomname,assignedto";
   final String mealHeader =
-      "requestID,requester,status,additionalnotes,meal,eta,roomname,assignedto";
+      "requestid,requester,status,additionalnotes,meal,eta,roomname,assignedto";
   final String officeSupplyHeader =
-      "requestID,requester,status,additionalnotes,officesupplytype,eta,roomname,assignedto";
+      "requestid,requester,status,additionalnotes,officesupplytype,eta,roomname,assignedto";
 
   // User imports
   private String[] selectedUsersFilePaths = new String[3];
   final String employeeHeader = "id,username,name,department,position";
-  final String loginHeader = "username,password,permissions,salt,otp";
+  final String loginHeader = "username,password,permissions,salt,otp,email";
   final String patientHeader = "id,name,checkin,checkout,phone,room,activetext";
   // Displays imports
   private String[] selectedDisplaysFilePaths = new String[2];
@@ -76,53 +94,68 @@ public class ImportExportController {
         BufferedReader br = new BufferedReader(new FileReader(file));
         String importedHeader = br.readLine();
         if (importedHeader.equals(Header)) {
-          desktop.open(file);
+          //          desktop.open(file);
           filePath = file.getAbsolutePath();
           switch (Header) {
             case nodeHeader:
               selectedMapFilePaths[0] = filePath;
+              importNodes.setStyle("-fx-background-color: green");
               break;
             case edgeHeader:
               selectedMapFilePaths[1] = filePath;
+              importEdges.setStyle("-fx-background-color: green");
               break;
             case moveHeader:
               selectedMapFilePaths[2] = filePath;
+              importMoves.setStyle("-fx-background-color: green");
               break;
             case locationHeader:
               selectedMapFilePaths[3] = filePath;
+              importLocations.setStyle("-fx-background-color: green");
               break;
             case conferenceRoomHeader:
               selectedServiceFilePaths[0] = filePath;
+              ImportConferenceRoom.setStyle("-fx-background-color: green");
               break;
             case flowerHeader:
               selectedServiceFilePaths[1] = filePath;
+              ImportFlower.setStyle("-fx-background-color: green");
               break;
             case furnitureHeader:
               selectedServiceFilePaths[2] = filePath;
+              ImportFurniture.setStyle("-fx-background-color: green");
               break;
             case giftBasketHeader:
               selectedServiceFilePaths[3] = filePath;
+              ImportGiftBasket.setStyle("-fx-background-color: green");
               break;
             case mealHeader:
               selectedServiceFilePaths[4] = filePath;
+              ImportMeal.setStyle("-fx-background-color: green");
               break;
             case officeSupplyHeader:
               selectedServiceFilePaths[5] = filePath;
+              ImportOfficeSupply.setStyle("-fx-background-color: green");
               break;
             case employeeHeader:
               selectedUsersFilePaths[0] = filePath;
+              ImportEmployee.setStyle("-fx-background-color: green");
               break;
             case loginHeader:
               selectedUsersFilePaths[1] = filePath;
+              ImportLogin.setStyle("-fx-background-color: green");
               break;
             case patientHeader:
               selectedUsersFilePaths[2] = filePath;
+              ImportPatient.setStyle("-fx-background-color: green");
               break;
             case alertsHeader:
               selectedDisplaysFilePaths[0] = filePath;
+              ImportAlerts.setStyle("-fx-background-color: green");
               break;
             case signageHeader:
               selectedDisplaysFilePaths[1] = filePath;
+              ImportSignage.setStyle("-fx-background-color: green");
               break;
           }
         } else {
@@ -167,6 +200,10 @@ public class ImportExportController {
     String moveFilePath = selectedMapFilePaths[2];
     String locationNamesFilePath = selectedMapFilePaths[3];
     ImportCSV.importMapCSV(nodesFilePath, edgesFilePath, moveFilePath, locationNamesFilePath);
+    importNodes.setStyle("-fx-background-color:  #02143b");
+    importEdges.setStyle("-fx-background-color:  #02143b");
+    importMoves.setStyle("-fx-background-color:  #02143b");
+    importLocations.setStyle("-fx-background-color:  #02143b");
     selectedMapFilePaths[0] = null;
     selectedMapFilePaths[1] = null;
     selectedMapFilePaths[2] = null;
@@ -175,6 +212,10 @@ public class ImportExportController {
 
   @FXML
   void getImportMapCancel(ActionEvent event) {
+    importNodes.setStyle("-fx-background-color:  #02143b");
+    importEdges.setStyle("-fx-background-color:  #02143b");
+    importMoves.setStyle("-fx-background-color:  #02143b");
+    importLocations.setStyle("-fx-background-color:  #02143b");
     selectedMapFilePaths[0] = null;
     selectedMapFilePaths[1] = null;
     selectedMapFilePaths[2] = null;
@@ -220,12 +261,31 @@ public class ImportExportController {
     String giftBasketFilePath = selectedServiceFilePaths[3];
     String mealFilePath = selectedServiceFilePaths[4];
     String officeSupplyFilePath = selectedServiceFilePaths[5];
-    ImportCSV.importConferenceRequestCSV(conferenceRoomFilePath);
-    ImportCSV.importFlowerRequestCSV(flowerFilePath);
-    ImportCSV.importFurnitureRequestCSV(furnitureFilePath);
-    ImportCSV.importGiftBasketRequestCSV(giftBasketFilePath);
-    ImportCSV.importMealRequestCSV(mealFilePath);
-    ImportCSV.importOfficeSupplyRequestCSV(officeSupplyFilePath);
+    if (conferenceRoomFilePath != null) {
+      ImportCSV.importConferenceRequestCSV(conferenceRoomFilePath);
+    }
+    if (flowerFilePath != null) {
+      ImportCSV.importFlowerRequestCSV(flowerFilePath);
+    }
+    if (furnitureFilePath != null) {
+      ImportCSV.importFurnitureRequestCSV(furnitureFilePath);
+    }
+    if (giftBasketFilePath != null) {
+      ImportCSV.importGiftBasketRequestCSV(giftBasketFilePath);
+    }
+    if (mealFilePath != null) {
+      ImportCSV.importMealRequestCSV(mealFilePath);
+    }
+    if (officeSupplyFilePath != null) {
+      ImportCSV.importOfficeSupplyRequestCSV(officeSupplyFilePath);
+    }
+
+    ImportConferenceRoom.setStyle("-fx-background-color:  #02143b");
+    ImportFlower.setStyle("-fx-background-color:  #02143b");
+    ImportFurniture.setStyle("-fx-background-color:  #02143b");
+    ImportGiftBasket.setStyle("-fx-background-color:  #02143b");
+    ImportMeal.setStyle("-fx-background-color:  #02143b");
+    ImportOfficeSupply.setStyle("-fx-background-color:  #02143b");
     selectedServiceFilePaths[0] = null;
     selectedServiceFilePaths[1] = null;
     selectedServiceFilePaths[2] = null;
@@ -236,6 +296,12 @@ public class ImportExportController {
 
   @FXML
   void getImportServiceCancel(ActionEvent event) {
+    ImportConferenceRoom.setStyle("-fx-background-color:  #02143b");
+    ImportFlower.setStyle("-fx-background-color:  #02143b");
+    ImportFurniture.setStyle("-fx-background-color:  #02143b");
+    ImportGiftBasket.setStyle("-fx-background-color:  #02143b");
+    ImportMeal.setStyle("-fx-background-color:  #02143b");
+    ImportOfficeSupply.setStyle("-fx-background-color:  #02143b");
     selectedServiceFilePaths[0] = null;
     selectedServiceFilePaths[1] = null;
     selectedServiceFilePaths[2] = null;
@@ -264,8 +330,15 @@ public class ImportExportController {
     String employeeFilePath = selectedUsersFilePaths[0];
     String loginFilePath = selectedUsersFilePaths[1];
     String patientFilePath = selectedUsersFilePaths[2];
-    ImportCSV.importEmployeeCSV(employeeFilePath, loginFilePath);
-    ImportCSV.importPatientCSV(patientFilePath);
+    if (employeeFilePath != null && loginFilePath != null) {
+      ImportCSV.importEmployeeCSV(loginFilePath, employeeFilePath);
+    }
+    if (patientFilePath != null) {
+      ImportCSV.importPatientCSV(patientFilePath);
+    }
+    ImportEmployee.setStyle("-fx-background-color:  #02143b");
+    ImportLogin.setStyle("-fx-background-color:  #02143b");
+    ImportPatient.setStyle("-fx-background-color:  #02143b");
     selectedUsersFilePaths[0] = null;
     selectedUsersFilePaths[1] = null;
     selectedUsersFilePaths[2] = null;
@@ -273,6 +346,9 @@ public class ImportExportController {
 
   @FXML
   void getImportUserCancel(ActionEvent event) {
+    ImportEmployee.setStyle("-fx-background-color:  #02143b");
+    ImportLogin.setStyle("-fx-background-color:  #02143b");
+    ImportPatient.setStyle("-fx-background-color:  #02143b");
     selectedUsersFilePaths[0] = null;
     selectedUsersFilePaths[1] = null;
     selectedUsersFilePaths[2] = null;
@@ -293,14 +369,22 @@ public class ImportExportController {
   void getImportDisplaySubmit(ActionEvent event) throws SQLException, FileNotFoundException {
     String alertsFilePath = selectedDisplaysFilePaths[0];
     String signageFilePath = selectedDisplaysFilePaths[1];
-    ImportCSV.importAlertCSV(alertsFilePath);
-    ImportCSV.importSignageCSV(signageFilePath);
+    if (alertsFilePath != null) {
+      ImportCSV.importAlertCSV(alertsFilePath);
+    }
+    if (signageFilePath != null) {
+      ImportCSV.importSignageCSV(signageFilePath);
+    }
+    ImportAlerts.setStyle("-fx-background-color:  #02143b");
+    ImportSignage.setStyle("-fx-background-color:  #02143b");
     selectedDisplaysFilePaths[0] = null;
     selectedDisplaysFilePaths[1] = null;
   }
 
   @FXML
   void getImportDisplayCancel(ActionEvent event) {
+    ImportAlerts.setStyle("-fx-background-color:  #02143b");
+    ImportSignage.setStyle("-fx-background-color:  #02143b");
     selectedDisplaysFilePaths[0] = null;
     selectedDisplaysFilePaths[1] = null;
   }

@@ -1,6 +1,7 @@
 package edu.wpi.teamc.controllers.pages.map;
 
 // import edu.wpi.teamc.map.Move;
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.map.MapHistory;
 import edu.wpi.teamc.dao.map.MapHistoryDao;
 import edu.wpi.teamc.navigation.Navigation;
@@ -14,7 +15,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class MapHistoryController {
 
@@ -29,7 +29,7 @@ public class MapHistoryController {
 
   @FXML private Button testButton;
   @FXML private TextField inputBox;
-  @FXML private FilteredTableView<MapHistory> historyTable;
+  @FXML private TableView<MapHistory> historyTable;
   @FXML TableView<MapHistory> otherTable;
   @FXML TableColumn<MapHistory, Integer> ColumnOne;
   @FXML TableColumn<MapHistory, String> ColumnTwo;
@@ -63,6 +63,9 @@ public class MapHistoryController {
     historyTable.getItems().setAll(rows);
     //
     //    System.out.println("did it");
+    historyTable
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/requests/RequestHistory.css").toString());
   }
 
   public void getGoHome(ActionEvent event) {

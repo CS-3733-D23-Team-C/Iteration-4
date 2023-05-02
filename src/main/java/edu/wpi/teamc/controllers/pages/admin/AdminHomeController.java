@@ -145,32 +145,32 @@ public class AdminHomeController {
     switch (type) {
       case "Weather":
         hBox.setStyle(
-            "-fx-background-color: #ffffff;-fx-border-color: blue;-fx-border-width: 2; -fx-max-width:650; -fx-padding: 10;"
+            "-fx-background-color: #ffffff;-fx-border-color: blue;-fx-border-width: 4; -fx-max-width:650; -fx-padding: 10;"
                 + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
         break;
       case "Construction":
         hBox.setStyle(
-            "-fx-background-color: #ffffff;-fx-border-color: orange;-fx-border-width: 2; -fx-max-width:650; -fx-padding: 10;"
+            "-fx-background-color: #ffffff;-fx-border-color: orange;-fx-border-width: 4; -fx-max-width:650; -fx-padding: 10;"
                 + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
         break;
       case "Emergency":
         hBox.setStyle(
-            "-fx-background-color: #ffffff;-fx-border-color: red;-fx-border-width: 2; -fx-max-width:650; -fx-padding: 10;"
+            "-fx-background-color: #ffffff;-fx-border-color: red;-fx-border-width: 4; -fx-max-width:650; -fx-padding: 10;"
                 + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
         break;
       case "Car Crash":
         hBox.setStyle(
-            "-fx-background-color: #ffffff;-fx-border-color: green;-fx-border-width: 2; -fx-max-width:650; -fx-padding: 10;"
+            "-fx-background-color: #ffffff;-fx-border-color: green;-fx-border-width: 4; -fx-max-width:650; -fx-padding: 10;"
                 + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
         break;
       case "Closures":
         hBox.setStyle(
-            "-fx-background-color: #ffffff;-fx-border-color: purple;-fx-border-width: 2; -fx-max-width:650; -fx-padding: 10;"
+            "-fx-background-color: #ffffff;-fx-border-color: purple;-fx-border-width: 4; -fx-max-width:650; -fx-padding: 10;"
                 + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
         break;
       case "Other":
         hBox.setStyle(
-            "-fx-background-color: #ffffff;-fx-border-color: black;-fx-border-width: 2; -fx-max-width:650; -fx-padding: 10;"
+            "-fx-background-color: #ffffff;-fx-border-color: black;-fx-border-width: 4; -fx-max-width:650; -fx-padding: 10;"
                 + "-fx-border-radius: 10; -fx-background-radius: 10; -fx-background-insets: 0, 1; -fx-border-insets: 0, 1; ");
         break;
     }

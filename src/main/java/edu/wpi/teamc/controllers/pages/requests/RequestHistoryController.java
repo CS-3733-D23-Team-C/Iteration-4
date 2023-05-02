@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.IOrm;
 import edu.wpi.teamc.dao.ImportCSV;
@@ -25,14 +26,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
 import org.controlsfx.control.SearchableComboBox;
-import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class RequestHistoryController {
 
   public SearchableComboBox filterByStatusField;
-  @FXML MFXButton backButton;
   String buttonColor = "-fx-background-color: white; -fx-text-fill: #02143B;";
   String selectedButtonColor = "-fx-background-color: #FCC201; -fx-text-fill: #02143B;";
+
   @FXML private Button conference;
   @FXML private Button flower;
   @FXML private Button meal;
@@ -41,7 +41,7 @@ public class RequestHistoryController {
 
   @FXML private Button giftBasket;
 
-  @FXML private FilteredTableView historyTable;
+  @FXML private TableView historyTable;
   @FXML TableColumn Column1;
   @FXML TableColumn Column2;
   @FXML TableColumn Column3;
@@ -142,6 +142,30 @@ public class RequestHistoryController {
             throw new RuntimeException(e);
           }
         });
+
+    //    historyTable.getStyleClass().add("table-view");
+    //    historyTable.getStyleClass().add("column-header-background");
+    //    historyTable.getStyleClass().add("corner");
+    //
+    //    historyTable.setStyle("-fx-opacity: 0; -fx-background-color: #02143B;  -fx-text-fill:
+    // white;");
+    //    historyTable.getRowHeader()
+    //        .setStyle("-fx-opacity: 1; -fx-background-color: red; -fx-text-fill: white;");
+    //    Column1.setStyle("-fx-opacity: 0.5; -fx-background-color: #02143B; -fx-text-fill:
+    // white;");
+    //    Column2.setStyle("-fx-opacity: 1; -fx-background-color: #02143B; -fx-text-fill: white;");
+    //    Column3.setStyle("-fx-opacity: 0.5; -fx-background-color: #02143B; -fx-text-fill:
+    // white;");
+    //    Column4.setStyle("-fx-opacity: 1; -fx-background-color: #02143B; -fx-text-fill: white;");
+    //    Column5.setStyle("-fx-opacity: 0.5; -fx-background-color: #02143B; -fx-text-fill:
+    // white;");
+    //    Column6.setStyle("-fx-opacity: 1; -fx-background-color: #02143B; -fx-text-fill: white;");
+    //    Column7.setStyle("-fx-opacity: 0.5; -fx-background-color: #02143B; -fx-text-fill:
+    // white;");
+    //    Column8.setStyle("-fx-opacity: 1; -fx-background-color: #02143B; -fx-text-fill: white;");
+    historyTable
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/requests/RequestHistory.css").toString());
   }
 
   public void filterView() {
@@ -149,14 +173,12 @@ public class RequestHistoryController {
     String assingedTo = null;
     try {
       assingedTo = filterByEmployeeField.getSelectionModel().getSelectedItem().toString();
-      System.out.println(assingedTo);
     } catch (Exception e) {
       assingedTo = null;
     }
     STATUS status = null;
     try {
       status = STATUS.valueOf(filterByStatusField.getSelectionModel().getSelectedItem().toString());
-      System.out.println(status);
     } catch (Exception e) {
       status = null;
     }
@@ -176,6 +198,8 @@ public class RequestHistoryController {
       this.getFurniture();
     } else if (selected instanceof OfficeSuppliesRequest) {
       this.getOfficeSupply();
+    } else if (selected instanceof GiftBasketRequest) {
+      this.getGiftBasket();
     }
   }
 
@@ -367,12 +391,46 @@ public class RequestHistoryController {
     historyTable.setItems(rows);
   }
 
+  @FXML
+  public void getGiftBasket() {
+    this.resetColor();
+    this.clearCurrentSelection();
+    giftBasket.setStyle(selectedButtonColor);
+    selectedRequest = new GiftBasketRequest();
+    ObservableList<GiftBasketRequest> rows = FXCollections.observableArrayList();
+    Column1.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, Integer>("requestID"));
+    Column2.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, IUser>("requester"));
+    Column3.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, String>("roomName"));
+    Column4.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, String>("gifttype"));
+    Column5.setCellValueFactory(
+        new PropertyValueFactory<GiftBasketRequest, String>("additionalNotes"));
+    Column6.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, STATUS>("status"));
+    Column7.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, String>("eta"));
+    Column8.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, String>("assignedto"));
+    Column1.setText("ID");
+    Column2.setText("Requester");
+    Column3.setText("Room Name");
+    Column4.setText("Gift");
+    Column5.setText("Additional Notes");
+    Column6.setText("Status");
+    Column7.setText("ETA");
+    Column8.setText("Assigned To");
+    GiftBasketDAO dao = new GiftBasketDAO();
+    List<GiftBasketRequest> list = dao.fetchAllObjects();
+    for (GiftBasketRequest r : list) {
+      rows.add(r);
+    }
+    requestSystem.setRequests(new ArrayList<>(list));
+    historyTable.setItems(rows);
+  }
+
   private void resetColor() {
     conference.setStyle(buttonColor);
     flower.setStyle(buttonColor);
     meal.setStyle(buttonColor);
     furniture.setStyle(buttonColor);
     officeSupply.setStyle(buttonColor);
+    giftBasket.setStyle(buttonColor);
   }
 
   //  @FXML
@@ -405,6 +463,9 @@ public class RequestHistoryController {
       } else if (selectedRequest instanceof OfficeSuppliesRequest) {
         OfficeSuppliesRequestDAO officeSuppliesRequestDAO = new OfficeSuppliesRequestDAO();
         officeSuppliesRequestDAO.exportCSV(filePath);
+      } else if (selectedRequest instanceof GiftBasketRequest) {
+        GiftBasketDAO giftBasketDAO = new GiftBasketDAO();
+        giftBasketDAO.exportCSV(filePath);
       }
     }
   }
@@ -436,6 +497,9 @@ public class RequestHistoryController {
     } else if (selectedRequest instanceof OfficeSuppliesRequest) {
       ImportCSV.importOfficeSupplyRequestCSV(filePath);
       this.getOfficeSupply();
+    } else if (selectedRequest instanceof GiftBasketRequest) {
+      ImportCSV.importGiftBasketRequestCSV(filePath);
+      this.getGiftBasket();
     }
     // TODO
   }
@@ -466,39 +530,5 @@ public class RequestHistoryController {
     getSwitch(selectedRequest);
     this.filterByStatusField.getSelectionModel().select(null);
     this.filterByEmployeeField.getSelectionModel().select(null);
-  }
-
-  public void getGiftBasket(ActionEvent actionEvent) {
-    this.resetColor();
-    this.clearCurrentSelection();
-    giftBasket.setStyle(selectedButtonColor);
-    selectedRequest = new GiftBasketRequest();
-    ObservableList<GiftBasketRequest> rows = FXCollections.observableArrayList();
-    Column1.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, Integer>("requestID"));
-    Column2.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, IUser>("requester"));
-    Column6.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, STATUS>("eta"));
-    Column4.setCellValueFactory(
-        new PropertyValueFactory<GiftBasketRequest, String>("additionalnotes"));
-    Column5.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, String>("giftbasket"));
-    Column3.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, STATUS>("status"));
-    Column7.setCellValueFactory(
-        new PropertyValueFactory<OfficeSuppliesRequest, String>("roomname"));
-    Column8.setCellValueFactory(
-        new PropertyValueFactory<OfficeSuppliesRequest, String>("assignedto"));
-    Column1.setText("ID");
-    Column2.setText("Requester");
-    Column3.setText("Status");
-    Column4.setText("Additional Notes");
-    Column5.setText("Basket Type");
-    Column6.setText("ETA");
-    Column7.setText("Room Name");
-    Column8.setText("Assigned To");
-    GiftBasketDAO dao = new GiftBasketDAO();
-    List<GiftBasketRequest> list = dao.fetchAllObjects();
-    for (GiftBasketRequest r : list) {
-      rows.add(r);
-    }
-    requestSystem.setRequests(new ArrayList<>(list));
-    historyTable.setItems(rows);
   }
 }

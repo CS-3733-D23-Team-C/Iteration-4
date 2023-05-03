@@ -12,15 +12,13 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -438,14 +436,14 @@ public class MenuController {
   @FXML private Text About_This;
   @FXML private Text About_And_thanks;
 
-  public EventHandler<ActionEvent> nothing() {
-
-
-    if (language_choice == 1) {
-      serviceRequestPopOut.setMinSize(
-          serviceRequestPopOut.getPrefWidth(), serviceRequestPopOut.getPrefHeight() + 10);
-    }
-  }
+//  public EventHandler<ActionEvent> nothing() {
+//
+//    if (language_choice == 1) {
+//      serviceRequestPopOut.setMinSize(
+//          serviceRequestPopOut.getPrefWidth(), serviceRequestPopOut.getPrefHeight() + 10);
+//    }
+//    return null;
+//  }
 
   @FXML
   public void initialize() throws Exception {
@@ -482,9 +480,6 @@ public class MenuController {
               }
             });
     thread.start();
-
-
- 
 
     setlanguage();
     homeTrigger1.setVisible(false);

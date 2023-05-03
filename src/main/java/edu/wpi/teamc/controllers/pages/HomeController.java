@@ -15,12 +15,9 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
-
-import javafx.application.Platform;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
@@ -184,13 +181,12 @@ public class HomeController {
   void getSignUp(ActionEvent event) {
     Navigation.navigate(Screen.SIGNUP_PAGE);
   }
-  
-   public void getExit(ActionEvent actionEvent) {
+
+  public void getExit(ActionEvent actionEvent) {
     Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML
-
   public void initialize(Stage primaryStage) throws Exception {
     CApp.setCurrLogin(null);
 

@@ -20,10 +20,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
 
-
-import org.controlsfx.control.tableview2.FilteredTableView;
-
-
 public class LoginTableController {
 
   //  @FXML private TableColumn<?, ?> username;

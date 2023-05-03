@@ -1,8 +1,0 @@
-requestid,requester,roomname,status,additionalnotes,furnituretype,eta,assignedto
-20,jim,Restroom 2 Level 2,CANCELLED,a,null,Desk,mary
-22,tim,Waiting Room 1 Floor 1,PENDING,,null,Couch,jim
-24,randy,Exit 2 Floor 1,PENDING,,2023-04-25,Stool,randy
-25,aaron,Cubicle 7,PENDING,None,null,Couch,jim
-26,brandon,Cubicle 7,PENDING,None,null,Couch,jim
-27,aaron,Cubicle 7,PENDING,None,null,Couch,jim
-23,eddie,Waiting Room 1 Floor 1,IN_PROGRESS,,2023-04-24,Stool,jane

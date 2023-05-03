@@ -5,6 +5,7 @@ import edu.wpi.teamc.dao.map.*;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Graph {
@@ -15,7 +16,9 @@ public class Graph {
   protected Map<GraphNode, Double> distance = new HashMap<>();
   protected Map<GraphNode, String> nodeType = new HashMap<>();
   protected Map<Integer, String> nodeIDtoLongName = new HashMap<>();
-  protected HashMap<String, Integer> longNameToNodeID = new HashMap<>();
+  protected Map<Integer, LinkedList<Move>> nodeIDtoMoves = new HashMap<>();
+  protected Map<String, LinkedList<Move>> nameToMoves = new HashMap<>();
+  protected Map<String, Integer> longNameToNodeID = new HashMap<>();
   protected Map<Integer, Date> nodeIDtoLastDate = new HashMap<>();
   protected Map<String, String> longNameToNodeType = new HashMap<>();
   protected PriorityQueue<GraphNode> pq;
@@ -81,6 +84,22 @@ public class Graph {
     Date dateObj = new Date(locDate.getTime());
 
     for (Move move : moves) {
+      if (nodeIDtoMoves.get(move.getNodeID()) == null) {
+        LinkedList<Move> temp = new LinkedList<>();
+        temp.add(move);
+        nodeIDtoMoves.put(move.getNodeID(), temp);
+      } else {
+        nodeIDtoMoves.get(move.getNodeID()).add(move);
+      }
+
+      if (nameToMoves.get(move.getLongName()) == null) {
+        LinkedList<Move> temp = new LinkedList<>();
+        temp.add(move);
+        nameToMoves.put(move.getLongName(), temp);
+      } else {
+        nameToMoves.get(move.getLongName()).add(move);
+      }
+
       // store the move for the desired date
       if (move.getDate().equals(dateObj)) {
         massPutMove(move);
@@ -227,5 +246,95 @@ public class Graph {
 
   public String getLongNameFromNodeID(int nodeID) {
     return nodeIDtoLongName.get(nodeID);
+  }
+
+  public String checkRecentMoves(boolean srcOrDest, int nodeID, LocalDate date) {
+    HashMap<LocalDate, Move> dateToMove = new HashMap<>();
+    LinkedList<LocalDate> dates = new LinkedList<>();
+    String s = "";
+
+    if (nodeIDtoMoves.get(nodeID).size() > 1) {
+      for (Move m : nodeIDtoMoves.get(nodeID)) {
+        if (m.getDate().toLocalDate().isBefore(date) || m.getDate().toLocalDate().equals(date)) {
+          dates.add(m.getDate().toLocalDate());
+          dateToMove.put(m.getDate().toLocalDate(), m);
+        }
+      }
+
+      if (dates.size() <= 1) {
+        return s;
+      }
+
+      LocalDate mostRecent = Collections.max(dates);
+      dates.remove(mostRecent);
+
+      Move temp = dateToMove.get(Collections.max(dates));
+      // int diff = dateToInt(date) - dateToInt(mostRecent);
+      long diff = date.toEpochDay() - mostRecent.toEpochDay();
+
+      if (diff <= 3 && diff >= 0) {
+        s = "NOTICE : " + " Your ";
+
+        if (srcOrDest) {
+          s += "starting";
+        } else {
+          s += "ending";
+        }
+
+        s += " location has moved to where " + temp.getLongName() + " was " + diff + " days ago.";
+      }
+    }
+
+    return s;
+  }
+
+  public String checkUpcomingMoves(String name, boolean srcOrDest, int nodeID, LocalDate date) {
+    HashMap<LocalDate, Move> dateToMove = new HashMap<>();
+    LinkedList<LocalDate> dates = new LinkedList<>();
+    String s = "";
+
+    if (nodeIDtoMoves.get(nodeID).size() > 1) {
+      for (Move m : nameToMoves.get(name)) {
+        if (m.getDate().toLocalDate().isAfter(date)) {
+          dates.add(m.getDate().toLocalDate());
+          dateToMove.put(m.getDate().toLocalDate(), m);
+        }
+      }
+
+      if (dates.size() < 1) {
+        return s;
+      }
+
+      LocalDate mostRecent = Collections.min(dates);
+      // int diff = dateToInt(mostRecent) - dateToInt(date);
+      long diff = mostRecent.toEpochDay() - date.toEpochDay();
+
+      if (diff <= 3 && diff >= 0) {
+        s = "NOTICE : " + " Your ";
+
+        if (srcOrDest) {
+          s += "starting";
+        } else {
+          s += "ending";
+        }
+
+        s +=
+            " location will move to "
+                + nodeIDtoLongName.get(dateToMove.get(mostRecent).getNodeID())
+                + " in "
+                + diff
+                + " days.";
+      }
+    }
+
+    return s;
+  }
+
+  public int dateToInt(LocalDate date) {
+    String[] dateArr = date.toString().split("-");
+    int[] dateIntArr = {
+      Integer.parseInt(dateArr[0]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[2])
+    };
+    return dateIntArr[0] * 12 * 31 + dateIntArr[1] * 31 + dateIntArr[2];
   }
 }

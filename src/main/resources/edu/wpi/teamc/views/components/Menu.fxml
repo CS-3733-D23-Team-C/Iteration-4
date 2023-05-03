@@ -20,6 +20,7 @@
 
 <AnchorPane fx:id="basePane" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.components.MenuController">
    <children>
+      <AnchorPane fx:id="aboutClosePane" layoutX="70.0" prefHeight="745.0" prefWidth="740.0" style="-fx-background-color: transparent;" />
       <AnchorPane fx:id="aboutPopOut3" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutPopOut1" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
@@ -46,7 +47,7 @@
                         </Text>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <StackPane fx:id="randy" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
+                              <StackPane fx:id="Randy" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
                                  <children>
                                     <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -67,7 +68,7 @@
                                     <Insets left="50.0" top="50.0" />
                                  </HBox.margin>
                               </StackPane>
-                              <StackPane fx:id="eddie" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
+                              <StackPane fx:id="Eddie" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
                                  <children>
                                     <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -193,7 +194,7 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <StackPane fx:id="taya" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
+                              <StackPane fx:id="Taya" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="10.0" stylesheets="@Menu.css">
                                  <children>
                                     <ImageView id="Wong" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -469,7 +470,8 @@
                               <Insets left="130.0" top="70.0" />
                            </VBox.margin>
                         </StackPane>
-                        <Text fx:id="About_And_thanks" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="And thanks to Brigham and Women’s Hospital for their time and input!" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fx:id="About_And_thanks" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." textAlignment="CENTER" wrappingWidth="280.2000740170479">
+
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -483,7 +485,669 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="creditsPopOut1" layoutX="-230.0" layoutY="10.0" prefHeight="224.0" prefWidth="300.0">
+      <AnchorPane fx:id="aboutPopOut4" layoutX="284.0" layoutY="1.0" prefHeight="550.0" prefWidth="109.0" style="-fx-background-color: transparant;" />
+      <AnchorPane fx:id="aboutRandyPopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Randy Dyer" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Junior Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/RandyCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: I play the drums and compose music. I play basketball," textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="spikeball, and I snowboard. I also enjoy cooking." textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="fav animal: dog" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutEddiePopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy1" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Edward Dang" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science and Data ScienceMajor" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2025" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/EddieCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutNickPopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy11" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Nicholas Ishigami" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2025" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/NickCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: I enjoy reading, cooking, and eating good food" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Favorite Animal: Komodo Dragon" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutAaronPopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy111" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Aaron Zhang" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2025" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/AaronCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts:  I can speak fluent Mandarin. I enjoy taking naps, eating Chinese cuisine, and playing basketball." textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Favorite Animal: Giant Panda" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutSebastianPopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy2" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sebastian Valle" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Robotics Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Junior Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/sebastianCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: I am a member of the Combat Robotics Club, I love eating Mexican food, and spending time with my friends." textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Favorite Animal: Mantis Shrimp" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutBrandonPopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy21" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Brandon Liu" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2025" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/BrandonCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutTayaPopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy211" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Taya Yakovenko" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science and Math Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Junior Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/tayaCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: I like baking, reading, and spending time outside. During the winter season, I like to snowboard and hibernate like a bear." textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Favorite Animal: Jellyfish" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutChasePopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy2111" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Chase Beausoleil" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Biomedical and Robotics Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Junior Class of 2024" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/ChaseCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: I play guitar and am on the ultimate frisbee team." textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Favorite Animal: Peregrine Falcon" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutChaoPopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy21111" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Chao An" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2025" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/ChaoCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: I enjoy cooking Chinese cuisine. I've also started to explore cooking French cuisine and desserts now." textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Favorite Animal: Snow Leopard" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="aboutJoeyPopOut" layoutX="-230.0" layoutY="10.0">
+         <children>
+            <Pane fx:id="aboutRandy211111" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+               <children>
+                  <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
+                     <children>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Joseph Caproni" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                           <font>
+                              <Font name="Arial" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Line endX="240.0">
+                           <VBox.margin>
+                              <Insets left="20.0" />
+                           </VBox.margin>
+                        </Line>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Computer Science Major" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Sophomore Class of 2025" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" stylesheets="@Menu.css">
+                                 <children>
+                                    <ImageView id="Wong" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../../../../../../Iteration-3/src/main/resources/edu/wpi/teamc/views/images/JoeyCrop.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="14.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: Plays the drums" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Activley looking for bandmates" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Has a massive Schlong- Randy Himself" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="creditsPopOut1" layoutX="-230.0" layoutY="10.0">
+
          <children>
             <Pane fx:id="creditsPopOut" prefHeight="220.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -628,7 +1292,7 @@
       </AnchorPane>
       <AnchorPane fx:id="settingsPopOut1" layoutX="-110.0" layoutY="276.0" prefHeight="175.0" prefWidth="180.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="276.0">
          <children>
-            <Pane fx:id="settingsPopOut" prefHeight="179.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+            <Pane fx:id="settingsPopOut" prefHeight="215.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="163.0" prefWidth="156.0" spacing="5.0">
                      <children>
@@ -645,7 +1309,8 @@
                               <Insets left="35.0" />
                            </VBox.margin>
                         </Line>
-                        <MFXButton fx:id="Admin_menu_employee_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Employee Table" />
+                        <MFXButton fx:id="Admin_menu_employee_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Patient Table" />
+                        <MFXButton fx:id="Admin_menu_patient_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Employee Table" />
                         <MFXButton fx:id="Admin_menu_login_table" onAction="#getLoginTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Login Table" />
                         <MFXButton fx:id="Admin_menu_import_export" layoutX="10.0" layoutY="74.0" onAction="#getImportExportPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Import/Export" />
                         <HBox alignment="CENTER">
@@ -681,7 +1346,6 @@
                         </Line>
                         <MFXButton fx:id="Admin_menu_request_history" onAction="#getRequestHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Requests History" />
                         <MFXButton fx:id="Admin_menu_mapchange_history" onAction="#getMapHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Map Change History" />
-                        <!--                  <MFXButton fx:id="Admin_menu_giftbasket_history" disable="true" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket History" />-->
                      </children>
                   </VBox>
                </children>
@@ -734,17 +1398,17 @@
                               <Insets />
                            </VBox.margin>
                         </Line>
-                        <TextField fx:id="alert1" alignment="CENTER" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-font-family: arial; -fx-text-fill: white;">
+                        <TextField fx:id="alert1" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-font-family: arial; -fx-text-fill: white;">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="alert2" alignment="CENTER" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-text-fill: white; -fx-font-family: Arial;">
+                        <TextField fx:id="alert2" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-text-fill: white; -fx-font-family: Arial;">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="alert3" alignment="CENTER" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-text-fill: white; -fx-font-family: Arial;">
+                        <TextField fx:id="alert3" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-text-fill: white; -fx-font-family: Arial;">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -755,9 +1419,9 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="serviceRequestPopOut1" layoutX="-110.0" layoutY="98.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
+      <AnchorPane fx:id="serviceRequestPopOut1" layoutX="-110.0" layoutY="98.0" prefHeight="280.0" prefWidth="180.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
          <children>
-            <Pane fx:id="serviceRequestPopOut" prefHeight="240.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+            <Pane fx:id="serviceRequestPopOut" prefHeight="287.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="224.0" prefWidth="156.0" spacing="5.0">
                      <children>
@@ -780,7 +1444,7 @@
                         <MFXButton fx:id="Admin_menu_stationary_delivery" onAction="#getOfficeSuppliesPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Stationary Request" />
                         <MFXButton fx:id="Admin_menu_furniture_delivery" onAction="#getFurnitureDeliveryPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Furniture Request" />
                         <MFXButton fx:id="Admin_menu_room_reservation" onAction="#getRoomReservationPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Room Reservation" />
-                        <!--                  <MFXButton fx:id="Admin_menu_giftbasket_delivery" onAction="#getGiftBasketRequestPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket Delivery" />-->
+                        <MFXButton fx:id="Admin_menu_giftbasket_delivery" onAction="#getGiftBasketPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Gift Basket" />
                      </children>
                   </VBox>
                </children>

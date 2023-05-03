@@ -15,8 +15,12 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+
+import javafx.application.Platform;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
@@ -76,70 +80,50 @@ public class HomeController {
 
   @FXML
   void getLoginNext(ActionEvent event) {
-    wrongNextLogin = true;
-    String username = HOME_username.getText();
-    LoginDao loginDao = new LoginDao();
-    try {
-      currentLogin = loginDao.fetchObject(username);
-      if (currentLogin == null) {
-        wrongNextLogin = true;
-        wrongPass.setVisible(true);
-      } else {
-        wrongNextLogin = false;
-        wrongPass.setVisible(false);
-        if (currentLogin.checkPassword(HOME_password.getText())) {
-          if (currentLogin.isOTPEnabled()) {
-            HOME_username.setVisible(false);
-            HOME_password.setVisible(false);
-            HOME_next.setVisible(false);
-            HOME_back.setVisible(true);
-            HOME_login.setVisible(true);
-            HOME_code.setVisible(true);
-          } else {
-            getLogin(event);
-          }
-        } else {
-          wrongPass.setVisible(true);
-          wrongNextLogin = true;
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  @FXML
-  void getLoginNext2(ActionEvent event) {
-    wrongNextLogin = true;
-    String username = HOME_username.getText();
-    LoginDao loginDao = new LoginDao();
-    try {
-      currentLogin = loginDao.fetchObject(username);
-      if (currentLogin == null) {
-        wrongNextLogin = true;
-        wrongPass.setVisible(true);
-      } else {
-        wrongNextLogin = false;
-        wrongPass.setVisible(false);
-        if (currentLogin.checkPassword(HOME_password.getText())) {
-          if (currentLogin.isOTPEnabled()) {
-            HOME_username.setVisible(false);
-            HOME_password.setVisible(false);
-            HOME_next.setVisible(false);
-            HOME_back.setVisible(true);
-            HOME_login.setVisible(true);
-            HOME_code.setVisible(true);
-          } else {
-            getLogin(event);
-          }
-        } else {
-          wrongPass.setVisible(true);
-          wrongNextLogin = true;
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    Thread thread =
+        new Thread(
+            new Runnable() {
+              @Override
+              public void run() {
+                LoginDao loginDao = new LoginDao();
+                wrongNextLogin = true;
+                String username = HOME_username.getText();
+                currentLogin = loginDao.fetchObject(username);
+                Platform.runLater(
+                    new Runnable() {
+                      @Override
+                      public void run() {
+                        try {
+                          if (currentLogin == null) {
+                            wrongNextLogin = true;
+                            wrongPass.setVisible(true);
+                          } else {
+                            wrongNextLogin = false;
+                            wrongPass.setVisible(false);
+                            if (currentLogin.checkPassword(HOME_password.getText())) {
+                              if (currentLogin.isOTPEnabled()) {
+                                HOME_username.setVisible(false);
+                                HOME_password.setVisible(false);
+                                HOME_next.setVisible(false);
+                                HOME_back.setVisible(true);
+                                HOME_login.setVisible(true);
+                                HOME_code.setVisible(true);
+                              } else {
+                                getLogin(event);
+                              }
+                            } else {
+                              wrongPass.setVisible(true);
+                              wrongNextLogin = true;
+                            }
+                          }
+                        } catch (Exception e) {
+                          e.printStackTrace();
+                        }
+                      }
+                    });
+              }
+            });
+    thread.start();
   }
 
   @FXML
@@ -170,9 +154,10 @@ public class HomeController {
             } else { // if the user is staff
               CApp.setAdminLoginCheck(false);
             }
-            CApp.currScreen = Screen.ADMIN_HOME;
             Navigation.navigate(Screen.ADMIN_HOME);
             Navigation.setMenuType(Navigation.MenuType.ADMIN);
+            CApp.currScreen = Screen.ADMIN_HOME;
+            CApp.setCurrLogin(currentLogin.getUsername());
           } else {
             // Show Error Message
             wrongPass.setVisible(true);
@@ -192,40 +177,23 @@ public class HomeController {
   void getGuest(ActionEvent event) {
     Navigation.navigate(Screen.GUEST_HOME);
     Navigation.setMenuType(Navigation.MenuType.GUEST);
+    CApp.currScreen = Screen.GUEST_HOME;
   }
 
   @FXML
   void getSignUp(ActionEvent event) {
     Navigation.navigate(Screen.SIGNUP_PAGE);
   }
-
-  @FXML
-  public void getExit(ActionEvent actionEvent) {
+  
+   public void getExit(ActionEvent actionEvent) {
     Navigation.navigate(Screen.EXIT_PAGE);
   }
 
-  //  String filePath = "src/main/java/edu/wpi/teamc/languageHelpers/HomeSpanish.json";
-  //  String jsonString = new String(Files.readAllBytes(Paths.get(filePath)),
-  // StandardCharsets.UTF_8);
-  //
-  //  JSONArray jsonArray = new JSONArray(jsonString);
-  //  List<String> list = new ArrayList<>();
-
   @FXML
+
   public void initialize(Stage primaryStage) throws Exception {
+    CApp.setCurrLogin(null);
 
-    //    String filePath = "path/to/your/json/file.json";
-    //    String jsonString = new String(Files.readAllBytes(Paths.get(filePath)),
-    // StandardCharsets.UTF_8);
-    //
-    //    JSONArray jsonArray = new JSONArray(jsonString);
-
-    //    for (int i = 0; i < jsonArray.length(); i++) {
-    //      String item = jsonArray.getString(i);
-    //      list.add(item);
-    //    }
-
-    // getAllTexts();
     //    try {
     language_choice = 0;
     setLanguage();

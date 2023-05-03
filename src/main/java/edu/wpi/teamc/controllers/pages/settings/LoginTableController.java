@@ -19,7 +19,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
+
+
 import org.controlsfx.control.tableview2.FilteredTableView;
+
 
 public class LoginTableController {
 
@@ -29,7 +32,7 @@ public class LoginTableController {
   @FXML private TextField permissionField;
 
   ///////////
-  @FXML private FilteredTableView<Login> loginTable;
+  @FXML private TableView<Login> loginTable;
 
   @FXML TableColumn<Login, String> username;
   @FXML TableColumn<Login, String> email;
@@ -97,6 +100,9 @@ public class LoginTableController {
         event -> {
           this.getAddPopup();
         });
+    loginTable
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/requests/RequestHistory.css").toString());
   }
 
   private void loadLogins() {

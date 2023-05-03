@@ -1,5 +1,4 @@
 longName,shortName,nodeType
-15 Francis Info Center,Information Center,INFO
 Hall 1 Level 2,Hall,HALL
 BTM Conference Center,BTM Conference,CONF
 Neuroscience Waiting Room,Neuro Waiting Room,DEPT
@@ -171,6 +170,7 @@ Restroom B elevator Floor 2,Restroom B,REST
 Restroom C elevator Floor 2,Restroom C,REST
 Restroom C-D elevator Floor 2,Restroom C-D,REST
 Restroom D elevator Floor 2,Restroom D,REST
+15 Francis Security Desk Floor 2,Information Desk,INFO
 Security Desk Thorn Floor 2,Security Desk,INFO
 Chest Diseases Floor 2,Chest Diseases,DEPT
 Thoracic Surgery Clinic Floor 2,Thoracic Surgery Clinic,DEPT

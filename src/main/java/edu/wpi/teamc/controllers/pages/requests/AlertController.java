@@ -1,5 +1,8 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+
+import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.SMSHelper;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.displays.Alert;
@@ -11,11 +14,13 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 public class AlertController {
   @FXML private MFXButton goHome;
@@ -88,7 +93,7 @@ public class AlertController {
             LocalTime.of(EndHourReturn(), EndMinuteReturn(), 00));
     String title = alertTitle.getText();
     String description = alertDescription.getText();
-    String type = alertType.getText();
+    String type = alertSelecter(alertSelection);
     Alert alert =
         new Alert(title, description, type, Timestamp.valueOf(start), Timestamp.valueOf(end));
     HospitalSystem.addRow(alert);
@@ -103,34 +108,67 @@ public class AlertController {
     }
   }
 
+  String alertSelecter(int selection){
+    String alertType = "";
+    switch(selection){
+      case 1:
+        alertType = "Construction";
+        break;
+      case 2:
+        alertType = "Weather";
+        break;
+      case 3:
+        alertType = "Car Crash";
+        break;
+      case 4:
+        alertType = "Closure";
+        break;
+      case 5:
+        alertType = "Emergency";
+        break;
+      case 6:
+        alertType = "Other";
+        break;
+    }
+    return alertType;
+  }
+
+  int alertSelection = 0;
+
   @FXML
   void setChoice1(ActionEvent event) {
     alertType.setText(choice1.getText());
+    alertSelection = 1;
   }
 
   @FXML
   void setChoice2(ActionEvent event) {
     alertType.setText(choice2.getText());
+    alertSelection = 2;
   }
 
   @FXML
   void setChoice3(ActionEvent event) {
     alertType.setText(choice3.getText());
+    alertSelection = 3;
   }
 
   @FXML
   void setChoice4(ActionEvent event) {
     alertType.setText(choice4.getText());
+    alertSelection = 4;
   }
 
   @FXML
   void setChoice5(ActionEvent event) {
     alertType.setText(choice5.getText());
+    alertSelection = 5;
   }
 
   @FXML
   void setChoice6(ActionEvent event) {
     alertType.setText(choice6.getText());
+    alertSelection = 6;
   }
 
   @FXML
@@ -155,9 +193,56 @@ public class AlertController {
 
   /** Method run when controller is initialized */
   @FXML
-  public void initialize() {
+  public void initialize() throws Exception {
     setMinuteTextField();
+    setLanguage();
   }
+
+  public List<String> holder = new ArrayList<String>();
+
+  @FXML
+  void setLanguage() throws Exception {
+    if (language_choice == 0) {
+      holder = CApp.Alert_English_list;
+    } else if (language_choice == 1) {
+      // holder = CApp.Home_Spanish_list;
+    } else if (language_choice == 2) {
+      holder = CApp.Alert_Chinese_list;
+    }
+
+    Title.setText(holder.get(0));
+    Box1.setText(holder.get(1));
+    Box2.setText(holder.get(2));
+    alertTitle.setPromptText(holder.get(3));
+    alertType.setText(holder.get(4));
+    severityType.setText(holder.get(5));
+    alertDescription.setPromptText(holder.get(6));
+    startTime.setPromptText(holder.get(7));
+    endTime.setPromptText(holder.get(8));
+    startHour.setText(holder.get(9));
+    endHour.setText(holder.get(10));
+    startMinute.setPromptText(holder.get(11));
+    endMinute.setPromptText(holder.get(12));
+    Submit.setText(holder.get(13));
+    Clear.setText(holder.get(14));
+    Cancel.setText(holder.get(15));
+    choice1.setText(holder.get(16));
+    choice2.setText(holder.get(17));
+    choice3.setText(holder.get(18));
+    choice4.setText(holder.get(19));
+    choice5.setText(holder.get(20));
+    choice6.setText(holder.get(21));
+    severityLow.setText(holder.get(22));
+    severityMed.setText(holder.get(23));
+    severityHigh.setText(holder.get(24));
+  }
+
+  @FXML private Text Title;
+  @FXML private TextField Box1;
+  @FXML private TextField Box2;
+  @FXML private MFXButton Submit;
+  @FXML private MFXButton Clear;
+  @FXML private MFXButton Cancel;
 
   // MINUTE TEXTFIELD RESTRICTION//
   @FXML

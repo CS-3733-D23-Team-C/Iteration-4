@@ -22,7 +22,7 @@
                <children>
                   <AnchorPane layoutX="50.0" layoutY="20.0" prefHeight="592.0" prefWidth="570.0" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="670.0" AnchorPane.topAnchor="50.0">
                      <children>
-                        <TextField alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" mouseTransparent="true" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white; -fx-accent: #02143b;" text="1. Alert Information" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TextField fx:id="Box1" alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" mouseTransparent="true" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white; -fx-accent: #02143b;" text="1. Alert Information" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
                               <Font size="35.0" />
                            </font>
@@ -68,7 +68,7 @@
                      <children>
                         <AnchorPane prefHeight="160.0" prefWidth="390.0" style="-fx-border-color: #02143b; -fx-background-color: white;">
                            <children>
-                              <TextField alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" mouseTransparent="true" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="2. Time Selection:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TextField fx:id="Box2" alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" mouseTransparent="true" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="2. Time Selection:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
@@ -129,19 +129,19 @@
                               </MenuButton>
                            </children>
                         </AnchorPane>
-                        <MFXButton onAction="#getSubmit" prefHeight="40.0" prefWidth="525.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 16;" text="Submit" textFill="WHITE">
+                        <MFXButton fx:id="Submit" onAction="#getSubmit" prefHeight="40.0" prefWidth="525.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 16;" text="Submit" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </MFXButton>
                         <HBox spacing="20.0">
                            <children>
-                              <MFXButton onAction="#getGoHome" prefHeight="35.0" prefWidth="255.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Cancel" textFill="WHITE">
+                              <MFXButton fx:id="Cancel" onAction="#getGoHome" prefHeight="35.0" prefWidth="255.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Cancel" textFill="WHITE">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </MFXButton>
-                              <MFXButton onAction="#getClear" prefHeight="35.0" prefWidth="255.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Clear" textFill="WHITE">
+                              <MFXButton fx:id="Clear" onAction="#getClear" prefHeight="35.0" prefWidth="255.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Clear" textFill="WHITE">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -158,7 +158,7 @@
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="1147.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Text fill="#02143b" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Alert &amp; Notification Request" wrappingWidth="643.5101928710938" />
+                  <Text fx:id="Title" fill="#02143b" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Alert &amp; Notification Request" wrappingWidth="643.5101928710938" />
                </children>
                <opaqueInsets>
                   <Insets />

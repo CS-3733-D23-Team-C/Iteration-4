@@ -42,6 +42,10 @@ public class CApp extends Application {
   public static List<String> Furniture_Chinese_list;
   public static List<String> Gift_Basket_English_list;
   public static List<String> Gift_Basket_Chinese_list;
+  public static List<String> Conference_English_list;
+  public static List<String> Conference_Chinese_list;
+  public static List<String> Alert_English_list;
+  public static List<String> Alert_Chinese_list;
   @Setter @Getter private static Stage primaryStage;
   @Setter @Getter private static BorderPane rootPane;
 
@@ -235,6 +239,10 @@ public class CApp extends Application {
     Furniture_Chinese_list = loadJson(Furniture_Chinese);
     Gift_Basket_English_list = loadJson(Gift_Basket_English);
     Gift_Basket_Chinese_list = loadJson(Gift_Basket_Chinese);
+    Conference_English_list = loadJson(Conference_English);
+    Conference_Chinese_list = loadJson(Conference_Chinese);
+    Alert_English_list = loadJson(Alert_English);
+    Alert_Chinese_list = loadJson(Alert_Chinese);
 
     /* primaryStage is generally only used if one of your components require the stage to display */
     CApp.primaryStage = primaryStage;
@@ -289,4 +297,10 @@ public class CApp extends Application {
       "src/main/java/edu/wpi/teamc/languageHelpers/GiftBasket/GiftBasketEnglish.json";
   String Gift_Basket_Chinese =
       "src/main/java/edu/wpi/teamc/languageHelpers/GiftBasket/GiftBasketChinese.json";
+  String Conference_English =
+      "src/main/java/edu/wpi/teamc/languageHelpers/Conference/ConferenceEnglish.json";
+  String Conference_Chinese =
+      "src/main/java/edu/wpi/teamc/languageHelpers/Conference/ConferenceChinese.json";
+  String Alert_English = "src/main/java/edu/wpi/teamc/languageHelpers/Alert/AlertEnglish.json";
+  String Alert_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/Alert/AlertChinese.json";
 }

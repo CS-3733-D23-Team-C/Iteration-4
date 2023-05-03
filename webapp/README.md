@@ -1,4 +1,4 @@
-Original repo and production server informaiton: https://github.com/bmlui/cs3733-hospital-nextjs
+Original repo and production server information: https://github.com/bmlui/cs3733-hospital-nextjs
 
 
 - **Framework**: [Next.js](https://nextjs.org/)

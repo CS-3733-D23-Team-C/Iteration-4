@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.pages.settings;
 
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.users.PatientUser;
 import edu.wpi.teamc.navigation.Navigation;
@@ -107,6 +108,10 @@ public class PatientTableController {
           hospitalSystem.updateRow(getPatientUser());
           loadPatients();
         });
+
+    patientTable
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/requests/RequestHistory.css").toString());
   }
 
   private void loadPatients() {

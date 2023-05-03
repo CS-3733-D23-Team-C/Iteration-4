@@ -326,7 +326,6 @@ public class AdminHomeController {
 
   @FXML
   String LanguageSet(String text) throws Exception {
-    text = null;
     if (text == null) {
       return "";
     }

@@ -1,13 +1,12 @@
 package edu.wpi.teamc.dao.displays.signage;
 
 import edu.wpi.teamc.dao.IOrm;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.sql.Date;
 import java.util.Enumeration;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter

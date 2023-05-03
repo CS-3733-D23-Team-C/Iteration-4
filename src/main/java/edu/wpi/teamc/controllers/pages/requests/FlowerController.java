@@ -46,6 +46,7 @@ public class FlowerController {
   // Special for Flower
   @FXML private TextArea giftCard;
   @FXML AnchorPane assignEmployeeAnchor;
+  int flowerSelection = 0;
 
   public void getGoHome() {
     Navigation.navigate(Screen.ADMIN_HOME);
@@ -54,6 +55,7 @@ public class FlowerController {
   @FXML
   void getServicechoice1() {
     serviceMenu.setText(servicechoice1.getText());
+    flowerSelection = 1;
     try {
       getImage(1);
     } catch (IOException e) {
@@ -64,6 +66,7 @@ public class FlowerController {
   @FXML
   void getServicechoice2() {
     serviceMenu.setText(servicechoice2.getText());
+    flowerSelection = 2;
     try {
       getImage(2);
     } catch (IOException e) {
@@ -74,6 +77,7 @@ public class FlowerController {
   @FXML
   void getServicechoice3() {
     serviceMenu.setText(servicechoice3.getText());
+    flowerSelection = 3;
     try {
       getImage(3);
     } catch (IOException e) {
@@ -84,6 +88,7 @@ public class FlowerController {
   @FXML
   void getServicechoice4() {
     serviceMenu.setText(servicechoice4.getText());
+    flowerSelection = 4;
     try {
       getImage(4);
     } catch (IOException e) {
@@ -113,13 +118,27 @@ public class FlowerController {
     }
   }
 
+  String FlowerSelecter(int slection) {
+    switch (slection) {
+      case 1:
+        return "Roses";
+      case 2:
+        return "Lilies";
+      case 3:
+        return "Daisies";
+      case 4:
+        return "Sunflowers";
+    }
+    return null;
+  }
+
   @FXML
   void getSubmit() {
 
     String notes = "Gift Card Message:" + giftCard.getText() + specialRequest.getText();
     String name = nameBox.getText();
     String room = roomMenu.getValue().toString();
-    String menuSelection = serviceMenu.getText();
+    String menuSelection = FlowerSelecter(flowerSelection);
     java.sql.Date deliveryDate = Date.valueOf(deliveryTime.getValue());
     FlowerDeliveryRequest req =
         new FlowerDeliveryRequest(new PatientUser(name), room, menuSelection, notes, deliveryDate);

@@ -687,7 +687,7 @@ public class PathFindingController {
       if (!s.startsWith("D")) {
         String[] split = s.split("~");
 
-        if (split[1].startsWith("Go s") || split[1].startsWith("⚐") || split[1].startsWith("⚑")) {
+        if (split[1].startsWith("Go s") || split[1].startsWith("?") || split[1].startsWith("?")) {
           fullPath += split[1] + ": To ";
         } else {
           fullPath += split[1] + ": At ";
@@ -999,6 +999,7 @@ public class PathFindingController {
       if (ports[2].openPort()) {
         System.out.println("port opening for reading");
         reading = ports[2].readBytes(inputByte, 1);
+        ports[2].flushIOBuffers();
         System.out.println("Reading is: " + reading);
         ports[2].closePort();
       }
@@ -1056,6 +1057,7 @@ public class PathFindingController {
           reading2 = ports[2].readBytes(inputByte2, 1);
           //          reading = reading2 + 2;
           System.out.println("Reading 2 is: " + reading2);
+          ports[2].flushIOBuffers();
           ports[2].closePort();
         }
         if (reading2 == 0 && numNodesSent >= currentPath.size()) {

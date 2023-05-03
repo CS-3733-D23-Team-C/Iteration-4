@@ -1,5 +1,12 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
+
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+
+import edu.wpi.teamc.CApp;
+
+import edu.wpi.teamc.Main;
+
 import edu.wpi.teamc.SMSHelper;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.displays.Alert;
@@ -7,23 +14,37 @@ import edu.wpi.teamc.dao.users.PatientUserDao;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import org.controlsfx.control.SearchableComboBox;
+
 
 public class AlertController {
-  @FXML private MFXButton goHome;
-  @FXML private MFXButton submit;
-
-  @FXML private MFXButton clear;
-  @FXML AnchorPane assignEmployeeAnchor;
-
+  @FXML private TableView historyTable;
+  @FXML TableColumn Column1;
+  @FXML TableColumn Column2;
+  @FXML TableColumn Column3;
+  @FXML TableColumn Column4;
+  @FXML TableColumn Column5;
+  @FXML TableColumn Column6;
   @FXML private MenuItem choice1;
   @FXML private MenuItem choice2;
   @FXML private MenuItem choice3;
@@ -85,10 +106,10 @@ public class AlertController {
     LocalDateTime end =
         LocalDateTime.of(
             LocalDate.from(endTime.getValue()),
-            LocalTime.of(EndHourReturn(), EndMinuteReturn(), 00));
+            LocalTime.of(StartHourReturn(), StartMinuteReturn(), 00));
     String title = alertTitle.getText();
     String description = alertDescription.getText();
-    String type = alertType.getText();
+    String type = alertSelecter(alertSelection);
     Alert alert =
         new Alert(title, description, type, Timestamp.valueOf(start), Timestamp.valueOf(end));
     HospitalSystem.addRow(alert);
@@ -103,34 +124,248 @@ public class AlertController {
     }
   }
 
+  String alertSelecter(int selection) {
+    String alertType = "";
+    switch (selection) {
+      case 1:
+        alertType = "Construction";
+        break;
+      case 2:
+        alertType = "Weather";
+        break;
+      case 3:
+        alertType = "Car Crash";
+        break;
+      case 4:
+        alertType = "Closure";
+        break;
+      case 5:
+        alertType = "Emergency";
+        break;
+      case 6:
+        alertType = "Other";
+        break;
+    }
+    return alertType;
+  }
+
+  int alertSelection = 0;
+
+  @FXML
+  public void initialize() {
+    setMinuteTextField();
+    Thread thread =
+        new Thread(
+            new Runnable() {
+              @Override
+              public void run() {
+                ObservableList<Alert> rows = FXCollections.observableArrayList();
+                Column1.setCellValueFactory(new PropertyValueFactory<Alert, Integer>("id"));
+                Column2.setCellValueFactory(new PropertyValueFactory<Alert, String>("title"));
+                Column3.setCellValueFactory(new PropertyValueFactory<Alert, String>("description"));
+                Column4.setCellValueFactory(new PropertyValueFactory<Alert, String>("type"));
+                Column5.setCellValueFactory(
+                    new PropertyValueFactory<Alert, Timestamp>("startdate"));
+                Column6.setCellValueFactory(new PropertyValueFactory<Alert, Time>("enddate"));
+                List<Alert> list = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
+                for (Alert a : list) {
+                  rows.add(a);
+                }
+                historyTable.getItems().removeAll();
+                historyTable.setItems(rows);
+                Platform.runLater(
+                    () -> {
+                      Column1.setText("ID");
+                      Column2.setText("Title");
+                      Column3.setText("Description");
+                      Column4.setText("Type");
+                      Column5.setText("Start date");
+                      Column6.setText("End date");
+                    });
+              }
+            });
+    thread.start();
+  }
+
+  @FXML
+  private void getDeleteSelected() {
+    Alert alert = (Alert) historyTable.getSelectionModel().getSelectedItem();
+    if (alert == null) {
+      javafx.scene.control.Alert alert2 =
+          new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+      alert2.setTitle("Error");
+      alert2.setHeaderText("No alert selected");
+      alert2.setContentText("Please select an alert to delete.");
+      alert2.showAndWait();
+      return;
+    }
+    javafx.scene.control.Alert alert1 =
+        new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION);
+    alert1.setTitle("Delete Alert");
+    alert1.setHeaderText("Are you sure you want to delete this alert?");
+    alert1.setContentText("Alert " + alert.getId() + " will be deleted permanently.");
+    alert1.showAndWait();
+    if (alert1.getResult().getText().equals("OK")) {
+      Thread thread =
+          new Thread(
+              new Runnable() {
+                @Override
+                public void run() {
+                  HospitalSystem.deleteRow(alert);
+                  initialize();
+                }
+              });
+      thread.start();
+    }
+  }
+
+  @FXML
+  private void getEditSelected() {
+    Alert alert = (Alert) historyTable.getSelectionModel().getSelectedItem();
+    if (alert == null) {
+      javafx.scene.control.Alert alert2 =
+          new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+      alert2.setTitle("Error");
+      alert2.setHeaderText("No alert selected");
+      alert2.setContentText("Please select an alert to edit.");
+      alert2.showAndWait();
+      return;
+    }
+
+    BorderPane borderPane = new BorderPane();
+
+    Text prompt = new Text("Edit Alert " + alert.getId());
+    Label alertTitleLabel = new Label("Title");
+    Label alertDescriptionLabel = new Label("Description");
+    Label alertTypeLabel = new Label("Type");
+    Label startTimeLabel = new Label("Start Time");
+    Label endTimeLabel = new Label("End Time");
+    TextField alertTitle = new TextField();
+    TextField alertDescription = new TextField();
+    SearchableComboBox<String> alertType = new SearchableComboBox<>();
+    DatePicker startTime = new DatePicker();
+    DatePicker endTime = new DatePicker();
+    alertType
+        .getItems()
+        .addAll("Construction", "Weather", "Car Crash", "Closures", "Emergency", "Other");
+    MFXButton confirmButton = new MFXButton("Submit");
+    MFXButton cancelButton = new MFXButton("Cancel");
+    VBox vbox = new VBox();
+    alertTitle.setText(alert.getTitle());
+    alertDescription.setText(alert.getDescription());
+    alertType.setValue(alert.getType());
+    startTime.setValue(alert.getStartdate().toLocalDateTime().toLocalDate());
+    endTime.setValue(alert.getEnddate().toLocalDateTime().toLocalDate());
+    confirmButton.setOnAction(
+        e -> {
+          LocalDateTime start =
+              LocalDateTime.of(LocalDate.from(startTime.getValue()), LocalTime.of(00, 00, 00));
+          LocalDateTime end =
+              LocalDateTime.of(LocalDate.from(endTime.getValue()), LocalTime.of(00, 00, 00));
+          String title = alertTitle.getText();
+          String description = alertDescription.getText();
+          String type = alertType.getValue();
+
+          alert.setTitle(title);
+          alert.setDescription(description);
+          alert.setType(type);
+          alert.setStartdate(Timestamp.valueOf(start));
+          alert.setEnddate(Timestamp.valueOf(end));
+          HospitalSystem.updateRow(alert);
+          //          IDao<Alert, Integer> dao = new AlertDao();
+          //          dao.updateRow(alert1);
+          Stage stage = (Stage) confirmButton.getScene().getWindow();
+          stage.close();
+          initialize();
+        });
+
+    vbox.setSpacing(10);
+    confirmButton.getStyleClass().add("MFXbutton");
+    cancelButton.getStyleClass().add("MFXbutton");
+    prompt.getStyleClass().add("Header");
+    borderPane.getStyleClass().add("scenePane");
+    alertTitleLabel.getStyleClass().add("whiteLabel");
+    alertDescriptionLabel.getStyleClass().add("whiteLabel");
+    alertTypeLabel.getStyleClass().add("whiteLabel");
+    startTimeLabel.getStyleClass().add("whiteLabel");
+    endTimeLabel.getStyleClass().add("whiteLabel");
+    vbox.getChildren()
+        .addAll(
+            prompt,
+            alertTitleLabel,
+            alertTitle,
+            alertDescriptionLabel,
+            alertDescription,
+            alertTypeLabel,
+            alertType,
+            startTimeLabel,
+            startTime,
+            endTimeLabel,
+            endTime,
+            confirmButton,
+            cancelButton);
+
+    cancelButton.setOnAction(
+        e -> {
+          Stage stage = (Stage) cancelButton.getScene().getWindow();
+          stage.close();
+        });
+
+    // set object locations
+    int lay_x = 45;
+    int lay_y = 40;
+    vbox.setLayoutX(lay_x);
+    vbox.setLayoutY(lay_y);
+
+    // Set and show screen
+    AnchorPane aPane = new AnchorPane();
+    aPane.getChildren().addAll(vbox);
+    borderPane.getChildren().add(aPane);
+    Scene scene = new Scene(borderPane, 300, 525);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
+    borderPane.relocate(0, 0);
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.setTitle("Edit Alert");
+    stage.show();
+  }
+
   @FXML
   void setChoice1(ActionEvent event) {
     alertType.setText(choice1.getText());
+    alertSelection = 1;
   }
 
   @FXML
   void setChoice2(ActionEvent event) {
     alertType.setText(choice2.getText());
+    alertSelection = 2;
   }
 
   @FXML
   void setChoice3(ActionEvent event) {
     alertType.setText(choice3.getText());
+    alertSelection = 3;
   }
 
   @FXML
   void setChoice4(ActionEvent event) {
     alertType.setText(choice4.getText());
+    alertSelection = 4;
   }
 
   @FXML
   void setChoice5(ActionEvent event) {
     alertType.setText(choice5.getText());
+    alertSelection = 5;
   }
 
   @FXML
   void setChoice6(ActionEvent event) {
     alertType.setText(choice6.getText());
+    alertSelection = 6;
   }
 
   @FXML
@@ -154,10 +389,59 @@ public class AlertController {
   }
 
   /** Method run when controller is initialized */
+
   @FXML
-  public void initialize() {
+  public void initialize() throws Exception {
     setMinuteTextField();
+    setLanguage();
   }
+
+
+  public List<String> holder = new ArrayList<String>();
+
+  @FXML
+  void setLanguage() throws Exception {
+    if (language_choice == 0) {
+      holder = CApp.Alert_English_list;
+    } else if (language_choice == 1) {
+      // holder = CApp.Home_Spanish_list;
+    } else if (language_choice == 2) {
+      holder = CApp.Alert_Chinese_list;
+    }
+
+    Title.setText(holder.get(0));
+    Box1.setText(holder.get(1));
+    Box2.setText(holder.get(2));
+    alertTitle.setPromptText(holder.get(3));
+    alertType.setText(holder.get(4));
+    severityType.setText(holder.get(5));
+    alertDescription.setPromptText(holder.get(6));
+    startTime.setPromptText(holder.get(7));
+    endTime.setPromptText(holder.get(8));
+    startHour.setText(holder.get(9));
+    endHour.setText(holder.get(10));
+    startMinute.setPromptText(holder.get(11));
+    endMinute.setPromptText(holder.get(12));
+    Submit.setText(holder.get(13));
+    Clear.setText(holder.get(14));
+    Cancel.setText(holder.get(15));
+    choice1.setText(holder.get(16));
+    choice2.setText(holder.get(17));
+    choice3.setText(holder.get(18));
+    choice4.setText(holder.get(19));
+    choice5.setText(holder.get(20));
+    choice6.setText(holder.get(21));
+    severityLow.setText(holder.get(22));
+    severityMed.setText(holder.get(23));
+    severityHigh.setText(holder.get(24));
+  }
+
+  @FXML private Text Title;
+  @FXML private TextField Box1;
+  @FXML private TextField Box2;
+  @FXML private MFXButton Submit;
+  @FXML private MFXButton Clear;
+  @FXML private MFXButton Cancel;
 
   // MINUTE TEXTFIELD RESTRICTION//
   @FXML

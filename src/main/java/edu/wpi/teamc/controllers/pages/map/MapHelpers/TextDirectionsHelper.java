@@ -140,7 +140,6 @@ public class TextDirectionsHelper {
         textDirections.add(direction);
       }
     }
-
     return clean(textDirections);
   }
 

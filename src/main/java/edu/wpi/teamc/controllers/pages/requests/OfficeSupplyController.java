@@ -1,5 +1,7 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
@@ -9,9 +11,12 @@ import edu.wpi.teamc.dao.requests.OfficeSuppliesRequest;
 import edu.wpi.teamc.dao.requests.OfficeSuppliesRequestDAO;
 import edu.wpi.teamc.dao.users.EmployeeUser;
 import edu.wpi.teamc.dao.users.PatientUser;
+import edu.wpi.teamc.languageHelpers.TranslatorAPI;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -20,6 +25,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import org.controlsfx.control.SearchableComboBox;
 
 public class OfficeSupplyController {
@@ -41,6 +47,8 @@ public class OfficeSupplyController {
 
   @FXML DatePicker startTime;
 
+  int officeSelection = 0;
+
   public void getGoHome() {
     Navigation.navigate(Screen.ADMIN_HOME);
   }
@@ -48,6 +56,7 @@ public class OfficeSupplyController {
   @FXML
   void getServicechoice1() throws IOException {
     serviceMenu.setText(servicechoice1.getText());
+    officeSelection = 1;
     image.setImage(
         new Image(Main.class.getResource("views/images/Office_Supply/notebook.png").openStream()));
   }
@@ -55,6 +64,7 @@ public class OfficeSupplyController {
   @FXML
   void getServicechoice2() throws IOException {
     serviceMenu.setText(servicechoice2.getText());
+    officeSelection = 2;
     image.setImage(
         new Image(Main.class.getResource("views/images/Office_Supply/pen.png").openStream()));
   }
@@ -62,6 +72,7 @@ public class OfficeSupplyController {
   @FXML
   void getServicechoice3() throws IOException {
     serviceMenu.setText(servicechoice3.getText());
+    officeSelection = 3;
     image.setImage(
         new Image(Main.class.getResource("views/images/Office_Supply/pencil.png").openStream()));
   }
@@ -69,8 +80,24 @@ public class OfficeSupplyController {
   @FXML
   void getServicechoice4() throws IOException {
     serviceMenu.setText(servicechoice4.getText());
+    officeSelection = 4;
     image.setImage(
         new Image(Main.class.getResource("views/images/Office_Supply/staple.png").openStream()));
+  }
+
+  String MealSelector(int selection) {
+    switch (selection) {
+      case 1:
+        return "Notebook";
+      case 2:
+        return "Pen";
+      case 3:
+        return "Pencil";
+      case 4:
+        return "Staple";
+      default:
+        return "";
+    }
   }
 
   @FXML
@@ -78,7 +105,7 @@ public class OfficeSupplyController {
     String notes = specialRequest.getText();
     String name = nameBox.getText();
     String room = roomMenu.getValue().toString();
-    String menuSelection = serviceMenu.getText();
+    String menuSelection = MealSelector(officeSelection);
     String startTime = this.startTime.getValue().toString();
     OfficeSuppliesRequest req =
         new OfficeSuppliesRequest(new PatientUser(name), room, menuSelection, notes, startTime);
@@ -142,7 +169,7 @@ public class OfficeSupplyController {
 
   /** Method run when controller is initialized */
   @FXML
-  public void initialize() {
+  public void initialize() throws Exception {
     List<LocationName> locationNames =
         (List<LocationName>) HospitalSystem.fetchAllObjects(new LocationName());
     // remove halls, elevators, stairs and bathrooms from list
@@ -161,5 +188,72 @@ public class OfficeSupplyController {
       assignEmployeeAnchor.setMouseTransparent(true);
       assignEmployeeAnchor.setOpacity(0);
     }
+
+    setLanguage();
+  }
+
+  public List<String> holder = new ArrayList<String>();
+
+  @FXML
+  void setLanguage() throws Exception {
+    if (language_choice == 0) {
+      holder = CApp.Office_Supply_English_list;
+    } else if (language_choice == 1) {
+      // holder = CApp.Home_Spanish_list;
+    } else if (language_choice == 2) {
+      holder = CApp.Office_Supply_Chinese_list;
+    }
+
+    Title.setText(holder.get(0));
+    Box1.setText(holder.get(1));
+    Box2.setText(holder.get(2));
+    Box3.setText(holder.get(3));
+    Box4.setText(holder.get(4));
+    Box5.setText(holder.get(5));
+    nameBox.setPromptText(holder.get(6));
+    roomMenu.setPromptText(holder.get(7));
+    serviceMenu.setText(holder.get(8));
+    supplyAmount.setPromptText(holder.get(9));
+    specialRequest.setPromptText(holder.get(10));
+    startTime.setPromptText(holder.get(11));
+    employeeName.setPromptText(holder.get(12));
+    Submit.setText(holder.get(13));
+    Clear.setText(holder.get(14));
+    Cancel.setText(holder.get(15));
+
+    servicechoice1.setText(LanguageSet(servicechoice1.getText()));
+    servicechoice2.setText(LanguageSet(servicechoice2.getText()));
+    servicechoice3.setText(LanguageSet(servicechoice3.getText()));
+    servicechoice4.setText(LanguageSet(servicechoice4.getText()));
+
+    //        notEnglish = true;
+  }
+
+  @FXML private Text Title;
+  @FXML private TextField Box1;
+  @FXML private TextField Box2;
+  @FXML private TextField Box3;
+  @FXML private TextField Box4;
+  @FXML private TextField Box5;
+
+  @FXML private MFXButton Submit;
+  @FXML private MFXButton Clear;
+  @FXML private MFXButton Cancel;
+
+  public TranslatorAPI translatorAPI = new TranslatorAPI();
+
+  @FXML
+  String LanguageSet(String text) throws Exception {
+    if (text == null) {
+      return "";
+    }
+    if (language_choice == 0) { // 0 is english
+      text = translatorAPI.translateToEn(text);
+    } else if (language_choice == 1) { // 1 is spanish
+      text = translatorAPI.translateToSp(text);
+    } else if (language_choice == 2) { // 2 is Chinese
+      text = translatorAPI.translateToZh(text);
+    }
+    return text;
   }
 }

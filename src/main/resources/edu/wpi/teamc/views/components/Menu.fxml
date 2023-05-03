@@ -20,8 +20,8 @@
 
 <AnchorPane fx:id="basePane" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.components.MenuController">
    <children>
-      <AnchorPane fx:id="aboutClosePane" layoutX="70.0" prefHeight="745.0" prefWidth="740.0" style="-fx-background-color: transparent;" />
-      <AnchorPane fx:id="aboutPopOut3" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutClosePane" cache="true" layoutX="70.0" prefHeight="745.0" prefWidth="740.0" style="-fx-background-color: transparent;" />
+      <AnchorPane fx:id="aboutPopOut3" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutPopOut1" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -40,7 +40,7 @@
                               <Insets left="20.0" />
                            </VBox.margin>
                         </Line>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="This Website Was Created By:" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fx:id="About_created" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="This Website Was Created By:" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -296,7 +296,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="homePopOut1" layoutX="-110.0" layoutY="11.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0">
+      <AnchorPane fx:id="homePopOut1" cache="true" layoutX="-110.0" layoutY="11.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0">
          <children>
             <Pane fx:id="homePopOut" prefHeight="163.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -324,13 +324,13 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutPopOut2" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutPopOut2" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutPopOut" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="700.0" prefWidth="280.0" spacing="5.0">
                      <children>
-                        <Text fx:id="Admin_menu_about_text" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="About" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                        <Text fx:id="About_text" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="About" textAlignment="CENTER" wrappingWidth="280.20001298189163">
                            <font>
                               <Font name="Arial" size="18.0" />
                            </font>
@@ -343,22 +343,22 @@
                               <Insets left="20.0" />
                            </VBox.margin>
                         </Line>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="This Website Was Created By:" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fx:id="About_This" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="This Website Was Created By:" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="WPI Computer Science Department" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fx:id="About_WPICS" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="WPI Computer Science Department" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="CS3733-D23 Software Engineering" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fx:id="About_CS3733" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="CS3733-D23 Software Engineering" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Charismatic Cerberus" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fx:id="About_teamC" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Charismatic Cerberus" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -381,7 +381,7 @@
                               <Insets left="20.0" />
                            </VBox.margin>
                         </Line>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Special Thanks To:" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fx:id="About_special_thanks" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Special Thanks To:" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial Bold" size="14.0" />
                            </font>
@@ -470,7 +470,8 @@
                               <Insets left="130.0" top="70.0" />
                            </VBox.margin>
                         </StackPane>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fx:id="About_And_thanks" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." textAlignment="CENTER" wrappingWidth="280.2000740170479">
+
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -484,8 +485,8 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutPopOut4" layoutX="284.0" layoutY="1.0" prefHeight="550.0" prefWidth="109.0" style="-fx-background-color: transparant;" />
-      <AnchorPane fx:id="aboutRandyPopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutPopOut4" cache="true" layoutX="284.0" layoutY="1.0" prefHeight="550.0" prefWidth="109.0" style="-fx-background-color: transparant;" />
+      <AnchorPane fx:id="aboutRandyPopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -554,7 +555,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutEddiePopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutEddiePopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy1" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -623,7 +624,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutNickPopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutNickPopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy11" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -687,7 +688,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutAaronPopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutAaronPopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy111" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -751,7 +752,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutSebastianPopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutSebastianPopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy2" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -815,7 +816,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutBrandonPopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutBrandonPopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy21" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -884,7 +885,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutTayaPopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutTayaPopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy211" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -948,7 +949,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutChasePopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutChasePopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy2111" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1012,7 +1013,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutChaoPopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutChaoPopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy21111" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1076,7 +1077,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutJoeyPopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutJoeyPopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy211111" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1145,13 +1146,14 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="creditsPopOut1" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="creditsPopOut1" cache="true" layoutX="-230.0" layoutY="10.0">
+
          <children>
-            <Pane fx:id="creditsPopOut" prefHeight="200.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
+            <Pane fx:id="creditsPopOut" prefHeight="220.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
                   <VBox layoutX="10.0" layoutY="15.0" prefHeight="170.0" prefWidth="281.0" spacing="5.0">
                      <children>
-                        <Text fx:id="Admin_menu_credits_text1" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Credits" textAlignment="CENTER" wrappingWidth="280.20001298189163">
+                        <Text fx:id="Credits_text" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Credits" textAlignment="CENTER" wrappingWidth="280.20001298189163">
                            <font>
                               <Font name="Arial" size="18.0" />
                            </font>
@@ -1164,17 +1166,22 @@
                               <Insets left="20.0" />
                            </VBox.margin>
                         </Line>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="API's that were used:" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fx:id="Credits_API" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="API's that were used:" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="WeatherWidget.io" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fx:id="Credits_Weather" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="WeatherWidget.io" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Twilio" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fx:id="Credits_Twilio" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Twilio" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="Credits_DeepL" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="DeepL" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -1184,12 +1191,12 @@
                               <Insets left="20.0" />
                            </VBox.margin>
                         </Line>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Special Thanks To:" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fx:id="Credits_Thanks" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Special Thanks To:" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial Bold" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Grace for the Icons" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fx:id="Credits_Icons" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Grace for the Icons" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -1197,7 +1204,7 @@
                               <Insets />
                            </VBox.margin>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Brighams Women's Hospital for the Floor Maps" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fx:id="Credits_Floors" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Brighams Women's Hospital for the Floor Maps" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
@@ -1208,7 +1215,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="logoutPopOut1" layoutX="-110.0" layoutY="645.0" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="logoutPopOut1" cache="true" layoutX="-110.0" layoutY="645.0" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Pane fx:id="logoutPopOut" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1233,7 +1240,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="exitPopOut1" layoutX="-110.0" layoutY="707.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="exitPopOut1" cache="true" layoutX="-110.0" layoutY="707.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Pane fx:id="exitPopOut" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1258,7 +1265,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="helpPopOut1" layoutX="-110.0" layoutY="340.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="340.0">
+      <AnchorPane fx:id="helpPopOut1" cache="true" layoutX="-110.0" layoutY="340.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="340.0">
          <children>
             <Pane fx:id="helpPopOut" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1283,7 +1290,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="settingsPopOut1" layoutX="-110.0" layoutY="276.0" prefHeight="175.0" prefWidth="180.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="276.0">
+      <AnchorPane fx:id="settingsPopOut1" cache="true" layoutX="-110.0" layoutY="276.0" prefHeight="175.0" prefWidth="180.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="276.0">
          <children>
             <Pane fx:id="settingsPopOut" prefHeight="215.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1302,8 +1309,8 @@
                               <Insets left="35.0" />
                            </VBox.margin>
                         </Line>
-                        <MFXButton fx:id="Admin_menu_employee_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Patient Table" />
-                        <MFXButton fx:id="Admin_menu_patient_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Employee Table" />
+                        <MFXButton fx:id="Admin_menu_employee_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Employee Table" />
+                        <MFXButton fx:id="Admin_menu_patient_table" onAction="#getPatientTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Patient Table" />
                         <MFXButton fx:id="Admin_menu_login_table" onAction="#getLoginTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Login Table" />
                         <MFXButton fx:id="Admin_menu_import_export" layoutX="10.0" layoutY="74.0" onAction="#getImportExportPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Import/Export" />
                         <HBox alignment="CENTER">
@@ -1318,7 +1325,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="historyPopOut1" layoutX="-110.0" layoutY="215.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="215.0">
+      <AnchorPane fx:id="historyPopOut1" cache="true" layoutX="-110.0" layoutY="215.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="215.0">
          <children>
             <Pane fx:id="historyPopOut" prefHeight="120.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1337,7 +1344,7 @@
                               <Insets left="35.0" />
                            </VBox.margin>
                         </Line>
-                        <MFXButton fx:id="Admin_menu_reservation_history" onAction="#getRequestHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Requests History" />
+                        <MFXButton fx:id="Admin_menu_request_history" onAction="#getRequestHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Requests History" />
                         <MFXButton fx:id="Admin_menu_mapchange_history" onAction="#getMapHistory" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Map Change History" />
                      </children>
                   </VBox>
@@ -1345,7 +1352,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="navigationPopOut1" layoutX="-110.0" layoutY="155.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="155.0">
+      <AnchorPane fx:id="navigationPopOut1" cache="true" layoutX="-110.0" layoutY="155.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="155.0">
          <children>
             <Pane fx:id="navigationPopOut" prefHeight="220.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1368,20 +1375,20 @@
                         <MFXButton fx:id="Admin_menu_editmap" onAction="#getEditMap" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Edit Map" />
                         <MFXButton fx:id="Admin_menu_movetable" onAction="#getMoveTable" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Move Table" />
                         <MFXButton fx:id="Admin_menu_signage" onAction="#getSignagePage" prefWidth="150.0" style="-fx-background-radius: 54;" styleClass="menuButton" stylesheets="@Menu.css" text="View Signage" />
-                        <MFXButton fx:id="Admin_menu_furniture_history" onAction="#getSignageEdit" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Edit Signage" />
+                        <MFXButton fx:id="Admin_menu_edit_signage" onAction="#getSignageEdit" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Edit Signage" />
                      </children>
                   </VBox>
                </children>
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="warningPopOut1" layoutX="-180.0" layoutY="585.0" prefHeight="179.0" prefWidth="250.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="-180.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="warningPopOut1" cache="true" layoutX="-180.0" layoutY="585.0" prefHeight="179.0" prefWidth="250.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="-180.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Pane fx:id="warningPopOut" prefHeight="163.0" prefWidth="250.0" styleClass="menuSidebar" stylesheets="@Menu.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <VBox alignment="CENTER" layoutX="10.0" layoutY="15.0" prefHeight="159.0" prefWidth="220.0" spacing="5.0">
                      <children>
-                        <Text fx:id="Admin_menu_navigation1" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Recent Alerts" textAlignment="CENTER" wrappingWidth="155.40002518892288">
+                        <Text fx:id="Admin_menu_recent_alerts" fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Recent Alerts" textAlignment="CENTER" wrappingWidth="155.40002518892288">
                            <font>
                               <Font name="Arial" size="18.0" />
                            </font>
@@ -1412,7 +1419,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="serviceRequestPopOut1" layoutX="-110.0" layoutY="98.0" prefHeight="280.0" prefWidth="180.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
+      <AnchorPane fx:id="serviceRequestPopOut1" cache="true" layoutX="-110.0" layoutY="98.0" prefHeight="280.0" prefWidth="180.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
          <children>
             <Pane fx:id="serviceRequestPopOut" prefHeight="287.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -1444,7 +1451,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <Pane fx:id="settingsPane" layoutX="70.0" layoutY="-768.0" prefHeight="768.0" prefWidth="1297.0" style="-fx-background-color: #02143B;">
+      <Pane fx:id="settingsPane" cache="true" layoutX="70.0" layoutY="-768.0" prefHeight="768.0" prefWidth="1297.0" style="-fx-background-color: #02143B;">
          <children>
             <BorderPane prefHeight="768.0" prefWidth="1297.0">
                <top>
@@ -1472,12 +1479,12 @@
       </Pane>
       <AnchorPane fx:id="menuPane" prefHeight="768.0" style="-fx-background-color: #02143B;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane layoutX="14.5" layoutY="75.5">
+            <AnchorPane cache="true" layoutX="14.5" layoutY="75.5">
                <children>
                   <Line fx:id="menuLine1" endX="40.0" stroke="WHITE" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="14.5" layoutY="630.5" AnchorPane.bottomAnchor="137.0" AnchorPane.leftAnchor="14.5" AnchorPane.rightAnchor="16.0">
+            <AnchorPane cache="true" layoutX="14.5" layoutY="630.5" AnchorPane.bottomAnchor="137.0" AnchorPane.leftAnchor="14.5" AnchorPane.rightAnchor="16.0">
                <children>
                   <Line fx:id="menuLine2" endX="40.0" stroke="WHITE" />
                </children>
@@ -1710,7 +1717,7 @@
                   </Pane>
                </children>
             </AnchorPane>
-            <Label fx:id="menuClock" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="508.0" mouseTransparent="true" prefHeight="49.0" prefWidth="46.0" text="Label" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="211.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0">
+            <Label fx:id="menuClock" alignment="CENTER" cache="true" contentDisplay="CENTER" layoutX="14.0" layoutY="508.0" mouseTransparent="true" prefHeight="49.0" prefWidth="46.0" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="211.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0">
                <font>
                   <Font size="17.0" />
                </font>

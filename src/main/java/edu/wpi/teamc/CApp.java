@@ -37,6 +37,8 @@ public class CApp extends Application {
   public static List<String> Meal_Chinese_list;
   public static List<String> Office_Supply_English_list;
   public static List<String> Office_Supply_Chinese_list;
+  public static List<String> Flower_English_list;
+  public static List<String> Flower_Chinese_list;
   @Setter @Getter private static Stage primaryStage;
   @Setter @Getter private static BorderPane rootPane;
 
@@ -192,6 +194,8 @@ public class CApp extends Application {
     Meal_Chinese_list = loadJson(Meal_Chinese);
     Office_Supply_English_list = loadJson(Supply_English);
     Office_Supply_Chinese_list = loadJson(Supply_Chinese);
+    Flower_English_list = loadJson(Flower_English);
+    Flower_Chinese_list = loadJson(Flower_Chinese);
 
     /* primaryStage is generally only used if one of your components require the stage to display */
     CApp.primaryStage = primaryStage;
@@ -236,4 +240,6 @@ public class CApp extends Application {
       "src/main/java/edu/wpi/teamc/languageHelpers/Stationary/StationaryEnglish.json";
   String Supply_Chinese =
       "src/main/java/edu/wpi/teamc/languageHelpers/Stationary/StationaryChinese.json";
+  String Flower_English = "src/main/java/edu/wpi/teamc/languageHelpers/Flower/FlowerEnglish.json";
+  String Flower_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/Flower/FlowerChinese.json";
 }

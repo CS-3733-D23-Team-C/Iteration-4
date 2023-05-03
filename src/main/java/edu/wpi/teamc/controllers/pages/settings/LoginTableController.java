@@ -5,6 +5,7 @@ import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
 import edu.wpi.teamc.dao.users.login.Login;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import java.util.List;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,9 +19,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
-import org.controlsfx.control.tableview2.FilteredTableView;
-
-import java.util.List;
 
 public class LoginTableController {
 
@@ -30,7 +28,7 @@ public class LoginTableController {
   @FXML private TextField permissionField;
 
   ///////////
-  @FXML private FilteredTableView<Login> loginTable;
+  @FXML private TableView<Login> loginTable;
 
   @FXML TableColumn<Login, String> username;
   @FXML TableColumn<Login, String> email;
@@ -98,6 +96,9 @@ public class LoginTableController {
         event -> {
           this.getAddPopup();
         });
+    loginTable
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/requests/RequestHistory.css").toString());
   }
 
   private void loadLogins() {

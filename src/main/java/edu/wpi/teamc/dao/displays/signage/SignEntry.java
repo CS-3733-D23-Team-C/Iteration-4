@@ -1,11 +1,10 @@
 package edu.wpi.teamc.dao.displays.signage;
 
 import edu.wpi.teamc.dao.IOrm;
-import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.sql.Date;
+import java.util.Enumeration;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,22 +29,29 @@ public class SignEntry implements IOrm {
   public SignEntry() {}
 
   public static String getCurrentDeviceMacAddress() {
-    InetAddress localHost = null;
-    String macAddress = null;
+    String mac = "";
+    Enumeration<NetworkInterface> networkInterfaces = null;
     try {
-      localHost = InetAddress.getLocalHost();
-      NetworkInterface ni = NetworkInterface.getByInetAddress(localHost);
-      byte[] hardwareAddress = ni.getHardwareAddress();
-      String[] hexadecimal = new String[hardwareAddress.length];
-      for (int i = 0; i < hardwareAddress.length; i++) {
-        hexadecimal[i] = String.format("%02X", hardwareAddress[i]);
-      }
-      macAddress = String.join(":", hexadecimal);
-    } catch (UnknownHostException e) {
-      throw new RuntimeException(e);
+      networkInterfaces = NetworkInterface.getNetworkInterfaces();
     } catch (SocketException e) {
       throw new RuntimeException(e);
     }
-    return macAddress;
+    while (networkInterfaces.hasMoreElements()) {
+      NetworkInterface ni = networkInterfaces.nextElement();
+      byte[] hardwareAddress = new byte[0];
+      try {
+        hardwareAddress = ni.getHardwareAddress();
+      } catch (SocketException e) {
+        throw new RuntimeException(e);
+      }
+      if (hardwareAddress != null) {
+        String[] hexadecimalFormat = new String[hardwareAddress.length];
+        for (int i = 0; i < hardwareAddress.length; i++) {
+          hexadecimalFormat[i] = String.format("%02X", hardwareAddress[i]);
+        }
+        mac = String.join(":", hexadecimalFormat);
+      }
+    }
+    return mac;
   }
 }

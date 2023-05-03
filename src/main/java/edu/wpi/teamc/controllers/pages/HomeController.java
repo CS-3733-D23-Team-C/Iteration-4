@@ -12,11 +12,16 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -63,76 +68,59 @@ public class HomeController {
   @FXML private MFXTextField HOME_code;
   @FXML private AnchorPane aPane;
   @FXML ToggleSwitch dbToggleHome;
+  @FXML private TextArea Warning_translation;
 
   boolean wrongNextLogin = true;
   Login currentLogin;
 
-  @FXML
-  void getLoginNext(ActionEvent event) {
-    wrongNextLogin = true;
-    String username = HOME_username.getText();
-    LoginDao loginDao = new LoginDao();
-    try {
-      currentLogin = loginDao.fetchObject(username);
-      if (currentLogin == null) {
-        wrongNextLogin = true;
-        wrongPass.setVisible(true);
-      } else {
-        wrongNextLogin = false;
-        wrongPass.setVisible(false);
-        if (currentLogin.checkPassword(HOME_password.getText())) {
-          if (currentLogin.isOTPEnabled()) {
-            HOME_username.setVisible(false);
-            HOME_password.setVisible(false);
-            HOME_next.setVisible(false);
-            HOME_back.setVisible(true);
-            HOME_login.setVisible(true);
-            HOME_code.setVisible(true);
-          } else {
-            getLogin(event);
-          }
-        } else {
-          wrongPass.setVisible(true);
-          wrongNextLogin = true;
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
+  public HomeController() throws IOException {}
 
   @FXML
-  void getLoginNext2(ActionEvent event) {
-    wrongNextLogin = true;
-    String username = HOME_username.getText();
-    LoginDao loginDao = new LoginDao();
-    try {
-      currentLogin = loginDao.fetchObject(username);
-      if (currentLogin == null) {
-        wrongNextLogin = true;
-        wrongPass.setVisible(true);
-      } else {
-        wrongNextLogin = false;
-        wrongPass.setVisible(false);
-        if (currentLogin.checkPassword(HOME_password.getText())) {
-          if (currentLogin.isOTPEnabled()) {
-            HOME_username.setVisible(false);
-            HOME_password.setVisible(false);
-            HOME_next.setVisible(false);
-            HOME_back.setVisible(true);
-            HOME_login.setVisible(true);
-            HOME_code.setVisible(true);
-          } else {
-            getLogin(event);
-          }
-        } else {
-          wrongPass.setVisible(true);
-          wrongNextLogin = true;
-        }
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+  void getLoginNext(ActionEvent event) {
+    Thread thread =
+        new Thread(
+            new Runnable() {
+              @Override
+              public void run() {
+                LoginDao loginDao = new LoginDao();
+                wrongNextLogin = true;
+                String username = HOME_username.getText();
+                currentLogin = loginDao.fetchObject(username);
+                Platform.runLater(
+                    new Runnable() {
+                      @Override
+                      public void run() {
+                        try {
+                          if (currentLogin == null) {
+                            wrongNextLogin = true;
+                            wrongPass.setVisible(true);
+                          } else {
+                            wrongNextLogin = false;
+                            wrongPass.setVisible(false);
+                            if (currentLogin.checkPassword(HOME_password.getText())) {
+                              if (currentLogin.isOTPEnabled()) {
+                                HOME_username.setVisible(false);
+                                HOME_password.setVisible(false);
+                                HOME_next.setVisible(false);
+                                HOME_back.setVisible(true);
+                                HOME_login.setVisible(true);
+                                HOME_code.setVisible(true);
+                              } else {
+                                getLogin(event);
+                              }
+                            } else {
+                              wrongPass.setVisible(true);
+                              wrongNextLogin = true;
+                            }
+                          }
+                        } catch (Exception e) {
+                          e.printStackTrace();
+                        }
+                      }
+                    });
+              }
+            });
+    thread.start();
   }
 
   @FXML
@@ -163,9 +151,10 @@ public class HomeController {
             } else { // if the user is staff
               CApp.setAdminLoginCheck(false);
             }
-            CApp.currScreen = Screen.ADMIN_HOME;
             Navigation.navigate(Screen.ADMIN_HOME);
             Navigation.setMenuType(Navigation.MenuType.ADMIN);
+            CApp.currScreen = Screen.ADMIN_HOME;
+            CApp.setCurrLogin(currentLogin.getUsername());
           } else {
             // Show Error Message
             wrongPass.setVisible(true);
@@ -185,6 +174,7 @@ public class HomeController {
   void getGuest(ActionEvent event) {
     Navigation.navigate(Screen.GUEST_HOME);
     Navigation.setMenuType(Navigation.MenuType.GUEST);
+    CApp.currScreen = Screen.GUEST_HOME;
   }
 
   @FXML
@@ -192,13 +182,13 @@ public class HomeController {
     Navigation.navigate(Screen.SIGNUP_PAGE);
   }
 
-  @FXML
   public void getExit(ActionEvent actionEvent) {
     Navigation.navigate(Screen.EXIT_PAGE);
   }
 
   @FXML
   public void initialize(Stage primaryStage) throws Exception {
+    CApp.setCurrLogin(null);
 
     //    try {
     language_choice = 0;
@@ -276,41 +266,77 @@ public class HomeController {
 
   @FXML
   void english() throws Exception {
+    if (language_choice != 0) {
+      Warning_translation.setVisible(false);
+    }
     language_choice = 0;
+    //    Warning_translation.setPrefWidth(260);
     setLanguage();
   }
 
   @FXML
   void spanish() throws Exception {
     language_choice = 1;
+    //    Warning_translation.setVisible(true);
+    //    Warning_translation.setPrefWidth(380); // Spanish translation is too long!
     setLanguage();
   }
 
   @FXML
   void chinese() throws Exception {
     language_choice = 2;
+    Warning_translation.setVisible(true);
+    //    Warning_translation.setPrefWidth(260);
     setLanguage();
   }
 
-  void setLanguage() throws Exception {
-    HOME_SignInText.setText(LanguageSet(HOME_SignInText.getText()));
-    HOME_username.setPromptText(LanguageSet(HOME_username.getPromptText()));
-    HOME_password.setPromptText(LanguageSet(HOME_password.getPromptText()));
-    HOME_login.setText(LanguageSet(HOME_login.getText()));
-    HOME_next.setText(LanguageSet(HOME_next.getText()));
-    HOME_back.setText(LanguageSet(HOME_back.getText()));
-    HOME_forgot.setText(LanguageSet(HOME_forgot.getText()));
-    HOME_create.setText(LanguageSet(HOME_create.getText()));
-    HOME_or.setText(LanguageSet(HOME_or.getText()));
-    HOME_guest.setText(LanguageSet(HOME_guest.getText()));
-    HOME_exit.setText(LanguageSet(HOME_exit.getText()));
-    HOME_motto.setText(LanguageSet(HOME_motto.getText()));
+  //  public List<String> allTexts = new List<String>();
+  //  public List<String> allTextsTranslated = new List<String>();
+
+  //  public void getAllTexts() {
+  //    allTexts.add(HOME_SignInText.getText());
+  //    allTexts.add(HOME_username.getPromptText());
+  //    allTexts.add(HOME_password.getPromptText());
+  //    allTexts.add(HOME_login.getText());
+  //    allTexts.add(HOME_next.getText());
+  //    allTexts.add(HOME_back.getText());
+  //    allTexts.add(HOME_forgot.getText());
+  //    allTexts.add(HOME_create.getText());
+  //    allTexts.add(HOME_or.getText());
+  //    allTexts.add(HOME_guest.getText());
+  //    allTexts.add(HOME_exit.getText());
+  //    allTexts.add(HOME_motto.getText());
+  //    allTexts.add(Warning_translation.getText());
+  //  }
+
+  public List<String> holder = new ArrayList<String>();
+
+  void setLanguage() {
+
+    if (language_choice == 0) {
+      holder = CApp.Home_English_list;
+    } else if (language_choice == 1) {
+      // holder = CApp.Home_Spanish_list;
+    } else if (language_choice == 2) {
+      holder = CApp.Home_Chinese_list;
+    }
+    HOME_SignInText.setText(holder.get(0));
+    HOME_username.setPromptText(holder.get(1));
+    HOME_password.setPromptText(holder.get(2));
+    HOME_next.setText(holder.get(3));
+    HOME_forgot.setText(holder.get(4));
+    HOME_create.setText(holder.get(5));
+    HOME_or.setText(holder.get(6));
+    HOME_guest.setText(holder.get(7));
+    HOME_exit.setText(holder.get(8));
+    HOME_motto.setText(holder.get(9));
+    Warning_translation.setText(holder.get(10));
   }
 
   public TranslatorAPI translatorAPI = new TranslatorAPI();
 
   @FXML
-  String LanguageSet(String text) throws Exception {
+  void LanguageSet(String text) throws Exception {
     if (language_choice == 0) { // 0 is english
       text = translatorAPI.translateToEn(text);
     } else if (language_choice == 1) { // 1 is spanish
@@ -318,7 +344,6 @@ public class HomeController {
     } else if (language_choice == 2) { // 2 is Chinese
       text = translatorAPI.translateToZh(text);
     }
-    return text;
   }
 
   @FXML

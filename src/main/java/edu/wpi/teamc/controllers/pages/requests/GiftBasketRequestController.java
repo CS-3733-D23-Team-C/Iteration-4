@@ -1,49 +1,96 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+
+import edu.wpi.teamc.CApp;
+import edu.wpi.teamc.Main;
+import edu.wpi.teamc.dao.HospitalSystem;
+import edu.wpi.teamc.dao.map.LocationName;
+import edu.wpi.teamc.dao.map.LocationNameDao;
+import edu.wpi.teamc.dao.requests.GiftBasketRequest;
+import edu.wpi.teamc.dao.users.EmployeeUser;
+import edu.wpi.teamc.dao.users.PatientUser;
+import edu.wpi.teamc.languageHelpers.TranslatorAPI;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import javafx.event.ActionEvent;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import org.controlsfx.control.SearchableComboBox;
 
 public class GiftBasketRequestController {
   @FXML private MFXButton goHome;
   @FXML private MFXButton submit;
 
-  @FXML private MFXButton clear;
-
-  @FXML private MenuButton menuButton;
-  @FXML private MenuButton roomID;
+  @FXML private AnchorPane assignEmployeeAnchor;
+  @FXML private TextArea basketItems;
+  @FXML private DatePicker deliveryTime;
+  @FXML private SearchableComboBox<EmployeeUser> employeeName;
+  @FXML private ImageView image;
+  @FXML private TextField nameBox;
+  @FXML private SearchableComboBox<LocationName> roomMenu;
+  @FXML private MenuButton serviceMenu;
+  @FXML private MenuItem servicechoice1;
+  @FXML private MenuItem servicechoice2;
+  @FXML private MenuItem servicechoice3;
+  @FXML private MenuItem servicechoice4;
+  @FXML private TextArea specialRequest;
+  int BasketSelection = 0;
 
   @FXML
-  void getChoice0() {
-    menuButton.setText("Small");
+  void getServicechoice1() {
+    serviceMenu.setText(servicechoice1.getText());
+    BasketSelection = 1;
+    // getImage(1);
   }
 
   @FXML
-  void getChoice1() {
-    menuButton.setText("Medium");
+  void getServicechoice2() {
+    serviceMenu.setText(servicechoice2.getText());
+    BasketSelection = 2;
+    // getImage(2);
   }
 
   @FXML
-  void getChoice2() {
-    menuButton.setText("Large");
+  void getServicechoice3() {
+    serviceMenu.setText(servicechoice3.getText());
+    BasketSelection = 3;
+    // getImage(3);
   }
 
   @FXML
-  void getChoice3() {
-    menuButton.setText("Extra-Large");
+  void getServicechoice4() {
+    serviceMenu.setText(servicechoice4.getText());
+    BasketSelection = 4;
+    // getImage(4);
   }
 
   @FXML
-  void getRoom1() {
-    roomID.setText("Room1");
-  }
-
-  @FXML
-  void getRoom2() {
-    roomID.setText("Room2");
+  String getBasketSelection(int BasketSelection) {
+    switch (BasketSelection) {
+      case 1:
+        return "Small";
+      case 2:
+        return "Medium";
+      case 3:
+        return "Large";
+      case 4:
+        return "Extra Large";
+      default:
+        return "No Basket Selected";
+    }
   }
 
   @FXML
@@ -53,74 +100,87 @@ public class GiftBasketRequestController {
 
   @FXML
   void getClear() {
-    clear.setOnMouseClicked(event -> Navigation.navigate(Screen.FLOWER));
-  }
-
-  @FXML
-  void getSubmit() {}
-
-  @FXML
-  void getFlowerDeliveryPage(ActionEvent event) {
-    Navigation.navigate(Screen.FLOWER);
-  }
-
-  @FXML
-  void getFurnitureDeliveryPage(ActionEvent event) {
-    Navigation.navigate(Screen.FURNITURE);
-  }
-
-  @FXML
-  void getHelpPage(ActionEvent event) {
-    Navigation.navigate(Screen.HELP);
-  }
-
-  @FXML
-  void getMealDeliveryPage(ActionEvent event) {
-    Navigation.navigate(Screen.MEAL);
-  }
-
-  @FXML
-  void getOfficeSuppliesPage(ActionEvent event) {
-    Navigation.navigate(Screen.OFFICE_SUPPLY);
-  }
-
-  @FXML
-  void getRoomReservationPage(ActionEvent event) {
-    Navigation.navigate(Screen.CONFERENCE);
-  }
-
-  @FXML
-  void getGiftBasketRequestPage(ActionEvent event) {
     Navigation.navigate(Screen.GIFT_BASKET);
   }
 
   @FXML
-  void getSignagePage(ActionEvent event) {
-    Navigation.navigate(Screen.SIGNAGE);
+  void getSubmit() {
+    String name = nameBox.getText();
+    String room = roomMenu.getValue().toString();
+    String special = specialRequest.getText();
+    String giftbasket = getBasketSelection(BasketSelection);
+    String eta = deliveryTime.getValue().toString();
+    GiftBasketRequest req =
+        new GiftBasketRequest(new PatientUser(name), special, giftbasket, eta, room);
+    if (!(employeeName == null)) {
+      try {
+        req.setAssignedto(employeeName.getValue().toString());
+      } catch (Exception e) {
+        System.out.println("No employee selected");
+        req.setAssignedto(null);
+      }
+    }
+    HospitalSystem.addRow(req);
+    Navigation.navigate(Screen.CONGRATS_PAGE);
+  }
+
+  @FXML
+  void getImage(int choice) throws IOException {
+    switch (choice) {
+      case 1:
+        image.setImage(
+            new Image(
+                Main.class
+                    .getResource("views/images/GiftBasket/small-gift-basket.png")
+                    .openStream()));
+        break;
+      case 2:
+        image.setImage(
+            new Image(
+                Main.class
+                    .getResource("views/images/GiftBasket/medium-gift-basket.png")
+                    .openStream()));
+        break;
+      case 3:
+        image.setImage(
+            new Image(
+                Main.class
+                    .getResource("views/images/GiftBasket/large-gift-basket.png")
+                    .openStream()));
+        break;
+      case 4:
+        image.setImage(
+            new Image(
+                Main.class
+                    .getResource("views/images/GiftBasket/extra-large-gift-basket.png")
+                    .openStream()));
+        break;
+    }
   }
 
   /** Method run when controller is initialized */
   @FXML
-  public void initialize() {}
+  public void initialize() throws Exception {
+    LocationNameDao locationNameDao = new LocationNameDao();
+    List<LocationName> locationNames = (List<LocationName>) locationNameDao.fetchAllObjects();
+    // remove halls, elevators, stairs and bathrooms from list
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("HALL"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("ELEV"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("BATH"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("STAI"));
+    locationNames.removeIf(locationName -> locationName.getNodeType().equals("REST"));
+    roomMenu.setItems(FXCollections.observableArrayList(locationNames));
 
-  @FXML
-  void getEditMap(ActionEvent event) {
-    Navigation.navigate(Screen.EDIT_MAP);
-  }
+    List<EmployeeUser> employeeUsers =
+        (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
+    employeeName.setItems(FXCollections.observableArrayList(employeeUsers));
 
-  @FXML
-  void getLogOut(ActionEvent event) {
-    Navigation.navigate(Screen.HOME);
-  }
+    if (!CApp.getAdminLoginCheck()) {
+      assignEmployeeAnchor.setMouseTransparent(true);
+      assignEmployeeAnchor.setOpacity(0);
+    }
 
-  @FXML
-  void getExit(ActionEvent event) {
-    Navigation.navigate(Screen.EXIT_PAGE);
-  }
-
-  @FXML
-  void getMapHistory(ActionEvent event) {
-    Navigation.navigate(Screen.MAP_HISTORY_PAGE);
+    setLanguage();
   }
 
   //  @FXML
@@ -128,55 +188,68 @@ public class GiftBasketRequestController {
   //    Navigation.navigate(Screen.FLOOR_PLAN);
   //  }
 
-  @FXML
-  void getPathfindingPage(ActionEvent event) {
-    Navigation.navigate(Screen.PATHFINDING_PAGE);
-  }
+  public List<String> holder = new ArrayList<String>();
 
   @FXML
-  void getHelpage(ActionEvent event) {
-    Navigation.navigate(Screen.HELP);
+  void setLanguage() throws Exception {
+    if (language_choice == 0) {
+      holder = CApp.Gift_Basket_English_list;
+    } else if (language_choice == 1) {
+      // holder = CApp.Home_Spanish_list;
+    } else if (language_choice == 2) {
+      holder = CApp.Gift_Basket_Chinese_list;
+    }
+
+    Title.setText(holder.get(0));
+    Box1.setText(holder.get(1));
+    Box2.setText(holder.get(2));
+    Box3.setText(holder.get(3));
+    Box4.setText(holder.get(4));
+    Box5.setText(holder.get(5));
+    nameBox.setPromptText(holder.get(6));
+    roomMenu.setPromptText(holder.get(7));
+    serviceMenu.setText(holder.get(8));
+    basketItems.setPromptText(holder.get(9));
+    specialRequest.setPromptText(holder.get(10));
+    deliveryTime.setPromptText(holder.get(11));
+    employeeName.setPromptText(holder.get(12));
+    Submit.setText(holder.get(13));
+    Clear.setText(holder.get(14));
+    Cancel.setText(holder.get(15));
+
+    servicechoice1.setText(LanguageSet(servicechoice1.getText()));
+    servicechoice2.setText(LanguageSet(servicechoice2.getText()));
+    servicechoice3.setText(LanguageSet(servicechoice3.getText()));
+    servicechoice4.setText(LanguageSet(servicechoice4.getText()));
+
+    //        notEnglish = true;
   }
 
-  public void getRoomID(ActionEvent actionEvent) {}
+  @FXML private Text Title;
+  @FXML private TextField Box1;
+  @FXML private TextField Box2;
+  @FXML private TextField Box3;
+  @FXML private TextField Box4;
+  @FXML private TextField Box5;
 
-  public void getID0(ActionEvent actionEvent) {}
+  @FXML private MFXButton Submit;
+  @FXML private MFXButton Clear;
+  @FXML private MFXButton Cancel;
 
-  public void getID1(ActionEvent actionEvent) {}
+  public TranslatorAPI translatorAPI = new TranslatorAPI();
 
-  public void getID2(ActionEvent actionEvent) {}
-
-  public void getID3(ActionEvent actionEvent) {}
-
-  public void getBasketType(ActionEvent actionEvent) {}
-
-  public void getType0(ActionEvent actionEvent) {}
-
-  public void getType1(ActionEvent actionEvent) {}
-
-  public void getType2(ActionEvent actionEvent) {}
-
-  public void getType3(ActionEvent actionEvent) {}
-
-  public void getArrangeSelection(ActionEvent actionEvent) {}
-
-  public void getSelection0(ActionEvent actionEvent) {}
-
-  public void getSelection1(ActionEvent actionEvent) {}
-
-  public void getSelection2(ActionEvent actionEvent) {}
-
-  public void getSelection3(ActionEvent actionEvent) {}
-
-  public void getSelectTime(ActionEvent actionEvent) {}
-
-  public void getEmployeeName(ActionEvent actionEvent) {}
-
-  public void getEmployee0(ActionEvent actionEvent) {}
-
-  public void getEmployee1(ActionEvent actionEvent) {}
-
-  public void getEmployee2(ActionEvent actionEvent) {}
-
-  public void getEmployee3(ActionEvent actionEvent) {}
+  @FXML
+  String LanguageSet(String text) throws Exception {
+    if (text == null) {
+      return "";
+    }
+    if (language_choice == 0) { // 0 is english
+      text = translatorAPI.translateToEn(text);
+    } else if (language_choice == 1) { // 1 is spanish
+      text = translatorAPI.translateToSp(text);
+    } else if (language_choice == 2) { // 2 is Chinese
+      text = translatorAPI.translateToZh(text);
+    }
+    return text;
+  }
 }

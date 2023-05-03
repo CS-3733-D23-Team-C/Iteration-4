@@ -10,6 +10,7 @@
 <?import org.controlsfx.control.SearchableComboBox?>
 <?import org.controlsfx.control.tableview2.FilteredTableView?>
 
+<?import javafx.scene.control.TableView?>
 <AnchorPane prefHeight="768.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.pages.map.MoveTableController">
    <children>
       <AnchorPane layoutX="400.0" layoutY="153.0" style="-fx-background-color: #D0C8C8;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
@@ -18,13 +19,13 @@
                <children>
                   <AnchorPane style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
                      <children>
-                        <FilteredTableView fx:id="historyTable" layoutX="15.0" layoutY="15.0" prefHeight="775.0" prefWidth="1200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="15.0">
+                        <TableView fx:id="historyTable" layoutX="15.0" layoutY="15.0" prefHeight="775.0" prefWidth="1200.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="15.0">
                            <columns>
                               <TableColumn fx:id="ColumnOne" prefWidth="240" text="" />
                               <TableColumn fx:id="ColumnTwo" prefWidth="240" text="" />
                               <TableColumn fx:id="ColumnThree" prefWidth="240" text="" />
                            </columns>
-                        </FilteredTableView>
+                        </TableView>
                         <AnchorPane layoutX="870.0" layoutY="60.0" prefHeight="290.0" prefWidth="341.0" AnchorPane.bottomAnchor="282.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
                            <children>
                               <SearchableComboBox fx:id="locationName" layoutX="156.0" layoutY="70.0" prefHeight="25.2" prefWidth="188.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0" />

@@ -140,7 +140,6 @@ public class TextDirectionsHelper {
         textDirections.add(direction);
       }
     }
-
     return clean(textDirections);
   }
 
@@ -172,21 +171,21 @@ public class TextDirectionsHelper {
     String retVal;
 
     if (orientation.equals("N") && tempOrientation.equals("E")) {
-      retVal = "↱ Turn right ↱";
+      retVal = "\u21B1 Turn right \u21B1";
     } else if (orientation.equals("N") && tempOrientation.equals("W")) {
-      retVal = "↰ Turn left ↰";
+      retVal = "\u21B0 Turn left \u21B0";
     } else if (orientation.equals("S") && tempOrientation.equals("E")) {
-      retVal = "↰ Turn left ↰";
+      retVal = "\u21B0 Turn left \u21B0";
     } else if (orientation.equals("S") && tempOrientation.equals("W")) {
-      retVal = "↱ Turn right ↱";
+      retVal = "\u21B1 Turn right \u21B1";
     } else if (orientation.equals("W") && tempOrientation.equals("S")) {
-      retVal = "↰ Turn left ↰";
+      retVal = "\u21B0 Turn left \u21B0";
     } else if (orientation.equals("E") && tempOrientation.equals("S")) {
-      retVal = "↱ Turn right ↱";
+      retVal = "\u21B1 Turn right \u21B1";
     } else if (orientation.equals("W") && tempOrientation.equals("N")) {
-      retVal = "↱ Turn right ↱";
+      retVal = "\u21B1 Turn right \u21B1";
     } else if (orientation.equals("E") && tempOrientation.equals("N")) {
-      retVal = "↰ Turn left ↰";
+      retVal = "\u21B0 Turn left \u21B0";
     } else {
       retVal = "Continue Straight";
     }
@@ -228,13 +227,13 @@ public class TextDirectionsHelper {
     // add icons for start/end
     String str = clean.remove(1);
     String[] strArr = str.split("~");
-    strArr[1] = "⚐" + strArr[1] + "⚐";
+    strArr[1] = "\u2690" + strArr[1] + "\u2690";
     str = strArr[0] + "~" + strArr[1] + "~" + strArr[2];
     clean.add(1, str);
 
     str = clean.removeLast();
     strArr = str.split("~");
-    strArr[1] = "⚑" + strArr[1] + "⚑";
+    strArr[1] = "\u2691" + strArr[1] + "\u2691";
     str = strArr[0] + "~" + strArr[1] + "~" + strArr[2];
     clean.addLast(str);
 

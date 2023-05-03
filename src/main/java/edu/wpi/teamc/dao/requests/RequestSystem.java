@@ -53,13 +53,13 @@ public class RequestSystem {
       } catch (Exception e) {
         statusCheck = false;
       }
-      System.out.println(
-          "assignedToCheck: "
-              + assignedToCheck
-              + " statusCheck: "
-              + statusCheck
-              + " request1: "
-              + request1.getRequestID());
+      //      System.out.println(
+      //          "assignedToCheck: "
+      //              + assignedToCheck
+      //              + " statusCheck: "
+      //              + statusCheck
+      //              + " request1: "
+      //              + request1.getRequestID());
       if (assignedToCheck && statusCheck) {
         filteredRequests.add(request1);
       }

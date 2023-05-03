@@ -1,5 +1,6 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.IOrm;
 import edu.wpi.teamc.dao.ImportCSV;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,13 +27,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
 import org.controlsfx.control.SearchableComboBox;
-import org.controlsfx.control.tableview2.FilteredTableView;
 
 public class RequestHistoryController {
 
   public SearchableComboBox filterByStatusField;
   String buttonColor = "-fx-background-color: white; -fx-text-fill: #02143B;";
   String selectedButtonColor = "-fx-background-color: #FCC201; -fx-text-fill: #02143B;";
+
   @FXML private Button conference;
   @FXML private Button flower;
   @FXML private Button meal;
@@ -40,7 +42,7 @@ public class RequestHistoryController {
 
   @FXML private Button giftBasket;
 
-  @FXML private FilteredTableView historyTable;
+  @FXML private TableView historyTable;
   @FXML TableColumn Column1;
   @FXML TableColumn Column2;
   @FXML TableColumn Column3;
@@ -61,7 +63,7 @@ public class RequestHistoryController {
 
   @FXML MFXButton exportButton;
   @FXML MFXButton importButton;
-  private Desktop desktop = Desktop.getDesktop();
+  private Desktop desktop;
   private String filePath;
 
   @FXML SearchableComboBox filterByEmployeeField;
@@ -88,77 +90,121 @@ public class RequestHistoryController {
     statusField.setText("CANCELLED");
   }
 
-  RequestSystem requestSystem = new RequestSystem(new ArrayList<>());
+  RequestSystem requestSystem;
 
   /** Method run when controller is initialized */
   public void initialize() {
-    this.getConference();
-    List<EmployeeUser> employeeList =
-        (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
-    assignedtoField.getItems().addAll(FXCollections.observableArrayList(employeeList));
-    filterByEmployeeField.getItems().addAll(FXCollections.observableArrayList(employeeList));
+    Thread thread =
+        new Thread(
+            () -> {
+              desktop = Desktop.getDesktop();
+              requestSystem = new RequestSystem(new ArrayList<>());
+              this.getConference();
+              historyTable
+                  .getStylesheets()
+                  .add(
+                      Main.class.getResource("views/pages/requests/RequestHistory.css").toString());
+              List<EmployeeUser> employeeList =
+                  (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
+              assignedtoField.getItems().addAll(FXCollections.observableArrayList(employeeList));
+              filterByEmployeeField
+                  .getItems()
+                  .addAll(FXCollections.observableArrayList(employeeList));
+              List<STATUS> statusList = Arrays.stream(STATUS.values()).toList();
+              filterByStatusField.setItems(FXCollections.observableArrayList(statusList));
+              historyTable.setOnMouseClicked(
+                  event -> {
+                    updateCurrentSelection();
+                  });
+              clearButton.setOnAction(
+                  event -> {
+                    idField.clear();
+                    statusField.setText("");
+                    assignedtoField.getSelectionModel().clearSelection();
+                    etaField.getEditor().clear();
+                  });
 
-    historyTable.setOnMouseClicked(
-        event -> {
-          updateCurrentSelection();
-        });
-    clearButton.setOnAction(
-        event -> {
-          idField.clear();
-          statusField.setText("");
-          assignedtoField.getSelectionModel().clearSelection();
-          etaField.getEditor().clear();
-        });
+              updateButton.setOnMouseClicked(
+                  event -> {
+                    IRequest selected =
+                        (IRequest) historyTable.getSelectionModel().getSelectedItem();
+                    selected.setAssignedto(
+                        assignedtoField.getSelectionModel().getSelectedItem().toString());
+                    selected.setStatus(STATUS.valueOf(statusField.getText()));
+                    HospitalSystem.updateRow((IOrm) selected);
+                    getSwitch(selected);
+                  });
 
-    updateButton.setOnMouseClicked(
-        event -> {
-          IRequest selected = (IRequest) historyTable.getSelectionModel().getSelectedItem();
-          selected.setAssignedto(assignedtoField.getSelectionModel().getSelectedItem().toString());
-          selected.setStatus(STATUS.valueOf(statusField.getText()));
-          HospitalSystem.updateRow((IOrm) selected);
-          getSwitch(selected);
-        });
+              deleteButton.setOnMouseClicked(
+                  event -> {
+                    IRequest selected =
+                        (IRequest) historyTable.getSelectionModel().getSelectedItem();
+                    if (selected != null) {
+                      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                      alert.setTitle("Delete Request");
+                      alert.setHeaderText(
+                          "Are you sure you want to delete this request: "
+                              + selected.getRequestID()
+                              + "?");
+                      alert.setContentText("This action cannot be undone.");
+                      alert.showAndWait();
+                      if (alert.getResult() == ButtonType.OK) {
+                        HospitalSystem.deleteRow((IOrm) selected);
+                        getSwitch(selected);
+                      }
+                    } else {
+                      Alert alert = new Alert(Alert.AlertType.ERROR);
+                      alert.setTitle("Error");
+                      alert.setHeaderText("No request selected");
+                      alert.setContentText("Please select a request to delete.");
+                      alert.showAndWait();
+                    }
+                  });
 
-    deleteButton.setOnMouseClicked(
-        event -> {
-          IRequest selected = (IRequest) historyTable.getSelectionModel().getSelectedItem();
-          HospitalSystem.deleteRow((IOrm) selected);
-          getSwitch(selected);
-        });
-
-    List<STATUS> statusList = Arrays.stream(STATUS.values()).toList();
-    filterByStatusField.setItems(FXCollections.observableArrayList(statusList));
-
-    importButton.setOnMouseClicked(
-        event -> {
-          getImportMenu();
-        });
-    exportButton.setOnMouseClicked(
-        event -> {
-          try {
-            getExportMenu();
-          } catch (IOException e) {
-            throw new RuntimeException(e);
-          }
-        });
+              importButton.setOnMouseClicked(
+                  event -> {
+                    getImportMenu();
+                  });
+              exportButton.setOnMouseClicked(
+                  event -> {
+                    try {
+                      getExportMenu();
+                    } catch (IOException e) {
+                      throw new RuntimeException(e);
+                    }
+                  });
+            });
+    thread.start();
   }
 
   public void filterView() {
-    historyTable.getItems().removeAll();
-    String assingedTo = null;
-    try {
-      assingedTo = filterByEmployeeField.getSelectionModel().getSelectedItem().toString();
-    } catch (Exception e) {
-      assingedTo = null;
-    }
-    STATUS status = null;
-    try {
-      status = STATUS.valueOf(filterByStatusField.getSelectionModel().getSelectedItem().toString());
-    } catch (Exception e) {
-      status = null;
-    }
-    List<AbsServiceRequest> filteredList = requestSystem.filterRequest(assingedTo, status);
-    historyTable.setItems(FXCollections.observableArrayList(filteredList));
+    Thread thread =
+        new Thread(
+            () -> {
+              String assingedTo = null;
+              try {
+                assingedTo = filterByEmployeeField.getSelectionModel().getSelectedItem().toString();
+              } catch (Exception e) {
+                assingedTo = null;
+              }
+              STATUS status = null;
+              try {
+                status =
+                    STATUS.valueOf(
+                        filterByStatusField.getSelectionModel().getSelectedItem().toString());
+              } catch (Exception e) {
+                status = null;
+              }
+              List<AbsServiceRequest> filteredList =
+                  requestSystem.filterRequest(assingedTo, status);
+
+              Platform.runLater(
+                  () -> {
+                    historyTable.getItems().removeAll();
+                    historyTable.setItems(FXCollections.observableArrayList(filteredList));
+                  });
+            });
+    thread.start();
   }
 
   @FXML
@@ -173,46 +219,60 @@ public class RequestHistoryController {
       this.getFurniture();
     } else if (selected instanceof OfficeSuppliesRequest) {
       this.getOfficeSupply();
+    } else if (selected instanceof GiftBasketRequest) {
+      this.getGiftBasket();
     }
   }
 
   @FXML
   private void getConference() {
-    this.resetColor();
-    this.clearCurrentSelection();
-    conference.setStyle(selectedButtonColor);
-    selectedRequest = new ConferenceRoomRequest();
-    ObservableList<ConferenceRoomRequest> rows = FXCollections.observableArrayList();
-    Column1.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, Integer>("requestID"));
-    Column2.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, IUser>("requester"));
-    Column3.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, ConferenceRoom>("conferenceRoom"));
-    Column4.setCellValueFactory(new PropertyValueFactory<ConferenceRoomRequest, STATUS>("status"));
-    Column5.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, String>("additionalNotes"));
-    Column6.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, String>("startTime"));
-    Column7.setCellValueFactory(new PropertyValueFactory<ConferenceRoomRequest, String>("endTime"));
-    Column8.setCellValueFactory(
-        new PropertyValueFactory<ConferenceRoomRequest, String>("assignedto"));
-    Column1.setText("ID");
-    Column2.setText("Requester");
-    Column3.setText("Room Name");
-    Column4.setText("Status");
-    Column5.setText("Additional Notes");
-    Column6.setText("Start time");
-    Column7.setText("End time");
-    Column8.setText("Assigned To");
-    ConferenceRoomRequestDAO dao = new ConferenceRoomRequestDAO();
-    List<ConferenceRoomRequest> list = dao.fetchAllObjects();
-    for (ConferenceRoomRequest ConferenceRoomRequest : list) {
-      rows.add(ConferenceRoomRequest);
-    }
-    requestSystem.setRequests(new ArrayList<>(list));
-    historyTable.getItems().removeAll();
-    historyTable.setItems(rows);
+    Thread thread =
+        new Thread(
+            () -> {
+              this.resetColor();
+              conference.setStyle(selectedButtonColor);
+              selectedRequest = new ConferenceRoomRequest();
+              ObservableList<ConferenceRoomRequest> rows = FXCollections.observableArrayList();
+              Column1.setCellValueFactory(
+                  new PropertyValueFactory<ConferenceRoomRequest, Integer>("requestID"));
+              Column2.setCellValueFactory(
+                  new PropertyValueFactory<ConferenceRoomRequest, IUser>("requester"));
+              Column3.setCellValueFactory(
+                  new PropertyValueFactory<ConferenceRoomRequest, ConferenceRoom>(
+                      "conferenceRoom"));
+              Column4.setCellValueFactory(
+                  new PropertyValueFactory<ConferenceRoomRequest, STATUS>("status"));
+              Column5.setCellValueFactory(
+                  new PropertyValueFactory<ConferenceRoomRequest, String>("additionalNotes"));
+              Column6.setCellValueFactory(
+                  new PropertyValueFactory<ConferenceRoomRequest, String>("startTime"));
+              Column7.setCellValueFactory(
+                  new PropertyValueFactory<ConferenceRoomRequest, String>("endTime"));
+              Column8.setCellValueFactory(
+                  new PropertyValueFactory<ConferenceRoomRequest, String>("assignedto"));
+
+              ConferenceRoomRequestDAO dao = new ConferenceRoomRequestDAO();
+              List<ConferenceRoomRequest> list = dao.fetchAllObjects();
+              for (ConferenceRoomRequest ConferenceRoomRequest : list) {
+                rows.add(ConferenceRoomRequest);
+              }
+              requestSystem.setRequests(new ArrayList<>(list));
+              historyTable.getItems().removeAll();
+              historyTable.setItems(rows);
+              Platform.runLater(
+                  () -> {
+                    this.clearCurrentSelection();
+                    Column1.setText("ID");
+                    Column2.setText("Requester");
+                    Column3.setText("Room Name");
+                    Column4.setText("Status");
+                    Column5.setText("Additional Notes");
+                    Column6.setText("Start time");
+                    Column7.setText("End time");
+                    Column8.setText("Assigned To");
+                  });
+            });
+    thread.start();
   }
 
   @FXML
@@ -364,12 +424,46 @@ public class RequestHistoryController {
     historyTable.setItems(rows);
   }
 
+  @FXML
+  public void getGiftBasket() {
+    this.resetColor();
+    this.clearCurrentSelection();
+    giftBasket.setStyle(selectedButtonColor);
+    selectedRequest = new GiftBasketRequest();
+    ObservableList<GiftBasketRequest> rows = FXCollections.observableArrayList();
+    Column1.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, Integer>("requestID"));
+    Column2.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, IUser>("requester"));
+    Column3.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, String>("roomName"));
+    Column4.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, String>("gifttype"));
+    Column5.setCellValueFactory(
+        new PropertyValueFactory<GiftBasketRequest, String>("additionalNotes"));
+    Column6.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, STATUS>("status"));
+    Column7.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, String>("eta"));
+    Column8.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, String>("assignedto"));
+    Column1.setText("ID");
+    Column2.setText("Requester");
+    Column3.setText("Room Name");
+    Column4.setText("Gift");
+    Column5.setText("Additional Notes");
+    Column6.setText("Status");
+    Column7.setText("ETA");
+    Column8.setText("Assigned To");
+    GiftBasketDAO dao = new GiftBasketDAO();
+    List<GiftBasketRequest> list = dao.fetchAllObjects();
+    for (GiftBasketRequest r : list) {
+      rows.add(r);
+    }
+    requestSystem.setRequests(new ArrayList<>(list));
+    historyTable.setItems(rows);
+  }
+
   private void resetColor() {
     conference.setStyle(buttonColor);
     flower.setStyle(buttonColor);
     meal.setStyle(buttonColor);
     furniture.setStyle(buttonColor);
     officeSupply.setStyle(buttonColor);
+    giftBasket.setStyle(buttonColor);
   }
 
   //  @FXML
@@ -402,6 +496,9 @@ public class RequestHistoryController {
       } else if (selectedRequest instanceof OfficeSuppliesRequest) {
         OfficeSuppliesRequestDAO officeSuppliesRequestDAO = new OfficeSuppliesRequestDAO();
         officeSuppliesRequestDAO.exportCSV(filePath);
+      } else if (selectedRequest instanceof GiftBasketRequest) {
+        GiftBasketDAO giftBasketDAO = new GiftBasketDAO();
+        giftBasketDAO.exportCSV(filePath);
       }
     }
   }
@@ -433,6 +530,9 @@ public class RequestHistoryController {
     } else if (selectedRequest instanceof OfficeSuppliesRequest) {
       ImportCSV.importOfficeSupplyRequestCSV(filePath);
       this.getOfficeSupply();
+    } else if (selectedRequest instanceof GiftBasketRequest) {
+      ImportCSV.importGiftBasketRequestCSV(filePath);
+      this.getGiftBasket();
     }
     // TODO
   }
@@ -463,39 +563,5 @@ public class RequestHistoryController {
     getSwitch(selectedRequest);
     this.filterByStatusField.getSelectionModel().select(null);
     this.filterByEmployeeField.getSelectionModel().select(null);
-  }
-
-  public void getGiftBasket(ActionEvent actionEvent) {
-    this.resetColor();
-    this.clearCurrentSelection();
-    giftBasket.setStyle(selectedButtonColor);
-    selectedRequest = new GiftBasketRequest();
-    ObservableList<GiftBasketRequest> rows = FXCollections.observableArrayList();
-    Column1.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, Integer>("requestID"));
-    Column2.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, IUser>("requester"));
-    Column6.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, STATUS>("eta"));
-    Column4.setCellValueFactory(
-        new PropertyValueFactory<GiftBasketRequest, String>("additionalnotes"));
-    Column5.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, String>("giftbasket"));
-    Column3.setCellValueFactory(new PropertyValueFactory<GiftBasketRequest, STATUS>("status"));
-    Column7.setCellValueFactory(
-        new PropertyValueFactory<OfficeSuppliesRequest, String>("roomname"));
-    Column8.setCellValueFactory(
-        new PropertyValueFactory<OfficeSuppliesRequest, String>("assignedto"));
-    Column1.setText("ID");
-    Column2.setText("Requester");
-    Column3.setText("Status");
-    Column4.setText("Additional Notes");
-    Column5.setText("Basket Type");
-    Column6.setText("ETA");
-    Column7.setText("Room Name");
-    Column8.setText("Assigned To");
-    GiftBasketDAO dao = new GiftBasketDAO();
-    List<GiftBasketRequest> list = dao.fetchAllObjects();
-    for (GiftBasketRequest r : list) {
-      rows.add(r);
-    }
-    requestSystem.setRequests(new ArrayList<>(list));
-    historyTable.setItems(rows);
   }
 }

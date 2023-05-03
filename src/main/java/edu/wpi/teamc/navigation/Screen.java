@@ -11,7 +11,7 @@ public enum Screen {
 
   SCREENSAVER("views/pages/ScreenSaver.fxml"),
 
-  MAP_HISTORY_PAGE("views/pages/history/MapHistory.fxml"),
+  MAP_HISTORY_PAGE("views/pages/map/MapHistory.fxml"),
   SIGNAGE_EDIT("views/pages/displays/EditSignage.fxml"),
   MOVE_TABLE("views/pages/map/MoveTable.fxml"),
   PATHFINDING_PAGE("views/pages/map/PathFinding.fxml"),
@@ -53,7 +53,9 @@ public enum Screen {
 
   LOGIN_TABLE("views/pages/settings/LoginTable.fxml"),
   EMPLOYEETABLE_PAGE("views/pages/settings/EmployeeTable.fxml"),
-  IMPORT_EXPORT_PAGE("views/pages/settings/ImportExport.fxml");
+  IMPORT_EXPORT_PAGE("views/pages/settings/ImportExport.fxml"),
+
+  PATIENTTABLE_PAGE("views/pages/settings/PatientTable.fxml");
 
   private final String filename;
 

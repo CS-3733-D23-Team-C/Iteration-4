@@ -1,17 +1,6 @@
 nodeID,longName,moveDate
-2590,Cardiac Stress Test Lab Floor L2,2023-04-27
-2380,Bathroom 2 Tower Floor 3,2023-04-27
-1205,Hall 3 Level 2,2023-01-01
-1825,15 Francis Info Center,2023-04-11
-1000,Hallway Node 13 Floor 1,2023-05-05
-2635,Elevator H Floor 3,2024-04-27
-970,Shattuck Street Lobby 3,2023-04-29
-2635,Hallway Node 10,2023-04-29
-2635,Elevator H Floor 3,2023-04-29
-995,Hallway Node 4 Floor 1,2023-05-04
-2815,Gynecology,2024-04-03
-1050,Hallway Node 6 Floor 1,2023-05-05
 1200,Hall 3 Level 1,2023-01-01
+1205,Hall 4 Level 2,2023-01-01
 1210,Hall 3 Level 3,2023-01-01
 1215,Hall 1 Level L2,2023-01-01
 1220,Hall 4 Level 1,2023-01-01
@@ -131,6 +120,7 @@ nodeID,longName,moveDate
 1790,Hallway 8 Floor L2,2023-01-01
 1795,Hallway 9 Floor L1,2023-01-01
 3000,Hallway 9 Floor L2,2023-01-01
+100,Hallway 10 Floor L1,2023-01-01
 105,Hallway 10 Floor L2,2023-01-01
 110,Hallway 11 Floor L1,2023-01-01
 115,Hallway 12 Floor L1,2023-01-01
@@ -161,6 +151,7 @@ nodeID,longName,moveDate
 240,Restroom C elevator Floor 2,2023-01-01
 245,Restroom C-D elevator Floor 2,2023-01-01
 250,Restroom D elevator Floor 2,2023-01-01
+255,15 Francis Security Desk Floor 2,2023-01-01
 260,Security Desk Thorn Floor 2,2023-01-01
 265,Chest Diseases Floor 2,2023-01-01
 270,Thoracic Surgery Clinic Floor 2,2023-01-01
@@ -252,6 +243,7 @@ nodeID,longName,moveDate
 700,Hallway Node 8 Floor 1,2023-01-01
 705,Hallway Node 9 Floor 1,2023-01-01
 710,Hallway Node 10 Floor 1,2023-01-01
+1840,Ambulatory X-Ray Floor 1,2023-05-03
 715,Hallway Node 11 Floor 1,2023-01-01
 720,Hallway Node 12 Floor 1,2023-01-01
 725,Hallway Node 13 Floor 1,2023-01-01
@@ -589,5 +581,4 @@ nodeID,longName,moveDate
 1185,Hall 3 Level 2,2023-01-01
 1190,Hall 2 Level 3,2023-01-01
 1195,Hallway Intersection,2023-01-01
-2760,Hallway Node 20,2023-04-30
-1030,Hallway Node 13 Floor 1,2023-05-05
+845,Emergency Department Entrance,2023-05-03

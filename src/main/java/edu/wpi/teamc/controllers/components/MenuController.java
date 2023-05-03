@@ -12,11 +12,12 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -25,6 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -123,7 +125,7 @@ public class MenuController {
   @FXML private MFXButton Admin_menu_meal_history;
   @FXML private MFXButton Admin_menu_stationary_history;
   @FXML private MFXButton Admin_menu_mapchange_history;
-  @FXML private MFXButton Admin_menu_reservation_history;
+  @FXML private MFXButton Admin_menu_request_history;
   // @FXML private MFXButton Admin_menu_giftbasket_history;
   // NAVIGATION TEXT//
   @FXML private Text Admin_menu_navigation;
@@ -133,14 +135,22 @@ public class MenuController {
   @FXML private MFXButton Admin_menu_signage;
 
   // SERVICE REQUEST TEXT//
+  @FXML private MFXButton Admin_menu_alert_request;
   @FXML private Text Admin_menu_servicerequests;
   @FXML private MFXButton Admin_menu_flower_delivery;
   @FXML private MFXButton Admin_menu_furniture_delivery;
   @FXML private MFXButton Admin_menu_meal_delivery;
   @FXML private MFXButton Admin_menu_stationary_delivery;
+
+  @FXML private MFXButton Admin_menu_giftbasket_delivery;
   @FXML private MFXButton Admin_menu_room_reservation;
   // @FXML private MFXButton Admin_menu_giftbasket_delivery;
+  @FXML private Text Admin_menu_recent_alerts;
+  @FXML private MFXButton Admin_menu_login_table;
+  @FXML private MFXButton Admin_menu_import_export;
+  @FXML private MFXButton Admin_menu_edit_signage;
   @FXML private MFXButton Admin_menu_employee_table;
+  @FXML private MFXButton Admin_menu_patient_table;
 
   @FXML private MFXButton Admin_menu_home_button;
   @FXML private MFXButton Admin_menu_about_button;
@@ -152,6 +162,29 @@ public class MenuController {
   @FXML private AnchorPane aboutPopOut2;
   @FXML private AnchorPane aboutPopOut3;
   @FXML private AnchorPane creditsPopOut1;
+  @FXML private StackPane Randy;
+  @FXML private StackPane Eddie;
+  @FXML private StackPane Nick;
+  @FXML private StackPane Aaron;
+  @FXML private StackPane Sebastian;
+  @FXML private StackPane Brandon;
+  @FXML private StackPane Taya;
+  @FXML private StackPane Chase;
+  @FXML private StackPane Joey;
+  @FXML private StackPane Chao;
+  @FXML private AnchorPane aboutPopOut4;
+  @FXML private AnchorPane aboutRandyPopOut;
+  @FXML private AnchorPane aboutClosePane;
+
+  @FXML private AnchorPane aboutEddiePopOut;
+  @FXML private AnchorPane aboutNickPopOut;
+  @FXML private AnchorPane aboutAaronPopOut;
+  @FXML private AnchorPane aboutSebastianPopOut;
+  @FXML private AnchorPane aboutBrandonPopOut;
+  @FXML private AnchorPane aboutTayaPopOut;
+  @FXML private AnchorPane aboutChasePopOut;
+  @FXML private AnchorPane aboutJoeyPopOut;
+  @FXML private AnchorPane aboutChaoPopOut;
 
   @FXML private Label menuClock;
 
@@ -223,7 +256,7 @@ public class MenuController {
   }
 
   @FXML
-  void getGiftBasketRequestPage(ActionEvent event) {
+  void getGiftBasketPage(ActionEvent event) {
     CApp.currScreen = Screen.GIFT_BASKET;
     Navigation.navigate(Screen.GIFT_BASKET);
   }
@@ -254,16 +287,6 @@ public class MenuController {
   }
 
   @FXML
-  void getMealHistory(ActionEvent event) {
-    //      Navigation.navigate(Screen.MEAL_HISTORY);
-  }
-
-  @FXML
-  void getFlowerHistory(ActionEvent event) {
-    //      Navigation.navigate(Screen.FLOWER_HISTORY);
-  }
-
-  @FXML
   void getSignageEdit(ActionEvent event) {
     CApp.currScreen = Screen.SIGNAGE_EDIT;
     Navigation.navigate(Screen.SIGNAGE_EDIT);
@@ -276,11 +299,6 @@ public class MenuController {
   }
 
   @FXML
-  void getOfficeSupplyHistory(ActionEvent event) {
-    //      Navigation.navigate(Screen.OFFICE_SUPPLY_HISTORY);
-  }
-
-  @FXML
   void getAlertRequest(ActionEvent event) {
     CApp.currScreen = Screen.ALERT_REQUEST;
     Navigation.navigate(Screen.ALERT_REQUEST);
@@ -289,6 +307,11 @@ public class MenuController {
   public void getEmployeeTablePage(ActionEvent actionEvent) {
     CApp.currScreen = Screen.EMPLOYEETABLE_PAGE;
     Navigation.navigate(Screen.EMPLOYEETABLE_PAGE);
+  }
+
+  public void getPatientTablePage(ActionEvent actionEvent) {
+    CApp.currScreen = Screen.PATIENTTABLE_PAGE;
+    Navigation.navigate(Screen.PATIENTTABLE_PAGE);
   }
 
   public void getLoginTablePage(ActionEvent actionEvent) {
@@ -321,6 +344,8 @@ public class MenuController {
     Navigation.navigate(Screen.HELP);
   }
 
+  public List<String> holder = new ArrayList<String>();
+
   @FXML
   void receiveWarning() {}
 
@@ -328,58 +353,164 @@ public class MenuController {
   public void setlanguage() throws Exception {
     if (language_choice == 0) {
 
-    } else {
-      Admin_menu_home.setText(LanguageSet(Admin_menu_home.getText()));
-      Admin_menu_about_button.setText(LanguageSet(Admin_menu_about_button.getText()));
-      Admin_menu_credits.setText(LanguageSet(Admin_menu_credits.getText()));
-      Admin_menu_home_button.setText(LanguageSet(Admin_menu_home_button.getText()));
-
-      Admin_menu_logout.setText(LanguageSet(Admin_menu_logout.getText()));
-      Admin_menu_exit.setText(LanguageSet(Admin_menu_exit.getText()));
-      Admin_menu_helpmenu.setText(LanguageSet(Admin_menu_helpmenu.getText()));
-      Admin_menu_settings.setText(LanguageSet(Admin_menu_settings.getText()));
-      // HISTORY TEXT//
-
-      Admin_menu_history.setText(LanguageSet(Admin_menu_history.getText()));
-      Admin_menu_mapchange_history.setText(LanguageSet(Admin_menu_mapchange_history.getText()));
-
-      // NAVIGATION TEXT//
-      Admin_menu_navigation.setText(LanguageSet(Admin_menu_navigation.getText()));
-      Admin_menu_directions.setText(LanguageSet(Admin_menu_directions.getText()));
-      Admin_menu_editmap.setText(LanguageSet(Admin_menu_editmap.getText()));
-      Admin_menu_movetable.setText(LanguageSet(Admin_menu_movetable.getText()));
-      Admin_menu_signage.setText(LanguageSet(Admin_menu_signage.getText()));
-      // SERVICE REQUEST TEXT//
-      Admin_menu_servicerequests.setText(LanguageSet(Admin_menu_servicerequests.getText()));
-      Admin_menu_flower_delivery.setText(LanguageSet(Admin_menu_flower_delivery.getText()));
-      Admin_menu_furniture_delivery.setText(LanguageSet(Admin_menu_furniture_delivery.getText()));
-      Admin_menu_meal_delivery.setText(LanguageSet(Admin_menu_meal_delivery.getText()));
-      Admin_menu_stationary_delivery.setText(LanguageSet(Admin_menu_stationary_delivery.getText()));
-      Admin_menu_room_reservation.setText(LanguageSet(Admin_menu_room_reservation.getText()));
-      // Admin_menu_giftbasket_delivery.setText(LanguageSet(Admin_menu_giftbasket_delivery.getText()));
-      Admin_menu_employee_table.setText(LanguageSet(Admin_menu_employee_table.getText()));
+      holder = CApp.Menu_English_list;
+    } else if (language_choice == 1) {
+      // holder = CApp.Home_Spanish_list;
+    } else if (language_choice == 2) {
+      holder = CApp.Menu_Chinese_list;
     }
+
+    Admin_menu_home.setText(holder.get(0));
+    Admin_menu_about_button.setText(holder.get(1));
+    Admin_menu_credits.setText(holder.get(2));
+    Admin_menu_home_button.setText(holder.get(3));
+
+    Admin_menu_logout.setText(holder.get(4));
+    Admin_menu_exit.setText(holder.get(5));
+    Admin_menu_helpmenu.setText(holder.get(6));
+    Admin_menu_settings.setText(holder.get(7));
+    // HISTORY TEXT//
+
+    Admin_menu_history.setText(holder.get(8));
+    Admin_menu_request_history.setText(holder.get(9));
+    Admin_menu_mapchange_history.setText(holder.get(10));
+
+    // NAVIGATION TEXT//
+    Admin_menu_navigation.setText(holder.get(11));
+    Admin_menu_directions.setText(holder.get(12));
+    Admin_menu_editmap.setText(holder.get(13));
+    Admin_menu_movetable.setText(holder.get(14));
+    Admin_menu_signage.setText(holder.get(15));
+    Admin_menu_edit_signage.setText(holder.get(16));
+    // SERVICE REQUEST TEXT//
+    Admin_menu_alert_request.setText(holder.get(17));
+    Admin_menu_servicerequests.setText(holder.get(18));
+    Admin_menu_flower_delivery.setText(holder.get(19));
+
+    Admin_menu_furniture_delivery.setText(holder.get(20));
+    Admin_menu_meal_delivery.setText(holder.get(21));
+
+    Admin_menu_stationary_delivery.setText(holder.get(22));
+    Admin_menu_room_reservation.setText(holder.get(23));
+    // Admin_menu_giftbasket_delivery.setText(holder.get(24));
+    Admin_menu_employee_table.setText(holder.get(42));
+    Admin_menu_recent_alerts.setText(holder.get(26));
+    alert1.setText((alert1.getText()));
+    alert2.setText((alert2.getText()));
+    alert3.setText((alert3.getText()));
+    Admin_menu_login_table.setText(holder.get(27));
+    Admin_menu_import_export.setText(holder.get(28));
+    // notEnglish = true;
+
+    // Other Stuff - Credits, About, etc.
+    About_special_thanks.setText(holder.get(29));
+    meetTheTeam.setText(holder.get(30));
+    About_teamC.setText(holder.get(31));
+    About_CS3733.setText(holder.get(32));
+    About_WPICS.setText(holder.get(33));
+    About_This.setText(holder.get(34));
+    About_text.setText(holder.get(35));
+    About_And_thanks.setText(holder.get(36));
+    About_created.setText(holder.get(37));
+
+    Credits_text.setText(holder.get(38));
+    Credits_API.setText(holder.get(39));
+    Credits_Thanks.setText(holder.get(40));
+    Credits_Floors.setText(holder.get(41));
+
+    // Aditional after language change
+    Admin_menu_patient_table.setText(holder.get(25));
+    Admin_menu_giftbasket_delivery.setText(holder.get(43));
   }
 
-  public EventHandler<ActionEvent> nothing() {
+  // TEXTS FOR Other Stuff - Credits, About, etc.
+  @FXML private Text Credits_text;
 
-    return null;
-  }
+  @FXML private Text Credits_API;
+  @FXML private Text Credits_Thanks;
+  @FXML private Text Credits_Floors;
+
+  @FXML private Text About_special_thanks;
+  @FXML private Text About_created;
+  @FXML private Text About_teamC;
+  @FXML private Text About_CS3733;
+  @FXML private Text About_text;
+  @FXML private Text About_WPICS;
+  @FXML private Text About_This;
+  @FXML private Text About_And_thanks;
+
+  //  public EventHandler<ActionEvent> nothing() {
+  //
+  //    if (language_choice == 1) {
+  //      serviceRequestPopOut.setMinSize(
+  //          serviceRequestPopOut.getPrefWidth(), serviceRequestPopOut.getPrefHeight() + 10);
+  //    }
+  //    return null;
+  //  }
 
   @FXML
   public void initialize() throws Exception {
 
-    List<Alert> alertList = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
-    int alertListSize = alertList.size();
-    int recentAlert1 = alertListSize - 1;
-    int recentAlert2 = alertListSize - 2;
-    int recentAlert3 = alertListSize - 3;
-    alert1.setText(
-        alertList.get(recentAlert1).getType() + ": " + alertList.get(recentAlert1).getTitle());
-    alert2.setText(
-        alertList.get(recentAlert2).getType() + ": " + alertList.get(recentAlert2).getTitle());
-    alert3.setText(
-        alertList.get(recentAlert3).getType() + ": " + alertList.get(recentAlert3).getTitle());
+    Thread thread =
+        new Thread(
+            new Runnable() {
+              @Override
+              public void run() {
+                java.util.List<Alert> alertList =
+                    (java.util.List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
+                int alertListSize = alertList.size();
+                int recentAlert1 = alertListSize - 1;
+                int recentAlert2 = alertListSize - 2;
+                int recentAlert3 = alertListSize - 3;
+
+                Platform.runLater(
+                    new Runnable() {
+                      @Override
+                      public void run() {
+                        if (language_choice == 0) {
+                          alert1.setText(
+                              alertList.get(recentAlert1).getType()
+                                  + ": "
+                                  + alertList.get(recentAlert1).getTitle());
+                          alert2.setText(
+                              alertList.get(recentAlert2).getType()
+                                  + ": "
+                                  + alertList.get(recentAlert2).getTitle());
+                          alert3.setText(
+                              alertList.get(recentAlert3).getType()
+                                  + ": "
+                                  + alertList.get(recentAlert3).getTitle());
+                        } else {
+                          try {
+                            alert1.setText(
+                                LanguageSet(alertList.get(recentAlert1).getType())
+                                    + ": "
+                                    + LanguageSet(alertList.get(recentAlert1).getTitle()));
+                          } catch (Exception e) {
+                            throw new RuntimeException(e);
+                          }
+                          try {
+                            alert2.setText(
+                                LanguageSet(alertList.get(recentAlert2).getType())
+                                    + ": "
+                                    + LanguageSet(alertList.get(recentAlert2).getTitle()));
+                          } catch (Exception e) {
+                            throw new RuntimeException(e);
+                          }
+                          try {
+                            alert3.setText(
+                                LanguageSet(alertList.get(recentAlert3).getType())
+                                    + ": "
+                                    + LanguageSet(alertList.get(recentAlert3).getTitle()));
+                          } catch (Exception e) {
+                            throw new RuntimeException(e);
+                          }
+                        }
+                      }
+                    });
+              }
+            });
+    thread.start();
 
     setlanguage();
     homeTrigger1.setVisible(false);
@@ -400,9 +531,12 @@ public class MenuController {
     homePopOut1.setVisible(false);
     warningPopOut1.setVisible(false);
     aboutPopOut1.setVisible(false);
-    aboutPopOut.setVisible(false);
-    aboutPopOut2.setVisible(false);
-    aboutPopOut3.setVisible(false);
+    aboutPopOut.setVisible(true);
+    aboutPopOut3.setVisible(true);
+    aboutPopOut3.setVisible(true);
+    aboutPopOut4.setVisible(false);
+    aboutRandyPopOut.setVisible(false);
+    aboutClosePane.setVisible(false);
 
     // Set styleClasses
     menuPane.getStyleClass().add("menuBackground");
@@ -455,6 +589,18 @@ public class MenuController {
     TranslateTransition aboutPopOutTransition = new TranslateTransition();
     TranslateTransition aboutPopOutTransition1 = new TranslateTransition();
     TranslateTransition creditPopOutTransition = new TranslateTransition();
+    TranslateTransition aboutRandyPopOutTransition = new TranslateTransition();
+    TranslateTransition aboutEddiePopOutTransition = new TranslateTransition();
+    TranslateTransition aboutNickPopOutTransition = new TranslateTransition();
+    TranslateTransition aboutAaronPopOutTransition = new TranslateTransition();
+    TranslateTransition aboutSebastianPopOutTransition = new TranslateTransition();
+    TranslateTransition aboutBrandonPopOutTransition = new TranslateTransition();
+    TranslateTransition aboutTayaPopOutTransition = new TranslateTransition();
+    TranslateTransition aboutChasePopOutTransition = new TranslateTransition();
+    TranslateTransition aboutChaoPopOutTransition = new TranslateTransition();
+    TranslateTransition aboutJoeyPopOutTransition = new TranslateTransition();
+
+    PauseTransition waitTransition = new PauseTransition(Duration.millis(0));
 
     AtomicBoolean isHovering = new AtomicBoolean(false);
 
@@ -506,7 +652,7 @@ public class MenuController {
     exitTrigger1.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
         event -> {
-          Navigation.clearCache();
+          //          Navigation.clearCache();
           Navigation.navigate(Screen.EXIT_PAGE);
           Navigation.setMenuType(Navigation.MenuType.DISABLED);
         });
@@ -598,52 +744,126 @@ public class MenuController {
         event -> {
           aboutPopOut2.setVisible(true);
           aboutPopOut.setVisible(true);
+
           aboutPopOutTransition.setDuration(Duration.millis(300));
           aboutPopOutTransition.setNode(aboutPopOut2);
           aboutPopOutTransition.setToX(290);
           aboutPopOutTransition.play();
+          aboutClosePane.setVisible(true);
         });
+
+    aboutClosePane
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue || isHovering.get()) {
+                aboutPopOutTransition.stop();
+                aboutPopOutTransition1.stop();
+
+                aboutPopOutTransition.setDuration(Duration.millis(300));
+                aboutPopOutTransition.setNode(aboutPopOut2);
+                aboutPopOutTransition.setToX(0);
+                aboutPopOutTransition.play();
+                aboutClosePane.setVisible(false);
+                aboutPopOut4.setVisible(false);
+                aboutPopOutTransition1.setDuration(Duration.millis(300));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+                aboutRandyPopOutTransition.setDuration(Duration.millis(300));
+                aboutRandyPopOutTransition.setNode(aboutRandyPopOut);
+                aboutRandyPopOutTransition.setToX(0);
+                aboutRandyPopOutTransition.play();
+                aboutEddiePopOutTransition.setDuration(Duration.millis(300));
+                aboutEddiePopOutTransition.setNode(aboutEddiePopOut);
+                aboutEddiePopOutTransition.setToX(0);
+                aboutEddiePopOutTransition.play();
+                aboutNickPopOutTransition.setDuration(Duration.millis(300));
+                aboutNickPopOutTransition.setNode(aboutNickPopOut);
+                aboutNickPopOutTransition.setToX(0);
+                aboutNickPopOutTransition.play();
+                aboutAaronPopOutTransition.setDuration(Duration.millis(300));
+                aboutAaronPopOutTransition.setNode(aboutAaronPopOut);
+                aboutAaronPopOutTransition.setToX(0);
+                aboutAaronPopOutTransition.play();
+                aboutSebastianPopOutTransition.setDuration(Duration.millis(300));
+                aboutSebastianPopOutTransition.setNode(aboutSebastianPopOut);
+                aboutSebastianPopOutTransition.setToX(0);
+                aboutSebastianPopOutTransition.play();
+                aboutBrandonPopOutTransition.setDuration(Duration.millis(300));
+                aboutBrandonPopOutTransition.setNode(aboutBrandonPopOut);
+                aboutBrandonPopOutTransition.setToX(0);
+                aboutBrandonPopOutTransition.play();
+                aboutTayaPopOutTransition.setDuration(Duration.millis(300));
+                aboutTayaPopOutTransition.setNode(aboutTayaPopOut);
+                aboutTayaPopOutTransition.setToX(0);
+                aboutTayaPopOutTransition.play();
+                aboutChasePopOutTransition.setDuration(Duration.millis(300));
+                aboutChasePopOutTransition.setNode(aboutChasePopOut);
+                aboutChasePopOutTransition.setToX(0);
+                aboutChasePopOutTransition.play();
+                aboutChaoPopOutTransition.setDuration(Duration.millis(300));
+                aboutChaoPopOutTransition.setNode(aboutChaoPopOut);
+                aboutChaoPopOutTransition.setToX(0);
+                aboutChaoPopOutTransition.play();
+                aboutJoeyPopOutTransition.setDuration(Duration.millis(300));
+                aboutJoeyPopOutTransition.setNode(aboutJoeyPopOut);
+                aboutJoeyPopOutTransition.setToX(0);
+                aboutJoeyPopOutTransition.play();
+              }
+            });
+
     aboutPopOut
         .hoverProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
-              if (!newValue && !aboutPopOut.isHover() && !homePopOut.isHover()) {
+              if (!newValue
+                  && !aboutPopOut.isHover()
+                  && !homePopOut.isHover()
+                  && !aboutPopOut3.isHover()
+                  && !aboutPopOut4.isHover()) {
+                aboutPopOutTransition.stop();
                 aboutPopOutTransition.setDuration(Duration.millis(300));
                 aboutPopOutTransition.setNode(aboutPopOut2);
                 aboutPopOutTransition.setToX(0);
-                aboutPopOutTransition1.setDuration(Duration.millis(300));
-                aboutPopOutTransition1.setNode(aboutPopOut3);
-                aboutPopOutTransition1.setToX(0);
-                aboutPopOutTransition.setOnFinished(
+                //                aboutPopOutTransition1.setDuration(Duration.millis(300));
+                //                aboutPopOutTransition1.setNode(aboutPopOut3);
+                //                aboutPopOutTransition1.setToX(0);
+                waitTransition.setOnFinished(
                     e -> {
                       if (!aboutPopOut.isHover() && !homePopOut.isHover()) {
-                        aboutPopOut.setVisible(false);
-                        homeTrigger1.setVisible(false);
-                        homeButton1.setVisible(true);
-                      }
-                    });
-                aboutPopOutTransition1.setOnFinished(
-                    e -> {
-                      if (!meetTheTeam.isHover()) {
-                        aboutPopOut1.setVisible(false);
+                        // aboutPopOut.setVisible(false);
                         homeTrigger1.setVisible(false);
                         homeButton1.setVisible(true);
                       }
                     });
                 aboutPopOutTransition.play();
+                aboutPopOut4.setVisible(false);
+                aboutPopOutTransition1.setOnFinished(
+                    e -> {
+                      if (!meetTheTeam.isHover() && !aboutPopOut1.isHover() && !newValue) {
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
                 aboutPopOutTransition1.play();
               } else if (newValue) {
+                aboutClosePane.setVisible(true);
+                aboutPopOutTransition.stop();
                 aboutPopOutTransition.setDuration(Duration.millis(300));
                 aboutPopOutTransition.setNode(aboutPopOut2);
                 aboutPopOutTransition.setToX(290);
                 aboutPopOutTransition.play();
                 aboutPopOutTransition1.setDuration(Duration.millis(300));
                 aboutPopOutTransition1.setNode(aboutPopOut3);
-                aboutPopOutTransition1.setToX(290);
+                aboutPopOutTransition1.setToX(0);
                 aboutPopOutTransition1.play();
                 aboutPopOut3.setVisible(true);
                 aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
               }
             });
     Admin_menu_credits.addEventFilter(
@@ -662,6 +882,7 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !creditsPopOut.isHover() && !homePopOut.isHover()) {
+                creditPopOutTransition.stop();
                 creditPopOutTransition.setDuration(Duration.millis(300));
                 creditPopOutTransition.setNode(creditsPopOut1);
                 creditPopOutTransition.setToX(0);
@@ -682,6 +903,7 @@ public class MenuController {
               }
             });
     // get wpidb boolean and set toggle accordingly
+
     dbToggle.setSelected(!CApp.getWpiDB());
     dbToggle.setOnMouseClicked(
         event -> {
@@ -690,49 +912,9 @@ public class MenuController {
           dbToggle.setSelected(!CApp.wpiDB);
           //          dbToggle.fire();
           System.out.println("DB: " + CApp.wpiDB);
-          Navigation.clearCache();
+          //          Navigation.clearCache();
           Navigation.navigate(CApp.currScreen);
         });
-    // Add a flag to track if the mouse is hovering over the aboutPopOut node
-
-    // Set up the event filter for the Admin_menu_about_button
-    //        meetTheTeam.setOnMouseClicked(
-    //            event -> {
-    //              aboutPopOut1.setVisible(true);
-    //              aboutPopOut3.setVisible(true);
-    //              aboutPopOutTransition1.setDuration(Duration.millis(300));
-    //              aboutPopOutTransition1.setNode(aboutPopOut3);
-    //              aboutPopOutTransition1.setToX(585);
-    //              aboutPopOutTransition1.play();
-    //            });
-    //
-    //    aboutPopOut1
-    //        .hoverProperty()
-    //        .addListener(
-    //            (observable, oldValue, newValue) -> {
-    //              isHovering.set(newValue);
-    //              if (!newValue && !meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
-    //                aboutPopOutTransition1.setDuration(Duration.millis(300));
-    //                aboutPopOutTransition1.setNode(aboutPopOut3);
-    //                aboutPopOutTransition1.setToX(0);
-    //                delay.setOnFinished(
-    //                    event -> {
-    //                      if (!meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
-    //                        aboutPopOut1.setVisible(false);
-    //                        homeTrigger1.setVisible(false);
-    //                        homeButton1.setVisible(true);
-    //                      }
-    //                    });
-    //                delay.play();
-    //              } else if (newValue) {
-    //                aboutPopOutTransition1.setDuration(Duration.millis(300));
-    //                aboutPopOutTransition1.setNode(aboutPopOut3);
-    //                aboutPopOutTransition1.setToX(585);
-    //                aboutPopOutTransition1.play();
-    //                aboutPopOut3.setVisible(true);
-    //                aboutPopOut1.setVisible(true);
-    //              }
-    //            });
 
     meetTheTeam
         .hoverProperty()
@@ -740,18 +922,24 @@ public class MenuController {
             (observable, oldValue, newValue) -> {
               isHovering.set(newValue);
               if (!newValue && !meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
+                aboutPopOutTransition1.stop();
                 aboutPopOutTransition1.setDuration(Duration.millis(200));
                 aboutPopOutTransition1.setNode(aboutPopOut3);
                 aboutPopOutTransition1.setToX(0);
-                aboutPopOutTransition1.setOnFinished(
+                aboutPopOutTransition1.play();
+
+                waitTransition.setOnFinished(
                     event -> {
                       if (!meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
-                        aboutPopOut1.setVisible(false);
+
+                        // aboutPopOut1.setVisible(false);
                         homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
                         homeButton1.setVisible(true);
                       }
                     });
-                aboutPopOutTransition1.play();
+                aboutPopOut4.setVisible(false);
+
               } else if (newValue) {
                 aboutPopOutTransition1.setDuration(Duration.millis(200));
                 aboutPopOutTransition1.setNode(aboutPopOut3);
@@ -759,6 +947,1675 @@ public class MenuController {
                 aboutPopOutTransition1.play();
                 aboutPopOut3.setVisible(true);
                 aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(true);
+              }
+            });
+
+    aboutPopOut3
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
+                aboutPopOutTransition1.stop();
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+                aboutPopOut4.setVisible(false);
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue) {
+                aboutPopOutTransition.stop();
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+
+                aboutRandyPopOutTransition.stop();
+                aboutRandyPopOutTransition.setDuration(Duration.millis(200));
+                aboutRandyPopOutTransition.setNode(aboutRandyPopOut);
+                aboutRandyPopOutTransition.setToX(0);
+                aboutRandyPopOutTransition.play();
+
+                aboutEddiePopOutTransition.stop();
+                aboutEddiePopOutTransition.setDuration(Duration.millis(200));
+                aboutEddiePopOutTransition.setNode(aboutEddiePopOut);
+                aboutEddiePopOutTransition.setToX(0);
+                aboutEddiePopOutTransition.play();
+
+                aboutNickPopOutTransition.stop();
+                aboutNickPopOutTransition.setDuration(Duration.millis(200));
+                aboutNickPopOutTransition.setNode(aboutNickPopOut);
+                aboutNickPopOutTransition.setToX(0);
+                aboutNickPopOutTransition.play();
+
+                aboutAaronPopOutTransition.stop();
+                aboutAaronPopOutTransition.setDuration(Duration.millis(200));
+                aboutAaronPopOutTransition.setNode(aboutAaronPopOut);
+                aboutAaronPopOutTransition.setToX(0);
+                aboutAaronPopOutTransition.play();
+
+                aboutSebastianPopOutTransition.stop();
+                aboutSebastianPopOutTransition.setDuration(Duration.millis(200));
+                aboutSebastianPopOutTransition.setNode(aboutSebastianPopOut);
+                aboutSebastianPopOutTransition.setToX(0);
+                aboutSebastianPopOutTransition.play();
+
+                aboutBrandonPopOutTransition.stop();
+                aboutBrandonPopOutTransition.setDuration(Duration.millis(200));
+                aboutBrandonPopOutTransition.setNode(aboutBrandonPopOut);
+                aboutBrandonPopOutTransition.setToX(0);
+                aboutBrandonPopOutTransition.play();
+
+                aboutTayaPopOutTransition.stop();
+                aboutTayaPopOutTransition.setDuration(Duration.millis(200));
+                aboutTayaPopOutTransition.setNode(aboutTayaPopOut);
+                aboutTayaPopOutTransition.setToX(0);
+                aboutTayaPopOutTransition.play();
+
+                aboutChasePopOutTransition.stop();
+                aboutChasePopOutTransition.setDuration(Duration.millis(200));
+                aboutChasePopOutTransition.setNode(aboutChasePopOut);
+                aboutChasePopOutTransition.setToX(0);
+                aboutChasePopOutTransition.play();
+
+                aboutChaoPopOutTransition.stop();
+                aboutChaoPopOutTransition.setDuration(Duration.millis(200));
+                aboutChaoPopOutTransition.setNode(aboutChaoPopOut);
+                aboutChaoPopOutTransition.setToX(0);
+                aboutChaoPopOutTransition.play();
+
+                aboutJoeyPopOutTransition.stop();
+                aboutJoeyPopOutTransition.setDuration(Duration.millis(200));
+                aboutJoeyPopOutTransition.setNode(aboutJoeyPopOut);
+                aboutJoeyPopOutTransition.setToX(0);
+                aboutJoeyPopOutTransition.play();
+
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    aboutPopOut4
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !aboutPopOut4.isHover()) {
+                aboutPopOutTransition.setDuration(Duration.millis(200));
+                aboutPopOutTransition.setNode(aboutPopOut2);
+                aboutPopOutTransition.setToX(290);
+
+                aboutPopOutTransition.play();
+                aboutPopOut4.setVisible(false);
+
+              } else if (newValue) {
+                aboutPopOutTransition1.stop();
+                aboutPopOutTransition.stop();
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(true);
+              }
+            });
+
+    Randy.hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Randy.isHover()) {
+                aboutRandyPopOutTransition.stop();
+                aboutRandyPopOutTransition.setDuration(Duration.millis(200));
+                aboutRandyPopOutTransition.setNode(aboutRandyPopOut);
+                aboutRandyPopOutTransition.setToX(0);
+                aboutRandyPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Randy.isHover() && !aboutPopOut3.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+                aboutRandyPopOutTransition.setDuration(Duration.millis(300));
+                aboutRandyPopOutTransition.setNode(aboutRandyPopOut);
+                aboutRandyPopOutTransition.setToX(290);
+                aboutRandyPopOutTransition.play();
+                aboutRandyPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    aboutRandyPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Randy.isHover()) {
+                aboutRandyPopOutTransition.stop();
+                aboutRandyPopOutTransition.setDuration(Duration.millis(200));
+                aboutRandyPopOutTransition.setNode(aboutRandyPopOut);
+                aboutRandyPopOutTransition.setToX(0);
+                aboutRandyPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Randy.isHover() && !aboutRandyPopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+                //                aboutRandyPopOutTransition.setDuration(Duration.millis(300));
+                //                aboutRandyPopOutTransition.setNode(aboutRandyPopOut);
+                aboutRandyPopOutTransition.setToX(290);
+                aboutRandyPopOutTransition.play();
+                aboutRandyPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+
+    Eddie.hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Eddie.isHover()) {
+                aboutEddiePopOutTransition.stop();
+                aboutEddiePopOutTransition.setDuration(Duration.millis(200));
+                aboutEddiePopOutTransition.setNode(aboutEddiePopOut);
+                aboutEddiePopOutTransition.setToX(0);
+                aboutEddiePopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Eddie.isHover() && !aboutEddiePopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+                aboutEddiePopOutTransition.setDuration(Duration.millis(300));
+                aboutEddiePopOutTransition.setNode(aboutEddiePopOut);
+                aboutEddiePopOutTransition.setToX(290);
+                aboutEddiePopOutTransition.play();
+                aboutEddiePopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+
+    aboutEddiePopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Eddie.isHover()) {
+                aboutEddiePopOutTransition.stop();
+                aboutEddiePopOutTransition.setDuration(Duration.millis(200));
+                aboutEddiePopOutTransition.setNode(aboutEddiePopOut);
+                aboutEddiePopOutTransition.setToX(0);
+                aboutEddiePopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Eddie.isHover() && !aboutEddiePopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue || aboutEddiePopOut.isHover()) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+                aboutEddiePopOutTransition.setDuration(Duration.millis(300));
+                aboutEddiePopOutTransition.setNode(aboutEddiePopOut);
+                aboutEddiePopOutTransition.setToX(290);
+                aboutEddiePopOutTransition.play();
+                aboutEddiePopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+
+    Sebastian.hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Sebastian.isHover()) {
+                aboutSebastianPopOutTransition.stop();
+                aboutSebastianPopOutTransition.setDuration(Duration.millis(200));
+                aboutSebastianPopOutTransition.setNode(aboutSebastianPopOut);
+                aboutSebastianPopOutTransition.setToX(0);
+                aboutSebastianPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Sebastian.isHover() && !aboutSebastianPopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+                aboutSebastianPopOutTransition.setDuration(Duration.millis(300));
+                aboutSebastianPopOutTransition.setNode(aboutSebastianPopOut);
+                aboutSebastianPopOutTransition.setToX(290);
+                aboutSebastianPopOutTransition.play();
+                aboutSebastianPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+
+    //                basePane
+    //                    .getStylesheets()
+    //                    .add(Main.class.getResource("views/components/Menu_Dark.css").toString());
+    //                basePane
+    //                    .getStylesheets()
+    //                    .add(Main.class.getResource("views/components/Menu.css").toString());
+    //              }
+    //            });
+
+    // thread.start();
+
+    homeTrigger1.setVisible(false);
+    serviceRequestTrigger1.setVisible(false);
+    navigationTrigger1.setVisible(false);
+    settingsTrigger1.setVisible(false);
+    helpTrigger1.setVisible(false);
+    historyTrigger1.setVisible(false);
+    exitTrigger1.setVisible(false);
+    logoutTrigger1.setVisible(false);
+    warningTrigger1.setVisible(false);
+    serviceRequestPopOut1.setVisible(false);
+    navigationPopOut1.setVisible(false);
+    settingsPopOut1.setVisible(false);
+    helpPopOut1.setVisible(false);
+    exitPopOut1.setVisible(false);
+    logoutPopOut1.setVisible(false);
+    homePopOut1.setVisible(false);
+    warningPopOut1.setVisible(false);
+    aboutPopOut1.setVisible(false);
+    aboutPopOut.setVisible(true);
+    aboutPopOut3.setVisible(true);
+    aboutPopOut3.setVisible(true);
+    aboutPopOut4.setVisible(false);
+    aboutRandyPopOut.setVisible(false);
+    aboutClosePane.setVisible(false);
+
+    // Set styleClasses
+    menuPane.getStyleClass().add("menuBackground");
+    appIcon.getStyleClass().add("menuIcon");
+    bellIcon.getStyleClass().add("menuIcon");
+    navIcon.getStyleClass().add("menuIcon");
+    histIcon.getStyleClass().add("menuIcon");
+    settingsIcon.getStyleClass().add("menuIcon");
+    questionIcon.getStyleClass().add("menuIcon");
+    logoutIcon.getStyleClass().add("menuIcon");
+    cancelIcon.getStyleClass().add("menuIcon");
+    menuLine1.getStyleClass().add("menuLine");
+    menuLine2.getStyleClass().add("menuLine");
+    Admin_menu_movetable.getStyleClass().add("hiddenButton");
+
+    if (!CApp.getAdminLoginCheck()) {
+      Admin_menu_movetable.setMouseTransparent(true);
+      Tooltip tooltip = new Tooltip();
+      tooltip.setText("Can only access this page as an admin");
+      tooltip.setShowDuration(Duration.hours(2));
+      // tooltip.setShowDelay(Duration.hours(0));
+      Admin_menu_movetable.setTooltip(tooltip);
+      Admin_menu_movetable.setStyle("-fx-background-color: grey");
+      Admin_menu_movetable.setOpacity(40);
+      Admin_menu_movetable.setOnAction(null);
+      //      moveButton.setMouseTransparent(true);
+    }
+
+    // basePane.setVisible(false);
+    menuPane.setVisible(true);
+    settingsPane.setVisible(false);
+    settingsPane.toFront();
+    menuPane.toFront();
+    basePane.toFront();
+    //    TranslateTransition navigationPopOutTransition = new TranslateTransition();
+    //    PauseTransition pause = new PauseTransition(Duration.millis(200));
+    //    TranslateTransition serviceRequestPopOutTransition = new TranslateTransition();
+    //    TranslateTransition settingsPopOutTransition = new TranslateTransition();
+    //    TranslateTransition helpPopOutTransition = new TranslateTransition();
+    //    TranslateTransition historyPopOutTransition = new TranslateTransition();
+    //    TranslateTransition exitPopOutTransition = new TranslateTransition();
+    //    TranslateTransition logoutPopOutTransition = new TranslateTransition();
+    //    TranslateTransition homePopOutTransition = new TranslateTransition();
+    //    TranslateTransition settingsPaneTransition = new TranslateTransition();
+    //    TranslateTransition warningPopOutTransition = new TranslateTransition();
+    //    TranslateTransition aboutPopOutTransition = new TranslateTransition();
+    //    TranslateTransition aboutPopOutTransition1 = new TranslateTransition();
+    //    TranslateTransition creditPopOutTransition = new TranslateTransition();
+    //    TranslateTransition aboutRandyPopOutTransition = new TranslateTransition();
+    //    TranslateTransition aboutEddiePopOutTransition = new TranslateTransition();
+    //    TranslateTransition aboutNickPopOutTransition = new TranslateTransition();
+    //    TranslateTransition aboutAaronPopOutTransition = new TranslateTransition();
+    //    TranslateTransition aboutSebastianPopOutTransition = new TranslateTransition();
+    //    TranslateTransition aboutBrandonPopOutTransition = new TranslateTransition();
+    //    TranslateTransition aboutTayaPopOutTransition = new TranslateTransition();
+    //    TranslateTransition aboutChasePopOutTransition = new TranslateTransition();
+    //    TranslateTransition aboutChaoPopOutTransition = new TranslateTransition();
+    //    TranslateTransition aboutJoeyPopOutTransition = new TranslateTransition();
+    //
+    //    PauseTransition waitTransition = new PauseTransition(Duration.millis(0));
+    //
+    //    AtomicBoolean isHovering = new AtomicBoolean(false);
+    //
+    //    // Define a PauseTransition with a delay of 200 milliseconds
+    //    PauseTransition delay = new PauseTransition(Duration.millis(200));
+
+    helpTrigger1.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          CApp.currScreen = Screen.HELP;
+          Navigation.navigate(Screen.HELP);
+        });
+    homeTrigger1.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          CApp.currScreen = Screen.ADMIN_HOME;
+          Navigation.navigate(Screen.ADMIN_HOME);
+        });
+
+    /*    settingsTrigger1.addEventFilter(
+    MouseEvent.MOUSE_CLICKED,
+    event -> {
+      settingsPaneTransition.setDuration(Duration.millis(350));
+      settingsPaneTransition.setNode(settingsPane);
+      settingsPaneTransition.setToY(768);
+      settingsPaneTransition.play();
+      settingsPane.setVisible(true);
+      settingsTrigger.setVisible(true);
+      settingsButton.setVisible(false);
+    });*/
+
+    settingsClose.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          settingsPaneTransition.setDuration(Duration.millis(350));
+          settingsPaneTransition.setNode(settingsPane);
+          settingsPaneTransition.setToY(0);
+          settingsPaneTransition.play();
+          settingsPane.setVisible(false);
+          settingsTrigger.setVisible(false);
+          settingsButton.setVisible(true);
+        });
+
+    logoutTrigger1.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          CApp.logoutPopUp();
+        });
+    exitTrigger1.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          //          Navigation.clearCache();
+          Navigation.navigate(Screen.EXIT_PAGE);
+          Navigation.setMenuType(Navigation.MenuType.DISABLED);
+        });
+
+    homeButton1
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue || isHovering.get()) {
+                delay.setOnFinished(
+                    event -> {
+                      homePopOutTransition.setDuration(Duration.millis(200));
+                      homePopOutTransition.setNode(homePopOut);
+                      homePopOutTransition.setToX(180);
+                      homePopOutTransition.play();
+                      homePopOut1.setVisible(true);
+                      homeTrigger1.setVisible(true);
+                      homeButton1.setVisible(false);
+                    });
+                delay.play();
+              } else {
+                delay.setOnFinished(null); // Clear the delay's onFinished event
+                homePopOutTransition.setDuration(Duration.millis(200));
+                homePopOutTransition.setNode(homePopOut);
+                homePopOutTransition.setToX(0);
+                homePopOutTransition.setOnFinished(
+                    e -> {
+                      if (!homePopOut.isHover() && !homeTrigger.isHover()) {
+                        // homePopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+                homePopOutTransition.play();
+              }
+            });
+
+    homePopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !homeButton.isHover() && !homeTrigger.isHover()) {
+                homePopOutTransition.setDuration(Duration.millis(200));
+                homePopOutTransition.setNode(homePopOut);
+                homePopOutTransition.setToX(0);
+                homePopOutTransition.setOnFinished(
+                    e -> {
+                      if (!homePopOut.isHover() && !homeTrigger.isHover()) {
+                        // homePopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+                homePopOutTransition.play();
+              } else if (newValue) {
+                homePopOutTransition.stop();
+                homePopOut.setTranslateX(180);
+              }
+            });
+
+    homeTrigger1
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !homeButton.isHover() && !homePopOut.isHover()) {
+                homePopOutTransition.setDuration(Duration.millis(200));
+                homePopOutTransition.setNode(homePopOut);
+                homePopOutTransition.setToX(0);
+                homePopOutTransition.setOnFinished(
+                    e -> {
+                      if (!homePopOut.isHover() && !homeTrigger.isHover()) {
+                        homePopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+                homePopOutTransition.play();
+              } else if (newValue) {
+                homePopOutTransition.setDuration(Duration.millis(200));
+                homePopOutTransition.setNode(homePopOut);
+                homePopOut.setTranslateX(180);
+                homePopOutTransition.play();
+              }
+            });
+    Admin_menu_about_button.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          aboutPopOut2.setVisible(true);
+          aboutPopOut.setVisible(true);
+
+          aboutPopOutTransition.setDuration(Duration.millis(300));
+          aboutPopOutTransition.setNode(aboutPopOut2);
+          aboutPopOutTransition.setToX(290);
+          aboutPopOutTransition.play();
+          aboutClosePane.setVisible(true);
+        });
+
+    aboutClosePane
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue || isHovering.get()) {
+                aboutPopOutTransition.stop();
+                aboutPopOutTransition1.stop();
+
+                aboutPopOutTransition.setDuration(Duration.millis(300));
+                aboutPopOutTransition.setNode(aboutPopOut2);
+                aboutPopOutTransition.setToX(0);
+                aboutPopOutTransition.play();
+                aboutClosePane.setVisible(false);
+                aboutPopOut4.setVisible(false);
+                aboutPopOutTransition1.setDuration(Duration.millis(300));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+                aboutRandyPopOutTransition.setDuration(Duration.millis(300));
+                aboutRandyPopOutTransition.setNode(aboutRandyPopOut);
+                aboutRandyPopOutTransition.setToX(0);
+                aboutRandyPopOutTransition.play();
+                aboutEddiePopOutTransition.setDuration(Duration.millis(300));
+                aboutEddiePopOutTransition.setNode(aboutEddiePopOut);
+                aboutEddiePopOutTransition.setToX(0);
+                aboutEddiePopOutTransition.play();
+                aboutNickPopOutTransition.setDuration(Duration.millis(300));
+                aboutNickPopOutTransition.setNode(aboutNickPopOut);
+                aboutNickPopOutTransition.setToX(0);
+                aboutNickPopOutTransition.play();
+                aboutAaronPopOutTransition.setDuration(Duration.millis(300));
+                aboutAaronPopOutTransition.setNode(aboutAaronPopOut);
+                aboutAaronPopOutTransition.setToX(0);
+                aboutAaronPopOutTransition.play();
+                aboutSebastianPopOutTransition.setDuration(Duration.millis(300));
+                aboutSebastianPopOutTransition.setNode(aboutSebastianPopOut);
+                aboutSebastianPopOutTransition.setToX(0);
+                aboutSebastianPopOutTransition.play();
+                aboutBrandonPopOutTransition.setDuration(Duration.millis(300));
+                aboutBrandonPopOutTransition.setNode(aboutBrandonPopOut);
+                aboutBrandonPopOutTransition.setToX(0);
+                aboutBrandonPopOutTransition.play();
+                aboutTayaPopOutTransition.setDuration(Duration.millis(300));
+                aboutTayaPopOutTransition.setNode(aboutTayaPopOut);
+                aboutTayaPopOutTransition.setToX(0);
+                aboutTayaPopOutTransition.play();
+                aboutChasePopOutTransition.setDuration(Duration.millis(300));
+                aboutChasePopOutTransition.setNode(aboutChasePopOut);
+                aboutChasePopOutTransition.setToX(0);
+                aboutChasePopOutTransition.play();
+                aboutChaoPopOutTransition.setDuration(Duration.millis(300));
+                aboutChaoPopOutTransition.setNode(aboutChaoPopOut);
+                aboutChaoPopOutTransition.setToX(0);
+                aboutChaoPopOutTransition.play();
+                aboutJoeyPopOutTransition.setDuration(Duration.millis(300));
+                aboutJoeyPopOutTransition.setNode(aboutJoeyPopOut);
+                aboutJoeyPopOutTransition.setToX(0);
+                aboutJoeyPopOutTransition.play();
+              }
+            });
+
+    aboutPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue
+                  && !aboutPopOut.isHover()
+                  && !homePopOut.isHover()
+                  && !aboutPopOut3.isHover()
+                  && !aboutPopOut4.isHover()) {
+                aboutPopOutTransition.stop();
+                aboutPopOutTransition.setDuration(Duration.millis(300));
+                aboutPopOutTransition.setNode(aboutPopOut2);
+                aboutPopOutTransition.setToX(0);
+                //
+                // aboutPopOutTransition1.setDuration(Duration.millis(300));
+                //                aboutPopOutTransition1.setNode(aboutPopOut3);
+                //                aboutPopOutTransition1.setToX(0);
+                waitTransition.setOnFinished(
+                    e -> {
+                      if (!aboutPopOut.isHover() && !homePopOut.isHover()) {
+                        // aboutPopOut.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+                aboutPopOutTransition.play();
+                aboutPopOut4.setVisible(false);
+                aboutPopOutTransition1.setOnFinished(
+                    e -> {
+                      if (!meetTheTeam.isHover() && !aboutPopOut1.isHover() && !newValue) {
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+                aboutPopOutTransition1.play();
+              } else if (newValue) {
+                aboutClosePane.setVisible(true);
+                aboutPopOutTransition.stop();
+                aboutPopOutTransition.setDuration(Duration.millis(300));
+                aboutPopOutTransition.setNode(aboutPopOut2);
+                aboutPopOutTransition.setToX(290);
+                aboutPopOutTransition.play();
+                aboutPopOutTransition1.setDuration(Duration.millis(300));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    Admin_menu_credits.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        event -> {
+          creditsPopOut1.setVisible(true);
+          creditsPopOut.setVisible(true);
+          creditPopOutTransition.setDuration(Duration.millis(300));
+          creditPopOutTransition.setNode(creditsPopOut1);
+          creditPopOutTransition.setToX(290);
+          creditPopOutTransition.play();
+        });
+    creditsPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !creditsPopOut.isHover() && !homePopOut.isHover()) {
+                creditPopOutTransition.stop();
+                creditPopOutTransition.setDuration(Duration.millis(300));
+                creditPopOutTransition.setNode(creditsPopOut1);
+                creditPopOutTransition.setToX(0);
+                creditPopOutTransition.setOnFinished(
+                    e -> {
+                      if (!creditsPopOut.isHover() && !homePopOut.isHover()) {
+                        creditsPopOut.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+                creditPopOutTransition.play();
+              } else if (newValue) {
+                creditPopOutTransition.setDuration(Duration.millis(300));
+                creditPopOutTransition.setNode(creditsPopOut1);
+                creditPopOutTransition.setToX(290);
+                creditPopOutTransition.play();
+              }
+            });
+    // get wpidb boolean and set toggle accordingly
+
+    dbToggle.setSelected(!CApp.getWpiDB());
+    dbToggle.setOnMouseClicked(
+        event -> {
+          // Toggled sets boolean wpiDB false for AWS
+          CApp.wpiDB = !dbToggle.selectedProperty().get();
+          dbToggle.setSelected(!CApp.wpiDB);
+          //          dbToggle.fire();
+          System.out.println("DB: " + CApp.wpiDB);
+          //          Navigation.clearCache();
+          Navigation.navigate(CApp.currScreen);
+        });
+
+    meetTheTeam
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
+                aboutPopOutTransition1.stop();
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+                aboutPopOut4.setVisible(false);
+
+              } else if (newValue) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(true);
+              }
+            });
+
+    aboutPopOut3
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
+                aboutPopOutTransition1.stop();
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+                aboutPopOut4.setVisible(false);
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!meetTheTeam.isHover() && !aboutPopOut3.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue) {
+                aboutPopOutTransition.stop();
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+
+                aboutRandyPopOutTransition.stop();
+                aboutRandyPopOutTransition.setDuration(Duration.millis(200));
+                aboutRandyPopOutTransition.setNode(aboutRandyPopOut);
+                aboutRandyPopOutTransition.setToX(0);
+                aboutRandyPopOutTransition.play();
+
+                aboutEddiePopOutTransition.stop();
+                aboutEddiePopOutTransition.setDuration(Duration.millis(200));
+                aboutEddiePopOutTransition.setNode(aboutEddiePopOut);
+                aboutEddiePopOutTransition.setToX(0);
+                aboutEddiePopOutTransition.play();
+
+                aboutNickPopOutTransition.stop();
+                aboutNickPopOutTransition.setDuration(Duration.millis(200));
+                aboutNickPopOutTransition.setNode(aboutNickPopOut);
+                aboutNickPopOutTransition.setToX(0);
+                aboutNickPopOutTransition.play();
+
+                aboutAaronPopOutTransition.stop();
+                aboutAaronPopOutTransition.setDuration(Duration.millis(200));
+                aboutAaronPopOutTransition.setNode(aboutAaronPopOut);
+                aboutAaronPopOutTransition.setToX(0);
+                aboutAaronPopOutTransition.play();
+
+                aboutSebastianPopOutTransition.stop();
+                aboutSebastianPopOutTransition.setDuration(Duration.millis(200));
+                aboutSebastianPopOutTransition.setNode(aboutSebastianPopOut);
+                aboutSebastianPopOutTransition.setToX(0);
+                aboutSebastianPopOutTransition.play();
+
+                aboutBrandonPopOutTransition.stop();
+                aboutBrandonPopOutTransition.setDuration(Duration.millis(200));
+                aboutBrandonPopOutTransition.setNode(aboutBrandonPopOut);
+                aboutBrandonPopOutTransition.setToX(0);
+                aboutBrandonPopOutTransition.play();
+
+                aboutTayaPopOutTransition.stop();
+                aboutTayaPopOutTransition.setDuration(Duration.millis(200));
+                aboutTayaPopOutTransition.setNode(aboutTayaPopOut);
+                aboutTayaPopOutTransition.setToX(0);
+                aboutTayaPopOutTransition.play();
+
+                aboutChasePopOutTransition.stop();
+                aboutChasePopOutTransition.setDuration(Duration.millis(200));
+                aboutChasePopOutTransition.setNode(aboutChasePopOut);
+                aboutChasePopOutTransition.setToX(0);
+                aboutChasePopOutTransition.play();
+
+                aboutChaoPopOutTransition.stop();
+                aboutChaoPopOutTransition.setDuration(Duration.millis(200));
+                aboutChaoPopOutTransition.setNode(aboutChaoPopOut);
+                aboutChaoPopOutTransition.setToX(0);
+                aboutChaoPopOutTransition.play();
+
+                aboutJoeyPopOutTransition.stop();
+                aboutJoeyPopOutTransition.setDuration(Duration.millis(200));
+                aboutJoeyPopOutTransition.setNode(aboutJoeyPopOut);
+                aboutJoeyPopOutTransition.setToX(0);
+                aboutJoeyPopOutTransition.play();
+
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    aboutPopOut4
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !aboutPopOut4.isHover()) {
+                aboutPopOutTransition.setDuration(Duration.millis(200));
+                aboutPopOutTransition.setNode(aboutPopOut2);
+                aboutPopOutTransition.setToX(290);
+
+                aboutPopOutTransition.play();
+                aboutPopOut4.setVisible(false);
+
+              } else if (newValue) {
+                aboutPopOutTransition1.stop();
+                aboutPopOutTransition.stop();
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(true);
+              }
+            });
+
+    Randy.hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Randy.isHover()) {
+                aboutRandyPopOutTransition.stop();
+                aboutRandyPopOutTransition.setDuration(Duration.millis(200));
+                aboutRandyPopOutTransition.setNode(aboutRandyPopOut);
+                aboutRandyPopOutTransition.setToX(0);
+                aboutRandyPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Randy.isHover() && !aboutPopOut3.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+                aboutRandyPopOutTransition.setDuration(Duration.millis(300));
+                aboutRandyPopOutTransition.setNode(aboutRandyPopOut);
+                aboutRandyPopOutTransition.setToX(290);
+                aboutRandyPopOutTransition.play();
+                aboutRandyPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    aboutRandyPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Randy.isHover()) {
+                aboutRandyPopOutTransition.stop();
+                aboutRandyPopOutTransition.setDuration(Duration.millis(200));
+                aboutRandyPopOutTransition.setNode(aboutRandyPopOut);
+                aboutRandyPopOutTransition.setToX(0);
+                aboutRandyPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Randy.isHover() && !aboutRandyPopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+                //
+                // aboutRandyPopOutTransition.setDuration(Duration.millis(300));
+                //                aboutRandyPopOutTransition.setNode(aboutRandyPopOut);
+                aboutRandyPopOutTransition.setToX(290);
+                aboutRandyPopOutTransition.play();
+                aboutRandyPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+
+    Eddie.hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Eddie.isHover()) {
+                aboutEddiePopOutTransition.stop();
+                aboutEddiePopOutTransition.setDuration(Duration.millis(200));
+                aboutEddiePopOutTransition.setNode(aboutEddiePopOut);
+                aboutEddiePopOutTransition.setToX(0);
+                aboutEddiePopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Eddie.isHover() && !aboutEddiePopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+                aboutEddiePopOutTransition.setDuration(Duration.millis(300));
+                aboutEddiePopOutTransition.setNode(aboutEddiePopOut);
+                aboutEddiePopOutTransition.setToX(290);
+                aboutEddiePopOutTransition.play();
+                aboutEddiePopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+
+    aboutEddiePopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Eddie.isHover()) {
+                aboutEddiePopOutTransition.stop();
+                aboutEddiePopOutTransition.setDuration(Duration.millis(200));
+                aboutEddiePopOutTransition.setNode(aboutEddiePopOut);
+                aboutEddiePopOutTransition.setToX(0);
+                aboutEddiePopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Eddie.isHover() && !aboutEddiePopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue || aboutEddiePopOut.isHover()) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+                aboutEddiePopOutTransition.setDuration(Duration.millis(300));
+                aboutEddiePopOutTransition.setNode(aboutEddiePopOut);
+                aboutEddiePopOutTransition.setToX(290);
+                aboutEddiePopOutTransition.play();
+                aboutEddiePopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+
+    Sebastian.hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Sebastian.isHover()) {
+                aboutSebastianPopOutTransition.stop();
+                aboutSebastianPopOutTransition.setDuration(Duration.millis(200));
+                aboutSebastianPopOutTransition.setNode(aboutSebastianPopOut);
+                aboutSebastianPopOutTransition.setToX(0);
+                aboutSebastianPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Sebastian.isHover() && !aboutSebastianPopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+                aboutSebastianPopOutTransition.setDuration(Duration.millis(300));
+                aboutSebastianPopOutTransition.setNode(aboutSebastianPopOut);
+                aboutSebastianPopOutTransition.setToX(290);
+                aboutSebastianPopOutTransition.play();
+                aboutSebastianPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+
+    aboutSebastianPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Sebastian.isHover()) {
+                aboutSebastianPopOutTransition.stop();
+                aboutSebastianPopOutTransition.setDuration(Duration.millis(200));
+                aboutSebastianPopOutTransition.setNode(aboutSebastianPopOut);
+                aboutSebastianPopOutTransition.setToX(0);
+                aboutSebastianPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Sebastian.isHover() && !aboutSebastianPopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue || aboutSebastianPopOut.isHover()) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+                aboutSebastianPopOutTransition.setDuration(Duration.millis(300));
+                aboutSebastianPopOutTransition.setNode(aboutSebastianPopOut);
+                aboutSebastianPopOutTransition.setToX(290);
+                aboutSebastianPopOutTransition.play();
+                aboutSebastianPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    Nick.hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Nick.isHover()) {
+                aboutNickPopOutTransition.stop();
+                aboutNickPopOutTransition.setDuration(Duration.millis(200));
+                aboutNickPopOutTransition.setNode(aboutNickPopOut);
+                aboutNickPopOutTransition.setToX(0);
+                aboutNickPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Nick.isHover() && !aboutNickPopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+                aboutNickPopOutTransition.setDuration(Duration.millis(300));
+                aboutNickPopOutTransition.setNode(aboutNickPopOut);
+                aboutNickPopOutTransition.setToX(290);
+                aboutNickPopOutTransition.play();
+                aboutNickPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    aboutNickPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Nick.isHover()) {
+                aboutNickPopOutTransition.stop();
+                aboutNickPopOutTransition.setDuration(Duration.millis(200));
+                aboutNickPopOutTransition.setNode(aboutNickPopOut);
+                aboutNickPopOutTransition.setToX(0);
+                aboutNickPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Nick.isHover() && !aboutNickPopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue || aboutNickPopOut.isHover()) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+                aboutNickPopOutTransition.setDuration(Duration.millis(300));
+                aboutNickPopOutTransition.setNode(aboutNickPopOut);
+                aboutNickPopOutTransition.setToX(290);
+                aboutNickPopOutTransition.play();
+                aboutNickPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    Aaron.hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Aaron.isHover()) {
+                aboutAaronPopOutTransition.stop();
+                aboutAaronPopOutTransition.setDuration(Duration.millis(200));
+                aboutAaronPopOutTransition.setNode(aboutAaronPopOut);
+                aboutAaronPopOutTransition.setToX(0);
+                aboutAaronPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Aaron.isHover() && !aboutAaronPopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+                aboutAaronPopOutTransition.setDuration(Duration.millis(300));
+                aboutAaronPopOutTransition.setNode(aboutAaronPopOut);
+                aboutAaronPopOutTransition.setToX(290);
+                aboutAaronPopOutTransition.play();
+                aboutAaronPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    aboutAaronPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Aaron.isHover()) {
+                aboutAaronPopOutTransition.stop();
+                aboutAaronPopOutTransition.setDuration(Duration.millis(200));
+                aboutAaronPopOutTransition.setNode(aboutAaronPopOut);
+                aboutAaronPopOutTransition.setToX(0);
+                aboutAaronPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Aaron.isHover() && !aboutAaronPopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue || aboutAaronPopOut.isHover()) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+                aboutAaronPopOutTransition.setDuration(Duration.millis(300));
+                aboutAaronPopOutTransition.setNode(aboutAaronPopOut);
+                aboutAaronPopOutTransition.setToX(290);
+                aboutAaronPopOutTransition.play();
+                aboutAaronPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    Brandon.hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Brandon.isHover()) {
+                aboutBrandonPopOutTransition.stop();
+                aboutBrandonPopOutTransition.setDuration(Duration.millis(200));
+                aboutBrandonPopOutTransition.setNode(aboutBrandonPopOut);
+                aboutBrandonPopOutTransition.setToX(0);
+                aboutBrandonPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Brandon.isHover() && !aboutBrandonPopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+                aboutBrandonPopOutTransition.setDuration(Duration.millis(300));
+                aboutBrandonPopOutTransition.setNode(aboutBrandonPopOut);
+                aboutBrandonPopOutTransition.setToX(290);
+                aboutBrandonPopOutTransition.play();
+                aboutBrandonPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    aboutBrandonPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Brandon.isHover()) {
+                aboutBrandonPopOutTransition.stop();
+                aboutBrandonPopOutTransition.setDuration(Duration.millis(200));
+                aboutBrandonPopOutTransition.setNode(aboutBrandonPopOut);
+                aboutBrandonPopOutTransition.setToX(0);
+                aboutBrandonPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Brandon.isHover() && !aboutBrandonPopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue || aboutBrandonPopOut.isHover()) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+                aboutBrandonPopOutTransition.setDuration(Duration.millis(300));
+                aboutBrandonPopOutTransition.setNode(aboutBrandonPopOut);
+                aboutBrandonPopOutTransition.setToX(290);
+                aboutBrandonPopOutTransition.play();
+                aboutBrandonPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    Taya.hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Taya.isHover()) {
+                aboutTayaPopOutTransition.stop();
+                aboutTayaPopOutTransition.setDuration(Duration.millis(200));
+                aboutTayaPopOutTransition.setNode(aboutTayaPopOut);
+                aboutTayaPopOutTransition.setToX(0);
+                aboutTayaPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Taya.isHover() && !aboutTayaPopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+                aboutTayaPopOutTransition.setDuration(Duration.millis(300));
+                aboutTayaPopOutTransition.setNode(aboutTayaPopOut);
+                aboutTayaPopOutTransition.setToX(290);
+                aboutTayaPopOutTransition.play();
+                aboutTayaPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    aboutTayaPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Taya.isHover()) {
+                aboutTayaPopOutTransition.stop();
+                aboutTayaPopOutTransition.setDuration(Duration.millis(200));
+                aboutTayaPopOutTransition.setNode(aboutTayaPopOut);
+                aboutTayaPopOutTransition.setToX(0);
+                aboutTayaPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Taya.isHover() && !aboutTayaPopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue || aboutTayaPopOut.isHover()) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+                aboutTayaPopOutTransition.setDuration(Duration.millis(300));
+                aboutTayaPopOutTransition.setNode(aboutTayaPopOut);
+                aboutTayaPopOutTransition.setToX(290);
+                aboutTayaPopOutTransition.play();
+                aboutTayaPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    Chase.hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Chase.isHover()) {
+                aboutChasePopOutTransition.stop();
+                aboutChasePopOutTransition.setDuration(Duration.millis(200));
+                aboutChasePopOutTransition.setNode(aboutChasePopOut);
+                aboutChasePopOutTransition.setToX(0);
+                aboutChasePopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Chase.isHover() && !aboutChasePopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+                aboutChasePopOutTransition.setDuration(Duration.millis(300));
+                aboutChasePopOutTransition.setNode(aboutChasePopOut);
+                aboutChasePopOutTransition.setToX(290);
+                aboutChasePopOutTransition.play();
+                aboutChasePopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    aboutChasePopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Chase.isHover()) {
+                aboutChasePopOutTransition.stop();
+                aboutChasePopOutTransition.setDuration(Duration.millis(200));
+                aboutChasePopOutTransition.setNode(aboutChasePopOut);
+                aboutChasePopOutTransition.setToX(0);
+                aboutChasePopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Chase.isHover() && !aboutChasePopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue || aboutChasePopOut.isHover()) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+                aboutChasePopOutTransition.setDuration(Duration.millis(300));
+                aboutChasePopOutTransition.setNode(aboutChasePopOut);
+                aboutChasePopOutTransition.setToX(290);
+                aboutChasePopOutTransition.play();
+                aboutChasePopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    Chao.hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Chao.isHover()) {
+                aboutChaoPopOutTransition.stop();
+                aboutChaoPopOutTransition.setDuration(Duration.millis(200));
+                aboutChaoPopOutTransition.setNode(aboutChaoPopOut);
+                aboutChaoPopOutTransition.setToX(0);
+                aboutChaoPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Chao.isHover() && !aboutChaoPopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+                aboutChaoPopOutTransition.setDuration(Duration.millis(300));
+                aboutChaoPopOutTransition.setNode(aboutChaoPopOut);
+                aboutChaoPopOutTransition.setToX(290);
+                aboutChaoPopOutTransition.play();
+                aboutChaoPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    aboutChaoPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Chao.isHover()) {
+                aboutChaoPopOutTransition.stop();
+                aboutChaoPopOutTransition.setDuration(Duration.millis(200));
+                aboutChaoPopOutTransition.setNode(aboutChaoPopOut);
+                aboutChaoPopOutTransition.setToX(0);
+                aboutChaoPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Chao.isHover() && !aboutChaoPopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue || aboutChaoPopOut.isHover()) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+                aboutChaoPopOutTransition.setDuration(Duration.millis(300));
+                aboutChaoPopOutTransition.setNode(aboutChaoPopOut);
+                aboutChaoPopOutTransition.setToX(290);
+                aboutChaoPopOutTransition.play();
+                aboutChaoPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    Joey.hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Joey.isHover()) {
+                aboutJoeyPopOutTransition.stop();
+                aboutJoeyPopOutTransition.setDuration(Duration.millis(200));
+                aboutJoeyPopOutTransition.setNode(aboutJoeyPopOut);
+                aboutJoeyPopOutTransition.setToX(0);
+                aboutJoeyPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Joey.isHover() && !aboutJoeyPopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(585);
+                aboutPopOutTransition1.play();
+                aboutJoeyPopOutTransition.setDuration(Duration.millis(300));
+                aboutJoeyPopOutTransition.setNode(aboutJoeyPopOut);
+                aboutJoeyPopOutTransition.setToX(290);
+                aboutJoeyPopOutTransition.play();
+                aboutJoeyPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
+              }
+            });
+    aboutJoeyPopOut
+        .hoverProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              isHovering.set(newValue);
+              if (!newValue && !Joey.isHover()) {
+                aboutJoeyPopOutTransition.stop();
+                aboutJoeyPopOutTransition.setDuration(Duration.millis(200));
+                aboutJoeyPopOutTransition.setNode(aboutJoeyPopOut);
+                aboutJoeyPopOutTransition.setToX(0);
+                aboutJoeyPopOutTransition.play();
+
+                waitTransition.setOnFinished(
+                    event -> {
+                      if (!Joey.isHover() && !aboutJoeyPopOut.isHover()) {
+
+                        // aboutPopOut1.setVisible(false);
+                        homeTrigger1.setVisible(false);
+                        aboutPopOut4.setVisible(false);
+                        homeButton1.setVisible(true);
+                      }
+                    });
+
+              } else if (newValue || aboutJoeyPopOut.isHover()) {
+                aboutPopOutTransition1.setDuration(Duration.millis(200));
+                aboutPopOutTransition1.setNode(aboutPopOut3);
+                aboutPopOutTransition1.setToX(0);
+                aboutPopOutTransition1.play();
+                aboutJoeyPopOutTransition.setDuration(Duration.millis(300));
+                aboutJoeyPopOutTransition.setNode(aboutJoeyPopOut);
+                aboutJoeyPopOutTransition.setToX(290);
+                aboutJoeyPopOutTransition.play();
+                aboutJoeyPopOut.setVisible(true);
+                aboutPopOut.setVisible(true);
+                aboutPopOut3.setVisible(true);
+                aboutPopOut1.setVisible(true);
+                aboutPopOut4.setVisible(false);
               }
             });
 
@@ -1426,16 +3283,28 @@ public class MenuController {
               }
             });
 
-    Timeline clock =
-        new Timeline(
-            new KeyFrame(
-                Duration.ZERO,
-                e ->
-                    menuClock.setText(
-                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh:mm\na")))),
-            new KeyFrame(Duration.seconds(1)));
-    clock.setCycleCount(Animation.INDEFINITE);
-    clock.play();
+    Platform.runLater(
+        new Runnable() {
+          @Override
+          public void run() {
+            try {
+              setlanguage();
+              Timeline clock =
+                  new Timeline(
+                      new KeyFrame(
+                          Duration.ZERO,
+                          e ->
+                              menuClock.setText(
+                                  LocalDateTime.now()
+                                      .format(DateTimeFormatter.ofPattern("hh:mm\na")))),
+                      new KeyFrame(Duration.seconds(1)));
+              clock.setCycleCount(Animation.INDEFINITE);
+              clock.play();
+            } catch (Exception e) {
+              throw new RuntimeException(e);
+            }
+          }
+        });
   }
 
   // TRANSLATOR//

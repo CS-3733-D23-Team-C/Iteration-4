@@ -6,10 +6,7 @@ import edu.wpi.teamc.dao.displays.signage.SignEntry;
 import edu.wpi.teamc.dao.displays.signage.SignEntryDao;
 import edu.wpi.teamc.dao.map.*;
 import edu.wpi.teamc.dao.requests.*;
-import edu.wpi.teamc.dao.users.AdminUser;
-import edu.wpi.teamc.dao.users.AdminUserDao;
-import edu.wpi.teamc.dao.users.EmployeeUser;
-import edu.wpi.teamc.dao.users.EmployeeUserDao;
+import edu.wpi.teamc.dao.users.*;
 import edu.wpi.teamc.dao.users.login.Login;
 import edu.wpi.teamc.dao.users.login.LoginDao;
 import java.io.IOException;
@@ -37,6 +34,7 @@ public class HospitalSystem {
   // User DAOs
   private static EmployeeUserDao employeeDao = new EmployeeUserDao();
   private static AdminUserDao adminDao = new AdminUserDao();
+  private static PatientUserDao patientDao = new PatientUserDao();
   private static LoginDao loginDao = new LoginDao();
 
   // Display DAOs
@@ -76,6 +74,8 @@ public class HospitalSystem {
       return alertDao.fetchAllObjects();
     } else if (request instanceof SignEntry) {
       return signDao.fetchAllObjects();
+    } else if (request instanceof PatientUser) {
+      return patientDao.fetchAllObjects();
     } else {
       return null;
     }
@@ -114,6 +114,8 @@ public class HospitalSystem {
       return alertDao.addRow((Alert) request);
     } else if (request instanceof SignEntry) {
       return signDao.addRow((SignEntry) request);
+    } else if (request instanceof PatientUser) {
+      return patientDao.addRow((PatientUser) request);
     } else {
       return null;
     }
@@ -152,6 +154,8 @@ public class HospitalSystem {
       return alertDao.deleteRow((Alert) request);
     } else if (request instanceof SignEntry) {
       return signDao.deleteRow((SignEntry) request);
+    } else if (request instanceof PatientUser) {
+      return patientDao.deleteRow((PatientUser) request);
     } else {
       return null;
     }
@@ -195,6 +199,8 @@ public class HospitalSystem {
       return alertDao.updateRow((Alert) request, (Alert) request);
     } else if (request instanceof SignEntry) {
       return signDao.updateRow((SignEntry) request, (SignEntry) request);
+    } else if (request instanceof PatientUser) {
+      return patientDao.updateRow((PatientUser) request, (PatientUser) request);
     } else {
       return null;
     }
@@ -225,14 +231,16 @@ public class HospitalSystem {
       giftBasketRequestDAO.exportCSV(filePath);
     } else if (request instanceof AdminUser) {
       adminDao.exportCSV(filePath);
-    } else if (request instanceof EmployeeUser) {
-      employeeDao.exportCSV(filePath);
+    } else if (request instanceof PatientUser) {
+      patientDao.exportCSV(filePath);
     } else if (request instanceof Login) {
       loginDao.exportCSV(filePath);
     } else if (request instanceof Alert) {
       alertDao.exportCSV(filePath);
     } else if (request instanceof SignEntry) {
       signDao.exportCSV(filePath);
+    } else if (request instanceof PatientUser) {
+      patientDao.exportCSV(filePath);
     } else {
       return;
     }

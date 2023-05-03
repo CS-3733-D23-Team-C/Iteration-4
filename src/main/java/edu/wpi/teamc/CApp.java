@@ -230,6 +230,53 @@ public class CApp extends Application {
 
   @Override
   public void start(Stage primaryStage) throws Exception {
+    Thread thread =
+        new Thread(
+            new Runnable() {
+              @Override
+              public void run() {
+                try {
+                  Home_Chinese_list = loadJson(Home_Chinese);
+                  Home_English_list = loadJson(Home_English);
+                  Admin_Home_English_list = loadJson(Admin_Home_English);
+                  Admin_Home_Chinese_list = loadJson(Admin_Home_Chinese);
+                  Menu_English_list = loadJson(Menu_English);
+                  Menu_Chinese_list = loadJson(Menu_Chinese);
+                  Meal_English_list = loadJson(Meal_English);
+                  Meal_Chinese_list = loadJson(Meal_Chinese);
+                  Office_Supply_English_list = loadJson(Supply_English);
+                  Office_Supply_Chinese_list = loadJson(Supply_Chinese);
+                  Flower_English_list = loadJson(Flower_English);
+                  Flower_Chinese_list = loadJson(Flower_Chinese);
+                  Furniture_English_list = loadJson(Furniture_English);
+                  Furniture_Chinese_list = loadJson(Furniture_Chinese);
+                  /* primaryStage is generally only used if one of your components require the stage to display */
+                  CApp.primaryStage = primaryStage;
+                  final FXMLLoader loader =
+                      new FXMLLoader(CApp.class.getResource("views/Root.fxml"));
+                  final BorderPane root = loader.load();
+
+                  CApp.rootPane = root;
+                  // GET Texts
+                  // getAllTextForAllPages();
+
+                  final Scene scene = new Scene(root);
+
+                  CApp.timeOut();
+
+                  Platform.runLater(
+                      new Runnable() {
+                        @Override
+                        public void run() {
+                          primaryStage.setScene(scene);
+                          primaryStage.show();
+                          Navigation.navigate(Screen.HOME);
+                        }
+                      });
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
+              }
 
     Home_Chinese_list = loadJson(Home_Chinese);
     Home_English_list = loadJson(Home_English);
@@ -271,6 +318,11 @@ public class CApp extends Application {
     Navigation.navigate(Screen.HOME);
 
     CApp.timeOut();
+
+             
+            //});
+    //thread.start();
+
   }
 
   public List<String> holder = new ArrayList<String>();
@@ -289,13 +341,14 @@ public class CApp extends Application {
   public void stop() {
     log.info("Shutting Down");
   }
-
+  
   public List<String> loadJson(String filePath) throws Exception {
-    File file = new File(filePath);
-    ObjectMapper objectMapper = new ObjectMapper();
-    List<String> myList = objectMapper.readValue(file, new TypeReference<List<String>>() {});
-    return myList;
-  }
+                File file = new File(filePath);
+                ObjectMapper objectMapper = new ObjectMapper();
+                List<String> myList =
+                    objectMapper.readValue(file, new TypeReference<List<String>>() {});
+                return myList;
+              }
 
   String Home_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/Home/HomeChinese.json";
   String Home_English = "src/main/java/edu/wpi/teamc/languageHelpers/Home/HomeEnglish.json";

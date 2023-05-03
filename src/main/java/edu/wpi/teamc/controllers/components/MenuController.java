@@ -393,7 +393,7 @@ public class MenuController {
     Admin_menu_stationary_delivery.setText(holder.get(22));
     Admin_menu_room_reservation.setText(holder.get(23));
     // Admin_menu_giftbasket_delivery.setText(holder.get(24));
-    Admin_menu_employee_table.setText(holder.get(25));
+    Admin_menu_employee_table.setText(holder.get(42));
     Admin_menu_recent_alerts.setText(holder.get(26));
     alert1.setText((alert1.getText()));
     alert2.setText((alert2.getText()));
@@ -419,7 +419,7 @@ public class MenuController {
     Credits_Floors.setText(holder.get(41));
 
     // Aditional after language change
-    Admin_menu_patient_table.setText(holder.get(42));
+    Admin_menu_patient_table.setText(holder.get(25));
     Admin_menu_giftbasket_delivery.setText(holder.get(43));
   }
 

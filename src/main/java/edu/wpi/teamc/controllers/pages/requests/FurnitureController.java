@@ -1,5 +1,7 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
@@ -12,6 +14,7 @@ import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -28,11 +31,11 @@ public class FurnitureController {
   @FXML private SearchableComboBox roomMenu;
   @FXML DatePicker startTime;
   // Meal Menu
-  @FXML private MenuButton furnitureMenu;
-  @FXML private MenuItem furniturechoice1;
-  @FXML private MenuItem furniturechoice2;
-  @FXML private MenuItem furniturechoice3;
-  @FXML private MenuItem furniturechoice4;
+  @FXML private MenuButton serviceMenu;
+  @FXML private MenuItem servicechoice1;
+  @FXML private MenuItem servicechoice2;
+  @FXML private MenuItem servicechoice3;
+  @FXML private MenuItem servicechoice4;
   // Drink Menu
   @FXML private MenuButton amountMenu;
   @FXML private MenuItem amountchoice1;
@@ -59,7 +62,7 @@ public class FurnitureController {
 
   @FXML
   void getFurnitureChoice1() throws Exception {
-    furnitureMenu.setText(furniturechoice1.getText());
+    serviceMenu.setText(servicechoice1.getText());
     furnitureHolder = 1;
     try {
       getFurnitureInfo(1);
@@ -70,7 +73,7 @@ public class FurnitureController {
 
   @FXML
   void getFurnitureChoice2() throws Exception {
-    furnitureMenu.setText(furniturechoice2.getText());
+    serviceMenu.setText(servicechoice2.getText());
     furnitureHolder = 2;
     try {
       getFurnitureInfo(2);
@@ -81,7 +84,7 @@ public class FurnitureController {
 
   @FXML
   void getFurnitureChoice3() throws Exception {
-    furnitureMenu.setText(furniturechoice3.getText());
+    serviceMenu.setText(servicechoice3.getText());
     furnitureHolder = 3;
     try {
       getFurnitureInfo(3);
@@ -92,7 +95,7 @@ public class FurnitureController {
 
   @FXML
   void getFurnitureChoice4() throws Exception {
-    furnitureMenu.setText(furniturechoice4.getText());
+    serviceMenu.setText(servicechoice4.getText());
     furnitureHolder = 4;
     try {
       getFurnitureInfo(4);
@@ -141,37 +144,75 @@ public class FurnitureController {
 
   @FXML
   void getFurnitureInfo(int furnitureChoice) throws Exception {
-    switch (furnitureChoice) {
-      case 1:
-        furnitureImage.setImage(
-            new Image(Main.class.getResource("views/images/Furniture/chair.png").openStream()));
-        Dimensions.setText(("Width: 30 in, Length: 27 in, Height: 60 in"));
-        weightInfo.setText(("25 lbs each"));
-        break;
-      case 2:
-        furnitureImage.setImage(
-            new Image(Main.class.getResource("views/images/Furniture/doradesk.png").openStream()));
-        Dimensions.setText(("Width: Backpack, Length: Boots, Height: Dora"));
-        weightInfo.setText(("5 Swipers each"));
-        break;
-      case 3:
-        furnitureImage.setImage(
-            new Image(Main.class.getResource("views/images/Furniture/stool.png").openStream()));
-        Dimensions.setText(("Width: 15 in, Length: 15 in, Height: 30 in"));
-        weightInfo.setText(("10 lbs each"));
-        break;
-      case 4:
-        furnitureImage.setImage(
-            new Image(Main.class.getResource("views/images/Furniture/couch.png").openStream()));
-        Dimensions.setText(("Width: 350 in, Length: 40 in, Height: 15 in"));
-        weightInfo.setText(("500 lbs each"));
-        break;
-      default:
-        furnitureImage.setImage(
-            new Image(Main.class.getResource("views/images/Furniture/kys.png").openStream()));
-        Dimensions.setText("");
-        weightInfo.setText("");
-        break;
+    if (language_choice == 0) {
+
+      switch (furnitureChoice) {
+        case 1:
+          furnitureImage.setImage(
+              new Image(Main.class.getResource("views/images/Furniture/chair.png").openStream()));
+          Dimensions.setText(("Width: 30 in, Length: 27 in, Height: 60 in"));
+          weightInfo.setText(("25 lbs each"));
+          break;
+        case 2:
+          furnitureImage.setImage(
+              new Image(
+                  Main.class.getResource("views/images/Furniture/doradesk.png").openStream()));
+          Dimensions.setText(("Width: Backpack, Length: Boots, Height: Dora"));
+          weightInfo.setText(("5 Swipers each"));
+          break;
+        case 3:
+          furnitureImage.setImage(
+              new Image(Main.class.getResource("views/images/Furniture/stool.png").openStream()));
+          Dimensions.setText(("Width: 15 in, Length: 15 in, Height: 30 in"));
+          weightInfo.setText(("10 lbs each"));
+          break;
+        case 4:
+          furnitureImage.setImage(
+              new Image(Main.class.getResource("views/images/Furniture/couch.png").openStream()));
+          Dimensions.setText(("Width: 350 in, Length: 40 in, Height: 15 in"));
+          weightInfo.setText(("500 lbs each"));
+          break;
+        default:
+          furnitureImage.setImage(
+              new Image(Main.class.getResource("views/images/Furniture/kys.png").openStream()));
+          Dimensions.setText("");
+          weightInfo.setText("");
+          break;
+      }
+    } else {
+      switch (furnitureChoice) {
+        case 1:
+          furnitureImage.setImage(
+              new Image(Main.class.getResource("views/images/Furniture/chair.png").openStream()));
+          Dimensions.setText(LanguageSet("Width: 30 in, Length: 27 in, Height: 60 in"));
+          weightInfo.setText(LanguageSet("25 lbs each"));
+          break;
+        case 2:
+          furnitureImage.setImage(
+              new Image(
+                  Main.class.getResource("views/images/Furniture/doradesk.png").openStream()));
+          Dimensions.setText(LanguageSet("Width: Backpack, Length: Boots, Height: Dora"));
+          weightInfo.setText(LanguageSet("5 Swipers each"));
+          break;
+        case 3:
+          furnitureImage.setImage(
+              new Image(Main.class.getResource("views/images/Furniture/stool.png").openStream()));
+          Dimensions.setText(LanguageSet("Width: 15 in, Length: 15 in, Height: 30 in"));
+          weightInfo.setText(LanguageSet("10 lbs each"));
+          break;
+        case 4:
+          furnitureImage.setImage(
+              new Image(Main.class.getResource("views/images/Furniture/couch.png").openStream()));
+          Dimensions.setText(LanguageSet("Width: 350 in, Length: 40 in, Height: 15 in"));
+          weightInfo.setText(LanguageSet("500 lbs each"));
+          break;
+        default:
+          furnitureImage.setImage(
+              new Image(Main.class.getResource("views/images/Furniture/kys.png").openStream()));
+          Dimensions.setText("");
+          weightInfo.setText("");
+          break;
+      }
     }
   }
 
@@ -233,55 +274,59 @@ public class FurnitureController {
     Dimensions.setWrapText(true);
     weightInfo.setWrapText(true);
 
-    // setLanguage();
+    setLanguage();
   }
 
   public TranslatorAPI translatorAPI = new TranslatorAPI();
 
-  //  @FXML
-  //  String LanguageSet(String text) throws Exception {
-  //    if (language_choice == 0) { // 0 is english
-  //      text = translatorAPI.translateToEn(text);
-  //    } else if (language_choice == 1) { // 1 is spanish
-  //      text = translatorAPI.translateToSp(text);
-  //    } else if (language_choice == 2) { // 2 is Chinese
-  //      text = translatorAPI.translateToZh(text);
-  //    }
-  //    return text;
-  //  }
-  //
-  //  @FXML
-  //  void setLanguage() throws Exception {
-  //    if (language_choice == 0 && notEnglish == false) { // 0 is english
-  //    } else {
-  //      Box1.setText(LanguageSet(Box1.getText()));
-  //      Box2.setText(LanguageSet(Box2.getText()));
-  //      Box3.setText(LanguageSet(Box3.getText()));
-  //      Box4.setText(LanguageSet(Box4.getText()));
-  //      Box5.setText(LanguageSet(Box5.getText()));
-  //      nameBox.setPromptText(LanguageSet(nameBox.getPromptText()));
-  //      roomMenu.setPromptText(LanguageSet(roomMenu.getPromptText()));
-  //      furnitureMenu.setText(LanguageSet(furnitureMenu.getText()));
-  //      amountMenu.setText(LanguageSet(amountMenu.getText()));
-  //      specialRequest.setPromptText(LanguageSet(specialRequest.getPromptText()));
-  //      startTime.setPromptText(LanguageSet(startTime.getPromptText()));
-  //      employeeName.setPromptText(LanguageSet(employeeName.getPromptText()));
-  //      Furn_dimensions.setText(LanguageSet(Furn_dimensions.getText()));
-  //      Furn_weight.setText(LanguageSet(Furn_weight.getText()));
-  //      Submit.setText(LanguageSet(Submit.getText()));
-  //      Clear.setText(LanguageSet(Clear.getText()));
-  //      Cancel.setText(LanguageSet(Cancel.getText()));
-  //      //      ingredients.setText(LanguageSet(ingredients.getText()));
-  //      //      allergyInfo.setText(LanguageSet(allergyInfo.getText()));
-  //
-  //      furniturechoice1.setText(LanguageSet(furniturechoice1.getText()));
-  //      furniturechoice2.setText(LanguageSet(furniturechoice2.getText()));
-  //      furniturechoice3.setText(LanguageSet(furniturechoice3.getText()));
-  //      furniturechoice4.setText(LanguageSet(furniturechoice4.getText()));
-  //      Title.setText(LanguageSet(Title.getText()));
-  //      notEnglish = true;
-  //    }
-  //  }
+  @FXML
+  String LanguageSet(String text) throws Exception {
+    if (language_choice == 0) { // 0 is english
+      text = translatorAPI.translateToEn(text);
+    } else if (language_choice == 1) { // 1 is spanish
+      text = translatorAPI.translateToSp(text);
+    } else if (language_choice == 2) { // 2 is Chinese
+      text = translatorAPI.translateToZh(text);
+    }
+    return text;
+  }
+
+  public List<String> holder = new ArrayList<String>();
+
+  @FXML
+  void setLanguage() throws Exception {
+    if (language_choice == 0) {
+      holder = CApp.Furniture_English_list;
+    } else if (language_choice == 1) {
+      // holder = CApp.Home_Spanish_list;
+    } else if (language_choice == 2) {
+      holder = CApp.Furniture_Chinese_list;
+    }
+
+    Title.setText(holder.get(0));
+    Box1.setText(holder.get(1));
+    Box2.setText(holder.get(2));
+    Box3.setText(holder.get(3));
+    Box4.setText(holder.get(4));
+    Box5.setText(holder.get(5));
+    nameBox.setPromptText(holder.get(6));
+    roomMenu.setPromptText(holder.get(7));
+    serviceMenu.setText(holder.get(8));
+    amountMenu.setText(holder.get(9));
+    specialRequest.setPromptText(holder.get(10));
+    startTime.setPromptText(holder.get(11));
+    employeeName.setPromptText(holder.get(12));
+    Furn_dimensions.setText(holder.get(13));
+    Furn_weight.setText(holder.get(14));
+    Submit.setText(holder.get(15));
+    Clear.setText(holder.get(16));
+    Cancel.setText(holder.get(17));
+
+    servicechoice1.setText(LanguageSet(servicechoice1.getText()));
+    servicechoice2.setText(LanguageSet(servicechoice2.getText()));
+    servicechoice3.setText(LanguageSet(servicechoice3.getText()));
+    servicechoice4.setText(LanguageSet(servicechoice4.getText()));
+  }
 
   @FXML private Text Title;
   @FXML private MFXButton Submit;

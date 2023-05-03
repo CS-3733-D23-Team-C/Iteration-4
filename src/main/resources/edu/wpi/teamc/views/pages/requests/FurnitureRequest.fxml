@@ -68,12 +68,12 @@
                                     <Insets bottom="10.0" left="10.0" top="10.0" />
                                  </padding>
                               </TextField>
-                              <MenuButton fx:id="furnitureMenu" layoutX="23.0" layoutY="50.0" prefHeight="40.0" prefWidth="483.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" text="Select Furniture Type:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
+                              <MenuButton fx:id="serviceMenu" layoutX="23.0" layoutY="50.0" prefHeight="40.0" prefWidth="483.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12;" text="Select Furniture Type:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
                                  <items>
-                                    <MenuItem fx:id="furniturechoice1" mnemonicParsing="false" onAction="#getFurnitureChoice1" text="Chair" />
-                                    <MenuItem fx:id="furniturechoice2" mnemonicParsing="false" onAction="#getFurnitureChoice2" text="Desk" />
-                                    <MenuItem fx:id="furniturechoice3" mnemonicParsing="false" onAction="#getFurnitureChoice3" text="Stool" />
-                                    <MenuItem fx:id="furniturechoice4" mnemonicParsing="false" onAction="#getFurnitureChoice4" text="Couch" />
+                                    <MenuItem fx:id="servicechoice1" mnemonicParsing="false" onAction="#getFurnitureChoice1" text="Chair" />
+                                    <MenuItem fx:id="servicechoice2" mnemonicParsing="false" onAction="#getFurnitureChoice2" text="Desk" />
+                                    <MenuItem fx:id="servicechoice3" mnemonicParsing="false" onAction="#getFurnitureChoice3" text="Stool" />
+                                    <MenuItem fx:id="servicechoice4" mnemonicParsing="false" onAction="#getFurnitureChoice4" text="Couch" />
                                  </items>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />

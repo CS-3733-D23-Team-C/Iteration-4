@@ -191,7 +191,7 @@ public class FurnitureController {
           furnitureImage.setImage(
               new Image(
                   Main.class.getResource("views/images/Furniture/doradesk.png").openStream()));
-          Dimensions.setText(LanguageSet("Width: Backpack, Length: Boots, Height: Dora"));
+          Dimensions.setText(LanguageSet("Width: 35 in, Length: 40 in, Height: 25 in"));
           weightInfo.setText(LanguageSet("5 Swipers each"));
           break;
         case 3:

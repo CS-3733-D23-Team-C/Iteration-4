@@ -2,13 +2,7 @@ package edu.wpi.teamc.controllers.pages.settings;
 
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
-
-import edu.wpi.teamc.dao.users.EmployeeUser;
-import edu.wpi.teamc.dao.users.PERMISSIONS;
-import edu.wpi.teamc.dao.users.login.Login;
-
 import edu.wpi.teamc.dao.users.PatientUser;
-
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -16,8 +10,6 @@ import java.util.List;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -57,7 +49,6 @@ public class PatientTableController {
   @FXML Button updateButton;
   @FXML Button deleteButton;
   @FXML Button addButton;
-
 
   ObservableList<PatientUser> rows = FXCollections.observableArrayList();
   HospitalSystem hospitalSystem = new HospitalSystem();
@@ -122,7 +113,7 @@ public class PatientTableController {
         .getStylesheets()
         .add(Main.class.getResource("views/pages/requests/RequestHistory.css").toString());
   }
-  
+
   private void loadPatients() {
     List<PatientUser> list = (List<PatientUser>) HospitalSystem.fetchAllObjects(new PatientUser());
     patientTable.getItems().removeAll();

@@ -1281,7 +1281,7 @@ public class MenuController {
     //              }
     //            });
 
-    thread.start();
+    // thread.start();
 
     Thread thread1 =
         new Thread(

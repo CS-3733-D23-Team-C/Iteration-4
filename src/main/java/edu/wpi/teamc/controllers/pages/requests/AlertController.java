@@ -394,11 +394,11 @@ public class AlertController {
   }
 
   /** Method run when controller is initialized */
-//  @FXML
-//  public void initialize() throws Exception {
-//    setMinuteTextField();
-//    setLanguage();
-//  }
+  //  @FXML
+  //  public void initialize() throws Exception {
+  //    setMinuteTextField();
+  //    setLanguage();
+  //  }
 
   public List<String> holder = new ArrayList<String>();
 
@@ -437,6 +437,9 @@ public class AlertController {
     severityLow.setText(holder.get(22));
     severityMed.setText(holder.get(23));
     severityHigh.setText(holder.get(24));
+    Box3.setText(holder.get(25));
+    edit.setText(holder.get(26));
+    delete.setText(holder.get(27));
   }
 
   @FXML private Text Title;
@@ -445,6 +448,10 @@ public class AlertController {
   @FXML private MFXButton Submit;
   @FXML private MFXButton Clear;
   @FXML private MFXButton Cancel;
+
+  @FXML private TextField Box3;
+  @FXML private MFXButton edit;
+  @FXML private MFXButton delete;
 
   // MINUTE TEXTFIELD RESTRICTION//
   @FXML

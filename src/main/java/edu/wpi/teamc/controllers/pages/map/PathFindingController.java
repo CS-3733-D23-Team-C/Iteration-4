@@ -687,7 +687,7 @@ public class PathFindingController {
       if (!s.startsWith("D")) {
         String[] split = s.split("~");
 
-        if (split[1].startsWith("Go s") || split[1].startsWith("⚐") || split[1].startsWith("⚑")) {
+        if (split[1].startsWith("Go s") || split[1].startsWith("?") || split[1].startsWith("?")) {
           fullPath += split[1] + ": To ";
         } else {
           fullPath += split[1] + ": At ";

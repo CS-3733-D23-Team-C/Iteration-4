@@ -20,8 +20,8 @@
 
 <AnchorPane fx:id="basePane" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.teamc.controllers.components.MenuController">
    <children>
-      <AnchorPane fx:id="aboutClosePane" layoutX="70.0" prefHeight="745.0" prefWidth="740.0" style="-fx-background-color: transparent;" />
-      <AnchorPane fx:id="aboutPopOut3" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutClosePane" cache="true" layoutX="70.0" prefHeight="745.0" prefWidth="740.0" style="-fx-background-color: transparent;" />
+      <AnchorPane fx:id="aboutPopOut3" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutPopOut1" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -296,7 +296,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="homePopOut1" layoutX="-110.0" layoutY="11.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0">
+      <AnchorPane fx:id="homePopOut1" cache="true" layoutX="-110.0" layoutY="11.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0">
          <children>
             <Pane fx:id="homePopOut" prefHeight="163.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -324,7 +324,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutPopOut2" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutPopOut2" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutPopOut" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -485,8 +485,8 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutPopOut4" layoutX="284.0" layoutY="1.0" prefHeight="550.0" prefWidth="109.0" style="-fx-background-color: transparant;" />
-      <AnchorPane fx:id="aboutRandyPopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutPopOut4" cache="true" layoutX="284.0" layoutY="1.0" prefHeight="550.0" prefWidth="109.0" style="-fx-background-color: transparant;" />
+      <AnchorPane fx:id="aboutRandyPopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -555,7 +555,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutEddiePopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutEddiePopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy1" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -624,7 +624,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutNickPopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutNickPopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy11" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -688,7 +688,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutAaronPopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutAaronPopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy111" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -752,7 +752,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutSebastianPopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutSebastianPopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy2" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -816,7 +816,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutBrandonPopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutBrandonPopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy21" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -885,7 +885,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutTayaPopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutTayaPopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy211" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -949,7 +949,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutChasePopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutChasePopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy2111" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1013,7 +1013,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutChaoPopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutChaoPopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy21111" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1077,7 +1077,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutJoeyPopOut" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="aboutJoeyPopOut" cache="true" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy211111" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1146,7 +1146,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="creditsPopOut1" layoutX="-230.0" layoutY="10.0">
+      <AnchorPane fx:id="creditsPopOut1" cache="true" layoutX="-230.0" layoutY="10.0">
 
          <children>
             <Pane fx:id="creditsPopOut" prefHeight="220.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
@@ -1215,7 +1215,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="logoutPopOut1" layoutX="-110.0" layoutY="645.0" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="logoutPopOut1" cache="true" layoutX="-110.0" layoutY="645.0" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Pane fx:id="logoutPopOut" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1240,7 +1240,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="exitPopOut1" layoutX="-110.0" layoutY="707.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="exitPopOut1" cache="true" layoutX="-110.0" layoutY="707.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Pane fx:id="exitPopOut" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1265,7 +1265,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="helpPopOut1" layoutX="-110.0" layoutY="340.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="340.0">
+      <AnchorPane fx:id="helpPopOut1" cache="true" layoutX="-110.0" layoutY="340.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="340.0">
          <children>
             <Pane fx:id="helpPopOut" prefHeight="50.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1290,7 +1290,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="settingsPopOut1" layoutX="-110.0" layoutY="276.0" prefHeight="175.0" prefWidth="180.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="276.0">
+      <AnchorPane fx:id="settingsPopOut1" cache="true" layoutX="-110.0" layoutY="276.0" prefHeight="175.0" prefWidth="180.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="276.0">
          <children>
             <Pane fx:id="settingsPopOut" prefHeight="215.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1325,7 +1325,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="historyPopOut1" layoutX="-110.0" layoutY="215.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="215.0">
+      <AnchorPane fx:id="historyPopOut1" cache="true" layoutX="-110.0" layoutY="215.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="215.0">
          <children>
             <Pane fx:id="historyPopOut" prefHeight="120.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1352,7 +1352,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="navigationPopOut1" layoutX="-110.0" layoutY="155.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="155.0">
+      <AnchorPane fx:id="navigationPopOut1" cache="true" layoutX="-110.0" layoutY="155.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="155.0">
          <children>
             <Pane fx:id="navigationPopOut" prefHeight="220.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css">
                <children>
@@ -1382,7 +1382,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="warningPopOut1" layoutX="-180.0" layoutY="585.0" prefHeight="179.0" prefWidth="250.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="-180.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="warningPopOut1" cache="true" layoutX="-180.0" layoutY="585.0" prefHeight="179.0" prefWidth="250.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="-180.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Pane fx:id="warningPopOut" prefHeight="163.0" prefWidth="250.0" styleClass="menuSidebar" stylesheets="@Menu.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -1419,7 +1419,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="serviceRequestPopOut1" layoutX="-110.0" layoutY="98.0" prefHeight="280.0" prefWidth="180.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
+      <AnchorPane fx:id="serviceRequestPopOut1" cache="true" layoutX="-110.0" layoutY="98.0" prefHeight="280.0" prefWidth="180.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">
          <children>
             <Pane fx:id="serviceRequestPopOut" prefHeight="287.0" prefWidth="180.0" styleClass="menuSidebar" stylesheets="@Menu.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -1451,7 +1451,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <Pane fx:id="settingsPane" layoutX="70.0" layoutY="-768.0" prefHeight="768.0" prefWidth="1297.0" style="-fx-background-color: #02143B;">
+      <Pane fx:id="settingsPane" cache="true" layoutX="70.0" layoutY="-768.0" prefHeight="768.0" prefWidth="1297.0" style="-fx-background-color: #02143B;">
          <children>
             <BorderPane prefHeight="768.0" prefWidth="1297.0">
                <top>
@@ -1479,12 +1479,12 @@
       </Pane>
       <AnchorPane fx:id="menuPane" prefHeight="768.0" style="-fx-background-color: #02143B;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane layoutX="14.5" layoutY="75.5">
+            <AnchorPane cache="true" layoutX="14.5" layoutY="75.5">
                <children>
                   <Line fx:id="menuLine1" endX="40.0" stroke="WHITE" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="14.5" layoutY="630.5" AnchorPane.bottomAnchor="137.0" AnchorPane.leftAnchor="14.5" AnchorPane.rightAnchor="16.0">
+            <AnchorPane cache="true" layoutX="14.5" layoutY="630.5" AnchorPane.bottomAnchor="137.0" AnchorPane.leftAnchor="14.5" AnchorPane.rightAnchor="16.0">
                <children>
                   <Line fx:id="menuLine2" endX="40.0" stroke="WHITE" />
                </children>
@@ -1717,7 +1717,7 @@
                   </Pane>
                </children>
             </AnchorPane>
-            <Label fx:id="menuClock" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="508.0" mouseTransparent="true" prefHeight="49.0" prefWidth="46.0" text="Label" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="211.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0">
+            <Label fx:id="menuClock" alignment="CENTER" cache="true" contentDisplay="CENTER" layoutX="14.0" layoutY="508.0" mouseTransparent="true" prefHeight="49.0" prefWidth="46.0" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="211.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0">
                <font>
                   <Font size="17.0" />
                </font>

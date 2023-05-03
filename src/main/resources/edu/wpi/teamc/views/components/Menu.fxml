@@ -1398,17 +1398,17 @@
                               <Insets />
                            </VBox.margin>
                         </Line>
-                        <TextField fx:id="alert1" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-font-family: arial; -fx-text-fill: white;">
+                        <TextField fx:id="alert1" editable="false" maxHeight="26.0" maxWidth="210.0" mouseTransparent="true" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-font-family: arial; -fx-text-fill: white;">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="alert2" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-text-fill: white; -fx-font-family: Arial;">
+                        <TextField fx:id="alert2" editable="false" maxHeight="26.0" maxWidth="210.0" mouseTransparent="true" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-text-fill: white; -fx-font-family: Arial;">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="alert3" editable="false" maxHeight="26.0" maxWidth="210.0" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-text-fill: white; -fx-font-family: Arial;">
+                        <TextField fx:id="alert3" editable="false" maxHeight="26.0" maxWidth="210.0" mouseTransparent="true" style="-fx-border-color: #02143B; -fx-background-color: #02143B; -fx-text-fill: white; -fx-font-family: Arial;">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -1417,6 +1417,7 @@
                   </VBox>
                </children>
             </Pane>
+            <AnchorPane disable="true" mouseTransparent="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="serviceRequestPopOut1" cache="true" layoutX="-110.0" layoutY="98.0" prefHeight="280.0" prefWidth="180.0" AnchorPane.leftAnchor="-110.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="98.0">

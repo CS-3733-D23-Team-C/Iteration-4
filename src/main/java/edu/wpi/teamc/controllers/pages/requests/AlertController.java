@@ -179,6 +179,12 @@ public class AlertController {
                       Column5.setText("Start date");
                       Column6.setText("End date");
                     });
+                historyTable
+                    .getStylesheets()
+                    .add(
+                        Main.class
+                            .getResource("views/pages/requests/RequestHistory.css")
+                            .toString());
               }
             });
     thread.start();

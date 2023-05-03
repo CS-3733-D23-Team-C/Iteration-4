@@ -700,13 +700,14 @@ public class PathFindingController {
     int lay_y = 40;
     vbox.setLayoutX(lay_x);
     vbox.setLayoutY(lay_y);
-
+    MFXButton textButton = new MFXButton("Get Directions through Text");
+    textButton.setLayoutX(lay_x);
+    textButton.setLayoutX(lay_y);
     vbox.getChildren().add(textField);
-
     // Set and show screen
 
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().addAll(vbox);
+    aPane.getChildren().addAll(vbox, textButton);
     borderPane.getChildren().add(aPane);
     // Button phoneB = new Button("Send Directions to My Phone Number");
     // aPane.getChildren().add(phoneB);

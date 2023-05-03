@@ -2,7 +2,6 @@ package edu.wpi.teamc.dao.users;
 
 import io.jsonwebtoken.lang.Objects;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 
 public class PatientUser extends AbsUser {
 
@@ -50,7 +49,7 @@ public class PatientUser extends AbsUser {
   public PatientUser(
       int id, String name, String in, String out, String phone, String room, String activeText) {
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    // SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
     setName(name);
     setId(id);
@@ -62,9 +61,9 @@ public class PatientUser extends AbsUser {
   }
 
   public boolean booleanValOf(String check) {
-    if (check.equals(true)) {
+    if (check.equals("true")) {
       return true;
-    } else if (check.equals(false)) {
+    } else if (check.equals("false")) {
       return false;
     } else {
       return false;

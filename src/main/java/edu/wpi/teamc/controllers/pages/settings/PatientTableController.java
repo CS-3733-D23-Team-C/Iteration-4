@@ -35,7 +35,7 @@ public class PatientTableController {
   @FXML TableColumn<PatientUser, String> checkout;
   @FXML TableColumn<PatientUser, String> phone;
   @FXML TableColumn<PatientUser, String> room;
-  @FXML TableColumn<PatientUser, String> activeText;
+  @FXML TableColumn<PatientUser, Boolean> activeText;
   @FXML TextField idField;
   @FXML TextField nameField;
   @FXML TextField checkInField;
@@ -56,11 +56,11 @@ public class PatientTableController {
   public void initialize() {
     id.setCellValueFactory(new PropertyValueFactory<PatientUser, Integer>("id"));
     name.setCellValueFactory(new PropertyValueFactory<PatientUser, String>("name"));
-    checkin.setCellValueFactory(new PropertyValueFactory<PatientUser, String>("checkin"));
-    checkout.setCellValueFactory(new PropertyValueFactory<PatientUser, String>("checkout"));
+    checkin.setCellValueFactory(new PropertyValueFactory<PatientUser, String>("in"));
+    checkout.setCellValueFactory(new PropertyValueFactory<PatientUser, String>("out"));
     phone.setCellValueFactory(new PropertyValueFactory<PatientUser, String>("phone"));
     room.setCellValueFactory(new PropertyValueFactory<PatientUser, String>("room"));
-    activeText.setCellValueFactory(new PropertyValueFactory<PatientUser, String>("activetext"));
+    activeText.setCellValueFactory(new PropertyValueFactory<PatientUser, Boolean>("activeText"));
 
     id.setText("ID");
     name.setText("Name");

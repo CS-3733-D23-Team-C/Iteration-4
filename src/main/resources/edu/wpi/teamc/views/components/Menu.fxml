@@ -484,7 +484,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="aboutPopOut4" layoutX="284.0" layoutY="1.0" prefHeight="550.0" prefWidth="109.0" style="-fx-background-color: transparant;" />
+      <AnchorPane fx:id="aboutPopOut4" layoutX="284.0" layoutY="1.0" prefHeight="550.0" prefWidth="109.0" style="-fx-background-color: transparent;" />
       <AnchorPane fx:id="aboutRandyPopOut" layoutX="-230.0" layoutY="10.0">
          <children>
             <Pane fx:id="aboutRandy" prefHeight="700.0" prefWidth="300.0" styleClass="menuSidebar" stylesheets="@Menu.css">
@@ -1713,7 +1713,7 @@
             <Label fx:id="menuClock" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="508.0" mouseTransparent="true" prefHeight="49.0" prefWidth="46.0" text="Label" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="211.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0">
                <font>
                   <Font size="17.0" />
-               </font>
+               </font
             </Label>
          </children>
       </AnchorPane>

@@ -1,3 +1,6 @@
+Original repo and production server informaiton: https://github.com/bmlui/cs3733-hospital-nextjs
+
+
 - **Framework**: [Next.js](https://nextjs.org/)
 - **Database**: [AWS PostgreSQL](https://aws.amazon.com/rds/postgresql/) with [Prisma](https://www.prisma.io)
 - **Authentication**: [NextAuth.js](https://next-auth.js.org)

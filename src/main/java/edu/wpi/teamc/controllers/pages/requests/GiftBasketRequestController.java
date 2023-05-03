@@ -19,11 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -204,19 +200,28 @@ public class GiftBasketRequestController {
   /** Method run when controller is initialized */
   @FXML
   public void initialize() throws Exception {
-    LocationNameDao locationNameDao = new LocationNameDao();
-    List<LocationName> locationNames = (List<LocationName>) locationNameDao.fetchAllObjects();
-    // remove halls, elevators, stairs and bathrooms from list
-    locationNames.removeIf(locationName -> locationName.getNodeType().equals("HALL"));
-    locationNames.removeIf(locationName -> locationName.getNodeType().equals("ELEV"));
-    locationNames.removeIf(locationName -> locationName.getNodeType().equals("BATH"));
-    locationNames.removeIf(locationName -> locationName.getNodeType().equals("STAI"));
-    locationNames.removeIf(locationName -> locationName.getNodeType().equals("REST"));
-    roomMenu.setItems(FXCollections.observableArrayList(locationNames));
+    Thread thread =
+        new Thread(
+            new Runnable() {
+              @Override
+              public void run() {
+                LocationNameDao locationNameDao = new LocationNameDao();
+                List<LocationName> locationNames =
+                    (List<LocationName>) locationNameDao.fetchAllObjects();
+                // remove halls, elevators, stairs and bathrooms from list
+                locationNames.removeIf(locationName -> locationName.getNodeType().equals("HALL"));
+                locationNames.removeIf(locationName -> locationName.getNodeType().equals("ELEV"));
+                locationNames.removeIf(locationName -> locationName.getNodeType().equals("BATH"));
+                locationNames.removeIf(locationName -> locationName.getNodeType().equals("STAI"));
+                locationNames.removeIf(locationName -> locationName.getNodeType().equals("REST"));
+                roomMenu.setItems(FXCollections.observableArrayList(locationNames));
 
-    List<EmployeeUser> employeeUsers =
-        (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
-    employeeName.setItems(FXCollections.observableArrayList(employeeUsers));
+                List<EmployeeUser> employeeUsers =
+                    (List<EmployeeUser>) HospitalSystem.fetchAllObjects(new EmployeeUser());
+                employeeName.setItems(FXCollections.observableArrayList(employeeUsers));
+              }
+            });
+    thread.start();
 
     if (!CApp.getAdminLoginCheck()) {
       assignEmployeeAnchor.setMouseTransparent(true);

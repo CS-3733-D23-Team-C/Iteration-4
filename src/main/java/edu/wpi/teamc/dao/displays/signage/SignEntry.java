@@ -49,7 +49,7 @@ public class SignEntry implements IOrm {
         for (int i = 0; i < hardwareAddress.length; i++) {
           hexadecimalFormat[i] = String.format("%02X", hardwareAddress[i]);
         }
-        mac = (String.join(":", hexadecimalFormat));
+        mac = String.join(":", hexadecimalFormat);
       }
     }
     return mac;

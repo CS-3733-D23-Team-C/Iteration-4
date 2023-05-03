@@ -47,6 +47,8 @@ public class OfficeSupplyController {
 
   @FXML DatePicker startTime;
 
+  int officeSelection = 0;
+
   public void getGoHome() {
     Navigation.navigate(Screen.ADMIN_HOME);
   }
@@ -54,6 +56,7 @@ public class OfficeSupplyController {
   @FXML
   void getServicechoice1() throws IOException {
     serviceMenu.setText(servicechoice1.getText());
+    officeSelection = 1;
     image.setImage(
         new Image(Main.class.getResource("views/images/Office_Supply/notebook.png").openStream()));
   }
@@ -61,6 +64,7 @@ public class OfficeSupplyController {
   @FXML
   void getServicechoice2() throws IOException {
     serviceMenu.setText(servicechoice2.getText());
+    officeSelection = 2;
     image.setImage(
         new Image(Main.class.getResource("views/images/Office_Supply/pen.png").openStream()));
   }
@@ -68,6 +72,7 @@ public class OfficeSupplyController {
   @FXML
   void getServicechoice3() throws IOException {
     serviceMenu.setText(servicechoice3.getText());
+    officeSelection = 3;
     image.setImage(
         new Image(Main.class.getResource("views/images/Office_Supply/pencil.png").openStream()));
   }
@@ -75,8 +80,24 @@ public class OfficeSupplyController {
   @FXML
   void getServicechoice4() throws IOException {
     serviceMenu.setText(servicechoice4.getText());
+    officeSelection = 4;
     image.setImage(
         new Image(Main.class.getResource("views/images/Office_Supply/staple.png").openStream()));
+  }
+
+  String MealSelector(int selection) {
+    switch (selection) {
+      case 1:
+        return "Notebook";
+      case 2:
+        return "Pen";
+      case 3:
+        return "Pencil";
+      case 4:
+        return "Staple";
+      default:
+        return "";
+    }
   }
 
   @FXML
@@ -84,7 +105,7 @@ public class OfficeSupplyController {
     String notes = specialRequest.getText();
     String name = nameBox.getText();
     String room = roomMenu.getValue().toString();
-    String menuSelection = serviceMenu.getText();
+    String menuSelection = MealSelector(officeSelection);
     String startTime = this.startTime.getValue().toString();
     OfficeSuppliesRequest req =
         new OfficeSuppliesRequest(new PatientUser(name), room, menuSelection, notes, startTime);

@@ -567,6 +567,41 @@ public class MenuController {
       Admin_menu_movetable.setOpacity(40);
       Admin_menu_movetable.setOnAction(null);
       //      moveButton.setMouseTransparent(true);
+      Admin_menu_editmap.setMouseTransparent(true);
+      Admin_menu_editmap.setTooltip(tooltip);
+      Admin_menu_editmap.setStyle("-fx-background-color: grey");
+      Admin_menu_editmap.setOpacity(40);
+      Admin_menu_editmap.setOnAction(null);
+
+      Admin_menu_employee_table.setMouseTransparent(true);
+      Admin_menu_employee_table.setTooltip(tooltip);
+      Admin_menu_employee_table.setStyle("-fx-background-color: grey");
+      Admin_menu_employee_table.setOpacity(40);
+      Admin_menu_employee_table.setOnAction(null);
+
+      Admin_menu_login_table.setMouseTransparent(true);
+      Admin_menu_login_table.setTooltip(tooltip);
+      Admin_menu_login_table.setStyle("-fx-background-color: grey");
+      Admin_menu_login_table.setOpacity(40);
+      Admin_menu_login_table.setOnAction(null);
+
+      Admin_menu_import_export.setMouseTransparent(true);
+      Admin_menu_import_export.setTooltip(tooltip);
+      Admin_menu_import_export.setStyle("-fx-background-color: grey");
+      Admin_menu_import_export.setOpacity(40);
+      Admin_menu_import_export.setOnAction(null);
+
+      Admin_menu_patient_table.setMouseTransparent(true);
+      Admin_menu_patient_table.setTooltip(tooltip);
+      Admin_menu_patient_table.setStyle("-fx-background-color: grey");
+      Admin_menu_patient_table.setOpacity(40);
+      Admin_menu_patient_table.setOnAction(null);
+
+      Admin_menu_edit_signage.setMouseTransparent(true);
+      Admin_menu_edit_signage.setTooltip(tooltip);
+      Admin_menu_edit_signage.setStyle("-fx-background-color: grey");
+      Admin_menu_edit_signage.setOpacity(40);
+      Admin_menu_edit_signage.setOnAction(null);
     }
 
     // basePane.setVisible(false);

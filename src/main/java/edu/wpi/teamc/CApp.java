@@ -79,7 +79,7 @@ public class CApp extends Application {
         new Thread(
             () -> {
               try {
-                Thread.sleep(480000);
+                Thread.sleep(540000);
                 Platform.runLater(
                     () -> {
                       CApp.logoutPopUp();

@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
 <?import org.controlsfx.control.ToggleSwitch?>
 

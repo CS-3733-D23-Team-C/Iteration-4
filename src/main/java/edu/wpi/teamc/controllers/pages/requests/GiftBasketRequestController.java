@@ -50,31 +50,74 @@ public class GiftBasketRequestController {
   int BasketSelection = 0;
 
   @FXML
-  void getServicechoice1() {
+  void getServicechoice1() throws Exception {
     serviceMenu.setText(servicechoice1.getText());
     BasketSelection = 1;
+    getBasketPic(1);
     // getImage(1);
   }
 
   @FXML
-  void getServicechoice2() {
+  void getServicechoice2() throws Exception {
     serviceMenu.setText(servicechoice2.getText());
     BasketSelection = 2;
+    getBasketPic(2);
     // getImage(2);
   }
 
   @FXML
-  void getServicechoice3() {
+  void getServicechoice3() throws Exception {
     serviceMenu.setText(servicechoice3.getText());
     BasketSelection = 3;
+    getBasketPic(3);
     // getImage(3);
   }
 
   @FXML
-  void getServicechoice4() {
+  void getServicechoice4() throws Exception {
     serviceMenu.setText(servicechoice4.getText());
     BasketSelection = 4;
+    getBasketPic(4);
     // getImage(4);
+  }
+
+  @FXML
+  void getBasketPic(int choice) throws Exception {
+    if (language_choice == 0) {
+      switch (choice) {
+        case 1:
+          image.setImage(
+              new Image(
+                  Main.class
+                      .getResource("views/images/GiftBasket/small-gift-basket.png")
+                      .openStream()));
+          break;
+        case 2:
+          image.setImage(
+              new Image(
+                  Main.class
+                      .getResource("views/images/GiftBasket/medium-gift-basket.png")
+                      .openStream()));
+          break;
+        case 3:
+          image.setImage(
+              new Image(
+                  Main.class
+                      .getResource("views/images/GiftBasket/large-gift-basket.png")
+                      .openStream()));
+          break;
+        case 4:
+          image.setImage(
+              new Image(
+                  Main.class
+                      .getResource("views/images/GiftBasket/extra-large-gift-basket.png")
+                      .openStream()));
+          break;
+        default:
+          image.setImage(new Image("file:src/main/resources/images/meal1.png"));
+          break;
+      }
+    }
   }
 
   @FXML

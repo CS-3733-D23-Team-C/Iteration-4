@@ -33,6 +33,7 @@ dependencies {
     implementation 'com.warrenstrange:googleauth:1.4.0'
     implementation 'org.json:json:20171018'
     implementation 'com.google.zxing:core:3.3.3'
+    implementation 'com.fazecast:jSerialComm:2.9.3'
 
     implementation 'com.deepl.api:deepl-java:1.1.0'
 

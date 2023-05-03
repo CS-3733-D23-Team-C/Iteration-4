@@ -19,6 +19,23 @@ public class PatientUser extends AbsUser {
       Timestamp out,
       String phone,
       String room,
+      String activeText) {
+    setName(name);
+    setId(id);
+    this.in = in;
+    this.out = out;
+    this.phone = phone;
+    this.room = room;
+    this.activeText = booleanValOf(activeText);
+  }
+
+  public PatientUser(
+      int id,
+      String name,
+      Timestamp in,
+      Timestamp out,
+      String phone,
+      String room,
       boolean activeText) {
     setName(name);
     setId(id);
@@ -27,6 +44,30 @@ public class PatientUser extends AbsUser {
     this.phone = phone;
     this.room = room;
     this.activeText = activeText;
+  }
+
+  public PatientUser(
+      int id, String name, String in, String out, String phone, String room, String activeText) {
+
+    // SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+    setName(name);
+    setId(id);
+    this.in = null;
+    this.out = null;
+    this.phone = phone;
+    this.room = room;
+    this.activeText = booleanValOf(activeText);
+  }
+
+  public boolean booleanValOf(String check) {
+    if (check.equals("true")) {
+      return true;
+    } else if (check.equals("false")) {
+      return false;
+    } else {
+      return false;
+    }
   }
 
   public void setIn(Timestamp in) {

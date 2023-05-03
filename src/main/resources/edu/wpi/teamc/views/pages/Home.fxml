@@ -8,6 +8,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -95,16 +96,8 @@
                </cursor>
             </MFXButton>
             <Text fx:id="HOME_motto" fill="WHITE" layoutX="10.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-style: normal; -fx-font-size: 35;" text="Transforming Medicine Through Life-giving Breakthroughs" wrappingWidth="569.2683715820312" AnchorPane.bottomAnchor="164.0" AnchorPane.leftAnchor="52.0" />
-            <Group AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="200.0">
+            <Group AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="200.0">
                <children>
-                  <ImageView fx:id="Spanish_flag1" fitHeight="37.0" fitWidth="70.0" layoutX="82.0" onMouseClicked="#spanish" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/spanish_flag.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
                   <ImageView fx:id="English_flag1" fitHeight="37.0" fitWidth="70.0" onMouseClicked="#english" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/english_flag.png" />
@@ -113,14 +106,19 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
-                  <ImageView fx:id="Spanish_flag11" fitHeight="37.0" fitWidth="70.0" layoutX="160.0" onMouseClicked="#chinese" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="Chinese_flag" fitHeight="37.0" fitWidth="70.0" layoutX="80.0" layoutY="-1.0" onMouseClicked="#chinese" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/spanish_flag.png" />
+                        <Image url="@../images/chinese_flag.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
+                  <TextArea fx:id="Warning_translation" layoutX="150.0" layoutY="-9.0" prefHeight="53.0" prefWidth="260.0" text="The translation is only available for homepage and service request." visible="false" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </TextArea>
                </children>
             </Group>
          </children>

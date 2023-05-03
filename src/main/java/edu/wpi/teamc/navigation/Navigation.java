@@ -1,15 +1,14 @@
 package edu.wpi.teamc.navigation;
 
 import edu.wpi.teamc.CApp;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import lombok.Getter;
 import lombok.NonNull;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Navigation {
   public enum MenuType {

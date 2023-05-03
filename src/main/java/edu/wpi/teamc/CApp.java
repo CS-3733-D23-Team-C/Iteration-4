@@ -9,9 +9,11 @@ import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -46,6 +48,12 @@ public class CApp extends Application {
   public static List<String> Conference_Chinese_list;
   public static List<String> Alert_English_list;
   public static List<String> Alert_Chinese_list;
+  public static List<String> Congrats_English_list;
+  public static List<String> Congrats_Chinese_list;
+
+  public static List<String> Log_Out_English_list;
+    public static List<String> Log_Out_Chinese_list;
+
   @Setter @Getter private static Stage primaryStage;
   @Setter @Getter private static BorderPane rootPane;
 
@@ -243,6 +251,10 @@ public class CApp extends Application {
     Conference_Chinese_list = loadJson(Conference_Chinese);
     Alert_English_list = loadJson(Alert_English);
     Alert_Chinese_list = loadJson(Alert_Chinese);
+    Congrats_English_list = loadJson(Congrats_English);
+    Congrats_Chinese_list = loadJson(Congrats_Chinese);
+    Log_Out_English_list = loadJson(Log_Out_English);
+    Log_Out_Chinese_list = loadJson(Log_Out_Chinese);
 
     /* primaryStage is generally only used if one of your components require the stage to display */
     CApp.primaryStage = primaryStage;
@@ -259,6 +271,18 @@ public class CApp extends Application {
     Navigation.navigate(Screen.HOME);
 
     CApp.timeOut();
+  }
+
+  public List<String> holder = new ArrayList<String>();
+  @FXML
+  void setLanguage() throws Exception {
+    if (language_choice == 0) {
+      holder = CApp.Log_Out_English_list;
+    } else if (language_choice == 1) {
+      // holder = CApp.Home_Spanish_list;
+    } else if (language_choice == 2) {
+      holder = CApp.Log_Out_Chinese_list;
+    }
   }
 
   @Override
@@ -303,4 +327,12 @@ public class CApp extends Application {
       "src/main/java/edu/wpi/teamc/languageHelpers/Conference/ConferenceChinese.json";
   String Alert_English = "src/main/java/edu/wpi/teamc/languageHelpers/Alert/AlertEnglish.json";
   String Alert_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/Alert/AlertChinese.json";
+  String Congrats_English =
+      "src/main/java/edu/wpi/teamc/languageHelpers/Congrats/CongratsEnglish.json";
+  String Congrats_Chinese =
+      "src/main/java/edu/wpi/teamc/languageHelpers/Congrats/CongratsChinese.json";
+  String Log_Out_English =
+      "src/main/java/edu/wpi/teamc/languageHelpers/LogOut/LogOutEnglish.json";
+    String Log_Out_Chinese =
+        "src/main/java/edu/wpi/teamc/languageHelpers/LogOut/LogOutChinese.json";
 }

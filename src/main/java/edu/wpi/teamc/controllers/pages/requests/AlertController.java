@@ -108,9 +108,9 @@ public class AlertController {
     }
   }
 
-  String alertSelecter(int selection){
+  String alertSelecter(int selection) {
     String alertType = "";
-    switch(selection){
+    switch (selection) {
       case 1:
         alertType = "Construction";
         break;

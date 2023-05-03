@@ -69,6 +69,7 @@ public class HomeController {
   @FXML private MFXTextField HOME_code;
   @FXML private AnchorPane aPane;
   @FXML ToggleSwitch dbToggleHome;
+  @FXML private TextArea Warning_translation;
 
   boolean wrongNextLogin = true;
   Login currentLogin;
@@ -266,8 +267,10 @@ public class HomeController {
 
   @FXML
   void english() throws Exception {
+    if (language_choice != 0) {
+      Warning_translation.setVisible(false);
+    }
     language_choice = 0;
-    //    Warning_translation.setVisible(false);
     //    Warning_translation.setPrefWidth(260);
     setLanguage();
   }
@@ -283,7 +286,7 @@ public class HomeController {
   @FXML
   void chinese() throws Exception {
     language_choice = 2;
-    //    Warning_translation.setVisible(true);
+    Warning_translation.setVisible(true);
     //    Warning_translation.setPrefWidth(260);
     setLanguage();
   }
@@ -328,10 +331,8 @@ public class HomeController {
     HOME_guest.setText(holder.get(7));
     HOME_exit.setText(holder.get(8));
     HOME_motto.setText(holder.get(9));
-    // Warning_translation.setText(holder.get(10));
+    Warning_translation.setText(holder.get(10));
   }
-
-  @FXML private static TextArea Warning_translation;
 
   public TranslatorAPI translatorAPI = new TranslatorAPI();
 

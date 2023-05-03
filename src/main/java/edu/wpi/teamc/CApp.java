@@ -1,8 +1,19 @@
 package edu.wpi.teamc;
 
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
+
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import javafx.animation.PauseTransition;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +32,20 @@ import java.io.IOException;
 @Slf4j
 public class CApp extends Application {
 
+  public static List<String> Home_Chinese_list;
+  public static List<String> Home_English_list;
+  public static List<String> Admin_Home_English_list;
+  public static List<String> Admin_Home_Chinese_list;
+  public static List<String> Menu_English_list;
+  public static List<String> Menu_Chinese_list;
+  public static List<String> Meal_English_list;
+  public static List<String> Meal_Chinese_list;
+  public static List<String> Office_Supply_English_list;
+  public static List<String> Office_Supply_Chinese_list;
+  public static List<String> Flower_English_list;
+  public static List<String> Flower_Chinese_list;
+  public static List<String> Furniture_English_list;
+  public static List<String> Furniture_Chinese_list;
   @Setter @Getter private static Stage primaryStage;
   @Setter @Getter private static BorderPane rootPane;
 
@@ -28,6 +53,8 @@ public class CApp extends Application {
   @Getter @Setter public static Boolean wpiDB = true;
   @Getter @Setter public static Screen currScreen = Screen.HOME;
   @Getter @Setter public static String currLogin = "";
+
+  public CApp() throws IOException {}
 
   @Override
   public void init() {
@@ -168,7 +195,11 @@ public class CApp extends Application {
 
     logoutButton.setOnAction(
         (event -> {
+
           thread.interrupt();
+
+          language_choice = 0;
+
           stage.close();
           logoutOpen = false;
           CApp.setAdminLoginCheck(false);
@@ -179,15 +210,43 @@ public class CApp extends Application {
         }));
   }
 
+  //  public void getAllTextForAllPages() {
+  //    HomeController.getAllTexts();
+  //    System.out.println("All texts loaded");
+  //  }
+
+  //    String filePath = "src/main/java/edu/wpi/teamc/languageHelpers/HomeSpanish.json";
+  //    String jsonString = new String(Files.readAllBytes(Paths.get(filePath)),
+  // StandardCharsets.UTF_8);
+  //    JSONArray jsonArray = new JSONArray(jsonString);
+  //    public static List<String> list = new ArrayList<>();
+
   @Override
-  public void start(Stage primaryStage) throws IOException {
+  public void start(Stage primaryStage) throws Exception {
+
+    Home_Chinese_list = loadJson(Home_Chinese);
+    Home_English_list = loadJson(Home_English);
+    Admin_Home_English_list = loadJson(Admin_Home_English);
+    Admin_Home_Chinese_list = loadJson(Admin_Home_Chinese);
+    Menu_English_list = loadJson(Menu_English);
+    Menu_Chinese_list = loadJson(Menu_Chinese);
+    Meal_English_list = loadJson(Meal_English);
+    Meal_Chinese_list = loadJson(Meal_Chinese);
+    Office_Supply_English_list = loadJson(Supply_English);
+    Office_Supply_Chinese_list = loadJson(Supply_Chinese);
+    Flower_English_list = loadJson(Flower_English);
+    Flower_Chinese_list = loadJson(Flower_Chinese);
+    Furniture_English_list = loadJson(Furniture_English);
+    Furniture_Chinese_list = loadJson(Furniture_Chinese);
+
     /* primaryStage is generally only used if one of your components require the stage to display */
     CApp.primaryStage = primaryStage;
-
     final FXMLLoader loader = new FXMLLoader(CApp.class.getResource("views/Root.fxml"));
     final BorderPane root = loader.load();
 
     CApp.rootPane = root;
+    // GET Texts
+    // getAllTextForAllPages();
 
     final Scene scene = new Scene(root);
     primaryStage.setScene(scene);
@@ -201,4 +260,32 @@ public class CApp extends Application {
   public void stop() {
     log.info("Shutting Down");
   }
+
+  public List<String> loadJson(String filePath) throws Exception {
+    File file = new File(filePath);
+    ObjectMapper objectMapper = new ObjectMapper();
+    List<String> myList = objectMapper.readValue(file, new TypeReference<List<String>>() {});
+    return myList;
+  }
+
+  String Home_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/Home/HomeChinese.json";
+  String Home_English = "src/main/java/edu/wpi/teamc/languageHelpers/Home/HomeEnglish.json";
+  String Admin_Home_English =
+      "src/main/java/edu/wpi/teamc/languageHelpers/AdminHome/AdminHomeEnglish.json";
+  String Admin_Home_Chinese =
+      "src/main/java/edu/wpi/teamc/languageHelpers/AdminHome/AdminHomeChinese.json";
+  String Menu_English = "src/main/java/edu/wpi/teamc/languageHelpers/Menu/MenuEnglish.json";
+  String Menu_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/Menu/MenuChinese.json";
+  String Meal_English = "src/main/java/edu/wpi/teamc/languageHelpers/Meal/MealEnglish.json";
+  String Meal_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/Meal/MealChinese.json";
+  String Supply_English =
+      "src/main/java/edu/wpi/teamc/languageHelpers/Stationary/StationaryEnglish.json";
+  String Supply_Chinese =
+      "src/main/java/edu/wpi/teamc/languageHelpers/Stationary/StationaryChinese.json";
+  String Flower_English = "src/main/java/edu/wpi/teamc/languageHelpers/Flower/FlowerEnglish.json";
+  String Flower_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/Flower/FlowerChinese.json";
+  String Furniture_English =
+      "src/main/java/edu/wpi/teamc/languageHelpers/Furniture/FurnitureEnglish.json";
+  String Furniture_Chinese =
+      "src/main/java/edu/wpi/teamc/languageHelpers/Furniture/FurnitureChinese.json";
 }

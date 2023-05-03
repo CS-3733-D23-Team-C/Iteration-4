@@ -466,18 +466,45 @@ public class MenuController {
                     new Runnable() {
                       @Override
                       public void run() {
-                        alert1.setText(
-                            alertList.get(recentAlert1).getType()
-                                + ": "
-                                + alertList.get(recentAlert1).getTitle());
-                        alert2.setText(
-                            alertList.get(recentAlert2).getType()
-                                + ": "
-                                + alertList.get(recentAlert2).getTitle());
-                        alert3.setText(
-                            alertList.get(recentAlert3).getType()
-                                + ": "
-                                + alertList.get(recentAlert3).getTitle());
+                        if (language_choice == 0) {
+                          alert1.setText(
+                              alertList.get(recentAlert1).getType()
+                                  + ": "
+                                  + alertList.get(recentAlert1).getTitle());
+                          alert2.setText(
+                              alertList.get(recentAlert2).getType()
+                                  + ": "
+                                  + alertList.get(recentAlert2).getTitle());
+                          alert3.setText(
+                              alertList.get(recentAlert3).getType()
+                                  + ": "
+                                  + alertList.get(recentAlert3).getTitle());
+                        } else {
+                          try {
+                            alert1.setText(
+                                LanguageSet(alertList.get(recentAlert1).getType())
+                                    + ": "
+                                    + LanguageSet(alertList.get(recentAlert1).getTitle()));
+                          } catch (Exception e) {
+                            throw new RuntimeException(e);
+                          }
+                          try {
+                            alert2.setText(
+                                LanguageSet(alertList.get(recentAlert2).getType())
+                                    + ": "
+                                    + LanguageSet(alertList.get(recentAlert2).getTitle()));
+                          } catch (Exception e) {
+                            throw new RuntimeException(e);
+                          }
+                          try {
+                            alert3.setText(
+                                LanguageSet(alertList.get(recentAlert3).getType())
+                                    + ": "
+                                    + LanguageSet(alertList.get(recentAlert3).getTitle()));
+                          } catch (Exception e) {
+                            throw new RuntimeException(e);
+                          }
+                        }
                       }
                     });
               }

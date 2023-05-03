@@ -118,7 +118,7 @@ public class FlowerController {
     }
   }
 
-  String FlowerSelecter(int slection){
+  String FlowerSelecter(int slection) {
     switch (slection) {
       case 1:
         return "Roses";

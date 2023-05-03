@@ -6,24 +6,29 @@ import edu.wpi.teamc.dao.displays.Alert;
 import edu.wpi.teamc.dao.users.PatientUserDao;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
-import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 
 public class AlertController {
-  @FXML private MFXButton goHome;
-  @FXML private MFXButton submit;
-
-  @FXML private MFXButton clear;
-  @FXML AnchorPane assignEmployeeAnchor;
-
+  @FXML private TableView historyTable;
+  @FXML TableColumn Column1;
+  @FXML TableColumn Column2;
+  @FXML TableColumn Column3;
+  @FXML TableColumn Column4;
+  @FXML TableColumn Column5;
+  @FXML TableColumn Column6;
   @FXML private MenuItem choice1;
   @FXML private MenuItem choice2;
   @FXML private MenuItem choice3;
@@ -104,6 +109,91 @@ public class AlertController {
   }
 
   @FXML
+  public void initialize() {
+    setMinuteTextField();
+    Thread thread =
+        new Thread(
+            new Runnable() {
+              @Override
+              public void run() {
+                ObservableList<Alert> rows = FXCollections.observableArrayList();
+                Column1.setCellValueFactory(new PropertyValueFactory<Alert, Integer>("id"));
+                Column2.setCellValueFactory(new PropertyValueFactory<Alert, String>("title"));
+                Column3.setCellValueFactory(new PropertyValueFactory<Alert, String>("description"));
+                Column4.setCellValueFactory(new PropertyValueFactory<Alert, String>("type"));
+                Column5.setCellValueFactory(
+                    new PropertyValueFactory<Alert, Timestamp>("startdate"));
+                Column6.setCellValueFactory(new PropertyValueFactory<Alert, Time>("enddate"));
+                List<Alert> list = (List<Alert>) HospitalSystem.fetchAllObjects(new Alert());
+                for (Alert a : list) {
+                  rows.add(a);
+                }
+                historyTable.getItems().removeAll();
+                historyTable.setItems(rows);
+                Platform.runLater(
+                    () -> {
+                      Column1.setText("ID");
+                      Column2.setText("Title");
+                      Column3.setText("Description");
+                      Column4.setText("Type");
+                      Column5.setText("Start date");
+                      Column6.setText("End date");
+                    });
+              }
+            });
+    thread.start();
+  }
+
+  @FXML
+  private void getDeleteSelected() {
+    Alert alert = (Alert) historyTable.getSelectionModel().getSelectedItem();
+    if (alert == null) {
+      javafx.scene.control.Alert alert2 =
+          new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+      alert2.setTitle("Error");
+      alert2.setHeaderText("No alert selected");
+      alert2.setContentText("Please select an alert to delete.");
+      alert2.showAndWait();
+      return;
+    }
+    javafx.scene.control.Alert alert1 =
+        new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION);
+    alert1.setTitle("Delete Alert");
+    alert1.setHeaderText("Are you sure you want to delete this alert?");
+    alert1.setContentText("Alert " + alert.getId() + " will be deleted permanently.");
+    alert1.showAndWait();
+    if (alert1.getResult().getText().equals("OK")) {
+      Thread thread =
+          new Thread(
+              new Runnable() {
+                @Override
+                public void run() {
+                  HospitalSystem.deleteRow(alert);
+                  initialize();
+                }
+              });
+      thread.start();
+    }
+  }
+
+  @FXML
+  private void getEditSelected() {
+    Alert alert = (Alert) historyTable.getSelectionModel().getSelectedItem();
+    if (alert == null) {
+      javafx.scene.control.Alert alert2 =
+              new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+      alert2.setTitle("Error");
+      alert2.setHeaderText("No alert selected");
+      alert2.setContentText("Please select an alert to delete.");
+      alert2.showAndWait();
+      return;
+    }
+
+
+
+  }
+
+  @FXML
   void setChoice1(ActionEvent event) {
     alertType.setText(choice1.getText());
   }
@@ -154,10 +244,6 @@ public class AlertController {
   }
 
   /** Method run when controller is initialized */
-  @FXML
-  public void initialize() {
-    setMinuteTextField();
-  }
 
   // MINUTE TEXTFIELD RESTRICTION//
   @FXML

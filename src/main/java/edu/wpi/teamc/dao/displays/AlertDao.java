@@ -3,6 +3,8 @@ package edu.wpi.teamc.dao.displays;
 import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.dao.DBConnection;
 import edu.wpi.teamc.dao.IDao;
+import edu.wpi.teamc.dao.displays.Alert;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

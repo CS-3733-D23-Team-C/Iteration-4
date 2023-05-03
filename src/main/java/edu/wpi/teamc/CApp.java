@@ -1,16 +1,10 @@
 package edu.wpi.teamc;
 
-import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -24,6 +18,13 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 @Slf4j
 public class CApp extends Application {
@@ -222,7 +223,7 @@ public class CApp extends Application {
   //    System.out.println("All texts loaded");
   //  }
 
-  //    String filePath = "src/main/java/edu/wpi/teamc/languageHelpers/HomeSpanish.json";
+  //    String filePath = "src/main/resources/edu/wpi/teamc/languageHelpers/HomeSpanish.json";
   //    String jsonString = new String(Files.readAllBytes(Paths.get(filePath)),
   // StandardCharsets.UTF_8);
   //    JSONArray jsonArray = new JSONArray(jsonString);
@@ -359,40 +360,44 @@ public class CApp extends Application {
     return myList;
   }
 
-  String Home_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/Home/HomeChinese.json";
-  String Home_English = "src/main/java/edu/wpi/teamc/languageHelpers/Home/HomeEnglish.json";
+  String Home_Chinese = "src/main/resources/edu/wpi/teamc/languageHelpers/Home/HomeChinese.json";
+  String Home_English = "src/main/resources/edu/wpi/teamc/languageHelpers/Home/HomeEnglish.json";
   String Admin_Home_English =
-      "src/main/java/edu/wpi/teamc/languageHelpers/AdminHome/AdminHomeEnglish.json";
+      "src/main/resources/edu/wpi/teamc/languageHelpers/AdminHome/AdminHomeEnglish.json";
   String Admin_Home_Chinese =
-      "src/main/java/edu/wpi/teamc/languageHelpers/AdminHome/AdminHomeChinese.json";
-  String Menu_English = "src/main/java/edu/wpi/teamc/languageHelpers/Menu/MenuEnglish.json";
-  String Menu_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/Menu/MenuChinese.json";
-  String Meal_English = "src/main/java/edu/wpi/teamc/languageHelpers/Meal/MealEnglish.json";
-  String Meal_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/Meal/MealChinese.json";
+      "src/main/resources/edu/wpi/teamc/languageHelpers/AdminHome/AdminHomeChinese.json";
+  String Menu_English = "src/main/resources/edu/wpi/teamc/languageHelpers/Menu/MenuEnglish.json";
+  String Menu_Chinese = "src/main/resources/edu/wpi/teamc/languageHelpers/Menu/MenuChinese.json";
+  String Meal_English = "src/main/resources/edu/wpi/teamc/languageHelpers/Meal/MealEnglish.json";
+  String Meal_Chinese = "src/main/resources/edu/wpi/teamc/languageHelpers/Meal/MealChinese.json";
   String Supply_English =
-      "src/main/java/edu/wpi/teamc/languageHelpers/Stationary/StationaryEnglish.json";
+      "src/main/resources/edu/wpi/teamc/languageHelpers/Stationary/StationaryEnglish.json";
   String Supply_Chinese =
-      "src/main/java/edu/wpi/teamc/languageHelpers/Stationary/StationaryChinese.json";
-  String Flower_English = "src/main/java/edu/wpi/teamc/languageHelpers/Flower/FlowerEnglish.json";
-  String Flower_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/Flower/FlowerChinese.json";
+      "src/main/resources/edu/wpi/teamc/languageHelpers/Stationary/StationaryChinese.json";
+  String Flower_English =
+      "src/main/resources/edu/wpi/teamc/languageHelpers/Flower/FlowerEnglish.json";
+  String Flower_Chinese =
+      "src/main/resources/edu/wpi/teamc/languageHelpers/Flower/FlowerChinese.json";
   String Furniture_English =
-      "src/main/java/edu/wpi/teamc/languageHelpers/Furniture/FurnitureEnglish.json";
+      "src/main/resources/edu/wpi/teamc/languageHelpers/Furniture/FurnitureEnglish.json";
   String Furniture_Chinese =
-      "src/main/java/edu/wpi/teamc/languageHelpers/Furniture/FurnitureChinese.json";
+      "src/main/resources/edu/wpi/teamc/languageHelpers/Furniture/FurnitureChinese.json";
   String Gift_Basket_English =
-      "src/main/java/edu/wpi/teamc/languageHelpers/GiftBasket/GiftBasketEnglish.json";
+      "src/main/resources/edu/wpi/teamc/languageHelpers/GiftBasket/GiftBasketEnglish.json";
   String Gift_Basket_Chinese =
-      "src/main/java/edu/wpi/teamc/languageHelpers/GiftBasket/GiftBasketChinese.json";
+      "src/main/resources/edu/wpi/teamc/languageHelpers/GiftBasket/GiftBasketChinese.json";
   String Conference_English =
-      "src/main/java/edu/wpi/teamc/languageHelpers/Conference/ConferenceEnglish.json";
+      "src/main/resources/edu/wpi/teamc/languageHelpers/Conference/ConferenceEnglish.json";
   String Conference_Chinese =
-      "src/main/java/edu/wpi/teamc/languageHelpers/Conference/ConferenceChinese.json";
-  String Alert_English = "src/main/java/edu/wpi/teamc/languageHelpers/Alert/AlertEnglish.json";
-  String Alert_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/Alert/AlertChinese.json";
+      "src/main/resources/edu/wpi/teamc/languageHelpers/Conference/ConferenceChinese.json";
+  String Alert_English = "src/main/resources/edu/wpi/teamc/languageHelpers/Alert/AlertEnglish.json";
+  String Alert_Chinese = "src/main/resources/edu/wpi/teamc/languageHelpers/Alert/AlertChinese.json";
   String Congrats_English =
-      "src/main/java/edu/wpi/teamc/languageHelpers/Congrats/CongratsEnglish.json";
+      "src/main/resources/edu/wpi/teamc/languageHelpers/Congrats/CongratsEnglish.json";
   String Congrats_Chinese =
-      "src/main/java/edu/wpi/teamc/languageHelpers/Congrats/CongratsChinese.json";
-  String Log_Out_English = "src/main/java/edu/wpi/teamc/languageHelpers/LogOut/LogOutEnglish.json";
-  String Log_Out_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/LogOut/LogOutChinese.json";
+      "src/main/resources/edu/wpi/teamc/languageHelpers/Congrats/CongratsChinese.json";
+  String Log_Out_English =
+      "src/main/resources/edu/wpi/teamc/languageHelpers/LogOut/LogOutEnglish.json";
+  String Log_Out_Chinese =
+      "src/main/resources/edu/wpi/teamc/languageHelpers/LogOut/LogOutChinese.json";
 }

@@ -3,6 +3,7 @@ package edu.wpi.teamc.controllers.pages;
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 import edu.wpi.teamc.CApp;
+import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.users.PERMISSIONS;
 import edu.wpi.teamc.dao.users.login.Login;
 import edu.wpi.teamc.dao.users.login.LoginDao;
@@ -20,12 +21,14 @@ import java.util.List;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.TextArea;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -348,25 +351,90 @@ public class HomeController {
 
   @FXML
   public void resetPassword(ActionEvent event) {
-    try (CloseableHttpClient client = HttpClients.createDefault()) {
-      // define website
-      HttpPost httpPost = new HttpPost(new URI("https://teamc.blui.co/api/resetpassword"));
-      String username = HOME_username.getText();
-      //      String username = "blui";
-      // format and set json
-      String json = String.format("{\"username\":\"%s\"}", username);
-      StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
-      httpPost.setEntity(entity);
+    BorderPane borderPane = new BorderPane();
 
-      HttpResponse response = client.execute(httpPost);
-      HttpEntity responseEntity = response.getEntity();
-      if (responseEntity != null) {
-        String responseBody = EntityUtils.toString(responseEntity, StandardCharsets.UTF_8);
-        System.out.println(responseBody);
-      }
-    } catch (Exception e) {
-      System.err.println(e.getMessage());
-    }
+    Text prompt = new Text("Reset Password");
+    Label usernameLabel = new Label("Username");
+    TextField username = new TextField();
+    TextField password = new TextField();
+    MFXButton confirmButton = new MFXButton("Submit");
+    MFXButton cancelButton = new MFXButton("Cancel");
+    VBox vbox = new VBox();
+
+    vbox.setSpacing(10);
+    confirmButton.getStyleClass().add("MFXbutton");
+    cancelButton.getStyleClass().add("MFXbutton");
+    prompt.getStyleClass().add("Header");
+    borderPane.getStyleClass().add("scenePane");
+    usernameLabel.setLabelFor(username);
+    usernameLabel.getStyleClass().add("whiteLabel");
+
+    cancelButton.setOnAction(
+        e -> {
+          Stage stage = (Stage) cancelButton.getScene().getWindow();
+          stage.close();
+        });
+    confirmButton.setOnAction(
+        e -> {
+          try (CloseableHttpClient client = HttpClients.createDefault()) {
+            if (username.getText().isEmpty()) {
+              Alert alert = new Alert(Alert.AlertType.ERROR);
+              alert.setTitle("Error");
+              alert.setHeaderText("Error");
+              alert.setContentText("Please enter a username.");
+              alert.showAndWait();
+              return;
+            }
+            // define website
+            HttpPost httpPost = new HttpPost(new URI("http://localhost:3000/api/resetpassword"));
+            String json = String.format("{\"username\":\"%s\"}", username.getText());
+            StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
+            httpPost.setEntity(entity);
+
+            HttpResponse response = client.execute(httpPost);
+            HttpEntity responseEntity = response.getEntity();
+            if (responseEntity != null) {
+              String responseBody = EntityUtils.toString(responseEntity, StandardCharsets.UTF_8);
+              System.out.println(responseBody);
+              Alert alert = new Alert(Alert.AlertType.INFORMATION);
+              alert.setTitle("Password Reset");
+              alert.setHeaderText("Password Reset");
+              alert.setContentText(
+                  "Success! Check your email associated with your account to reset your password.");
+              alert.showAndWait();
+              Stage stage = (Stage) confirmButton.getScene().getWindow();
+              stage.close();
+            }
+          } catch (Exception ee) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Password Reset");
+            alert.setHeaderText("Password Reset");
+            alert.setContentText("Server error");
+            alert.showAndWait();
+          }
+        });
+
+    // set object locations
+    int lay_x = 45;
+    int lay_y = 40;
+    vbox.setLayoutX(lay_x);
+    vbox.setLayoutY(lay_y);
+
+    vbox.getChildren().addAll(prompt, usernameLabel, username, confirmButton, cancelButton);
+
+    // Set and show screen
+    AnchorPane aPane = new AnchorPane();
+    aPane.getChildren().addAll(vbox);
+    borderPane.getChildren().add(aPane);
+    Scene scene = new Scene(borderPane, 300, 270);
+    scene
+        .getStylesheets()
+        .add(Main.class.getResource("views/pages/map/MapEditorPopUps.css").toString());
+    borderPane.relocate(0, 0);
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.setTitle("Forgot Password");
+    stage.show();
   }
 
   @FXML

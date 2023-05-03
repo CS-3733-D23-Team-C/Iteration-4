@@ -56,7 +56,6 @@ public class PathFindingController {
   @FXML MFXButton submit;
   @FXML MFXButton textDir;
   @FXML MFXButton qrCode;
-
   @FXML MFXButton sendTextDir;
   @FXML MFXButton floorButton;
   //  @FXML MFXTextField message;
@@ -711,14 +710,14 @@ public class PathFindingController {
     int lay_y = 40;
     vbox.setLayoutX(lay_x);
     vbox.setLayoutY(lay_y);
-    MFXButton textButton = new MFXButton("Get Directions through Text");
-    textButton.setLayoutX(lay_x);
-    textButton.setLayoutX(lay_y);
+    // MFXButton textButton = new MFXButton("Get Directions through Text");
+    // textButton.setLayoutX(lay_x);
+    // textButton.setLayoutX(lay_y);
     vbox.getChildren().add(textField);
     // Set and show screen
 
     AnchorPane aPane = new AnchorPane();
-    aPane.getChildren().addAll(vbox, textButton);
+    aPane.getChildren().addAll(vbox);
     borderPane.getChildren().add(aPane);
     // Button phoneB = new Button("Send Directions to My Phone Number");
     // aPane.getChildren().add(phoneB);
@@ -732,6 +731,7 @@ public class PathFindingController {
     stage.setScene(scene);
     stage.setTitle("Text Directions");
     stage.setAlwaysOnTop(true);
+    stage.show();
 
     // SMSHelper.sendSMS("");
   }

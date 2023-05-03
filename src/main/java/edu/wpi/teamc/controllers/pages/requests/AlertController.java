@@ -1,12 +1,9 @@
 package edu.wpi.teamc.controllers.pages.requests;
 
-
 import static edu.wpi.teamc.languageHelpers.LanguageHolder.language_choice;
 
 import edu.wpi.teamc.CApp;
-
 import edu.wpi.teamc.Main;
-
 import edu.wpi.teamc.SMSHelper;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.displays.Alert;
@@ -35,7 +32,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
-
 
 public class AlertController {
   @FXML private TableView historyTable;
@@ -152,8 +148,9 @@ public class AlertController {
   int alertSelection = 0;
 
   @FXML
-  public void initialize() {
+  public void initialize() throws Exception {
     setMinuteTextField();
+    setLanguage();
     Thread thread =
         new Thread(
             new Runnable() {
@@ -212,7 +209,11 @@ public class AlertController {
                 @Override
                 public void run() {
                   HospitalSystem.deleteRow(alert);
-                  initialize();
+                  try {
+                    initialize();
+                  } catch (Exception e) {
+                    throw new RuntimeException(e);
+                  }
                 }
               });
       thread.start();
@@ -276,7 +277,11 @@ public class AlertController {
           //          dao.updateRow(alert1);
           Stage stage = (Stage) confirmButton.getScene().getWindow();
           stage.close();
-          initialize();
+          try {
+            initialize();
+          } catch (Exception ex) {
+            throw new RuntimeException(ex);
+          }
         });
 
     vbox.setSpacing(10);
@@ -389,13 +394,11 @@ public class AlertController {
   }
 
   /** Method run when controller is initialized */
-
-  @FXML
-  public void initialize() throws Exception {
-    setMinuteTextField();
-    setLanguage();
-  }
-
+//  @FXML
+//  public void initialize() throws Exception {
+//    setMinuteTextField();
+//    setLanguage();
+//  }
 
   public List<String> holder = new ArrayList<String>();
 

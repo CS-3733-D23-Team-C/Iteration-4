@@ -6,6 +6,7 @@ import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.displays.Alert;
+import edu.wpi.teamc.languageHelpers.TranslatorAPI;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -17,7 +18,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -447,7 +447,6 @@ public class MenuController {
   //    }
   //    return null;
   //  }
-
 
   @FXML
   public void initialize() throws Exception {
@@ -1273,15 +1272,15 @@ public class MenuController {
               }
             });
 
+    //                basePane
+    //                    .getStylesheets()
+    //                    .add(Main.class.getResource("views/components/Menu_Dark.css").toString());
+    //                basePane
+    //                    .getStylesheets()
+    //                    .add(Main.class.getResource("views/components/Menu.css").toString());
+    //              }
+    //            });
 
-                basePane
-                    .getStylesheets()
-                    .add(Main.class.getResource("views/components/Menu_Dark.css").toString());
-                basePane
-                    .getStylesheets()
-                    .add(Main.class.getResource("views/components/Menu.css").toString());
-              }
-            });
     thread.start();
 
     Thread thread1 =
@@ -3332,17 +3331,17 @@ public class MenuController {
   }
 
   // TRANSLATOR//
-  //  public TranslatorAPI translatorAPI = new TranslatorAPI();
-  //
-  //  @FXML
-  //  String LanguageSet(String text) throws Exception {
-  //    if (language_choice == 0) { // 0 is english
-  //      text = translatorAPI.translateToEn(text);
-  //    } else if (language_choice == 1) { // 1 is spanish
-  //      text = translatorAPI.translateToSp(text);
-  //    } else if (language_choice == 2) { // 2 is Chinese
-  //      text = translatorAPI.translateToZh(text);
-  //    }
-  //    return text;
-  //  }
+  public TranslatorAPI translatorAPI = new TranslatorAPI();
+
+  @FXML
+  String LanguageSet(String text) throws Exception {
+    if (language_choice == 0) { // 0 is english
+      text = translatorAPI.translateToEn(text);
+    } else if (language_choice == 1) { // 1 is spanish
+      text = translatorAPI.translateToSp(text);
+    } else if (language_choice == 2) { // 2 is Chinese
+      text = translatorAPI.translateToZh(text);
+    }
+    return text;
+  }
 }

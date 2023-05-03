@@ -52,7 +52,7 @@ public class CApp extends Application {
   public static List<String> Congrats_Chinese_list;
 
   public static List<String> Log_Out_English_list;
-    public static List<String> Log_Out_Chinese_list;
+  public static List<String> Log_Out_Chinese_list;
 
   @Setter @Getter private static Stage primaryStage;
   @Setter @Getter private static BorderPane rootPane;
@@ -250,6 +250,16 @@ public class CApp extends Application {
                   Flower_Chinese_list = loadJson(Flower_Chinese);
                   Furniture_English_list = loadJson(Furniture_English);
                   Furniture_Chinese_list = loadJson(Furniture_Chinese);
+                  Gift_Basket_English_list = loadJson(Gift_Basket_English);
+                  Gift_Basket_Chinese_list = loadJson(Gift_Basket_Chinese);
+                  Conference_English_list = loadJson(Conference_English);
+                  Conference_Chinese_list = loadJson(Conference_Chinese);
+                  Alert_English_list = loadJson(Alert_English);
+                  Alert_Chinese_list = loadJson(Alert_Chinese);
+                  Congrats_English_list = loadJson(Congrats_English);
+                  Congrats_Chinese_list = loadJson(Congrats_Chinese);
+                  Log_Out_English_list = loadJson(Log_Out_English);
+                  Log_Out_Chinese_list = loadJson(Log_Out_Chinese);
                   /* primaryStage is generally only used if one of your components require the stage to display */
                   CApp.primaryStage = primaryStage;
                   final FXMLLoader loader =
@@ -278,54 +288,54 @@ public class CApp extends Application {
                 }
               }
 
-    Home_Chinese_list = loadJson(Home_Chinese);
-    Home_English_list = loadJson(Home_English);
-    Admin_Home_English_list = loadJson(Admin_Home_English);
-    Admin_Home_Chinese_list = loadJson(Admin_Home_Chinese);
-    Menu_English_list = loadJson(Menu_English);
-    Menu_Chinese_list = loadJson(Menu_Chinese);
-    Meal_English_list = loadJson(Meal_English);
-    Meal_Chinese_list = loadJson(Meal_Chinese);
-    Office_Supply_English_list = loadJson(Supply_English);
-    Office_Supply_Chinese_list = loadJson(Supply_Chinese);
-    Flower_English_list = loadJson(Flower_English);
-    Flower_Chinese_list = loadJson(Flower_Chinese);
-    Furniture_English_list = loadJson(Furniture_English);
-    Furniture_Chinese_list = loadJson(Furniture_Chinese);
-    Gift_Basket_English_list = loadJson(Gift_Basket_English);
-    Gift_Basket_Chinese_list = loadJson(Gift_Basket_Chinese);
-    Conference_English_list = loadJson(Conference_English);
-    Conference_Chinese_list = loadJson(Conference_Chinese);
-    Alert_English_list = loadJson(Alert_English);
-    Alert_Chinese_list = loadJson(Alert_Chinese);
-    Congrats_English_list = loadJson(Congrats_English);
-    Congrats_Chinese_list = loadJson(Congrats_Chinese);
-    Log_Out_English_list = loadJson(Log_Out_English);
-    Log_Out_Chinese_list = loadJson(Log_Out_Chinese);
+              //    Home_Chinese_list = loadJson(Home_Chinese);
+              //    Home_English_list = loadJson(Home_English);
+              //    Admin_Home_English_list = loadJson(Admin_Home_English);
+              //    Admin_Home_Chinese_list = loadJson(Admin_Home_Chinese);
+              //    Menu_English_list = loadJson(Menu_English);
+              //    Menu_Chinese_list = loadJson(Menu_Chinese);
+              //    Meal_English_list = loadJson(Meal_English);
+              //    Meal_Chinese_list = loadJson(Meal_Chinese);
+              //    Office_Supply_English_list = loadJson(Supply_English);
+              //    Office_Supply_Chinese_list = loadJson(Supply_Chinese);
+              //    Flower_English_list = loadJson(Flower_English);
+              //    Flower_Chinese_list = loadJson(Flower_Chinese);
+              //    Furniture_English_list = loadJson(Furniture_English);
+              //    Furniture_Chinese_list = loadJson(Furniture_Chinese);
+              //    Gift_Basket_English_list = loadJson(Gift_Basket_English);
+              //    Gift_Basket_Chinese_list = loadJson(Gift_Basket_Chinese);
+              //    Conference_English_list = loadJson(Conference_English);
+              //    Conference_Chinese_list = loadJson(Conference_Chinese);
+              //    Alert_English_list = loadJson(Alert_English);
+              //    Alert_Chinese_list = loadJson(Alert_Chinese);
+              //    Congrats_English_list = loadJson(Congrats_English);
+              //    Congrats_Chinese_list = loadJson(Congrats_Chinese);
+              //    Log_Out_English_list = loadJson(Log_Out_English);
+              //    Log_Out_Chinese_list = loadJson(Log_Out_Chinese);
 
-    /* primaryStage is generally only used if one of your components require the stage to display */
-    CApp.primaryStage = primaryStage;
-    final FXMLLoader loader = new FXMLLoader(CApp.class.getResource("views/Root.fxml"));
-    final BorderPane root = loader.load();
+              /* primaryStage is generally only used if one of your components require the stage to display */
+              //    CApp.primaryStage = primaryStage;
+              //    final FXMLLoader loader = new
+              // FXMLLoader(CApp.class.getResource("views/Root.fxml"));
+              //    final BorderPane root = loader.load();
+              //
+              //    CApp.rootPane = root;
+              //    // GET Texts
+              //    // getAllTextForAllPages();
+              //
+              //    final Scene scene = new Scene(root);
+              //    primaryStage.setScene(scene);
+              //    primaryStage.show();
+              //    Navigation.navigate(Screen.HOME);
+              //
+              //    CApp.timeOut();
 
-    CApp.rootPane = root;
-    // GET Texts
-    // getAllTextForAllPages();
-
-    final Scene scene = new Scene(root);
-    primaryStage.setScene(scene);
-    primaryStage.show();
-    Navigation.navigate(Screen.HOME);
-
-    CApp.timeOut();
-
-             
-            //});
-    //thread.start();
-
+            });
+    thread.start();
   }
 
   public List<String> holder = new ArrayList<String>();
+
   @FXML
   void setLanguage() throws Exception {
     if (language_choice == 0) {
@@ -341,14 +351,13 @@ public class CApp extends Application {
   public void stop() {
     log.info("Shutting Down");
   }
-  
+
   public List<String> loadJson(String filePath) throws Exception {
-                File file = new File(filePath);
-                ObjectMapper objectMapper = new ObjectMapper();
-                List<String> myList =
-                    objectMapper.readValue(file, new TypeReference<List<String>>() {});
-                return myList;
-              }
+    File file = new File(filePath);
+    ObjectMapper objectMapper = new ObjectMapper();
+    List<String> myList = objectMapper.readValue(file, new TypeReference<List<String>>() {});
+    return myList;
+  }
 
   String Home_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/Home/HomeChinese.json";
   String Home_English = "src/main/java/edu/wpi/teamc/languageHelpers/Home/HomeEnglish.json";
@@ -384,8 +393,6 @@ public class CApp extends Application {
       "src/main/java/edu/wpi/teamc/languageHelpers/Congrats/CongratsEnglish.json";
   String Congrats_Chinese =
       "src/main/java/edu/wpi/teamc/languageHelpers/Congrats/CongratsChinese.json";
-  String Log_Out_English =
-      "src/main/java/edu/wpi/teamc/languageHelpers/LogOut/LogOutEnglish.json";
-    String Log_Out_Chinese =
-        "src/main/java/edu/wpi/teamc/languageHelpers/LogOut/LogOutChinese.json";
+  String Log_Out_English = "src/main/java/edu/wpi/teamc/languageHelpers/LogOut/LogOutEnglish.json";
+  String Log_Out_Chinese = "src/main/java/edu/wpi/teamc/languageHelpers/LogOut/LogOutChinese.json";
 }

@@ -1309,8 +1309,8 @@
                               <Insets left="35.0" />
                            </VBox.margin>
                         </Line>
-                        <MFXButton fx:id="Admin_menu_employee_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Patient Table" />
-                        <MFXButton fx:id="Admin_menu_patient_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Employee Table" />
+                        <MFXButton fx:id="Admin_menu_employee_table" onAction="#getEmployeeTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Employee Table" />
+                        <MFXButton fx:id="Admin_menu_patient_table" onAction="#getPatientTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Patient Table" />
                         <MFXButton fx:id="Admin_menu_login_table" onAction="#getLoginTablePage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Login Table" />
                         <MFXButton fx:id="Admin_menu_import_export" layoutX="10.0" layoutY="74.0" onAction="#getImportExportPage" prefHeight="25.0" prefWidth="150.0" styleClass="menuButton" stylesheets="@Menu.css" text="Import/Export" />
                         <HBox alignment="CENTER">

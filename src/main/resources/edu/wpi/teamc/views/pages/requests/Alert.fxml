@@ -6,6 +6,8 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,9 +22,9 @@
          <children>
             <AnchorPane prefHeight="692.0" prefWidth="1293.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian,rgba(0, 0, 0, 0.4),25,0.75,0,0);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane layoutX="50.0" layoutY="20.0" prefHeight="592.0" prefWidth="570.0" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="670.0" AnchorPane.topAnchor="50.0">
+                  <AnchorPane layoutX="50.0" layoutY="20.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="261.0" prefWidth="531.0" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
                      <children>
-                        <TextField alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" mouseTransparent="true" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white; -fx-accent: #02143b;" text="1. Alert Information" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TextField fx:id="Box1" alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" mouseTransparent="true" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white; -fx-accent: #02143b;" text="1. Alert Information" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
                               <Font size="35.0" />
                            </font>
@@ -44,7 +46,7 @@
                               <Insets bottom="10.0" left="10.0" top="10.0" />
                            </padding>
                         </TextField>
-                        <MenuButton fx:id="alertType" layoutX="210.0" layoutY="108.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-border-color: #02143b; -fx-background-color: white;" text="Select Alert Type:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="115.0">
+                        <MenuButton fx:id="alertType" layoutX="210.0" layoutY="108.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-border-color: #02143b; -fx-background-color: white;" text="Select Alert Type:" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="95.0">
                           <items>
                             <MenuItem fx:id="choice1" mnemonicParsing="false" onAction="#setChoice1" text="Construction" />
                             <MenuItem fx:id="choice2" mnemonicParsing="false" onAction="#setChoice2" text="Weather" />
@@ -54,8 +56,8 @@
                               <MenuItem fx:id="choice6" mnemonicParsing="false" onAction="#setChoice6" text="Other" />
                           </items>
                         </MenuButton>
-                        <TextArea fx:id="alertDescription" layoutX="53.0" layoutY="156.0" prefHeight="148.0" prefWidth="1084.0" promptText="Description:" style="-fx-font-family: arial; -fx-background-color: white; -fx-border-color: #02143b; -fx-font-size: 12;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="250.0" />
-                        <MenuButton fx:id="severityType" layoutX="220.0" layoutY="118.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-border-color: #02143b; -fx-background-color: white;" text="Select Severity" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="180.0">
+                        <TextArea fx:id="alertDescription" layoutX="53.0" layoutY="156.0" prefHeight="148.0" prefWidth="1084.0" promptText="Description:" style="-fx-font-family: arial; -fx-background-color: white; -fx-border-color: #02143b; -fx-font-size: 12;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="190.0" />
+                        <MenuButton fx:id="severityType" layoutX="220.0" layoutY="118.0" mnemonicParsing="false" prefHeight="40.0" style="-fx-border-color: #02143b; -fx-background-color: white;" text="Select Severity" textFill="#02143b" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="142.0">
                            <items>
                               <MenuItem fx:id="severityLow" mnemonicParsing="false" onAction="#setSeverityLow" text="Low" />
                               <MenuItem fx:id="severityMed" mnemonicParsing="false" onAction="#setSeverityMed" text="Medium" />
@@ -64,11 +66,11 @@
                         </MenuButton>
                      </children>
                   </AnchorPane>
-                  <VBox alignment="CENTER" layoutX="720.0" layoutY="50.0" spacing="40.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+                  <VBox alignment="CENTER" layoutX="40.0" layoutY="329.0" spacing="40.0" AnchorPane.leftAnchor="50.0">
                      <children>
                         <AnchorPane prefHeight="160.0" prefWidth="390.0" style="-fx-border-color: #02143b; -fx-background-color: white;">
                            <children>
-                              <TextField alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" mouseTransparent="true" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="2. Time Selection:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TextField fx:id="Box2" alignment="TOP_LEFT" editable="false" layoutX="10.0" layoutY="10.0" mouseTransparent="true" prefHeight="25.0" prefWidth="323.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="2. Time Selection:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font size="35.0" />
                                  </font>
@@ -109,8 +111,8 @@
                                     <MenuItem mnemonicParsing="false" onAction="#getEndPeriodPM" text="PM" />
                                  </items>
                               </MenuButton>
-                              <TextField fx:id="startMinute" layoutX="440.0" layoutY="52.0" prefHeight="40.0" prefWidth="75.0" promptText="Minute" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="51.0" />
-                              <TextField fx:id="endMinute" layoutX="440.0" layoutY="102.0" prefHeight="40.0" prefWidth="75.0" promptText="Minute" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="101.0" />
+                              <TextField fx:id="startMinute" layoutX="440.0" layoutY="52.0" prefHeight="40.0" prefWidth="75.0" promptText="Minute" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="89.0" AnchorPane.topAnchor="51.0" />
+                              <TextField fx:id="endMinute" layoutX="440.0" layoutY="102.0" prefHeight="40.0" prefWidth="75.0" promptText="Minute" style="-fx-border-color: #02143b; -fx-background-color: white;" AnchorPane.leftAnchor="367.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="101.0" />
                               <MenuButton fx:id="endHour" layoutX="280.0" layoutY="102.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="75.0" text="Hour" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="174.0" AnchorPane.topAnchor="101.0">
                                  <items>
                                     <MenuItem mnemonicParsing="false" onAction="#getEndHour01" text="01" />
@@ -129,19 +131,19 @@
                               </MenuButton>
                            </children>
                         </AnchorPane>
-                        <MFXButton onAction="#getSubmit" prefHeight="40.0" prefWidth="525.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 16;" text="Submit" textFill="WHITE">
+                        <MFXButton fx:id="Submit" onAction="#getSubmit" prefHeight="40.0" prefWidth="525.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 16;" text="Submit" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </MFXButton>
                         <HBox spacing="20.0">
                            <children>
-                              <MFXButton onAction="#getGoHome" prefHeight="35.0" prefWidth="255.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Cancel" textFill="WHITE">
+                              <MFXButton fx:id="Cancel" onAction="#getGoHome" prefHeight="35.0" prefWidth="255.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Cancel" textFill="WHITE">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </MFXButton>
-                              <MFXButton onAction="#getClear" prefHeight="35.0" prefWidth="255.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Clear" textFill="WHITE">
+                              <MFXButton fx:id="Clear" onAction="#getClear" prefHeight="35.0" prefWidth="255.0" rippleColor="#978787" style="-fx-background-color: #02143b; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-family: Arial; -fx-font-weight: bold; -fx-font-size: 12;" text="Clear" textFill="WHITE">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -150,6 +152,48 @@
                         </HBox>
                      </children>
                   </VBox>
+                  <AnchorPane layoutX="628.0" layoutY="50.0" prefHeight="597.0" prefWidth="618.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="628.0" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="50.0">
+                     <children>
+                        <VBox prefHeight="594.0" prefWidth="621.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="621.0" spacing="10.0" style="-fx-background-color: #02143b;">
+                                 <children>
+                                    <TextField fx:id="Box3" alignment="TOP_LEFT" editable="false" mouseTransparent="true" prefHeight="37.0" prefWidth="371.0" style="-fx-border-color: #02143b; -fx-background-color: #02143b; -fx-font-family: Arial; -fx-font-size: 12; -fx-text-fill: white;" text="Edit Current Alerts:">
+                                       <font>
+                                          <Font size="35.0" />
+                                       </font>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" top="10.0" />
+                                       </padding>
+                                    </TextField>
+                                    <MFXButton fx:id="edit" onAction="#getEditSelected" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: white; -fx-border-radius: 0;" text="Edit Selected" textAlignment="CENTER" />
+                                    <MFXButton fx:id="delete" onAction="#getDeleteSelected" prefHeight="27.0" prefWidth="149.0" style="-fx-background-color: white; -fx-border-radius: 0;" text="Delete Selected" textAlignment="CENTER">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </MFXButton>
+                                 </children>
+                                 <padding>
+                                    <Insets right="10.0" />
+                                 </padding>
+                              </HBox>
+                              <TableView fx:id="historyTable" prefHeight="560.0" prefWidth="621.0" VBox.vgrow="ALWAYS">
+                                <columns>
+                                  <TableColumn fx:id="Column1" prefWidth="35.0" text="C1" />
+                                  <TableColumn fx:id="Column2" prefWidth="250.0" text="C2" />
+                                   <TableColumn fx:id="Column3" prefWidth="155.0" text="C1" />
+                                   <TableColumn fx:id="Column4" prefWidth="75.0" text="C2" />
+                                   <TableColumn fx:id="Column5" prefWidth="100.0" text="C1" />
+                                   <TableColumn fx:id="Column6" prefWidth="100.0" text="C2" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </children>
@@ -158,7 +202,7 @@
          <children>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="1147.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Text fill="#02143b" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Alert &amp; Notification Request" wrappingWidth="643.5101928710938" />
+                  <Text fx:id="Title" fill="#02143b" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Arial; -fx-font-size: 35; -fx-font-weight: bold;" text="Alert &amp; Notification Request" wrappingWidth="643.5101928710938" />
                </children>
                <opaqueInsets>
                   <Insets />

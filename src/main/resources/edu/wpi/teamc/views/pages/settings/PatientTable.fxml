@@ -19,13 +19,15 @@
                     <children>
                         <AnchorPane style="-fx-background-color: #02143b;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
                             <children>
-                                <TableView fx:id="employeeTable" layoutX="15.0" layoutY="15.0" prefHeight="561.0" prefWidth="1204.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                                <TableView fx:id="patientTable" layoutX="15.0" layoutY="15.0" prefHeight="561.0" prefWidth="1204.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                                     <columns>
-                                        <TableColumn fx:id="id" prefWidth="240" text="" />
-                                        <TableColumn fx:id="username" prefWidth="240" text="" />
-                                        <TableColumn fx:id="name" prefWidth="240" text="" />
-                                        <TableColumn fx:id="department" prefWidth="240" text="" />
-                                        <TableColumn fx:id="position" prefWidth="240" text="" />
+                                        <TableColumn fx:id="id" prefWidth="172" text="" />
+                                        <TableColumn fx:id="name" prefWidth="172" text="" />
+                                        <TableColumn fx:id="checkin" prefWidth="172" text="" />
+                                        <TableColumn fx:id="checkout" prefWidth="172" text="" />
+                                        <TableColumn fx:id="phone" prefWidth="172" text="" />
+                                        <TableColumn fx:id="room" prefWidth="172" text="" />
+                                        <TableColumn fx:id="activeText" prefWidth="172" text="" />
                                     </columns>
                                 </TableView>
                                 <AnchorPane layoutX="16.0" layoutY="587.0" prefHeight="48.0" prefWidth="1202.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="13.0">
@@ -37,45 +39,71 @@
                                                         <Insets right="5.0" />
                                                     </HBox.margin>
                                                 </Button>
-                                                <Label mouseTransparent="true" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-accent: #02143b;" text="ID:" textFill="WHITE">
+                                                <Label layoutX="101.0" layoutY="15.0" mouseTransparent="true" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-accent: #02143b;" text="ID:" textFill="WHITE">
                                                     <HBox.margin>
                                                         <Insets left="10.0" />
-                                                    </HBox.margin>
-                                                </Label>
+                                                    </HBox.margin></Label>
                                                 <TextField fx:id="idField" prefHeight="26.0" prefWidth="54.0">
                                                     <HBox.margin>
                                                         <Insets left="10.0" />
                                                     </HBox.margin>
                                                 </TextField>
-                                                <Label layoutX="101.0" layoutY="15.0" mouseTransparent="true" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-accent: #02143b;" text="Username:" textFill="WHITE">
-                                                    <HBox.margin>
-                                                        <Insets left="10.0" />
-                                                    </HBox.margin></Label>
-                                                <TextField fx:id="usernameField" layoutX="126.0" layoutY="10.0" prefHeight="26.0" prefWidth="109.0">
-                                                    <HBox.margin>
-                                                        <Insets left="10.0" />
-                                                    </HBox.margin></TextField>
                                                 <Label layoutX="223.0" layoutY="10.0" mouseTransparent="true" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-accent: #02143b;" text="Name:" textFill="WHITE">
                                                     <HBox.margin>
                                                         <Insets left="10.0" />
                                                     </HBox.margin></Label>
-                                                <TextField fx:id="nameField" layoutX="280.0" layoutY="10.0" prefHeight="26.0" prefWidth="109.0">
+                                                <TextField fx:id="nameField" layoutX="126.0" layoutY="10.0" prefHeight="26.0" prefWidth="54">
                                                     <HBox.margin>
                                                         <Insets left="10.0" />
                                                     </HBox.margin></TextField>
-                                                <Label layoutX="285.0" layoutY="10.0" mouseTransparent="true" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-accent: #02143b;" text="Department:" textFill="WHITE">
+
+                                                <Label layoutX="285.0" layoutY="10.0" mouseTransparent="true" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-accent: #02143b;" text="Check In:" textFill="WHITE">
                                                     <HBox.margin>
                                                         <Insets left="10.0" />
                                                     </HBox.margin></Label>
-                                                <TextField fx:id="departmentField" layoutX="300.0" layoutY="10.0" prefHeight="26.0" prefWidth="144.0">
+                                                <TextField fx:id="checkInField" layoutX="280.0" layoutY="10.0" prefHeight="26.0" prefWidth="54">
                                                     <HBox.margin>
                                                         <Insets left="10.0" />
                                                     </HBox.margin></TextField>
-                                                <Label layoutX="460.0" layoutY="10.0" mouseTransparent="true" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-accent: #02143b;" text="Position:" textFill="WHITE">
+
+
+                                                <Label layoutX="300.0" layoutY="10.0" mouseTransparent="true" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-accent: #02143b;" text="Check Out:" textFill="WHITE">
                                                     <HBox.margin>
                                                         <Insets left="10.0" />
                                                     </HBox.margin></Label>
-                                                <TextField fx:id="positionField" layoutX="475.0" layoutY="10.0" prefHeight="26.0" prefWidth="136.0">
+                                                <TextField fx:id="checkOutField" layoutX="300.0" layoutY="10.0" prefHeight="26.0" prefWidth="54">
+                                                    <HBox.margin>
+                                                        <Insets left="10.0" />
+                                                    </HBox.margin></TextField>
+
+
+                                                <Label layoutX="475" layoutY="15.0" mouseTransparent="true" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-accent: #02143b;" text="Phone:" textFill="WHITE">
+                                                    <HBox.margin>
+                                                        <Insets left="10.0" />
+                                                    </HBox.margin></Label>
+                                                <TextField fx:id="phoneField" layoutX="475.0" layoutY="10.0" prefHeight="26.0" prefWidth="54">
+                                                    <HBox.margin>
+                                                        <Insets left="10.0" right="10.0" />
+                                                    </HBox.margin></TextField>
+
+
+                                                <Label layoutX="477.0" layoutY="15.0" mouseTransparent="true" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-accent: #02143b;" text="Room:" textFill="WHITE">
+                                                    <HBox.margin>
+                                                        <Insets left="10.0" />
+                                                    </HBox.margin></Label>
+                                                <TextField fx:id="roomField" layoutX="477.0" layoutY="10.0" prefHeight="26.0" prefWidth="54">
+                                                    <HBox.margin>
+                                                        <Insets left="10.0" right="10.0" />
+                                                    </HBox.margin></TextField>
+
+
+
+
+                                                <Label layoutX="480.0" layoutY="15.0" mouseTransparent="true" style="-fx-font-family: arial; -fx-font-size: 12; -fx-font-weight: bold; -fx-accent: #02143b;" text="Text:" textFill="WHITE">
+                                                    <HBox.margin>
+                                                        <Insets left="10.0" />
+                                                    </HBox.margin></Label>
+                                                <TextField fx:id="activeTextField" layoutX="480.0" layoutY="10.0" prefHeight="26.0" prefWidth="54">
                                                     <HBox.margin>
                                                         <Insets left="10.0" right="10.0" />
                                                     </HBox.margin></TextField>

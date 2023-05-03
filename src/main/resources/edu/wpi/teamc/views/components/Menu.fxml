@@ -533,17 +533,12 @@
                               <Insets top="14.0" />
                            </VBox.margin>
                         </HBox>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: I play the drums and compose music. I play basketball," textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Fun Facts: I play the drums and compose music. I play basketball, spikeball, and I snowboard. I also enjoy cooking." textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="spikeball, and I snowboard. I also enjoy cooking." textAlignment="CENTER" wrappingWidth="280.2000740170479">
-                           <font>
-                              <Font name="Arial" size="14.0" />
-                           </font>
-                        </Text>
-                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="fav animal: dog" textAlignment="CENTER" wrappingWidth="280.2000740170479">
+                        <Text fill="#02143b" strokeType="OUTSIDE" strokeWidth="0.0" text="Favorite Animal: Dog" textAlignment="CENTER" wrappingWidth="280.2000740170479">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>

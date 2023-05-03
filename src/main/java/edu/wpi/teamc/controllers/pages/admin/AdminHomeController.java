@@ -303,15 +303,22 @@ public class AdminHomeController {
   // SVG Function for Notification//
 
   // LANGUAGE//
+  public List<String> holder = new ArrayList<String>();
 
   @FXML
   void setLanguage() throws Exception {
-    if (language_choice == 0) { // 0 is english
-    } else {
-      AdminHome_Title.setText(LanguageSet(AdminHome_Title.getText()));
-      weather_title.setText(LanguageSet(weather_title.getText()));
-      notifications_title.setText(LanguageSet(notifications_title.getText()));
+    if (language_choice == 0) {
+      holder = CApp.Admin_Home_English_list;
+    } else if (language_choice == 1) {
+      // holder = CApp.Home_Spanish_list;
+    } else if (language_choice == 2) {
+      holder = CApp.Admin_Home_Chinese_list;
     }
+
+    AdminHome_Title.setText(holder.get(0));
+    weather_title.setText(holder.get(1));
+    notifications_title.setText(holder.get(2));
+    //        notEnglish = true;
   }
 
   // TRANSLATOR//
@@ -321,7 +328,7 @@ public class AdminHomeController {
   String LanguageSet(String text) throws Exception {
     text = null;
     if (text == null) {
-      return null;
+      return "";
     }
     if (language_choice == 0) { // 0 is english
       text = translatorAPI.translateToEn(text);

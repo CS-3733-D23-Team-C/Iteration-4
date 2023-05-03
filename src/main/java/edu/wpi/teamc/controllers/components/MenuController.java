@@ -6,16 +6,18 @@ import edu.wpi.teamc.CApp;
 import edu.wpi.teamc.Main;
 import edu.wpi.teamc.dao.HospitalSystem;
 import edu.wpi.teamc.dao.displays.Alert;
-import edu.wpi.teamc.languageHelpers.TranslatorAPI;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -123,7 +125,7 @@ public class MenuController {
   @FXML private MFXButton Admin_menu_meal_history;
   @FXML private MFXButton Admin_menu_stationary_history;
   @FXML private MFXButton Admin_menu_mapchange_history;
-  @FXML private MFXButton Admin_menu_reservation_history;
+  @FXML private MFXButton Admin_menu_request_history;
   // @FXML private MFXButton Admin_menu_giftbasket_history;
   // NAVIGATION TEXT//
   @FXML private Text Admin_menu_navigation;
@@ -133,6 +135,7 @@ public class MenuController {
   @FXML private MFXButton Admin_menu_signage;
 
   // SERVICE REQUEST TEXT//
+  @FXML private MFXButton Admin_menu_alert_request;
   @FXML private Text Admin_menu_servicerequests;
   @FXML private MFXButton Admin_menu_flower_delivery;
   @FXML private MFXButton Admin_menu_furniture_delivery;
@@ -142,6 +145,10 @@ public class MenuController {
   @FXML private MFXButton Admin_menu_giftbasket_delivery;
   @FXML private MFXButton Admin_menu_room_reservation;
   // @FXML private MFXButton Admin_menu_giftbasket_delivery;
+  @FXML private Text Admin_menu_recent_alerts;
+  @FXML private MFXButton Admin_menu_login_table;
+  @FXML private MFXButton Admin_menu_import_export;
+  @FXML private MFXButton Admin_menu_edit_signage;
   @FXML private MFXButton Admin_menu_employee_table;
   @FXML private MFXButton Admin_menu_patient_table;
 
@@ -337,6 +344,8 @@ public class MenuController {
     Navigation.navigate(Screen.HELP);
   }
 
+  public List<String> holder = new ArrayList<String>();
+
   @FXML
   void receiveWarning() {}
 
@@ -344,46 +353,100 @@ public class MenuController {
   public void setlanguage() throws Exception {
     if (language_choice == 0) {
 
-    } else {
-      Admin_menu_home.setText(LanguageSet(Admin_menu_home.getText()));
-      Admin_menu_about_button.setText(LanguageSet(Admin_menu_about_button.getText()));
-      Admin_menu_credits.setText(LanguageSet(Admin_menu_credits.getText()));
-      Admin_menu_home_button.setText(LanguageSet(Admin_menu_home_button.getText()));
-
-      Admin_menu_logout.setText(LanguageSet(Admin_menu_logout.getText()));
-      Admin_menu_exit.setText(LanguageSet(Admin_menu_exit.getText()));
-      Admin_menu_helpmenu.setText(LanguageSet(Admin_menu_helpmenu.getText()));
-      Admin_menu_settings.setText(LanguageSet(Admin_menu_settings.getText()));
-      // HISTORY TEXT//
-
-      Admin_menu_history.setText(LanguageSet(Admin_menu_history.getText()));
-      Admin_menu_mapchange_history.setText(LanguageSet(Admin_menu_mapchange_history.getText()));
-
-      // NAVIGATION TEXT//
-      Admin_menu_navigation.setText(LanguageSet(Admin_menu_navigation.getText()));
-      Admin_menu_directions.setText(LanguageSet(Admin_menu_directions.getText()));
-      Admin_menu_editmap.setText(LanguageSet(Admin_menu_editmap.getText()));
-      Admin_menu_movetable.setText(LanguageSet(Admin_menu_movetable.getText()));
-      Admin_menu_signage.setText(LanguageSet(Admin_menu_signage.getText()));
-      // SERVICE REQUEST TEXT//
-      Admin_menu_servicerequests.setText(LanguageSet(Admin_menu_servicerequests.getText()));
-      Admin_menu_flower_delivery.setText(LanguageSet(Admin_menu_flower_delivery.getText()));
-      Admin_menu_furniture_delivery.setText(LanguageSet(Admin_menu_furniture_delivery.getText()));
-      Admin_menu_meal_delivery.setText(LanguageSet(Admin_menu_meal_delivery.getText()));
-      Admin_menu_stationary_delivery.setText(LanguageSet(Admin_menu_stationary_delivery.getText()));
-      Admin_menu_room_reservation.setText(LanguageSet(Admin_menu_room_reservation.getText()));
-      Admin_menu_giftbasket_delivery.setText(LanguageSet(Admin_menu_giftbasket_delivery.getText()));
-      Admin_menu_employee_table.setText(LanguageSet(Admin_menu_employee_table.getText()));
+      holder = CApp.Menu_English_list;
+    } else if (language_choice == 1) {
+      // holder = CApp.Home_Spanish_list;
+    } else if (language_choice == 2) {
+      holder = CApp.Menu_Chinese_list;
     }
+
+    Admin_menu_home.setText(holder.get(0));
+    Admin_menu_about_button.setText(holder.get(1));
+    Admin_menu_credits.setText(holder.get(2));
+    Admin_menu_home_button.setText(holder.get(3));
+
+    Admin_menu_logout.setText(holder.get(4));
+    Admin_menu_exit.setText(holder.get(5));
+    Admin_menu_helpmenu.setText(holder.get(6));
+    Admin_menu_settings.setText(holder.get(7));
+    // HISTORY TEXT//
+
+    Admin_menu_history.setText(holder.get(8));
+    Admin_menu_request_history.setText(holder.get(9));
+    Admin_menu_mapchange_history.setText(holder.get(10));
+
+    // NAVIGATION TEXT//
+    Admin_menu_navigation.setText(holder.get(11));
+    Admin_menu_directions.setText(holder.get(12));
+    Admin_menu_editmap.setText(holder.get(13));
+    Admin_menu_movetable.setText(holder.get(14));
+    Admin_menu_signage.setText(holder.get(15));
+    Admin_menu_edit_signage.setText(holder.get(16));
+    // SERVICE REQUEST TEXT//
+    Admin_menu_alert_request.setText(holder.get(17));
+    Admin_menu_servicerequests.setText(holder.get(18));
+    Admin_menu_flower_delivery.setText(holder.get(19));
+
+    Admin_menu_furniture_delivery.setText(holder.get(20));
+    Admin_menu_meal_delivery.setText(holder.get(21));
+
+    Admin_menu_stationary_delivery.setText(holder.get(22));
+    Admin_menu_room_reservation.setText(holder.get(23));
+    // Admin_menu_giftbasket_delivery.setText(holder.get(24));
+    Admin_menu_employee_table.setText(holder.get(25));
+    Admin_menu_recent_alerts.setText(holder.get(26));
+    alert1.setText((alert1.getText()));
+    alert2.setText((alert2.getText()));
+    alert3.setText((alert3.getText()));
+    Admin_menu_login_table.setText(holder.get(27));
+    Admin_menu_import_export.setText(holder.get(28));
+    // notEnglish = true;
+
+    // Other Stuff - Credits, About, etc.
+    About_special_thanks.setText(holder.get(29));
+    meetTheTeam.setText(holder.get(30));
+    About_teamC.setText(holder.get(31));
+    About_CS3733.setText(holder.get(32));
+    About_WPICS.setText(holder.get(33));
+    About_This.setText(holder.get(34));
+    About_text.setText(holder.get(35));
+    About_And_thanks.setText(holder.get(36));
+    About_created.setText(holder.get(37));
+
+    Credits_text.setText(holder.get(38));
+    Credits_API.setText(holder.get(39));
+    Credits_Thanks.setText(holder.get(40));
+    Credits_Floors.setText(holder.get(41));
+  }
+
+  // TEXTS FOR Other Stuff - Credits, About, etc.
+  @FXML private Text Credits_text;
+
+  @FXML private Text Credits_API;
+  @FXML private Text Credits_Thanks;
+  @FXML private Text Credits_Floors;
+
+  @FXML private Text About_special_thanks;
+  @FXML private Text About_created;
+  @FXML private Text About_teamC;
+  @FXML private Text About_CS3733;
+  @FXML private Text About_text;
+  @FXML private Text About_WPICS;
+  @FXML private Text About_This;
+  @FXML private Text About_And_thanks;
+
+  public EventHandler<ActionEvent> nothing() {
 
     if (language_choice == 1) {
       serviceRequestPopOut.setMinSize(
           serviceRequestPopOut.getPrefWidth(), serviceRequestPopOut.getPrefHeight() + 10);
     }
+    return null;
   }
 
   @FXML
   public void initialize() throws Exception {
+
     Thread thread =
         new Thread(
             new Runnable() {
@@ -395,6 +458,10 @@ public class MenuController {
                 int recentAlert1 = alertListSize - 1;
                 int recentAlert2 = alertListSize - 2;
                 int recentAlert3 = alertListSize - 3;
+
+                basePane
+                    .getStylesheets()
+                    .add(Main.class.getResource("views/components/Menu_Dark.css").toString());
                 Platform.runLater(
                     new Runnable() {
                       @Override
@@ -456,10 +523,6 @@ public class MenuController {
     menuLine1.getStyleClass().add("menuLine");
     menuLine2.getStyleClass().add("menuLine");
     Admin_menu_movetable.getStyleClass().add("hiddenButton");
-
-    basePane
-        .getStylesheets()
-        .add(Main.class.getResource("views/components/Menu_Dark.css").toString());
 
     if (!CApp.getAdminLoginCheck()) {
       Admin_menu_movetable.setMouseTransparent(true);
@@ -2433,17 +2496,17 @@ public class MenuController {
   }
 
   // TRANSLATOR//
-  public TranslatorAPI translatorAPI = new TranslatorAPI();
-
-  @FXML
-  String LanguageSet(String text) throws Exception {
-    if (language_choice == 0) { // 0 is english
-      text = translatorAPI.translateToEn(text);
-    } else if (language_choice == 1) { // 1 is spanish
-      text = translatorAPI.translateToSp(text);
-    } else if (language_choice == 2) { // 2 is Chinese
-      text = translatorAPI.translateToZh(text);
-    }
-    return text;
-  }
+  //  public TranslatorAPI translatorAPI = new TranslatorAPI();
+  //
+  //  @FXML
+  //  String LanguageSet(String text) throws Exception {
+  //    if (language_choice == 0) { // 0 is english
+  //      text = translatorAPI.translateToEn(text);
+  //    } else if (language_choice == 1) { // 1 is spanish
+  //      text = translatorAPI.translateToSp(text);
+  //    } else if (language_choice == 2) { // 2 is Chinese
+  //      text = translatorAPI.translateToZh(text);
+  //    }
+  //    return text;
+  //  }
 }

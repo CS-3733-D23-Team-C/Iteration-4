@@ -6,6 +6,12 @@ import edu.wpi.teamc.dao.displays.Alert;
 import edu.wpi.teamc.dao.users.PatientUserDao;
 import edu.wpi.teamc.navigation.Navigation;
 import edu.wpi.teamc.navigation.Screen;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,13 +19,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
 
 public class AlertController {
   @FXML private TableView historyTable;
@@ -181,16 +180,13 @@ public class AlertController {
     Alert alert = (Alert) historyTable.getSelectionModel().getSelectedItem();
     if (alert == null) {
       javafx.scene.control.Alert alert2 =
-              new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+          new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
       alert2.setTitle("Error");
       alert2.setHeaderText("No alert selected");
       alert2.setContentText("Please select an alert to delete.");
       alert2.showAndWait();
       return;
     }
-
-
-
   }
 
   @FXML

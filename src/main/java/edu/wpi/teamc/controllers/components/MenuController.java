@@ -18,7 +18,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -418,6 +417,10 @@ public class MenuController {
     Credits_API.setText(holder.get(39));
     Credits_Thanks.setText(holder.get(40));
     Credits_Floors.setText(holder.get(41));
+
+    // Aditional after language change
+    Admin_menu_patient_table.setText(holder.get(42));
+    Admin_menu_giftbasket_delivery.setText(holder.get(43));
   }
 
   // TEXTS FOR Other Stuff - Credits, About, etc.
@@ -436,14 +439,14 @@ public class MenuController {
   @FXML private Text About_This;
   @FXML private Text About_And_thanks;
 
-//  public EventHandler<ActionEvent> nothing() {
-//
-//    if (language_choice == 1) {
-//      serviceRequestPopOut.setMinSize(
-//          serviceRequestPopOut.getPrefWidth(), serviceRequestPopOut.getPrefHeight() + 10);
-//    }
-//    return null;
-//  }
+  //  public EventHandler<ActionEvent> nothing() {
+  //
+  //    if (language_choice == 1) {
+  //      serviceRequestPopOut.setMinSize(
+  //          serviceRequestPopOut.getPrefWidth(), serviceRequestPopOut.getPrefHeight() + 10);
+  //    }
+  //    return null;
+  //  }
 
   @FXML
   public void initialize() throws Exception {

@@ -46,41 +46,25 @@ public class GiftBasketRequestController {
   @FXML
   void getServicechoice1() {
     serviceMenu.setText(servicechoice1.getText());
-    try {
-      getImage(1);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    // getImage(1);
   }
 
   @FXML
   void getServicechoice2() {
     serviceMenu.setText(servicechoice2.getText());
-    try {
-      getImage(2);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    // getImage(2);
   }
 
   @FXML
   void getServicechoice3() {
     serviceMenu.setText(servicechoice3.getText());
-    try {
-      getImage(3);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    // getImage(3);
   }
 
   @FXML
   void getServicechoice4() {
     serviceMenu.setText(servicechoice4.getText());
-    try {
-      getImage(4);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    // getImage(4);
   }
 
   @FXML
